@@ -8,16 +8,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
 import woowacourse.movie.data.MovieInfo
 import woowacourse.movie.data.Ticket
-import java.time.DayOfWeek
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class BookingActivity : AppCompatActivity() {
-    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+    private var movieInfo: MovieInfo? = null
     private lateinit var movieTime: Spinner
     private lateinit var movieDate: Spinner
     private lateinit var startDate: TextView
@@ -46,19 +44,19 @@ class BookingActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putString("TICKET_COUNT", ticketCount.text.toString())
-        outState.putInt("MOVIE_DATE_POSITION", movieDate.selectedItemPosition)
-        outState.putInt("MOVIE_TIME_POSITION", movieTime.selectedItemPosition)
+        outState.putString(KEY_TICKET_COUNT, ticketCount.text.toString())
+        outState.putInt(KEY_MOVIE_DATE_POSITION, movieDate.selectedItemPosition)
+        outState.putInt(KEY_MOVIE_TIME_POSITION, movieTime.selectedItemPosition)
     }
 
     private fun repairInstanceState(state: Bundle) {
-        movieDate.setSelection(state.getInt("MOVIE_DATE_POSITION"))
+        movieDate.setSelection(state.getInt(KEY_MOVIE_DATE_POSITION))
         movieDate.post {
             movieTime.post {
-                movieTime.setSelection(state.getInt("MOVIE_TIME_POSITION"))
+                movieTime.setSelection(state.getInt(KEY_MOVIE_TIME_POSITION))
             }
         }
-        ticketCount.text = state.getString("TICKET_COUNT")
+        ticketCount.text = state.getString(KEY_TICKET_COUNT)
     }
 
     private fun setupPage() {
@@ -66,18 +64,21 @@ class BookingActivity : AppCompatActivity() {
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
 
-        val movieInfo = intent.getParcelableExtra<MovieInfo>("MOVIE_INFO")
+        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO)
 
-        if (movieInfo != null) {
-            poster.setImageResource(movieInfo.poster)
-            title.text = movieInfo.title
-            startDate.text = movieInfo.startDate
-            endDate.text = movieInfo.endDate
-            runningTime.text = movieInfo.runningTime
+        movieInfo?.let { info ->
+            poster.setImageResource(info.poster)
+            title.text = info.title
+            startDate.text = info.startDate
+            endDate.text = info.endDate
+            runningTime.text = info.runningTime
+
+            SpinnerAdapter.bind(this, movieDate, info.getDates())
+            SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
+        } ?: run {
+            Toast.makeText(this, "영화 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            finish()
         }
-
-        SpinnerAdapter.bind(this, movieDate, getDates())
-        SpinnerAdapter.bind(this, movieTime, getTimes(startDate.text.toString()))
     }
 
     private fun setupDateChangeListener() {
@@ -89,9 +90,13 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate = getDates()[position]
-                    val selectedTimes = getTimes(selectedDate)
-                    SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
+                    movieInfo?.let { info ->
+                        val selectedDate = info.getDates().getOrNull(position)
+                        selectedDate?.let {
+                            val selectedTimes = info.getTimes(it)
+                            SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
+                        }
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -121,49 +126,32 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDates(): List<String> {
-        val parsedStartDate = LocalDate.parse(startDate.text.toString(), dateFormatter)
-        val parsedEndDate = LocalDate.parse(endDate.text.toString(), dateFormatter)
-
-        val dates = mutableListOf<String>()
-        var current = parsedStartDate
-
-        while (!current.isAfter(parsedEndDate)) {
-            dates.add(current.format(dateFormatter))
-            current = current.plusDays(1)
-        }
-
-        return dates
-    }
-
-    private fun getTimes(date: String): List<String> {
-        val parsedDate = LocalDate.parse(date, dateFormatter)
-
-        val startHour =
-            when (parsedDate.dayOfWeek) {
-                DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> 9
-                else -> 10
-            }
-
-        return (startHour..24 step 2).map { hour ->
-            String.format("%02d:00", hour)
-        }
-    }
-
     private fun askToConfirmBooking() {
-        val ticket = Ticket(
-            title = findViewById<TextView>(R.id.title).text.toString(),
-            date = movieDate.selectedItem.toString(),
-            time = movieTime.selectedItem.toString(),
-            count = ticketCount.text.toString(),
-            money = (ticketCount.text.toString().toInt() * 13000).toString()
-        )
+        val ticket =
+            Ticket(
+                title = findViewById<TextView>(R.id.title).text.toString(),
+                date = movieDate.selectedItem.toString(),
+                time = movieTime.selectedItem.toString(),
+                count = ticketCount.text.toString(),
+                money = (ticketCount.text.toString().toInt() * TICKET_PRICE).toString(),
+            )
 
         ConfirmDialog.show(this, ticket) {
-            val intent = Intent(this, BookingResultActivity::class.java).apply {
-                putExtra("TICKET", ticket)
-            }
+            val intent =
+                Intent(this, BookingResultActivity::class.java).apply {
+                    putExtra(KEY_TICKET, ticket)
+                }
             startActivity(intent)
         }
+    }
+
+    companion object {
+        private const val KEY_TICKET_COUNT = "TICKET_COUNT"
+        private const val KEY_MOVIE_DATE_POSITION = "MOVIE_DATE_POSITION"
+        private const val KEY_MOVIE_TIME_POSITION = "MOVIE_TIME_POSITION"
+        private const val KEY_MOVIE_INFO = "MOVIE_INFO"
+        private const val KEY_TICKET = "TICKET"
+
+        private const val TICKET_PRICE = 13000
     }
 }
