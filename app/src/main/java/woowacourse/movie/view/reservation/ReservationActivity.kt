@@ -2,6 +2,7 @@ package woowacourse.movie.view.reservation
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -129,7 +130,12 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         reservationNumber = tvReservationNumber.text.toString().toIntOrNull()
             ?: ReservationInfo.RESERVATION_MIN_NUMBER
         tvReservationNumber.text = reservationNumber.toString()
-        movie = intent.getParcelableExtra(BUNDLE_KEY_MOVIE)
+        movie =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
+            } else {
+                intent?.getSerializableExtra(BUNDLE_KEY_MOVIE) as? Movie
+            }
     }
 
     private fun setupListener() {

@@ -1,15 +1,13 @@
 package woowacourse.movie.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.time.LocalDateTime
 
-@Parcelize
 class ReservationInfo(
     val title: String,
     val reservationDateTime: LocalDateTime,
     val reservationNumber: Int,
-) : Parcelable {
+) : Serializable {
     fun totalPrice(): Int = reservationNumber * TICKET_PRICE
 
     companion object {

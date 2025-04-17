@@ -29,23 +29,20 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                     152,
                 ),
             )
-        val movieListAdapter =
+        lvMovie.adapter =
             MovieListAdapter(
                 movies,
                 object : OnMovieEventListener {
                     override fun onClick(movie: Movie) {
                         val bundle = Bundle()
-                        bundle.putParcelable(ReservationActivity.BUNDLE_KEY_MOVIE, movie)
-
-                        startActivity(
-                            Intent(
-                                this@MoviesActivity,
-                                ReservationActivity::class.java,
-                            ).putExtras(bundle),
-                        )
+                        bundle.putSerializable(ReservationActivity.BUNDLE_KEY_MOVIE, movie)
+                        val intent =
+                            Intent(this@MoviesActivity, ReservationActivity::class.java).putExtras(
+                                bundle,
+                            )
+                        startActivity(intent)
                     }
                 },
             )
-        lvMovie.adapter = movieListAdapter
     }
 }

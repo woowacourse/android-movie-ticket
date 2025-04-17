@@ -1,17 +1,15 @@
 package woowacourse.movie.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-@Parcelize
 data class ScreeningPeriod(
     val startDate: LocalDate,
     val endDate: LocalDate,
-) : Parcelable {
+) : Serializable {
     fun getAvailableDates(now: LocalDateTime): List<LocalDate> {
         val dates = mutableListOf<LocalDate>()
         var date = now.toLocalDate()

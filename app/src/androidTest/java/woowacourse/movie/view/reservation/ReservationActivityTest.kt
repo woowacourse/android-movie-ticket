@@ -30,7 +30,7 @@ class ReservationActivityTest {
                     ),
                 runningTime = 152,
             )
-        val bundle = Bundle().apply { putParcelable("movie", movie) }
+        val bundle = Bundle().apply { putSerializable("movie", movie) }
         val intent =
             Intent(fakeContext, ReservationActivity::class.java).putExtras(bundle)
 

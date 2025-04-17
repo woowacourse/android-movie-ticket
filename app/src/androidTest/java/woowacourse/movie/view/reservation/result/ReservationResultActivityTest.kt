@@ -23,7 +23,7 @@ class ReservationResultActivityTest {
                 reservationDateTime = LocalDateTime.of(2025, 4, 15, 11, 0),
                 reservationNumber = 2,
             )
-        val bundle = Bundle().apply { putParcelable("reservation_info", reservationInfo) }
+        val bundle = Bundle().apply { putSerializable("reservation_info", reservationInfo) }
         val intent =
             Intent(fakeContext, ReservationResultActivity::class.java).putExtras(bundle)
 
