@@ -30,7 +30,6 @@ import java.time.LocalDateTime
 class ReservationActivity : AppCompatActivity() {
     private var ticketCount: TicketCount = TicketCount()
     private var selectedDatePosition: Int = 0
-    private var selectedTimePosition: Int = 0
     private val formatter: Formatter by lazy { Formatter() }
     private val movie by lazy { getSelectedMovieData() }
     private val movieTime by lazy { MovieTime() }
@@ -112,7 +111,6 @@ class ReservationActivity : AppCompatActivity() {
                     ) {
                         movieDate.updateDate(duration[position])
                         selectedDatePosition = position
-                        selectedTimePosition = 0
                         setupTimeAdapter()
                     }
 
@@ -134,7 +132,6 @@ class ReservationActivity : AppCompatActivity() {
 
         findViewById<Spinner>(R.id.spinner_reservation_time).apply {
             adapter = timeAdapter
-            setSelection(selectedTimePosition)
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -143,7 +140,6 @@ class ReservationActivity : AppCompatActivity() {
                         position: Int,
                         id: Long,
                     ) {
-                        selectedTimePosition = position
                         movieTime.updateTime(timeTable[position])
                     }
 
@@ -159,7 +155,6 @@ class ReservationActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
 
         selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
-        selectedTimePosition = savedInstanceState?.getInt(TICKET_TIME_POSITION_DATA_KEY) ?: 0
     }
 
     private fun setupPlusButtonClick(peopleCountTextView: TextView) {
@@ -232,7 +227,6 @@ class ReservationActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
         outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount.value)
         outState.putInt(TICKET_DATE_POSITION_DATA_KEY, selectedDatePosition)
-        outState.putInt(TICKET_TIME_POSITION_DATA_KEY, selectedTimePosition)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -244,6 +238,5 @@ class ReservationActivity : AppCompatActivity() {
         const val MOVIE_DATA_KEY = "data"
         private const val TICKET_COUNT_DATA_KEY = "count"
         private const val TICKET_DATE_POSITION_DATA_KEY = "date"
-        private const val TICKET_TIME_POSITION_DATA_KEY = "time"
     }
 }
