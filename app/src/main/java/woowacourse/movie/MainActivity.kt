@@ -45,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         val adapter =
             MovieAdapter(
                 items = itemList.toList(),
+                datePeriod = getString(R.string.text_date_period),
                 onClickBooking = { idx ->
                     moveToBookingComplete(itemList[idx])
                 },
