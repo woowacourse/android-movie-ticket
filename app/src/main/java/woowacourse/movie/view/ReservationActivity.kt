@@ -17,11 +17,18 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Screening
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
+import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
     private lateinit var screening: Screening
     private var ticketCount = DEFAULT_TICKET_COUNT
+    private lateinit var selectedDate: LocalDate
+    private lateinit var selectedTime: LocalTime
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -117,7 +124,19 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToTicketActivity() {
-        val intent = Intent(this, TicketActivity::class.java)
+        val intent =
+            Intent(this, TicketActivity::class.java).apply {
+                putExtra(EXTRA_TITLE, screening.title)
+                putExtra(EXTRA_RUNNING_TIME, screening.runningTime)
+                putExtra(EXTRA_POSTER_ID, screening.posterId)
+                putExtra(EXTRA_TICKET_COUNT, ticketCount)
+                putExtra(EXTRA_START_DATE, screening.period.start.toString())
+                putExtra(EXTRA_END_DATE, screening.period.endInclusive.toString())
+                putExtra(
+                    EXTRA_SHOWTIME,
+                    LocalDateTime.of(selectedDate, selectedTime).toString(),
+                )
+            }
         startActivity(intent)
     }
 
@@ -150,19 +169,33 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate = screeningDates[position]
-                    val screeningTime = screening.showtimes(selectedDate)
+                    selectedDate = screeningDates[position]
+                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
 
                     val timeAdapter =
                         ArrayAdapter(
                             this@ReservationActivity,
                             androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,
-                            screeningTime,
+                            screeningTimes,
                         )
 
                     val timeSpinnerView =
                         findViewById<Spinner>(R.id.spinner_reservation_screening_time)
                     timeSpinnerView.adapter = timeAdapter
+
+                    timeSpinnerView.onItemSelectedListener =
+                        object : AdapterView.OnItemSelectedListener {
+                            override fun onItemSelected(
+                                parent: AdapterView<*>?,
+                                view: View?,
+                                position: Int,
+                                id: Long,
+                            ) {
+                                selectedTime = screeningTimes[position]
+                            }
+
+                            override fun onNothingSelected(parent: AdapterView<*>?) {}
+                        }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -178,5 +211,8 @@ class ReservationActivity : AppCompatActivity() {
         const val EXTRA_SHOWTIME_MONTH = "woowacourse.movie.EXTRA_SHOWTIME_MONTH"
         const val EXTRA_SHOWTIME_DAY = "woowacourse.movie.EXTRA_SHOWTIME_DAY"
         const val EXTRA_SHOWTIME_HOUR = "woowacourse.movie.EXTRA_SHOWTIME_HOUR"
+        const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
+        const val EXTRA_START_DATE = "woowacourse.movie.EXTRA_START_DATE"
+        const val EXTRA_END_DATE = "woowacourse.movie.EXTRA_END_DATE"
     }
 }

@@ -14,14 +14,12 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME_DAY
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME_HOUR
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME_MONTH
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME_YEAR
+import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_END_DATE
+import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME
+import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_START_DATE
 import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_TICKET_COUNT
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class TicketActivity : AppCompatActivity() {
     private lateinit var ticket: Ticket
@@ -53,15 +51,8 @@ class TicketActivity : AppCompatActivity() {
                 posterId,
             )
 
-        val startYear = intent.getIntExtra(MainActivity.EXTRA_START_YEAR, 0)
-        val startMonth = intent.getIntExtra(MainActivity.EXTRA_START_MONTH, 0)
-        val startDay = intent.getIntExtra(MainActivity.EXTRA_START_DAY, 0)
-        val endYear = intent.getIntExtra(MainActivity.EXTRA_END_YEAR, 0)
-        val endMonth = intent.getIntExtra(MainActivity.EXTRA_END_MONTH, 0)
-        val endDay = intent.getIntExtra(MainActivity.EXTRA_END_DAY, 0)
-
-        val startDate = LocalDate.of(startYear, startMonth, startDay)
-        val endDate = LocalDate.of(endYear, endMonth, endDay)
+        val startDate = LocalDate.parse(intent.getStringExtra(EXTRA_START_DATE))
+        val endDate = LocalDate.parse(intent.getStringExtra(EXTRA_END_DATE))
 
         val screening =
             Screening(
@@ -70,18 +61,13 @@ class TicketActivity : AppCompatActivity() {
             )
 
         val ticketCount = intent.getIntExtra(EXTRA_TICKET_COUNT, 0)
-
-        val showtimeYear = intent.getIntExtra(EXTRA_SHOWTIME_YEAR, 0)
-        val showtimeMonth = intent.getIntExtra(EXTRA_SHOWTIME_MONTH, 0)
-        val showtimeDay = intent.getIntExtra(EXTRA_SHOWTIME_DAY, 0)
-        val showtimeHour = LocalTime.of(intent.getIntExtra(EXTRA_SHOWTIME_HOUR, 0), 0)
-        val showtimeDate = LocalDate.of(showtimeYear, showtimeMonth, showtimeDay)
+        val showtime: LocalDateTime = LocalDateTime.parse(intent.getStringExtra(EXTRA_SHOWTIME))
 
         ticket =
             Ticket(
                 screening = screening,
                 count = ticketCount,
-                showtime = LocalDateTime.of(showtimeDate, showtimeHour),
+                showtime = showtime,
             )
     }
 
