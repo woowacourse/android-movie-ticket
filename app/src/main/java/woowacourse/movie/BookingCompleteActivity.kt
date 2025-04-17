@@ -23,6 +23,21 @@ class BookingCompleteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun setUpUi() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun bookingResultOrNull() =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("bookingResult", BookingResult::class.java)
+        } else {
+            intent.getParcelableExtra("bookingResult")
+        }
+
     private fun setUpBookingResult(bookingResult: BookingResult) {
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)
         val completeScreenDate = findViewById<TextView>(R.id.tv_complete_screening_date)
@@ -38,21 +53,6 @@ class BookingCompleteActivity : AppCompatActivity() {
         val bookingAmount: String = DecimalFormat("#,###").format(bookingResult.calculateAmount())
         completeBookingAmount.text =
             getString(R.string.screening_complete_booking_amount, bookingAmount)
-    }
-
-    private fun bookingResultOrNull() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("bookingResult", BookingResult::class.java)
-        } else {
-            intent.getParcelableExtra("bookingResult")
-        }
-
-    private fun setUpUi() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     private fun formatDate(date: String): String {
