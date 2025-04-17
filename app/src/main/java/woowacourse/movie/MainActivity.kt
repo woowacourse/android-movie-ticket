@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                     R.drawable.harry_potter_one,
                     ScreeningDate(
                         LocalDate.of(2025, 4, 1),
-                        LocalDate.of(2025, 4, 25)
+                        LocalDate.of(2025, 4, 25),
                     ),
                     "152분",
                 )
@@ -88,7 +88,6 @@ class MainActivity : AppCompatActivity() {
         const val KEY_MOVIE_END_YEAR = "MOVIE_END_YEAR"
         const val KEY_MOVIE_END_MONTH = "MOVIE_END_MONTH"
         const val KEY_MOVIE_END_DAY = "MOVIE_END_DAY"
-        const val KEY_MOVIE_RELEASE_DATE = "MOVIE_RELEASE_DATE"
         const val KEY_MOVIE_RUNNING_TIME = "MOVIE_RUNNING_TIME"
     }
 }

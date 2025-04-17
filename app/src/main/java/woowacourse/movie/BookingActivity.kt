@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
@@ -15,17 +16,17 @@ import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_DAY
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_MONTH
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_END_YEAR
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_RELEASE_DATE
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_RUNNING_TIME
+import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_DAY
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_MONTH
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_YEAR
-import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_START_DAY
 import woowacourse.movie.MainActivity.Companion.KEY_MOVIE_TITLE
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import kotlin.math.max
 
 class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun initView(
         startDate: LocalDate,
-        endDate: LocalDate
+        endDate: LocalDate,
     ) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -75,49 +76,49 @@ class BookingActivity : AppCompatActivity() {
 
     private fun setDateSpinner(
         startDate: LocalDate,
-        endDate: LocalDate
+        endDate: LocalDate,
     ) {
         val dateSpinner = findViewById<Spinner>(R.id.sp_date)
 
         val screeningBookingDates: List<LocalDate> =
             ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
 
-        dateSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            screeningBookingDates
-        )
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                screeningBookingDates,
+            )
 
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                setTimeSpinner(screeningBookingDates[position])
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    setTimeSpinner(screeningBookingDates[position])
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
     }
 
-    private fun setTimeSpinner(
-        selectedDate: LocalDate
-    ) {
-        val timeSpinner: Spinner = findViewById<Spinner>(R.id.sp_time)
+    private fun setTimeSpinner(selectedDate: LocalDate) {
+        val timeSpinner: Spinner = findViewById(R.id.sp_time)
 
         val screeningTimes: List<LocalTime> =
             ScreeningTime().getAvailableScreeningTimes(LocalDateTime.now(), selectedDate)
 
-        timeSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            screeningTimes
-        )
+        timeSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                screeningTimes,
+            )
     }
 
-    private fun joinReleaseDates(startDate: LocalDate, endDate: LocalDate): String {
     private fun setButtonListener() {
         val increaseBtn = findViewById<Button>(R.id.btn_increase)
         val decreaseBtn = findViewById<Button>(R.id.btn_decrease)
@@ -134,6 +135,11 @@ class BookingActivity : AppCompatActivity() {
             peopleCount.text = count.toString()
         }
     }
+
+    private fun joinReleaseDates(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): String {
         return "$startDate ~ $endDate"
     }
 

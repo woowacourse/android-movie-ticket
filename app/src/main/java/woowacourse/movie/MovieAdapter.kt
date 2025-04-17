@@ -54,7 +54,10 @@ class MovieAdapter(
         return convertView
     }
 
-    private fun joinReleaseDates(startDate: LocalDate, endDate: LocalDate): String {
+    private fun joinReleaseDates(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): String {
         return "$startDate ~ $endDate"
     }
 }
