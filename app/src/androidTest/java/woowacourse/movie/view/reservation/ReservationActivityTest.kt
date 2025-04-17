@@ -56,13 +56,13 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun `예매_인원수의_초기값은_0이다`() {
+    fun `예매_인원수의_초기값은_1이다`() {
         onView(withId(R.id.tv_reservation_number))
-            .check(matches(withText("0")))
+            .check(matches(withText("1")))
     }
 
     @Test
-    fun `예매_인원수가_2일때_마이너스_버튼을_한_번_누르면_1이_된다`() {
+    fun `예매_인원수가_3일때_마이너스_버튼을_한_번_누르면_2가_된다`() {
         onView(withId(R.id.btn_reservation_number_plus))
             .perform(click())
             .perform(click())
@@ -71,6 +71,6 @@ class ReservationActivityTest {
             .perform(click())
 
         onView(withId(R.id.tv_reservation_number))
-            .check(matches(withText("1")))
+            .check(matches(withText("2")))
     }
 }

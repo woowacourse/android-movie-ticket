@@ -9,7 +9,6 @@
     <string name="reservation_finish_button_text">선택 완료</string>
     <string name="reservation_number_plus">+</string>
     <string name="reservation_number_minus">-</string>
-    <string name="reservation_number_default">0</string>
 
     <string name="reservation_number_info">일반 %s명</string>
     <string name="reservation_total_price">%,d원 (현장 결제)</string>
