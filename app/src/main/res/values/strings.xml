@@ -14,4 +14,6 @@
     <string name="complete">예매 완료</string>
     <string name="movie_info_key">Movie</string>
     <string name="ticket_info_key">Ticket</string>
+    <string name="headCount_message">일반 %s명</string>
+    <string name="amount_message">%s원 (현장 결제)</string>
 </resources>

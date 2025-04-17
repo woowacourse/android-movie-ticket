@@ -7,23 +7,38 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.BookedMovie
+import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.ui.view.CustomFormatter.formatAmount
+import woowacourse.movie.ui.view.CustomFormatter.formatDateTime
+import woowacourse.movie.ui.view.CustomFormatter.formatHeadCount
 
 class BookingSummaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupScreen()
+        displayBookingSummary()
+    }
+
+    private fun setupScreen() {
         enableEdgeToEdge()
-        setContentView(R.layout.activity_reservation)
+        setContentView(R.layout.activity_bookingsummary)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
 
-        val bookedMovie = intent.intentSerializable("Booking", BookedMovie::class.java)
+    private fun displayBookingSummary() {
+        val movieTicket = intent.intentSerializable(getString(R.string.ticket_info_key), MovieTicket::class.java)
         val title = findViewById<TextView>(R.id.title)
-        val screeningDate = findViewById<TextView>(R.id.screeningDate)
-        title.text = bookedMovie.title
-        screeningDate.text = bookedMovie.screeningDate.toString()
+        val screeningDateTime = findViewById<TextView>(R.id.screeningDateTime)
+        val headCount = findViewById<TextView>(R.id.headCount)
+        val amount = findViewById<TextView>(R.id.amount)
+
+        title.text = movieTicket.title
+        screeningDateTime.text = formatDateTime(movieTicket.screeningDateTime)
+        headCount.text = formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)
+        amount.text = formatAmount(getString(R.string.amount_message), movieTicket.amount)
     }
 }
