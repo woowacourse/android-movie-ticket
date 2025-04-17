@@ -5,7 +5,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class MovieTime {
-    var selectedTime: Int = 0
+    var value: Int = 0
         private set
 
     private val weekdayTime: List<Int> =
@@ -46,7 +46,7 @@ class MovieTime {
     }
 
     fun updateTime(selectedTime: Int) {
-        this.selectedTime = selectedTime
+        this.value = selectedTime
     }
 
     private fun List<Int>.timeTable(nowHour: Int): List<Int> {

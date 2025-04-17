@@ -122,7 +122,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun setupTimeAdapter() {
         val timeTable: List<Int> =
-            movieTime.getTimeTable(LocalDateTime.now(), movieDate.selectedDate)
+            movieTime.getTimeTable(LocalDateTime.now(), movieDate.value)
         val timeAdapter =
             ArrayAdapter(
                 this,
@@ -213,8 +213,8 @@ class ReservationActivity : AppCompatActivity() {
                         timeStamp =
                             getString(
                                 R.string.reservation_ticket_timestamp,
-                                formatter.localDateToUI(movieDate.selectedDate),
-                                formatter.movieTimeToUI(movieTime.selectedTime),
+                                formatter.localDateToUI(movieDate.value),
+                                formatter.movieTimeToUI(movieTime.value),
                             ),
                         count = ticketCount.value,
                     ),
