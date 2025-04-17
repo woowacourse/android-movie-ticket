@@ -108,7 +108,7 @@ class ReserveActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectDate = dates[position]
-                    initTimeSpinner(selectDate)
+                    updateTimeSpinner(selectDate)
                     reservation = reservation.updateReservedTime(getSelectedDateTime())
                 }
 
@@ -118,6 +118,24 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner(selectedDate: LocalDate) {
+        updateTimeSpinner(selectedDate)
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    reservation = reservation.updateReservedTime(getSelectedDateTime())
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                }
+            }
+    }
+
+    private fun updateTimeSpinner(selectedDate: LocalDate) {
         val currentDateTime =
             LocalDateTime.now()
                 .withMinute(0)
@@ -136,21 +154,6 @@ class ReserveActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item,
                 times,
             )
-
-        timeSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    reservation = reservation.updateReservedTime(getSelectedDateTime())
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                }
-            }
     }
 
     private fun getSelectedDateTime(): LocalDateTime {
