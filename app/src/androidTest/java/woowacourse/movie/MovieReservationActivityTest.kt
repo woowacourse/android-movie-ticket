@@ -16,8 +16,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.fixtures.fakeContext
-import woowacourse.movie.fixtures.movie
+import woowacourse.movie.fixture.fakeContext
+import woowacourse.movie.fixture.movie
+import woowacourse.movie.view.reservation.MovieReservationActivity
 
 class MovieReservationActivityTest {
     private lateinit var intent: Intent

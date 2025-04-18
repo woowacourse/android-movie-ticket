@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -9,8 +9,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MovieReservationActivity.Companion.EXTRA_TICKET
+import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.reservation.MovieReservationActivity.Companion.EXTRA_TICKET
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompletionActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.list
 
 import android.os.Bundle
 import android.widget.ListView
@@ -6,10 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.reservation.MovieReservationActivity
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
