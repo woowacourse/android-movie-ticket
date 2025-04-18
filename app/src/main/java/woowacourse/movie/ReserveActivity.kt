@@ -220,7 +220,7 @@ class ReserveActivity : AppCompatActivity() {
     private fun formatting(screeningDate: ScreeningDate): String {
         val start = screeningDate.startDate.format(formatter)
         val end = screeningDate.endDate.format(formatter)
-        return getString(R.string.formatted_screening_date).format(start, end)
+        return getString(R.string.formatted_screening_period).format(start, end)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

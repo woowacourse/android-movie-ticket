@@ -1,21 +1,25 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="screening_date">상영일:</string>
-    <string name="running_time">러닝타임:</string>
-    <string name="reserve_movie">지금 예매</string>
-    <string name="movie_poster">영화 포스터</string>
-    <string name="cancel_guide">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="no_title">제목 정보가 없습니다</string>
-    <string name="no_date">상영일 정보가 없습니다</string>
-    <string name="select_complete">선택 완료</string>
-    <string name="plus">+</string>
-    <string name="minus">-</string>
-    <string name="ticket_tier">일반</string>
-    <string name="purchase_type">(현장 결제)</string>
+
+    <string name="label_screening_date">상영일: </string>
+    <string name="label_running_time">러닝타임: </string>
+
+    <string name="description_movie_poster">영화 포스터</string>
+
+    <string name="reservation_cancel_guide">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
+    <string name="reservation_ticket_tier_standard">일반</string>
+    <string name="reservation_purchase_type_on_site">(현장 결제)</string>
+
+    <string name="btn_text_reserve_movie">지금 예매</string>
+    <string name="btn_text_select_complete">선택 완료</string>
+    <string name="btn_text_plus">+</string>
+    <string name="btn_text_minus">-</string>
+
     <string name="formatted_minute">%d분</string>
-    <string name="formatted_screening_date">%s ~ %s</string>
     <string name="formatted_ticket_count">%d명</string>
     <string name="formatted_total_price">%s원</string>
+    <string name="formatted_screening_period">%s ~ %s</string>
+
     <string name="reserve_dialog_title">예매 확인</string>
     <string name="reserve_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reserve_dialog_positive_button">예매 완료</string>
