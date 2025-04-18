@@ -18,12 +18,10 @@ class MovieListAdapter(
         return movies.size
     }
 
-    // 특정 위치의 데이터를 반환
     override fun getItem(position: Int): Any {
         return movies[position]
     }
 
-    // 특정 위치의 아이템 ID를 반환 (일반적으로 position을 사용)
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
@@ -37,14 +35,9 @@ class MovieListAdapter(
         val view =
             convertView ?: LayoutInflater.from(parent.context)
                 .inflate(R.layout.movie_item, parent, false)
-        val holder = (view.tag as? ViewHolder) ?: ViewHolder(view).also { view.tag = it }
-
-        holder.setData(currentItem, onReservationClick)
-
-        val button = view.findViewById<Button>(R.id.btn_book)
-        button.setOnClickListener {
-            onReservationClick.invoke(movies[position])
-        }
+        view.tag as? ViewHolder ?: ViewHolder(view)
+            .also { view.tag = it }
+            .apply { setData(currentItem, onReservationClick) }
 
         return view
     }
