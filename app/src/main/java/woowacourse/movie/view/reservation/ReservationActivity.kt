@@ -17,7 +17,6 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.toDateTimeFormatter
-import woowacourse.movie.view.movies.MoviesActivity
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -120,7 +119,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            startActivity(Intent(this, MoviesActivity::class.java))
+            onBackPressedDispatcher.onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)
@@ -179,6 +178,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                 putExtra(ReservationResultActivity.BUNDLE_KEY_RESERVATION_INFO, reservationInfo)
             }
         startActivity(intent)
+        finish()
     }
 
     private fun setMovieInfo() {
