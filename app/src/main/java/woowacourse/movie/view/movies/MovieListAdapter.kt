@@ -44,7 +44,7 @@ class MovieListAdapter(
         movie: Movie,
     ) {
         val ivPoster = view.findViewById<ImageView>(R.id.iv_poster)
-        ivPoster.setImageResource(movie.posterResId)
+        movie.poster.toIntOrNull()?.let { ivPoster.setImageResource(it) }
     }
 
     private fun setMovieInfo(

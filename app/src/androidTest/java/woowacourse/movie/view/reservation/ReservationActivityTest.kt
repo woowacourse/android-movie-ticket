@@ -21,7 +21,7 @@ class ReservationActivityTest {
     fun setUp() {
         val movie =
             Movie(
-                posterResId = R.drawable.harrypotter,
+                poster = R.drawable.harrypotter.toString(),
                 title = "해리 포터와 마법사의 돌",
                 screeningPeriod =
                     ScreeningPeriod(
@@ -57,20 +57,20 @@ class ReservationActivityTest {
 
     @Test
     fun `예매_인원수의_초기값은_1이다`() {
-        onView(withId(R.id.tv_reservation_number))
+        onView(withId(R.id.tv_reservation_count))
             .check(matches(withText("1")))
     }
 
     @Test
     fun `예매_인원수가_3일때_마이너스_버튼을_한_번_누르면_2가_된다`() {
-        onView(withId(R.id.btn_reservation_number_plus))
+        onView(withId(R.id.btn_reservation_count_plus))
             .perform(click())
             .perform(click())
 
-        onView(withId(R.id.btn_reservation_number_minus))
+        onView(withId(R.id.btn_reservation_count_minus))
             .perform(click())
 
-        onView(withId(R.id.tv_reservation_number))
+        onView(withId(R.id.tv_reservation_count))
             .check(matches(withText("2")))
     }
 }

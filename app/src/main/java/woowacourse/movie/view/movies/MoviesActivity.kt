@@ -17,18 +17,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
 
     private fun setMovieListView() {
         val lvMovie = findViewById<ListView>(R.id.lv_movie)
-        val movies =
-            listOf(
-                Movie(
-                    R.drawable.harrypotter,
-                    "해리 포터와 마법사의 돌",
-                    ScreeningPeriod(
-                        LocalDate.of(2025, 4, 1),
-                        LocalDate.of(2025, 4, 25),
-                    ),
-                    152,
-                ),
-            )
+        val movies = listOf(dummyMovie)
         lvMovie.adapter =
             MovieListAdapter(
                 movies,
@@ -43,6 +32,19 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                         startActivity(intent)
                     }
                 },
+            )
+    }
+
+    companion object {
+        private val dummyMovie =
+            Movie(
+                "해리 포터와 마법사의 돌",
+                R.drawable.harrypotter.toString(),
+                ScreeningPeriod(
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ),
+                152,
             )
     }
 }
