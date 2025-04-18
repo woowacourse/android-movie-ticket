@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
@@ -13,6 +14,20 @@ import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDateTime
 
 class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    startActivity(Intent(this@ReservationResultActivity, MoviesActivity::class.java))
+                    finish()
+                }
+            },
+        )
+    }
+
     override fun setupViews(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         displayReservationResult()
