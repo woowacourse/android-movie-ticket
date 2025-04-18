@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -21,9 +22,12 @@ class MovieTicketActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movies = Movies.value
-
         val movieListView = binding.movies
+        movieListAdapter(movieListView)
+    }
+
+    private fun movieListAdapter(movieListView: ListView) {
+        val movies = Movies.value
         val movieListAdapter = MovieListAdapter(movies, ::navigateToReservationComplete)
         movieListView.adapter = movieListAdapter
     }

@@ -26,7 +26,7 @@
 ## 1, 2 두루 review 반영
 - [ ] 하드코딩된 내용을 더미데이터로 만듬 ex) movie
 - [X] MainActivity -> 미션 주제가 들어나도록 네이밍 변경
-- [ ] MainActivity onCreate 함수 기능별로 분리
+- [X] MainActivity onCreate 함수 기능별로 분리
 - [ ] MainActivity의 Intent Extra 따로 관리
 - [ ] MovieListAdapter의 onReservationClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각
 - [ ] MovieListAdapter 기능별로 함수 분리
