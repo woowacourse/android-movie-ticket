@@ -120,8 +120,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
-            startActivity(Intent(this, MoviesActivity::class.java))
-            finish()
+            onBackPressedDispatcher.onBackPressed()
             return true
         }
         return super.onOptionsItemSelected(item)
