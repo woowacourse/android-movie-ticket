@@ -200,6 +200,7 @@ class ReservationActivity : AppCompatActivity() {
             }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
                 val intent = movieTicketIntent()
                 startActivity(intent)
+                finish()
                 dialog.dismiss()
             }.show()
     }
