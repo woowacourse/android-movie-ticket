@@ -21,18 +21,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         val movies: List<Movie> =
-            listOf(
+            List(100) {
                 Movie(
-                    title = "해리 포터와 마법사의 돌",
+                    title = "해리 포터와 마법사의 돌 $it",
                     startDate = LocalDate.of(2025, 4, 1),
                     endDate = LocalDate.of(2025, 4, 25),
                     runningTime = 152,
                     poster = R.drawable.harry_potter_poster,
-                ),
-            )
+                )
+            }
 
-        val movieListView = findViewById<ListView>(R.id.movie_list)
-        val movieAdapter = MovieAdapter(movies)
+        val movieListView: ListView = findViewById(R.id.movie_list)
+        val movieAdapter =
+            MovieAdapter(movies) { movie ->
+                startActivity(MovieReservationActivity.newIntent(this, movie))
+            }
         movieListView.adapter = movieAdapter
     }
 }

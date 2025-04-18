@@ -1,5 +1,7 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -7,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.MovieReservationActivity.Companion.EXTRA_TICKET
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
@@ -22,10 +25,10 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
         }
         val ticket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(MovieReservationActivity.EXTRA_TICKET, Ticket::class.java)
+                intent.getParcelableExtra(EXTRA_TICKET, Ticket::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                intent.getParcelableExtra(MovieReservationActivity.EXTRA_TICKET)
+                intent.getParcelableExtra(EXTRA_TICKET)
             }
         if (ticket == null) {
             finish()
@@ -44,6 +47,14 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
     }
 
     companion object {
+        fun newIntent(
+            context: Context,
+            ticket: Ticket,
+        ): Intent =
+            Intent(context, MovieReservationCompletionActivity::class.java).apply {
+                putExtra(EXTRA_TICKET, ticket)
+            }
+
         private const val TICKET_COUNT = "%d명"
         private const val TOTAL_PRICE = "%,d원"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")

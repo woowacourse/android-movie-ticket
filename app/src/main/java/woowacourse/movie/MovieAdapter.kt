@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     private val items: List<Movie>,
+    private val onButtonClick: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = items.size
 
@@ -44,13 +44,7 @@ class MovieAdapter(
         viewHolder.screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
         viewHolder.runningTime.text = RUNNING_TIME.format(movie.runningTime)
 
-        viewHolder.reserveButton.setOnClickListener {
-            val intent =
-                Intent(container?.context, MovieReservationActivity::class.java).apply {
-                    putExtra(EXTRA_MOVIE, movie)
-                }
-            container?.context?.startActivity(intent)
-        }
+        viewHolder.reserveButton.setOnClickListener { onButtonClick(movie) }
         return view
     }
 

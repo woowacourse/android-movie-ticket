@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.MovieAdapter.Companion.EXTRA_MOVIE
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
@@ -36,10 +38,10 @@ class MovieReservationActivity : AppCompatActivity() {
         initUi()
 
         movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MovieAdapter.EXTRA_MOVIE, Movie::class.java)
+            intent.getParcelableExtra(EXTRA_MOVIE, Movie::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(MovieAdapter.EXTRA_MOVIE)
+            intent.getParcelableExtra(EXTRA_MOVIE)
         } ?: run {
             finish()
             return
@@ -173,6 +175,7 @@ class MovieReservationActivity : AppCompatActivity() {
         val incrementButton = findViewById<Button>(R.id.increment_button)
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
 
+        ticketCountTextView.text = ticketCount.toString()
         decrementButton.setOnClickListener {
             ticketCount--
             ticketCountTextView.text = ticketCount.toString()
@@ -203,14 +206,13 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun onConfirmReservation() {
         if (selectedDate != null && selectedTime != null) {
-            val intent = Intent(this, MovieReservationCompletionActivity::class.java)
             val ticket =
                 Ticket(
                     movie = movie,
                     showtime = LocalDateTime.of(selectedDate, selectedTime),
                     count = ticketCount,
                 )
-            intent.putExtra(EXTRA_TICKET, ticket)
+            val intent = MovieReservationCompletionActivity.newIntent(this, ticket)
             startActivity(intent)
         } else {
             Toast.makeText(this, R.string.incorrect_date_and_time, Toast.LENGTH_SHORT).show()
@@ -218,6 +220,14 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(context, MovieReservationActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE, movie)
+            }
+
         const val EXTRA_TICKET = "ticket"
         private const val MINIMUM_TICKET_COUNT = 1
         private const val SCREENING_DATE_RANGE = "%s ~ %S"
