@@ -11,10 +11,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.fixture.createMovie
 
 class ReserveActivityTest {
     private lateinit var intent: Intent
-    private val movie = HARRY_POTTER_MOVIE
+    private val movie = createMovie("해리포터")
 
     @Before
     fun setUp() {

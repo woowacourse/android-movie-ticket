@@ -37,7 +37,7 @@
 - [x] `영화 예매 내역 화면`에서 뒤로 가기 버튼을 누르면 `영화 목록 화면`으로 전환된다
 
 ### TODO
-- [ ] Test의 Fixture 가독성 개선
+- [x] Test의 Fixture 가독성 개선
 - [ ] MainActivity | intent에서 사용하는 Extras 따로 분리
 - [ ] MainActivity | 더미 데이터 따로 관리
 - [ ] MoviesAdapter | 포맷들 저장 방식 개선

@@ -10,10 +10,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.fixture.createReservation
 
 class ReservationResultActivityTest {
     private lateinit var intent: Intent
-    private val reservation = HARRY_POTTER_RESERVATION
+    private val reservation = createReservation("해리포터")
 
     @Before
     fun setUp() {
