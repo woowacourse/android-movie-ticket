@@ -45,11 +45,11 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     private val reservationDialog by lazy {
         AlertDialog
             .Builder(this)
-            .setTitle(getString(R.string.reservation_dialog_title))
-            .setMessage(getString(R.string.reservation_dialog_message))
+            .setTitle(R.string.reservation_dialog_title)
+            .setMessage(R.string.reservation_dialog_message)
             .setCancelable(false)
-            .setPositiveButton(getString(R.string.reservation_dialog_positive)) { _, _ -> navigateToResult() }
-            .setNegativeButton(getString(R.string.reservation_dialog_negative)) { dialog, _ -> dialog.dismiss() }
+            .setPositiveButton(R.string.reservation_dialog_positive) { _, _ -> navigateToResult() }
+            .setNegativeButton(R.string.reservation_dialog_negative) { dialog, _ -> dialog.dismiss() }
     }
 
     override fun setupViews(savedInstanceState: Bundle?) {
