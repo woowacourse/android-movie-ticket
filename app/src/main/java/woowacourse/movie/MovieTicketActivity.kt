@@ -10,7 +10,7 @@ import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
 
-class MainActivity : AppCompatActivity() {
+class MovieTicketActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
