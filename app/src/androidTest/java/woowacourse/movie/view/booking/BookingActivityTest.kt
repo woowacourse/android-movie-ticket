@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.booking
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -15,8 +15,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.R
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.booking.BookingActivity
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR

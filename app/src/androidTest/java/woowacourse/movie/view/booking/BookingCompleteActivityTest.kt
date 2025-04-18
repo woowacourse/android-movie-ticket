@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.booking
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -13,7 +13,6 @@ import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
-import woowacourse.movie.view.booking.BookingCompleteActivity
 
 class BookingCompleteActivityTest {
     private lateinit var intent: Intent
