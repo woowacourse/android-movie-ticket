@@ -143,10 +143,6 @@ class BookingActivityTest {
 
         // then
         onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
-
-        scenario.onActivity { activity ->
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-        }
     }
 
     @Test
@@ -160,7 +156,6 @@ class BookingActivityTest {
         // when
         scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
         // then
