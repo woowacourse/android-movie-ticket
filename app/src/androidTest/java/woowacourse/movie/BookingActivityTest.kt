@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
@@ -274,6 +275,29 @@ class BookingActivityTest {
             .check(matches(allOf(withText("일반 1명"), isDisplayed())))
         onView(withId(R.id.tv_booking_amount))
             .check(matches(allOf(withText("13,000원 (현장 결제)"), isDisplayed())))
+    }
+
+    @Test
+    fun `화면_회전_시에도_데이터는_유지된다`() {
+        // given
+        onView(withId(R.id.spinner_screening_date)).perform(click())
+        // 2035-04-18(평일)
+        val targetDate = "2035-04-18"
+        onData(`is`(targetDate)).perform(click())
+        onView(withId(R.id.spinner_screening_time)).perform(click())
+        val targetTime = "11:00"
+        onData(`is`(targetTime)).perform(click())
+        onView(withId(R.id.btn_plus)).perform(click())
+
+        // when
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+        onView(withId(R.id.spinner_screening_date)).check(matches(withSpinnerText(targetDate)))
+        onView(withId(R.id.spinner_screening_time)).check(matches(withSpinnerText(targetTime)))
     }
 
     private fun mockMovie(): Movie {
