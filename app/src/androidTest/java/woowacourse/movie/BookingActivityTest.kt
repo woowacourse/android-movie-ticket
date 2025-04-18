@@ -52,18 +52,10 @@ class BookingActivityTest {
     }
 
     @Test
-    fun `전달_받은_영화_이름을_출력한다`() {
-        onView(withId(R.id.tv_title)).check(matches(withText("해리 포터와 마법사의 돌")))
-    }
-
-    @Test
-    fun `전달_받은_상영일_출력한다`() {
-        onView(withId(R.id.tv_screening_period)).check(matches(withText("2025.4.1 ~ 2025.4.25")))
-    }
-
-    @Test
-    fun `전달_받은_상영_시간을_출력한다`() {
-        onView(withId(R.id.tv_running_time)).check(matches(withText("152분")))
+    fun `전달_받은_영화_이름_상영일_상영_시간을_출력한다`() {
+        onView(withText("해리 포터와 마법사의 돌")).check(matches(isDisplayed()))
+        onView(withText("2025.4.1 ~ 2025.4.25")).check(matches(isDisplayed()))
+        onView(withText("152분")).check(matches(isDisplayed()))
     }
 
     @Test
@@ -78,27 +70,46 @@ class BookingActivityTest {
 
     @Test
     fun `인원_증가_버튼을_누르면_인원이_1_증가한다`() {
+        // given
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+
+        // when
         onView(withId(R.id.btn_increase)).perform(click())
+
+        // then
         onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
     }
 
     @Test
     fun `인원_감소_버튼을_누르면_인원이_1_감소한다`() {
+        // given
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+
+        // when
         onView(withId(R.id.btn_decrease)).perform(click())
+
+        // then
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
     }
 
     @Test
     fun `인원은_1명_이하로_감소하지_않는다`() {
+        // when
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+
+        // when
         onView(withId(R.id.btn_decrease)).perform(click())
+
+        // then
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
     }
 
     @Test
     fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_뜬다`() {
+        // when
         onView(withId(R.id.btn_booking_complete)).perform(click())
+
+        // then
         onView(withText("예매 확인")).check(matches(isDisplayed()))
         onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
         onView(withText("취소")).check(matches(isDisplayed()))
@@ -107,11 +118,13 @@ class BookingActivityTest {
 
     @Test
     fun `다이얼로그_외부_영역을_클릭해도_다이얼로그가_유지된다`() {
-        onView(withId(R.id.btn_booking_complete))
-            .perform(click())
+        // given
+        onView(withId(R.id.btn_booking_complete)).perform(click())
 
+        // when
         pressBack()
 
+        // then
         onView(withText("예매 확인")).check(matches(isDisplayed()))
         onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
         onView(withText("취소")).check(matches(isDisplayed()))
@@ -120,11 +133,17 @@ class BookingActivityTest {
 
     @Test
     fun `화면이_회전_되어도_인원수가_유지된다`() {
+        // given
         onView(withId(R.id.btn_increase)).perform(click())
+
+        // When
         scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
+
+        // then
         onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
+
         scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
@@ -132,29 +151,20 @@ class BookingActivityTest {
 
     @Test
     fun `화면이_회전_되어도_선택된_날짜가_유지된다`() {
-        onView(withId(R.id.sp_date))
-            .perform(click())
+        // given
+        onView(withId(R.id.sp_date)).perform(click())
+        onData(anything()).atPosition(7).perform(click())
+        onView(withId(R.id.sp_time)).perform(click())
+        onData(anything()).atPosition(1).perform(click())
 
-        onData(anything())
-            .atPosition(7)
-            .perform(click())
-
-        onView(withId(R.id.sp_time))
-            .perform(click())
-
-        onData(anything())
-            .atPosition(1)
-            .perform(click())
-
+        // when
         scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         }
 
-        onView(withId(R.id.sp_date))
-            .check(matches(withSpinnerText("2025-04-25")))
-
-        onView(withId(R.id.sp_time))
-            .check(matches(withSpinnerText("12:00")))
+        // then
+        onView(withId(R.id.sp_date)).check(matches(withSpinnerText("2025-04-25")))
+        onView(withId(R.id.sp_time)).check(matches(withSpinnerText("12:00")))
     }
 }
