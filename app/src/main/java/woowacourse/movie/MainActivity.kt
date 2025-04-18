@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             )
 
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        val movieAdapter = MovieAdapter(this, movies)
+        val movieAdapter = MovieAdapter(movies)
         movieListView.adapter = movieAdapter
     }
 }

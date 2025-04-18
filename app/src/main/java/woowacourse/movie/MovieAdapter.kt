@@ -1,57 +1,56 @@
 package woowacourse.movie
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    private val context: Context,
-    private val movies: List<Movie>,
+    private val items: List<Movie>,
 ) : BaseAdapter() {
-    override fun getCount(): Int = movies.size
+    override fun getCount(): Int = items.size
 
-    override fun getItem(p0: Int): Movie = movies[p0]
+    override fun getItem(position: Int): Movie = items[position]
 
-    override fun getItemId(p0: Int): Long = p0.toLong()
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(
         position: Int,
         convertView: View?,
         container: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_movie, container, false)
-
-        val poster = view.findViewById<ImageView>(R.id.poster)
-        val title = view.findViewById<TextView>(R.id.movie_title)
-        val screeningDate = view.findViewById<TextView>(R.id.screening_date)
-        val runningTime = view.findViewById<TextView>(R.id.running_time)
-        val reserveButton = view.findViewById<Button>(R.id.reserve_button)
-
-        val movie = getItem(position)
-        poster.setImageResource(movie.poster)
-        title.text = movie.title
-        val startDate = movie.startDate.format(DATE_FORMAT)
-        val endDate = movie.endDate.format(DATE_FORMAT)
-        screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
-        runningTime.text = RUNNING_TIME.format(movie.runningTime)
-
-        reserveButton.setOnClickListener {
-            val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE, movie)
-            context.startActivity(intent)
+        val view: View
+        val viewHolder: MovieViewHolder
+        if (convertView == null) {
+            view =
+                LayoutInflater
+                    .from(container?.context)
+                    .inflate(R.layout.item_movie, container, false)
+            viewHolder = MovieViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = convertView.tag as MovieViewHolder
         }
 
+        val movie = getItem(position)
+        viewHolder.poster.setImageResource(movie.poster)
+        viewHolder.title.text = movie.title
+        val startDate = movie.startDate.format(DATE_FORMAT)
+        val endDate = movie.endDate.format(DATE_FORMAT)
+        viewHolder.screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
+        viewHolder.runningTime.text = RUNNING_TIME.format(movie.runningTime)
+
+        viewHolder.reserveButton.setOnClickListener {
+            val intent =
+                Intent(container?.context, MovieReservationActivity::class.java).apply {
+                    putExtra(EXTRA_MOVIE, movie)
+                }
+            container?.context?.startActivity(intent)
+        }
         return view
     }
 
