@@ -21,7 +21,7 @@ class MovieTicketActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movies = Movies.movies
+        val movies = Movies.value
 
         val movieListView = binding.movies
         val movieListAdapter = MovieListAdapter(movies, ::navigateToReservationComplete)

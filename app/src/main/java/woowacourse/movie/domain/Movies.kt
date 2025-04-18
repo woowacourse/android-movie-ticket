@@ -18,7 +18,7 @@ data class Movies(
 
     companion object {
         private const val ERR_MOVIE_NOT_FOUND = "영화가 존재하지 않습니다."
-        val movies = listOf<Movie>(Movie("해리포터와 마법사의 돌", R.drawable.movie_poster,  LocalDateTime.of(2025, 4, 1, 0, 0, 0),
+        val value = listOf<Movie>(Movie("해리포터와 마법사의 돌", R.drawable.movie_poster,  LocalDateTime.of(2025, 4, 1, 0, 0, 0),
             LocalDateTime.of(2025, 4, 25, 23, 59, 59),
             125.minutes))
     }
