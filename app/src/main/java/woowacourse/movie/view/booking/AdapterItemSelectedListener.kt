@@ -13,5 +13,5 @@ class AdapterItemSelectedListener(
         action(position)
     }
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {}
+    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
 }
