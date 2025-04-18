@@ -11,13 +11,9 @@ class Scheduler {
         today: LocalDate,
     ): List<LocalDate> {
         val earliestDate = if (startDate.isBefore(today)) today else startDate
-        var currentDate = earliestDate
-        val dates = mutableListOf<LocalDate>()
-        while (!currentDate.isAfter(endDate)) {
-            dates.add(currentDate)
-            currentDate = currentDate.plusDays(1)
-        }
-        return dates
+        return generateSequence(earliestDate) { date -> date.plusDays(1) }
+            .take(earliestDate.until(endDate).days + 1)
+            .toList()
     }
 
     fun getShowtimes(
