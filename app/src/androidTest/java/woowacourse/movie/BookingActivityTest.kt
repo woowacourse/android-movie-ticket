@@ -72,7 +72,7 @@ class BookingActivityTest {
         onView(withId(R.id.tv_booking_screening_date)).check(
             matches(
                 allOf(
-                    withText("2025.4.1 ~ 2025.4.25"),
+                    withText("2025.4.1 ~ 2035.4.25"),
                     isDisplayed(),
                 ),
             ),
@@ -190,73 +190,73 @@ class BookingActivityTest {
 
     @Test
     fun `특정_날짜를_선택했을_때_주말인_경우_시간이_정상적으로_표시되고_선택된다`() {
+        // given
         onView(withId(R.id.spinner_screening_date)).perform(click())
-
-        val targetDate = "2025-04-20"
+        // 2035-04-21(주말)
+        val targetDate = "2035-04-21"
         onData(allOf(`is`(instanceOf(String::class.java)), `is`(targetDate)))
             .inRoot(isPlatformPopup())
             .perform(click())
-
         onView(withId(R.id.spinner_screening_date))
             .check(matches(withSpinnerText(containsString(targetDate))))
 
+        // when
         onView(withId(R.id.spinner_screening_time)).perform(click())
 
-        // 주말 로직에 따라 10:00, 12:00이 떠야함
+        // then
+        // 주말 로직에 따라 12:00이 포함 되어 있어야 한다.
         onData(`is`("12:00"))
             .inRoot(isPlatformPopup())
             .perform(click())
-
         onView(withId(R.id.spinner_screening_time))
             .check(matches(withSpinnerText(containsString("12:00"))))
     }
 
     @Test
     fun `특정_날짜를_선택했을_때_평일인_경우_시간이_정상적으로_표시되고_선택된다`() {
+        // given
         onView(withId(R.id.spinner_screening_date)).perform(click())
-
-        // 2025-04-18은 평일
-        val targetDate = "2025-04-18"
+        // 2035-04-18(평일)
+        val targetDate = "2035-04-18"
         onData(allOf(`is`(instanceOf(String::class.java)), `is`(targetDate)))
             .inRoot(isPlatformPopup())
             .perform(click())
-
         onView(withId(R.id.spinner_screening_date))
             .check(matches(withSpinnerText(containsString(targetDate))))
 
+        // when
         onView(withId(R.id.spinner_screening_time)).perform(click())
 
-        // 평일 로직에 따라 9:00, 12:00이 떠야함
+        // then
+        // 평일 로직에 따라 9:00이 떠야함
         onData(`is`("09:00"))
             .inRoot(isPlatformPopup())
             .perform(click())
-
         onView(withId(R.id.spinner_screening_time))
             .check(matches(withSpinnerText(containsString("09:00"))))
     }
 
     @Test
     fun `예매_완료_버튼을_누르면_다음_화면으로_데이터를_가지고_넘어간다`() {
+        // given
         onView(withId(R.id.spinner_screening_date)).perform(click())
-
-        // 2025-04-18은 평일
-        val targetDate = "2025-04-18"
+        // 2035-04-18(평일)
+        val targetDate = "2035-04-18"
         onData(allOf(`is`(instanceOf(String::class.java)), `is`(targetDate)))
             .inRoot(isPlatformPopup())
             .perform(click())
-
         onView(withId(R.id.spinner_screening_time)).perform(click())
         val targetTime = "11:00"
         onData(allOf(`is`(instanceOf(String::class.java)), `is`(targetTime)))
             .inRoot(isPlatformPopup())
             .perform(click())
-
         onView(withId(R.id.btn_plus)).perform(click())
-        onView(withId(R.id.btn_reserve_confirm)).perform(click())
+        onView(withText("선택 완료")).perform(click())
 
-        onView(withText("예매 완료"))
-            .perform(click())
+        // when
+        onView(withText("예매 완료")).perform(click())
 
+        // then
         intended(
             allOf(
                 hasComponent(BookingCompleteActivity::class.java.name),
@@ -265,24 +265,13 @@ class BookingActivityTest {
         )
 
         onView(withId(R.id.tv_complete_title))
-            .check(
-                matches(
-                    allOf(
-                        withText("해리 포터와 마법사의 돌"),
-                        isDisplayed(),
-                    ),
-                ),
-            )
-
+            .check(matches(allOf(withText("해리 포터와 마법사의 돌"), isDisplayed())))
         onView(withId(R.id.tv_complete_screening_date))
-            .check(matches(allOf(withText("2025.04.18"), isDisplayed())))
-
+            .check(matches(allOf(withText("2035.04.18"), isDisplayed())))
         onView(withId(R.id.tv_complete_screening_time))
             .check(matches(allOf(withText("11:00"), isDisplayed())))
-
         onView(withId(R.id.tv_head_count))
             .check(matches(allOf(withText("일반 1명"), isDisplayed())))
-
         onView(withId(R.id.tv_booking_amount))
             .check(matches(allOf(withText("13,000원 (현장 결제)"), isDisplayed())))
     }
@@ -293,7 +282,7 @@ class BookingActivityTest {
             title = "해리 포터와 마법사의 돌",
             runningTime = 152,
             screeningStartDate = LocalDate.of(2025, 4, 1),
-            screeningEndDate = LocalDate.of(2025, 4, 25),
+            screeningEndDate = LocalDate.of(2035, 4, 25),
         )
     }
 }
