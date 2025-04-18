@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:padding="12dp">
 
     <ImageView
@@ -10,6 +11,7 @@
         android:layout_width="76dp"
         android:layout_height="108dp"
         android:scaleType="centerCrop"
+        tools:src="@drawable/harry_potter_one"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,6 +26,7 @@
 
         <TextView
             android:id="@+id/tv_title"
+            tools:text="해리포터와 비밀의 방"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -45,6 +48,7 @@
 
             <TextView
                 android:id="@+id/tv_release_date"
+                tools:text="2025.4.1 ~ 2025.4.25"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="4dp"
@@ -66,6 +70,7 @@
 
             <TextView
                 android:id="@+id/tv_running_time"
+                tools:text="152분"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="4dp"

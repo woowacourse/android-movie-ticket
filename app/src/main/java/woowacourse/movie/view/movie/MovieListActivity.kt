@@ -11,6 +11,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.view.booking.BookingActivity
+import woowacourse.movie.view.movie.adapter.MovieAdapter
 import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
@@ -47,11 +48,8 @@ class MovieListActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.list_view)
         val adapter =
             MovieAdapter(
-                items = itemList.toList(),
-                datePeriod = getString(R.string.text_date_period),
-                onClickBooking = { idx ->
-                    moveToBookingComplete(itemList[idx])
-                },
+                items = itemList,
+                onClickBooking = { moveToBookingComplete(it) },
             )
 
         listView.adapter = adapter
