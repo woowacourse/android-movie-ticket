@@ -1,15 +1,13 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrientation
-import androidx.test.espresso.device.EspressoDevice.Companion.onDevice
-import androidx.test.espresso.device.action.ScreenOrientation
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
@@ -18,6 +16,8 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingActivity
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
@@ -30,7 +30,10 @@ import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_YEAR
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_TITLE
 
+@RunWith(JUnit4::class)
 class BookingActivityTest {
+    private lateinit var scenario: ActivityScenario<BookingActivity>
+
     @Before
     fun setUp() {
         val intent =
@@ -49,7 +52,7 @@ class BookingActivityTest {
                 putExtra(KEY_MOVIE_RUNNING_TIME, "152분")
             }
 
-        ActivityScenario.launch<BookingActivity>(intent)
+        scenario = ActivityScenario.launch(intent)
     }
 
     @DisplayName("전달 받은 영화 이름을 출력한다")
@@ -132,9 +135,13 @@ class BookingActivityTest {
     @Test
     fun configurationChangePeopleCountTest() {
         onView(withId(R.id.btn_increase)).perform(click())
-        onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
         onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
-        onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
     }
 
     @DisplayName("화면이 회전 되어도 선택된 날짜가 유지된다")
@@ -144,7 +151,7 @@ class BookingActivityTest {
             .perform(click())
 
         onData(anything())
-            .atPosition(8)
+            .atPosition(7)
             .perform(click())
 
         onView(withId(R.id.sp_time))
@@ -154,8 +161,10 @@ class BookingActivityTest {
             .atPosition(1)
             .perform(click())
 
-        onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
-        onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        }
 
         onView(withId(R.id.sp_date))
             .check(matches(withSpinnerText("2025-04-25")))
