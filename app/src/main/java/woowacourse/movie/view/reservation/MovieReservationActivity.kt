@@ -21,7 +21,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.list.MovieAdapter.Companion.EXTRA_MOVIE
+import woowacourse.movie.view.common.IntentKeys
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -39,10 +39,10 @@ class MovieReservationActivity : AppCompatActivity() {
         initUi()
 
         movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(EXTRA_MOVIE, Movie::class.java)
+            intent.getParcelableExtra(IntentKeys.EXTRA_MOVIE, Movie::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(EXTRA_MOVIE)
+            intent.getParcelableExtra(IntentKeys.EXTRA_MOVIE)
         } ?: run {
             finish()
             return
@@ -51,10 +51,10 @@ class MovieReservationActivity : AppCompatActivity() {
         initMovieInfo()
         val savedTicket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState?.getParcelable(EXTRA_TICKET, Ticket::class.java)
+                savedInstanceState?.getParcelable(IntentKeys.EXTRA_TICKET, Ticket::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                savedInstanceState?.getParcelable(EXTRA_TICKET)
+                savedInstanceState?.getParcelable(IntentKeys.EXTRA_TICKET)
             }
 
         initSpinners(savedTicket)
@@ -74,7 +74,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 showtime = LocalDateTime.of(selectedDate, selectedTime),
                 count = ticketCount,
             )
-        outState.putParcelable(EXTRA_TICKET, ticket)
+        outState.putParcelable(IntentKeys.EXTRA_TICKET, ticket)
     }
 
     private fun initUi() {
@@ -226,10 +226,9 @@ class MovieReservationActivity : AppCompatActivity() {
             movie: Movie,
         ): Intent =
             Intent(context, MovieReservationActivity::class.java).apply {
-                putExtra(EXTRA_MOVIE, movie)
+                putExtra(IntentKeys.EXTRA_MOVIE, movie)
             }
 
-        const val EXTRA_TICKET = "ticket"
         private const val MINIMUM_TICKET_COUNT = 1
         private const val SCREENING_DATE_RANGE = "%s ~ %S"
         private const val RUNNING_TIME = "%d분"

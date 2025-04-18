@@ -50,7 +50,6 @@ class MovieAdapter(
     }
 
     companion object {
-        const val EXTRA_MOVIE = "movie"
         private const val SCREENING_DATE_RANGE = "%s ~ %S"
         private const val RUNNING_TIME = "%d분"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")

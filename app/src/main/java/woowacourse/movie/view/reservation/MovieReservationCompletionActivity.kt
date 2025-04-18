@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.reservation.MovieReservationActivity.Companion.EXTRA_TICKET
+import woowacourse.movie.view.common.IntentKeys
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompletionActivity : AppCompatActivity() {
@@ -26,10 +26,10 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
         }
         val ticket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(EXTRA_TICKET, Ticket::class.java)
+                intent.getParcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                intent.getParcelableExtra(EXTRA_TICKET)
+                intent.getParcelableExtra(IntentKeys.EXTRA_TICKET)
             }
         if (ticket == null) {
             finish()
@@ -53,7 +53,7 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
             ticket: Ticket,
         ): Intent =
             Intent(context, MovieReservationCompletionActivity::class.java).apply {
-                putExtra(EXTRA_TICKET, ticket)
+                putExtra(IntentKeys.EXTRA_TICKET, ticket)
             }
 
         private const val TICKET_COUNT = "%d명"
