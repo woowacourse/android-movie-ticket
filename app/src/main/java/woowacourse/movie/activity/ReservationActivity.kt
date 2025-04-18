@@ -1,7 +1,6 @@
 package woowacourse.movie.activity
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -20,6 +19,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieDateTime
 import woowacourse.movie.domain.RunningTimes
 import woowacourse.movie.global.getObjectFromIntent
+import woowacourse.movie.global.newIntent
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -158,9 +158,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
-        val intent =
-            Intent(this, ReservationCompleteActivity::class.java)
-                .apply { putExtra(BOOKING_STATUS_KEY, bookingStatus) }
+        val intent = newIntent<ReservationCompleteActivity>(listOf(BOOKING_STATUS_KEY to bookingStatus))
         startActivity(intent)
     }
 

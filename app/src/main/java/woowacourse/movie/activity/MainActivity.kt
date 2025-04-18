@@ -1,6 +1,5 @@
 package woowacourse.movie.activity
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +10,7 @@ import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
+import woowacourse.movie.global.newIntent
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,16 +24,13 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         val movies = Movies.Companion.movies
-
         val movieListView = binding.movies
         val movieListAdapter = MovieListAdapter(movies, ::navigateToReservationComplete)
         movieListView.adapter = movieListAdapter
     }
 
     private fun navigateToReservationComplete(movie: Movie) {
-        val intent =
-            Intent(this, ReservationActivity::class.java)
-                .apply { putExtra(MOVIE_KEY, movie) }
+        val intent = newIntent<ReservationActivity>(listOf(MOVIE_KEY to movie))
         startActivity(intent)
     }
 
