@@ -12,9 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/harry_potter_poster"
         app:layout_constraintDimensionRatio="1:1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/harry_potter_poster" />
 
     <TextView
         android:id="@+id/movie_title"
@@ -22,12 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="해리 포터와 마법사의 돌"
         android:textColor="@color/black"
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poster" />
+        app:layout_constraintTop_toBottomOf="@+id/poster"
+        tools:text="해리 포터와 마법사의 돌" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -55,9 +55,9 @@
                 android:id="@+id/screening_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2025.4.1 ~ 2025.4.25"
                 android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                tools:text="2025.4.1 ~ 2025.4.25" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -79,9 +79,9 @@
                 android:id="@+id/running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="152분"
                 android:textColor="@color/black"
-                android:textSize="16dp" />
+                android:textSize="16dp"
+                tools:text="152분" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -137,10 +137,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="1"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:text="1" />
 
         <Button
             android:id="@+id/increment_button"
