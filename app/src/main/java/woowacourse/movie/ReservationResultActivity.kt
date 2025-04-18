@@ -26,10 +26,11 @@ class ReservationResultActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initReservationInfo()
+        val reservation = extractReservation()
+        bindReservation(reservation)
     }
 
-    private fun initReservationInfo() {
+    private fun extractReservation(): Reservation {
         val reservation =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getParcelableExtra(getString(R.string.key_reservation), Reservation::class.java)
@@ -39,12 +40,16 @@ class ReservationResultActivity : AppCompatActivity() {
 
         if (reservation == null) finish()
 
+        return reservation!!
+    }
+
+    private fun bindReservation(reservation: Reservation) {
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
         val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)
         val totalPrice = findViewById<TextView>(R.id.tv_total_price)
 
-        val formattedScreeningDate = formatting(reservation!!.reservedTime)
+        val formattedScreeningDate = formatting(reservation.reservedTime)
 
         title.text = reservation.title
         screeningDate.text = formattedScreeningDate
