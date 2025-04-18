@@ -14,10 +14,10 @@ enum class DayType(
 
     companion object {
         fun of(date: LocalDate): DayType {
-            if (date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY) {
-                return WEEKEND
+            return when (date.dayOfWeek) {
+                DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> WEEKEND
+                else -> WEEKDAY
             }
-            return WEEKDAY
         }
     }
 }
