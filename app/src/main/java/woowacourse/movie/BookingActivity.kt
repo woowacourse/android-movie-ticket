@@ -37,7 +37,7 @@ class BookingActivity : AppCompatActivity() {
 
         val booking = Booking(movieData)
         setUpScreeningDateSpinner(booking)
-        setupScreeningTimeSpinner(booking)
+        setUpScreeningTimeSpinner(booking)
         setUpHeadCount()
 
         setUpReserveConfirm()
@@ -110,7 +110,7 @@ class BookingActivity : AppCompatActivity() {
                 ) {
                     val selectedDate = screeningDateSpinner.getItemAtPosition(position).toString()
                     bookingResult.updateDate(selectedDate)
-                    setupScreeningTimeSpinner(booking)
+                    setUpScreeningTimeSpinner(booking)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -120,7 +120,7 @@ class BookingActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupScreeningTimeSpinner(booking: Booking) {
+    private fun setUpScreeningTimeSpinner(booking: Booking) {
         val screeningTimeSpinner = findViewById<Spinner>(R.id.spinner_screening_time)
         val screeningTimes = booking.screeningTimes(bookingResult.selectedDate)
 
