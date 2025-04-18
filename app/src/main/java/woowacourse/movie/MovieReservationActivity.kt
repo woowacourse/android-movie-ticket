@@ -81,10 +81,10 @@ class MovieReservationActivity : AppCompatActivity() {
 
         poster.setImageResource(movie.poster)
         title.text = movie.title
-        val startDate = movie.startDate.format(DATE_FORMAT)
-        val endDate = movie.endDate.format(DATE_FORMAT)
-        screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
-        runningTime.text = RUNNING_TIME.format(movie.runningTime)
+        val startDate = movie.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern)))
+        val endDate = movie.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern)))
+        screeningDate.text = getString(R.string.screening_date_range_template).format(startDate, endDate)
+        runningTime.text = getString(R.string.running_time_template).format(movie.runningTime)
     }
 
     private fun initializeSpinners(savedTicket: Ticket?) {
@@ -179,9 +179,9 @@ class MovieReservationActivity : AppCompatActivity() {
         val alertDialog =
             AlertDialog.Builder(this).setTitle(R.string.confirm_reservation_title)
                 .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.confirm_reservation_text) { _, _ ->
+                .setPositiveButton(R.string.confirm_reservation_yes) { _, _ ->
                     onConfirmReservation()
-                }.setNegativeButton(R.string.cancel_text) { dialog, _ -> dialog.dismiss() }
+                }.setNegativeButton(R.string.confirm_reservation_no) { dialog, _ -> dialog.dismiss() }
         selectButton.setOnClickListener {
             alertDialog.show()
         }
@@ -207,8 +207,5 @@ class MovieReservationActivity : AppCompatActivity() {
     companion object {
         const val KEY_TICKET = "ticket"
         private const val MINIMUM_TICKET_COUNT = 1
-        private const val SCREENING_DATE_RANGE = "%s ~ %S"
-        private const val RUNNING_TIME = "%d분"
-        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }

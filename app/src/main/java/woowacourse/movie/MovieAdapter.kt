@@ -41,10 +41,13 @@ class MovieAdapter(
         val movie = getItem(position)
         poster.setImageResource(movie.poster)
         title.text = movie.title
-        val startDate = movie.startDate.format(DATE_FORMAT)
-        val endDate = movie.endDate.format(DATE_FORMAT)
-        screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
-        runningTime.text = RUNNING_TIME.format(movie.runningTime)
+
+        val formatter = DateTimeFormatter.ofPattern(context.getString(R.string.date_format_pattern))
+        val startDate = movie.startDate.format(formatter)
+        val endDate = movie.endDate.format(formatter)
+
+        screeningDate.text = context.getString(R.string.screening_date_range_template, startDate, endDate)
+        runningTime.text = context.getString(R.string.running_time_template, movie.runningTime)
 
         reserveButton.setOnClickListener {
             val intent = Intent(context, MovieReservationActivity::class.java)
@@ -57,8 +60,5 @@ class MovieAdapter(
 
     companion object {
         const val KEY_MOVIE = "movie"
-        private const val SCREENING_DATE_RANGE = "%s ~ %S"
-        private const val RUNNING_TIME = "%d분"
-        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
