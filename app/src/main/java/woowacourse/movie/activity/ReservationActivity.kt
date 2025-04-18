@@ -107,26 +107,26 @@ class ReservationActivity : AppCompatActivity() {
                 .toIntOrNull()
                 ?.plus(1)
                 ?.toString()
-                ?: "1"
+                ?: MEMBER_COUNT_DEFAULT
         }
 
         binding.minusButton.setOnClickListener {
-            if (memberCount.toString().toInt() <= 1) {
-                Toast.makeText(this, "1명 이상의 인원을 선택해야 합니다", Toast.LENGTH_SHORT).show()
+            if (memberCount.toString().toInt() <= MINIMUM_MEMBER_COUNT) {
+                Toast.makeText(this, getString(R.string.request_least_one_person), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
             binding.count.text = binding.count.text.toString()
                 .toIntOrNull()
                 ?.minus(1)
                 ?.toString()
-                ?: "1"
+                ?: MEMBER_COUNT_DEFAULT
         }
 
         binding.commonButton.setOnClickListener {
             AlertDialog.Builder(this)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setPositiveButton("예매 완료") { _, _ ->
+                .setTitle(getString(R.string.complete_dialog_title))
+                .setMessage(getString(R.string.complete_dialog_message))
+                .setPositiveButton(getString(R.string.complete_dialog_positive_button)) { _, _ ->
                     navigateToReservationComplete(
                         BookingStatus(
                             movie = movie,
@@ -136,7 +136,7 @@ class ReservationActivity : AppCompatActivity() {
                         ),
                     )
                 }
-                .setNegativeButton("취소") { dialog, _ ->
+                .setNegativeButton(R.string.complete_dialog_negative_button) { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()
@@ -176,5 +176,7 @@ class ReservationActivity : AppCompatActivity() {
         const val RUNNING_TIME_KEY = "runningTime"
         const val RESERVATION_DAY_KEY = "reservationDay"
         const val BOOKING_STATUS_KEY = "bookingStatus"
+        const val MEMBER_COUNT_DEFAULT = "1"
+        const val MINIMUM_MEMBER_COUNT = 1
     }
 }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="request_least_one_person">1명 이상의 인원을 선택해야 합니다</string>
+    <string name="complete_dialog_title">예매 확인</string>
+    <string name="complete_dialog_message">정말 예매하시겠습니까?</string>
+    <string name="complete_dialog_positive_button">예매 완료</string>
+    <string name="complete_dialog_negative_button">취소</string>
+</resources>
