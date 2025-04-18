@@ -42,11 +42,6 @@ android {
             excludes += "win32-x86*/**"
         }
     }
-    testOptions {
-        emulatorControl {
-            enable = true
-        }
-    }
 }
 
 dependencies {
@@ -61,7 +56,6 @@ dependencies {
     testImplementation(libs.kotest.runner.junit5)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.intents)
-    androidTestImplementation(libs.androidx.espresso.device)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.assertj.core)

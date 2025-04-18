@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso.onData
@@ -8,10 +9,6 @@ import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrientation
-import androidx.test.espresso.device.EspressoDevice.Companion.onDevice
-import androidx.test.espresso.device.action.ScreenOrientation
-import androidx.test.espresso.device.rules.ScreenOrientationRule
 import androidx.test.espresso.intent.Intents.init
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.Intents.release
@@ -24,7 +21,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_DATE_KEY
 import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TIME_KEY
@@ -35,10 +31,6 @@ import woowacourse.movie.BookingDetailActivity.Companion.newIntent
 @Suppress("ktlint:standard:function-naming")
 class BookingDetailActivityTest {
     private lateinit var activityScenario: ActivityScenario<BookingDetailActivity>
-
-    @get:Rule
-    val screenOrientationRule: ScreenOrientationRule =
-        ScreenOrientationRule(ScreenOrientation.PORTRAIT)
 
     @Before
     fun setup() {
@@ -176,7 +168,9 @@ class BookingDetailActivityTest {
         onView(withId(R.id.btn_booking_detail_count_up))
             .perform(click())
 
-        onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
+        activityScenario.onActivity {
+            it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
 
         onView(withId(R.id.sp_booking_detail_date))
             .check(matches(withSpinnerText("2025-04-02")))
