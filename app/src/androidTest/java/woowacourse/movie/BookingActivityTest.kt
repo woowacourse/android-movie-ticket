@@ -17,29 +17,24 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
-
-    @get:Rule
-    val activityRule = ActivityScenarioRule(BookingActivity::class.java)
+    private val movie = mockMovie()
 
     @Before
     fun setUp() {
         Intents.init()
 
-        val movie = mockMovie()
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
                 putExtra("movieData", movie)

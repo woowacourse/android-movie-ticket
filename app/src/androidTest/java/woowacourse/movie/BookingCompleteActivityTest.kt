@@ -9,25 +9,20 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.BookingResult
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
-
-    @get:Rule
-    val activityRule = ActivityScenarioRule(BookingCompleteActivity::class.java)
+    private val bookingResult = mockBookingResult()
 
     @Before
     fun setUp() {
         Intents.init()
 
-        val bookingResult = mockBookingResult()
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
                 putExtra("bookingResult", bookingResult)
