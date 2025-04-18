@@ -95,9 +95,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:gravity="center"
-                tools:text="1"
                 android:textColor="@color/black"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                tools:text="1" />
 
             <Button
                 android:id="@+id/btn_reservation_number_plus"
