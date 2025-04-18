@@ -21,7 +21,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val bookingStatus = intent.getObjectFromIntent<BookingStatus>("bookingStatus")
+        val bookingStatus = intent.getObjectFromIntent<BookingStatus>(ReservationActivity.BOOKING_STATUS_KEY)
 
         binding.bookedMovieTitleText.text = bookingStatus.movie.title
         binding.bookedMovieRunningDayText.text =

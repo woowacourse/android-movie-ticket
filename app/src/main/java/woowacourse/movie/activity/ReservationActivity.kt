@@ -43,12 +43,12 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val movie = intent.getObjectFromIntent<Movie>("movie")
-        val memberCount = savedInstanceState?.getString("memberCount") ?: binding.count.text
+        val movie = intent.getObjectFromIntent<Movie>(MainActivity.MOVIE_KEY)
+        val memberCount = savedInstanceState?.getString(MEMBER_COUNT_KEY) ?: binding.count.text
         binding.count.text = memberCount
 
-        runningTimePosition = savedInstanceState?.getInt("runningTime") ?: 0
-        datePosition = savedInstanceState?.getInt("reservationDay") ?: 0
+        runningTimePosition = savedInstanceState?.getInt(RUNNING_TIME_KEY) ?: 0
+        datePosition = savedInstanceState?.getInt(RESERVATION_DAY_KEY) ?: 0
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
                 MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(),
@@ -160,14 +160,21 @@ class ReservationActivity : AppCompatActivity() {
     private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
         val intent =
             Intent(this, ReservationCompleteActivity::class.java)
-                .apply { putExtra("bookingStatus", bookingStatus) }
+                .apply { putExtra(BOOKING_STATUS_KEY, bookingStatus) }
         startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString("memberCount", binding.count.text.toString())
-        outState.putInt("runningTime", runningTimePosition)
-        outState.putInt("reservationDay", datePosition)
+        outState.putString(MEMBER_COUNT_KEY, binding.count.text.toString())
+        outState.putInt(RUNNING_TIME_KEY, runningTimePosition)
+        outState.putInt(RESERVATION_DAY_KEY, datePosition)
+    }
+
+    companion object {
+        const val MEMBER_COUNT_KEY = "memberCount"
+        const val RUNNING_TIME_KEY = "runningTime"
+        const val RESERVATION_DAY_KEY = "reservationDay"
+        const val BOOKING_STATUS_KEY = "bookingStatus"
     }
 }
