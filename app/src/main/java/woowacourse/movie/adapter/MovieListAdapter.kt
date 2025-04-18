@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 
 class MovieListAdapter(

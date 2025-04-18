@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.adapter
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.activity
 
 import android.app.AlertDialog
 import android.content.Intent
@@ -11,6 +11,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
+import woowacourse.movie.adapter.ReservationDaySpinnerAdapter
+import woowacourse.movie.adapter.RunningTimeSpinnerAdapter
 import woowacourse.movie.databinding.BookingBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
