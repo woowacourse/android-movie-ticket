@@ -42,7 +42,8 @@
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="영화 제목" />
 
         <TextView
             android:id="@+id/tv_release_date"
@@ -63,7 +64,8 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_release_date"
             app:layout_constraintStart_toEndOf="@id/tv_release_date"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            tools:text="2025.4.1 ~ 2025.4.25" />
 
         <TextView
             android:id="@+id/tv_running_time_title"
@@ -84,7 +86,8 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="@id/tv_running_time_title"
             app:layout_constraintStart_toEndOf="@id/tv_running_time_title"
-            app:layout_constraintTop_toTopOf="@id/tv_running_time_title" />
+            app:layout_constraintTop_toTopOf="@id/tv_running_time_title"
+            tools:text="152분" />
 
         <Spinner
             android:id="@+id/sp_date"
