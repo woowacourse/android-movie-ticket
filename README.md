@@ -1,22 +1,15 @@
 # android-movie-ticket
 
-영화(movie)
 - [X] 영화 정보에는 영화 제목, 영화 포스터 url, 상영일, 러닝타임이 있다.
-
-영화 예매 정보
 - [X] 영화 예매 정보에는 예매 여부가 있다.
 - [X] 예매를 할 수 있다.
 - [x] 예매를 취소할 수 있다.
-
 - [x] movie_ticket, booking_status 데이터 생성
 - [x] movie_ticket의 데이터를 불러올 수 있다
 - [x] booking_status의 데이터를 불러올 수 있다
-
 - [x] 예약할 인원을 선택할 수 있다.
-- [x] 
-  + 버튼을 누르면 인원이 증가한다
-- [x] 
-  - 버튼을 누르면 인원이 감소한다
+- [x] + 버튼을 누르면 인원이 증가한다
+- [x] - 버튼을 누르면 인원이 감소한다
 - [X] 1명의 인원이면 - 버튼을 누를 수 없다
 - [ ] 날짜와 시간을 정할 수 있다.
   - 각 영화의 상영일은 각자의 범위를 갖는다(예: 2025.4.1 ~ 2025.4.25).
@@ -27,10 +20,43 @@
 - [ ] 화면이 회전되어도 입력한 정보는 유지되어야 한다.
 - [X] 예매 완료를 확인하는 다이얼로그가 표시되고 배경을 터치해도 사라지지 않아야 한다.
 - [X] 다이얼로그에서 예매 완료를 선택하면 예매 내역 화면으로 이동한다.
--
-
 - [x] 예매 완료 화면에 예매한 가격 정보와 인원이 나온다
   - 영화 티켓 한 장은 13,000원이다.
 
+## 1, 2 두루 review 반영
+- [ ] 하드코딩된 내용을 더미데이터로 만듬 ex) movie
+- [ ] MainActivity 라는 네이밍을 좀 더 기능이 드러나게 변경
+- [ ] MainActivity onCreate 함수 기능별로 분리
+- [ ] MainActivity의 Intent Extra 따로 관리
+- [ ] MovieListAdapter의 onReservationClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각
+- [ ] MovieListAdapter 기능별로 함수 분리
+- [ ] MovieListAdapterExt 정렬하기
+- [ ] ReservationActivity의 하드 코딩된 값 string.xml을 활용해 재사용
+- [ ] ReservationActivity 버전별 분기 함수로 재사용하도록 만들기
+- [ ] ReservationActivity 기능별로 분리
+- [ ] 생명주기 공부하기
+  - [ ] configurationChange 키워드 살펴보기
+- [ ] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
+- [ ] dao, data 부분 삭제
+- [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
+- [ ] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
+- [ ] booking.xml 비율로 만든 부분 수정하기
 
-
+## 개인적으로 해 보고 싶은 부분
+- [ ] view holder 객체 만들어서 convert에 저장
+- [ ] findViewBy 저장하는 것
+- [ ] convertView
+- [ ] 전달되는 행위, 전달된 데이터가 띄는 지 테스트의 차이 -> 테스트의 목적
+- [ ] appBar에는 "Movie"라고 적혀있다.
+- [ ] 기본 정보가 담은 화면이 있다.
+- [ ] 하나의 영화가 목록에서 보인다.
+- [ ] 영화에는 포스터, 제목, 상영일, 러닝타임이 있다.
+- [ ] 지금 예매 버튼이 있다.
+- [ ] 지금 예매를 누를 수 있다.
+- [ ] 지금 예매를 누르면 기본 정보가 담은 화면으로 넘어간다.
+- [ ] 뒤로가기 버튼이 있다.
+- [ ] 뒤로가기 버튼을 누르면 뒤로 갈 수 있다.
+- [ ] 예약 완료 페이지가 있다.
+- [ ] 예약 완료 페이지에는 "영화 상영 시작 시간 15분 전까지 취소가 가능합니다."라고 적혀있다.
+- [ ] 예약 완료 페이지에는 영화 제목이 있다.
+- [ ] 예약 완료 페이지에는 영화 상영일이 있다.
