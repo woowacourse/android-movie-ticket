@@ -78,6 +78,7 @@ class BookingActivityTest {
 
     @Test
     fun `인원_증가_버튼을_누르면_인원이_1_증가한다`() {
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
         onView(withId(R.id.btn_increase)).perform(click())
         onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
     }
