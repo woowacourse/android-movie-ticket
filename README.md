@@ -43,6 +43,7 @@
 - [ ] booking.xml 비율로 만든 부분 수정하기
 
 ## 개인적으로 해 보고 싶은 부분
+- [ ] intent 공부하기
 - [ ] view holder 객체 만들어서 convert에 저장
 - [ ] findViewBy 저장하는 것
 - [ ] convertView
