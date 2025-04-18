@@ -4,9 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.StringFormatter.dotDateFormat
@@ -27,37 +24,37 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater.from(parent?.context)
-                .inflate(R.layout.movie_item, parent, false)
-        return bind(view, position)
+        val view: View
+        val viewHolder: MovieViewHolder
+
+        val item: Movie = getItem(position)
+
+        if (convertView == null) {
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
+            viewHolder = MovieViewHolder(position, view, onClickBooking)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as MovieViewHolder
+        }
+
+        bind(position, viewHolder, item)
+        return view
     }
 
     private fun bind(
-        convertView: View,
         position: Int,
-    ): View {
-        val moviePoster = convertView.findViewById<ImageView>(R.id.img_poster)
-        val movieTitle = convertView.findViewById<TextView>(R.id.tv_title)
-        val movieReleaseDate = convertView.findViewById<TextView>(R.id.tv_release_date)
-        val movieRunningTime = convertView.findViewById<TextView>(R.id.tv_running_time)
-        val bookingBtn = convertView.findViewById<Button>(R.id.btn_booking)
-
-        val item = getItem(position)
-
-        moviePoster.setImageResource(item.poster)
-        movieTitle.text = item.title
-        movieReleaseDate.text =
+        viewHolder: MovieViewHolder,
+        item: Movie,
+    ) {
+        viewHolder.position = position
+        viewHolder.moviePoster.setImageResource(item.poster)
+        viewHolder.movieTitle.text = item.title
+        viewHolder.movieReleaseDate.text =
             datePeriod.format(
                 dotDateFormat(item.releaseDate.startDate),
                 dotDateFormat(item.releaseDate.endDate),
             )
-        movieRunningTime.text = item.runningTime
-
-        bookingBtn.setOnClickListener {
-            onClickBooking(position)
-        }
-
-        return convertView
+        viewHolder.movieRunningTime.text = item.runningTime
     }
 }
