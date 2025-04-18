@@ -43,11 +43,7 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        val movie = intent.getObjectFromIntent<Movie>(MainActivity.MOVIE_KEY)
-        setBindingText(movie)
-        setScreeningTimes(movie)
-        setEventListener(movie)
+        init()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -63,6 +59,15 @@ class ReservationActivity : AppCompatActivity() {
         binding.count.text = memberCount.toString()
         binding.timePickerActions.setSelection(savedInstanceState.getInt(RUNNING_TIME_KEY))
         binding.datePickerActions.setSelection(savedInstanceState.getInt(RESERVATION_DAY_KEY))
+    }
+
+    private fun init() {
+        val movie = intent.getObjectFromIntent<Movie>(MainActivity.MOVIE_KEY)
+        setBindingText(movie)
+        setScreeningDate(movie)
+        setScreeningTime()
+        setCounterEventListener()
+        setCompleteButtonEventListener(movie)
     }
 
     private fun setBindingText(movie: Movie) {
@@ -81,7 +86,7 @@ class ReservationActivity : AppCompatActivity() {
             )
     }
 
-    private fun setEventListener(movie: Movie) {
+    private fun setCounterEventListener() {
         binding.plusButton.setOnClickListener {
             memberCount++
             binding.count.text = memberCount.toString()
@@ -95,7 +100,9 @@ class ReservationActivity : AppCompatActivity() {
             memberCount--
             binding.count.text = memberCount.toString()
         }
+    }
 
+    private fun setCompleteButtonEventListener(movie: Movie) {
         binding.commonButton.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle(getString(R.string.complete_dialog_title))
@@ -118,7 +125,7 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setScreeningTimes(movie: Movie) {
+    private fun setScreeningDate(movie: Movie) {
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
                 MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(),
@@ -148,7 +155,9 @@ class ReservationActivity : AppCompatActivity() {
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                 }
             }
+    }
 
+    private fun setScreeningTime() {
         binding.timePickerActions.adapter =
             RunningTimeSpinnerAdapter(
                 RunningTimes().runningTimes(reservationDay),
