@@ -35,3 +35,27 @@
 
 - [x] 영화 제목과 상영일을 표시한다
 - [x] `영화 예매 내역 화면`에서 뒤로 가기 버튼을 누르면 `영화 목록 화면`으로 전환된다
+
+
+### 1차 피드백 반영
+
+- [ ] Test에 Fixture 관심사 분리
+- [ ] 테스트 -> 해야 한다로 테스트 네이밍 수정
+- [ ] DisplayName이 테스트에 표시되도록 수정
+- [ ] 화면 회전간에 데이터가 유지가 되고 그것이 표시가 되어야 한다.(테스트 tip: UI에서 어떠한 상태에서 어떻게 표시가 되는지)
+- [ ] 테스트 분리
+- [ ] lateinit 위험 사항 학습 후 사용 기준을 정해서 사용
+- [ ] onCreate 함수안에 기능 분리
+- [ ] !! 사용 수정
+- [ ] string resource 학습 후 사용 기준을 정하고 사용
+- [ ] 라이프 사이클에서 onStart와 onResume의 기준 정리
+- [ ] 분기처리에서 Parcelable 중복 처리
+- [ ] onOptionsItemSelected 학습후에 개선 할지 여부 판단
+- [ ] onCreate 함수 역할 분리
+- [ ] Dialog 전역 생성 및 title을 동적으로 수정
+- [ ] 받는 곳에서 key값을 보유하고 보내는 곳에서 Key 값을 받도록 수정
+- [ ] DateScheduler에 관한 고민
+- [ ] Reservation에 ticketCount에 관한 고민
+- [ ] ticketPrice를 열거형 객체로 변경
+- [ ] ConstraintLayout 학습 및 위치 관계 및 크기 정의 수정
+- [ ] 입장 가능 시간 비즈니스 로직으로 분리
