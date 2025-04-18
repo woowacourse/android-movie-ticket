@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MoviesActivity">
+    tools:context=".view.movie.MoviesActivity">
 
     <ListView
         android:id="@+id/lv_main_movies"

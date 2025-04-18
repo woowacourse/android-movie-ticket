@@ -12,7 +12,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.MoviesActivity
+import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
 
 class MoviesActivityTest {

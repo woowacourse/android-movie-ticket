@@ -15,7 +15,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.view.ReservationActivity
+import woowacourse.movie.view.reservation.ReservationActivity
 
 class ReservationActivityTest {
     @get:Rule

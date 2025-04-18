@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movie
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.view.Formatter
 
 class MovieAdapter(
     private val context: Context,

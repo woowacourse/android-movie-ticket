@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.reservation
 
 import android.content.Intent
 import android.os.Build
@@ -24,6 +24,7 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
+import woowacourse.movie.view.Formatter
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -207,7 +208,7 @@ class ReservationActivity : AppCompatActivity() {
         val intent =
             Intent(this, ReservationCompleteActivity::class.java).apply {
                 putExtra(
-                    ReservationCompleteActivity.Companion.TICKET_DATA_KEY,
+                    ReservationCompleteActivity.TICKET_DATA_KEY,
                     MovieTicket(
                         title = movie.title,
                         timeStamp =

@@ -13,10 +13,10 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".view.ReservationActivity"
+            android:name=".view.reservation.ReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.MoviesActivity"
+            android:name=".view.movie.MoviesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.ReservationCompleteActivity"
+            android:name=".view.reservation.ReservationCompleteActivity"
             android:exported="false" />
     </application>
 

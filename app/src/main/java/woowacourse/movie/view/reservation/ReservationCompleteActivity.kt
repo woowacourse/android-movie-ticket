@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.reservation
 
 import android.os.Build
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.view.Formatter
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }

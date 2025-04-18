@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movie
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.view.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +40,7 @@ class MoviesActivity : AppCompatActivity() {
             Intent(
                 this,
                 ReservationActivity::class.java,
-            ).apply { putExtra(ReservationActivity.Companion.MOVIE_DATA_KEY, movie) }
+            ).apply { putExtra(ReservationActivity.MOVIE_DATA_KEY, movie) }
         startActivity(intent)
     }
 }
