@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import androidx.annotation.DrawableRes
 import java.time.LocalDate
 
 data class Movie(
@@ -7,7 +8,7 @@ data class Movie(
     val startDate: LocalDate,
     val endDate: LocalDate,
     val runningTime: Int,
-    val poster: Int,
+    @DrawableRes val poster: Int,
 )
 
 val movies: List<Movie> =
