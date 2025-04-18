@@ -128,7 +128,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     initTimeSpinner(timeSpinner, savedDateTime?.toLocalTime())
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
 
         savedDateTime?.toLocalDate()?.let { selectedDate = it }
@@ -160,7 +160,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     selectedTime = showtimes[position]
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
 
         savedTime?.let { selectedTime = it }
