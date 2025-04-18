@@ -27,6 +27,7 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var runningDateTime: LocalTime
     private var runningTimePosition: Int = 0
     private var datePosition: Int = 0
+    private var isSpinnerInitialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +61,10 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
+                    if (!isSpinnerInitialized) {
+                        isSpinnerInitialized = true
+                        return
+                    }
                     reservationDay = parent?.getItemAtPosition(position) as LocalDate
                     binding.timePickerActions.adapter =
                         RunningTimeSpinnerAdapter(
