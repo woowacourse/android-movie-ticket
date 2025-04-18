@@ -27,7 +27,7 @@
         android:textSize="24dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/poster" />
+        app:layout_constraintTop_toBottomOf="@id/poster" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
         android:layout_marginTop="12dp"
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/movie_title">
+        app:layout_constraintTop_toBottomOf="@id/movie_title">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
         android:layout_marginBottom="12dp"
         android:orientation="horizontal"
         android:paddingHorizontal="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/ticket_select">
+        app:layout_constraintBottom_toTopOf="@id/ticket_select">
 
         <Spinner
             android:id="@+id/date_spinner"
