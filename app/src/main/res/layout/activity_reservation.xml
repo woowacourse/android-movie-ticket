@@ -81,16 +81,16 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_reservation_number_minus"
+                android:id="@+id/btn_reservation_count_minus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/reservation_number_minus"
+                android:text="@string/reservation_count_minus"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_reservation_number"
+                android:id="@+id/tv_reservation_count"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
@@ -100,11 +100,11 @@
                 android:textSize="20sp" />
 
             <Button
-                android:id="@+id/btn_reservation_number_plus"
+                android:id="@+id/btn_reservation_count_plus"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="@string/reservation_number_plus"
+                android:text="@string/reservation_count_plus"
                 android:textSize="20sp"
                 android:textStyle="bold" />
         </LinearLayout>

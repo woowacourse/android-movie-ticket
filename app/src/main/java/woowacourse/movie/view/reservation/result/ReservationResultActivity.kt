@@ -36,7 +36,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         setupCancelDescription()
         setupMovieTitle(reservationInfo?.title)
         setupMovieDate(reservationInfo?.reservationDateTime)
-        setupReservationNumber(reservationInfo?.reservationNumber)
+        setupReservationCount(reservationInfo?.reservationCount)
         setupTotalPrice(reservationInfo?.totalPrice())
     }
 
@@ -58,10 +58,10 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         }
     }
 
-    private fun setupReservationNumber(reservationNumber: Int?) {
-        val tvReservationNumberInfo = findViewById<TextView>(R.id.tv_reservation_number_info)
-        tvReservationNumberInfo?.text =
-            getString(R.string.reservation_number_info).format(reservationNumber)
+    private fun setupReservationCount(reservationCount: Int?) {
+        val tvReservationCountInfo = findViewById<TextView>(R.id.tv_reservation_count_info)
+        tvReservationCountInfo?.text =
+            getString(R.string.reservation_count_info).format(reservationCount)
     }
 
     private fun setupTotalPrice(totalPrice: Int?) {

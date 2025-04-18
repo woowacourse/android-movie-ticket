@@ -21,7 +21,7 @@ class ReservationResultActivityTest {
             ReservationInfo(
                 title = "해리 포터와 마법사의 돌",
                 reservationDateTime = LocalDateTime.of(2025, 4, 15, 11, 0),
-                reservationNumber = 2,
+                reservationCount = 2,
             )
         val bundle = Bundle().apply { putSerializable("reservation_info", reservationInfo) }
         val intent =
@@ -50,7 +50,7 @@ class ReservationResultActivityTest {
 
     @Test
     fun `예매한_영화의_예매_인원_수를_보여준다`() {
-        onView(withId(R.id.tv_reservation_number_info))
+        onView(withId(R.id.tv_reservation_count_info))
             .check(matches(withText("일반 2명")))
     }
 

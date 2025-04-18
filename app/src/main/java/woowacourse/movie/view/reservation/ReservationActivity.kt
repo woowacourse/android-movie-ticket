@@ -24,11 +24,11 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
-    private var reservationNumber = ReservationInfo.RESERVATION_MIN_NUMBER
+    private var reservationCount = ReservationInfo.RESERVATION_MIN_NUMBER
     private var shouldIgnoreNextSelection = false
     private var movie: Movie? = null
 
-    private val tvReservationNumber by lazy { findViewById<TextView>(R.id.tv_reservation_number) }
+    private val tvReservationCount by lazy { findViewById<TextView>(R.id.tv_reservation_count) }
     private val spinnerDate by lazy { findViewById<Spinner>(R.id.spinner_reservation_date) }
     private val spinnerTime by lazy { findViewById<Spinner>(R.id.spinner_reservation_time) }
     private val dateSpinnerAdapter: ArrayAdapter<LocalDate> by lazy {
@@ -83,13 +83,13 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
         outState.apply {
             putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime.toString())
-            putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationNumber)
+            putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount)
         }
     }
 
     private fun restoreReservationInfo(savedInstanceState: Bundle) {
-        reservationNumber = savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
-        tvReservationNumber.text = reservationNumber.toString()
+        reservationCount = savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
+        tvReservationCount.text = reservationCount.toString()
 
         movie?.let {
             val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
@@ -127,9 +127,9 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun setupData() {
-        reservationNumber = tvReservationNumber.text.toString().toIntOrNull()
+        reservationCount = tvReservationCount.text.toString().toIntOrNull()
             ?: ReservationInfo.RESERVATION_MIN_NUMBER
-        tvReservationNumber.text = reservationNumber.toString()
+        tvReservationCount.text = reservationCount.toString()
         movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
@@ -141,20 +141,20 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     private fun setupListener() {
         val btnReservationFinish = findViewById<Button>(R.id.btn_reservation_finish)
         btnReservationFinish.setOnClickListener {
-            if (reservationNumber < ReservationInfo.RESERVATION_MIN_NUMBER) return@setOnClickListener
+            if (reservationCount < ReservationInfo.RESERVATION_MIN_NUMBER) return@setOnClickListener
             reservationDialog.show()
         }
 
-        val btnMinus = findViewById<Button>(R.id.btn_reservation_number_minus)
+        val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
         btnMinus.setOnClickListener {
-            if (reservationNumber > ReservationInfo.RESERVATION_MIN_NUMBER) {
-                tvReservationNumber.text = (--reservationNumber).toString()
+            if (reservationCount > ReservationInfo.RESERVATION_MIN_NUMBER) {
+                tvReservationCount.text = (--reservationCount).toString()
             }
         }
 
-        val btnPlus = findViewById<Button>(R.id.btn_reservation_number_plus)
+        val btnPlus = findViewById<Button>(R.id.btn_reservation_count_plus)
         btnPlus.setOnClickListener {
-            tvReservationNumber.text = (++reservationNumber).toString()
+            tvReservationCount.text = (++reservationCount).toString()
         }
     }
 
@@ -171,7 +171,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             ReservationInfo(
                 title = findViewById<TextView>(R.id.tv_reservation_title).text.toString(),
                 reservationDateTime = LocalDateTime.of(reservationDate, reservationTime),
-                reservationNumber = reservationNumber,
+                reservationCount = reservationCount,
             )
 
         val intent =
