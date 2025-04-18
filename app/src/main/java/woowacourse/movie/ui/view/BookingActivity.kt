@@ -28,7 +28,7 @@ class BookingActivity : AppCompatActivity() {
     private val movie: Movie by lazy {
         intent.intentSerializable(
             getString(R.string.movie_info_key),
-            Movie::class.java
+            Movie::class.java,
         )
     }
     private lateinit var date: LocalDate
@@ -99,55 +99,62 @@ class BookingActivity : AppCompatActivity() {
         val dateSpinner = findViewById<Spinner>(R.id.dateSpinner)
         val dates = movieScheduler.getBookableDates()
 
-        dateSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            dates
-        )
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                dates,
+            )
 
         val index = if (::date.isInitialized) dates.indexOf(date) else 0
         dateSpinner.setSelection(index)
 
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                date = dateSpinner.getItemAtPosition(position) as LocalDate
-                setupTimeSpinner(movieScheduler, date)
-            }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    date = dateSpinner.getItemAtPosition(position) as LocalDate
+                    setupTimeSpinner(movieScheduler, date)
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
-    private fun setupTimeSpinner(movieScheduler: MovieScheduler, selectedDate: LocalDate) {
+    private fun setupTimeSpinner(
+        movieScheduler: MovieScheduler,
+        selectedDate: LocalDate,
+    ) {
         val timeSpinner = findViewById<Spinner>(R.id.timeSpinner)
         val times = movieScheduler.getBookableTimes(selectedDate)
 
-        timeSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            times
-        )
+        timeSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                times,
+            )
 
         val index = if (::time.isInitialized) times.indexOf(time) else 0
         timeSpinner.setSelection(index)
 
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                time = timeSpinner.getItemAtPosition(position) as LocalTime
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    time = timeSpinner.getItemAtPosition(position) as LocalTime
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     private fun showDialog() {
@@ -161,12 +168,13 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun onConfirm() {
-        val movieTicket = MovieTicket(
-            title = movie.title,
-            screeningDateTime = LocalDateTime.of(date, time),
-            headCount = headCount,
-            pricingPolicy = DefaultPricingPolicy()
-        )
+        val movieTicket =
+            MovieTicket(
+                title = movie.title,
+                screeningDateTime = LocalDateTime.of(date, time),
+                headCount = headCount,
+                pricingPolicy = DefaultPricingPolicy(),
+            )
 
         val intent = Intent(this, BookingSummaryActivity::class.java)
         intent.putExtra(getString(R.string.ticket_info_key), movieTicket)

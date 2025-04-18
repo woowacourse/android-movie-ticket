@@ -9,11 +9,17 @@ object CustomFormatter {
 
     fun formatDateTime(dateTime: LocalDateTime): String = dateTime.format(dateTimeFormatter)
 
-    fun formatHeadCount(message: String, headCount: Int): String {
+    fun formatHeadCount(
+        message: String,
+        headCount: Int,
+    ): String {
         return String.format(message, headCount)
     }
 
-    fun formatAmount(message: String, value: Int): String {
+    fun formatAmount(
+        message: String,
+        value: Int,
+    ): String {
         return String.format(message, value.formatWithComma())
     }
 

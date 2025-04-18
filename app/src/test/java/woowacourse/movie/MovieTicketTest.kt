@@ -13,12 +13,13 @@ class MovieTicketTest {
 
     @BeforeEach
     fun setUp() {
-        movieTicket = MovieTicket(
-            "승부",
-            LocalDateTime.of(2025, 4, 16, 11, 0),
-            3,
-            DefaultPricingPolicy()
-        )
+        movieTicket =
+            MovieTicket(
+                "승부",
+                LocalDateTime.of(2025, 4, 16, 11, 0),
+                3,
+                DefaultPricingPolicy(),
+            )
     }
 
     @Test

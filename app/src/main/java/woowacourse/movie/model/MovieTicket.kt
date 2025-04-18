@@ -7,7 +7,7 @@ data class MovieTicket(
     val title: String,
     val screeningDateTime: LocalDateTime,
     val headCount: Int,
-    private val pricingPolicy: PricingPolicy
+    private val pricingPolicy: PricingPolicy,
 ) : Serializable {
     val amount: Int = pricingPolicy.calculatePrice(headCount)
 }

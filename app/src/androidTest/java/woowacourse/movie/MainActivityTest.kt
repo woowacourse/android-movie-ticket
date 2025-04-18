@@ -54,10 +54,11 @@ class MainActivityTest {
     @DisplayName("상영일이 표시된다")
     @Test
     fun screeningDateTest() {
-        val expected = listOf(
-            "상영일: 2025-03-26 ~ 2025-04-26",
-            "상영일: 2025-04-01 ~ 2025-04-29"
-        )
+        val expected =
+            listOf(
+                "상영일: 2025-03-26 ~ 2025-04-26",
+                "상영일: 2025-04-01 ~ 2025-04-29",
+            )
 
         expected.forEachIndexed { index, title ->
             onData(anything())
@@ -71,10 +72,11 @@ class MainActivityTest {
     @DisplayName("러닝타임이 표시된다")
     @Test
     fun runningTimeTest() {
-        val expected = listOf(
-            "러닝타임: 115분",
-            "러닝타임: 137분"
-        )
+        val expected =
+            listOf(
+                "러닝타임: 115분",
+                "러닝타임: 137분",
+            )
 
         expected.forEachIndexed { index, title ->
             onData(anything())
@@ -96,8 +98,10 @@ class MainActivityTest {
 
         intended(hasComponent(BookingActivity::class.java.name))
 
-        intended(allOf(
-            hasExtraWithKey("Movie")
-        ))
+        intended(
+            allOf(
+                hasExtraWithKey("Movie"),
+            ),
+        )
     }
 }

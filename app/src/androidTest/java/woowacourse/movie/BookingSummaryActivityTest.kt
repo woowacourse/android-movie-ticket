@@ -22,19 +22,21 @@ import java.time.LocalDateTime
 class BookingSummaryActivityTest {
     @Before
     fun setUp() {
-        val ticket = MovieTicket(
-            "Test",
-            LocalDateTime.of(2025, 4, 18, 12, 0),
-            2,
-            DefaultPricingPolicy()
-        )
+        val ticket =
+            MovieTicket(
+                "Test",
+                LocalDateTime.of(2025, 4, 18, 12, 0),
+                2,
+                DefaultPricingPolicy(),
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            BookingSummaryActivity::class.java
-        ).apply {
-            putExtra("Ticket", ticket)
-        }
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                BookingSummaryActivity::class.java,
+            ).apply {
+                putExtra("Ticket", ticket)
+            }
 
         ActivityScenario.launch<BookingActivity>(intent)
     }

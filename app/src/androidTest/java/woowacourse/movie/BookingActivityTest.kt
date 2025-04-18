@@ -10,11 +10,11 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
-import org.hamcrest.CoreMatchers.allOf
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -31,20 +31,22 @@ class BookingActivityTest {
     fun setUp() {
         Intents.init()
 
-        val movie = Movie(
-            "Test",
-            LocalDate.of(2025, 4, 17),
-            LocalDate.of(2025, 4, 30),
-            100,
-            R.drawable.match
-        )
+        val movie =
+            Movie(
+                "Test",
+                LocalDate.of(2025, 4, 17),
+                LocalDate.of(2025, 4, 30),
+                100,
+                R.drawable.match,
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            BookingActivity::class.java
-        ).apply {
-            putExtra("Movie", movie)
-        }
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                BookingActivity::class.java,
+            ).apply {
+                putExtra("Movie", movie)
+            }
 
         ActivityScenario.launch<BookingActivity>(intent)
     }
@@ -119,8 +121,10 @@ class BookingActivityTest {
 
         intended(hasComponent(BookingSummaryActivity::class.java.name))
 
-        intended(allOf(
-            hasExtraWithKey("Ticket")
-        ))
+        intended(
+            allOf(
+                hasExtraWithKey("Ticket"),
+            ),
+        )
     }
 }

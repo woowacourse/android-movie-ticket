@@ -15,10 +15,11 @@ class MovieSchedulerTest {
 
     @BeforeEach
     fun setUp() {
-        movieScheduler = MovieScheduler(
-            LocalDate.of(2025, 4, 16),
-            LocalDate.of(2025, 4, 30)
-        )
+        movieScheduler =
+            MovieScheduler(
+                LocalDate.of(2025, 4, 16),
+                LocalDate.of(2025, 4, 30),
+            )
     }
 
     @Test
