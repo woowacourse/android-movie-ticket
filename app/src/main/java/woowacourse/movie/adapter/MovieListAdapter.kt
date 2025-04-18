@@ -7,7 +7,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 
@@ -52,12 +51,7 @@ class MovieListAdapter(
                 currentItem.startDateTime.toFormattedString(),
                 currentItem.endDateTime.toFormattedString(),
             )
-        holder.posterImageView.setImageDrawable(
-            AppCompatResources.getDrawable(
-                parent.context,
-                currentItem.posterUrl,
-            ),
-        )
+        holder.posterImageView.setImageResource(R.drawable.movie_poster)
         parent.context
 
         val button = view.findViewById<Button>(R.id.btn_book)
