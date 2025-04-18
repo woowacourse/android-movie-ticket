@@ -31,6 +31,7 @@ class ReservationActivity : AppCompatActivity() {
     private var runningTimePosition: Int = 0
     private var datePosition: Int = 0
     private var isSpinnerInitialized = false
+    private var memberCount = MEMBER_COUNT_DEFAULT
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,8 +45,7 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val movie = intent.getObjectFromIntent<Movie>(MainActivity.MOVIE_KEY)
-        val memberCount = MEMBER_COUNT_DEFAULT
-        binding.count.text = memberCount
+        binding.count.text = memberCount.toString()
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
                 MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(),
@@ -98,11 +98,8 @@ class ReservationActivity : AppCompatActivity() {
             }
 
         binding.plusButton.setOnClickListener {
-            binding.count.text = binding.count.text.toString()
-                .toIntOrNull()
-                ?.plus(1)
-                ?.toString()
-                ?: MEMBER_COUNT_DEFAULT
+            memberCount++
+            binding.count.text = memberCount.toString()
         }
 
         binding.minusButton.setOnClickListener {
@@ -110,11 +107,8 @@ class ReservationActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.request_least_one_person), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            binding.count.text = binding.count.text.toString()
-                .toIntOrNull()
-                ?.minus(1)
-                ?.toString()
-                ?: MEMBER_COUNT_DEFAULT
+            memberCount--
+            binding.count.text = memberCount.toString()
         }
 
         binding.commonButton.setOnClickListener {
@@ -126,7 +120,7 @@ class ReservationActivity : AppCompatActivity() {
                         BookingStatus(
                             movie = movie,
                             isBooked = true,
-                            memberCount = MemberCount(binding.count.text.toString().toInt()),
+                            memberCount = MemberCount(memberCount),
                             bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
                         ),
                     )
@@ -159,14 +153,15 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(MEMBER_COUNT_KEY, binding.count.text.toString())
+        outState.putInt(MEMBER_COUNT_KEY, memberCount)
         outState.putInt(RUNNING_TIME_KEY, runningTimePosition)
         outState.putInt(RESERVATION_DAY_KEY, datePosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        binding.count.text = savedInstanceState.getString(MEMBER_COUNT_KEY)
+        memberCount = savedInstanceState.getInt(MEMBER_COUNT_KEY)
+        binding.count.text = memberCount.toString()
         binding.timePickerActions.setSelection(savedInstanceState.getInt(RUNNING_TIME_KEY))
         binding.datePickerActions.setSelection(savedInstanceState.getInt(RESERVATION_DAY_KEY))
     }
@@ -176,7 +171,7 @@ class ReservationActivity : AppCompatActivity() {
         const val RUNNING_TIME_KEY = "runningTime"
         const val RESERVATION_DAY_KEY = "reservationDay"
         const val BOOKING_STATUS_KEY = "bookingStatus"
-        const val MEMBER_COUNT_DEFAULT = "1"
+        const val MEMBER_COUNT_DEFAULT = 1
         const val MINIMUM_MEMBER_COUNT = 1
     }
 }
