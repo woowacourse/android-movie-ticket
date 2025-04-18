@@ -1,6 +1,5 @@
 package woowacourse.movie.view
 
-import android.icu.text.DecimalFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -11,9 +10,9 @@ object StringFormatter {
     }
 
     fun thousandFormat(price: Int): String {
-        return DecimalFormat(THOUSAND_UNIT_FORMAT).format(price)
+        return THOUSAND_UNIT_FORMAT.format(price).format(price)
     }
 
     private const val DATE_TIME_DOT_FORMAT = "yyyy.M.d"
-    private const val THOUSAND_UNIT_FORMAT = "#,###"
+    private const val THOUSAND_UNIT_FORMAT = "%,d"
 }
