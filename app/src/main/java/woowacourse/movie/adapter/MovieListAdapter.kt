@@ -39,20 +39,7 @@ class MovieListAdapter(
                 .inflate(R.layout.movie_item, parent, false)
         val holder = (view.tag as? ViewHolder) ?: ViewHolder(view).also { view.tag = it }
 
-        holder.titleTextView.text = currentItem.title
-        holder.runningTimeTextView.text =
-            holder.runningTimeTextView.context.getString(
-                R.string.movie_running_time,
-                currentItem.runningTime.inWholeMinutes,
-            )
-        holder.screeningDateTextView.text =
-            holder.screeningDateTextView.context.getString(
-                R.string.movie_screening_date,
-                currentItem.startDateTime.toFormattedString(),
-                currentItem.endDateTime.toFormattedString(),
-            )
-        holder.posterImageView.setImageResource(R.drawable.movie_poster)
-        parent.context
+        holder.setData(currentItem, onReservationClick)
 
         val button = view.findViewById<Button>(R.id.btn_book)
         button.setOnClickListener {
@@ -61,11 +48,34 @@ class MovieListAdapter(
 
         return view
     }
-}
 
-private class ViewHolder(view: View) {
-    val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
-    val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
-    val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
-    val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
+    private class ViewHolder(view: View) {
+        val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
+        val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
+        val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
+        val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
+        val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
+
+        fun setData(
+            movie: Movie,
+            onReservationClick: (selectedMovie: Movie) -> Unit,
+        ) {
+            titleTextView.text = movie.title
+            runningTimeTextView.text =
+                runningTimeTextView.context.getString(
+                    R.string.movie_running_time,
+                    movie.runningTime.inWholeMinutes,
+                )
+            screeningDateTextView.text =
+                screeningDateTextView.context.getString(
+                    R.string.movie_screening_date,
+                    movie.startDateTime.toFormattedString(),
+                    movie.endDateTime.toFormattedString(),
+                )
+            posterImageView.setImageResource(R.drawable.movie_poster)
+            buttonView.setOnClickListener {
+                onReservationClick(movie)
+            }
+        }
+    }
 }
