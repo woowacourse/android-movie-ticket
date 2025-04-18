@@ -4,7 +4,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
@@ -46,9 +45,10 @@ class ReservationActivity : AppCompatActivity() {
 
         runningTimePosition = savedInstanceState?.getInt("runningTime") ?: 0
         datePosition = savedInstanceState?.getInt("reservationDay") ?: 0
-        binding.datePickerActions.adapter = ReservationDaySpinnerAdapter(
-            MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates()
-        )
+        binding.datePickerActions.adapter =
+            ReservationDaySpinnerAdapter(
+                MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(),
+            )
         binding.datePickerActions.setSelection(datePosition)
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
@@ -58,12 +58,13 @@ class ReservationActivity : AppCompatActivity() {
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
-                    id: Long
+                    id: Long,
                 ) {
                     reservationDay = parent?.getItemAtPosition(position) as LocalDate
-                    binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
-                        RunningTimes().runningTimes(reservationDay)
-                    )
+                    binding.timePickerActions.adapter =
+                        RunningTimeSpinnerAdapter(
+                            RunningTimes().runningTimes(reservationDay),
+                        )
                     datePosition = position
                 }
 
@@ -71,9 +72,10 @@ class ReservationActivity : AppCompatActivity() {
                 }
             }
 
-        binding.timePickerActions.adapter = RunningTimeSpinnerAdapter(
-            RunningTimes().runningTimes(reservationDay)
-        )
+        binding.timePickerActions.adapter =
+            RunningTimeSpinnerAdapter(
+                RunningTimes().runningTimes(reservationDay),
+            )
         binding.timePickerActions.setSelection(runningTimePosition)
         runningDateTime = binding.timePickerActions.selectedItem as LocalTime
         binding.timePickerActions.onItemSelectedListener =
@@ -82,7 +84,7 @@ class ReservationActivity : AppCompatActivity() {
                     parent: AdapterView<*>?,
                     view: View?,
                     position: Int,
-                    id: Long
+                    id: Long,
                 ) {
                     runningDateTime = parent?.getItemAtPosition(position) as LocalTime
                     runningTimePosition = position
@@ -93,7 +95,7 @@ class ReservationActivity : AppCompatActivity() {
             }
 
         binding.plusButton.setOnClickListener {
-            binding.count.text= binding.count.text.toString()
+            binding.count.text = binding.count.text.toString()
                 .toIntOrNull()
                 ?.plus(1)
                 ?.toString()
@@ -122,8 +124,8 @@ class ReservationActivity : AppCompatActivity() {
                             movie = movie(),
                             isBooked = true,
                             memberCount = MemberCount(binding.count.text.toString().toInt()),
-                            bookedTime = LocalDateTime.of(reservationDay, runningDateTime)
-                        )
+                            bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
+                        ),
                     )
                 }
                 .setNegativeButton("취소") { dialog, _ ->
@@ -133,24 +135,24 @@ class ReservationActivity : AppCompatActivity() {
                 .setCancelable(false)
         }
 
-
-        binding.bookedMovieRunningDayText.text = binding.bookedMovieRunningDayText.context.getString(
-            R.string.movie_screening_date,
-            movie.startDateTime,
-            movie.endDateTime
-        )
+        binding.bookedMovieRunningDayText.text =
+            binding.bookedMovieRunningDayText.context.getString(
+                R.string.movie_screening_date,
+                movie.startDateTime,
+                movie.endDateTime,
+            )
         binding.bookedMovieTitleText.text = movie.title
-        binding.bookedMovieRunningTimeText.text = binding.bookedMovieRunningTimeText.context.getString(
-            R.string.movie_running_time,
-            movie.runningTime.inWholeMinutes
-        )
+        binding.bookedMovieRunningTimeText.text =
+            binding.bookedMovieRunningTimeText.context.getString(
+                R.string.movie_running_time,
+                movie.runningTime.inWholeMinutes,
+            )
     }
 
-    private fun navigateToReservationComplete(
-        bookingStatus: BookingStatus
-    ) {
-        val intent = Intent(this, ReservationCompleteActivity::class.java)
-            .apply { putExtra("bookingStatus", bookingStatus) }
+    private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
+        val intent =
+            Intent(this, ReservationCompleteActivity::class.java)
+                .apply { putExtra("bookingStatus", bookingStatus) }
         startActivity(intent)
     }
 

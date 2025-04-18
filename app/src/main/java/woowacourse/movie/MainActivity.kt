@@ -29,7 +29,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(movie: Movie) {
-        val intent = Intent(this, ReservationActivity::class.java)
+        val intent =
+            Intent(this, ReservationActivity::class.java)
                 .apply { putExtra("movie", movie) }
         startActivity(intent)
     }

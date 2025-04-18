@@ -16,13 +16,19 @@ data class BookingStatus(
     }
 
     fun book(): BookingStatus {
-        return if (!isBooked) this.copy(isBooked =  true)
-        else throw IllegalStateException(ERR_ALREADY_BOOKED)
+        return if (!isBooked) {
+            this.copy(isBooked = true)
+        } else {
+            throw IllegalStateException(ERR_ALREADY_BOOKED)
+        }
     }
 
     fun cancel(): BookingStatus {
-        return if (isBooked) this.copy(isBooked =  false)
-        else throw IllegalStateException(ERR_NOT_BOOKED)
+        return if (isBooked) {
+            this.copy(isBooked = false)
+        } else {
+            throw IllegalStateException(ERR_NOT_BOOKED)
+        }
     }
 
     companion object {
@@ -31,4 +37,3 @@ data class BookingStatus(
         private const val TICKET_PRICE = 13_000
     }
 }
-

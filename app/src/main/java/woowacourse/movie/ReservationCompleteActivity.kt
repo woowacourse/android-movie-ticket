@@ -26,16 +26,17 @@ class ReservationCompleteActivity : AppCompatActivity() {
         binding.bookedMovieRunningDayText.text =
             binding.bookedMovieRunningDayText.context.getString(
                 R.string.movie_running_dateTime,
-                bookingStatus.bookedTime
+                bookingStatus.bookedTime,
             )
-        binding.memberCountText.text = binding.memberCountText.context.getString(
-            R.string.member_count,
-            bookingStatus.memberCount.value
-        )
+        binding.memberCountText.text =
+            binding.memberCountText.context.getString(
+                R.string.member_count,
+                bookingStatus.memberCount.value,
+            )
         binding.bookedMovieTicketPriceText.text =
             binding.bookedMovieTicketPriceText.context.getString(
                 R.string.total_price,
-                bookingStatus.calculateTicketPrices()
+                bookingStatus.calculateTicketPrices(),
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

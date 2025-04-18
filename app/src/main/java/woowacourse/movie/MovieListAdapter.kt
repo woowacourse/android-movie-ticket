@@ -9,13 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.domain.Movie
-import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val movies: List<Movie>,
     private val onReservationClick: (selectedMovie: Movie) -> Unit,
 ) : BaseAdapter() {
-
     override fun getCount(): Int {
         return movies.size
     }
@@ -33,28 +31,31 @@ class MovieListAdapter(
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup
+        parent: ViewGroup,
     ): View {
         val currentItem = getItem(position) as? Movie ?: return View(parent.context)
-        val view = convertView ?: LayoutInflater.from(parent.context)
-            .inflate(R.layout.movie_item, parent, false)
+        val view =
+            convertView ?: LayoutInflater.from(parent.context)
+                .inflate(R.layout.movie_item, parent, false)
         val holder = (view.tag as? ViewHolder) ?: ViewHolder(view).also { view.tag = it }
 
         holder.titleTextView.text = currentItem.title
-        holder.runningTimeTextView.text = holder.runningTimeTextView.context.getString(
-            R.string.movie_running_time,
-            currentItem.runningTime.inWholeMinutes
-        )
-        holder.screeningDateTextView.text = holder.screeningDateTextView.context.getString(
-            R.string.movie_screening_date,
-            currentItem.startDateTime.toFormattedString(),
-            currentItem.endDateTime.toFormattedString()
-        )
+        holder.runningTimeTextView.text =
+            holder.runningTimeTextView.context.getString(
+                R.string.movie_running_time,
+                currentItem.runningTime.inWholeMinutes,
+            )
+        holder.screeningDateTextView.text =
+            holder.screeningDateTextView.context.getString(
+                R.string.movie_screening_date,
+                currentItem.startDateTime.toFormattedString(),
+                currentItem.endDateTime.toFormattedString(),
+            )
         holder.posterImageView.setImageDrawable(
             AppCompatResources.getDrawable(
                 parent.context,
-                currentItem.posterUrl
-            )
+                currentItem.posterUrl,
+            ),
         )
         parent.context
 

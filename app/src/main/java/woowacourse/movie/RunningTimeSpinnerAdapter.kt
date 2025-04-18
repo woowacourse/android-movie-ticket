@@ -25,7 +25,7 @@ class RunningTimeSpinnerAdapter(val items: List<LocalTime>) : BaseAdapter() {
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup
+        parent: ViewGroup,
     ): View {
         val view: TextView = convertView as? TextView ?: TextView(parent.context)
         view.text = DateTimeFormatter.ofPattern("HH:mm").format(items[position])

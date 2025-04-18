@@ -25,7 +25,7 @@ class ReservationDaySpinnerAdapter(val items: List<LocalDate>) : BaseAdapter() {
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup
+        parent: ViewGroup,
     ): View {
         val view: TextView = convertView as? TextView ?: TextView(parent.context)
         view.text = DateTimeFormatter.ofPattern("yyyy.MM.dd").format(items[position])
