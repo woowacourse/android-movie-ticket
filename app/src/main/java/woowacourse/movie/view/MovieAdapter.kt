@@ -19,7 +19,7 @@ class MovieAdapter(
 ) : BaseAdapter() {
     private val formatter: Formatter by lazy { Formatter() }
 
-    override fun getCount(): Int = 1
+    override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Movie = movies[position]
 
