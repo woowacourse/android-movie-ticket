@@ -9,7 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.StringFormatter.dotDateFormat
+import woowacourse.movie.view.StringFormatter
 
 class MovieAdapter(
     val onClickBooking: (Int) -> Unit,
@@ -30,6 +30,7 @@ class MovieAdapter(
         val view =
             convertView ?: LayoutInflater.from(parent?.context)
                 .inflate(R.layout.movie_item, parent, false)
+
         return bind(view, position)
     }
 
@@ -49,8 +50,8 @@ class MovieAdapter(
         movieTitle.text = item.title
         movieReleaseDate.text =
             datePeriod.format(
-                dotDateFormat(item.releaseDate.startDate),
-                dotDateFormat(item.releaseDate.endDate),
+                StringFormatter.dotDateFormat(item.releaseDate.startDate),
+                StringFormatter.dotDateFormat(item.releaseDate.endDate),
             )
         movieRunningTime.text = item.runningTime
 

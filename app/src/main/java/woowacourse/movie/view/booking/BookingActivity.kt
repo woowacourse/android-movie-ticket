@@ -19,7 +19,7 @@ import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.domain.model.TicketType
-import woowacourse.movie.view.StringFormatter.dotDateFormat
+import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR
@@ -76,8 +76,8 @@ class BookingActivity : AppCompatActivity() {
         val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
         movieReleaseDateView.text =
             getString(R.string.text_date_period).format(
-                dotDateFormat(startDate),
-                dotDateFormat(endDate),
+                StringFormatter.dotDateFormat(startDate),
+                StringFormatter.dotDateFormat(endDate),
             )
 
         val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)

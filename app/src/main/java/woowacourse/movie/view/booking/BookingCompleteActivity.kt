@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.view.StringFormatter.thousandFormat
+import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
@@ -34,7 +34,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         val time = intent.getStringExtra(KEY_BOOKING_DATE_TIME)
         val peopleCount = intent.getIntExtra(KEY_BOOKING_PEOPLE_COUNT, DEFAULT_PEOPLE_COUNT)
         val price = intent.getIntExtra(KEY_BOOKING_TICKET_PRICE, DEFAULT_TICKET_PRICE)
-        val priceFormat = thousandFormat(price)
+        val priceFormat = StringFormatter.thousandFormat(price)
 
         findViewById<TextView>(R.id.tv_title).text = title
         findViewById<TextView>(R.id.tv_release_date).text = time
