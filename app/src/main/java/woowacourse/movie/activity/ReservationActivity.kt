@@ -13,7 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.adapter.ReservationDaySpinnerAdapter
 import woowacourse.movie.adapter.RunningTimeSpinnerAdapter
-import woowacourse.movie.databinding.BookingBinding
+import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
@@ -25,7 +25,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
-    private lateinit var binding: BookingBinding
+    private lateinit var binding: ActivityReservationBinding
     private lateinit var reservationDay: LocalDate
     private lateinit var runningDateTime: LocalTime
     private var runningTimePosition: Int = 0
@@ -35,7 +35,7 @@ class ReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = BookingBinding.inflate(layoutInflater)
+        binding = ActivityReservationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.booking)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())

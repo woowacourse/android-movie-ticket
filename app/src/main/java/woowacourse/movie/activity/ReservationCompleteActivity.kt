@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.databinding.BookingSuccessBinding
+import woowacourse.movie.databinding.ActivityReservationCompleteBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.global.getObjectFromIntent
 
@@ -14,7 +14,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val binding = BookingSuccessBinding.inflate(layoutInflater)
+        val binding = ActivityReservationCompleteBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.booking_success)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
