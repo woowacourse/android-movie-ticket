@@ -14,7 +14,7 @@ import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixtures.fakeContext
 import woowacourse.movie.fixtures.ticket
 
-class MovieReservationCompletionActivityTest {
+class MovieReservationResultActivityTest {
     private lateinit var intent: Intent
 
     @get:Rule
@@ -23,10 +23,10 @@ class MovieReservationCompletionActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(fakeContext, MovieReservationCompletionActivity::class.java).apply {
+            Intent(fakeContext, MovieReservationResultActivity::class.java).apply {
                 putExtra("ticket", ticket)
             }
-        ActivityScenario.launch<MovieReservationCompletionActivity>(intent)
+        ActivityScenario.launch<MovieReservationResultActivity>(intent)
     }
 
     @Test

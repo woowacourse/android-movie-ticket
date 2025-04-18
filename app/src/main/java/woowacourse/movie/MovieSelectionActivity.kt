@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity() {
+class MovieSelectionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

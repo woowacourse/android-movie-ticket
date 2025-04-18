@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
-class MovieReservationCompletionActivity : AppCompatActivity() {
+class MovieReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

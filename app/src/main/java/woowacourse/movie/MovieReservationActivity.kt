@@ -203,7 +203,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun onConfirmReservation() {
         if (selectedDate != null && selectedTime != null) {
-            val intent = Intent(this, MovieReservationCompletionActivity::class.java)
+            val intent = Intent(this, MovieReservationResultActivity::class.java)
             val ticket =
                 Ticket(
                     movie = movie,
