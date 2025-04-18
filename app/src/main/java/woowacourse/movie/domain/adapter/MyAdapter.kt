@@ -16,17 +16,11 @@ import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
 class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
-    override fun getCount(): Int {
-        return items.size
-    }
+    override fun getCount(): Int = items.size
 
-    override fun getItem(position: Int): Any {
-        return items[position]
-    }
+    override fun getItem(position: Int): Movie = items[position]
 
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(
         position: Int,
