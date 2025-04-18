@@ -2,7 +2,6 @@ package woowacourse.movie.activity
 
 import android.app.AlertDialog
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -20,6 +19,7 @@ import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieDateTime
 import woowacourse.movie.domain.RunningTimes
+import woowacourse.movie.global.getObjectFromIntent
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -43,7 +43,7 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val movie = movie()
+        val movie = intent.getObjectFromIntent<Movie>("movie")
         val memberCount = savedInstanceState?.getString("memberCount") ?: binding.count.text
         binding.count.text = memberCount
 
@@ -129,7 +129,7 @@ class ReservationActivity : AppCompatActivity() {
                 .setPositiveButton("예매 완료") { _, _ ->
                     navigateToReservationComplete(
                         BookingStatus(
-                            movie = movie(),
+                            movie = movie,
                             isBooked = true,
                             memberCount = MemberCount(binding.count.text.toString().toInt()),
                             bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
@@ -162,15 +162,6 @@ class ReservationActivity : AppCompatActivity() {
             Intent(this, ReservationCompleteActivity::class.java)
                 .apply { putExtra("bookingStatus", bookingStatus) }
         startActivity(intent)
-    }
-
-    private fun movie(): Movie {
-        return if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra("movie", Movie::class.java) ?: throw IllegalStateException()
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra("movie") as? Movie ?: throw IllegalStateException()
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
