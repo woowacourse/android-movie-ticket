@@ -21,7 +21,7 @@ class MovieAdapter(
 
     override fun getCount(): Int = 1
 
-    override fun getItem(position: Int): Any = movies[position]
+    override fun getItem(position: Int): Movie = movies[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
