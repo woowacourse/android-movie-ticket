@@ -6,12 +6,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.StringFormatter.dotDateFormat
+import woowacourse.movie.view.StringFormatter.periodFormat
 
 class MovieAdapter(
     val onClickBooking: (Int) -> Unit,
     private val items: List<Movie>,
-    private val datePeriod: String,
 ) : BaseAdapter() {
     override fun getCount(): Int = items.size
 
@@ -51,10 +50,7 @@ class MovieAdapter(
         viewHolder.moviePoster.setImageResource(item.poster)
         viewHolder.movieTitle.text = item.title
         viewHolder.movieReleaseDate.text =
-            datePeriod.format(
-                dotDateFormat(item.releaseDate.startDate),
-                dotDateFormat(item.releaseDate.endDate),
-            )
+            periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)
         viewHolder.movieRunningTime.text = item.runningTime
     }
 }
