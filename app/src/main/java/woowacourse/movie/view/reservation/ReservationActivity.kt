@@ -3,6 +3,7 @@ package woowacourse.movie.view.reservation
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -51,7 +52,10 @@ class ReservationActivity : AppCompatActivity() {
         setupDateAdapter()
         setupTimeAdapter()
 
-        setupSavedData(savedInstanceState)
+        if (savedInstanceState != null) {
+            setupSavedData(savedInstanceState)
+        }
+
         setupMinusButtonClick(ticketCountTextView)
         setupPlusButtonClick(ticketCountTextView)
         setupCompleteButtonClick()
@@ -150,14 +154,6 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupSavedData(savedInstanceState: Bundle?) {
-        val savedCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
-        ticketCount = TicketCount(savedCount)
-        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
-
-        selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
-    }
-
     private fun setupPlusButtonClick(peopleCountTextView: TextView) {
         findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
             ticketCount += 1
@@ -225,10 +221,23 @@ class ReservationActivity : AppCompatActivity() {
         return intent
     }
 
+    private fun setupSavedData(savedInstanceState: Bundle?) {
+        val savedCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
+        ticketCount = TicketCount(savedCount)
+        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
+
+        selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount.value)
         outState.putInt(TICKET_DATE_POSITION_DATA_KEY, selectedDatePosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupSavedData(savedInstanceState)
     }
 
     override fun onSupportNavigateUp(): Boolean {
