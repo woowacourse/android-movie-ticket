@@ -32,9 +32,9 @@ class ReservationResultActivity : AppCompatActivity() {
     private fun initReservationInfo() {
         val reservation =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(KEY_RESERVATION, Reservation::class.java)
+                intent.getParcelableExtra(getString(R.string.key_reservation), Reservation::class.java)
             } else {
-                intent.getParcelableExtra(KEY_RESERVATION) as? Reservation
+                intent.getParcelableExtra(getString(R.string.key_reservation)) as? Reservation
             }
 
         if (reservation == null) finish()
@@ -71,6 +71,5 @@ class ReservationResultActivity : AppCompatActivity() {
     companion object {
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
         private val decimal = DecimalFormat("#,###")
-        private const val KEY_RESERVATION = "reservation"
     }
 }

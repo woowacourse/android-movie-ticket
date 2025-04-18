@@ -38,7 +38,7 @@
 
 ### TODO
 - [x] Test의 Fixture 가독성 개선
-- [ ] MainActivity | intent에서 사용하는 Extras 따로 분리
+- [x] MainActivity | intent에서 사용하는 Extras 따로 분리
 - [ ] MainActivity | 더미 데이터 따로 관리
 - [ ] MoviesAdapter | 포맷들 저장 방식 개선
 - [ ] ReservationResultActivity | initReservationInfo 메서드 기능별 분리

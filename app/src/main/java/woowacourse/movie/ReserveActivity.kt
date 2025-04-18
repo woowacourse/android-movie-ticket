@@ -52,7 +52,7 @@ class ReserveActivity : AppCompatActivity() {
         initDateSpinner(movie.screeningDate)
         initTimeSpinner(movie.screeningDate.startDate)
 
-        reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
+        reservation = savedInstanceState?.getSerializable(getString(R.string.key_reservation)) as? Reservation
             ?: Reservation(
                 title = movie.title,
                 _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
@@ -66,9 +66,9 @@ class ReserveActivity : AppCompatActivity() {
     private fun getMovie(): Movie {
         val movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(KEY_MOVIE, Movie::class.java)
+                intent.getParcelableExtra(getString(R.string.key_movie), Movie::class.java)
             } else {
-                intent.getParcelableExtra(KEY_MOVIE) as? Movie
+                intent.getParcelableExtra(getString(R.string.key_movie)) as? Movie
             }
 
         if (movie == null) {
@@ -203,7 +203,7 @@ class ReserveActivity : AppCompatActivity() {
             .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
                 val intent =
                     Intent(this, ReservationResultActivity::class.java).apply {
-                        putExtra(KEY_RESERVATION, reservation)
+                        putExtra(getString(R.string.key_reservation), reservation)
                     }
                 startActivity(intent)
             }
@@ -237,13 +237,11 @@ class ReserveActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable(KEY_RESERVATION, reservation)
+        outState.putSerializable(getString(R.string.key_reservation), reservation)
     }
 
     companion object {
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val DEFAULT_TICKET_COUNT_SIZE = 1
-        private const val KEY_MOVIE = "movie"
-        private const val KEY_RESERVATION = "reservation"
     }
 }
