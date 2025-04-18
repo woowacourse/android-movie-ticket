@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -8,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.util.getParcelableCompat
 import java.time.format.DateTimeFormatter
 
 class MovieReservationResultActivity : AppCompatActivity() {
@@ -20,17 +20,12 @@ class MovieReservationResultActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(MovieReservationActivity.KEY_TICKET, Ticket::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                intent.getParcelableExtra(MovieReservationActivity.KEY_TICKET)
+
+        val ticket: Ticket =
+            intent.extras?.getParcelableCompat<Ticket>(MovieReservationActivity.KEY_TICKET) ?: run {
+                finish()
+                return
             }
-        if (ticket == null) {
-            finish()
-            return
-        }
 
         val title = findViewById<TextView>(R.id.movie_title)
         val showtime = findViewById<TextView>(R.id.showtime)
