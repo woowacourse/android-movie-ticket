@@ -132,7 +132,7 @@ class BookingDetailActivity : AppCompatActivity() {
                     timeAdapter.updateTimes(dateType)
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
     }
 
