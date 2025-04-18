@@ -49,12 +49,18 @@ class MoviesAdapter(
         val screeningDate = itemView.findViewById<TextView>(R.id.tv_screening_date)
         val runningTime = itemView.findViewById<TextView>(R.id.tv_running_time)
 
-        val formattedScreeningDate = formatting(item.screeningDate)
+        val formattedScreeningDate =
+            formatting(
+                item.screeningDate,
+                itemView.context.getString(R.string.formatted_screening_period),
+            )
 
         poster.setImageResource(item.imageUrl)
         title.text = item.title
         screeningDate.text = formattedScreeningDate
-        runningTime.text = MINUTE.format(item.runningTime.time)
+        runningTime.text =
+            itemView.context.getString(R.string.formatted_minute)
+                .format(item.runningTime.time)
     }
 
     private fun initReserveButton(
@@ -67,15 +73,16 @@ class MoviesAdapter(
         }
     }
 
-    private fun formatting(screeningDate: ScreeningDate): String {
+    private fun formatting(
+        screeningDate: ScreeningDate,
+        periodTemplate: String,
+    ): String {
         val start = screeningDate.startDate.format(formatter)
         val end = screeningDate.endDate.format(formatter)
-        return SCREENING_DATE.format(start, end)
+        return periodTemplate.format(start, end)
     }
 
     companion object {
-        private const val MINUTE = "%d분"
-        private const val SCREENING_DATE = "%s ~ %s"
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
