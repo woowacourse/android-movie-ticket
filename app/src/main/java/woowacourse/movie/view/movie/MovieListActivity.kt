@@ -32,9 +32,9 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun setListView() {
         val itemList =
-            Array(1) {
+            (1..100).map {
                 Movie(
-                    "해리 포터와 마법사의 돌",
+                    "해리 포터와 마법사의 돌 $it",
                     R.drawable.harry_potter_one,
                     ScreeningDate(
                         LocalDate.of(2025, 4, 1),
@@ -47,7 +47,7 @@ class MovieListActivity : AppCompatActivity() {
         val listView = findViewById<ListView>(R.id.list_view)
         val adapter =
             MovieAdapter(
-                items = itemList.toList(),
+                items = itemList,
                 datePeriod = getString(R.string.text_date_period),
                 onClickBooking = { idx ->
                     moveToBookingComplete(itemList[idx])
