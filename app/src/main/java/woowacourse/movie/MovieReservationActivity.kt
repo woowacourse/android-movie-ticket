@@ -36,10 +36,10 @@ class MovieReservationActivity : AppCompatActivity() {
         initUi()
 
         movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MovieAdapter.EXTRA_MOVIE, Movie::class.java)
+            intent.getParcelableExtra(MovieAdapter.KEY_MOVIE, Movie::class.java)
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(MovieAdapter.EXTRA_MOVIE)
+            intent.getParcelableExtra(MovieAdapter.KEY_MOVIE)
         } ?: run {
             finish()
             return
@@ -48,10 +48,10 @@ class MovieReservationActivity : AppCompatActivity() {
         initMovieInfo()
         val savedTicket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState?.getParcelable(EXTRA_TICKET, Ticket::class.java)
+                savedInstanceState?.getParcelable(KEY_TICKET, Ticket::class.java)
             } else {
                 @Suppress("DEPRECATION")
-                savedInstanceState?.getParcelable(EXTRA_TICKET)
+                savedInstanceState?.getParcelable(KEY_TICKET)
             }
 
         initSpinners(savedTicket)
@@ -71,7 +71,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 showtime = LocalDateTime.of(selectedDate, selectedTime),
                 count = ticketCount,
             )
-        outState.putParcelable(EXTRA_TICKET, ticket)
+        outState.putParcelable(KEY_TICKET, ticket)
     }
 
     private fun initUi() {
@@ -140,7 +140,7 @@ class MovieReservationActivity : AppCompatActivity() {
         savedTime: LocalTime?,
     ) {
         val showtimes =
-            selectedDate?.let { scheduler.getShowTimes(it, LocalDateTime.now()) } ?: emptyList()
+            selectedDate?.let { scheduler.getShowtimes(it, LocalDateTime.now()) } ?: emptyList()
         val adapter =
             ArrayAdapter(
                 this@MovieReservationActivity,
@@ -210,7 +210,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     showtime = LocalDateTime.of(selectedDate, selectedTime),
                     count = ticketCount,
                 )
-            intent.putExtra(EXTRA_TICKET, ticket)
+            intent.putExtra(KEY_TICKET, ticket)
             startActivity(intent)
         } else {
             Toast.makeText(this, R.string.incorrect_date_and_time, Toast.LENGTH_SHORT).show()
@@ -218,7 +218,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val EXTRA_TICKET = "ticket"
+        const val KEY_TICKET = "ticket"
         private const val MINIMUM_TICKET_COUNT = 1
         private const val SCREENING_DATE_RANGE = "%s ~ %S"
         private const val RUNNING_TIME = "%d분"

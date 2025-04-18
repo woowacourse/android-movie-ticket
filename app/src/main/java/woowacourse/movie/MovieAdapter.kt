@@ -18,9 +18,9 @@ class MovieAdapter(
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
-    override fun getItem(p0: Int): Movie = movies[p0]
+    override fun getItem(position: Int): Movie = movies[position]
 
-    override fun getItemId(p0: Int): Long = p0.toLong()
+    override fun getItemId(position: Int): Long = position.toLong()
 
     override fun getView(
         position: Int,
@@ -48,7 +48,7 @@ class MovieAdapter(
 
         reserveButton.setOnClickListener {
             val intent = Intent(context, MovieReservationActivity::class.java)
-            intent.putExtra(EXTRA_MOVIE, movie)
+            intent.putExtra(KEY_MOVIE, movie)
             context.startActivity(intent)
         }
 
@@ -56,7 +56,7 @@ class MovieAdapter(
     }
 
     companion object {
-        const val EXTRA_MOVIE = "movie"
+        const val KEY_MOVIE = "movie"
         private const val SCREENING_DATE_RANGE = "%s ~ %S"
         private const val RUNNING_TIME = "%d분"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")

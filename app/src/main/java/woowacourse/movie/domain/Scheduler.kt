@@ -20,20 +20,20 @@ class Scheduler {
         return dates
     }
 
-    fun getShowTimes(
+    fun getShowtimes(
         selectedDate: LocalDate,
         now: LocalDateTime,
     ): List<LocalTime> {
         val isToday = selectedDate == now.toLocalDate()
         val dayType = DayType.of(selectedDate)
-        val showTimes =
+        val showtimes =
             (dayType.openingHour until dayType.closingHour step dayType.interval).map { hour ->
                 LocalTime.of(hour, 0)
             }
         return if (isToday) {
-            showTimes.filter { time -> time.hour > now.hour }
+            showtimes.filter { time -> time.hour > now.hour }
         } else {
-            showTimes
+            showtimes
         }
     }
 }

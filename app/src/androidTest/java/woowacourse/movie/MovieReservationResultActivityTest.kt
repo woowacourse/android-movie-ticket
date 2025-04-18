@@ -37,7 +37,7 @@ class MovieReservationResultActivityTest {
 
     @Test
     @DisplayName("예매한 영화의 상영 시간이 표시된다")
-    fun displayReservedMovieShowTimeTest() {
+    fun displayReservedMovieShowtimeTest() {
         onView(withId(R.id.showtime)).check(matches(withText("2025.04.15 11:00")))
     }
 
