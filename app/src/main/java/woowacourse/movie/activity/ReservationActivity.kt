@@ -44,16 +44,12 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val movie = intent.getObjectFromIntent<Movie>(MainActivity.MOVIE_KEY)
-        val memberCount = savedInstanceState?.getString(MEMBER_COUNT_KEY) ?: binding.count.text
+        val memberCount = MEMBER_COUNT_DEFAULT
         binding.count.text = memberCount
-
-        runningTimePosition = savedInstanceState?.getInt(RUNNING_TIME_KEY) ?: 0
-        datePosition = savedInstanceState?.getInt(RESERVATION_DAY_KEY) ?: 0
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
                 MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(),
             )
-        binding.datePickerActions.setSelection(datePosition)
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
         binding.datePickerActions.onItemSelectedListener =
@@ -84,7 +80,6 @@ class ReservationActivity : AppCompatActivity() {
             RunningTimeSpinnerAdapter(
                 RunningTimes().runningTimes(reservationDay),
             )
-        binding.timePickerActions.setSelection(runningTimePosition)
         runningDateTime = binding.timePickerActions.selectedItem as LocalTime
         binding.timePickerActions.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -167,6 +162,13 @@ class ReservationActivity : AppCompatActivity() {
         outState.putString(MEMBER_COUNT_KEY, binding.count.text.toString())
         outState.putInt(RUNNING_TIME_KEY, runningTimePosition)
         outState.putInt(RESERVATION_DAY_KEY, datePosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        binding.count.text = savedInstanceState.getString(MEMBER_COUNT_KEY)
+        binding.timePickerActions.setSelection(savedInstanceState.getInt(RUNNING_TIME_KEY))
+        binding.datePickerActions.setSelection(savedInstanceState.getInt(RESERVATION_DAY_KEY))
     }
 
     companion object {
