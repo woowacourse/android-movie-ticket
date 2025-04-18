@@ -11,6 +11,7 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
+import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -109,20 +110,25 @@ class BookingActivityTest {
 
     @Test
     fun `minus_버튼을_눌렀을때_인원수가_0_이하면_변하지_않는다`() {
+        // given
         onView(withId(R.id.tv_people_count))
             .check(matches(withText("0")))
 
+        // when
         onView(withId(R.id.btn_minus))
             .perform(click())
 
+        // then
         onView(withId(R.id.tv_people_count))
             .check(matches(withText("0")))
     }
 
     @Test
     fun `plus_버튼을_누르면_인원수가_증가한다`() {
+        // given && when
         onView(withId(R.id.btn_plus)).perform(click())
 
+        // then
         onView(withId(R.id.tv_people_count)).check(
             matches(
                 allOf(
@@ -135,54 +141,56 @@ class BookingActivityTest {
 
     @Test
     fun `minus_버튼을_눌렀을때_인원수가_1_이상이면_줄어든다`() {
+        // given
         onView(withId(R.id.btn_plus)).perform(click())
-
         onView(withId(R.id.tv_people_count))
             .check(matches(withText("1")))
 
+        // when
         onView(withId(R.id.btn_minus))
             .perform(click())
 
+        // then
         onView(withId(R.id.tv_people_count))
             .check(matches(withText("0")))
     }
 
     @Test
     fun `확인_버튼을_누르면_다이알로그가_뜬다`() {
+        // given
         onView(withId(R.id.btn_plus)).perform(click())
-
         onView(withId(R.id.tv_people_count))
             .check(matches(withText("1")))
 
+        // when
         onView(withId(R.id.btn_reserve_confirm)).perform(click())
 
+        // then
         onView(withText("예매 확인"))
+            .inRoot(isDialog())
             .check(matches(isDisplayed()))
-
         onView(withText("정말 예매하시겠습니까?"))
+            .inRoot(isDialog())
             .check(matches(isDisplayed()))
-
         onView(withText("예매 완료"))
+            .inRoot(isDialog())
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `다이알로그에서_취소를_누르면_화면이_닫힌다`() {
+        // given
         onView(withId(R.id.btn_plus)).perform(click())
-
-        onView(withId(R.id.tv_people_count))
-            .check(matches(withText("1")))
-
         onView(withId(R.id.btn_reserve_confirm)).perform(click())
 
-        onView(withText("예매 확인"))
-            .check(matches(isDisplayed()))
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
-
+        // when
         onView(withText("취소"))
+            .inRoot(isDialog())
             .perform(click())
+
+        // then
+        onView(withId(R.id.img_booking_poster))
+            .check(matches(isDisplayed()))
     }
 
     @Test
