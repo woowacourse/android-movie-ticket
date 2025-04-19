@@ -25,6 +25,7 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.ReservationUiFormatter
+import woowacourse.movie.view.getParcelableExtraCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -60,11 +61,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun getSelectedMovieData(): Movie =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.value
-        } else {
-            intent.getParcelableExtra(MOVIE_DATA_KEY) as? Movie ?: Movie.value
-        }
+        intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY) ?: Movie.value
 
     private fun setupMovieReservationInfo() {
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)

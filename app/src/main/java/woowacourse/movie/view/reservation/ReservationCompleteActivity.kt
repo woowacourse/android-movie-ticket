@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.view.ReservationUiFormatter
+import woowacourse.movie.view.getParcelableExtraCompat
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }
@@ -30,11 +31,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
     }
 
     private fun getMovieTicketData(): MovieTicket? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
-        } else {
-            intent.getParcelableExtra(TICKET_DATA_KEY) as? MovieTicket
-        }
+        intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
 
     private fun setupMovieTicketInfo() {
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
