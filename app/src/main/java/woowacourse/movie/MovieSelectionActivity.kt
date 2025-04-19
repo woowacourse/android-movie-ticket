@@ -22,15 +22,15 @@ class MovieSelectionActivity : AppCompatActivity() {
         }
 
         val movies: List<Movie> =
-            listOf(
+            (1..10000).map { n ->
                 Movie(
-                    title = "해리 포터와 마법사의 돌",
+                    "해리 포터 $n",
                     startDate = LocalDate.of(2025, 4, 1),
                     endDate = LocalDate.of(2025, 4, 25),
                     runningTime = 152,
                     poster = R.drawable.harry_potter_poster,
-                ),
-            )
+                )
+            }
 
         val movieListView = findViewById<ListView>(R.id.movie_list)
         val movieAdapter = MovieAdapter(this, movies) { movie -> reserveMovie(movie) }

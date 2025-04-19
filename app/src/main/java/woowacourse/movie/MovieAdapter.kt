@@ -27,29 +27,27 @@ class MovieAdapter(
         convertView: View?,
         container: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_movie, container, false)
-
-        val poster = view.findViewById<ImageView>(R.id.poster)
-        val title = view.findViewById<TextView>(R.id.movie_title)
-        val screeningDate = view.findViewById<TextView>(R.id.screening_date)
-        val runningTime = view.findViewById<TextView>(R.id.running_time)
-        val reserveButton = view.findViewById<Button>(R.id.reserve_button)
+        val view: View
+        val viewHolder: ViewHolder
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie, container, false)
+            viewHolder = ViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as ViewHolder
+        }
 
         val movie = getItem(position)
-        poster.setImageResource(movie.poster)
-        title.text = movie.title
-
         val formatter = DateTimeFormatter.ofPattern(context.getString(R.string.date_format_pattern))
         val startDate = movie.startDate.format(formatter)
         val endDate = movie.endDate.format(formatter)
 
-        screeningDate.text = context.getString(R.string.screening_date_range_template, startDate, endDate)
-        runningTime.text = context.getString(R.string.running_time_template, movie.runningTime)
-
-        reserveButton.setOnClickListener { onReservationClick(movie) }
+        viewHolder.poster.setImageResource(movie.poster)
+        viewHolder.title.text = movie.title
+        viewHolder.screeningDate.text = context.getString(R.string.screening_date_range_template, startDate, endDate)
+        viewHolder.runningTime.text = context.getString(R.string.running_time_template, movie.runningTime)
+        viewHolder.reserveButton.setOnClickListener { onReservationClick(movie) }
 
         return view
     }
@@ -57,4 +55,12 @@ class MovieAdapter(
     companion object {
         const val KEY_MOVIE = "movie"
     }
+}
+
+private class ViewHolder(view: View) {
+    val poster: ImageView = view.findViewById(R.id.poster)
+    val title: TextView = view.findViewById(R.id.movie_title)
+    val screeningDate: TextView = view.findViewById(R.id.screening_date)
+    val runningTime: TextView = view.findViewById(R.id.running_time)
+    val reserveButton: Button = view.findViewById(R.id.reserve_button)
 }
