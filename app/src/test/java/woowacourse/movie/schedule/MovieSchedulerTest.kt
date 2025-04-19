@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.schedule.MovieScheduler
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieSchedulerTest {
@@ -37,16 +38,13 @@ class MovieSchedulerTest {
     }
 
     @Test
-    fun `현재 이후의 예매 가능한 시간들을 반환한다`() {
+    fun `주말 19시 일 때 예매 가능 시간은 21시와 23시다`() {
         // When
-        val bookableTimes = movieScheduler.getBookableTimes(LocalDate.now())
+        val today = LocalDate.of(2025, 4, 19)
+        val bookableTimes =
+            movieScheduler.getBookableTimes(today, LocalDateTime.of(today, LocalTime.of(19, 0)))
 
         // Then
-        assertSoftly(bookableTimes) {
-            shouldNotBeEmpty()
-            forAll { bookableTime ->
-                !bookableTime.isBefore(LocalTime.now()) shouldBe true
-            }
-        }
+        bookableTimes shouldBe listOf(LocalTime.of(21, 0), LocalTime.of(23, 0))
     }
 }
