@@ -41,12 +41,24 @@ class BookingActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieItem: Movie = intent.getSerializableExtra("movie") as Movie
-        val peopleCount = PeopleCount(intent.getStringExtra(KEY_PEOPLE_COUNT)?.toInt() ?: MIN_BOOKING_PEOPLE_COUNT)
+        val peopleCount =
+            PeopleCount(
+                intent.getStringExtra(KEY_PEOPLE_COUNT)?.toInt() ?: MIN_BOOKING_PEOPLE_COUNT,
+            )
 
         bind()
-        initViews(movieItem, peopleCount)
+        applyWindowInsets()
+        setupViews(movieItem, peopleCount)
         setDateSpinner(movieItem.releaseDate)
         setButtonListeners()
+    }
+
+    private fun applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     private fun bind() {
@@ -58,15 +70,10 @@ class BookingActivity : AppCompatActivity() {
         timeSpinner = findViewById(R.id.sp_time)
     }
 
-    private fun initViews(
+    private fun setupViews(
         movieItem: Movie,
         peopleCount: PeopleCount,
     ) {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
         val (startDate, endDate) = movieItem.releaseDate
         val posterView: ImageView = findViewById(R.id.img_movie_poster)
 
@@ -132,7 +139,11 @@ class BookingActivity : AppCompatActivity() {
         }
 
         decreaseBtn.setOnClickListener {
-            val count = max(MIN_BOOKING_PEOPLE_COUNT, peopleCountView.text.toString().toInt() - MIN_BOOKING_PEOPLE_COUNT)
+            val count =
+                max(
+                    MIN_BOOKING_PEOPLE_COUNT,
+                    peopleCountView.text.toString().toInt() - MIN_BOOKING_PEOPLE_COUNT,
+                )
             peopleCountView.text = count.toString()
         }
 
@@ -160,13 +171,17 @@ class BookingActivity : AppCompatActivity() {
             .show()
     }
 
-    private fun moveToBookingCompleteActivity() {
+    private fun madeBookedTicket(): BookedTicket {
         val title: String = movieTitleView.text.toString()
         val date: String = dateSpinner.selectedItem.toString()
         val time: String = timeSpinner.selectedItem.toString()
         val count: Int = peopleCountView.text.toString().toInt()
 
-        val bookedTicket = BookedTicket(title, PeopleCount(count), "$date $time")
+        return BookedTicket(title, PeopleCount(count), "$date $time")
+    }
+
+    private fun moveToBookingCompleteActivity() {
+        val bookedTicket = madeBookedTicket()
         val intent =
             Intent(this, BookingCompleteActivity::class.java).apply {
                 putExtra("bookedTicket", bookedTicket)
@@ -197,9 +212,12 @@ class BookingActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
         val movieItem: Movie = intent.getSerializableExtra("movie") as Movie
-        val peopleCount = PeopleCount(savedInstanceState.getString(KEY_PEOPLE_COUNT)?.toInt() ?: MIN_BOOKING_PEOPLE_COUNT)
+        val peopleCount =
+            PeopleCount(
+                savedInstanceState.getString(KEY_PEOPLE_COUNT)?.toInt() ?: MIN_BOOKING_PEOPLE_COUNT,
+            )
 
-        initViews(movieItem, peopleCount)
+        setupViews(movieItem, peopleCount)
     }
 
     companion object {
