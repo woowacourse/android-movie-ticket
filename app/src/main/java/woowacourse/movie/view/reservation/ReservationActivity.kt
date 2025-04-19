@@ -61,9 +61,9 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun getSelectedMovieData(): Movie =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.value
+            intent.getParcelableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.value
         } else {
-            intent.getSerializableExtra(MOVIE_DATA_KEY) as? Movie ?: Movie.value
+            intent.getParcelableExtra(MOVIE_DATA_KEY) as? Movie ?: Movie.value
         }
 
     private fun setupMovieReservationInfo() {
