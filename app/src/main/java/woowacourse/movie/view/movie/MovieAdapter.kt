@@ -11,12 +11,13 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.view.MovieClickListener
 import woowacourse.movie.view.ReservationUiFormatter
 
 class MovieAdapter(
     private val context: Context,
     private val movies: List<Movie>,
-    private val onReservationClick: (selectedMovie: Movie) -> Unit,
+    private val clickListener: MovieClickListener
 ) : BaseAdapter() {
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
@@ -93,7 +94,7 @@ class MovieAdapter(
     ) {
         val button = view.findViewById<Button>(R.id.btn_movie_reservation)
         button.setOnClickListener {
-            onReservationClick.invoke(movies[position])
+            clickListener.onReservationClick(movies[position])
         }
     }
 }
