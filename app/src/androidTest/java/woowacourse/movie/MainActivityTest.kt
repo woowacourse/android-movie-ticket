@@ -19,8 +19,8 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
-import woowacourse.movie.ui.view.BookingActivity
-import woowacourse.movie.ui.view.MainActivity
+import woowacourse.movie.ui.view.booking.BookingActivity
+import woowacourse.movie.ui.view.main.MainActivity
 
 @RunWith(AndroidJUnit4::class)
 class MainActivityTest {

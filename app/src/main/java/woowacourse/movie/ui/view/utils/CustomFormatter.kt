@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui.view.utils
 
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -12,16 +12,12 @@ object CustomFormatter {
     fun formatHeadCount(
         message: String,
         headCount: Int,
-    ): String {
-        return String.format(message, headCount)
-    }
+    ): String = String.format(message, headCount)
 
     fun formatAmount(
         message: String,
         value: Int,
-    ): String {
-        return String.format(message, value.formatWithComma())
-    }
+    ): String = String.format(message, value.formatWithComma())
 
     private fun Int.formatWithComma(): String = "%,d".format(this)
 }

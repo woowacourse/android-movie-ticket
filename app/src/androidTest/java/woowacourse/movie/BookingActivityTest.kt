@@ -21,8 +21,8 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.model.Movie
-import woowacourse.movie.ui.view.BookingActivity
-import woowacourse.movie.ui.view.BookingSummaryActivity
+import woowacourse.movie.ui.view.booking.BookingActivity
+import woowacourse.movie.ui.view.booking.BookingSummaryActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)

@@ -11,7 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.ui.view.BookingActivity
+import woowacourse.movie.ui.view.booking.BookingActivity
 
 class MovieAdapter(
     context: Context,

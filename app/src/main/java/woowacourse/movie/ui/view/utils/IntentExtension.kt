@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui.view.utils
 
 import android.content.Intent
 import android.os.Build
@@ -8,10 +8,9 @@ import java.io.Serializable
 fun <T : Serializable> Intent.intentSerializable(
     key: String,
     customClass: Class<T>,
-): T {
-    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+): T =
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         this.getSerializableExtra(key, customClass)!!
     } else {
         this.getSerializableExtra(key) as T
     }
-}

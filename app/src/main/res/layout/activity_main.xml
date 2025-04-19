@@ -4,12 +4,11 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.view.MainActivity">
+    tools:context=".ui.view.main.MainActivity">
 
     <ListView
         android:id="@+id/movies"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </ListView>
+        android:layout_height="match_parent"></ListView>
 
 </LinearLayout>

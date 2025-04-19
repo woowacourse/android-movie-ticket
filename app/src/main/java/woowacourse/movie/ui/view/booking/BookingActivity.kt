@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui.view.booking
 
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +19,7 @@ import woowacourse.movie.model.DefaultPricingPolicy
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieScheduler
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.ui.view.utils.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -158,7 +159,8 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun showDialog() {
-        AlertDialog.Builder(this)
+        AlertDialog
+            .Builder(this)
             .setTitle(getString(R.string.dialog_title))
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.complete)) { _, _ -> onConfirm() }
