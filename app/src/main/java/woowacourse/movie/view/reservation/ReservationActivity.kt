@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -61,8 +60,7 @@ class ReservationActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun getSelectedMovieData(): Movie =
-        intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY) ?: Movie.value
+    private fun getSelectedMovieData(): Movie = intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY) ?: Movie.value
 
     private fun setupMovieReservationInfo() {
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
@@ -210,7 +208,7 @@ class ReservationActivity : AppCompatActivity() {
         val intent =
             Intent(this, ReservationCompleteActivity::class.java).apply {
                 putExtra(
-                    ReservationCompleteActivity.TICKET_DATA_KEY,
+                    Extras.TicketData.TICKET_KEY,
                     MovieTicket(
                         title = movie.title,
                         timeStamp =
@@ -231,7 +229,8 @@ class ReservationActivity : AppCompatActivity() {
         ticketCount = TicketCount(savedCount)
         findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
 
-        selectedDatePosition = savedInstanceState?.getInt(Extras.ReservationData.DATE_POSITION_KEY) ?: 0
+        selectedDatePosition =
+            savedInstanceState?.getInt(Extras.ReservationData.DATE_POSITION_KEY) ?: 0
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

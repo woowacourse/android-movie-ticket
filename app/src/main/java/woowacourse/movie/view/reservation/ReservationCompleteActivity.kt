@@ -30,8 +30,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun getMovieTicketData(): MovieTicket? =
-        intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
+    private fun getMovieTicketData(): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
 
     private fun setupMovieTicketInfo() {
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
