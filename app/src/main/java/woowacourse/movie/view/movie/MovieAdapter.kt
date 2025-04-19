@@ -20,7 +20,7 @@ class MovieAdapter(
 ) : BaseAdapter() {
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
-    override fun getCount(): Int = 1
+    override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): Any = movies[position]
 
