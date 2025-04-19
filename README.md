@@ -46,3 +46,7 @@
 - [x] Serializable -> Parcelable 변경 및 의존성 추가
 - [x] 키 값 상수화
 - [x] deprecated 메서드 버전별 로직 추가
+
+
+## 변경 사항
+- [x] adapter 패키지 domain 패키지에서 분리 

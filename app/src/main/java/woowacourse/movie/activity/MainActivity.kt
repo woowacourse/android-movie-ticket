@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.adapter.ListViewAdapter
+import woowacourse.movie.adapter.ListViewAdapter
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
