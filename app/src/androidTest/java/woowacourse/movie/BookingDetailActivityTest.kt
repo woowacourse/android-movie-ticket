@@ -27,6 +27,7 @@ import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TIME_KEY
 import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TITLE_KEY
 import woowacourse.movie.BookingCompleteActivity.Companion.TICKET_COUNT_KEY
 import woowacourse.movie.BookingDetailActivity.Companion.newIntent
+import java.time.LocalDate
 
 @Suppress("ktlint:standard:function-naming")
 class BookingDetailActivityTest {
@@ -37,11 +38,14 @@ class BookingDetailActivityTest {
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                title = "해리 포터와 마법사의 돌",
-                startDate = "2025-04-01",
-                endDate = "2025-04-25",
-                runningTime = 152,
-                poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
+                movie =
+                    Movie(
+                        title = "해리 포터와 마법사의 돌",
+                        startDate = LocalDate.of(2025, 4, 1),
+                        endDate = LocalDate.of(2025, 4, 25),
+                        runningTime = 152,
+                        poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
+                    ),
             )
 
         activityScenario = ActivityScenario.launch(intent)

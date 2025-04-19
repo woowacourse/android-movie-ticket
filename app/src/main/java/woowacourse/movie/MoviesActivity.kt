@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.Movie.Companion.movies
 
 class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +27,7 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun setupMovies() {
-        val moviesAdapter =
-            MoviesAdapter(this, movies) { movie ->
-                bookMovie(movie)
-            }
+        val moviesAdapter = MoviesAdapter(this, movies) { movie -> bookMovie(movie) }
         findViewById<ListView>(R.id.lv_movies).adapter = moviesAdapter
     }
 
@@ -37,11 +35,7 @@ class MoviesActivity : AppCompatActivity() {
         val intent =
             BookingDetailActivity.newIntent(
                 context = this,
-                title = movie.title,
-                startDate = movie.startDate.toString(),
-                endDate = movie.endDate.toString(),
-                runningTime = movie.runningTime,
-                poster = movie.poster,
+                movie = movie,
             )
         startActivity(intent)
     }

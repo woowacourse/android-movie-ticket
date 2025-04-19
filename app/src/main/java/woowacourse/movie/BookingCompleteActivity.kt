@@ -31,6 +31,11 @@ class BookingCompleteActivity : AppCompatActivity() {
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) finish()
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupView() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
@@ -40,13 +45,6 @@ class BookingCompleteActivity : AppCompatActivity() {
             insets
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     companion object {

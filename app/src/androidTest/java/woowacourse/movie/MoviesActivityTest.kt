@@ -16,10 +16,8 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_END_DATE_KEY
-import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_RUNNING_TIME_KEY
-import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_START_DATE_KEY
-import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_TITLE_KEY
+import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_KEY
+import java.time.LocalDate
 
 @Suppress("ktlint:standard:function-naming")
 class MoviesActivityTest {
@@ -45,10 +43,16 @@ class MoviesActivityTest {
         intended(
             allOf(
                 hasComponent(BookingDetailActivity::class.java.name),
-                hasExtra(MOVIE_TITLE_KEY, "해리 포터와 마법사의 돌"),
-                hasExtra(MOVIE_START_DATE_KEY, "2025-04-01"),
-                hasExtra(MOVIE_END_DATE_KEY, "2025-04-25"),
-                hasExtra(MOVIE_RUNNING_TIME_KEY, 152),
+                hasExtra(
+                    MOVIE_KEY,
+                    Movie(
+                        title = "해리 포터와 마법사의 돌",
+                        startDate = LocalDate.of(2025, 4, 1),
+                        endDate = LocalDate.of(2025, 4, 25),
+                        runningTime = 152,
+                        poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
+                    ),
+                ),
             ),
         )
 
