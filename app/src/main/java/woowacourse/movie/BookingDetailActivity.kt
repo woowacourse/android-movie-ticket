@@ -18,10 +18,10 @@ import androidx.core.view.WindowInsetsCompat
 import java.time.LocalDate
 
 class BookingDetailActivity : AppCompatActivity() {
-    private lateinit var dateSpinner: Spinner
-    private lateinit var timeSpinner: Spinner
-    private lateinit var timeAdapter: TimeAdapter
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
     private lateinit var dateAdapter: DateAdapter
+    private lateinit var timeAdapter: TimeAdapter
     private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,8 +65,6 @@ class BookingDetailActivity : AppCompatActivity() {
         startDate: String,
         endDate: String,
     ) {
-        dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
-
         dateAdapter =
             DateAdapter(
                 this,
@@ -77,8 +75,6 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun setupTimeSpinner(startDate: String) {
-        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
-
         timeAdapter = TimeAdapter(this)
         timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
         timeSpinner.adapter = timeAdapter
