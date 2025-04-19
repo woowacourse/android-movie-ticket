@@ -24,14 +24,14 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
-import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.ReservationUiFormatter
 import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ReservationActivity : AppCompatActivity() {
     private var ticketCount: TicketCount = TicketCount()
     private var selectedDatePosition: Int = 0
-    private val formatter: Formatter by lazy { Formatter() }
+    private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
     private val movie by lazy { getSelectedMovieData() }
     private val movieTime by lazy { MovieTime() }
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
@@ -83,8 +83,8 @@ class ReservationActivity : AppCompatActivity() {
         movieTitleTextView.text = movie.title
 
         val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        val startDate = formatter.localDateToUI(movie.startDate)
-        val endDate = formatter.localDateToUI(movie.endDate)
+        val startDate = reservationUiFormatter.localDateToUI(movie.startDate)
+        val endDate = reservationUiFormatter.localDateToUI(movie.endDate)
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
@@ -132,7 +132,7 @@ class ReservationActivity : AppCompatActivity() {
             ArrayAdapter(
                 this,
                 layout.support_simple_spinner_dropdown_item,
-                timeTable.map { formatter.movieTimeToUI(it) },
+                timeTable.map { reservationUiFormatter.movieTimeToUI(it) },
             )
 
         findViewById<Spinner>(R.id.spinner_reservation_time).apply {
@@ -222,8 +222,8 @@ class ReservationActivity : AppCompatActivity() {
                         timeStamp =
                             getString(
                                 R.string.reservation_ticket_timestamp,
-                                formatter.localDateToUI(movieDate.value),
-                                formatter.movieTimeToUI(movieTime.value),
+                                reservationUiFormatter.localDateToUI(movieDate.value),
+                                reservationUiFormatter.movieTimeToUI(movieTime.value),
                             ),
                         count = ticketCount.value,
                     ),

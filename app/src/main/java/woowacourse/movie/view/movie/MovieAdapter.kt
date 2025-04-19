@@ -11,14 +11,14 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.ReservationUiFormatter
 
 class MovieAdapter(
     private val context: Context,
     private val movies: List<Movie>,
     private val onReservationClick: (selectedMovie: Movie) -> Unit,
 ) : BaseAdapter() {
-    private val formatter: Formatter by lazy { Formatter() }
+    private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
     override fun getCount(): Int = 1
 
@@ -71,8 +71,8 @@ class MovieAdapter(
         position: Int,
     ) {
         val screeningDateTextView = view.findViewById<TextView>(R.id.tv_movie_screening_date)
-        val startDate = formatter.localDateToUI(movies[position].startDate)
-        val endDate = formatter.localDateToUI(movies[position].endDate)
+        val startDate = reservationUiFormatter.localDateToUI(movies[position].startDate)
+        val endDate = reservationUiFormatter.localDateToUI(movies[position].endDate)
         screeningDateTextView.text =
             context.getString(R.string.movie_screening_date, startDate, endDate)
     }

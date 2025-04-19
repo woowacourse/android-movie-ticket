@@ -9,11 +9,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.ReservationUiFormatter
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }
-    private val formatter: Formatter by lazy { Formatter() }
+    private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +52,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                formatter.priceToUI(movieTicket?.price() ?: 13000),
+                reservationUiFormatter.priceToUI(movieTicket?.price() ?: 13000),
             )
     }
 
