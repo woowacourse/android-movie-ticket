@@ -17,7 +17,7 @@ object MovieRepository {
                 LocalDate.of(2025, 4, 1),
                 LocalDate.of(2025, 4, 29),
                 137,
-                "mickey1",
+                "mickey",
             ),
         )
 }

@@ -7,6 +7,8 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
+import androidx.test.espresso.matcher.ViewMatchers.Visibility
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -67,6 +69,20 @@ class MainActivityTest {
                 .atPosition(index)
                 .onChildView(withId(R.id.screeningDate))
                 .check(matches(withText(title)))
+        }
+    }
+
+    @DisplayName("포스터가 표시된다")
+    @Test
+    fun posterTest() {
+        val expected = listOf(Visibility.VISIBLE, Visibility.VISIBLE)
+
+        expected.forEachIndexed { index, visibility ->
+            onData(anything())
+                .inAdapterView(withId(R.id.movies))
+                .atPosition(index)
+                .onChildView(withId(R.id.poster))
+                .check(matches(withEffectiveVisibility(visibility)))
         }
     }
 
