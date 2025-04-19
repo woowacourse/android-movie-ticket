@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.view.Extras
 import woowacourse.movie.view.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
@@ -40,7 +41,7 @@ class MoviesActivity : AppCompatActivity() {
             Intent(
                 this,
                 ReservationActivity::class.java,
-            ).apply { putExtra(ReservationActivity.MOVIE_DATA_KEY, movie) }
+            ).apply { putExtra(Extras.MovieData.MOVIE_KEY, movie) }
         startActivity(intent)
     }
 }

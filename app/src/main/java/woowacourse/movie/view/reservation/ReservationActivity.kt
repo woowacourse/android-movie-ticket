@@ -24,6 +24,7 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
+import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
 import java.time.LocalDate
@@ -226,17 +227,17 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setupSavedData(savedInstanceState: Bundle?) {
-        val savedCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
+        val savedCount = savedInstanceState?.getInt(Extras.ReservationData.TICKET_COUNT_KEY) ?: 1
         ticketCount = TicketCount(savedCount)
         findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
 
-        selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
+        selectedDatePosition = savedInstanceState?.getInt(Extras.ReservationData.DATE_POSITION_KEY) ?: 0
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(TICKET_COUNT_DATA_KEY, ticketCount.value)
-        outState.putInt(TICKET_DATE_POSITION_DATA_KEY, selectedDatePosition)
+        outState.putInt(Extras.ReservationData.TICKET_COUNT_KEY, ticketCount.value)
+        outState.putInt(Extras.ReservationData.DATE_POSITION_KEY, selectedDatePosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -252,11 +253,5 @@ class ReservationActivity : AppCompatActivity() {
     override fun onDestroy() {
         reservationDialog = null
         super.onDestroy()
-    }
-
-    companion object {
-        const val MOVIE_DATA_KEY = "data"
-        private const val TICKET_COUNT_DATA_KEY = "count"
-        private const val TICKET_DATE_POSITION_DATA_KEY = "date"
     }
 }
