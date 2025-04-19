@@ -11,4 +11,8 @@
     <string name="movie_title">영화 제목</string>
     <string name="movie_cancel_deadline">영화 상영 시작 %1$d분 전까지\n 취소가 가능합니다.</string>
     <string name="default_movie_date_time">2025.1.1. 00:00</string>
+    <string name="dialog_reservation_title">예매 확인</string>
+    <string name="dialog_reservation_message">정말 예매하시겠습니까?</string>
+    <string name="dialog_reservation_positive_text">예매 완료</string>
+    <string name="dialog_reservation_negative_text">취소</string>
 </resources>
