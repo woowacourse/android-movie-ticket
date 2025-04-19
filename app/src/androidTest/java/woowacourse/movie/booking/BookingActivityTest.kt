@@ -38,7 +38,7 @@ class BookingActivityTest {
                 LocalDate.of(2025, 4, 17),
                 LocalDate.of(2025, 4, 30),
                 100,
-                R.drawable.match,
+                "match",
             )
 
         val intent =

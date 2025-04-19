@@ -3,7 +3,6 @@ package woowacourse.movie.data
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.R
 import woowacourse.movie.model.data.Movie
 import java.time.LocalDate
 
@@ -16,7 +15,7 @@ class MovieTest {
                 LocalDate.of(2025, 3, 26),
                 LocalDate.of(2025, 3, 27),
                 115,
-                R.drawable.match,
+                "match",
             )
 
         assertSoftly(movie) {
@@ -24,7 +23,7 @@ class MovieTest {
             startScreeningDate shouldBe LocalDate.of(2025, 3, 26)
             endScreeningDate shouldBe LocalDate.of(2025, 3, 27)
             runningTime shouldBe 115
-            posterRes shouldBe R.drawable.match
+            posterKey shouldBe "match"
         }
     }
 }
