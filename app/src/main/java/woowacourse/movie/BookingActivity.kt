@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -74,11 +75,13 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setUpMovieInfo(movieData: Movie) {
+        val moviePoster = findViewById<ImageView>(R.id.img_booking_poster)
         val bookingTitle = findViewById<TextView>(R.id.tv_booking_title)
         val bookingScreenDate = findViewById<TextView>(R.id.tv_booking_screening_date)
         val bookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
 
         bookingTitle.text = movieData.title
+        moviePoster.setImageResource(movieData.imageSource)
         val screeningStartDate = formatDate(movieData.screeningStartDate, '.')
         val screeningEndDate = formatDate(movieData.screeningEndDate, '.')
         bookingScreenDate.text =

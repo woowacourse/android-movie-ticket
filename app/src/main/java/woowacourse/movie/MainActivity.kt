@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             movieOrNull() ?: mockData()
 
         val movieList = listOf(intentMovieData)
-        val movieAdapter = MovieAdapter(this, movieList)
+        val movieAdapter = MovieAdapter(movieList)
         val listView = findViewById<ListView>(R.id.listview_layout)
 
         listView.adapter = movieAdapter
