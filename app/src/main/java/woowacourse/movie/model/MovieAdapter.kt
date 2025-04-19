@@ -1,6 +1,5 @@
 package woowacourse.movie.model
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -15,7 +14,6 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    val context: Context,
     val movieList: List<Movie>,
 ) : BaseAdapter() {
     override fun getCount(): Int {
@@ -39,7 +37,7 @@ class MovieAdapter(
         val viewHolder: MovieViewHolder
 
         if (convertView == null) {
-            itemView = LayoutInflater.from(context)
+            itemView = LayoutInflater.from(parent?.context)
                 .inflate(R.layout.movie_list_item, parent, false)
             viewHolder = MovieViewHolder(itemView)
             itemView.tag = viewHolder
@@ -65,8 +63,13 @@ class MovieAdapter(
         val screeningStartDate = formatDate(movie.screeningStartDate)
         val screeningEndDate = formatDate(movie.screeningEndDate)
         viewHolder.screeningDate.text =
-            context.getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
-        viewHolder.runningTime.text = context.getString(R.string.minute_text, movie.runningTime)
+            itemView.context.getString(
+                R.string.screening_date_period,
+                screeningStartDate,
+                screeningEndDate
+            )
+        viewHolder.runningTime.text =
+            itemView.context.getString(R.string.minute_text, movie.runningTime)
 
         return itemView
     }
