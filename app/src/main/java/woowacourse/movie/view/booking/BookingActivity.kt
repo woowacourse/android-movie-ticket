@@ -27,22 +27,40 @@ import java.time.LocalTime
 import kotlin.math.max
 
 class BookingActivity : AppCompatActivity() {
+    private lateinit var movieTitleView: TextView
+    private lateinit var movieReleaseDateView: TextView
+    private lateinit var movieRunningTimeView: TextView
+    private lateinit var peopleCountView: TextView
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieItem: Movie = intent.getSerializableExtra("movie") as Movie
-        val peopleCount = PeopleCount(intent.getStringExtra(KEY_PEOPLE_COUNT)?.toInt() ?: 1)
+        val peopleCount = PeopleCount(intent.getStringExtra(KEY_PEOPLE_COUNT)?.toInt() ?: MIN_BOOKING_PEOPLE_COUNT)
         val selectedDatePosition = intent.getIntExtra(KEY_SELECTED_DATE_POSITION, 0)
         val selectedTimePosition = intent.getIntExtra(KEY_SELECTED_TIME_POSITION, 0)
 
-        initView(movieItem, peopleCount)
+        bind()
+        initViews(movieItem, peopleCount)
         setDateSpinner(movieItem.releaseDate, selectedDatePosition, selectedTimePosition)
-        setButtonListener()
+        setButtonListeners()
     }
 
-    private fun initView(
+    private fun bind() {
+        movieTitleView = findViewById(R.id.tv_title)
+        movieReleaseDateView = findViewById(R.id.tv_release_date)
+        movieRunningTimeView = findViewById(R.id.tv_running_time)
+        peopleCountView = findViewById(R.id.tv_people_count)
+        dateSpinner = findViewById(R.id.sp_date)
+        timeSpinner = findViewById(R.id.sp_time)
+    }
+
+    private fun initViews(
         movieItem: Movie,
         peopleCount: PeopleCount,
     ) {
@@ -51,28 +69,18 @@ class BookingActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val movieTitleView = findViewById<TextView>(R.id.tv_title)
-        movieTitleView.text = movieItem.title
-
-        val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        moviePosterView.setImageResource(movieItem.poster)
-
         val (startDate, endDate) = movieItem.releaseDate
+        val posterView: ImageView = findViewById(R.id.img_movie_poster)
 
-        val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
+        movieTitleView.text = movieItem.title
+        posterView.setImageResource(movieItem.poster)
         movieReleaseDateView.text =
             getString(R.string.text_date_period).format(
                 dotDateFormat(startDate),
                 dotDateFormat(endDate),
             )
-
-        val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)
         movieRunningTimeView.text = movieItem.runningTime
-
-        findViewById<TextView>(R.id.tv_people_count).text = peopleCount.count.toString()
+        peopleCountView.text = peopleCount.count.toString()
     }
 
     private fun setDateSpinner(
@@ -80,10 +88,7 @@ class BookingActivity : AppCompatActivity() {
         datePosition: Int,
         timePosition: Int,
     ) {
-        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
-
         val (startDate, endDate) = releaseDate
-
         val screeningBookingDates: List<LocalDate> =
             ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
 
@@ -108,8 +113,6 @@ class BookingActivity : AppCompatActivity() {
         selectedDate: LocalDate,
         position: Int,
     ) {
-        val timeSpinner: Spinner = findViewById(R.id.sp_time)
-
         val screeningTimes: List<LocalTime> =
             ScreeningTime().getAvailableScreeningTimes(LocalDateTime.now(), selectedDate)
 
@@ -125,21 +128,19 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setButtonListener() {
-        val increaseBtn = findViewById<Button>(R.id.btn_increase)
-        val decreaseBtn = findViewById<Button>(R.id.btn_decrease)
-        val bookingBtn = findViewById<Button>(R.id.btn_booking_complete)
-
-        val peopleCount = findViewById<TextView>(R.id.tv_people_count)
+    private fun setButtonListeners() {
+        val increaseBtn: Button = findViewById(R.id.btn_increase)
+        val decreaseBtn: Button = findViewById(R.id.btn_decrease)
+        val bookingBtn: Button = findViewById(R.id.btn_booking)
 
         increaseBtn.setOnClickListener {
-            val count = peopleCount.text.toString().toInt() + 1
-            peopleCount.text = count.toString()
+            val count = peopleCountView.text.toString().toInt() + MIN_BOOKING_PEOPLE_COUNT
+            peopleCountView.text = count.toString()
         }
 
         decreaseBtn.setOnClickListener {
-            val count = max(MIN_BOOKING_PEOPLE_COUNT, peopleCount.text.toString().toInt() - 1)
-            peopleCount.text = count.toString()
+            val count = max(MIN_BOOKING_PEOPLE_COUNT, peopleCountView.text.toString().toInt() - MIN_BOOKING_PEOPLE_COUNT)
+            peopleCountView.text = count.toString()
         }
 
         bookingBtn.setOnClickListener {
@@ -167,12 +168,12 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun moveToBookingCompleteActivity() {
-        val title = findViewById<TextView>(R.id.tv_title).text
-        val date = findViewById<Spinner>(R.id.sp_date).selectedItem
-        val time = findViewById<Spinner>(R.id.sp_time).selectedItem
-        val count = findViewById<TextView>(R.id.tv_people_count).text.toString().toInt()
+        val title: String = movieTitleView.text.toString()
+        val date: String = dateSpinner.selectedItem.toString()
+        val time: String = timeSpinner.selectedItem.toString()
+        val count: Int = peopleCountView.text.toString().toInt()
 
-        val bookedTicket = BookedTicket(title.toString(), PeopleCount(count), "$date $time")
+        val bookedTicket = BookedTicket(title, PeopleCount(count), "$date $time")
         val intent =
             Intent(this, BookingCompleteActivity::class.java).apply {
                 putExtra("bookedTicket", bookedTicket)
@@ -194,11 +195,7 @@ class BookingActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
-        val timeSpinner = findViewById<Spinner>(R.id.sp_time)
-        val peopleCount = findViewById<TextView>(R.id.tv_people_count)
-
-        outState.putString(KEY_PEOPLE_COUNT, peopleCount.text.toString())
+        outState.putString(KEY_PEOPLE_COUNT, peopleCountView.text.toString())
         outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
         outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
     }
@@ -207,9 +204,9 @@ class BookingActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
 
         val movieItem: Movie = intent.getSerializableExtra("movie") as Movie
-        val peopleCount = PeopleCount(savedInstanceState.getString(KEY_PEOPLE_COUNT)?.toInt() ?: 1)
+        val peopleCount = PeopleCount(savedInstanceState.getString(KEY_PEOPLE_COUNT)?.toInt() ?: MIN_BOOKING_PEOPLE_COUNT)
 
-        initView(movieItem, peopleCount)
+        initViews(movieItem, peopleCount)
     }
 
     companion object {
