@@ -6,11 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.Movies
 import woowacourse.movie.R
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.adapter.ListViewAdapter
-import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,21 +22,10 @@ class MovieListActivity : AppCompatActivity() {
             insets
         }
 
-        val movies: List<Movie> = initMovie()
+        val movies: List<Movie> = Movies().getAll()
         val listView: ListView = findViewById(R.id.list_view)
         val listViewAdapter = ListViewAdapter(movies)
 
         listView.adapter = listViewAdapter
-    }
-
-    private fun initMovie(): List<Movie> {
-        return listOf(
-            Movie(
-                R.drawable.harry,
-                "해리 포터와 마법사의 돌",
-                Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
-                152,
-            ),
-        )
     }
 }

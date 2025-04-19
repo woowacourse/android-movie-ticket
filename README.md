@@ -52,3 +52,4 @@
 ## 변경 사항
 - [x] adapter 패키지 domain 패키지에서 분리 
 - [x] MainActivity를 MovieListActivity로 네이밍 변경
+- [x] Movie 데이터 생성 분리
