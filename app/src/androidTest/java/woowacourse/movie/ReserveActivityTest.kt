@@ -25,40 +25,44 @@ class ReserveActivityTest {
             ).apply {
                 putExtra("movie", movie)
             }
-
         ActivityScenario.launch<ReserveActivity>(intent)
+        buttonPlus()
     }
 
-    @DisplayName("타이틀 글자 표시 테스트")
+    private fun buttonPlus() {
+        onView(withId(R.id.btn_plus))
+            .perform(click())
+    }
+
     @Test
-    fun titleTest() {
+    fun 타이틀_글자를_표시한다() {
         onView(withId(R.id.tv_title))
             .check(matches(withText("해리포터")))
     }
 
-    @DisplayName("상영일 글자 표시 테스트")
     @Test
-    fun screeningDateTest() {
+    fun 상영일_글자를_표시한다() {
         onView(withId(R.id.tv_screening_date))
             .check(matches(withText("2025.04.30 ~ 2025.05.04")))
     }
 
-    @DisplayName("러닝타임 글자 표시 테스트")
     @Test
-    fun runningTimeTest() {
+    fun 러닝타임_글자를_표시한다() {
         onView(withId(R.id.tv_running_time))
             .check(matches(withText("152분")))
     }
 
-    @DisplayName("예매 티켓 수 조정 버튼 클릭 테스트")
     @Test
-    fun countButtonTest() {
+    fun 예매_티켓_수_증가() {
         onView(withId(R.id.btn_plus))
             .perform(click())
 
         onView(withId(R.id.tv_ticket_count))
-            .check(matches(withText("2")))
+            .check(matches(withText("3")))
+    }
 
+    @Test
+    fun 예매_티켓_수_감소() {
         onView(withId(R.id.btn_minus))
             .perform(click())
 

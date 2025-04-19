@@ -28,30 +28,26 @@ class ReservationResultActivityTest {
         ActivityScenario.launch<ReservationResultActivity>(intent)
     }
 
-    @DisplayName("타이틀 글자 표시 테스트")
     @Test
-    fun titleTest() {
+    fun 타이틀_글자를_표시한다() {
         onView(withId(R.id.tv_title))
             .check(matches(withText("해리포터")))
     }
 
-    @DisplayName("상영일 글자 표시 테스트")
     @Test
-    fun screeningDateTest() {
+    fun 상영일_글자를_표시한다() {
         onView(withId(R.id.tv_screening_date))
             .check(matches(withText("2025.04.30 12:00")))
     }
 
-    @DisplayName("예매 인원수 표시 테스트")
     @Test
-    fun countTest() {
+    fun 예매_인원수를_표시한다() {
         onView(withId(R.id.tv_ticket_count))
             .check(matches(withText("2명")))
     }
 
-    @DisplayName("구입 금액 표시 테스트")
     @Test
-    fun totalPriceTest() {
+    fun 구입_금액을_표시한다() {
         onView(withId(R.id.tv_total_price))
             .check(matches(withText("26,000원")))
     }

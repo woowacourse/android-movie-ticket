@@ -7,43 +7,37 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 
 class MainActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
-    @DisplayName("타이틀 글자 표시 테스트")
     @Test
-    fun titleTest() {
+    fun 타이틀_글자를_표시_한다() {
         onView(withId(R.id.tv_title))
             .check(matches(isDisplayed()))
     }
 
-    @DisplayName("상영일 글자 표시 테스트")
     @Test
-    fun screeningDateTest() {
+    fun 상영일_글자를_표시_한다() {
         onView(withId(R.id.tv_screening_date))
             .check(matches(isDisplayed()))
     }
 
-    @DisplayName("러닝타임 글자 표시 테스트")
     @Test
-    fun runningTimeTest() {
+    fun 러닝타임_글자를_표시_한다() {
         onView(withId(R.id.tv_running_time))
             .check(matches(isDisplayed()))
     }
 
-    @DisplayName("이미지 표시 테스트")
     @Test
-    fun posterTest() {
+    fun 이미지를_표시_한다() {
         onView(withId(R.id.iv_poster))
             .check(matches(isDisplayed()))
     }
 
-    @DisplayName("버튼 표시 테스트")
     @Test
-    fun buttonTest() {
+    fun 버튼을_표시_한다() {
         onView(withId(R.id.btn_reserve))
             .check(matches(isDisplayed()))
     }
