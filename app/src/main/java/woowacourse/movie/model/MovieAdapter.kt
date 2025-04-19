@@ -9,7 +9,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
 import java.time.LocalDate
@@ -36,14 +35,18 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val itemView =
-            convertView ?: LayoutInflater.from(context)
-                .inflate(R.layout.movie_list_item, parent, false)
+        val itemView: View
+        val viewHolder: MovieViewHolder
 
-        val poster = itemView.findViewById<ImageView>(R.id.img_poster)
-        val title = itemView.findViewById<TextView>(R.id.tv_movie_title)
-        val screeningDate = itemView.findViewById<TextView>(R.id.tv_movie_screening_date)
-        val runningTime = itemView.findViewById<TextView>(R.id.tv_movie_running_time)
+        if (convertView == null) {
+            itemView = LayoutInflater.from(context)
+                .inflate(R.layout.movie_list_item, parent, false)
+            viewHolder = MovieViewHolder(itemView)
+            itemView.tag = viewHolder
+        } else {
+            itemView = convertView
+            viewHolder = convertView.tag as MovieViewHolder
+        }
 
         val reserveButton = itemView.findViewById<Button>(R.id.btn_reserve)
         val movie = movieList[position]
@@ -57,15 +60,22 @@ class MovieAdapter(
             context.startActivity(intent)
         }
 
-        val posterImage = AppCompatResources.getDrawable(context, R.drawable.harry_potter)
-        poster.setImageDrawable(posterImage)
-        title.text = movie.title
+        viewHolder.poster.setImageResource(movie.imageSource)
+        viewHolder.title.text = movie.title
         val screeningStartDate = formatDate(movie.screeningStartDate)
         val screeningEndDate = formatDate(movie.screeningEndDate)
-        screeningDate.text = context.getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
-        runningTime.text = context.getString(R.string.minute_text, movie.runningTime)
+        viewHolder.screeningDate.text =
+            context.getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
+        viewHolder.runningTime.text = context.getString(R.string.minute_text, movie.runningTime)
 
         return itemView
+    }
+
+    class MovieViewHolder(view: View) {
+        val poster: ImageView = view.findViewById<ImageView>(R.id.img_poster)
+        val title: TextView = view.findViewById<TextView>(R.id.tv_movie_title)
+        val screeningDate: TextView = view.findViewById<TextView>(R.id.tv_movie_screening_date)
+        val runningTime: TextView = view.findViewById<TextView>(R.id.tv_movie_running_time)
     }
 
     private fun formatDate(date: LocalDate): String {
