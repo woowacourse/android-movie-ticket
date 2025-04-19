@@ -93,7 +93,7 @@ class ReservationActivity : AppCompatActivity() {
             }
 
         binding.plusButton.setOnClickListener {
-            binding.count.text= binding.count.text.toString()
+            binding.count.text = binding.count.text.toString()
                 .toIntOrNull()
                 ?.plus(1)
                 ?.toString()
@@ -134,16 +134,18 @@ class ReservationActivity : AppCompatActivity() {
         }
 
 
-        binding.bookedMovieRunningDayText.text = binding.bookedMovieRunningDayText.context.getString(
-            R.string.movie_screening_date,
-            movie.startDateTime,
-            movie.endDateTime
-        )
+        binding.bookedMovieRunningDayText.text =
+            binding.bookedMovieRunningDayText.context.getString(
+                R.string.movie_screening_date,
+                movie.startDateTime,
+                movie.endDateTime
+            )
         binding.bookedMovieTitleText.text = movie.title
-        binding.bookedMovieRunningTimeText.text = binding.bookedMovieRunningTimeText.context.getString(
-            R.string.movie_running_time,
-            movie.runningTime.inWholeMinutes
-        )
+        binding.bookedMovieRunningTimeText.text =
+            binding.bookedMovieRunningTimeText.context.getString(
+                R.string.movie_running_time,
+                movie.runningTime.inWholeMinutes
+            )
     }
 
     private fun navigateToReservationComplete(
@@ -156,10 +158,12 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun movie(): Movie {
         return if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra("movie", Movie::class.java) ?: throw IllegalStateException()
+            intent.getParcelableExtra(MovieTicketActivity.KEY_MOVIE, Movie::class.java)
+                ?: throw IllegalStateException()
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra("movie") as? Movie ?: throw IllegalStateException()
+            intent.getParcelableExtra(MovieTicketActivity.KEY_MOVIE) as? Movie
+                ?: throw IllegalStateException()
         }
     }
 

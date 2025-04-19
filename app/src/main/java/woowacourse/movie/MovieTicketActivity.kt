@@ -34,7 +34,11 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun navigateToReservationComplete(movie: Movie) {
         val intent = Intent(this, ReservationActivity::class.java)
-                .apply { putExtra("movie", movie) }
+                .apply { putExtra(KEY_MOVIE, movie) }
         startActivity(intent)
+    }
+
+    companion object {
+        const val KEY_MOVIE = "movie"
     }
 }
