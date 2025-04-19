@@ -173,10 +173,10 @@ class BookingActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle(title)
             .setMessage(description)
-            .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
+            .setPositiveButton(R.string.text_booking_dialog_positive_button) { _, _ ->
                 moveToBookingCompleteActivity()
             }
-            .setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
+            .setNegativeButton(R.string.text_booking_dialog_negative_button) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(false)
