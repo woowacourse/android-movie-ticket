@@ -18,10 +18,11 @@ import androidx.core.view.WindowInsetsCompat
 import java.time.LocalDate
 
 class BookingDetailActivity : AppCompatActivity() {
-    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
-    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
+    private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
     private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,8 +39,8 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_detail_date).text = getString(R.string.movies_movie_date_with_tilde, startDate, endDate)
         findViewById<TextView>(R.id.tv_booking_detail_running_time).text = getString(R.string.movies_movie_running_time, runningTime)
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
+        ticketCountView.text = ticketCount.toString()
 
         setupDateSpinner(startDate, endDate)
         setupTimeSpinner(startDate)
@@ -111,13 +112,13 @@ class BookingDetailActivity : AppCompatActivity() {
     private fun decreaseTicketCount() {
         if (ticketCount > 0) {
             ticketCount--
-            findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+            ticketCountView.text = ticketCount.toString()
         }
     }
 
     private fun increaseTicketCount() {
         ticketCount++
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        ticketCountView.text = ticketCount.toString()
     }
 
     private fun setupSelectCompleteClickListener(title: String) {
@@ -184,7 +185,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         timeSpinner.setSelection(ticketTime)
 
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        ticketCountView.text = ticketCount.toString()
     }
 
     companion object {
