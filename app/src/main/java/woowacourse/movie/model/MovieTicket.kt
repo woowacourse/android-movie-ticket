@@ -1,12 +1,14 @@
 package woowacourse.movie.model
 
-import java.io.Serializable
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
+@Parcelize
 data class MovieTicket(
     val title: String,
     val timeStamp: String,
     val count: Int,
-) : Serializable {
+) : Parcelable {
     fun price(): Int = count * TICKET_PRICE
 
     companion object {

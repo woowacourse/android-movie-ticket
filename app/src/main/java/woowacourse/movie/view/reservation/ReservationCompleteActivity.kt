@@ -31,9 +31,9 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
     private fun getMovieTicketData(): MovieTicket? =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
+            intent.getParcelableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
         } else {
-            intent.getSerializableExtra(TICKET_DATA_KEY) as MovieTicket
+            intent.getParcelableExtra(TICKET_DATA_KEY) as? MovieTicket
         }
 
     private fun setupMovieTicketInfo() {
