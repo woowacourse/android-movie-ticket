@@ -28,5 +28,4 @@
             android:name=".view.reservation.ReservationCompleteActivity"
             android:exported="false" />
     </application>
-
 </manifest>
