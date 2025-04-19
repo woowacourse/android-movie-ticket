@@ -15,20 +15,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.BookedTicket
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
-import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.view.StringFormatter.dotDateFormat
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_RUNNING_TIME
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_DAY
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_MONTH
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_YEAR
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_TITLE
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -40,24 +32,19 @@ class BookingActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking)
 
-        val startDateYear = intent.getIntExtra(KEY_MOVIE_START_YEAR, DEFAULT_DATE_YEAR)
-        val startDateMonth = intent.getIntExtra(KEY_MOVIE_START_MONTH, DEFAULT_DATE_MONTH)
-        val startDateDay = intent.getIntExtra(KEY_MOVIE_START_DAY, DEFAULT_DATE_DAY)
+        val movieItem: Movie = intent.getSerializableExtra("movie") as Movie
+        val peopleCount = PeopleCount(intent.getStringExtra(KEY_PEOPLE_COUNT)?.toInt() ?: 1)
+        val selectedDatePosition = intent.getIntExtra(KEY_SELECTED_DATE_POSITION, 0)
+        val selectedTimePosition = intent.getIntExtra(KEY_SELECTED_TIME_POSITION, 0)
 
-        val endDateYear = intent.getIntExtra(KEY_MOVIE_END_YEAR, DEFAULT_DATE_YEAR)
-        val endDateMonth = intent.getIntExtra(KEY_MOVIE_END_MONTH, DEFAULT_DATE_MONTH)
-        val endDateDay = intent.getIntExtra(KEY_MOVIE_END_DAY, DEFAULT_DATE_DAY)
-
-        val startDate = LocalDate.of(startDateYear, startDateMonth, startDateDay)
-        val endDate = LocalDate.of(endDateYear, endDateMonth, endDateDay)
-
-        initView(startDate, endDate, savedInstanceState)
+        initView(movieItem, peopleCount)
+        setDateSpinner(movieItem.releaseDate, selectedDatePosition, selectedTimePosition)
+        setButtonListener()
     }
 
     private fun initView(
-        startDate: LocalDate,
-        endDate: LocalDate,
-        savedInstanceState: Bundle?,
+        movieItem: Movie,
+        peopleCount: PeopleCount,
     ) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -68,10 +55,12 @@ class BookingActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movieTitleView = findViewById<TextView>(R.id.tv_title)
-        movieTitleView.text = intent.getStringExtra(KEY_MOVIE_TITLE)
+        movieTitleView.text = movieItem.title
 
         val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        moviePosterView.setImageResource(intent.getIntExtra(KEY_MOVIE_POSTER, 0))
+        moviePosterView.setImageResource(movieItem.poster)
+
+        val (startDate, endDate) = movieItem.releaseDate
 
         val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
         movieReleaseDateView.text =
@@ -81,23 +70,19 @@ class BookingActivity : AppCompatActivity() {
             )
 
         val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)
-        movieRunningTimeView.text = intent.getStringExtra(KEY_MOVIE_RUNNING_TIME)
+        movieRunningTimeView.text = movieItem.runningTime
 
-        savedInstanceState?.let {
-            val count = it.getString(KEY_PEOPLE_COUNT)
-            findViewById<TextView>(R.id.tv_people_count).text = count
-        }
-
-        setDateSpinner(startDate, endDate, savedInstanceState)
-        setButtonListener()
+        findViewById<TextView>(R.id.tv_people_count).text = peopleCount.count.toString()
     }
 
     private fun setDateSpinner(
-        startDate: LocalDate,
-        endDate: LocalDate,
-        savedInstanceState: Bundle?,
+        releaseDate: ScreeningDate,
+        datePosition: Int,
+        timePosition: Int,
     ) {
         val dateSpinner = findViewById<Spinner>(R.id.sp_date)
+
+        val (startDate, endDate) = releaseDate
 
         val screeningBookingDates: List<LocalDate> =
             ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
@@ -110,18 +95,18 @@ class BookingActivity : AppCompatActivity() {
                     screeningBookingDates,
                 )
 
-            setSelection(savedInstanceState?.getInt(KEY_SELECTED_DATE_POSITION) ?: 0)
+            setSelection(datePosition)
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-                    setTimeSpinner(screeningBookingDates[pos], savedInstanceState)
+                    setTimeSpinner(screeningBookingDates[pos], timePosition)
                 }
         }
     }
 
     private fun setTimeSpinner(
         selectedDate: LocalDate,
-        savedInstanceState: Bundle?,
+        position: Int,
     ) {
         val timeSpinner: Spinner = findViewById(R.id.sp_time)
 
@@ -136,8 +121,7 @@ class BookingActivity : AppCompatActivity() {
                     screeningTimes,
                 )
 
-            val selectedPosition = savedInstanceState?.getInt(KEY_SELECTED_TIME_POSITION) ?: 0
-            setSelection(selectedPosition)
+            setSelection(position)
         }
     }
 
@@ -170,16 +154,15 @@ class BookingActivity : AppCompatActivity() {
         title: String,
         description: String,
     ) {
-        AlertDialog.Builder(this)
+        AlertDialog
+            .Builder(this)
             .setTitle(title)
             .setMessage(description)
             .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
                 moveToBookingCompleteActivity()
-            }
-            .setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
+            }.setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
                 dialog.dismiss()
-            }
-            .setCancelable(false)
+            }.setCancelable(false)
             .show()
     }
 
@@ -188,21 +171,18 @@ class BookingActivity : AppCompatActivity() {
         val date = findViewById<Spinner>(R.id.sp_date).selectedItem
         val time = findViewById<Spinner>(R.id.sp_time).selectedItem
         val count = findViewById<TextView>(R.id.tv_people_count).text.toString().toInt()
-        val price = PeopleCount(count).ticketPrice(TicketType.GENERAL)
 
+        val bookedTicket = BookedTicket(title.toString(), PeopleCount(count), "$date $time")
         val intent =
             Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra(KEY_BOOKING_MOVIE_TITLE, title)
-                putExtra(KEY_BOOKING_DATE_TIME, "$date $time")
-                putExtra(KEY_BOOKING_PEOPLE_COUNT, count)
-                putExtra(KEY_BOOKING_TICKET_PRICE, price)
+                putExtra("bookedTicket", bookedTicket)
             }
 
         startActivity(intent)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
             android.R.id.home -> {
                 finish()
                 true
@@ -210,7 +190,6 @@ class BookingActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -224,19 +203,20 @@ class BookingActivity : AppCompatActivity() {
         outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val movieItem: Movie = intent.getSerializableExtra("movie") as Movie
+        val peopleCount = PeopleCount(savedInstanceState.getString(KEY_PEOPLE_COUNT)?.toInt() ?: 1)
+
+        initView(movieItem, peopleCount)
+    }
+
     companion object {
-        private const val DEFAULT_DATE_YEAR = 1
-        private const val DEFAULT_DATE_MONTH = 1
-        private const val DEFAULT_DATE_DAY = 1
         private const val MIN_BOOKING_PEOPLE_COUNT = 1
 
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
-
-        const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
-        const val KEY_BOOKING_DATE_TIME = "BOOKING_DATE_TIME"
-        const val KEY_BOOKING_PEOPLE_COUNT = "BOOKING_PEOPLE_COUNT"
-        const val KEY_BOOKING_TICKET_PRICE = "BOOKING_TICKET_PRICE"
     }
 }

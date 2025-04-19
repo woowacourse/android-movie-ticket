@@ -9,11 +9,9 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.domain.model.BookedTicket
+import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
 import woowacourse.movie.view.booking.BookingCompleteActivity
 
 class BookingCompleteActivityTest {
@@ -26,10 +24,14 @@ class BookingCompleteActivityTest {
                 fakeContext,
                 BookingCompleteActivity::class.java,
             ).apply {
-                putExtra(KEY_BOOKING_MOVIE_TITLE, "해리 포터와 마법사의 돌")
-                putExtra(KEY_BOOKING_DATE_TIME, "2025.4.1 12:00")
-                putExtra(KEY_BOOKING_PEOPLE_COUNT, 2)
-                putExtra(KEY_BOOKING_TICKET_PRICE, 26000)
+                putExtra(
+                    "bookedTicket",
+                    BookedTicket(
+                        "해리 포터와 마법사의 돌",
+                        PeopleCount(2),
+                        "2025.4.1 12:00",
+                    ),
+                )
             }
         ActivityScenario.launch<BookingCompleteActivity>(intent)
     }

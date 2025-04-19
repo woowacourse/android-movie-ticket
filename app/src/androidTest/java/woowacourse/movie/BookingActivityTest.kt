@@ -18,17 +18,11 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingActivity
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_RUNNING_TIME
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_DAY
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_MONTH
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_YEAR
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_TITLE
+import java.time.LocalDate
 
 class BookingActivityTest {
     @Before
@@ -38,15 +32,15 @@ class BookingActivityTest {
                 fakeContext,
                 BookingActivity::class.java,
             ).apply {
-                putExtra(KEY_MOVIE_TITLE, "해리 포터와 마법사의 돌")
-                putExtra(KEY_MOVIE_POSTER, R.drawable.harry_potter_one)
-                putExtra(KEY_MOVIE_START_YEAR, 2025)
-                putExtra(KEY_MOVIE_START_MONTH, 4)
-                putExtra(KEY_MOVIE_START_DAY, 1)
-                putExtra(KEY_MOVIE_END_YEAR, 2025)
-                putExtra(KEY_MOVIE_END_MONTH, 4)
-                putExtra(KEY_MOVIE_END_DAY, 25)
-                putExtra(KEY_MOVIE_RUNNING_TIME, "152분")
+                putExtra(
+                    "movie",
+                    Movie(
+                        "해리 포터와 마법사의 돌",
+                        R.drawable.harry_potter_one,
+                        ScreeningDate(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+                        "152분",
+                    ),
+                )
             }
 
         ActivityScenario.launch<BookingActivity>(intent)

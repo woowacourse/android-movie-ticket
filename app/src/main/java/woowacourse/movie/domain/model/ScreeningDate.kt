@@ -1,12 +1,13 @@
 package woowacourse.movie.domain.model
 
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
 data class ScreeningDate(
     val startDate: LocalDate,
     val endDate: LocalDate,
-) {
+) : Serializable {
     fun bookingDates(today: LocalDate): List<LocalDate> {
         val start = getStartDate(today)
         val days = ChronoUnit.DAYS.between(start, endDate).toInt()

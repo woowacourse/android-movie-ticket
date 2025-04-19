@@ -57,40 +57,13 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun moveToBookingComplete(movie: Movie) {
-        val (startDate, endDate) = movie.releaseDate
-
-        val startYear = startDate.year
-        val startMonth = startDate.monthValue
-        val startDay = startDate.dayOfMonth
-
-        val endYear = endDate.year
-        val endMonth = endDate.monthValue
-        val endDay = endDate.dayOfMonth
-
         val intent =
             Intent(this, BookingActivity::class.java).apply {
-                putExtra(KEY_MOVIE_TITLE, movie.title)
-                putExtra(KEY_MOVIE_POSTER, movie.poster)
-                putExtra(KEY_MOVIE_START_YEAR, startYear)
-                putExtra(KEY_MOVIE_START_MONTH, startMonth)
-                putExtra(KEY_MOVIE_START_DAY, startDay)
-                putExtra(KEY_MOVIE_END_YEAR, endYear)
-                putExtra(KEY_MOVIE_END_MONTH, endMonth)
-                putExtra(KEY_MOVIE_END_DAY, endDay)
-                putExtra(KEY_MOVIE_RUNNING_TIME, movie.runningTime)
+                putExtra("movie", movie)
             }
         startActivity(intent)
     }
 
     companion object {
-        const val KEY_MOVIE_TITLE = "MOVIE_TITLE"
-        const val KEY_MOVIE_POSTER = "MOVIE_POSTER"
-        const val KEY_MOVIE_START_YEAR = "MOVIE_START_YEAR"
-        const val KEY_MOVIE_START_MONTH = "MOVIE_START_MONTH"
-        const val KEY_MOVIE_START_DAY = "MOVIE_START_DAY"
-        const val KEY_MOVIE_END_YEAR = "MOVIE_END_YEAR"
-        const val KEY_MOVIE_END_MONTH = "MOVIE_END_MONTH"
-        const val KEY_MOVIE_END_DAY = "MOVIE_END_DAY"
-        const val KEY_MOVIE_RUNNING_TIME = "MOVIE_RUNNING_TIME"
     }
 }
