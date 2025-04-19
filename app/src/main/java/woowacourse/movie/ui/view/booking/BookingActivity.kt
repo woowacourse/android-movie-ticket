@@ -19,6 +19,8 @@ import woowacourse.movie.model.data.Movie
 import woowacourse.movie.model.data.MovieTicket
 import woowacourse.movie.model.policy.DefaultPricingPolicy
 import woowacourse.movie.model.schedule.MovieScheduler
+import woowacourse.movie.ui.adapter.MovieAdapter.Companion.setImage
+import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.utils.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -57,8 +59,9 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun displayMovieInfo() {
-        val poster = findViewById<ImageView>(R.id.poster)
-        poster.setImageResource(movie.posterRes)
+        val imagePoster = findViewById<ImageView>(R.id.poster)
+        val posterRes = PosterMapper.mapPosterKeyToDrawableRes(movie.posterKey)
+        imagePoster.setImage(posterRes)
 
         val title = findViewById<TextView>(R.id.title)
         title.text = movie.title

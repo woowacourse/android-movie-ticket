@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.data.Movie
+import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.booking.BookingActivity
 
 class MovieAdapter(
@@ -46,8 +47,21 @@ class MovieAdapter(
             context.getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
         runningTime.text =
             context.getString(R.string.runningTime_text, movie.runningTime.toString())
-        imagePoster.setImageResource(movie.posterRes)
+
+        val posterRes = PosterMapper.mapPosterKeyToDrawableRes(movie.posterKey)
+        imagePoster.setImage(posterRes)
 
         return view
+    }
+
+    companion object {
+        fun ImageView.setImage(res: Int?) {
+            if (res != null) {
+                this.setImageResource(res)
+                this.visibility = View.VISIBLE
+            } else {
+                this.visibility = View.INVISIBLE
+            }
+        }
     }
 }
