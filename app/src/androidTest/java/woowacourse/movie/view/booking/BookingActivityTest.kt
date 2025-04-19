@@ -16,16 +16,11 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_DAY
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_MONTH
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_END_YEAR
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_POSTER
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_RUNNING_TIME
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_DAY
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_MONTH
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_START_YEAR
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE_TITLE
+import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
+import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
@@ -37,15 +32,18 @@ class BookingActivityTest {
                 fakeContext,
                 BookingActivity::class.java,
             ).apply {
-                putExtra(KEY_MOVIE_TITLE, "해리 포터와 마법사의 돌")
-                putExtra(KEY_MOVIE_POSTER, R.drawable.harry_potter_one)
-                putExtra(KEY_MOVIE_START_YEAR, 2025)
-                putExtra(KEY_MOVIE_START_MONTH, 4)
-                putExtra(KEY_MOVIE_START_DAY, 1)
-                putExtra(KEY_MOVIE_END_YEAR, 2025)
-                putExtra(KEY_MOVIE_END_MONTH, 4)
-                putExtra(KEY_MOVIE_END_DAY, 25)
-                putExtra(KEY_MOVIE_RUNNING_TIME, "152분")
+                putExtra(
+                    KEY_MOVIE,
+                    Movie(
+                        "해리 포터와 마법사의 돌",
+                        R.drawable.ic_launcher_background.toString(),
+                        ScreeningDate(
+                            LocalDate.of(2025, 4, 1),
+                            LocalDate.of(2025, 4, 25),
+                        ),
+                        "152분",
+                    ),
+                )
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -95,7 +93,8 @@ class BookingActivityTest {
     @Test
     fun `인원은_1명_이하로_감소하지_않는다`() {
         // when
-        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+        onView(withId(R.id.tv_people_count))
+            .check(matches(withText("1")))
 
         // when
         onView(withId(R.id.btn_decrease)).perform(click())

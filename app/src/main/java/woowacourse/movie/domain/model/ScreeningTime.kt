@@ -1,10 +1,11 @@
 package woowacourse.movie.domain.model
 
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ScreeningTime {
+class ScreeningTime : Serializable {
     fun getAvailableScreeningTimes(
         nowDateTime: LocalDateTime,
         selectedDate: LocalDate,
