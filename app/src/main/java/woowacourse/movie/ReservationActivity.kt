@@ -16,7 +16,7 @@ import woowacourse.movie.databinding.BookingBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieDateTime
+import woowacourse.movie.domain.MovieDate
 import woowacourse.movie.domain.RunningTimes
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -47,7 +47,7 @@ class ReservationActivity : AppCompatActivity() {
         runningTimePosition = savedInstanceState?.getInt("runningTime") ?: 0
         datePosition = savedInstanceState?.getInt("reservationDay") ?: 0
         binding.datePickerActions.adapter = ReservationDaySpinnerAdapter(
-            MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates()
+            MovieDate(movie.screeningStartDate, movie.screeningEndDate).betweenDates()
         )
         binding.datePickerActions.setSelection(datePosition)
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
@@ -137,14 +137,14 @@ class ReservationActivity : AppCompatActivity() {
         binding.bookedMovieRunningDayText.text =
             binding.bookedMovieRunningDayText.context.getString(
                 R.string.movie_screening_date,
-                movie.startDateTime,
-                movie.endDateTime
+                movie.screeningStartDate,
+                movie.screeningEndDate
             )
         binding.bookedMovieTitleText.text = movie.title
         binding.bookedMovieRunningTimeText.text =
             binding.bookedMovieRunningTimeText.context.getString(
                 R.string.movie_running_time,
-                movie.runningTime.inWholeMinutes
+                movie.runningTime
             )
     }
 
