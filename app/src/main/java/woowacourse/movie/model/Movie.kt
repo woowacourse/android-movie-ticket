@@ -21,9 +21,9 @@ data class Movie(
 
     private fun isDateValid(): Boolean {
         return screeningStartDate.isBefore(screeningEndDate) ||
-                screeningStartDate.isEqual(
-                    screeningEndDate,
-                )
+            screeningStartDate.isEqual(
+                screeningEndDate,
+            )
     }
 
     companion object {

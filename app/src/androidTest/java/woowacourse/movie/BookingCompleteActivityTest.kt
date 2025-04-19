@@ -31,7 +31,7 @@ class BookingCompleteActivityTest {
         val intent =
             Intent(
                 ApplicationProvider.getApplicationContext(),
-                BookingCompleteActivity::class.java
+                BookingCompleteActivity::class.java,
             ).apply {
                 putExtra("bookingResult", bookingResult)
             }
