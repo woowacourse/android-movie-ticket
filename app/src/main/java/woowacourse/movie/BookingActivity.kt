@@ -16,6 +16,7 @@ import woowacourse.movie.domain.Ticket
 
 class BookingActivity : AppCompatActivity() {
     private var movieInfo: MovieInfo? = null
+    private var ticketCountValue = 0
     private lateinit var movieTime: Spinner
     private lateinit var movieDate: Spinner
     private lateinit var startDate: TextView
@@ -104,25 +105,26 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun confirmButtonHandler() {
-        val confirmButton = findViewById<Button>(R.id.confirm_button)
+        val confirmButton : Button = findViewById(R.id.confirm_button)
 
         confirmButton.setOnClickListener {
-            if (ticketCount.text.toString() == "0") return@setOnClickListener
+            if (ticketCountValue == 0) return@setOnClickListener
             askToConfirmBooking()
         }
     }
 
     private fun countButtonHandler() {
-        val minusButton = findViewById<Button>(R.id.minus_button)
-        val plusButton = findViewById<Button>(R.id.plus_button)
+        val minusButton : Button = findViewById(R.id.minus_button)
+        val plusButton : Button = findViewById(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            ticketCount.text = (ticketCount.text.toString().toInt() - 1).toString()
-            if (ticketCount.text.toString().toInt() < 0) ticketCount.text = "0"
+            ticketCountValue = (ticketCountValue - 1).coerceAtLeast(0)
+            ticketCount.text = "$ticketCountValue"
         }
 
         plusButton.setOnClickListener {
-            ticketCount.text = (ticketCount.text.toString().toInt() + 1).toString()
+            ticketCountValue += 1
+            ticketCount.text = "$ticketCountValue"
         }
     }
 
