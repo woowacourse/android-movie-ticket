@@ -31,18 +31,21 @@
 - [ ] MovieListAdapter의 onReservationClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각
 - [ ] MovieListAdapter 기능별로 함수 분리
 - [ ] MovieListAdapterExt 정렬하기
+- [ ] ReservationActivity의 Intent Extra 따로 관리
 - [ ] ReservationActivity의 하드 코딩된 값 string.xml을 활용해 재사용
 - [ ] ReservationActivity 버전별 분기 함수로 재사용하도록 만들기
 - [ ] ReservationActivity 기능별로 분리
 - [ ] 생명주기 공부하기
   - [ ] configurationChange 키워드 살펴보기
 - [ ] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
+- [ ] ReservationCompleteActivity의 Intent Extra 따로 관리
 - [X] dao, data 부분 삭제
 - [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
 - [ ] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
 - [ ] booking.xml 비율로 만든 부분 수정하기
 
 ## 개인적으로 해 보고 싶은 부분
+- [ ] 확장함수 class로 만들기
 - [ ] intent 공부하기
 - [ ] view holder 객체 만들어서 convert에 저장
 - [ ] findViewBy 저장하는 것
