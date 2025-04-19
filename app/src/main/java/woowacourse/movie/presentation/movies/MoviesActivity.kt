@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.movies
 
 import android.os.Bundle
 import android.widget.ListView
@@ -6,7 +6,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.Movie.Companion.movies
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Movie.Companion.movies
+import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
+import woowacourse.movie.presentation.movies.adapter.MoviesAdapter
 
 class MoviesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

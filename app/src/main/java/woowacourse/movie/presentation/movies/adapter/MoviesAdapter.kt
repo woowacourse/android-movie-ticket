@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.movies.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
 
 class MoviesAdapter(
     private val context: Context,

@@ -22,8 +22,13 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.BookingCompleteActivity.Companion.BOOKING_INFO_KEY
-import woowacourse.movie.BookingDetailActivity.Companion.newIntent
+import woowacourse.movie.domain.model.BookingInfo
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieTime
+import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
+import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.BOOKING_INFO_KEY
+import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
+import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.newIntent
 import java.time.LocalDate
 import java.time.LocalTime
 

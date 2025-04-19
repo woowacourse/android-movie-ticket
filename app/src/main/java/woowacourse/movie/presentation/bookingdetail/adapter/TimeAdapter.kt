@@ -1,7 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.presentation.bookingdetail.adapter
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import woowacourse.movie.domain.model.DateType
+import woowacourse.movie.domain.model.MovieTime
 
 class TimeAdapter(
     context: Context,

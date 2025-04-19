@@ -8,7 +8,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.BookingCompleteActivity.Companion.newIntent
+import woowacourse.movie.domain.model.BookingInfo
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieTime
+import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
+import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.newIntent
 import java.time.LocalDate
 import java.time.LocalTime
 

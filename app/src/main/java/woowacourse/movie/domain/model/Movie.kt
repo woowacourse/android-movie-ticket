@@ -1,8 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.domain.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.R
 import java.time.LocalDate
 
 @Parcelize

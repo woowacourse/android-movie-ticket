@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".BookingDetailActivity"
+            android:name=".presentation.bookingdetail.BookingDetailActivity"
             android:exported="false" />
         <activity
-            android:name=".BookingCompleteActivity"
+            android:name=".presentation.bookingcomplete.BookingCompleteActivity"
             android:exported="false" />
         <activity
-            android:name=".MoviesActivity"
+            android:name=".presentation.movies.MoviesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

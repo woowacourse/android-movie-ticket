@@ -16,7 +16,10 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.BookingDetailActivity.Companion.MOVIE_KEY
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
+import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.MOVIE_KEY
+import woowacourse.movie.presentation.movies.MoviesActivity
 import java.time.LocalDate
 
 @Suppress("ktlint:standard:function-naming")
