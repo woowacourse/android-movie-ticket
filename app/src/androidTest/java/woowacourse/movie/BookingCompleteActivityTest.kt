@@ -29,7 +29,10 @@ class BookingCompleteActivityTest {
 
         val bookingResult = mockBookingResult()
         val intent =
-            Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                BookingCompleteActivity::class.java
+            ).apply {
                 putExtra("bookingResult", bookingResult)
             }
 
