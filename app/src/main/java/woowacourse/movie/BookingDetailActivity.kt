@@ -51,6 +51,38 @@ class BookingDetailActivity : AppCompatActivity() {
         setupSelectCompleteClickListener(title)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putInt(TICKET_DATE_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(TICKET_TIME_KEY, timeSpinner.selectedItemPosition)
+        outState.putInt(TICKET_COUNT_KEY, ticketCount)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val ticketDate = savedInstanceState.getInt(TICKET_DATE_KEY)
+        val ticketTime = savedInstanceState.getInt(TICKET_TIME_KEY)
+        ticketCount = savedInstanceState.getInt(TICKET_COUNT_KEY)
+
+        dateSpinner.setSelection(ticketDate)
+
+        val selectedDate = DateType.from(LocalDate.parse(dateSpinner.selectedItem.toString()))
+        timeAdapter.updateTimes(selectedDate)
+
+        timeSpinner.setSelection(ticketTime)
+
+        ticketCountView.text = ticketCount.toString()
+    }
+
     private fun setupView() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_detail)
@@ -154,38 +186,6 @@ class BookingDetailActivity : AppCompatActivity() {
 
         startActivity(intent)
         finish()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putInt(TICKET_DATE_KEY, dateSpinner.selectedItemPosition)
-        outState.putInt(TICKET_TIME_KEY, timeSpinner.selectedItemPosition)
-        outState.putInt(TICKET_COUNT_KEY, ticketCount)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        val ticketDate = savedInstanceState.getInt(TICKET_DATE_KEY)
-        val ticketTime = savedInstanceState.getInt(TICKET_TIME_KEY)
-        ticketCount = savedInstanceState.getInt(TICKET_COUNT_KEY)
-
-        dateSpinner.setSelection(ticketDate)
-
-        val selectedDate = DateType.from(LocalDate.parse(dateSpinner.selectedItem.toString()))
-        timeAdapter.updateTimes(selectedDate)
-
-        timeSpinner.setSelection(ticketTime)
-
-        ticketCountView.text = ticketCount.toString()
     }
 
     companion object {
