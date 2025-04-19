@@ -5,6 +5,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.view.StringFormatter.periodFormat
 
 class MovieViewHolder(
     var position: Int,
@@ -21,5 +23,18 @@ class MovieViewHolder(
         bookingBtn.setOnClickListener {
             onClickBooking(position)
         }
+    }
+
+    fun bind(
+        position: Int,
+        viewHolder: MovieViewHolder,
+        item: Movie,
+    ) {
+        viewHolder.position = position
+        viewHolder.moviePoster.setImageResource(item.poster)
+        viewHolder.movieTitle.text = item.title
+        viewHolder.movieReleaseDate.text =
+            periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)
+        viewHolder.movieRunningTime.text = item.runningTime
     }
 }
