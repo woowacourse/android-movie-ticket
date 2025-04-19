@@ -9,11 +9,11 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.DateFormatter
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import java.time.format.DateTimeFormatter
 
 class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
     override fun getCount(): Int = items.size
@@ -66,11 +66,12 @@ class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
         movieDate: Date,
         context: Context?,
     ) {
+        val dateFormatter = DateFormatter()
+        val formattedStartDate = dateFormatter.format(movieDate.startDate)
+        val formattedEndDate = dateFormatter.format(movieDate.endDate)
+
         val dateTextView: TextView = view.findViewById(R.id.movie_date)
-        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
-        val startDateFormatted = movieDate.startDate.format(formatter)
-        val endDateFormatted = movieDate.endDate.format(formatter)
-        dateTextView.text = context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
+        dateTextView.text = context?.getString(R.string.movieDate, formattedStartDate, formattedEndDate)
     }
 
     private fun setTimeTextView(
@@ -95,9 +96,5 @@ class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
             intent.putExtra(Movie.KEY_MOVIE, movie)
             context?.startActivity(intent)
         }
-    }
-
-    companion object {
-        private const val DATETIME_PATTERN = "yyyy.M.d"
     }
 }

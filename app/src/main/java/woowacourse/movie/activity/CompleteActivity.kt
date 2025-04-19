@@ -1,6 +1,5 @@
 package woowacourse.movie.activity
 
-import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -8,9 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.DateFormatter
+import woowacourse.movie.PriceFormatter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
-import java.time.format.DateTimeFormatter
 
 class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,8 +35,10 @@ class CompleteActivity : AppCompatActivity() {
     }
 
     private fun setTicketInfo(ticket: Ticket) {
-        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
-        val dateTimeFormat = ticket.date.format(formatter)
+        val dateFormatter = DateFormatter()
+        val formattedDateTime = dateFormatter.format(ticket.date)
+        val priceFormatter = PriceFormatter()
+        val formattedPrice = priceFormatter.format(DEFAULT_PRICE * ticket.personnel)
 
         val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
         val movieCancelInfoTextView = findViewById<TextView>(R.id.cancel_info_Text)
@@ -46,19 +48,12 @@ class CompleteActivity : AppCompatActivity() {
 
         movieTitleTextView.text = ticket.title
         movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, CANCEL_DEADLINE)
-        movieDateTextView.text = dateTimeFormat
+        movieDateTextView.text = formattedDateTime
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
-        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(ticket.personnel))
-    }
-
-    private fun totalPrice(personnel: Int): String {
-        val priceFormatter = DecimalFormat(PRICE_PATTERN)
-        return priceFormatter.format(DEFAULT_PRICE * personnel).toString()
+        movieTotalPrice.text = getString(R.string.movieTotalPrice, formattedPrice)
     }
 
     companion object {
-        private const val DATETIME_PATTERN = "yyyy.M.d. HH:mm"
-        private const val PRICE_PATTERN = "#,###"
         private const val DEFAULT_PRICE = 13_000
         private const val CANCEL_DEADLINE = 15
     }

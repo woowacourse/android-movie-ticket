@@ -14,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.DateFormatter
 import woowacourse.movie.R
 import woowacourse.movie.ReservationDialog
 import woowacourse.movie.domain.Movie
@@ -84,12 +85,12 @@ class ReservationActivity : AppCompatActivity() {
         val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
         val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
-        val start = movie.date.startDate.format(formatter)
-        val end = movie.date.endDate.format(formatter)
+        val dateFormatter = DateFormatter()
+        val formattedStartDate = dateFormatter.format(movie.date.startDate)
+        val formattedEndDate = dateFormatter.format(movie.date.endDate)
 
         movieTitleTextView.text = movie.title
-        movieDateTextView.text = getString(R.string.movieDate, start, end)
+        movieDateTextView.text = getString(R.string.movieDate, formattedStartDate, formattedEndDate)
         movieTimeTextView.text = getString(R.string.movieTime, movie.time.toString())
         moviePosterImageView.setImageResource(movie.image)
     }
