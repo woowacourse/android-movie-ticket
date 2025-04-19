@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -20,25 +19,29 @@ class MoviesAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        @SuppressLint("ViewHolder")
-        val view: View =
-            LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_movie, parent, false)
+        val movieViewHolder: MovieViewHolder
+        val view: View
 
-        val title = view.findViewById<TextView>(R.id.tv_movie_title)
-        val poster = view.findViewById<ImageView>(R.id.iv_movie_poster)
-        val date = view.findViewById<TextView>(R.id.tv_movie_date)
-        val runningTime = view.findViewById<TextView>(R.id.tv_movie_running_time)
+        when (convertView) {
+            null -> {
+                view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+                movieViewHolder = MovieViewHolder(view)
+                view.tag = movieViewHolder
+            }
+
+            else -> {
+                view = convertView
+                movieViewHolder = convertView.tag as MovieViewHolder
+            }
+        }
 
         val movie = movies[position]
 
-        title.text = movie.title
-        poster.setImageResource(movie.poster)
-        date.text = context.getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
-        runningTime.text = context.getString(R.string.movies_movie_running_time, movie.runningTime)
-
-        view.findViewById<Button>(R.id.btn_movie_booking).setOnClickListener {
+        movieViewHolder.title.text = movie.title
+        movieViewHolder.poster.setImageResource(movie.poster)
+        movieViewHolder.date.text = context.getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
+        movieViewHolder.runningTime.text = context.getString(R.string.movies_movie_running_time, movie.runningTime)
+        movieViewHolder.bookingButton.setOnClickListener {
             onBookingClick(movie)
         }
 
@@ -50,4 +53,14 @@ class MoviesAdapter(
     override fun getItemId(position: Int): Long = 0
 
     override fun getCount(): Int = movies.size
+
+    private class MovieViewHolder(
+        view: View,
+    ) {
+        val title: TextView = view.findViewById(R.id.tv_movie_title)
+        val poster: ImageView = view.findViewById(R.id.iv_movie_poster)
+        val date: TextView = view.findViewById(R.id.tv_movie_date)
+        val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
+        val bookingButton: Button = view.findViewById(R.id.btn_movie_booking)
+    }
 }
