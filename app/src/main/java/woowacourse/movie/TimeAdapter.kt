@@ -17,13 +17,13 @@ class TimeAdapter(
     fun updateTimes(dateType: DateType) {
         clear()
 
-        val times: List<Time> =
+        val movieTimes: List<MovieTime> =
             when (dateType) {
-                DateType.WEEKDAY -> Time.weekdaysTimes
-                DateType.WEEKEND -> Time.weekendsTimes
+                DateType.WEEKDAY -> MovieTime.weekdaysMovieTimes
+                DateType.WEEKEND -> MovieTime.weekendsMovieTimes
             }
 
-        addAll(times.map { it.toString() })
+        addAll(movieTimes.map { it.toString() })
 
         notifyDataSetChanged()
     }

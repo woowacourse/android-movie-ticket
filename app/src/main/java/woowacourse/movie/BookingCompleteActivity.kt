@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.content.Context
 import android.content.Intent
 import android.icu.text.DecimalFormat
+import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -12,21 +13,20 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class BookingCompleteActivity : AppCompatActivity() {
+    private val bookingInfo: BookingInfo by lazy { getMovieInfoIntent() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
 
-        val title = intent.getStringExtra(MOVIE_TITLE_KEY)
-        val date = intent.getStringExtra(MOVIE_DATE_KEY)
-        val time = intent.getStringExtra(MOVIE_TIME_KEY)
-        val ticketCount = intent.getIntExtra(TICKET_COUNT_KEY, 0)
-        val ticketTotalPrice = DecimalFormat("#,###").format(ticketCount * 13000)
+        val ticketTotalPrice = DecimalFormat("#,###").format(bookingInfo.totalPrice)
 
-        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
+        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfo.movie.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
-            getString(R.string.booking_complete_movie_date_time, date, time)
-        findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text = getString(R.string.booking_complete_ticket_count, ticketCount)
+            getString(R.string.booking_complete_movie_date_time, bookingInfo.date, bookingInfo.movieTime)
+        findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
+            getString(R.string.booking_complete_ticket_count, bookingInfo.count)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
@@ -35,6 +35,13 @@ class BookingCompleteActivity : AppCompatActivity() {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
+
+    private fun getMovieInfoIntent(): BookingInfo =
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(BOOKING_INFO_KEY, BookingInfo::class.java) ?: BookingInfo()
+        } else {
+            intent.getParcelableExtra<BookingInfo>(BOOKING_INFO_KEY) ?: BookingInfo()
+        }
 
     private fun setupView() {
         enableEdgeToEdge()
@@ -48,23 +55,14 @@ class BookingCompleteActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MOVIE_TITLE_KEY = "movie_title"
-        const val MOVIE_DATE_KEY = "movie_date"
-        const val MOVIE_TIME_KEY = "movie_time"
-        const val TICKET_COUNT_KEY = "ticket_count"
+        const val BOOKING_INFO_KEY = "booking_info"
 
         fun newIntent(
             context: Context,
-            title: String,
-            date: String,
-            time: String,
-            ticketCount: Int,
+            bookingInfo: BookingInfo,
         ): Intent =
             Intent(context, BookingCompleteActivity::class.java).apply {
-                putExtra(MOVIE_TITLE_KEY, title)
-                putExtra(MOVIE_DATE_KEY, date)
-                putExtra(MOVIE_TIME_KEY, time)
-                putExtra(TICKET_COUNT_KEY, ticketCount)
+                putExtra(BOOKING_INFO_KEY, bookingInfo)
             }
     }
 }

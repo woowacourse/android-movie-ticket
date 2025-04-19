@@ -9,6 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.BookingCompleteActivity.Companion.newIntent
+import java.time.LocalDate
+import java.time.LocalTime
 
 @Suppress("ktlint:standard:function-naming")
 class BookingCompleteActivityTest {
@@ -19,10 +21,20 @@ class BookingCompleteActivityTest {
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                title = "해리 포터와 마법사의 돌",
-                date = "2025-04-01",
-                time = "09:00",
-                ticketCount = 1,
+                bookingInfo =
+                    BookingInfo(
+                        movie =
+                            Movie(
+                                title = "해리 포터와 마법사의 돌",
+                                startDate = LocalDate.of(2025, 4, 1),
+                                endDate = LocalDate.of(2025, 4, 25),
+                                runningTime = 152,
+                                poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
+                            ),
+                        date = LocalDate.of(2025, 4, 1),
+                        movieTime = MovieTime(LocalTime.of(9, 0)),
+                        count = 1,
+                    ),
             )
 
         activityScenario = ActivityScenario.launch(intent)

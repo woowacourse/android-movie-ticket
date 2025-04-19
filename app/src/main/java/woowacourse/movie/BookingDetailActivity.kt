@@ -17,11 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingDetailActivity : AppCompatActivity() {
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
-    private val movie: Movie by lazy { getMovie() }
+    private val movie: Movie by lazy { getMovieIntent() }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
     private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
@@ -48,7 +49,7 @@ class BookingDetailActivity : AppCompatActivity() {
         setupSelectCompleteClickListener()
     }
 
-    private fun getMovie() =
+    private fun getMovieIntent(): Movie =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(MOVIE_KEY, Movie::class.java) ?: Movie()
         } else {
@@ -166,16 +167,19 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToBookingComplete() {
-        val selectedDate = dateSpinner.selectedItem.toString()
-        val selectedTime = timeSpinner.selectedItem.toString()
+        val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
+        val selectedTime = MovieTime(LocalTime.parse(timeSpinner.selectedItem.toString()))
 
         val intent =
             BookingCompleteActivity.newIntent(
                 context = this,
-                title = movie.title,
-                date = selectedDate,
-                time = selectedTime,
-                ticketCount = ticketCount,
+                bookingInfo =
+                    BookingInfo(
+                        movie = movie,
+                        date = selectedDate,
+                        movieTime = selectedTime,
+                        count = ticketCount,
+                    ),
             )
 
         startActivity(intent)
