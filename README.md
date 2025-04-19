@@ -48,6 +48,7 @@
 - [x] deprecated 메서드 버전별 로직 추가
 - [x] 사용자에게 보이는 문자열 string.xml에 선언
 - [x] DateFormatter, PriceFormatter 분리
+- [x] also 스코프 대신 변수에 할당하게 변경
 
 ## 변경 사항
 - [x] adapter 패키지 domain 패키지에서 분리 
