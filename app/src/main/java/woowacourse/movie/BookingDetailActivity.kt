@@ -61,6 +61,69 @@ class BookingDetailActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun setupDateSpinner(
+        startDate: String,
+        endDate: String,
+    ) {
+        dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
+
+        dateAdapter =
+            DateAdapter(
+                this,
+                LocalDate.parse(startDate),
+                LocalDate.parse(endDate),
+            )
+        dateSpinner.adapter = dateAdapter
+    }
+
+    private fun setupTimeSpinner(startDate: String) {
+        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
+
+        timeAdapter = TimeAdapter(this)
+        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
+        timeSpinner.adapter = timeAdapter
+    }
+
+    private fun setupDateSpinnerItemClickListener() {
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = parent?.getItemAtPosition(position) as LocalDate
+                    val dateType = DateType.from(selectedDate)
+                    timeAdapter.updateTimes(dateType)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    private fun setupTicketCountClickListeners() {
+        findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
+            decreaseTicketCount()
+        }
+
+        findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
+            increaseTicketCount()
+        }
+    }
+
+    private fun decreaseTicketCount() {
+        if (ticketCount > 0) {
+            ticketCount--
+            findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        }
+    }
+
+    private fun increaseTicketCount() {
+        ticketCount++
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+    }
+
     private fun setupSelectCompleteClickListener(title: String) {
         findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
             showSelectCompleteDialog(title)
@@ -94,69 +157,6 @@ class BookingDetailActivity : AppCompatActivity() {
 
         startActivity(intent)
         finish()
-    }
-
-    private fun setupTicketCountClickListeners() {
-        findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
-            decreaseTicketCount()
-        }
-
-        findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
-            increaseTicketCount()
-        }
-    }
-
-    private fun decreaseTicketCount() {
-        if (ticketCount > 0) {
-            ticketCount--
-            findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
-        }
-    }
-
-    private fun increaseTicketCount() {
-        ticketCount++
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
-    }
-
-    private fun setupDateSpinnerItemClickListener() {
-        dateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedDate = parent?.getItemAtPosition(position) as LocalDate
-                    val dateType = DateType.from(selectedDate)
-                    timeAdapter.updateTimes(dateType)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-            }
-    }
-
-    private fun setupDateSpinner(
-        startDate: String,
-        endDate: String,
-    ) {
-        dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
-
-        dateAdapter =
-            DateAdapter(
-                this,
-                LocalDate.parse(startDate),
-                LocalDate.parse(endDate),
-            )
-        dateSpinner.adapter = dateAdapter
-    }
-
-    private fun setupTimeSpinner(startDate: String) {
-        timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
-
-        timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
-        timeSpinner.adapter = timeAdapter
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
