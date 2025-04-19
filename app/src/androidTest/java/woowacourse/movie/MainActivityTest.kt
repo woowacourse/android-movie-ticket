@@ -13,31 +13,31 @@ class MainActivityTest {
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun 타이틀_글자를_표시_한다() {
+    fun shouldDisplayTitleText() {
         onView(withId(R.id.tv_title))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun 상영일_글자를_표시_한다() {
+    fun shouldDisplayScreeningDateText() {
         onView(withId(R.id.tv_screening_date))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun 러닝타임_글자를_표시_한다() {
+    fun shouldDisplayRunningTimeText() {
         onView(withId(R.id.tv_running_time))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun 이미지를_표시_한다() {
+    fun shouldDisplayPosterImage() {
         onView(withId(R.id.iv_poster))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun 버튼을_표시_한다() {
+    fun shouldDisplayReserveButton() {
         onView(withId(R.id.btn_reserve))
             .check(matches(isDisplayed()))
     }

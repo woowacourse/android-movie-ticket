@@ -9,7 +9,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 
 class ReservationResultActivityTest {
     private lateinit var intent: Intent
@@ -29,25 +28,25 @@ class ReservationResultActivityTest {
     }
 
     @Test
-    fun 타이틀_글자를_표시한다() {
+    fun shouldDisplayTitleText() {
         onView(withId(R.id.tv_title))
             .check(matches(withText("해리포터")))
     }
 
     @Test
-    fun 상영일_글자를_표시한다() {
+    fun shouldDisplayScreeningDateText() {
         onView(withId(R.id.tv_screening_date))
             .check(matches(withText("2025.04.30 12:00")))
     }
 
     @Test
-    fun 예매_인원수를_표시한다() {
+    fun shouldDisplayTicketCount() {
         onView(withId(R.id.tv_ticket_count))
             .check(matches(withText("2명")))
     }
 
     @Test
-    fun 구입_금액을_표시한다() {
+    fun shouldDisplayTotalPrice() {
         onView(withId(R.id.tv_total_price))
             .check(matches(withText("26,000원")))
     }

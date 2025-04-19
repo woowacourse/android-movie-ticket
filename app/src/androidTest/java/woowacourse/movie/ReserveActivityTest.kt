@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 
 class ReserveActivityTest {
     private lateinit var intent: Intent
@@ -35,25 +34,25 @@ class ReserveActivityTest {
     }
 
     @Test
-    fun 타이틀_글자를_표시한다() {
+    fun shouldDisplayTitleText() {
         onView(withId(R.id.tv_title))
             .check(matches(withText("해리포터")))
     }
 
     @Test
-    fun 상영일_글자를_표시한다() {
+    fun shouldDisplayScreeningDateText() {
         onView(withId(R.id.tv_screening_date))
             .check(matches(withText("2025.04.30 ~ 2025.05.04")))
     }
 
     @Test
-    fun 러닝타임_글자를_표시한다() {
+    fun shouldDisplayRunningTimeText() {
         onView(withId(R.id.tv_running_time))
             .check(matches(withText("152분")))
     }
 
     @Test
-    fun 예매_티켓_수_증가() {
+    fun shouldIncreaseTicketCount() {
         onView(withId(R.id.btn_plus))
             .perform(click())
 
@@ -62,7 +61,7 @@ class ReserveActivityTest {
     }
 
     @Test
-    fun 예매_티켓_수_감소() {
+    fun shouldDecreaseTicketCount() {
         onView(withId(R.id.btn_minus))
             .perform(click())
 
