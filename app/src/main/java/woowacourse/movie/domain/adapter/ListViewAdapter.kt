@@ -92,7 +92,7 @@ class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
 
         reserveButton.setOnClickListener {
             val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra("movie", movie)
+            intent.putExtra(Movie.KEY_MOVIE, movie)
             context?.startActivity(intent)
         }
     }

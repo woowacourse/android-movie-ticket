@@ -43,3 +43,6 @@
 
 ## 피드백 반영
 - [x] MyAdapter -> MovieListAdapter 네이밍 변경
+- [x] Serializable -> Parcelable 변경 및 의존성 추가
+- [x] 키 값 상수화
+- [x] deprecated 메서드 버전별 로직 추가

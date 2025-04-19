@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -38,7 +39,14 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movie = intent.getSerializableExtra("movie") as? Movie ?: Movie()
+
+        val movie: Movie =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent?.getParcelableExtra(Movie.KEY_MOVIE, Movie::class.java) ?: throw IllegalArgumentException()
+            } else {
+                @Suppress("DEPRECATION")
+                intent?.getParcelableExtra(Movie.KEY_MOVIE) ?: throw IllegalArgumentException()
+            }
 
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)

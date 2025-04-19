@@ -16,7 +16,7 @@ class ReservationDialog(
             .setMessage("정말 예매하시겠습니까?")
             .setPositiveButton("예매 완료") { _, _ ->
                 val intent = Intent(context, CompleteActivity::class.java)
-                intent.putExtra("ticket", ticket)
+                intent.putExtra(Ticket.KEY_TICKET, ticket)
                 context.startActivity(intent)
             }
             .setNegativeButton("취소") { dialog, _ -> dialog.dismiss() }

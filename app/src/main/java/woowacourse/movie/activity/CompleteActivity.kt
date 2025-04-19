@@ -1,6 +1,7 @@
 package woowacourse.movie.activity
 
 import android.icu.text.DecimalFormat
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -21,7 +22,15 @@ class CompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket = intent.getSerializableExtra("ticket") as? Ticket ?: Ticket()
+
+        val ticket: Ticket =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra(Ticket.KEY_TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
+            } else {
+                @Suppress
+                intent.getParcelableExtra(Ticket.KEY_TICKET) ?: throw IllegalArgumentException()
+            }
+
         setTicketInfo(ticket)
     }
 
@@ -36,22 +45,21 @@ class CompleteActivity : AppCompatActivity() {
         val movieTotalPrice = findViewById<TextView>(R.id.movie_total_price)
 
         movieTitleTextView.text = ticket.title
-        movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, Ticket.CANCEL_DEADLINE)
+        movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, CANCEL_DEADLINE)
         movieDateTextView.text = dateTimeFormat
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
-        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(personnel = ticket.personnel))
+        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(ticket.personnel))
     }
 
-    private fun totalPrice(
-        price: Int = Ticket.DEFAULT_PRICE,
-        personnel: Int,
-    ): String {
+    private fun totalPrice(personnel: Int): String {
         val priceFormatter = DecimalFormat(PRICE_PATTERN)
-        return priceFormatter.format(price * personnel).toString()
+        return priceFormatter.format(DEFAULT_PRICE * personnel).toString()
     }
 
     companion object {
         private const val DATETIME_PATTERN = "yyyy.M.d. HH:mm"
         private const val PRICE_PATTERN = "#,###"
+        private const val DEFAULT_PRICE = 13_000
+        private const val CANCEL_DEADLINE = 15
     }
 }
