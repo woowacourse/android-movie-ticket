@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
+import woowacourse.movie.view.MovieClickListener
 import woowacourse.movie.view.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
@@ -32,7 +33,11 @@ class MoviesActivity : AppCompatActivity() {
             MovieAdapter(
                 this,
                 Movie.values,
-                ::navigateToReservationComplete,
+                object : MovieClickListener {
+                    override fun onReservationClick(movie: Movie) {
+                        navigateToReservationComplete(movie)
+                    }
+                },
             )
     }
 
