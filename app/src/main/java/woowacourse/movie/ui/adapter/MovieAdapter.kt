@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.data.Movie
 import woowacourse.movie.ui.view.booking.BookingActivity
 
 class MovieAdapter(

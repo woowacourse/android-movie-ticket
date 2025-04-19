@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.data.MovieTicket
 import woowacourse.movie.ui.view.utils.CustomFormatter.formatAmount
 import woowacourse.movie.ui.view.utils.CustomFormatter.formatDateTime
 import woowacourse.movie.ui.view.utils.CustomFormatter.formatHeadCount

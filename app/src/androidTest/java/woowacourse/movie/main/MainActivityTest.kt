@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.main
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
@@ -19,6 +19,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.ui.view.main.MainActivity
 

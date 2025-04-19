@@ -1,5 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.data
 
+import woowacourse.movie.model.policy.PricingPolicy
 import java.io.Serializable
 import java.time.LocalDateTime
 

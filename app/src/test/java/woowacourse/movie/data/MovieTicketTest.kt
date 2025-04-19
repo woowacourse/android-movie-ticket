@@ -1,11 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.data
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.DefaultPricingPolicy
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.data.MovieTicket
+import woowacourse.movie.model.policy.DefaultPricingPolicy
 import java.time.LocalDateTime
 
 class MovieTicketTest {

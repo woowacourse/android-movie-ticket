@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.data.Movie
 import woowacourse.movie.ui.adapter.MovieAdapter
 import java.time.LocalDate
 

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.booking
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -12,8 +12,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
-import woowacourse.movie.model.DefaultPricingPolicy
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.R
+import woowacourse.movie.model.data.MovieTicket
+import woowacourse.movie.model.policy.DefaultPricingPolicy
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.ui.view.booking.BookingSummaryActivity
 import java.time.LocalDateTime

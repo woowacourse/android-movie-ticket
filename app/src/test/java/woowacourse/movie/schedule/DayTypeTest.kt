@@ -1,8 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.schedule
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.DayType
+import woowacourse.movie.model.schedule.DayType
 import java.time.LocalDate
 
 class DayTypeTest {
