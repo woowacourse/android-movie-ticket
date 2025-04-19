@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.ListView
@@ -22,7 +23,10 @@ class MainActivity : AppCompatActivity() {
             movieOrNull() ?: mockData()
 
         val movieList = listOf(intentMovieData)
-        val movieAdapter = MovieAdapter(movieList)
+        val movieAdapter =
+            MovieAdapter(movieList) { movie ->
+                startBookingActivity(movie)
+            }
         val listView = findViewById<ListView>(R.id.listview_layout)
 
         listView.adapter = movieAdapter
@@ -42,6 +46,14 @@ class MainActivity : AppCompatActivity() {
         } else {
             intent.getParcelableExtra("movieData")
         }
+    }
+
+    private fun startBookingActivity(movie: Movie) {
+        val intent =
+            Intent(this, BookingActivity::class.java).apply {
+                putExtra("movieData", movie)
+            }
+        startActivity(intent)
     }
 
     private fun mockData(): Movie {
