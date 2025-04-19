@@ -3,7 +3,6 @@ package woowacourse.movie.view.reservation
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -36,6 +35,7 @@ class ReservationActivity : AppCompatActivity() {
     private val movie by lazy { getSelectedMovieData() }
     private val movieTime by lazy { MovieTime() }
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
+    private var reservationDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -181,24 +181,35 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun setupCompleteButtonClick() {
         findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
-            showReservationDialog()
+            showReservationDialog(
+                getString(R.string.reservation_dialog_title),
+                getString(R.string.reservation_dialog_message),
+            )
         }
     }
 
-    private fun showReservationDialog() {
-        AlertDialog
-            .Builder(this)
-            .setTitle(getString(R.string.reservation_dialog_title))
-            .setMessage(getString(R.string.reservation_dialog_message))
-            .setCancelable(false)
-            .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
-                val intent = movieTicketIntent()
-                startActivity(intent)
-                finish()
-                dialog.dismiss()
-            }.show()
+    private fun showReservationDialog(
+        title: String,
+        message: String,
+    ) {
+        if (reservationDialog == null) {
+            reservationDialog =
+                AlertDialog
+                    .Builder(this)
+                    .setTitle(title)
+                    .setMessage(message)
+                    .setCancelable(false)
+                    .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
+                        val intent = movieTicketIntent()
+                        startActivity(intent)
+                        finish()
+                        dialog.dismiss()
+                    }.create()
+        }
+
+        reservationDialog?.show()
     }
 
     private fun movieTicketIntent(): Intent {
@@ -243,6 +254,11 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onDestroy() {
+        reservationDialog = null
+        super.onDestroy()
     }
 
     companion object {
