@@ -27,7 +27,7 @@ class CompleteActivity : AppCompatActivity() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getParcelableExtra(Ticket.KEY_TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
             } else {
-                @Suppress
+                @Suppress("DEPRECATION")
                 intent.getParcelableExtra(Ticket.KEY_TICKET) ?: throw IllegalArgumentException()
             }
 
