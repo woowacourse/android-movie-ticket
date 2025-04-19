@@ -52,10 +52,6 @@ class ReservationActivity : AppCompatActivity() {
         setupDateAdapter()
         setupTimeAdapter()
 
-        if (savedInstanceState != null) {
-            setupSavedData(savedInstanceState)
-        }
-
         setupMinusButtonClick(ticketCountTextView)
         setupPlusButtonClick(ticketCountTextView)
         setupCompleteButtonClick()
