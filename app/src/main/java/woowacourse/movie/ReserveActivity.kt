@@ -3,7 +3,6 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -11,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -47,36 +47,32 @@ class ReserveActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = getMovie()
+        val movie = movie()
+        if (movie == null) {
+            showEmptyDialog()
+        } else {
+            initMovieInfo(movie)
+            initDateSpinner(movie.screeningDate)
+            initTimeSpinner(movie.screeningDate.startDate)
 
-        initMovieInfo(movie)
-        initDateSpinner(movie.screeningDate)
-        initTimeSpinner(movie.screeningDate.startDate)
+            reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
+                ?: Reservation(
+                    title = movie.title,
+                    _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
+                    reservedTime = getSelectedDateTime(),
+                )
 
-        reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
-            ?: Reservation(
-                title = movie.title,
-                _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
-                reservedTime = getSelectedDateTime(),
-            )
-
-        updateTicketCount()
-        initButtonClickListeners()
+            updateTicketCount()
+            initButtonClickListeners()
+        }
     }
 
-    private fun getMovie(): Movie {
-        val movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(KEY_MOVIE, Movie::class.java)
-            } else {
-                intent.getParcelableExtra(KEY_MOVIE) as? Movie
-            }
-
-        if (movie == null) {
-            finish()
+    private fun movie(): Movie? {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(KEY_MOVIE, Movie::class.java)
+        } else {
+            intent.getParcelableExtra(KEY_MOVIE) as? Movie
         }
-
-        return movie!!
     }
 
     private fun initMovieInfo(movie: Movie) {
@@ -90,7 +86,7 @@ class ReserveActivity : AppCompatActivity() {
         poster.setImageResource(movie.imageUrl)
         title.text = movie.title
         screeningDate.text = formattedScreeningDate
-        runningTime.text = getString(R.string.formatted_minute).format(movie.runningTime.time)
+        runningTime.text = getString(R.string.formatted_minute, movie.runningTime.time)
     }
 
     private fun initDateSpinner(screeningDate: ScreeningDate) {
@@ -177,11 +173,18 @@ class ReserveActivity : AppCompatActivity() {
         val minusBtn = findViewById<Button>(R.id.btn_minus)
         val plusBtn = findViewById<Button>(R.id.btn_plus)
         val selectBtn = findViewById<Button>(R.id.btn_select)
-
+        val minMovieTicketMessage =
+            Toast.makeText(
+                this,
+                getString(R.string.validate_min_movie_ticket),
+                Toast.LENGTH_SHORT,
+            )
         minusBtn.setOnClickListener {
             if (reservation.canMinus()) {
                 reservation = reservation.minusCount()
                 updateTicketCount()
+            } else {
+                minMovieTicketMessage.show()
             }
         }
 
@@ -190,27 +193,44 @@ class ReserveActivity : AppCompatActivity() {
             updateTicketCount()
         }
 
-        val alertDialog = initSelectDialog()
-
-        selectBtn.setOnClickListener {
-            alertDialog.show()
-        }
-    }
-
-    private fun initSelectDialog(): AlertDialog.Builder {
-        return AlertDialog.Builder(this)
-            .setTitle(getString(R.string.reserve_dialog_title))
-            .setMessage(getString(R.string.reserve_dialog_message))
-            .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
+        val alertDialog =
+            initSelectDialog(
+                getString(R.string.reserve_dialog_title),
+                getString(R.string.reserve_dialog_message),
+            ) {
                 val intent =
                     Intent(this, ReservationResultActivity::class.java).apply {
                         putExtra(KEY_RESERVATION, reservation)
                     }
                 startActivity(intent)
             }
-            .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ ->
-                dialog.dismiss()
+
+        selectBtn.setOnClickListener {
+            alertDialog.show()
+        }
+    }
+
+    private fun showEmptyDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.empty_movie_title))
+            .setMessage(getString(R.string.empty_movie_message))
+            .setPositiveButton(getString(R.string.confirm)) { _, _ ->
+                finish()
             }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun initSelectDialog(
+        title: String,
+        message: String,
+        onConfirm: () -> Unit,
+    ): AlertDialog.Builder {
+        return AlertDialog.Builder(this)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ -> onConfirm() }
+            .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
     }
 
@@ -219,20 +239,10 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun formatting(screeningDate: ScreeningDate): String {
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         val start = screeningDate.startDate.format(formatter)
         val end = screeningDate.endDate.format(formatter)
-        return getString(R.string.formatted_screening_date).format(start, end)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
+        return getString(R.string.formatted_screening_date, start, end)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -242,7 +252,6 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val DEFAULT_TICKET_COUNT_SIZE = 1
         private const val KEY_MOVIE = "movie"
         private const val KEY_RESERVATION = "reservation"

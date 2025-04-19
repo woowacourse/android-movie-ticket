@@ -20,4 +20,9 @@
     <string name="reserve_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reserve_dialog_positive_button">예매 완료</string>
     <string name="reserve_dialog_negative_button">취소</string>
+    <string name="validate_min_movie_ticket">예매 티켓은 최소 1장 이상입니다.</string>
+    <string name="empty_movie_title">영화 정보 없음 안내</string>
+    <string name="empty_movie_message">영화 정보가 없어 이전 화면으로 돌아갑니다.</string>
+    <string name="confirm">확인</string>
+    <string name="date_format">yyyy.MM.dd</string>
 </resources>
