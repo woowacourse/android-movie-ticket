@@ -15,13 +15,13 @@
         <activity
             android:name=".activity.ReservationActivity"
             android:exported="false"
-            android:parentActivityName=".activity.MainActivity"/>
+            android:parentActivityName=".activity.MovieListActivity"/>
         <activity
             android:name=".activity.CompleteActivity"
             android:exported="false"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".activity.MovieListActivity" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.MovieListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -12,7 +12,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.adapter.ListViewAdapter
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
