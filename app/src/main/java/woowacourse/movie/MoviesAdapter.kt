@@ -26,21 +26,20 @@ class MoviesAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        var itemView = convertView
-        if (itemView == null) {
-            itemView =
-                LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
-        }
+        val validateParent = requireNotNull(parent) { "Parent ViewGroup must not be null" }
+        val itemView =
+            convertView ?: LayoutInflater.from(validateParent.context)
+                .inflate(R.layout.movie_item, parent, false)
 
         val item: Movie = movies[position]
-
-        initItemView(itemView!!, item)
+        initItemView(validateParent, itemView, item)
         initReserveButton(itemView, item)
 
         return itemView
     }
 
     private fun initItemView(
+        parent: ViewGroup,
         itemView: View,
         item: Movie,
     ) {
@@ -49,12 +48,14 @@ class MoviesAdapter(
         val screeningDate = itemView.findViewById<TextView>(R.id.tv_screening_date)
         val runningTime = itemView.findViewById<TextView>(R.id.tv_running_time)
 
-        val formattedScreeningDate = formatting(item.screeningDate)
+        itemView.parent
+        val formattedScreeningDate = formatScreeningDate(parent, item.screeningDate)
 
         poster.setImageResource(item.imageUrl)
         title.text = item.title
         screeningDate.text = formattedScreeningDate
-        runningTime.text = MINUTE.format(item.runningTime.time)
+        runningTime.text =
+            parent.context.getString(R.string.formatted_minute, item.runningTime.time)
     }
 
     private fun initReserveButton(
@@ -67,15 +68,14 @@ class MoviesAdapter(
         }
     }
 
-    private fun formatting(screeningDate: ScreeningDate): String {
+    private fun formatScreeningDate(
+        parent: ViewGroup,
+        screeningDate: ScreeningDate,
+    ): String {
+        val formatter: DateTimeFormatter =
+            DateTimeFormatter.ofPattern(parent.context.getString(R.string.date_format))
         val start = screeningDate.startDate.format(formatter)
         val end = screeningDate.endDate.format(formatter)
-        return SCREENING_DATE.format(start, end)
-    }
-
-    companion object {
-        private const val MINUTE = "%d분"
-        private const val SCREENING_DATE = "%s ~ %s"
-        private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        return parent.context.getString(R.string.formatted_screening_date, start, end)
     }
 }
