@@ -7,8 +7,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.DateFormatter
-import woowacourse.movie.PriceFormatter
+import woowacourse.movie.utils.DateFormatter
+import woowacourse.movie.utils.PriceFormatter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 

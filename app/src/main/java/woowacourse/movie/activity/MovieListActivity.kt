@@ -6,7 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.Movies
+import woowacourse.movie.data.Movies
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.adapter.ListViewAdapter

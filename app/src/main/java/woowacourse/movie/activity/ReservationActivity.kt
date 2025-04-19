@@ -14,7 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.DateFormatter
+import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.R
 import woowacourse.movie.ReservationDialog
 import woowacourse.movie.domain.Movie
@@ -24,7 +24,6 @@ import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
     private var count = 1

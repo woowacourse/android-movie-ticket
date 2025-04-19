@@ -9,7 +9,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.DateFormatter
+import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.domain.Date
