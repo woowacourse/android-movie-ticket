@@ -6,7 +6,10 @@ import java.time.LocalTime
 value class Time(
     private val value: LocalTime,
 ) {
-    override fun toString(): String = "%02d:%02d".format(value.hour, value.minute)
+    override fun toString(): String {
+        val hour = if (value.hour == 0) 24 else value.hour
+        return "%02d:%02d".format(hour, value.minute)
+    }
 
     companion object {
         val weekdaysTimes: List<Time> =
@@ -30,6 +33,7 @@ value class Time(
                 "18:00",
                 "20:00",
                 "22:00",
+                "00:00",
             ).map { from(it) }
 
         private fun from(value: String): Time {
