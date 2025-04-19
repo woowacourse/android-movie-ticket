@@ -71,7 +71,8 @@ class BookingActivity : AppCompatActivity() {
         movieTitleView.text = intent.getStringExtra(KEY_MOVIE_TITLE)
 
         val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        moviePosterView.setImageResource(intent.getIntExtra(KEY_MOVIE_POSTER, 0))
+        intent.getStringExtra(KEY_MOVIE_POSTER)?.toIntOrNull()
+            ?.let { moviePosterView.setImageResource(it) }
 
         val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
         movieReleaseDateView.text =

@@ -19,7 +19,7 @@ class MovieViewHolder(
     private val bookingBtn = itemView.findViewById<Button>(R.id.btn_booking)
 
     fun bind(item: Movie) {
-        moviePoster.setImageResource(item.poster)
+        moviePoster.setImageResource(item.poster.toInt())
         movieTitle.text = item.title
         movieReleaseDate.text =
             itemView.context.getString(R.string.text_date_period).format(

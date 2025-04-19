@@ -32,18 +32,20 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun setListView() {
-        val itemList =
-            Array(1) {
+        val itemList = mutableListOf<Movie>()
+        repeat(100) {
+            itemList.add(
                 Movie(
-                    "해리 포터와 마법사의 돌",
-                    R.drawable.harry_potter_one,
+                    "해리 포터와 마법사의 돌 $it",
+                    R.drawable.harry_potter_one.toString(),
                     ScreeningDate(
                         LocalDate.of(2025, 4, 1),
                         LocalDate.of(2025, 4, 25),
                     ),
                     "152분",
-                )
-            }
+                ),
+            )
+        }
 
         val listView = findViewById<ListView>(R.id.list_view)
         val adapter =
