@@ -16,6 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:divider="@null"
+        tools:listitem="@layout/movie_list_item"
         android:dividerHeight="0dp">
     </ListView>
 

@@ -16,15 +16,15 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:scaleType="centerCrop"
                 android:id="@+id/img_booking_poster"
                 android:layout_width="0dp"
                 android:layout_height="341dp"
-                android:src="@drawable/harry_potter"
                 android:contentDescription="@null"
+                android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@drawable/harry_potter" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -40,12 +40,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="7dp"
-                    android:text="해리 포터와 마법사의 돌"
                     android:textColor="@color/black"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="영화 제목" />
 
                 <TextView
                     android:id="@+id/tv_booking_screening_info"
@@ -62,13 +62,15 @@
                     android:id="@+id/tv_booking_screening_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:layout_marginTop="29dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_booking_screening_info"
                     app:layout_constraintStart_toEndOf="@id/tv_booking_screening_info"
-                    app:layout_constraintTop_toBottomOf="@id/tv_booking_title" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_booking_title"
+                    tools:text="영화 상영 기간" />
 
                 <TextView
                     android:id="@+id/tv_booking_running_info"
@@ -84,12 +86,14 @@
                     android:id="@+id/tv_booking_running_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="@+id/tv_booking_running_info"
                     app:layout_constraintStart_toEndOf="@id/tv_booking_running_info"
-                    app:layout_constraintTop_toBottomOf="@id/tv_booking_screening_info" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_booking_screening_info"
+                    tools:text="152분" />
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -125,7 +129,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
-                    android:text="-"
+                    android:text="@string/btn_minus_text"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -135,7 +139,7 @@
                     android:id="@+id/tv_people_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
+                    android:text="@string/default_head_count"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -149,7 +153,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="19dp"
-                    android:text="+"
+                    android:text="@string/btn_plus_text"
                     android:textSize="25sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -160,7 +164,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:text="선택 완료"
+                    android:text="@string/booking_btn_select_complete"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -170,8 +174,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

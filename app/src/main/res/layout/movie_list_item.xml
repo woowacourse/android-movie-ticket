@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="12dp">
@@ -9,11 +10,11 @@
         android:id="@+id/img_poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:background="@drawable/harry_potter"
         android:contentDescription="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:background="@drawable/harry_potter" />
 
     <TextView
         android:id="@+id/tv_movie_title"
@@ -21,12 +22,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:paddingBottom="15dp"
-        android:text=""
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/img_poster"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="영화 제목" />
 
 
     <TextView
@@ -44,11 +45,12 @@
         android:id="@+id/tv_movie_screening_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:layout_marginStart="3dp"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/tv_movie_screening_info"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_title"
+        tools:text="영화 상영 기간" />
 
     <TextView
         android:id="@+id/tv_movie_running_info"
@@ -65,11 +67,12 @@
         android:id="@+id/tv_movie_running_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:layout_marginStart="3dp"
         android:textColor="@color/black"
         android:textSize="12sp"
         app:layout_constraintStart_toEndOf="@id/tv_movie_running_info"
-        app:layout_constraintTop_toBottomOf="@+id/tv_movie_screening_info" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_movie_screening_info"
+        tools:text="152분" />
 
     <Button
         android:id="@+id/btn_reserve"
