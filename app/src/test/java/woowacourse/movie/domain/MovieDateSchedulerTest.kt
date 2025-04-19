@@ -4,8 +4,8 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.time.LocalDate
 
-class DateSchedulerTest {
-    private val dateScheduler = DateScheduler()
+class MovieDateSchedulerTest {
+    private val dateScheduler = MovieDateScheduler()
 
     @Test
     fun `현재 날짜가 상영 시작일보다 빠른 경우 상영 시작일 기준으로 상영 가능 날짜를 반환한다`() {

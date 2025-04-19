@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class TimeSchedulerTest {
-    private val timeScheduler = TimeScheduler()
+class MovieTimeSchedulerTest {
+    private val timeScheduler = MovieTimeScheduler()
 
     @Test
     fun `현재 날짜와 선택된 날짜가 같고 평일인데, 현재 시간이 빠른 경우 현재 시간 기준으로 짝수 시간을 반환한다`() {
