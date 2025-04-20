@@ -74,6 +74,12 @@ class BookingDetailActivityTest {
     }
 
     @Test
+    fun 티켓_장수_초기값은_0이어야_한다() {
+        onView(withId(R.id.tv_booking_detail_count))
+            .check(matches(withText("0")))
+    }
+
+    @Test
     fun 플러스_버튼을_누르면_티켓_장수가_1_증가한다() {
         onView(withId(R.id.btn_booking_detail_count_up))
             .perform(click())
