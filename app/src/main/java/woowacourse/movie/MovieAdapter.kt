@@ -39,14 +39,14 @@ class MovieAdapter(
         }
 
         val movie = getItem(position)
-        val formatter = DateTimeFormatter.ofPattern(context.getString(R.string.date_format_pattern))
+        val formatter = DateTimeFormatter.ofPattern(context.getString(R.string.date_format))
         val startDate = movie.startDate.format(formatter)
         val endDate = movie.endDate.format(formatter)
 
         viewHolder.poster.setImageResource(movie.poster)
         viewHolder.title.text = movie.title
-        viewHolder.screeningDate.text = context.getString(R.string.screening_date_range_template, startDate, endDate)
-        viewHolder.runningTime.text = context.getString(R.string.running_time_template, movie.runningTime)
+        viewHolder.screeningDate.text = context.getString(R.string.screening_date_range, startDate, endDate)
+        viewHolder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
         viewHolder.reserveButton.setOnClickListener { onReservationClick(movie) }
 
         return view

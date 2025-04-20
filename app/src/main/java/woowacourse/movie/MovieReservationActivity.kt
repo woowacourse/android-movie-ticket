@@ -36,7 +36,8 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run { return }
+        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE)
+            ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         initializeTimeSpinner()
@@ -76,12 +77,11 @@ class MovieReservationActivity : AppCompatActivity() {
 
         poster.setImageResource(movie.poster)
         title.text = movie.title
-        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern))
+        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         val startDate = movie.startDate.format(formatter)
         val endDate = movie.endDate.format(formatter)
-        screeningDate.text =
-            getString(R.string.screening_date_range_template).format(startDate, endDate)
-        runningTime.text = getString(R.string.running_time_template).format(movie.runningTime)
+        screeningDate.text = getString(R.string.screening_date_range).format(startDate, endDate)
+        runningTime.text = getString(R.string.running_time).format(movie.runningTime)
     }
 
     private fun initializeDateSpinner() {
@@ -98,14 +98,12 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    ticket =
-                        ticket.copy(
-                            showtime =
-                                LocalDateTime.of(
-                                    dateAdapter.getItem(position),
-                                    ticket.showtime.toLocalTime(),
-                                ),
+                    val selectedShowtime =
+                        LocalDateTime.of(
+                            dateAdapter.getItem(position),
+                            ticket.showtime.toLocalTime(),
                         )
+                    ticket = ticket.copy(showtime = selectedShowtime)
                     initializeTimeSpinner()
                 }
 
@@ -129,14 +127,12 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    ticket =
-                        ticket.copy(
-                            showtime =
-                                LocalDateTime.of(
-                                    ticket.showtime.toLocalDate(),
-                                    timeAdapter.getItem(position),
-                                ),
+                    val selectedShowtime =
+                        LocalDateTime.of(
+                            ticket.showtime.toLocalDate(),
+                            timeAdapter.getItem(position),
                         )
+                    ticket = ticket.copy(showtime = selectedShowtime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">Movie</string>
 
-    <string name="screening_date_range_template">%1$s ~ %2$s</string>
-    <string name="running_time_template">%1$d분</string>
-    <string name="date_format_pattern">yyyy.MM.dd</string>
+    <string name="screening_date_range">%1$s ~ %2$s</string>
+    <string name="running_time">%1$d분</string>
+    <string name="date_format">yyyy.MM.dd</string>
 
-    <string name="ticket_count_template">%1$d명</string>
-    <string name="ticket_price_template">%1$,d원</string>
+    <string name="ticket_count">%1$d명</string>
+    <string name="ticket_price">%1$,d원</string>
 
     <string name="confirm_reservation_title">예매 확인</string>
     <string name="confirm_reservation_message">정말 예매하시겠습니까?</string>
@@ -14,5 +14,4 @@
     <string name="confirm_reservation_no">취소</string>
 
     <string name="incorrect_date_and_time">날짜와 시간을 선택해주세요.</string>
-
 </resources>
