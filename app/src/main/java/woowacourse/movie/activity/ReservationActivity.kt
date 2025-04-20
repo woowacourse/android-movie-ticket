@@ -28,20 +28,20 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReservationActivity : AppCompatActivity() {
-    private var count = 1
-    private var selectedDatePosition = 0
-    private var selectedTimePosition = 0
+    private var count = DEFAULT_PERSONNEL
+    private var selectedDatePosition = DEFAULT_DATE_POSITION
+    private var selectedTimePosition = DEFAULT_TIME_POSITION
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_reservation)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_layout_reservation)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movie = intent.getSerializableExtra("movie") as? Movie
+        val movie = intent.getSerializableExtra(KEY_MOVIE) as? Movie
         if (movie == null) {
             handleInvalidMovie().show()
             return
@@ -56,9 +56,9 @@ class ReservationActivity : AppCompatActivity() {
 
         setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
 
-        count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: return
-        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
-        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: DEFAULT_PERSONNEL
+        selectedDatePosition = savedInstanceState?.getInt(KEY_DATE_POSITION) ?: DEFAULT_DATE_POSITION
+        selectedTimePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: DEFAULT_TIME_POSITION
 
         spinnerDate.setSelection(selectedDatePosition)
         updateCounterText()
@@ -91,7 +91,7 @@ class ReservationActivity : AppCompatActivity() {
         val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
         val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
 
-        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
+        val formatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
         val start = movie.date.startDate.format(formatter)
         val end = movie.date.endDate.format(formatter)
 
@@ -143,7 +143,7 @@ class ReservationActivity : AppCompatActivity() {
                 ),
             ) {
                 val intent = Intent(this, ReservationCompleteActivity::class.java)
-                intent.putExtra("ticket", ticket)
+                intent.putExtra(KEY_TICKET, ticket)
                 startActivity(intent)
             }.show()
         }
@@ -234,6 +234,11 @@ class ReservationActivity : AppCompatActivity() {
         private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
+        private const val KEY_MOVIE = "movie"
+        private const val KEY_TICKET = "ticket"
+        private const val DATE_PATTERN = "yyyy.M.d"
         private const val DEFAULT_PERSONNEL = 1
+        private const val DEFAULT_DATE_POSITION = 0
+        private const val DEFAULT_TIME_POSITION = 0
     }
 }

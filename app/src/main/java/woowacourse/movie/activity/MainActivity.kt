@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         val movieAdapter: MovieAdapter =
             MovieAdapter(movies) { movie ->
                 val intent = Intent(this, ReservationActivity::class.java)
-                intent.putExtra("movie", movie)
+                intent.putExtra(KEY_MOVIE, movie)
                 startActivity(intent)
             }
 
@@ -45,5 +45,9 @@ class MainActivity : AppCompatActivity() {
                 152,
             ),
         )
+    }
+
+    companion object {
+        private const val KEY_MOVIE = "movie"
     }
 }
