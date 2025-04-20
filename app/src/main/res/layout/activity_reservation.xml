@@ -13,8 +13,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:src = "@drawable/harry"
-        android:scaleType="centerCrop">
+        android:scaleType="centerCrop"
+        tools:src="@drawable/harry">
 
     </ImageView>
 
@@ -29,7 +29,7 @@
             android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/movie_title"
+            tools:text="@string/movie_title"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="25sp"
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:text="@string/movieDate">
+            tools:text="@string/movieDate">
 
         </TextView>
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:text = "@string/movieTime"
+            tools:text = "@string/movieTime"
             android:layout_marginBottom="30sp">
         </TextView>
 

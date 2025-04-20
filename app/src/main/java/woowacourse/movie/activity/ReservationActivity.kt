@@ -40,7 +40,11 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movie = intent.getSerializableExtra("movie") as? Movie ?: Movie()
+        val movie = intent.getSerializableExtra("movie") as? Movie
+        if (movie == null) {
+            handleInvalidMovie()
+            return
+        }
 
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
@@ -57,6 +61,22 @@ class ReservationActivity : AppCompatActivity() {
 
         spinnerDate.setSelection(selectedDatePosition)
         updateCounterText()
+    }
+
+    private fun handleInvalidMovie() {
+        DialogFactory.create(
+            DialogInfo(
+                this,
+                R.string.error,
+                R.string.wrong_approach,
+                R.string.confirm,
+                null,
+            ),
+        ) {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
