@@ -16,8 +16,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
+import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.view.StringFormatter.dotDateFormat
@@ -25,7 +25,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity() {
-    private lateinit var peopleCount: PeopleCount
+    private lateinit var headcount: Headcount
 
     private lateinit var movieItem: Movie
 
@@ -79,19 +79,19 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setInitialState() {
-        peopleCount = PeopleCount(MIN_PEOPLE_COUNT)
+        headcount = Headcount(MIN_PEOPLE_COUNT)
         selectedDatePosition = DEFAULT_SPINNER_POSITION
         selectedTimePosition = DEFAULT_SPINNER_POSITION
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
-        peopleCount = savedInstanceState.getSerializable(KEY_PEOPLE_COUNT) as PeopleCount
+        headcount = savedInstanceState.getSerializable(KEY_PEOPLE_COUNT) as Headcount
         selectedDatePosition = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION, 0)
         selectedTimePosition = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION, 0)
     }
 
     private fun updatePeopleCountView() {
-        peopleCountView.text = peopleCount.count.toString()
+        peopleCountView.text = headcount.count.toString()
     }
 
     private fun setupViews(movieItem: Movie) {
@@ -158,7 +158,7 @@ class BookingActivity : AppCompatActivity() {
     private fun setIncreaseButtonClickListener() {
         val increaseBtn: Button = findViewById(R.id.btn_increase)
         increaseBtn.setOnClickListener {
-            peopleCount.increase()
+            headcount.increase()
             updatePeopleCountView()
         }
     }
@@ -166,7 +166,7 @@ class BookingActivity : AppCompatActivity() {
     private fun setDecreaseButtonClickListener() {
         val decreaseBtn: Button = findViewById(R.id.btn_decrease)
         decreaseBtn.setOnClickListener {
-            peopleCount.decrease()
+            headcount.decrease()
             updatePeopleCountView()
         }
     }
@@ -201,9 +201,9 @@ class BookingActivity : AppCompatActivity() {
         val title: String = movieTitleView.text.toString()
         val date: String = dateSpinner.selectedItem.toString()
         val time: String = timeSpinner.selectedItem.toString()
-        val count: Int = peopleCount.count
+        val count: Int = headcount.count
 
-        return BookedTicket(title, PeopleCount(count), "$date $time")
+        return BookedTicket(title, Headcount(count), "$date $time")
     }
 
     private fun moveToBookingCompleteActivity() {
@@ -227,7 +227,7 @@ class BookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_PEOPLE_COUNT, peopleCount)
+        outState.putSerializable(KEY_PEOPLE_COUNT, headcount)
         outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
         outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
     }

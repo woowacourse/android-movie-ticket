@@ -33,7 +33,7 @@ class BookingCompleteActivity : AppCompatActivity() {
 
     private fun setViews() {
         val bookedTicket: BookedTicket = intent.getSerializableExtra("bookedTicket") as BookedTicket
-        val price: Int = bookedTicket.peopleCount.ticketPrice(TicketType.GENERAL)
+        val price: Int = bookedTicket.headcount.ticketPrice(TicketType.GENERAL)
         val priceFormat: String = thousandFormat(price)
 
         findViewById<TextView>(R.id.tv_title).text = bookedTicket.movieName
@@ -41,7 +41,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_price).text =
             getString(R.string.text_on_site_payment).format(priceFormat)
         findViewById<TextView>(R.id.tv_people_count).text =
-            getString(R.string.text_general_people_count).format(bookedTicket.peopleCount.count)
+            getString(R.string.text_general_people_count).format(bookedTicket.headcount.count)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =

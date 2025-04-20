@@ -10,7 +10,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.domain.model.BookedTicket
-import woowacourse.movie.domain.model.PeopleCount
+import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingCompleteActivity
 
@@ -28,7 +28,7 @@ class BookingCompleteActivityTest {
                     "bookedTicket",
                     BookedTicket(
                         "해리 포터와 마법사의 돌",
-                        PeopleCount(2),
+                        Headcount(2),
                         "2025.4.1 12:00",
                     ),
                 )

@@ -2,8 +2,9 @@ package woowacourse.movie.domain.model
 
 import java.io.Serializable
 
-class PeopleCount(
+class Headcount(
     count: Int = 1,
+    val ticketType: TicketType = TicketType.GENERAL,
 ) : Serializable {
     var count: Int = count
         private set

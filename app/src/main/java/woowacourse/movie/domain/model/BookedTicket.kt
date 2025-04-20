@@ -4,6 +4,6 @@ import java.io.Serializable
 
 class BookedTicket(
     val movieName: String,
-    val peopleCount: PeopleCount,
+    val headcount: Headcount,
     val time: String,
 ) : Serializable
