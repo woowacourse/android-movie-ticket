@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val movies: List<Movie> = initMovie()
+        val movies: List<Movie> = dummy
         val listView: ListView = findViewById(R.id.list_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(movies) { movie ->
@@ -36,18 +36,16 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = movieAdapter
     }
 
-    private fun initMovie(): List<Movie> {
-        return listOf(
-            Movie(
-                R.drawable.harry,
-                "해리 포터와 마법사의 돌",
-                Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
-                152,
-            ),
-        )
-    }
-
     companion object {
         private const val KEY_MOVIE = "movie"
+        private val dummy: List<Movie> =
+            listOf(
+                Movie(
+                    R.drawable.harry,
+                    "해리 포터와 마법사의 돌",
+                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+                    152,
+                ),
+            )
     }
 }
