@@ -39,8 +39,8 @@ class BookingActivity : AppCompatActivity() {
         if (!canLoadMovie()) return
         setupScreen()
         displayMovieInfo()
-        bindTicketQuantityButtonListeners()
-        bindSelectButtonListener()
+        setupTicketQuantityButtonListeners()
+        setupSelectButtonListener()
         setupDateSpinner()
     }
 
@@ -86,7 +86,7 @@ class BookingActivity : AppCompatActivity() {
         runningTime.text = getString(R.string.runningTime_text, movie.runningTime.toString())
     }
 
-    private fun bindTicketQuantityButtonListeners() {
+    private fun setupTicketQuantityButtonListeners() {
         headCountView = findViewById(R.id.headCount)
         updateHeadCount()
         val increaseBtn = findViewById<Button>(R.id.increase)
@@ -103,7 +103,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindSelectButtonListener() {
+    private fun setupSelectButtonListener() {
         val selectBtn = findViewById<Button>(R.id.select)
         selectBtn.setOnClickListener {
             showDialog()
