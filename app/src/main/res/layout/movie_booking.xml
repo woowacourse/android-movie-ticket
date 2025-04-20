@@ -95,25 +95,25 @@
             tools:text="러닝타임: 125분"/>
 
         <Spinner
-            android:id="@+id/date_picker_actions"
+            android:id="@+id/date_picker"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
-            app:layout_constraintBottom_toTopOf="@id/minus_button"
+            app:layout_constraintBottom_toTopOf="@id/minus_member_count"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="8dp" />
 
         <Spinner
-            android:id="@+id/time_picker_actions"
+            android:id="@+id/time_picker"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
-            app:layout_constraintTop_toTopOf="@id/date_picker_actions"
+            app:layout_constraintTop_toTopOf="@id/date_picker"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"/>
 
         <Button
-            android:id="@+id/minus_button"
+            android:id="@+id/minus_member_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -123,13 +123,13 @@
             android:gravity="center"
             android:text="-"
             android:textColor="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@id/common_button"
+            app:layout_constraintBottom_toTopOf="@id/booking_complete_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.014"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
-            android:id="@+id/count"
+            android:id="@+id/member_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -140,15 +140,14 @@
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:text="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/common_button"
+            app:layout_constraintBottom_toTopOf="@id/booking_complete_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="2" />
 
         <Button
-            android:id="@+id/plus_button"
+            android:id="@+id/plus_member_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
@@ -159,13 +158,13 @@
             android:text="+"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/common_button"
+            app:layout_constraintBottom_toTopOf="@id/booking_complete_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.985"
             app:layout_constraintStart_toStartOf="parent" />
 
         <Button
-            android:id="@+id/common_button"
+            android:id="@+id/booking_complete_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"

@@ -32,10 +32,10 @@
 - [X] MovieListAdapter의 onBookClick CallBack -> interface구현
 - [X] MovieListAdapter 기능별로 함수 분리
 - [X] MovieListAdapterExt 정렬하기
-- [ ] MovieBookingActivity Intent Extra 따로 관리
+- [X] MovieBookingActivity Intent Extra 따로 관리
 - [ ] MovieBookingActivity 하드 코딩된 값 string.xml을 활용해 재사용
 - [X] MovieBookingActivity 버전별 분기 함수로 재사용하도록 만들기
-- [ ] MovieBookingActivity 기능별로 분리
+- [X] MovieBookingActivity 기능별로 분리
 - [ ] 생명주기 공부하기
   - [ ] configurationChange 키워드 살펴보기
 - [ ] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
