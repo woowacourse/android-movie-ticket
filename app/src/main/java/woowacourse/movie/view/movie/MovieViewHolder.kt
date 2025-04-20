@@ -31,7 +31,7 @@ class MovieViewHolder(
         item: Movie,
     ) {
         viewHolder.position = position
-        viewHolder.moviePoster.setImageResource(item.poster)
+        viewHolder.moviePoster.setImageResource(item.posterId)
         viewHolder.movieTitle.text = item.title
         viewHolder.movieReleaseDate.text =
             periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)

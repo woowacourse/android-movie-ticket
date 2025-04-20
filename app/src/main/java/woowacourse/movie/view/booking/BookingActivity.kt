@@ -98,7 +98,7 @@ class BookingActivity : AppCompatActivity() {
         val posterView: ImageView = findViewById(R.id.img_movie_poster)
 
         movieTitleView.text = movieItem.title
-        posterView.setImageResource(movieItem.poster)
+        posterView.setImageResource(movieItem.posterId)
         movieReleaseDateView.text =
             getString(R.string.text_date_period)
                 .format(dotDateFormat(startDate), dotDateFormat(endDate))
