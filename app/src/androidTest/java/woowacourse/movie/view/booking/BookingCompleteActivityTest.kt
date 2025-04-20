@@ -8,11 +8,11 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.domain.model.Booking
+import woowacourse.movie.domain.model.PeopleCount
+import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 
 class BookingCompleteActivityTest {
     private lateinit var intent: Intent
@@ -24,10 +24,15 @@ class BookingCompleteActivityTest {
                 fakeContext,
                 BookingCompleteActivity::class.java,
             ).apply {
-                putExtra(KEY_BOOKING_MOVIE_TITLE, "해리 포터와 마법사의 돌")
-                putExtra(KEY_BOOKING_DATE_TIME, "2025.4.1 12:00")
-                putExtra(KEY_BOOKING_PEOPLE_COUNT, 2)
-                putExtra(KEY_BOOKING_TICKET_PRICE, 26000)
+                val booking =
+                    Booking(
+                        title = "해리 포터와 마법사의 돌",
+                        bookingDate = "2025.4.1",
+                        bookingTime = "12:00",
+                        count = PeopleCount(2),
+                        ticketType = TicketType.GENERAL,
+                    )
+                putExtra(KEY_BOOKING, booking)
             }
         ActivityScenario.launch<BookingCompleteActivity>(intent)
     }

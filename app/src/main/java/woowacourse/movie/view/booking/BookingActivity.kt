@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Booking
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.ScreeningDate
@@ -26,9 +27,10 @@ import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import kotlin.math.max
 
 class BookingActivity : AppCompatActivity() {
+    private var bookingPeopleCount: PeopleCount = PeopleCount()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -59,7 +61,7 @@ class BookingActivity : AppCompatActivity() {
 
         initRunningTimeView(movie.runningTime)
         initButtonListener()
-
+        initPeopleCountView()
         restoreSavedState(savedInstanceState, startDate, endDate)
     }
 
@@ -89,6 +91,11 @@ class BookingActivity : AppCompatActivity() {
     private fun initRunningTimeView(runningTime: String) {
         val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)
         movieRunningTimeView.text = runningTime
+    }
+
+    private fun initPeopleCountView() {
+        val peopleCountView = findViewById<TextView>(R.id.tv_people_count)
+        peopleCountView.text = bookingPeopleCount.value.toString()
     }
 
     private fun restoreSavedState(
@@ -131,6 +138,7 @@ class BookingActivity : AppCompatActivity() {
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
+
                     setTimeSpinner(screeningBookingDates[pos], savedTimePosition)
                 }
         }
@@ -201,19 +209,19 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun moveToBookingCompleteActivity() {
-        val title = findViewById<TextView>(R.id.tv_title).text
-        val date = findViewById<Spinner>(R.id.sp_date).selectedItem
-        val time = findViewById<Spinner>(R.id.sp_time).selectedItem
-        val count = findViewById<TextView>(R.id.tv_people_count).text.toString().toInt()
-        val price = PeopleCount(count).ticketPrice(TicketType.GENERAL)
-
         val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra(KEY_BOOKING_MOVIE_TITLE, title)
-                putExtra(KEY_BOOKING_DATE_TIME, "$date $time")
-                putExtra(KEY_BOOKING_PEOPLE_COUNT, count)
-                putExtra(KEY_BOOKING_TICKET_PRICE, price)
-            }
+            Intent(this, BookingCompleteActivity::class.java)
+                .apply {
+                    val booking =
+                        Booking(
+                            title = findViewById<TextView>(R.id.tv_title).text.toString(),
+                            bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
+                            bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
+                            count = bookingPeopleCount,
+                            ticketType = TicketType.GENERAL,
+                        )
+                    putExtra(KEY_BOOKING, booking)
+                }
 
         startActivity(intent)
     }
@@ -242,15 +250,10 @@ class BookingActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val MIN_BOOKING_PEOPLE_COUNT = 1
+        const val KEY_BOOKING = "BOOKING"
 
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
-
-        const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
-        const val KEY_BOOKING_DATE_TIME = "BOOKING_DATE_TIME"
-        const val KEY_BOOKING_PEOPLE_COUNT = "BOOKING_PEOPLE_COUNT"
-        const val KEY_BOOKING_TICKET_PRICE = "BOOKING_TICKET_PRICE"
     }
 }

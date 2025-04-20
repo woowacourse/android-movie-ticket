@@ -8,21 +8,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Booking
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_DATE_TIME
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_MOVIE_TITLE
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING_TICKET_PRICE
+import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
+import woowacourse.movie.view.ext.getSerializable
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
-        initView()
+
+        intent.getSerializable(KEY_BOOKING, Booking::class.java)?.let {
+            initView(it)
+        }
     }
 
-    private fun initView() {
+    private fun initView(booking: Booking) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -30,18 +32,36 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val title = intent.getStringExtra(KEY_BOOKING_MOVIE_TITLE)
-        val time = intent.getStringExtra(KEY_BOOKING_DATE_TIME)
-        val peopleCount = intent.getIntExtra(KEY_BOOKING_PEOPLE_COUNT, DEFAULT_PEOPLE_COUNT)
-        val price = intent.getIntExtra(KEY_BOOKING_TICKET_PRICE, DEFAULT_TICKET_PRICE)
-        val priceFormat = StringFormatter.thousandFormat(price)
+        initBookingMovieTitleView(booking.title)
+        initBookingScheduleView(booking.bookingDate, booking.bookingTime)
+        initBookingPeopleCountView(booking.count.value)
+        initBookingTicketPriceView(booking.ticketPrice)
+    }
 
-        findViewById<TextView>(R.id.tv_title).text = title
-        findViewById<TextView>(R.id.tv_release_date).text = time
-        findViewById<TextView>(R.id.tv_price).text =
-            getString(R.string.text_on_site_payment).format(priceFormat)
+    private fun initBookingMovieTitleView(title: String) {
+        val movieTitleView = findViewById<TextView>(R.id.tv_title)
+        movieTitleView.text = title
+    }
+
+    private fun initBookingScheduleView(
+        bookingDate: String,
+        bookingTime: String,
+    ) {
+        val scheduleFormat =
+            getString(R.string.text_booking_schedule).format(bookingDate, bookingTime)
+
+        findViewById<TextView>(R.id.tv_schedule).text = scheduleFormat
+    }
+
+    private fun initBookingPeopleCountView(peopleCount: Int) {
         findViewById<TextView>(R.id.tv_people_count).text =
             getString(R.string.text_general_people_count).format(peopleCount)
+    }
+
+    private fun initBookingTicketPriceView(ticketPrice: Int) {
+        val priceFormat = StringFormatter.thousandFormat(ticketPrice)
+        findViewById<TextView>(R.id.tv_price).text =
+            getString(R.string.text_on_site_payment).format(priceFormat)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -53,10 +73,5 @@ class BookingCompleteActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    companion object {
-        private const val DEFAULT_PEOPLE_COUNT = 0
-        private const val DEFAULT_TICKET_PRICE = 0
     }
 }
