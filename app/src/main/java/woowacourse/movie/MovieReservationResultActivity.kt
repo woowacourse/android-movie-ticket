@@ -33,9 +33,11 @@ class MovieReservationResultActivity : AppCompatActivity() {
         val ticketCount = findViewById<TextView>(R.id.ticket_count)
         val totalPrice = findViewById<TextView>(R.id.total_price)
 
-        val ticket: Ticket = intent.extras.getParcelableCompat<Ticket>(MovieReservationActivity.KEY_TICKET)
+        val ticket: Ticket =
+            intent.extras?.getParcelableCompat<Ticket>(MovieReservationActivity.KEY_TICKET) ?: run { return }
         title.text = ticket.movie.title
-        showtime.text = ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern)))
+        showtime.text =
+            ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern)))
         ticketCount.text = getString(R.string.ticket_count_template).format(ticket.count)
         totalPrice.text = getString(R.string.ticket_price_template).format(ticket.totalPrice())
     }

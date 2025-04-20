@@ -36,7 +36,7 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        movie = intent.extras.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE)
+        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         initializeTimeSpinner()
