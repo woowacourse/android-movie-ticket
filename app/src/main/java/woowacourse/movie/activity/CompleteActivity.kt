@@ -1,12 +1,15 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.DialogFactory
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
@@ -21,8 +24,20 @@ class CompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket = intent.getSerializableExtra("ticket") as? Ticket ?: Ticket()
+        val ticket = intent.getSerializableExtra("ticket") as? Ticket
+        if (ticket == null) {
+            handleInvalidTicket()
+            return
+        }
         setTicketInfo(ticket)
+    }
+
+    private fun handleInvalidTicket(): AlertDialog {
+        return DialogFactory.createErrorDialog(this) {
+            val intent = Intent(this, ReservationActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun setTicketInfo(ticket: Ticket) {
