@@ -1,17 +1,14 @@
-package woowacourse.movie.adapter
+package woowacourse.movie.movielist
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.utils.DateFormatter
 
-class ListViewAdapter(
+class MovieListAdapter(
     private val items: List<Movie>,
     private val onReserveClick: (Movie) -> Unit,
 ) : BaseAdapter() {
@@ -56,12 +53,4 @@ class ListViewAdapter(
 
         return view
     }
-}
-
-class ViewHolder(view: View) {
-    val imageView: ImageView = view.findViewById(R.id.movie_image)
-    val titleTextView: TextView = view.findViewById(R.id.movie_title)
-    val dateTextView: TextView = view.findViewById(R.id.movie_date)
-    val timeTextView: TextView = view.findViewById(R.id.movie_time)
-    val reserveButton: Button = view.findViewById(R.id.reserve_button)
 }

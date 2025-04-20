@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.completedbooking
 
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +12,7 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.utils.PriceFormatter
 
-class CompleteActivity : AppCompatActivity() {
+class CompletedBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

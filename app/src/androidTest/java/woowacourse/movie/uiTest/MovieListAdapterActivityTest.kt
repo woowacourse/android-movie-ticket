@@ -8,9 +8,9 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.activity.MovieListActivity
+import woowacourse.movie.movielist.MovieListActivity
 
-class MovieListActivityTest {
+class MovieListAdapterActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
 

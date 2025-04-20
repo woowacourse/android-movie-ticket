@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.movielist
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.adapter.ListViewAdapter
 import woowacourse.movie.data.Movies
+import woowacourse.movie.detailbooking.DetailBookingActivity
 import woowacourse.movie.domain.Movie
 
 class MovieListActivity : AppCompatActivity() {
@@ -25,13 +25,13 @@ class MovieListActivity : AppCompatActivity() {
 
         val movies: List<Movie> = Movies().getAll()
         val listView: ListView = findViewById(R.id.list_view)
-        val listViewAdapter =
-            ListViewAdapter(movies) { movie ->
-                val intent = Intent(this, ReservationActivity::class.java)
+        val movieListAdapter =
+            MovieListAdapter(movies) { movie ->
+                val intent = Intent(this, DetailBookingActivity::class.java)
                 intent.putExtra(Movie.KEY_MOVIE, movie)
                 startActivity(intent)
             }
 
-        listView.adapter = listViewAdapter
+        listView.adapter = movieListAdapter
     }
 }

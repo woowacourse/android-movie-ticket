@@ -1,7 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.detailbooking
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import woowacourse.movie.R
 
 class ReservationDialog(
     private val context: Context,

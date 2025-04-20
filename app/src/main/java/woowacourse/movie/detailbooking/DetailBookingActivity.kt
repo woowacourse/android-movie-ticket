@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.detailbooking
 
 import android.content.Intent
 import android.os.Build
@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.ReservationDialog
+import woowacourse.movie.completedbooking.CompletedBookingActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
@@ -26,7 +26,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity : AppCompatActivity() {
+class DetailBookingActivity : AppCompatActivity() {
     private var count = 1
     private var selectedDatePosition = 0
     private var selectedTimePosition = 0
@@ -128,7 +128,7 @@ class ReservationActivity : AppCompatActivity() {
                 ) ?: return@setOnClickListener
             ReservationDialog(this).popUp(
                 onPositiveClick = {
-                    val intent = Intent(this, CompleteActivity::class.java)
+                    val intent = Intent(this, CompletedBookingActivity::class.java)
                     intent.putExtra(Ticket.KEY_TICKET, ticket)
                     startActivity(intent)
                 },
