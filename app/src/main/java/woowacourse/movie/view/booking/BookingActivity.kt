@@ -58,7 +58,7 @@ class BookingActivity : AppCompatActivity() {
 
         setupViews(movieItem)
         setDateSpinner(movieItem.releaseDate)
-        setButtonListeners()
+        setButtonClickListeners()
     }
 
     private fun applyWindowInsets() {
@@ -149,22 +149,31 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun setButtonListeners() {
-        val increaseBtn: Button = findViewById(R.id.btn_increase)
-        val decreaseBtn: Button = findViewById(R.id.btn_decrease)
-        val bookingBtn: Button = findViewById(R.id.btn_booking_complete)
+    private fun setButtonClickListeners() {
+        setIncreaseButtonClickListener()
+        setDecreaseButtonClickListener()
+        setBookingCompleteButtonClickListener()
+    }
 
+    private fun setIncreaseButtonClickListener() {
+        val increaseBtn: Button = findViewById(R.id.btn_increase)
         increaseBtn.setOnClickListener {
             peopleCount.increase()
             updatePeopleCountView()
         }
+    }
 
+    private fun setDecreaseButtonClickListener() {
+        val decreaseBtn: Button = findViewById(R.id.btn_decrease)
         decreaseBtn.setOnClickListener {
             peopleCount.decrease()
             updatePeopleCountView()
         }
+    }
 
-        bookingBtn.setOnClickListener {
+    private fun setBookingCompleteButtonClickListener() {
+        val bookingCompleteBtn: Button = findViewById(R.id.btn_booking_complete)
+        bookingCompleteBtn.setOnClickListener {
             showDialog(
                 getString(R.string.text_booking_dialog_title),
                 getString(R.string.text_booking_dialog_description),
