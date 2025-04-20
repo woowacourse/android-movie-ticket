@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.ext.getSerializableCompat
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -31,13 +31,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun extractReservation(): Reservation {
-        val reservation =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(getString(R.string.key_reservation), Reservation::class.java)
-            } else {
-                intent.getParcelableExtra(getString(R.string.key_reservation)) as? Reservation
-            }
-
+        val reservation: Reservation? = intent.getSerializableCompat(getString(R.string.key_reservation))
         if (reservation == null) finish()
 
         return reservation!!

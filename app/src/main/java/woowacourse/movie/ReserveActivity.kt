@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -23,6 +22,7 @@ import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.TimeScheduler
+import woowacourse.movie.ext.getSerializableCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -64,12 +64,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun getMovie(): Movie {
-        val movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(getString(R.string.key_movie), Movie::class.java)
-            } else {
-                intent.getParcelableExtra(getString(R.string.key_movie)) as? Movie
-            }
+        val movie: Movie? = intent.getSerializableCompat(getString(R.string.key_movie))
 
         if (movie == null) {
             finish()
