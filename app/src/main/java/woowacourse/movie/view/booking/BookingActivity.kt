@@ -1,6 +1,5 @@
 package woowacourse.movie.view.booking
 
-import AdapterItemSelectedListener
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
