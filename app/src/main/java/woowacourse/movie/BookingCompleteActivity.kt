@@ -33,9 +33,9 @@ class BookingCompleteActivity : AppCompatActivity() {
 
     private fun bookingResultOrNull() =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("bookingResult", BookingResult::class.java)
+            intent.getParcelableExtra(KEY_BOOKING_RESULT, BookingResult::class.java)
         } else {
-            intent.getParcelableExtra("bookingResult")
+            intent.getParcelableExtra(KEY_BOOKING_RESULT)
         }
 
     private fun setUpBookingResult(bookingResult: BookingResult) {
@@ -62,5 +62,9 @@ class BookingCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        const val KEY_BOOKING_RESULT = "bookingResult"
     }
 }

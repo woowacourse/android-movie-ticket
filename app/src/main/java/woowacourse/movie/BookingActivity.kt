@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.BookingCompleteActivity.Companion.KEY_BOOKING_RESULT
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Booking
 import woowacourse.movie.model.BookingResult
@@ -57,9 +58,9 @@ class BookingActivity : AppCompatActivity() {
         movie: Movie,
         savedInstanceState: Bundle?,
     ) {
-        val savedCount = savedInstanceState?.getInt("HEAD_COUNT")
-        val savedScreeningDate = savedInstanceState?.getString("SCREENING_DATE")
-        val savedScreeningTime = savedInstanceState?.getString("SCREENING_TIME")
+        val savedCount = savedInstanceState?.getInt(KEY_HEAD_COUNT)
+        val savedScreeningDate = savedInstanceState?.getString(KEY_SCREENING_DATE)
+        val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_DATE)
 
         val date = savedScreeningDate ?: formatDate(LocalDate.now(), '-')
         val time = savedScreeningTime ?: formatTime(LocalTime.now())
@@ -69,9 +70,9 @@ class BookingActivity : AppCompatActivity() {
 
     private fun movieOrNull(): Movie? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("movieData", Movie::class.java)
+            intent.getParcelableExtra(KEY_MOVIE_DATA, Movie::class.java)
         } else {
-            intent.getParcelableExtra("movieData")
+            intent.getParcelableExtra(KEY_MOVIE_DATA)
         }
     }
 
@@ -220,7 +221,7 @@ class BookingActivity : AppCompatActivity() {
             .setMessage(getString(R.string.dig_message))
             .setPositiveButton(getString(R.string.dig_btn_positive_message)) { _, _ ->
                 val intent = Intent(this, BookingCompleteActivity::class.java)
-                intent.putExtra("bookingResult", bookingResult)
+                intent.putExtra(KEY_BOOKING_RESULT, bookingResult)
                 startActivity(intent)
             }
             .setNegativeButton(getString(R.string.dig_btn_negative_message)) { dialog, _ ->
@@ -237,8 +238,15 @@ class BookingActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt("HEAD_COUNT", bookingResult.headCount)
-        outState.putString("SCREENING_DATE", bookingResult.selectedDate)
-        outState.putString("SCREENING_TIME", bookingResult.selectedTime)
+        outState.putInt(KEY_HEAD_COUNT, bookingResult.headCount)
+        outState.putString(KEY_SCREENING_DATE, bookingResult.selectedDate)
+        outState.putString(KEY_SCREENING_TIME, bookingResult.selectedTime)
+    }
+
+    companion object {
+        const val KEY_MOVIE_DATA = "movieData"
+        const val KEY_HEAD_COUNT = "HEAD_COUNT"
+        const val KEY_SCREENING_DATE = "SCREENING_DATE"
+        const val KEY_SCREENING_TIME = "SCREENING_TIME"
     }
 }
