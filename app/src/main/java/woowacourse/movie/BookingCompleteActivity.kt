@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.model.BookingResult
+import woowacourse.movie.util.Keys
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
     }
 
-    private fun bookingResultOrNull() = IntentCompat.getParcelableExtra(intent, "bookingResult", BookingResult::class.java)
+    private fun bookingResultOrNull() = IntentCompat.getParcelableExtra(intent, Keys.Extra.BOOKING_RESULT, BookingResult::class.java)
 
     private fun setUpBookingResult(bookingResult: BookingResult) {
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)

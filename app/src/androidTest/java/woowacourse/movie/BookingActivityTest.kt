@@ -26,6 +26,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.model.Movie
+import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
 class BookingActivityTest {
@@ -38,7 +39,7 @@ class BookingActivityTest {
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
-                putExtra("movieData", movie)
+                putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movie)
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -261,7 +262,7 @@ class BookingActivityTest {
         intended(
             allOf(
                 hasComponent(BookingCompleteActivity::class.java.name),
-                hasExtraWithKey("bookingResult"),
+                hasExtraWithKey(Keys.Extra.BOOKING_RESULT),
             ),
         )
 

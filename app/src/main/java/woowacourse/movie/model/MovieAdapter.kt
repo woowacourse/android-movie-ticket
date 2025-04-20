@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
+import woowacourse.movie.util.Keys
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -52,7 +53,7 @@ class MovieAdapter(
             val context = itemView.context
             val intent =
                 Intent(context, BookingActivity::class.java).apply {
-                    this.putExtra("movieData", movie)
+                    this.putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movie)
                 }
             context.startActivity(intent)
         }
