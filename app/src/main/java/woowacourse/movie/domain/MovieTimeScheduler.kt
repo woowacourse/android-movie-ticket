@@ -18,7 +18,7 @@ class MovieTimeScheduler : TimeScheduler {
             } else {
                 currentDate.toLocalTime().coerceAtLeast(screeningDayType.startTime)
             }
-        return getTimesBetween(startTime, screeningDayType)
+        return getTimesBetween(startTime.withMinute(0).withSecond(0).withNano(0), screeningDayType)
     }
 
     private fun getTimesBetween(
