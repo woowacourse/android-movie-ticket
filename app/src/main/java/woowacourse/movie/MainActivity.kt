@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.ReserveActivity.Companion.KEY_MOVIE
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTime
 import woowacourse.movie.domain.ScreeningDate
@@ -14,7 +15,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var moviesView: ListView
+    private val moviesView: ListView by lazy { findViewById(R.id.lv_movies) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +26,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        moviesView = findViewById(R.id.lv_movies)
-
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
+        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         val startDate: LocalDate = LocalDate.parse("2025.04.01", formatter)
         val endDate: LocalDate = LocalDate.parse("2025.04.25", formatter)
 
@@ -47,9 +46,5 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         moviesView.adapter = adapter
-    }
-
-    companion object {
-        private const val KEY_MOVIE = "movie"
     }
 }
