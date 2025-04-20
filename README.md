@@ -61,3 +61,4 @@
 - [x] 파일명 변경 및 xml 레이아웃 id 변경
 - [x] onCreate 된 후 데이터를 복원하도록 onRestoreInstanceState 추가
 - [x] 영화 상영 목록 화면 UI 테스트 추가
+- [x] 영화 예매 화면 UI 테스트 추가 (스피너 제외)

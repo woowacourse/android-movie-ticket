@@ -11,7 +11,7 @@
         tools:context=".detailbooking.DetailBookingActivity">
 
         <ImageView
-            android:id="@+id/item_movie_image"
+            android:id="@+id/detail_movie_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -26,7 +26,7 @@
             android:padding="25sp">
 
             <TextView
-                android:id="@+id/item_movie_title"
+                android:id="@+id/detail_movie_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15sp"
@@ -38,7 +38,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/item_movie_date"
+                android:id="@+id/detail_movie_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/movieDate"
@@ -48,7 +48,7 @@
             </TextView>
 
             <TextView
-                android:id="@+id/item_movie_time"
+                android:id="@+id/detail_movie_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="30sp"
@@ -63,13 +63,13 @@
                 android:orientation="horizontal">
 
                 <Spinner
-                    android:id="@+id/spinner_date"
+                    android:id="@+id/detail_spinner_date"
                     android:layout_width="match_parent"
                     android:layout_height="30sp"
                     android:layout_weight="1" />
 
                 <Spinner
-                    android:id="@+id/spinner_time"
+                    android:id="@+id/detail_spinner_time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
@@ -112,7 +112,7 @@
             </LinearLayout>
 
             <Button
-                android:id="@+id/reservation_button"
+                android:id="@+id/detail_reservation_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"

@@ -49,8 +49,8 @@ class DetailBookingActivity : AppCompatActivity() {
                 intent?.getParcelableExtra(Movie.KEY_MOVIE) ?: throw IllegalArgumentException()
             }
 
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+        val spinnerDate = findViewById<Spinner>(R.id.detail_spinner_date)
+        val spinnerTime = findViewById<Spinner>(R.id.detail_spinner_time)
 
         setMovieInfo(movie)
         setCountButtons()
@@ -100,10 +100,10 @@ class DetailBookingActivity : AppCompatActivity() {
     }
 
     private fun setMovieInfo(movie: Movie) {
-        val movieTitleTextView = findViewById<TextView>(R.id.item_movie_title)
-        val movieDateTextView = findViewById<TextView>(R.id.item_movie_date)
-        val movieTimeTextView = findViewById<TextView>(R.id.item_movie_time)
-        val moviePosterImageView = findViewById<ImageView>(R.id.item_movie_image)
+        val movieTitleTextView = findViewById<TextView>(R.id.detail_movie_title)
+        val movieDateTextView = findViewById<TextView>(R.id.detail_movie_date)
+        val movieTimeTextView = findViewById<TextView>(R.id.detail_movie_time)
+        val moviePosterImageView = findViewById<ImageView>(R.id.detail_movie_image)
 
         val dateFormatter = DateFormatter()
         val formattedStartDate = dateFormatter.format(movie.date.startDate)
@@ -137,7 +137,7 @@ class DetailBookingActivity : AppCompatActivity() {
         spinnerDate: Spinner,
         spinnerTime: Spinner,
     ) {
-        val reservationButton = findViewById<Button>(R.id.reservation_button)
+        val reservationButton = findViewById<Button>(R.id.detail_reservation_button)
 
         reservationButton.setOnClickListener {
             val ticket =

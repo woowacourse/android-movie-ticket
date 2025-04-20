@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id = "@+id/item_movie_image"
+        android:id = "@+id/detail_movie_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -26,7 +26,7 @@
         android:padding="25sp">
 
         <TextView
-            android:id="@+id/item_movie_title"
+            android:id="@+id/detail_movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/movie_title"
@@ -38,7 +38,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/item_movie_date"
+            android:id="@+id/detail_movie_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -48,7 +48,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/item_movie_time"
+            android:id="@+id/detail_movie_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -64,12 +64,12 @@
             android:layout_marginBottom="20sp"
             >
             <Spinner
-                android:id="@+id/spinner_date"
+                android:id="@+id/detail_spinner_date"
                 android:layout_width="match_parent"
                 android:layout_weight="1"
                 android:layout_height="30sp" />
             <Spinner
-                android:id="@+id/spinner_time"
+                android:id="@+id/detail_spinner_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"/>
@@ -115,7 +115,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/reservation_button"
+            android:id="@+id/detail_reservation_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"
