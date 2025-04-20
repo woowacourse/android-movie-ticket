@@ -68,3 +68,4 @@
 - [ ] movie 개선, test 코드 작성
 - [ ] movies 개선, test 코드 작성
 - [ ] runningTimes 개선, test 코드 작성
+- [ ] 영화 예약 완료 화면에서 뒤로가기 버튼에 대해서 생각해보기
