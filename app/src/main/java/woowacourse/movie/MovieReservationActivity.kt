@@ -36,11 +36,7 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run {
-            finish()
-            return
-        }
-
+        movie = intent.extras.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE)
         initializeMovieInfo()
         initializeDateSpinner()
         initializeTimeSpinner()
@@ -53,7 +49,6 @@ class MovieReservationActivity : AppCompatActivity() {
             ),
             MINIMUM_TICKET_COUNT,
         )
-
         initializeTicketCountButton()
         initializeSelectButton()
     }

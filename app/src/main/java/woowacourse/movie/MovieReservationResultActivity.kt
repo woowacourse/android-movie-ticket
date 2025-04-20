@@ -15,11 +15,7 @@ class MovieReservationResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        val ticket: Ticket =
-            intent.extras?.getParcelableCompat<Ticket>(MovieReservationActivity.KEY_TICKET) ?: run {
-                finish()
-                return
-            }
+        val ticket: Ticket = intent.extras.getParcelableCompat<Ticket>(MovieReservationActivity.KEY_TICKET)
 
         val title = findViewById<TextView>(R.id.movie_title)
         val showtime = findViewById<TextView>(R.id.showtime)
