@@ -35,6 +35,7 @@ class BookingActivity : AppCompatActivity() {
     private lateinit var date: LocalDate
     private lateinit var time: LocalTime
     private lateinit var headCountView: TextView
+    private var confirmDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +92,7 @@ class BookingActivity : AppCompatActivity() {
     private fun bindSelectButtonListener() {
         val selectBtn = findViewById<Button>(R.id.select)
         selectBtn.setOnClickListener {
-            showDialog()
+            showConfirmDialog()
         }
     }
 
@@ -151,14 +152,21 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun showDialog() {
-        AlertDialog.Builder(this)
+    private fun showConfirmDialog() {
+        if (confirmDialog == null) {
+            initConfirmDialog()
+        }
+        confirmDialog?.show()
+    }
+
+    private fun initConfirmDialog() {
+        confirmDialog = AlertDialog.Builder(this)
             .setTitle(getString(R.string.dialog_title))
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.complete)) { _, _ -> onConfirm() }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
-            .show()
+            .create()
     }
 
     private fun onConfirm() {
