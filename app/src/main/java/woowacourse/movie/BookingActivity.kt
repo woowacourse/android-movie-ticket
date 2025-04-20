@@ -60,7 +60,7 @@ class BookingActivity : AppCompatActivity() {
     ): BookingResult {
         val savedCount = savedInstanceState?.getInt(KEY_HEAD_COUNT)
         val savedScreeningDate = savedInstanceState?.getString(KEY_SCREENING_DATE)
-        val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_DATE)
+        val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_TIME)
 
         val date = savedScreeningDate?.let { LocalDate.parse(it) } ?: LocalDate.now()
         val time = savedScreeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now()

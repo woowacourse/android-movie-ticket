@@ -16,6 +16,8 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.BookingResult
+import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
@@ -108,9 +110,9 @@ class BookingCompleteActivityTest {
     private fun mockBookingResult(): BookingResult {
         return BookingResult(
             title = "해리 포터와 마법사의 돌",
-            _headCount = 2,
-            _selectedDate = "2025.04.20",
-            _selectedTime = "12:00",
+            headCount = 2,
+            selectedDate = LocalDate.of(2025, 4, 20),
+            selectedTime = LocalTime.of(12, 0),
         )
     }
 }

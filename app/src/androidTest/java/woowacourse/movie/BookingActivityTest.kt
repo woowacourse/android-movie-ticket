@@ -17,14 +17,12 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.containsString
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
@@ -32,8 +30,8 @@ import java.time.LocalDate
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
 
-    @get:Rule
-    val activityRule = ActivityScenarioRule(BookingActivity::class.java)
+//    @get:Rule
+//    val activityRule = ActivityScenarioRule(BookingActivity::class.java)
 
     @Before
     fun setUp() {
@@ -56,10 +54,14 @@ class BookingActivityTest {
 
     @Test
     fun `화면_회선시_인원수가_유지된다`() {
-        val activityScenario = activityRule.scenario
-        activityScenario.onActivity { activity ->
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        onView(withId(R.id.btn_plus)).perform(click())
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+
+        scenario.onActivity {
+            it.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
+
+        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
     }
 
     @Test
