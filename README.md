@@ -24,7 +24,7 @@
   - 영화 티켓 한 장은 13,000원이다.
 
 ## 1, 2 두루 review 반영
-- [ ] 하드코딩된 내용을 더미데이터로 만듬 ex) movie
+- [X] 하드코딩된 내용을 더미데이터로 만듬 ex) movie
 - [X] MainActivity -> 미션 주제가 들어나도록 네이밍 변경
 - [X] MainActivity onCreate 함수 기능별로 분리
 - [X] MainActivity의 Intent Extra 따로 관리

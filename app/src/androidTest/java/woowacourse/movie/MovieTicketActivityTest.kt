@@ -12,7 +12,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class MovieTicketActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieTicketActivity::class.java)
 
@@ -30,7 +30,7 @@ class MainActivityTest {
             .check(
                 matches(
                     withText(
-                        "해리포터와 마법사의 돌"
+                        MovieFixture.HARRY_POTTER_TITLE
                     )
                 )
             )
@@ -38,19 +38,18 @@ class MainActivityTest {
             .check(
                 matches(
                     withText(
-                        "상영일: 2025.04.01"
+                        MovieFixture.HARRY_POTTER_DATE
                     )
                 )
             )
 
-        onView(withId(R.id.movie_running))
+        onView(withId(R.id.movie_running_time))
             .check(
                 matches(
                     withText(
-                        "러닝타임: 125분"
+                        MovieFixture.HARRY_POTTER_RUNNING_TIME
                     )
                 )
             )
     }
-
 }
