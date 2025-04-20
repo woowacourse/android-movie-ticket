@@ -9,7 +9,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,11 +25,11 @@ import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     private lateinit var movie: Movie
+    private lateinit var ticket: Ticket
+    private lateinit var dateAdapter: ArrayAdapter<LocalDate>
+    private lateinit var timeAdapter: ArrayAdapter<LocalTime>
     private val dateSpinner by lazy { findViewById<Spinner>(R.id.date_spinner) }
     private val timeSpinner by lazy { findViewById<Spinner>(R.id.time_spinner) }
-    private var selectedDate: LocalDate? = null
-    private var selectedTime: LocalTime? = null
-    private var ticketCount = MINIMUM_TICKET_COUNT
     private val scheduler = Scheduler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,14 +40,19 @@ class MovieReservationActivity : AppCompatActivity() {
             finish()
             return
         }
-        initializeMovieInfo()
 
-        val savedTicket: Ticket? = savedInstanceState?.getParcelableCompat<Ticket>(KEY_TICKET)
-        initializeSpinners(savedTicket)
-        savedTicket?.let { ticket ->
-            ticketCount = ticket.count
-            findViewById<TextView>(R.id.ticket_count).text = ticketCount.toString()
-        }
+        initializeMovieInfo()
+        initializeDateSpinner()
+        initializeTimeSpinner()
+
+        ticket = savedInstanceState?.getParcelableCompat<Ticket>(KEY_TICKET) ?: Ticket(
+            movie,
+            LocalDateTime.of(
+                dateAdapter.getItem(0),
+                timeAdapter.getItem(0),
+            ),
+            MINIMUM_TICKET_COUNT,
+        )
 
         initializeTicketCountButton()
         initializeSelectButton()
@@ -56,12 +60,6 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val ticket =
-            Ticket(
-                movie = movie,
-                showtime = LocalDateTime.of(selectedDate, selectedTime),
-                count = ticketCount,
-            )
         outState.putParcelable(KEY_TICKET, ticket)
     }
 
@@ -83,23 +81,19 @@ class MovieReservationActivity : AppCompatActivity() {
 
         poster.setImageResource(movie.poster)
         title.text = movie.title
-        val startDate = movie.startDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern)))
-        val endDate = movie.endDate.format(DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern)))
-        screeningDate.text = getString(R.string.screening_date_range_template).format(startDate, endDate)
+        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_format_pattern))
+        val startDate = movie.startDate.format(formatter)
+        val endDate = movie.endDate.format(formatter)
+        screeningDate.text =
+            getString(R.string.screening_date_range_template).format(startDate, endDate)
         runningTime.text = getString(R.string.running_time_template).format(movie.runningTime)
     }
 
-    private fun initializeSpinners(savedTicket: Ticket?) {
-        initializeDateSpinner(savedTicket?.showtime)
-        initializeTimeSpinner(savedTicket?.showtime?.toLocalTime())
-    }
-
-    private fun initializeDateSpinner(savedDateTime: LocalDateTime?) {
+    private fun initializeDateSpinner() {
         val screeningDates =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates)
-        dateSpinner.adapter = adapter
+        dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates)
+        dateSpinner.adapter = dateAdapter
 
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -109,29 +103,28 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedDate = screeningDates[position]
-                    initializeTimeSpinner(savedDateTime?.toLocalTime())
+                    ticket =
+                        ticket.copy(
+                            showtime =
+                                LocalDateTime.of(
+                                    dateAdapter.getItem(position),
+                                    ticket.showtime.toLocalTime(),
+                                ),
+                        )
+                    initializeTimeSpinner()
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
-
-        savedDateTime?.toLocalDate()?.let { selectedDate = it }
-        selectedDate.let { dateSpinner.setSelection(adapter.getPosition(it)) }
     }
 
-    private fun initializeTimeSpinner(savedTime: LocalTime?) {
+    private fun initializeTimeSpinner() {
         val showtimes =
-            selectedDate?.let {
-                scheduler.getShowtimes(it, LocalDateTime.now())
-            } ?: emptyList()
-        val adapter =
-            ArrayAdapter(
-                this@MovieReservationActivity,
-                android.R.layout.simple_spinner_item,
-                showtimes,
-            )
-        timeSpinner.adapter = adapter
+            (dateSpinner.selectedItem as LocalDate).let { selectedDate ->
+                scheduler.getShowtimes(selectedDate, LocalDateTime.now())
+            }
+        timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, showtimes)
+        timeSpinner.adapter = timeAdapter
 
         timeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -141,31 +134,41 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedTime = showtimes[position]
+                    ticket =
+                        ticket.copy(
+                            showtime =
+                                LocalDateTime.of(
+                                    ticket.showtime.toLocalDate(),
+                                    timeAdapter.getItem(position),
+                                ),
+                        )
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
 
-        savedTime?.let { selectedTime = it }
-        selectedTime?.let { timeSpinner.setSelection(adapter.getPosition(it)) }
+        if (::ticket.isInitialized) {
+            timeSpinner.setSelection(timeAdapter.getPosition(ticket.showtime.toLocalTime()))
+        }
     }
 
     private fun initializeTicketCountButton() {
-        val decrementButton = findViewById<Button>(R.id.decrement_button)
-        if (ticketCount == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         val incrementButton = findViewById<Button>(R.id.increment_button)
+        val decrementButton = findViewById<Button>(R.id.decrement_button)
+        if (ticket.count == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
+        ticketCountTextView.text = ticket.count.toString()
 
-        decrementButton.setOnClickListener {
-            ticketCount--
-            ticketCountTextView.text = ticketCount.toString()
-            if (ticketCount == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
-        }
         incrementButton.setOnClickListener {
             decrementButton.isEnabled = true
-            ticketCount++
-            ticketCountTextView.text = ticketCount.toString()
+            ticket = ticket.copy(count = ticket.count + 1)
+            ticketCountTextView.text = ticket.count.toString()
+        }
+
+        decrementButton.setOnClickListener {
+            ticket = ticket.copy(count = ticket.count - 1)
+            ticketCountTextView.text = ticket.count.toString()
+            if (ticket.count == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         }
     }
 
@@ -176,7 +179,8 @@ class MovieReservationActivity : AppCompatActivity() {
                 .setMessage(R.string.confirm_reservation_message)
                 .setPositiveButton(R.string.confirm_reservation_yes) { _, _ ->
                     onConfirmReservation()
-                }.setNegativeButton(R.string.confirm_reservation_no) { dialog, _ -> dialog.dismiss() }
+                }
+                .setNegativeButton(R.string.confirm_reservation_no) { dialog, _ -> dialog.dismiss() }
         selectButton.setOnClickListener {
             alertDialog.show()
         }
@@ -184,19 +188,9 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun onConfirmReservation() {
-        if (selectedDate != null && selectedTime != null) {
-            val intent = Intent(this, MovieReservationResultActivity::class.java)
-            val ticket =
-                Ticket(
-                    movie = movie,
-                    showtime = LocalDateTime.of(selectedDate, selectedTime),
-                    count = ticketCount,
-                )
-            intent.putExtra(KEY_TICKET, ticket)
-            startActivity(intent)
-        } else {
-            Toast.makeText(this, R.string.incorrect_date_and_time, Toast.LENGTH_SHORT).show()
-        }
+        val intent = Intent(this, MovieReservationResultActivity::class.java)
+        intent.putExtra(KEY_TICKET, ticket)
+        startActivity(intent)
     }
 
     companion object {
