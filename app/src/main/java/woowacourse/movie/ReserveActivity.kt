@@ -43,14 +43,7 @@ class ReserveActivity : AppCompatActivity() {
         setContentView(R.layout.activity_reserve)
         initSystemUI()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val movie = movie()
-        if (movie == null) {
-            showMissingMovieDialog()
-        } else {
-            initMovieContent(movie)
-            initReservation(savedInstanceState, movie)
-        }
+        initWithMovie(savedInstanceState)
     }
 
     private fun initSystemUI() {
@@ -58,6 +51,16 @@ class ReserveActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun initWithMovie(savedInstanceState: Bundle?) {
+        val movie = movie()
+        if (movie == null) {
+            showMissingMovieDialog()
+        } else {
+            initMovieContent(movie)
+            initReservation(savedInstanceState, movie)
         }
     }
 

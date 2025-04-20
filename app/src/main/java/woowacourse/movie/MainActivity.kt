@@ -21,24 +21,35 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+        initSystemUI()
+        initMoviesView(movies())
+    }
+
+    private fun initSystemUI() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
+    }
+
+    private fun movies(): List<Movie> {
+        val formatter: DateTimeFormatter =
+            DateTimeFormatter.ofPattern(getString(R.string.date_format))
         val startDate: LocalDate = LocalDate.parse("2025.04.01", formatter)
         val endDate: LocalDate = LocalDate.parse("2025.04.25", formatter)
 
-        val movies =
-            listOf(
-                Movie(
-                    "해리포터와 마법사의 돌",
-                    ScreeningDate(startDate, endDate),
-                    RunningTime(152),
-                    R.drawable.harrypotter,
-                ),
-            )
+        return listOf(
+            Movie(
+                "해리포터와 마법사의 돌",
+                ScreeningDate(startDate, endDate),
+                RunningTime(152),
+                R.drawable.harrypotter,
+            ),
+        )
+    }
+
+    private fun initMoviesView(movies: List<Movie>) {
         val adapter =
             MoviesAdapter(movies) { movie ->
                 val intent = Intent(this, ReserveActivity::class.java)
