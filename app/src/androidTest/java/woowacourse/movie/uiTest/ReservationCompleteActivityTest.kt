@@ -1,22 +1,64 @@
 package woowacourse.movie.uiTest
 
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationCompleteActivity
+import woowacourse.movie.domain.Ticket
+import woowacourse.movie.uiTest.fixture.fakeContext
+import java.time.LocalDateTime
 
 class ReservationCompleteActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(ReservationCompleteActivity::class.java)
 
+    private val ticket =
+        Ticket(
+            "해리 포터와 마법사의 돌",
+            LocalDateTime.of(2025, 4, 21, 18, 0),
+            2,
+        )
+
+    @Before
+    fun setUp() {
+        val intent = ReservationCompleteActivity.newIntent(fakeContext, ticket)
+        ActivityScenario.launch<ReservationCompleteActivity>(intent)
+    }
+
     @Test
-    fun haveCancelInfo() {
+    fun `취소_가능_시간_정보_테스트`() {
         onView(withId(R.id.cancel_info_Text))
             .check(matches(withText("영화 상영 시작 15분 전까지\n 취소가 가능합니다.")))
+    }
+
+    @Test
+    fun `예매한_영화의_제목을_보여준다`() {
+        onView(withId(R.id.movie_title))
+            .check(matches(withText("해리 포터와 마법사의 돌")))
+    }
+
+    @Test
+    fun `예매한_영화의_상영일을_보여준다`() {
+        onView(withId(R.id.movie_date))
+            .check(matches(withText("2025.4.21. 18:00")))
+    }
+
+    @Test
+    fun `예매한_영화의_예매_인원_수를_보여준다`() {
+        onView(withId(R.id.movie_personnel))
+            .check(matches(withText("일반 2명")))
+    }
+
+    @Test
+    fun `예매한_영화의_총_티켓_가격을_보여준다`() {
+        onView(withId(R.id.movie_total_price))
+            .check(matches(withText("26,000원 (현장 결제)")))
     }
 }

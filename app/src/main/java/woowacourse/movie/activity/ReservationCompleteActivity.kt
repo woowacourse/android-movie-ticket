@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.content.Context
 import android.content.Intent
 import android.icu.text.DecimalFormat
 import android.os.Bundle
@@ -18,7 +19,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_complete)
+        setContentView(R.layout.activity_reservation_complete)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.root_layout_reservation_complete)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -69,5 +70,14 @@ class ReservationCompleteActivity : AppCompatActivity() {
         private const val DATETIME_PATTERN = "yyyy.M.d. HH:mm"
         private const val PRICE_PATTERN = "#,###"
         private const val KEY_TICKET = "ticket"
+
+        fun newIntent(
+            context: Context,
+            ticket: Ticket,
+        ): Intent =
+            Intent(context, ReservationCompleteActivity::class.java).putExtra(
+                KEY_TICKET,
+                ticket,
+            )
     }
 }
