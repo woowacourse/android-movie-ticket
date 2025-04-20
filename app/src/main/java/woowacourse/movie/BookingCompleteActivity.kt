@@ -1,13 +1,13 @@
 package woowacourse.movie
 
 import android.icu.text.DecimalFormat
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.model.BookingResult
 
 class BookingCompleteActivity : AppCompatActivity() {
@@ -31,12 +31,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
     }
 
-    private fun bookingResultOrNull() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("bookingResult", BookingResult::class.java)
-        } else {
-            intent.getParcelableExtra("bookingResult")
-        }
+    private fun bookingResultOrNull() = IntentCompat.getParcelableExtra(intent, "bookingResult", BookingResult::class.java)
 
     private fun setUpBookingResult(bookingResult: BookingResult) {
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)
