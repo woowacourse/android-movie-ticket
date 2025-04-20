@@ -6,3 +6,13 @@ import java.time.format.DateTimeFormatter
 fun LocalDate.toDotFormat(): String {
     return this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))
 }
+
+fun String.toLocalDateFromDot(): LocalDate {
+    val (year, month, day) = this.split(".").map { it.toInt() }
+    return LocalDate.of(year, month, day)
+}
+
+fun String.toLocalDateFromDash(): LocalDate {
+    val (year, month, day) = this.split("-").map { it.toInt() }
+    return LocalDate.of(year, month, day)
+}

@@ -14,7 +14,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieDate
 import woowacourse.movie.domain.RunningTimes
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -57,7 +56,7 @@ class MovieBookingActivity : AppCompatActivity() {
         memberCount(memberCount, count, plusMemberCount, minusMemberCount)
         bookMovieButton(bookingComplete, bookingStatus)
 
-        date.adapter = ReservationDaySpinnerAdapter(MovieDate(movie.screeningStartDate, movie.screeningEndDate).betweenDates())
+        date.adapter = ReservationDaySpinnerAdapter(movie.screeningPeriod.betweenDates())
         time.adapter = RunningTimeSpinnerAdapter(RunningTimes().runningTimes(LocalDate.now()))
     }
 
@@ -110,12 +109,12 @@ class MovieBookingActivity : AppCompatActivity() {
         screeningDate: TextView,
         runningTimes: TextView
     ) {
-        title.text = movie.title
+        title.text = movie.title.value
         poster.setImageResource(movie.poster)
         screeningDate.text = screeningDate.context.getString(
             R.string.movie_screening_date,
-            movie.screeningStartDate.toDotFormat(),
-            movie.screeningEndDate.toDotFormat(),
+            movie.screeningPeriod.screeningStartDate.toDotFormat(),
+            movie.screeningPeriod.screeningEndDate.toDotFormat(),
         )
         runningTimes.text = runningTimes.context.getString(
             R.string.movie_running_time,
