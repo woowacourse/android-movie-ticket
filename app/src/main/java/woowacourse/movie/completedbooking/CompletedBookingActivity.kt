@@ -40,11 +40,11 @@ class CompletedBookingActivity : AppCompatActivity() {
         val priceFormatter = PriceFormatter()
         val formattedPrice = priceFormatter.format(DEFAULT_PRICE * ticket.personnel)
 
-        val movieTitleTextView = findViewById<TextView>(R.id.item_movie_title)
-        val movieCancelInfoTextView = findViewById<TextView>(R.id.cancel_info_Text)
-        val movieDateTextView = findViewById<TextView>(R.id.item_movie_date)
-        val moviePersonnel = findViewById<TextView>(R.id.movie_personnel)
-        val movieTotalPrice = findViewById<TextView>(R.id.movie_total_price)
+        val movieTitleTextView = findViewById<TextView>(R.id.ticket_movie_title)
+        val movieCancelInfoTextView = findViewById<TextView>(R.id.ticket_cancel_info_Text)
+        val movieDateTextView = findViewById<TextView>(R.id.ticket_movie_datetime)
+        val moviePersonnel = findViewById<TextView>(R.id.ticket_movie_personnel)
+        val movieTotalPrice = findViewById<TextView>(R.id.ticket_total_price)
 
         movieTitleTextView.text = ticket.title
         movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, CANCEL_DEADLINE)

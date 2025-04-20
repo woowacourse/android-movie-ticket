@@ -14,7 +14,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/cancel_info_Text"
+            android:id="@+id/ticket_cancel_info_Text"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_gravity="center"
@@ -34,7 +34,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/item_movie_title"
+            android:id="@+id/ticket_movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text = "@string/movie_title"
@@ -48,7 +48,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/item_movie_date"
+            android:id="@+id/ticket_movie_datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text = "@string/default_movie_date_time"
@@ -59,7 +59,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_personnel"
+            android:id="@+id/ticket_movie_personnel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/moviePersonnel"
@@ -70,7 +70,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_total_price"
+            android:id="@+id/ticket_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text = "@string/movieTotalPrice"
