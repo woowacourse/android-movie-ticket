@@ -28,8 +28,8 @@
 - [X] MainActivity -> 미션 주제가 들어나도록 네이밍 변경
 - [X] MainActivity onCreate 함수 기능별로 분리
 - [X] MainActivity의 Intent Extra 따로 관리
-- [X] MovieListAdapter의 onReservationClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각 -> 화면이 여러겹 쌓임
-- [ ] MovieListAdapter의 onReservationClick CallBack -> interface구현
+- [X] MovieListAdapter의 onBookClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각 -> 화면이 여러겹 쌓임
+- [ ] MovieListAdapter의 onBookClick CallBack -> interface구현
 - [X] MovieListAdapter 기능별로 함수 분리
 - [ ] MovieListAdapterExt 정렬하기
 - [ ] ReservationActivity의 Intent Extra 따로 관리
