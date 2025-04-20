@@ -13,13 +13,7 @@ import java.time.format.DateTimeFormatter
 class MovieReservationResultActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_reservation_completion)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        initializeView()
 
         val ticket: Ticket =
             intent.extras?.getParcelableCompat<Ticket>(MovieReservationActivity.KEY_TICKET) ?: run {
@@ -36,6 +30,16 @@ class MovieReservationResultActivity : AppCompatActivity() {
         showtime.text = ticket.showtime.format(DATE_FORMAT)
         ticketCount.text = TICKET_COUNT.format(ticket.count)
         totalPrice.text = TOTAL_PRICE.format(ticket.totalPrice())
+    }
+
+    private fun initializeView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_movie_reservation_completion)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
     }
 
     companion object {
