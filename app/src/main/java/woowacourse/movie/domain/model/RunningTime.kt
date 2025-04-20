@@ -2,7 +2,7 @@ package woowacourse.movie.domain.model
 
 @JvmInline
 value class RunningTime(
-    val minute: Int = RUNNING_TIME_MIN_MINUTE,
+    val minute: Int,
 ) {
     init {
         require(minute >= RUNNING_TIME_MIN_MINUTE) {
