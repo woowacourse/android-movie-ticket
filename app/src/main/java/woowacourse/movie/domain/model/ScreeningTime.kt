@@ -28,9 +28,7 @@ class ScreeningTime {
     private fun isToday(
         nowDateTime: LocalDateTime,
         selectedDate: LocalDate,
-    ): Boolean {
-        return selectedDate.isEqual(nowDateTime.toLocalDate())
-    }
+    ): Boolean = selectedDate.isEqual(nowDateTime.toLocalDate())
 
     companion object {
         private const val MIDNIGHT = 24

@@ -4,7 +4,10 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
 
-enum class DayType(val startTime: LocalTime, val interval: Int) {
+enum class DayType(
+    val startTime: LocalTime,
+    val interval: Int,
+) {
     WEEKDAY(LocalTime.of(10, 0), 2),
     WEEKEND(LocalTime.of(9, 0), 2),
     ;
