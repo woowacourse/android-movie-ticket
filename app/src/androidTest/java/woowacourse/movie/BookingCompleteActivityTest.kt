@@ -51,7 +51,7 @@ class BookingCompleteActivityTest {
     @DisplayName("전달 받은 예매 인원을 출력한다")
     @Test
     fun moviePeopleCountDisplayTest() {
-        onView(withId(R.id.tv_people_count)).check(matches(withText("일반 2명")))
+        onView(withId(R.id.tv_headcount)).check(matches(withText("일반 2명")))
     }
 
     @DisplayName("전달 받은 예매 가격을 출력한다")

@@ -57,7 +57,7 @@
         />
 
     <TextView
-        android:id="@+id/tv_people_count"
+        android:id="@+id/tv_headcount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
@@ -78,7 +78,7 @@
         android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_people_count"
+        app:layout_constraintTop_toBottomOf="@id/tv_headcount"
         tools:text="26,000원 (현장 결제)"
         />
 

@@ -130,7 +130,7 @@
             app:layout_constraintTop_toTopOf="@id/btn_decrease" />
 
         <TextView
-            android:id="@+id/tv_people_count"
+            android:id="@+id/tv_headcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"

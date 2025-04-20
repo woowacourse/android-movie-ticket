@@ -79,8 +79,9 @@ class BookingActivityTest {
     @DisplayName("인원 증가 버튼을 누르면 인원이 1 증가한다")
     @Test
     fun increaseBtnTest() {
+        // given
         onView(withId(R.id.btn_increase)).perform(click())
-        onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
+        onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
     }
 
     @DisplayName("인원 감소 버튼을 누르면 인원이 1 감소한다")
@@ -88,14 +89,14 @@ class BookingActivityTest {
     fun decreaseBtnTest() {
         onView(withId(R.id.btn_increase)).perform(click())
         onView(withId(R.id.btn_decrease)).perform(click())
-        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+        onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
 
     @DisplayName("인원은 1명 이하로 감소하지 않는다")
     @Test
     fun minDecreaseBtnTest() {
         onView(withId(R.id.btn_decrease)).perform(click())
-        onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
+        onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
 
     @DisplayName("예매 선택 완료 버튼을 누르면 예매 확인 다이얼로그가 뜬다")
@@ -127,7 +128,7 @@ class BookingActivityTest {
     fun configurationChangePeopleCountTest() {
         onView(withId(R.id.btn_increase)).perform(click())
         onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
-        onView(withId(R.id.tv_people_count)).check(matches(withText("2")))
+        onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
         onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
     }
 

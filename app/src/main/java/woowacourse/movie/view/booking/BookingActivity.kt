@@ -73,7 +73,7 @@ class BookingActivity : AppCompatActivity() {
         movieTitleView = findViewById(R.id.tv_title)
         movieReleaseDateView = findViewById(R.id.tv_release_date)
         movieRunningTimeView = findViewById(R.id.tv_running_time)
-        peopleCountView = findViewById(R.id.tv_people_count)
+        peopleCountView = findViewById(R.id.tv_headcount)
         dateSpinner = findViewById(R.id.sp_date)
         timeSpinner = findViewById(R.id.sp_time)
     }

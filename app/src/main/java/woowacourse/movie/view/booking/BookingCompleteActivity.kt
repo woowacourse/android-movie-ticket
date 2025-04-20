@@ -40,7 +40,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_release_date).text = bookedTicket.time
         findViewById<TextView>(R.id.tv_price).text =
             getString(R.string.text_on_site_payment).format(priceFormat)
-        findViewById<TextView>(R.id.tv_people_count).text =
+        findViewById<TextView>(R.id.tv_headcount).text =
             getString(R.string.text_general_people_count).format(bookedTicket.headcount.count)
     }
 
