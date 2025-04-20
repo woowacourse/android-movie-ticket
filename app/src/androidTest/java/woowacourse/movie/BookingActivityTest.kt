@@ -1,6 +1,7 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
@@ -51,6 +52,14 @@ class BookingActivityTest {
     fun tearDown() {
         Intents.release()
         scenario.close()
+    }
+
+    @Test
+    fun `화면_회선시_인원수가_유지된다`() {
+        val activityScenario = activityRule.scenario
+        activityScenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
     }
 
     @Test
@@ -286,7 +295,7 @@ class BookingActivityTest {
 
     private fun mockMovie(): Movie {
         return Movie(
-            imageSource = R.drawable.harry_potter,
+            imageSource = "harry_potter.png",
             title = "해리 포터와 마법사의 돌",
             runningTime = 152,
             screeningStartDate = LocalDate.of(2025, 4, 1),

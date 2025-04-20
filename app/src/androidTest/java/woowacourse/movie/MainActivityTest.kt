@@ -167,7 +167,7 @@ class MainActivityTest {
 
     private fun mockMovie(): Movie {
         return Movie(
-            imageSource = R.drawable.harry_potter,
+            imageSource = "harry_potter.png",
             title = "---",
             runningTime = 150,
             screeningStartDate = LocalDate.of(2025, 4, 1),
