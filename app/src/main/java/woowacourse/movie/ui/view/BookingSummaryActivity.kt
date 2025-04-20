@@ -2,31 +2,19 @@ package woowacourse.movie.ui.view
 
 import android.os.Bundle
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.ui.view.CustomFormatter.formatAmount
 import woowacourse.movie.ui.view.CustomFormatter.formatDateTime
 import woowacourse.movie.ui.view.CustomFormatter.formatHeadCount
 
-class BookingSummaryActivity : AppCompatActivity() {
+class BookingSummaryActivity : BaseActivity() {
+    override val layoutRes: Int
+        get() = R.layout.activity_bookingsummary
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupScreen()
+        setupScreen(layoutRes)
         displayBookingSummary()
-    }
-
-    private fun setupScreen() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_bookingsummary)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     private fun displayBookingSummary() {

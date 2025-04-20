@@ -9,11 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.DefaultPricingPolicy
 import woowacourse.movie.model.Movie
@@ -24,7 +20,9 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.Locale
 
-class BookingActivity : AppCompatActivity() {
+class BookingActivity : BaseActivity() {
+    override val layoutRes: Int
+        get() = R.layout.activity_booking
     private var headCount: Int = DEFAULT_HEADCOUNT
     private val movie: Movie by lazy {
         intent.intentSerializable(
@@ -40,21 +38,11 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
-        setupScreen()
+        setupScreen(layoutRes)
         displayMovieInfo()
         bindTicketQuantityButtonListeners()
         bindSelectButtonListener()
         setupDateSpinner()
-    }
-
-    private fun setupScreen() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_booking)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     private fun displayMovieInfo() {
