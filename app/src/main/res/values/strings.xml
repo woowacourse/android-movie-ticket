@@ -5,6 +5,9 @@
     <string name="running_time_template">%1$d분</string>
     <string name="date_format_pattern">yyyy.MM.dd</string>
 
+    <string name="ticket_count_template">%1$d명</string>
+    <string name="ticket_price_template">%1$,d원</string>
+
     <string name="confirm_reservation_title">예매 확인</string>
     <string name="confirm_reservation_message">정말 예매하시겠습니까?</string>
     <string name="confirm_reservation_yes">예매 완료</string>
