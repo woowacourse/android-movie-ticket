@@ -36,7 +36,7 @@
 - [X] MovieBookingActivity 하드 코딩된 값 string.xml을 활용해 재사용
 - [X] MovieBookingActivity 버전별 분기 함수로 재사용하도록 만들기
 - [X] MovieBookingActivity 기능별로 분리
-- [ ] 생명주기 공부하기
+- [X] 생명주기 공부하기
   - [ ] configurationChange 키워드 살펴보기
 - [ ] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
 - [X] ReservationCompleteActivity의 Intent Extra 따로 관리
