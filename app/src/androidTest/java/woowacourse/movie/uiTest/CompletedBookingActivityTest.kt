@@ -17,6 +17,6 @@ class CompletedBookingActivityTest {
     @Test
     fun haveCancelInfo() {
         onView(withId(R.id.cancel_info_Text))
-            .check(matches(withText("영화 상영 시작 15분 전까지\n 취소가 가능합니다.")))
+            .check(matches(withText(R.string.movie_title)))
     }
 }

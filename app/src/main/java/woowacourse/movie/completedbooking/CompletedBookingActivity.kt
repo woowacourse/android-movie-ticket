@@ -40,9 +40,9 @@ class CompletedBookingActivity : AppCompatActivity() {
         val priceFormatter = PriceFormatter()
         val formattedPrice = priceFormatter.format(DEFAULT_PRICE * ticket.personnel)
 
-        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
+        val movieTitleTextView = findViewById<TextView>(R.id.item_movie_title)
         val movieCancelInfoTextView = findViewById<TextView>(R.id.cancel_info_Text)
-        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
+        val movieDateTextView = findViewById<TextView>(R.id.item_movie_date)
         val moviePersonnel = findViewById<TextView>(R.id.movie_personnel)
         val movieTotalPrice = findViewById<TextView>(R.id.movie_total_price)
 

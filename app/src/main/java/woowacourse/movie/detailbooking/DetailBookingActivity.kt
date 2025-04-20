@@ -100,10 +100,10 @@ class DetailBookingActivity : AppCompatActivity() {
     }
 
     private fun setMovieInfo(movie: Movie) {
-        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
-        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
-        val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
-        val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
+        val movieTitleTextView = findViewById<TextView>(R.id.item_movie_title)
+        val movieDateTextView = findViewById<TextView>(R.id.item_movie_date)
+        val movieTimeTextView = findViewById<TextView>(R.id.item_movie_time)
+        val moviePosterImageView = findViewById<ImageView>(R.id.item_movie_image)
 
         val dateFormatter = DateFormatter()
         val formattedStartDate = dateFormatter.format(movie.date.startDate)

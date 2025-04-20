@@ -24,7 +24,7 @@ class MovieListAdapter(
         parent: ViewGroup?,
     ): View {
         val view: View
-        val viewHolder: ViewHolder
+        val movieListViewHolder: MovieListViewHolder
         val item = items[position]
 
         if (convertView == null) {
@@ -32,22 +32,22 @@ class MovieListAdapter(
                 LayoutInflater
                     .from(parent?.context)
                     .inflate(R.layout.item, parent, false)
-            viewHolder = ViewHolder(view)
-            view.tag = viewHolder
+            movieListViewHolder = MovieListViewHolder(view)
+            view.tag = movieListViewHolder
         } else {
             view = convertView
-            viewHolder = view.tag as ViewHolder
+            movieListViewHolder = view.tag as MovieListViewHolder
         }
 
         val dateFormatter = DateFormatter()
         val formattedStartDate = dateFormatter.format(item.date.startDate)
         val formattedEndDate = dateFormatter.format(item.date.endDate)
 
-        viewHolder.imageView.setImageResource(item.image)
-        viewHolder.titleTextView.text = item.title
-        viewHolder.dateTextView.text = view.context.getString(R.string.movieDate, formattedStartDate, formattedEndDate)
-        viewHolder.timeTextView.text = view.context.getString(R.string.movieTime, item.time.toString())
-        viewHolder.reserveButton.setOnClickListener {
+        movieListViewHolder.imageView.setImageResource(item.image)
+        movieListViewHolder.titleTextView.text = item.title
+        movieListViewHolder.dateTextView.text = view.context.getString(R.string.movieDate, formattedStartDate, formattedEndDate)
+        movieListViewHolder.timeTextView.text = view.context.getString(R.string.movieTime, item.time.toString())
+        movieListViewHolder.reserveButton.setOnClickListener {
             onReserveClick(item)
         }
 

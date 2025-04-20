@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <ListView
-        android:id="@+id/list_view"
+        android:id="@+id/movie_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item">

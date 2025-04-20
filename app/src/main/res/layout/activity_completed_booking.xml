@@ -34,7 +34,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/movie_title"
+            android:id="@+id/item_movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text = "@string/movie_title"
@@ -48,7 +48,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_date"
+            android:id="@+id/item_movie_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text = "@string/default_movie_date_time"

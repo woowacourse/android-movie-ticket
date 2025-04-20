@@ -24,7 +24,7 @@ class MovieListActivity : AppCompatActivity() {
         }
 
         val movies: List<Movie> = Movies().getAll()
-        val listView: ListView = findViewById(R.id.list_view)
+        val listView: ListView = findViewById(R.id.movie_listview)
         val movieListAdapter =
             MovieListAdapter(movies) { movie ->
                 val intent = Intent(this, DetailBookingActivity::class.java)
