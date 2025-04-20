@@ -6,7 +6,7 @@
     android:padding="10sp">
 
     <ImageView
-        android:id="@+id/movie_image"
+        android:id="@+id/iv_movie_image"
         android:layout_width="100sp"
         android:layout_height="120sp">
 
@@ -20,7 +20,7 @@
         android:layout_marginStart="10sp">
 
         <TextView
-            android:id="@+id/movie_title"
+            android:id="@+id/tv_movie_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="영화 제목"
@@ -31,7 +31,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_date"
+            android:id="@+id/tv_movie_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="상영일:">
@@ -39,7 +39,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_time"
+            android:id="@+id/tv_movie_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text = "러닝타임:">
@@ -47,7 +47,7 @@
         </TextView>
 
         <Button
-            android:id="@+id/reserve_button"
+            android:id="@+id/btn_reserve"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="지금 예매"

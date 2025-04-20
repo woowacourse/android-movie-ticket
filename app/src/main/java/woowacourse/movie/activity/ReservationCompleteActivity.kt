@@ -45,11 +45,11 @@ class ReservationCompleteActivity : AppCompatActivity() {
         val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val dateTimeFormat = ticket.date.format(formatter)
 
-        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
-        val movieCancelInfoTextView = findViewById<TextView>(R.id.cancel_info_Text)
-        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
-        val moviePersonnel = findViewById<TextView>(R.id.movie_personnel)
-        val movieTotalPrice = findViewById<TextView>(R.id.movie_total_price)
+        val movieTitleTextView = findViewById<TextView>(R.id.tv_movie_title)
+        val movieCancelInfoTextView = findViewById<TextView>(R.id.tv_cancel_info)
+        val movieDateTextView = findViewById<TextView>(R.id.tv_movie_date)
+        val moviePersonnel = findViewById<TextView>(R.id.tv_movie_personnel)
+        val movieTotalPrice = findViewById<TextView>(R.id.tv_movie_total_price)
 
         movieTitleTextView.text = ticket.title
         movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, Ticket.CANCEL_DEADLINE)

@@ -9,7 +9,7 @@
     android:orientation="vertical">
 
     <ImageView
-        android:id = "@+id/movie_image"
+        android:id = "@+id/iv_movie_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -30,7 +30,7 @@
         android:padding="25sp">
 
         <TextView
-            android:id="@+id/movie_title"
+            android:id="@+id/tv_movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="@string/movie_title"
@@ -42,7 +42,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_date"
+            android:id="@+id/tv_movie_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -52,7 +52,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/movie_time"
+            android:id="@+id/tv_movie_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -85,7 +85,7 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/minus_button"
+                android:id="@+id/btn_minus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/minus"
@@ -95,7 +95,7 @@
             </Button>
 
             <TextView
-                android:id="@+id/personnel"
+                android:id="@+id/tv_personnel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/default_personnel"
@@ -107,7 +107,7 @@
             </TextView>
 
             <Button
-                android:id="@+id/plus_button"
+                android:id="@+id/btn_plus_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/plus"
@@ -119,7 +119,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/reservation_button"
+            android:id="@+id/btn_reservation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20sp"

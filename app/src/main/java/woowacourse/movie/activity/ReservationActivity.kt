@@ -88,15 +88,15 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun updateCounterText() {
-        val counterTextView = findViewById<TextView>(R.id.personnel)
+        val counterTextView = findViewById<TextView>(R.id.tv_personnel)
         counterTextView.text = count.toString()
     }
 
     private fun setMovieInfo(movie: Movie) {
-        val movieTitleTextView = findViewById<TextView>(R.id.movie_title)
-        val movieDateTextView = findViewById<TextView>(R.id.movie_date)
-        val movieTimeTextView = findViewById<TextView>(R.id.movie_time)
-        val moviePosterImageView = findViewById<ImageView>(R.id.movie_image)
+        val movieTitleTextView = findViewById<TextView>(R.id.tv_movie_title)
+        val movieDateTextView = findViewById<TextView>(R.id.tv_movie_date)
+        val movieTimeTextView = findViewById<TextView>(R.id.tv_movie_time)
+        val moviePosterImageView = findViewById<ImageView>(R.id.iv_movie_image)
 
         val formatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
         val start = movie.date.startDate.format(formatter)
@@ -109,8 +109,8 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setCountButtons() {
-        val minusButton = findViewById<Button>(R.id.minus_button)
-        val plusButton = findViewById<Button>(R.id.plus_button)
+        val minusButton = findViewById<Button>(R.id.btn_minus_button)
+        val plusButton = findViewById<Button>(R.id.btn_plus_button)
 
         minusButton.setOnClickListener {
             if (count > DEFAULT_PERSONNEL) count--
@@ -131,7 +131,7 @@ class ReservationActivity : AppCompatActivity() {
         spinnerTime: Spinner,
         onConfirm: (Ticket) -> AlertDialog,
     ) {
-        val reservationButton = findViewById<Button>(R.id.reservation_button)
+        val reservationButton = findViewById<Button>(R.id.btn_reservation)
 
         reservationButton.setOnClickListener {
             val selectedDate: LocalDate = spinnerDate.selectedItem as LocalDate

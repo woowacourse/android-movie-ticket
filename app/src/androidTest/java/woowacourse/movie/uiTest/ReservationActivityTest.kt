@@ -41,44 +41,44 @@ class ReservationActivityTest {
 
     @Test
     fun `선택한_아이템의_영화_제목을_보여준다`() {
-        onView(withId(R.id.movie_title))
+        onView(withId(R.id.tv_movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `선택한_아이템의_영화_상영_기간을_보여준다`() {
-        onView(withId(R.id.movie_date))
+        onView(withId(R.id.tv_movie_date))
             .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
     }
 
     @Test
     fun `선택한_아이템의_영화_상영_시간을_보여준다`() {
-        onView(withId(R.id.movie_time))
+        onView(withId(R.id.tv_movie_time))
             .check(matches(withText("러닝타임: 152분")))
     }
 
     @Test
     fun `선택한_아이템의_예매_인원의_초기값은_1이다`() {
-        onView(withId(R.id.personnel))
+        onView(withId(R.id.tv_personnel))
             .check(matches(withText("1")))
     }
 
     @Test
     fun `예매_인원수가_플러스_버튼_두번_누르고_마이너스_버튼을_한번_누르면_2가_된다`() {
-        onView(withId(R.id.plus_button))
+        onView(withId(R.id.btn_plus_button))
             .perform(click())
             .perform(click())
 
-        onView(withId(R.id.minus_button))
+        onView(withId(R.id.btn_minus_button))
             .perform(click())
 
-        onView(withId(R.id.personnel))
+        onView(withId(R.id.tv_personnel))
             .check(matches(withText("2")))
     }
 
     @Test
     fun `선택_완료_버튼을_누르면_다이얼로그가_노출된다`() {
-        onView(withId(R.id.reservation_button))
+        onView(withId(R.id.btn_reservation))
             .perform(click())
 
         onView(withText("예매 확인")).check(matches(isDisplayed()))
@@ -89,7 +89,7 @@ class ReservationActivityTest {
 
     @Test
     fun `다이얼로그_밖_영역을_터치해도_닫히지_않는다`() {
-        onView(withId(R.id.reservation_button))
+        onView(withId(R.id.btn_reservation))
             .perform(click())
 
         pressBack()
@@ -102,7 +102,7 @@ class ReservationActivityTest {
 
     @Test
     fun `화면을_회전해도_데이터가_유지된다`() {
-        onView(withId(R.id.plus_button))
+        onView(withId(R.id.btn_plus_button))
             .perform(click())
             .perform(click())
 
@@ -110,7 +110,7 @@ class ReservationActivityTest {
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
 
-        onView(withId(R.id.personnel))
+        onView(withId(R.id.tv_personnel))
             .check(matches(withText("3")))
     }
 }

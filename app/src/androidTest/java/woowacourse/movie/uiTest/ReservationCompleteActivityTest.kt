@@ -34,31 +34,31 @@ class ReservationCompleteActivityTest {
 
     @Test
     fun `취소_가능_시간_정보_테스트`() {
-        onView(withId(R.id.cancel_info_Text))
+        onView(withId(R.id.tv_cancel_info))
             .check(matches(withText("영화 상영 시작 15분 전까지\n 취소가 가능합니다.")))
     }
 
     @Test
     fun `예매한_영화의_제목을_보여준다`() {
-        onView(withId(R.id.movie_title))
+        onView(withId(R.id.tv_movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `예매한_영화의_상영일을_보여준다`() {
-        onView(withId(R.id.movie_date))
+        onView(withId(R.id.tv_movie_date))
             .check(matches(withText("2025.4.21. 18:00")))
     }
 
     @Test
     fun `예매한_영화의_예매_인원_수를_보여준다`() {
-        onView(withId(R.id.movie_personnel))
+        onView(withId(R.id.tv_movie_personnel))
             .check(matches(withText("일반 2명")))
     }
 
     @Test
     fun `예매한_영화의_총_티켓_가격을_보여준다`() {
-        onView(withId(R.id.movie_total_price))
+        onView(withId(R.id.tv_movie_total_price))
             .check(matches(withText("26,000원 (현장 결제)")))
     }
 }

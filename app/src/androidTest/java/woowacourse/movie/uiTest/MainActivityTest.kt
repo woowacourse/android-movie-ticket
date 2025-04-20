@@ -28,25 +28,25 @@ class MainActivityTest {
 
     @Test
     fun `첫번째_아이템의_영화_제목을_보여준다`() {
-        item.onChildView(withId(R.id.movie_title))
+        item.onChildView(withId(R.id.tv_movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `첫번째_아이템의_영화_상영일을_보여준다`() {
-        item.onChildView(withId(R.id.movie_date))
+        item.onChildView(withId(R.id.tv_movie_date))
             .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
     }
 
     @Test
     fun `첫번째_아이템의_영화_러닝타임을_보여준다`() {
-        item.onChildView(withId(R.id.movie_time))
+        item.onChildView(withId(R.id.tv_movie_time))
             .check(matches(withText("러닝타임: 152분")))
     }
 
     @Test
     fun `첫번째_아이템의_영화_예매버튼을_보여준다`() {
-        item.onChildView(withId(R.id.reserve_button))
+        item.onChildView(withId(R.id.btn_reserve))
             .check(matches(withText("지금 예매")))
     }
 }
