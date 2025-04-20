@@ -198,7 +198,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun madeBookedTicket(): BookedTicket {
-        val title: String = movieTitleView.text.toString()
+        val title: String = movieItem.title
         val date: String = dateSpinner.selectedItem.toString()
         val time: String = timeSpinner.selectedItem.toString()
         val count: Int = headcount.count

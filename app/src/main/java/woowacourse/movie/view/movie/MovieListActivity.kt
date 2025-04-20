@@ -45,17 +45,17 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     private fun dummyMovieList(): List<Movie> =
-        (1..100).map {
+        listOf(
             Movie(
-                "해리 포터와 마법사의 돌 $it",
+                "해리 포터와 마법사의 돌",
                 R.drawable.harry_potter_one,
                 ScreeningDate(
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 25),
                 ),
                 "152분",
-            )
-        }
+            ),
+        )
 
     private fun moveToBookingComplete(movie: Movie) {
         val intent =
