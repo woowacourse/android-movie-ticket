@@ -23,16 +23,18 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                 movies,
                 object : OnMovieEventListener {
                     override fun onClick(movie: Movie) {
-                        val bundle = Bundle()
-                        bundle.putSerializable(ReservationActivity.BUNDLE_KEY_MOVIE, movie)
-                        val intent =
-                            Intent(this@MoviesActivity, ReservationActivity::class.java).putExtras(
-                                bundle,
-                            )
-                        startActivity(intent)
+                        navigateToReservation(movie)
                     }
                 },
             )
+    }
+
+    private fun navigateToReservation(movie: Movie) {
+        val intent =
+            Intent(this@MoviesActivity, ReservationActivity::class.java).apply {
+                putExtra(ReservationActivity.BUNDLE_KEY_MOVIE, movie)
+            }
+        startActivity(intent)
     }
 
     companion object {
