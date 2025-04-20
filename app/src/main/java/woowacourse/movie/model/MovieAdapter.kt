@@ -1,5 +1,6 @@
 package woowacourse.movie.model
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,13 +9,17 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.mapper.toUiModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
+    val resource: Resources,
     val movieList: List<Movie>,
     private val onReserveClick: (Movie) -> Unit,
 ) : BaseAdapter() {
+    private val movieUiList = movieList.map { it.toUiModel(resource) }
+
     override fun getCount(): Int {
         return movieList.size
     }
@@ -47,23 +52,16 @@ class MovieAdapter(
         }
 
         val movie = movieList[position]
+        val movieUiData = movieUiList[position]
 
         viewHolder.reserveButton.setOnClickListener {
             onReserveClick(movie)
         }
 
-        viewHolder.poster.setImageResource(movie.imageSource)
-        viewHolder.title.text = movie.title
-        val screeningStartDate = formatDate(movie.screeningStartDate)
-        val screeningEndDate = formatDate(movie.screeningEndDate)
-        viewHolder.screeningDate.text =
-            itemView.context.getString(
-                R.string.screening_date_period,
-                screeningStartDate,
-                screeningEndDate,
-            )
-        viewHolder.runningTime.text =
-            itemView.context.getString(R.string.minute_text, movie.runningTime)
+        viewHolder.poster.setImageResource(movieUiData.imageSource)
+        viewHolder.title.text = movieUiData.title
+        viewHolder.screeningDate.text = movieUiData.screeningPeriod
+        viewHolder.runningTime.text = movieUiData.runningTimeText
 
         return itemView
     }

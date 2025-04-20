@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         val movieList = listOf(intentMovieData)
         val movieAdapter =
-            MovieAdapter(movieList) { movie ->
+            MovieAdapter(resources, movieList) { movie ->
                 startBookingActivity(movie)
             }
         val listView = findViewById<ListView>(R.id.listview_layout)
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun mockData(): Movie {
         return Movie(
-            imageSource = R.drawable.harry_potter,
+            imageSource = "harry_potter.png",
             title = "해리 포터와 마법사의 돌",
             runningTime = 152,
             screeningStartDate = LocalDate.of(2025, 4, 1),

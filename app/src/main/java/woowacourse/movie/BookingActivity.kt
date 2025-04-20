@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Booking
 import woowacourse.movie.model.BookingResult
 import woowacourse.movie.model.Movie
@@ -75,18 +76,16 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setUpMovieInfo(movieData: Movie) {
+        val movieUiData = movieData.toUiModel(resources)
         val moviePoster = findViewById<ImageView>(R.id.img_booking_poster)
         val bookingTitle = findViewById<TextView>(R.id.tv_booking_title)
         val bookingScreenDate = findViewById<TextView>(R.id.tv_booking_screening_date)
         val bookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
 
-        bookingTitle.text = movieData.title
-        moviePoster.setImageResource(movieData.imageSource)
-        val screeningStartDate = formatDate(movieData.screeningStartDate, '.')
-        val screeningEndDate = formatDate(movieData.screeningEndDate, '.')
-        bookingScreenDate.text =
-            getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
-        bookingRunningTime.text = getString(R.string.minute_text, movieData.runningTime)
+        bookingTitle.text = movieUiData.title
+        moviePoster.setImageResource(movieUiData.imageSource)
+        bookingScreenDate.text = movieUiData.screeningPeriod
+        bookingRunningTime.text = movieUiData.runningTimeText
     }
 
     private fun setUpScreeningDateSpinner(booking: Booking) {
