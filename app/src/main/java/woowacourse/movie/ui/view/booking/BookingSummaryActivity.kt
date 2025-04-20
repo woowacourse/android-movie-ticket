@@ -42,6 +42,7 @@ class BookingSummaryActivity : AppCompatActivity() {
         screeningDateTime.text = formatDateTime(movieTicket.screeningDateTime)
         headCount.text =
             formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)
-        amount.text = formatAmount(getString(R.string.amount_message), movieTicket.amount)
+        amount.text =
+            formatAmount(getString(R.string.amount_message), movieTicket.calculateAmount())
     }
 }

@@ -10,5 +10,5 @@ data class MovieTicket(
     val headCount: Int,
     private val pricingPolicy: PricingPolicy,
 ) : Serializable {
-    val amount: Int = pricingPolicy.calculatePrice(headCount)
+    fun calculateAmount(): Int = pricingPolicy.calculatePrice(headCount)
 }

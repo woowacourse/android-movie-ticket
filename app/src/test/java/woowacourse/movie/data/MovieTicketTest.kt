@@ -35,6 +35,6 @@ class MovieTicketTest {
     @Test
     fun `예매 수량에 따른 총 결제 금액을 가진다`() {
         // Then
-        movieTicket.amount shouldBe 3 * 13000
+        movieTicket.calculateAmount() shouldBe 3 * 13000
     }
 }
