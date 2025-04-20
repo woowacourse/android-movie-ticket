@@ -9,7 +9,7 @@ import woowacourse.movie.MovieBookingActivity.Companion.KEY_BOOKING_STATUS
 import woowacourse.movie.databinding.BookingSuccessBinding
 import woowacourse.movie.domain.BookingStatus
 
-class MovieBookedCompleteActivity : AppCompatActivity() {
+class MovieBookedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

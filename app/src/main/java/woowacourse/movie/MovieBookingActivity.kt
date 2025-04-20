@@ -128,7 +128,7 @@ class MovieBookingActivity : AppCompatActivity() {
     ) {
         val intent = Intent(
             this@MovieBookingActivity,
-            MovieBookedCompleteActivity::class.java
+            MovieBookedActivity::class.java
         ).putExtra(KEY_BOOKING_STATUS, bookingStatus)
         startActivity(intent)
     }
