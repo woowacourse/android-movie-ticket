@@ -2,7 +2,6 @@ package woowacourse.movie.view.reservation
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.common.IntentKeys
+import woowacourse.movie.view.common.parcelableExtra
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompletionActivity : AppCompatActivity() {
@@ -24,13 +24,7 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                intent.getParcelableExtra(IntentKeys.EXTRA_TICKET)
-            }
+        val ticket = intent.parcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
         if (ticket == null) {
             finish()
             return

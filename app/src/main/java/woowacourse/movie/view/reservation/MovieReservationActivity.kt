@@ -22,6 +22,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.common.IntentKeys
+import woowacourse.movie.view.common.parcelableExtra
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -38,15 +39,11 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initUi()
 
-        movie = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(IntentKeys.EXTRA_MOVIE, Movie::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra(IntentKeys.EXTRA_MOVIE)
-        } ?: run {
-            finish()
-            return
-        }
+        movie = intent.parcelableExtra(IntentKeys.EXTRA_MOVIE, Movie::class.java)
+            ?: run {
+                finish()
+                return
+            }
 
         initMovieInfo()
         val savedTicket =
