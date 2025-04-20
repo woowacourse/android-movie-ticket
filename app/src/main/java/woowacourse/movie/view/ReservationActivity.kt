@@ -89,7 +89,7 @@ class ReservationActivity : AppCompatActivity() {
                 screening.period.endInclusive.dayOfMonth,
             )
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        posterImageView.setImageResource(screening.posterId)
+        posterImageView.setImageResource(ResourceMapper.movieIdToPoster(screening.movieId))
 
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
         runningTimeView.text = getString(R.string.running_time, screening.runningTime)

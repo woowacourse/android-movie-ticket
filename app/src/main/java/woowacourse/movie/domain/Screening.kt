@@ -1,6 +1,5 @@
 package woowacourse.movie.domain
 
-import androidx.annotation.DrawableRes
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -9,8 +8,7 @@ class Screening(
     val period: ClosedRange<LocalDate>,
     private val showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
 ) {
-    @DrawableRes
-    val posterId: Int = movie.posterId
+    val movieId: String = movie.movieId
     val title: String = movie.title
     val runningTime: Int = movie.runningTime
 

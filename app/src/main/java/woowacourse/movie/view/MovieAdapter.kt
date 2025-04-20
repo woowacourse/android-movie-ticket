@@ -64,7 +64,7 @@ class MovieAdapter(
                 view.context.getString(R.string.running_time, runningTime)
 
             val posterView = view.findViewById<ImageView>(R.id.iv_item_movie_poster)
-            posterView.setImageResource(posterId)
+            posterView.setImageResource(ResourceMapper.movieIdToPoster(screening.movieId))
 
             val reserveButton = view.findViewById<Button>(R.id.btn_item_movie_reserve)
             reserveButton.setOnClickListener {

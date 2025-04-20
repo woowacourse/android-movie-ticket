@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
             Movie(
                 "해리 포터와 마법사의 돌",
                 152,
-                R.drawable.poster_harry_potter_and_the_philosophers_stone,
+                HARRY_POTTER_1_MOVIE_ID,
             )
         val harryPotterScreening =
             Screening(
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                 title = screening.title,
                 startDate = screening.period.start,
                 endDate = screening.period.endInclusive,
-                posterId = screening.posterId,
+                movieId = screening.movieId,
                 runningTime = screening.runningTime,
             )
 
@@ -66,5 +66,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SCREENING_DATA = "woowacourse.movie.EXTRA_SCREENING_DATA"
+
+        const val HARRY_POTTER_1_MOVIE_ID = "HarryPotter1"
     }
 }
