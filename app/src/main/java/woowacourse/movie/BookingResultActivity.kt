@@ -3,6 +3,7 @@ package woowacourse.movie
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.BookingActivity.Companion.KEY_TICKET
 import woowacourse.movie.domain.Ticket
 
 class BookingResultActivity : AppCompatActivity() {
@@ -10,7 +11,7 @@ class BookingResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_result)
 
-        val ticket = intent.getParcelableExtra<Ticket>("TICKET")
+        val ticket = intent.getParcelableExtra<Ticket>(KEY_TICKET)
 
         if (ticket != null) {
             findViewById<TextView>(R.id.title).text = ticket.title

@@ -152,7 +152,7 @@ class BookingActivity : AppCompatActivity() {
         private const val KEY_MOVIE_DATE_POSITION = "MOVIE_DATE_POSITION"
         private const val KEY_MOVIE_TIME_POSITION = "MOVIE_TIME_POSITION"
         private const val KEY_MOVIE_INFO = "MOVIE_INFO"
-        private const val KEY_TICKET = "TICKET"
+        const val KEY_TICKET = "TICKET"
 
         private const val TICKET_PRICE = 13000
     }
