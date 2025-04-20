@@ -21,7 +21,7 @@ data class ScreeningPeriod(
         var date = now.toLocalDate()
         while (!date.isAfter(endDate)) {
             dates.add(date)
-            date = date.plusDays(1)
+            date = date.plusDays(INTERVAL_DAY)
         }
         return dates
     }
@@ -35,7 +35,7 @@ data class ScreeningPeriod(
         val startHour = if (isWeekend) WEEKEND_START_HOUR else WEEKDAY_START_HOUR
 
         return (startHour until END_HOUR step INTERVAL_HOUR)
-            .map { LocalTime.of(it, 0) }
+            .map { LocalTime.of(it, DEFAULT_MINUTE) }
             .filter { it.isAfter(currentTime) }
     }
 
@@ -44,6 +44,8 @@ data class ScreeningPeriod(
         private const val WEEKEND_START_HOUR = 9
         private const val END_HOUR = 24
         private const val INTERVAL_HOUR = 2
+        private const val INTERVAL_DAY = 1L
+        private const val DEFAULT_MINUTE = 0
 
         private const val INVALID_DATE_RANGE_MESSAGE =
             "시작 날짜는 종료 날짜 이후일 수 없습니다 (startDate: %s, endDate: %s)"
