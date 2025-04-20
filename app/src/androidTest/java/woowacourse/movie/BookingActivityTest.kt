@@ -79,15 +79,21 @@ class BookingActivityTest {
     @DisplayName("인원 증가 버튼을 누르면 인원이 1 증가한다")
     @Test
     fun increaseBtnTest() {
-        // given
+        onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
+
         onView(withId(R.id.btn_increase)).perform(click())
+
         onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
     }
 
     @DisplayName("인원 감소 버튼을 누르면 인원이 1 감소한다")
     @Test
     fun decreaseBtnTest() {
+        onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
+
         onView(withId(R.id.btn_increase)).perform(click())
+        onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
+
         onView(withId(R.id.btn_decrease)).perform(click())
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
@@ -95,7 +101,10 @@ class BookingActivityTest {
     @DisplayName("인원은 1명 이하로 감소하지 않는다")
     @Test
     fun minDecreaseBtnTest() {
+        onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
+
         onView(withId(R.id.btn_decrease)).perform(click())
+
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
 
