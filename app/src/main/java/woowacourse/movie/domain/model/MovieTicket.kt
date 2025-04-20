@@ -1,6 +1,5 @@
 package woowacourse.movie.domain.model
 
-import woowacourse.movie.domain.policy.PricingPolicy
 import java.io.Serializable
 import java.time.LocalDateTime
 
@@ -8,7 +7,5 @@ data class MovieTicket(
     val title: String,
     val screeningDateTime: LocalDateTime,
     val headCount: Int,
-    private val pricingPolicy: PricingPolicy,
-) : Serializable {
-    fun calculateAmount(): Int = pricingPolicy.calculatePrice(headCount)
-}
+    val amount: Int,
+) : Serializable

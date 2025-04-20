@@ -43,6 +43,6 @@ class BookingSummaryActivity : AppCompatActivity() {
         headCount.text =
             formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)
         amount.text =
-            formatAmount(getString(R.string.amount_message), movieTicket.calculateAmount())
+            formatAmount(getString(R.string.amount_message), movieTicket.amount)
     }
 }

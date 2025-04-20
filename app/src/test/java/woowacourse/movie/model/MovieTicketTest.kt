@@ -5,7 +5,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.MovieTicket
-import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import java.time.LocalDateTime
 
 class MovieTicketTest {
@@ -18,7 +17,7 @@ class MovieTicketTest {
                 "승부",
                 LocalDateTime.of(2025, 4, 16, 11, 0),
                 3,
-                DefaultPricingPolicy(),
+                39000,
             )
     }
 
@@ -35,6 +34,6 @@ class MovieTicketTest {
     @Test
     fun `예매 수량에 따른 총 결제 금액을 가진다`() {
         // Then
-        movieTicket.calculateAmount() shouldBe 3 * 13000
+        movieTicket.amount shouldBe 3 * 13000
     }
 }
