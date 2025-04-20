@@ -25,15 +25,11 @@ import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var headcount: Headcount
-
     private lateinit var movieItem: Movie
 
-    private lateinit var movieTitleView: TextView
-    private lateinit var movieReleaseDateView: TextView
-    private lateinit var movieRunningTimeView: TextView
-    private lateinit var peopleCountView: TextView
-    private lateinit var dateSpinner: Spinner
-    private lateinit var timeSpinner: Spinner
+    private val peopleCountView: TextView by lazy { findViewById(R.id.tv_title) }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
 
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
@@ -44,7 +40,6 @@ class BookingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        bind()
         applyWindowInsets()
 
         movieItem = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
@@ -68,15 +63,6 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun bind() {
-        movieTitleView = findViewById(R.id.tv_title)
-        movieReleaseDateView = findViewById(R.id.tv_release_date)
-        movieRunningTimeView = findViewById(R.id.tv_running_time)
-        peopleCountView = findViewById(R.id.tv_headcount)
-        dateSpinner = findViewById(R.id.sp_date)
-        timeSpinner = findViewById(R.id.sp_time)
-    }
-
     private fun setInitialState() {
         headcount = Headcount()
         selectedDatePosition = DEFAULT_SPINNER_POSITION
@@ -96,6 +82,9 @@ class BookingActivity : AppCompatActivity() {
     private fun setupViews(movieItem: Movie) {
         val (startDate, endDate) = movieItem.releaseDate
         val posterView: ImageView = findViewById(R.id.img_movie_poster)
+        val movieTitleView: TextView = findViewById(R.id.tv_title)
+        val movieReleaseDateView: TextView = findViewById(R.id.tv_screening_period)
+        val movieRunningTimeView: TextView = findViewById(R.id.tv_running_time)
 
         movieTitleView.text = movieItem.title
         posterView.setImageResource(movieItem.posterId)
