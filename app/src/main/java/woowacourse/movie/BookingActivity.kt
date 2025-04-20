@@ -33,7 +33,7 @@ class BookingActivity : AppCompatActivity() {
         setUpUi()
 
         val movieData = movieOrNull() ?: return
-        restoreData(movieData, savedInstanceState)
+        bookingResult = restoreData(movieData, savedInstanceState)
 
         setUpMovieInfo(movieData)
 
@@ -56,7 +56,7 @@ class BookingActivity : AppCompatActivity() {
     private fun restoreData(
         movie: Movie,
         savedInstanceState: Bundle?,
-    ) {
+    ): BookingResult {
         val savedCount = savedInstanceState?.getInt(KEY_HEAD_COUNT)
         val savedScreeningDate = savedInstanceState?.getString(KEY_SCREENING_DATE)
         val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_DATE)
@@ -65,7 +65,7 @@ class BookingActivity : AppCompatActivity() {
         val time = savedScreeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now()
 
         val headCount = savedCount ?: 0
-        bookingResult = BookingResult(movie.title, headCount, date, time)
+        return BookingResult(movie.title, headCount, date, time)
     }
 
     private fun movieOrNull(): Movie? {
@@ -77,11 +77,12 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setUpMovieInfo(movieData: Movie) {
-        val movieUiData = movieData.toUiModel(resources)
         val moviePoster = findViewById<ImageView>(R.id.img_booking_poster)
         val bookingTitle = findViewById<TextView>(R.id.tv_booking_title)
         val bookingScreenDate = findViewById<TextView>(R.id.tv_booking_screening_date)
         val bookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
+
+        val movieUiData = movieData.toUiModel(resources)
 
         bookingTitle.text = movieUiData.title
         moviePoster.setImageResource(movieUiData.imageSource)
