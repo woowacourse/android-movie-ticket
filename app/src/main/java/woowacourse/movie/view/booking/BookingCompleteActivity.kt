@@ -1,5 +1,7 @@
 package woowacourse.movie.view.booking
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -53,4 +55,16 @@ class BookingCompleteActivity : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
+
+    companion object {
+        fun newIntent(
+            context: Context,
+            bookedTicket: BookedTicket,
+        ): Intent =
+            Intent(context, BookingActivity::class.java).apply {
+                putExtra(EXTRA_BOOKED_TICKET, bookedTicket)
+            }
+
+        private const val EXTRA_BOOKED_TICKET = "bookedTicket"
+    }
 }

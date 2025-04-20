@@ -1,6 +1,7 @@
 package woowacourse.movie.view.booking
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -196,11 +197,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun moveToBookingCompleteActivity() {
         val bookedTicket = madeBookedTicket()
-        val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra(EXTRA_BOOKED_TICKET, bookedTicket)
-            }
-        startActivity(intent)
+        startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -221,6 +218,14 @@ class BookingActivity : AppCompatActivity() {
     }
 
     companion object {
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(context, BookingActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE, movie)
+            }
+
         private const val DEFAULT_SPINNER_POSITION = 0
 
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
@@ -228,6 +233,5 @@ class BookingActivity : AppCompatActivity() {
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
 
         private const val EXTRA_MOVIE = "movie"
-        private const val EXTRA_BOOKED_TICKET = "bookedTicket"
     }
 }
