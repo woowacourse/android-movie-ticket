@@ -42,8 +42,7 @@
 - [X] ReservationCompleteActivity의 Intent Extra 따로 관리
 - [X] dao, data 부분 삭제
 - [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
-- [ ] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
-- [ ] booking.xml 비율로 만든 부분 수정하기
+- [X] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
 
 ## 개인적으로 해 보고 싶은 부분
 - [ ] 확장함수 class로 만들기
@@ -70,3 +69,4 @@
 - [ ] runningTimes 개선, test 코드 작성
 - [ ] 영화 예약 완료 화면에서 뒤로가기 버튼에 대해서 생각해보기
 - [ ] 에러 발생시, 최상단에 에러 토스트로 띄우기
+- [ ] booking.xml 비율로 만든 부분 수정하기
