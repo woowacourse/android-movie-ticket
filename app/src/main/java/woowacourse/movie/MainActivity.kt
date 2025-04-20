@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.BookingActivity.Companion.KEY_MOVIE_DATA
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieAdapter
+import woowacourse.movie.model.adapter.MovieAdapter
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
