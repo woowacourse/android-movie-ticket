@@ -76,7 +76,7 @@ class MovieBookingActivity : AppCompatActivity() {
         }
         minusMemberCount.setOnClickListener {
             if (count1 <= 1) {
-                throw IllegalStateException("영화 예매 인원은 1명이상 선택해야 합니다")
+                throw IllegalStateException(getString(R.string.error_people_over_one))
                 return@setOnClickListener
             }
             count1--
@@ -90,12 +90,12 @@ class MovieBookingActivity : AppCompatActivity() {
     ) {
         bookingComplete.setOnClickListener {
             AlertDialog.Builder(this@MovieBookingActivity)
-                .setTitle("예매 확인")
-                .setMessage("정말 예매하시겠습니까?")
-                .setNegativeButton("취소") { dialog, _ ->
+                .setTitle(getString(R.string.check_movie_booking))
+                .setMessage(getString(R.string.confirm_reservation_message))
+                .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
                     dialog.cancel()
                 }
-                .setPositiveButton("예매 완료") { _, _ ->
+                .setPositiveButton(getString(R.string.okay)) { _, _ ->
                     navigateToReservationComplete(bookingStatus)
                 }
                 .show()
