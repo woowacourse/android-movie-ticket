@@ -27,14 +27,14 @@ class MovieTicketActivity : AppCompatActivity() {
 
     private fun movieListAdapter(movieListView: ListView) {
         val movies = Movies.value
-        val movieListAdapter = MovieListAdapter(movies, ::navigateToBook)
+        val movieListAdapter = MovieListAdapter(movies, object : MovieListClick {
+            override fun navigateToBook(movie: Movie) {
+                val intent = Intent(this@MovieTicketActivity, ReservationActivity::class.java)
+                    .apply { putExtra(KEY_MOVIE, movie) }
+                startActivity(intent)
+            }
+        })
         movieListView.adapter = movieListAdapter
-    }
-
-    private fun navigateToBook(movie: Movie) {
-        val intent = Intent(this, ReservationActivity::class.java)
-                .apply { putExtra(KEY_MOVIE, movie) }
-        startActivity(intent)
     }
 
     companion object {

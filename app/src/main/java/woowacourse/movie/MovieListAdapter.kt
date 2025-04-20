@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter
 
 class MovieListAdapter(
     private val value: List<Movie>,
-    private val onBookClick: (selectedMovie: Movie) -> Unit,
+    private val movieListClick: MovieListClick,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return value.size
@@ -72,7 +72,7 @@ class MovieListAdapter(
     private fun clickMovieItem(viewHolder: ViewHolder, position: Int) {
         viewHolder.movieItem.setOnClickListener {
             if (viewHolder.movieItem.isClickable) {
-                onBookClick.invoke(value[position])
+                movieListClick.navigateToBook(value[position])
                 viewHolder.movieItem.isClickable = false
             }
 
