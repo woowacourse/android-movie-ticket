@@ -12,7 +12,7 @@ class ScreeningPeriod(
     val screeningEndDate: LocalDate,
 ) : Parcelable {
     init {
-        require(screeningEndDate.isAfter(screeningStartDate)) { "영화 시작 날짜가 영화 종료 날짜보다 후 입니다." }
+        require(screeningEndDate.isAfter(screeningStartDate)) { ERROR_START_DATE_AFTER_END_DATE }
     }
 
     fun betweenDates(
@@ -39,6 +39,8 @@ class ScreeningPeriod(
     }
 
     companion object {
+        private const val ERROR_START_DATE_AFTER_END_DATE = "영화 시작 날짜가 영화 종료 날짜보다 후 입니다."
+
         fun ofDash(screeningStartDay: String, screeningEndDay: String): ScreeningPeriod {
             val screeningStartDate = screeningStartDay.toLocalDateFromDash()
             val screeningEndDate = screeningEndDay.toLocalDateFromDash()

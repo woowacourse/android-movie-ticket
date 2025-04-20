@@ -25,7 +25,7 @@ class RunningTimes(
         val endDateTime = LocalDateTime.of(targetDay, endTime)
 
 
-        if (currentDateTime.isAfter(endDateTime)) throw IllegalStateException("이미 오늘의 상영이 종료되었습니다.")
+        if (currentDateTime.isAfter(endDateTime)) throw IllegalStateException(ERROR_TODAY_MOVIE_FINISH)
         var movieTime = startDateTime
 
         while (!movieTime.isAfter(endDateTime)) {
@@ -38,5 +38,9 @@ class RunningTimes(
 
         }
         return runningTimes.toList()
+    }
+
+    companion object {
+        private const val ERROR_TODAY_MOVIE_FINISH = "이미 오늘의 상영이 종료되었습니다."
     }
 }

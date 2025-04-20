@@ -12,13 +12,13 @@ data class Movies(
     val movies: Map<Title, Movie>,
 ) : Parcelable {
     fun find(title: Title): Movie {
-        return movies[title] ?: throw IllegalStateException(ERR_MOVIE_NOT_FOUND)
+        return movies[title] ?: throw IllegalStateException(ERROR_MOVIE_NOT_FOUND)
     }
 
     fun toList(): List<Movie> = movies.values.toList()
 
     companion object {
-        private const val ERR_MOVIE_NOT_FOUND = "영화가 존재하지 않습니다."
+        private const val ERROR_MOVIE_NOT_FOUND = "영화가 존재하지 않습니다."
         val value = listOf(
             Movie(
                 Title("해리포터와 마법사의 돌"),
