@@ -18,6 +18,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.movie
+import woowacourse.movie.view.common.IntentKeys
 import woowacourse.movie.view.reservation.MovieReservationActivity
 
 class MovieReservationActivityTest {
@@ -31,7 +32,7 @@ class MovieReservationActivityTest {
     fun setUp() {
         intent =
             Intent(fakeContext, MovieReservationActivity::class.java).apply {
-                putExtra("movie", movie)
+                putExtra(IntentKeys.EXTRA_MOVIE, movie)
             }
         scenario = ActivityScenario.launch(intent)
     }
@@ -45,13 +46,13 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName("선택한 영화의 상영일이 표시된다")
     fun displaySelectedMovieScreeningDateTest() {
-        onView(withId(R.id.screening_date)).check(matches(withText("2025.04.01 ~ 2025.04.25")))
+        onView(withId(R.id.screening_date)).check(matches(withText("상영일: 2025.04.01 ~ 2025.04.25")))
     }
 
     @Test
     @DisplayName("선택한 영화의 러닝타임이 표시된다")
     fun displaySelectedMovieRunningTimeTest() {
-        onView(withId(R.id.running_time)).check(matches(withText("152분")))
+        onView(withId(R.id.running_time)).check(matches(withText("러닝타임: 152분")))
     }
 
     @Test

@@ -43,57 +43,28 @@
         app:layout_constraintTop_toBottomOf="@+id/movie_title"
         tools:text="2025.4.15 11:00" />
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ticket_info"
+    <TextView
+        android:id="@+id/ticket_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:orientation="horizontal"
+        android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/showtime">
+        app:layout_constraintTop_toBottomOf="@+id/showtime"
+        tools:text="일반 2명" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="일반 "
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-        <TextView
-            android:id="@+id/ticket_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            tools:text="2명" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <TextView
+        android:id="@+id/total_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:orientation="horizontal"
+        android:textColor="@color/black"
+        android:textSize="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ticket_info">
-
-        <TextView
-            android:id="@+id/total_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            tools:text="26,000원" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=" (현장 결제)"
-            android:textColor="@color/black"
-            android:textSize="20dp" />
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        app:layout_constraintTop_toBottomOf="@+id/ticket_count"
+        tools:text="26,000원 (현장 결제)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

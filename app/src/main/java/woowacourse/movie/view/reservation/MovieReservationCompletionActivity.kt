@@ -24,11 +24,12 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket = intent.parcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
-        if (ticket == null) {
-            finish()
-            return
-        }
+        val ticket =
+            intent.parcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
+                ?: run {
+                    finish()
+                    return
+                }
 
         val title = findViewById<TextView>(R.id.movie_title)
         val showtime = findViewById<TextView>(R.id.showtime)
@@ -37,8 +38,8 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
 
         title.text = ticket.movie.title
         showtime.text = ticket.showtime.format(DATE_FORMAT)
-        ticketCount.text = TICKET_COUNT.format(ticket.count)
-        totalPrice.text = TOTAL_PRICE.format(ticket.totalPrice())
+        ticketCount.text = getString(R.string.ticket_count).format(ticket.count)
+        totalPrice.text = getString(R.string.total_price).format(ticket.totalPrice())
     }
 
     companion object {
@@ -50,8 +51,6 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
                 putExtra(IntentKeys.EXTRA_TICKET, ticket)
             }
 
-        private const val TICKET_COUNT = "%d명"
-        private const val TOTAL_PRICE = "%,d원"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
     }
 }

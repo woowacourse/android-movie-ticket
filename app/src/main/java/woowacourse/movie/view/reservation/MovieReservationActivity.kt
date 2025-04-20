@@ -2,7 +2,6 @@ package woowacourse.movie.view.reservation
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -22,6 +21,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.common.IntentKeys
+import woowacourse.movie.view.common.parcelable
 import woowacourse.movie.view.common.parcelableExtra
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -47,12 +47,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
         initMovieInfo()
         val savedTicket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                savedInstanceState?.getParcelable(IntentKeys.EXTRA_TICKET, Ticket::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                savedInstanceState?.getParcelable(IntentKeys.EXTRA_TICKET)
-            }
+            savedInstanceState?.parcelable(IntentKeys.EXTRA_TICKET, Ticket::class.java)
 
         initSpinners(savedTicket)
         savedTicket?.let { ticket ->
@@ -94,8 +89,8 @@ class MovieReservationActivity : AppCompatActivity() {
         title.text = movie.title
         val startDate = movie.startDate.format(DATE_FORMAT)
         val endDate = movie.endDate.format(DATE_FORMAT)
-        screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
-        runningTime.text = RUNNING_TIME.format(movie.runningTime)
+        screeningDate.text = getString(R.string.screening_date).format(startDate, endDate)
+        runningTime.text = getString(R.string.running_time).format(movie.runningTime)
     }
 
     private fun initSpinners(savedTicket: Ticket?) {
@@ -191,11 +186,11 @@ class MovieReservationActivity : AppCompatActivity() {
         val alertDialog =
             AlertDialog
                 .Builder(this)
-                .setTitle(R.string.confirm_reservation_title)
+                .setTitle(R.string.confirm_reservation)
                 .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.confirm_reservation_text) { _, _ ->
+                .setPositiveButton(R.string.complete_reservation) { _, _ ->
                     onConfirmReservation()
-                }.setNegativeButton(R.string.cancel_text) { dialog, _ -> dialog.dismiss() }
+                }.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
         selectButton.setOnClickListener {
             alertDialog.show()
         }
@@ -213,7 +208,7 @@ class MovieReservationActivity : AppCompatActivity() {
             val intent = MovieReservationCompletionActivity.newIntent(this, ticket)
             startActivity(intent)
         } else {
-            Toast.makeText(this, R.string.incorrect_date_and_time, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, R.string.select_date_and_time, Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -227,8 +222,6 @@ class MovieReservationActivity : AppCompatActivity() {
             }
 
         private const val MINIMUM_TICKET_COUNT = 1
-        private const val SCREENING_DATE_RANGE = "%s ~ %S"
-        private const val RUNNING_TIME = "%d분"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }

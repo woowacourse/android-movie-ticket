@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.ticket
+import woowacourse.movie.view.common.IntentKeys
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import woowacourse.movie.view.reservation.MovieReservationCompletionActivity
 
@@ -26,7 +27,7 @@ class MovieReservationCompletionActivityTest {
     fun setUp() {
         intent =
             Intent(fakeContext, MovieReservationCompletionActivity::class.java).apply {
-                putExtra("ticket", ticket)
+                putExtra(IntentKeys.EXTRA_TICKET, ticket)
             }
         ActivityScenario.launch<MovieReservationCompletionActivity>(intent)
     }
@@ -46,12 +47,12 @@ class MovieReservationCompletionActivityTest {
     @Test
     @DisplayName("예매한 인원수가 표시된다")
     fun displayReservedTicketCountTest() {
-        onView(withId(R.id.ticket_count)).check(matches(withText("2명")))
+        onView(withId(R.id.ticket_count)).check(matches(withText("일반 2명")))
     }
 
     @Test
     @DisplayName("예매한 총 금액이 표시된다")
     fun displayReservedTotalPriceTest() {
-        onView(withId(R.id.total_price)).check(matches(withText("26,000원")))
+        onView(withId(R.id.total_price)).check(matches(withText("26,000원 (현장 결제)")))
     }
 }

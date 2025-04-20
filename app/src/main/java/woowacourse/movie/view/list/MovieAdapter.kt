@@ -23,12 +23,13 @@ class MovieAdapter(
         convertView: View?,
         container: ViewGroup?,
     ): View {
+        val context = container?.context
         val view: View
         val viewHolder: MovieViewHolder
         if (convertView == null) {
             view =
                 LayoutInflater
-                    .from(container?.context)
+                    .from(context)
                     .inflate(R.layout.item_movie, container, false)
             viewHolder = MovieViewHolder(view)
             view.tag = viewHolder
@@ -42,16 +43,16 @@ class MovieAdapter(
         viewHolder.title.text = movie.title
         val startDate = movie.startDate.format(DATE_FORMAT)
         val endDate = movie.endDate.format(DATE_FORMAT)
-        viewHolder.screeningDate.text = SCREENING_DATE_RANGE.format(startDate, endDate)
-        viewHolder.runningTime.text = RUNNING_TIME.format(movie.runningTime)
+        viewHolder.screeningDate.text =
+            context?.getString(R.string.screening_date)?.format(startDate, endDate)
+        viewHolder.runningTime.text =
+            context?.getString(R.string.running_time)?.format(movie.runningTime)
 
         viewHolder.reserveButton.setOnClickListener { onButtonClick(movie) }
         return view
     }
 
     companion object {
-        private const val SCREENING_DATE_RANGE = "%s ~ %S"
-        private const val RUNNING_TIME = "%d분"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
