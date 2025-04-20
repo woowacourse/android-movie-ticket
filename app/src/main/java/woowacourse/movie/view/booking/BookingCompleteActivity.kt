@@ -17,20 +17,24 @@ class BookingCompleteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
-        initView()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        applyWindowInsets()
+        setViews()
     }
 
-    private fun initView() {
+    private fun applyWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
+    private fun setViews() {
         val bookedTicket: BookedTicket = intent.getSerializableExtra("bookedTicket") as BookedTicket
-        val price = bookedTicket.peopleCount.ticketPrice(TicketType.GENERAL)
-        val priceFormat = thousandFormat(price)
+        val price: Int = bookedTicket.peopleCount.ticketPrice(TicketType.GENERAL)
+        val priceFormat: String = thousandFormat(price)
 
         findViewById<TextView>(R.id.tv_title).text = bookedTicket.movieName
         findViewById<TextView>(R.id.tv_release_date).text = bookedTicket.time
