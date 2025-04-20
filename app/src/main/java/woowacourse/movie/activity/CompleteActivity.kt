@@ -7,10 +7,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.utils.DateFormatter
-import woowacourse.movie.utils.PriceFormatter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.utils.DateFormatter
+import woowacourse.movie.utils.PriceFormatter
 
 class CompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

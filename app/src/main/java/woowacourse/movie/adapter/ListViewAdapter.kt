@@ -1,7 +1,6 @@
 package woowacourse.movie.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +8,15 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.utils.DateFormatter
 
-class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
+class ListViewAdapter(
+    private val items: List<Movie>,
+    private val onReserveClick: (Movie) -> Unit,
+) : BaseAdapter() {
     override fun getCount(): Int = items.size
 
     override fun getItem(position: Int): Movie = items[position]
@@ -38,7 +39,6 @@ class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
         setTimeTextView(view, items[position].time, parent?.context)
         setReserveButton(
             view,
-            parent?.context,
             Movie(items[position].image, items[position].title, items[position].date, items[position].time),
         )
 
@@ -69,7 +69,6 @@ class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
         val dateFormatter = DateFormatter()
         val formattedStartDate = dateFormatter.format(movieDate.startDate)
         val formattedEndDate = dateFormatter.format(movieDate.endDate)
-
         val dateTextView: TextView = view.findViewById(R.id.movie_date)
         dateTextView.text = context?.getString(R.string.movieDate, formattedStartDate, formattedEndDate)
     }
@@ -80,21 +79,16 @@ class ListViewAdapter(private val items: List<Movie>) : BaseAdapter() {
         context: Context?,
     ) {
         val timeTextView: TextView = view.findViewById(R.id.movie_time)
-
         timeTextView.text = context?.getString(R.string.movieTime, movieRunningTime.toString())
     }
 
     private fun setReserveButton(
         view: View,
-        context: Context?,
         movie: Movie,
     ) {
         val reserveButton: Button = view.findViewById(R.id.reserve_button)
-
         reserveButton.setOnClickListener {
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra(Movie.KEY_MOVIE, movie)
-            context?.startActivity(intent)
+            onReserveClick(movie)
         }
     }
 }

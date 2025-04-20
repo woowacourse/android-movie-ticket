@@ -1,16 +1,12 @@
 package woowacourse.movie
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AlertDialog
-import woowacourse.movie.activity.CompleteActivity
-import woowacourse.movie.domain.Ticket
 
 class ReservationDialog(
     private val context: Context,
-    private val ticket: Ticket,
 ) {
-    fun popUp() {
+    fun popUp(onPositiveClick: () -> Unit) {
         val title = context.getString(R.string.dialog_reservation_title)
         val message = context.getString(R.string.dialog_reservation_message)
         val positiveText = context.getString(R.string.dialog_reservation_positive_text)
@@ -19,11 +15,11 @@ class ReservationDialog(
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveText) { _, _ ->
-                val intent = Intent(context, CompleteActivity::class.java)
-                intent.putExtra(Ticket.KEY_TICKET, ticket)
-                context.startActivity(intent)
+                onPositiveClick()
             }
-            .setNegativeButton(negativeText) { dialog, _ -> dialog.dismiss() }
+            .setNegativeButton(negativeText) { dialog, _ ->
+                dialog.dismiss()
+            }
             .setCancelable(false)
             .show()
     }

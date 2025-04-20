@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -14,13 +15,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.R
 import woowacourse.movie.ReservationDialog
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.utils.DateFormatter
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -125,7 +126,13 @@ class ReservationActivity : AppCompatActivity() {
                     spinnerDate.selectedItem as LocalDate,
                     spinnerTime.selectedItem as? LocalTime,
                 ) ?: return@setOnClickListener
-            ReservationDialog(this, ticket).popUp()
+            ReservationDialog(this).popUp(
+                onPositiveClick = {
+                    val intent = Intent(this, CompleteActivity::class.java)
+                    intent.putExtra(Ticket.KEY_TICKET, ticket)
+                    startActivity(intent)
+                }
+            )
         }
     }
 
@@ -166,11 +173,12 @@ class ReservationActivity : AppCompatActivity() {
         localDate: LocalDate,
     ) {
         val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).selectableTimes()
-        val adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            currentTimeTable,
-        )
+        val adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                currentTimeTable,
+            )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
 

@@ -41,7 +41,7 @@
 - [x] 15분 전 setText에서 집어넣는 걸로 변경
 
 
-## 피드백 반영
+## 1차 피드백 반영
 - [x] MyAdapter -> MovieListAdapter 네이밍 변경
 - [x] Serializable -> Parcelable 변경 및 의존성 추가
 - [x] 키 값 상수화
@@ -49,6 +49,7 @@
 - [x] 사용자에게 보이는 문자열 string.xml에 선언
 - [x] DateFormatter, PriceFormatter 분리
 - [x] also 스코프 대신 변수에 할당하게 변경
+- [x] Activity에서 화면을 전환하도록 변경
 
 ## 변경 사항
 - [x] adapter 패키지 domain 패키지에서 분리 
