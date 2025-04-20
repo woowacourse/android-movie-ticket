@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.adapter
 
 import android.content.res.Resources
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.mapper.toUiModel
+import woowacourse.movie.model.Movie
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
