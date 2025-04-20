@@ -60,10 +60,10 @@ class MovieListAdapter(
                 view.context.getString(
                     R.string.movie_date,
                     MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.startDate.format(formatter)
+                        startDate.format(formatter)
                     },
                     MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.endDate.format(formatter)
+                        endDate.format(formatter)
                     },
                 )
             }

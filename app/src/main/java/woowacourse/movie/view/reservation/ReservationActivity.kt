@@ -5,39 +5,31 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.toDateTimeFormatter
-import woowacourse.movie.view.movies.MoviesActivity
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
+    private lateinit var views: ReservationViews
     private var reservationCount = ReservationInfo.RESERVATION_MIN_NUMBER
     private var shouldIgnoreNextSelection = false
     private var movie: Movie? = null
 
-    private val tvReservationCount by lazy { findViewById<TextView>(R.id.tv_reservation_count) }
-    private val spinnerDate by lazy { findViewById<Spinner>(R.id.spinner_reservation_date) }
-    private val spinnerTime by lazy { findViewById<Spinner>(R.id.spinner_reservation_time) }
     private val dateSpinnerAdapter: ArrayAdapter<LocalDate> by lazy {
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalDate>()).apply {
+        ArrayAdapter<LocalDate>(this, android.R.layout.simple_spinner_item, mutableListOf()).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
     }
+
     private val timeSpinnerAdapter: ArrayAdapter<LocalTime> by lazy {
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalTime>()).apply {
+        ArrayAdapter<LocalTime>(this, android.R.layout.simple_spinner_item, mutableListOf()).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
     }
@@ -53,83 +45,90 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     override fun setupViews(savedInstanceState: Bundle?) {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        views = ReservationViews(this)
+        setupActionBar()
         setupData()
-        setMovieInfo()
-        setupListener()
-        setupDateSpinner()
+        movie?.let { views.bindMovieInfo(it) }
+        setupUI()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        restoreReservationInfo(savedInstanceState)
+    private fun setupUI() {
+        views.setOnReservationCountChanged(reservationCount) { count ->
+            reservationCount = count
+        }
+
+        views.setOnFinishClickListener {
+            if (reservationCount >= ReservationInfo.RESERVATION_MIN_NUMBER) {
+                reservationDialog.show()
+            }
+        }
+
+        views.setDateSpinner(
+            adapter = dateSpinnerAdapter,
+            onDateSelected = { selectedDate ->
+                movie?.let { updateTimeSpinner(it, selectedDate) }
+            },
+            shouldIgnoreNext = { shouldIgnoreNextSelection },
+            clearIgnoreNext = { shouldIgnoreNextSelection = false },
+        )
+
+        movie?.let {
+            views.setSpinnerItems(
+                views.spinnerDate,
+                dateSpinnerAdapter,
+                it.screeningPeriod.getAvailableDates(LocalDateTime.now()),
+            )
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        val selectedDate = spinnerDate.selectedItem as? LocalDate
-        val selectedTime = spinnerTime.selectedItem as? LocalTime
-
+        val date = views.spinnerDate.selectedItem as? LocalDate
+        val time = views.spinnerTime.selectedItem as? LocalTime
         val reservationDateTime =
-            if (selectedDate != null && selectedTime != null) {
-                LocalDateTime.of(
-                    selectedDate,
-                    selectedTime,
-                )
-            } else {
-                ""
-            }
-
-        outState.apply {
-            putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime.toString())
-            putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount)
-        }
+            if (date != null && time != null) LocalDateTime.of(date, time).toString() else ""
+        outState.putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime)
+        outState.putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount)
     }
 
-    private fun restoreReservationInfo(savedInstanceState: Bundle) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
         reservationCount = savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
-        tvReservationCount.text = reservationCount.toString()
+        views.tvReservationCount.text = reservationCount.toString()
 
         movie?.let {
             val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
-            updateDateSpinner(availableDates)
+            views.setSpinnerItems(views.spinnerDate, dateSpinnerAdapter, availableDates)
 
-            val reservationDateTime =
-                savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
+            val formatter = SPINNER_DATETIME_FORMAT.toDateTimeFormatter()
             val dateTime =
-                SPINNER_DATETIME_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                    LocalDateTime.parse(reservationDateTime, formatter)
-                }
-            dateTime?.toLocalDate()?.let { selectedDate ->
-                val datePosition = dateSpinnerAdapter.getPosition(selectedDate)
-                if (datePosition >= 0) {
-                    shouldIgnoreNextSelection = true
-                    spinnerDate.setSelection(datePosition)
-                    setupTimeSpinner(it, selectedDate, dateTime.toLocalTime())
-                }
-            }
+                LocalDateTime.parse(
+                    savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME),
+                    formatter,
+                )
+
+            shouldIgnoreNextSelection = true
+            views.setSpinnerItems(
+                views.spinnerDate,
+                dateSpinnerAdapter,
+                availableDates,
+                dateTime.toLocalDate(),
+            )
+            updateTimeSpinner(it, dateTime.toLocalDate(), dateTime.toLocalTime())
         }
     }
 
-    private fun updateDateSpinner(availableDates: List<LocalDate>) {
-        dateSpinnerAdapter.clear()
-        dateSpinnerAdapter.addAll(availableDates)
-        dateSpinnerAdapter.notifyDataSetChanged()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
-            onBackPressedDispatcher.onBackPressed()
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    private fun setupActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun setupData() {
-        reservationCount = tvReservationCount.text.toString().toIntOrNull()
+        reservationCount = views.tvReservationCount.text
+            .toString()
+            .toIntOrNull()
             ?: ReservationInfo.RESERVATION_MIN_NUMBER
-        tvReservationCount.text = reservationCount.toString()
+        views.tvReservationCount.text = reservationCount.toString()
+
         movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
@@ -138,39 +137,28 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             }
     }
 
-    private fun setupListener() {
-        val btnReservationFinish = findViewById<Button>(R.id.btn_reservation_finish)
-        btnReservationFinish.setOnClickListener {
-            if (reservationCount < ReservationInfo.RESERVATION_MIN_NUMBER) return@setOnClickListener
-            reservationDialog.show()
-        }
-
-        val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
-        btnMinus.setOnClickListener {
-            if (reservationCount > ReservationInfo.RESERVATION_MIN_NUMBER) {
-                tvReservationCount.text = (--reservationCount).toString()
-            }
-        }
-
-        val btnPlus = findViewById<Button>(R.id.btn_reservation_count_plus)
-        btnPlus.setOnClickListener {
-            tvReservationCount.text = (++reservationCount).toString()
-        }
+    private fun updateTimeSpinner(
+        movie: Movie,
+        date: LocalDate,
+        selectedTime: LocalTime? = null,
+    ) {
+        val times = movie.screeningPeriod.getAvailableTimesFor(date)
+        views.setSpinnerItems(views.spinnerTime, timeSpinnerAdapter, times, selectedTime)
     }
 
     private fun navigateToResult() {
-        val reservationDate = spinnerDate.selectedItem as? LocalDate
-        val reservationTime = spinnerTime.selectedItem as? LocalTime
+        val date = views.spinnerDate.selectedItem as? LocalDate
+        val time = views.spinnerTime.selectedItem as? LocalTime
 
-        if (reservationDate == null || reservationTime == null) {
-            showToast(INVALID_RESERVATION_MESSAGE)
+        if (date == null || time == null) {
+            showToast(getString(R.string.invalid_reservation_message))
             return
         }
 
         val reservationInfo =
             ReservationInfo(
-                title = findViewById<TextView>(R.id.tv_reservation_title).text.toString(),
-                reservationDateTime = LocalDateTime.of(reservationDate, reservationTime),
+                title = views.tvTitle.text.toString(),
+                reservationDateTime = LocalDateTime.of(date, time),
                 reservationCount = reservationCount,
             )
 
@@ -182,74 +170,12 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         finish()
     }
 
-    private fun setMovieInfo() {
-        movie?.let { movie ->
-            movie.poster.toIntOrNull()?.let { findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(it) }
-            findViewById<TextView>(R.id.tv_reservation_title).text = movie.title
-            findViewById<TextView>(R.id.tv_screening_period).text =
-                getString(
-                    R.string.movie_date,
-                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.startDate.format(formatter)
-                    },
-                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.endDate.format(formatter)
-                    },
-                )
-            findViewById<TextView>(R.id.tv_reservation_running_time).text =
-                getString(
-                    R.string.running_time,
-                    movie.runningTime.toString(),
-                )
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressedDispatcher.onBackPressed()
+            return true
         }
-    }
-
-    private fun setupDateSpinner() {
-        spinnerDate.adapter = dateSpinnerAdapter
-        spinnerDate.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    if (shouldIgnoreNextSelection) {
-                        shouldIgnoreNextSelection = false
-                        return
-                    }
-
-                    val selectedDate = parent.getItemAtPosition(position) as LocalDate
-                    movie?.let { setupTimeSpinner(it, selectedDate) }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-
-        movie?.let {
-            val nowDateTime = LocalDateTime.now()
-            val availableDates = it.screeningPeriod.getAvailableDates(nowDateTime)
-            updateDateSpinner(availableDates)
-        }
-    }
-
-    private fun setupTimeSpinner(
-        movie: Movie,
-        date: LocalDate,
-        selectedTime: LocalTime? = null,
-    ) {
-        timeSpinnerAdapter.clear()
-        val times = movie.screeningPeriod.getAvailableTimesFor(date)
-        timeSpinnerAdapter.addAll(times)
-        timeSpinnerAdapter.notifyDataSetChanged()
-        spinnerTime.adapter = timeSpinnerAdapter
-
-        selectedTime?.let {
-            val timePosition = timeSpinnerAdapter.getPosition(it)
-            if (timePosition >= 0) {
-                spinnerTime.setSelection(timePosition)
-            }
-        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
@@ -257,7 +183,5 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         private const val RESTORE_BUNDLE_KEY_RESERVATION_DATETIME = "reservation_datetime"
         private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
         private const val SPINNER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm"
-        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
-        private const val INVALID_RESERVATION_MESSAGE = "예약 날짜 및 시간을 선택해 주세요"
     }
 }
