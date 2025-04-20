@@ -79,7 +79,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setInitialState() {
-        headcount = Headcount(MIN_PEOPLE_COUNT)
+        headcount = Headcount()
         selectedDatePosition = DEFAULT_SPINNER_POSITION
         selectedTimePosition = DEFAULT_SPINNER_POSITION
     }
@@ -233,7 +233,6 @@ class BookingActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val MIN_PEOPLE_COUNT = 1
         private const val DEFAULT_SPINNER_POSITION = 0
 
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"

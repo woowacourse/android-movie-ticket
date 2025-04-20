@@ -11,7 +11,20 @@ class Headcount(
 
     fun ticketPrice(type: TicketType): Int = type.price * count
 
-    fun increase() = count++
+    fun increase() {
+        if (count < MAX_HEADCOUNT) {
+            count++
+        }
+    }
 
-    fun decrease() = count--
+    fun decrease() {
+        if (count > MIN_HEADCOUNT) {
+            count--
+        }
+    }
+
+    companion object {
+        const val MIN_HEADCOUNT = 1
+        const val MAX_HEADCOUNT = 100
+    }
 }
