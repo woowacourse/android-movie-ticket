@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieRepository
+import woowacourse.movie.domain.model.MovieRepository
 import woowacourse.movie.ui.adapter.MovieAdapter
 
 class MainActivity : AppCompatActivity() {

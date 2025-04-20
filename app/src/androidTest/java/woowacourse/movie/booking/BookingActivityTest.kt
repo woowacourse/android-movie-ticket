@@ -21,7 +21,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.data.Movie
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.ui.view.booking.BookingSummaryActivity
 import java.time.LocalDate

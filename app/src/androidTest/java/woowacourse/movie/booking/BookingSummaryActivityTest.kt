@@ -13,8 +13,8 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.data.MovieTicket
-import woowacourse.movie.model.policy.DefaultPricingPolicy
+import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.ui.view.booking.BookingSummaryActivity
 import java.time.LocalDateTime

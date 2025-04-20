@@ -15,10 +15,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.data.Movie
-import woowacourse.movie.model.data.MovieTicket
-import woowacourse.movie.model.policy.DefaultPricingPolicy
-import woowacourse.movie.model.schedule.MovieScheduler
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.policy.DefaultPricingPolicy
+import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.ui.adapter.MovieAdapter.Companion.setImage
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.utils.intentSerializable

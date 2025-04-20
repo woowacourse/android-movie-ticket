@@ -1,4 +1,4 @@
-package woowacourse.movie.model.policy
+package woowacourse.movie.domain.policy
 
 class DefaultPricingPolicy(
     private val price: Int = 13000,

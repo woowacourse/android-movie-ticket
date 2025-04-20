@@ -1,4 +1,4 @@
-package woowacourse.movie.model.policy
+package woowacourse.movie.domain.policy
 
 import java.io.Serializable
 

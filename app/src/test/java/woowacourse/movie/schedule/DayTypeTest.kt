@@ -2,7 +2,7 @@ package woowacourse.movie.schedule
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.schedule.DayType
+import woowacourse.movie.domain.schedule.DayType
 import java.time.LocalDate
 
 class DayTypeTest {
