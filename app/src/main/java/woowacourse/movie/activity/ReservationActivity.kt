@@ -65,15 +65,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun handleInvalidMovie(): AlertDialog {
-        return DialogFactory.create(
-            DialogInfo(
-                this,
-                R.string.error,
-                R.string.wrong_approach,
-                R.string.confirm,
-                null,
-            ),
-        ) {
+        return DialogFactory.createErrorDialog(this) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()

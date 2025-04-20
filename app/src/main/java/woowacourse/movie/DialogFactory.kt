@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Context
 import androidx.appcompat.app.AlertDialog
 
 object DialogFactory {
@@ -19,5 +20,20 @@ object DialogFactory {
         }
         builder.setCancelable(false)
         return builder.create()
+    }
+
+    fun createErrorDialog(
+        context: Context,
+        onConfirmed: () -> Unit,
+    ): AlertDialog {
+        val dialogInfo =
+            DialogInfo(
+                context,
+                R.string.error,
+                R.string.wrong_approach,
+                R.string.confirm,
+                null,
+            )
+        return create(dialogInfo, onConfirmed)
     }
 }

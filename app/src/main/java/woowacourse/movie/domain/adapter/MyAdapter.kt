@@ -47,7 +47,6 @@ class MyAdapter(private val items: List<Movie>) : BaseAdapter() {
             parent?.context,
             Movie(items[position].image, items[position].title, items[position].date, items[position].time),
         )
-
         return view
     }
 
