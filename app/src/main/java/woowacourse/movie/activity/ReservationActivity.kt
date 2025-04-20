@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -234,5 +235,14 @@ class ReservationActivity : AppCompatActivity() {
         private const val DEFAULT_PERSONNEL = 1
         private const val DEFAULT_DATE_POSITION = 0
         private const val DEFAULT_TIME_POSITION = 0
+
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(context, ReservationActivity::class.java).putExtra(
+                KEY_MOVIE,
+                movie,
+            )
     }
 }
