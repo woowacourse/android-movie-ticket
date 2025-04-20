@@ -1,30 +1,34 @@
 package woowacourse.movie
 
-import org.assertj.core.api.Assertions
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.fixture.MovieFixture
+import java.time.LocalDateTime
 
 class BookingStatusTest {
     @Test
-    fun `영화가 예매가 안된 상태이면 예매할 수 있다`() {
+    fun `영화가_예매가_안된_상태이면_예매할_수_있다`() {
         val movie = MovieFixture.movie
+        val memberCount = MemberCount(1)
+        val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
+        val bookingStatus = BookingStatus(movie, false, memberCount, bookedTime)
 
-        val bookingStatus = BookingStatus(movie, false)
+        val newBookingStatus = bookingStatus.book()
 
-        val actual = bookingStatus.book()
+        val actual = newBookingStatus.isBooked
 
-        val expected = BookingStatus(movie, true)
-
-        Assertions.assertThat(actual).isEqualTo(expected)
+        assertThat(actual).isTrue
     }
 
     @Test
-    fun `영화가 예매가 된 상태이면 예매할 수 없다`() {
+    fun `영화가_예매가_된_상태이면_예매할_수_없다`() {
         val movie = MovieFixture.movie
-
-        val bookingStatus = BookingStatus(movie, true)
+        val memberCount = MemberCount(1)
+        val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
+        val bookingStatus = BookingStatus(movie, true, memberCount, bookedTime)
 
         assertThrows<IllegalStateException> {
             bookingStatus.book()
@@ -32,22 +36,23 @@ class BookingStatusTest {
     }
 
     @Test
-    fun `영화가 예매가 된 상태이면 취소할 수 있다`() {
+    fun `영화가_예매가_된_상태이면_취소할_수_있다`() {
         val movie = MovieFixture.movie
-
-        val bookingStatus = BookingStatus(movie, true)
+        val memberCount = MemberCount(1)
+        val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
+        val bookingStatus = BookingStatus(movie, true, memberCount, bookedTime)
 
         val actual = bookingStatus.cancel()
 
-        val expected = BookingStatus(movie, false)
-
-        Assertions.assertThat(actual).isEqualTo(expected)
+        assertThat(actual.isBooked).isFalse
     }
 
     @Test
-    fun `영화가 예매가 안된 상태이면 취소할 수 없다`() {
+    fun `영화가_예매가_안된_상태이면_취소할_수_없다`() {
         val movie = MovieFixture.movie
-        val bookingStatus = BookingStatus(movie, false)
+        val memberCount = MemberCount(1)
+        val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
+        val bookingStatus = BookingStatus(movie, false, memberCount, bookedTime)
 
         assertThrows<IllegalStateException> {
             bookingStatus.cancel()

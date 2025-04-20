@@ -30,7 +30,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             )
         binding.memberCountText.text = binding.memberCountText.context.getString(
             R.string.member_count,
-            bookingStatus.memberCount.value
+            bookingStatus.memberCount
         )
         binding.bookedMovieTicketPriceText.text =
             binding.bookedMovieTicketPriceText.context.getString(
