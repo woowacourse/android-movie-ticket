@@ -48,7 +48,7 @@
 - [x] deprecated 메서드 버전별 로직 추가
 - [x] 사용자에게 보이는 문자열 string.xml에 선언
 - [x] DateFormatter, PriceFormatter 분리
-- [x] also 스코프 대신 변수에 할당하게 변경
+- [x] also 스코프 대신 apply 활용
 - [x] Activity에서 화면을 전환하도록 변경
 - [x] ViewHolder 패턴 적용
 

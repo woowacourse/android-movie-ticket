@@ -193,14 +193,14 @@ class DetailBookingActivity : AppCompatActivity() {
         localDate: LocalDate,
     ) {
         val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).selectableTimes()
-        val adapter =
+        spinner.adapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
                 currentTimeTable,
-            )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        spinner.adapter = adapter
+            ).apply {
+                setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            }
 
         spinner.setSelection(selectedTimePosition)
 
