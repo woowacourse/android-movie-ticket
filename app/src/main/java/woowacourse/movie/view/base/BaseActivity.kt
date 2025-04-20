@@ -10,12 +10,11 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 
 abstract class BaseActivity(
-    @LayoutRes private val layoutResId: Int,
-) : AppCompatActivity() {
+    @LayoutRes layoutResId: Int,
+) : AppCompatActivity(layoutResId) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(layoutResId)
         setWindowInsets()
         setupViews(savedInstanceState)
     }
