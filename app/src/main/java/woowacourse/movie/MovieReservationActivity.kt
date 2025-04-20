@@ -26,6 +26,8 @@ import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
     private lateinit var movie: Movie
+    private val dateSpinner by lazy { findViewById<Spinner>(R.id.date_spinner) }
+    private val timeSpinner by lazy { findViewById<Spinner>(R.id.time_spinner) }
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private var ticketCount = MINIMUM_TICKET_COUNT
@@ -88,17 +90,11 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initializeSpinners(savedTicket: Ticket?) {
-        val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
-        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
-        initializeDateSpinner(dateSpinner, timeSpinner, savedTicket?.showtime)
-        initializeTimeSpinner(timeSpinner, savedTicket?.showtime?.toLocalTime())
+        initializeDateSpinner(savedTicket?.showtime)
+        initializeTimeSpinner(savedTicket?.showtime?.toLocalTime())
     }
 
-    private fun initializeDateSpinner(
-        dateSpinner: Spinner,
-        timeSpinner: Spinner,
-        savedDateTime: LocalDateTime?,
-    ) {
+    private fun initializeDateSpinner(savedDateTime: LocalDateTime?) {
         val screeningDates =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
 
@@ -114,7 +110,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     selectedDate = screeningDates[position]
-                    initializeTimeSpinner(timeSpinner, savedDateTime?.toLocalTime())
+                    initializeTimeSpinner(savedDateTime?.toLocalTime())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -124,12 +120,11 @@ class MovieReservationActivity : AppCompatActivity() {
         selectedDate.let { dateSpinner.setSelection(adapter.getPosition(it)) }
     }
 
-    private fun initializeTimeSpinner(
-        timeSpinner: Spinner,
-        savedTime: LocalTime?,
-    ) {
+    private fun initializeTimeSpinner(savedTime: LocalTime?) {
         val showtimes =
-            selectedDate?.let { scheduler.getShowtimes(it, LocalDateTime.now()) } ?: emptyList()
+            selectedDate?.let {
+                scheduler.getShowtimes(it, LocalDateTime.now())
+            } ?: emptyList()
         val adapter =
             ArrayAdapter(
                 this@MovieReservationActivity,
