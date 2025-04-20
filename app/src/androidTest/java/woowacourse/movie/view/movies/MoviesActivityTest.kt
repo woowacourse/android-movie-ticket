@@ -10,6 +10,7 @@ import org.hamcrest.Matchers.anything
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.view.fixture.MovieFixture
 
 class MoviesActivityTest {
     @get:Rule
@@ -21,7 +22,7 @@ class MoviesActivityTest {
             .inAdapterView(withId(R.id.lv_movie))
             .atPosition(0)
             .onChildView(withId(R.id.tv_title))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+            .check(matches(withText(MovieFixture.harryPotter.title)))
     }
 
     @Test
@@ -39,7 +40,7 @@ class MoviesActivityTest {
             .inAdapterView(withId(R.id.lv_movie))
             .atPosition(0)
             .onChildView(withId(R.id.tv_running_time))
-            .check(matches(withText("러닝타임: 152분")))
+            .check(matches(withText(MovieFixture.harryPotter.runningTime)))
     }
 
     @Test

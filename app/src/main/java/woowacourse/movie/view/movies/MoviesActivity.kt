@@ -38,7 +38,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
     companion object {
         private val dummyMovie =
             Movie(
-                R.drawable.harrypotter,
+                R.drawable.harrypotter.toString(),
                 "해리 포터와 마법사의 돌",
                 ScreeningPeriod(
                     LocalDate.of(2025, 4, 1),

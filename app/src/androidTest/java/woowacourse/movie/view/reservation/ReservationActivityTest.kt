@@ -21,7 +21,7 @@ class ReservationActivityTest {
     fun setUp() {
         val movie =
             Movie(
-                posterResId = R.drawable.harrypotter,
+                posterResId = R.drawable.harrypotter.toString(),
                 title = "해리 포터와 마법사의 돌",
                 screeningPeriod =
                     ScreeningPeriod(
