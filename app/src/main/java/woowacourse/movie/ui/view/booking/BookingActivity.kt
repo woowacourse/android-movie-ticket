@@ -16,9 +16,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import woowacourse.movie.domain.schedule.MovieScheduler
+import woowacourse.movie.domain.service.MovieTicketService
 import woowacourse.movie.ui.adapter.MovieAdapter.Companion.setImage
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.utils.intentSerializable
@@ -173,12 +173,12 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun onConfirm() {
+        val movieTicketService = MovieTicketService(DefaultPricingPolicy())
         val movieTicket =
-            MovieTicket(
-                title = movie.title,
-                screeningDateTime = LocalDateTime.of(date, time),
-                headCount = headCount,
-                pricingPolicy = DefaultPricingPolicy(),
+            movieTicketService.createMovieTicket(
+                movie.title,
+                LocalDateTime.of(date, time),
+                headCount,
             )
 
         val intent = Intent(this, BookingSummaryActivity::class.java)
