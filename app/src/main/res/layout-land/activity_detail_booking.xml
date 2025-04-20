@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".detailbooking.DetailBookingActivity">
+
+        <ImageView
+            android:id="@+id/movie_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:scaleType="centerCrop"
+            android:src="@drawable/harry">
+
+        </ImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="25sp">
+
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15sp"
+                android:text="@string/movie_title"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/movie_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/movieDate"
+                android:textColor="@color/black"
+                android:textSize="15sp">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/movie_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30sp"
+                android:text="@string/movieTime"
+                android:textColor="@color/black"
+                android:textSize="15sp"></TextView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20sp"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinner_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="30sp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/spinner_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/minus_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/minus"
+                    android:textSize="25sp"
+                    android:textStyle="bold"></Button>
+
+                <TextView
+                    android:id="@+id/personnel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="9"
+                    android:gravity="center"
+                    android:text="@string/default_personnel"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"></TextView>
+
+                <Button
+                    android:id="@+id/plus_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/plus"
+                    android:textSize="25sp"
+                    android:textStyle="bold"></Button>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/reservation_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:padding="10sp"
+                android:text="@string/reserve_complete"
+                android:textSize="25sp"
+                android:textStyle="bold"></Button>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

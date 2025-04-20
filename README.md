@@ -57,3 +57,4 @@
 - [x] MainActivity를 MovieListActivity로 네이밍 변경
 - [x] Movie 데이터 생성 분리
 - [x] 화면별로 패키지 분리
+- [x] 예매 화면, 예매 완료 화면 가로 모드 추가
