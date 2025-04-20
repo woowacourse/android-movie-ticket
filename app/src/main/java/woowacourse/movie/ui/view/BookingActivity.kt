@@ -27,7 +27,7 @@ class BookingActivity : AppCompatActivity() {
     private var headCount: Int = DEFAULT_HEADCOUNT
     private val movie: Movie by lazy {
         intent.intentSerializable(
-            getString(R.string.movie_info_key),
+            IntentKeys.MOVIE,
             Movie::class.java
         )
     }
@@ -169,7 +169,7 @@ class BookingActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, BookingSummaryActivity::class.java)
-        intent.putExtra(TICKET_KEY, movieTicket)
+        intent.putExtra(IntentKeys.TICKET, movieTicket)
         startActivity(intent)
     }
 
@@ -192,7 +192,6 @@ class BookingActivity : AppCompatActivity() {
 
     companion object {
         private const val DEFAULT_HEADCOUNT = 1
-        private const val TICKET_KEY = "Ticket"
         private const val HEADCOUNT_KEY = "HeadCount"
         private const val DATE_KEY = "Date"
         private const val TIME_KEY = "Time"

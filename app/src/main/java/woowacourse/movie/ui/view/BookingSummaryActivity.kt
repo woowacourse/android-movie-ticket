@@ -30,7 +30,7 @@ class BookingSummaryActivity : AppCompatActivity() {
     }
 
     private fun displayBookingSummary() {
-        val movieTicket = intent.intentSerializable(getString(R.string.ticket_info_key), MovieTicket::class.java)
+        val movieTicket = intent.intentSerializable(IntentKeys.TICKET, MovieTicket::class.java)
         val title = findViewById<TextView>(R.id.title)
         val screeningDateTime = findViewById<TextView>(R.id.screeningDateTime)
         val headCount = findViewById<TextView>(R.id.headCount)
