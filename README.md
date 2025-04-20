@@ -51,7 +51,7 @@
 - [x] CompleteActivity 네이밍 변경
 - [x] ReservationActivity | 잘못된 값을 받았을 때 Dialog를 띄우고 전 Activity로 돌아가도록 수정
 - [x] CompleteActivity | 잘못된 값을 받았을 때 Dialog를 띄우고 전 Activity로 돌아가도록 수정
-- [ ] ReservationActivity | onRestoreInstanceState를 추가
+- [x] ReservationActivity | onRestoreInstanceState를 추가
 - [x] ReservationDialog | Dialog Factory로 개선
 - [x] ReservationActivity | return 부분 수정
 - [ ] Uitest 추가

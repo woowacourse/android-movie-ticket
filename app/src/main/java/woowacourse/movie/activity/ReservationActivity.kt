@@ -52,16 +52,13 @@ class ReservationActivity : AppCompatActivity() {
 
         setMovieInfo(movie)
         setCountButtons()
-        setReservationButton(movie, spinnerDate, spinnerTime)
+        setReservationButton(movie, spinnerDate, spinnerTime) { ticket ->
+            askReservationDialog(ticket)
+        }
 
         setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
 
-        count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: DEFAULT_PERSONNEL
-        selectedDatePosition = savedInstanceState?.getInt(KEY_DATE_POSITION) ?: DEFAULT_DATE_POSITION
-        selectedTimePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: DEFAULT_TIME_POSITION
-
         spinnerDate.setSelection(selectedDatePosition)
-        updateCounterText()
     }
 
     private fun handleInvalidMovie(): AlertDialog {
@@ -78,6 +75,15 @@ class ReservationActivity : AppCompatActivity() {
         outState.putInt(KEY_PERSONNEL_COUNT, count)
         outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
         outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        count = savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
+        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
+        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        updateCounterText()
     }
 
     private fun updateCounterText() {
@@ -122,6 +128,7 @@ class ReservationActivity : AppCompatActivity() {
         movie: Movie,
         spinnerDate: Spinner,
         spinnerTime: Spinner,
+        onConfirm: (Ticket) -> AlertDialog,
     ) {
         val reservationButton = findViewById<Button>(R.id.reservation_button)
 
@@ -133,19 +140,23 @@ class ReservationActivity : AppCompatActivity() {
                     spinnerTime.selectedItem as? LocalTime,
                 ) ?: return@setOnClickListener
 
-            DialogFactory.create(
-                DialogInfo(
-                    this,
-                    R.string.reserve_confirm,
-                    R.string.askFor_reserve,
-                    R.string.complete,
-                    R.string.cancel,
-                ),
-            ) {
-                val intent = Intent(this, ReservationCompleteActivity::class.java)
-                intent.putExtra(KEY_TICKET, ticket)
-                startActivity(intent)
-            }.show()
+            onConfirm(ticket).show()
+        }
+    }
+
+    private fun askReservationDialog(ticket: Ticket): AlertDialog {
+        return DialogFactory.create(
+            DialogInfo(
+                this,
+                R.string.reserve_confirm,
+                R.string.askFor_reserve,
+                R.string.complete,
+                R.string.cancel,
+            ),
+        ) {
+            val intent = Intent(this, ReservationCompleteActivity::class.java)
+            intent.putExtra(KEY_TICKET, ticket)
+            startActivity(intent)
         }
     }
 
