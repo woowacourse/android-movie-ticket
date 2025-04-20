@@ -2,7 +2,6 @@ package woowacourse.movie
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -11,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.extensions.serializableData
 import woowacourse.movie.factory.CustomDialogFactory
 import java.text.DecimalFormat
 import java.time.LocalDateTime
@@ -34,12 +34,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservationResult() {
-        val reservation =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(KEY_RESERVATION, Reservation::class.java)
-            } else {
-                intent.getParcelableExtra(KEY_RESERVATION) as? Reservation
-            }
+        val reservation = intent.serializableData(KEY_RESERVATION, Reservation::class.java)
 
         if (reservation == null) {
             showReservationError()

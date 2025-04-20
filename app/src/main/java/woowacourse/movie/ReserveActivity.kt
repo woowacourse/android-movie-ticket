@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -23,6 +22,7 @@ import woowacourse.movie.domain.ReservationScheduler
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.domain.TicketType
 import woowacourse.movie.domain.Tickets
+import woowacourse.movie.extensions.serializableData
 import woowacourse.movie.factory.CustomDialogFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -61,12 +61,7 @@ class ReserveActivity : AppCompatActivity() {
         }
     }
 
-    private fun movie(): Movie? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(KEY_MOVIE, Movie::class.java)
-        } else {
-            intent.getParcelableExtra(KEY_MOVIE) as? Movie
-        }
+    private fun movie(): Movie? = intent.serializableData(KEY_MOVIE, Movie::class.java)
 
     private fun showMissingMovieDialog() {
         customDialogFactory.emptyValueDialog(
