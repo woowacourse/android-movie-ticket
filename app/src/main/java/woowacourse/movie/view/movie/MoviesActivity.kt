@@ -10,7 +10,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
-import woowacourse.movie.view.MovieClickListener
 import woowacourse.movie.view.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {

@@ -11,7 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.MovieClickListener
 import woowacourse.movie.view.ReservationUiFormatter
 
 class MovieAdapter(
