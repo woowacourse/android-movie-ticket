@@ -3,9 +3,6 @@ package woowacourse.movie
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -20,6 +17,10 @@ import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Booking
 import woowacourse.movie.model.BookingResult
 import woowacourse.movie.model.Movie
+import woowacourse.movie.ui.adapter.ScreeningDateSpinnerAdapter
+import woowacourse.movie.ui.adapter.ScreeningTimeSpinnerAdapter
+import woowacourse.movie.ui.listener.ScreeningDateSelectedListener
+import woowacourse.movie.ui.listener.ScreeningTimeSelectedListener
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -94,34 +95,16 @@ class BookingActivity : AppCompatActivity() {
         val screeningDateSpinner = findViewById<Spinner>(R.id.spinner_screening_date)
         val screeningPeriods: List<LocalDate> = booking.screeningPeriods()
 
-        screeningDateSpinner.adapter =
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                screeningPeriods,
-            )
-
+        screeningDateSpinner.adapter = ScreeningDateSpinnerAdapter(this, screeningPeriods)
         val position = screeningPeriods.indexOf(bookingResult.selectedDate)
         screeningDateSpinner.setSelection(position)
 
         screeningDateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedDate = screeningDateSpinner.getItemAtPosition(position) as LocalDate
-                    bookingResult.updateDate(selectedDate)
-                    setupScreeningTimeSpinner(booking)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    val date = screeningDateSpinner.getItemAtPosition(0) as LocalDate
-                    bookingResult = bookingResult.updateDate(date)
-                }
-            }
+            ScreeningDateSelectedListener(
+                bookingResult = bookingResult,
+                onBookingResultChanged = { updated -> bookingResult = updated },
+                refreshTimeSpinner = { setupScreeningTimeSpinner(booking) },
+            )
     }
 
     private fun setupScreeningTimeSpinner(booking: Booking) {
@@ -133,43 +116,22 @@ class BookingActivity : AppCompatActivity() {
             bookingResult = bookingResult.updateDate(nextDate)
             val nextTimes = booking.screeningTimes(bookingResult.selectedDate)
 
-            screeningTimeSpinner.adapter =
-                ArrayAdapter(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    nextTimes,
-                )
+            screeningTimeSpinner.adapter = ScreeningTimeSpinnerAdapter(this, nextTimes)
             nextTimes.firstOrNull()?.let {
                 bookingResult = bookingResult.updateTime(it)
             }
         } else {
-            screeningTimeSpinner.adapter =
-                ArrayAdapter(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    screeningTimes,
-                )
+            screeningTimeSpinner.adapter = ScreeningTimeSpinnerAdapter(this, screeningTimes)
         }
 
         val position = screeningTimes.indexOf(bookingResult.selectedTime)
         screeningTimeSpinner.setSelection(position)
 
         screeningTimeSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedTime = screeningTimeSpinner.getItemAtPosition(position) as LocalTime
-                    bookingResult = bookingResult.updateTime(selectedTime)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    screeningTimeSpinner.getItemAtPosition(0).toString()
-                }
-            }
+            ScreeningTimeSelectedListener(
+                bookingResult = bookingResult,
+                onBookingResultChanged = { updated -> bookingResult = updated },
+            )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
