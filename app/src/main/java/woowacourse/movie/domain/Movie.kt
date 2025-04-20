@@ -6,8 +6,11 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Movie(
-    val title: Title,
+    private val _title: Title,
     @DrawableRes val poster: Int,
     val screeningPeriod: ScreeningPeriod,
     val runningTime: Int,
-) : Parcelable
+) : Parcelable {
+    val title: String
+        get() = _title.value
+}

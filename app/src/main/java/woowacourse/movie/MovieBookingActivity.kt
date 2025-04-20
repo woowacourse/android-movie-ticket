@@ -109,7 +109,7 @@ class MovieBookingActivity : AppCompatActivity() {
         screeningDate: TextView,
         runningTimes: TextView
     ) {
-        title.text = movie.title.value
+        title.text = movie.title
         poster.setImageResource(movie.poster)
         screeningDate.text = screeningDate.context.getString(
             R.string.movie_screening_date,

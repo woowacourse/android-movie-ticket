@@ -56,7 +56,7 @@ class MovieListAdapter(
         viewHolder: ViewHolder,
         movie: Movie
     ) {
-        viewHolder.title.text = movie.title.value
+        viewHolder.title.text = movie.title
         viewHolder.poster.setImageResource(movie.poster)
         viewHolder.screeningDate.text = viewHolder.screeningDate.context.getString(
             R.string.movie_screening_date,
