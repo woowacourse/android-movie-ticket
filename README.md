@@ -46,7 +46,7 @@
 - [x] MyAdapter | 네이밍 수정
 - [ ] MyAdapter | ViewHolder패턴 적용
 - [x] MyAdapter | 람다 함수를 적용하여 Intent를 넘기도록 수정
-- [ ] 각 xml에 scrollView 넣기
+- [x] 각 xml에 scrollView 넣기
 - [ ] 각 xml layout id 변경
 - [ ] CompleteActivity 네이밍 변경
 - [x] ReservationActivity | 잘못된 값을 받았을 때 Dialog를 띄우고 전 Activity로 돌아가도록 수정
