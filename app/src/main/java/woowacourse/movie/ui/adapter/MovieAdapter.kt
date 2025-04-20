@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +11,11 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.mapper.PosterMapper
-import woowacourse.movie.ui.view.booking.BookingActivity
 
 class MovieAdapter(
     context: Context,
     private val movies: List<Movie>,
+    private val onReservationClickListener: (Movie) -> Unit,
 ) : ArrayAdapter<Movie>(context, 0, movies) {
     override fun getView(
         position: Int,
@@ -32,9 +31,7 @@ class MovieAdapter(
 
         val reservationBtn = view.findViewById<Button>(R.id.reservation)
         reservationBtn.setOnClickListener {
-            val intent = Intent(context, BookingActivity::class.java)
-            intent.putExtra(context.getString(R.string.movie_info_key), movie)
-            context.startActivity(intent)
+            onReservationClickListener(movie)
         }
 
         val imagePoster = view.findViewById<ImageView>(R.id.poster)
