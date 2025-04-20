@@ -42,7 +42,6 @@
 
 ## 피드백 반영
 
-- [ ] ReservationActivity | Formatter를 공용으로 만들기
 - [x] MyAdapter | 네이밍 수정
 - [x] MyAdapter | ViewHolder패턴 적용
 - [x] MyAdapter | 람다 함수를 적용하여 Intent를 넘기도록 수정
@@ -54,4 +53,5 @@
 - [x] ReservationActivity | onRestoreInstanceState를 추가
 - [x] ReservationDialog | Dialog Factory로 개선
 - [x] ReservationActivity | return 부분 수정
+- [x] ReservationActivity | createTicket 메서드 삭제
 - [ ] Uitest 추가

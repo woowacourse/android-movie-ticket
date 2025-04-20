@@ -133,13 +133,13 @@ class ReservationActivity : AppCompatActivity() {
         val reservationButton = findViewById<Button>(R.id.reservation_button)
 
         reservationButton.setOnClickListener {
-            val ticket =
-                createTicket(
-                    movie.title,
-                    spinnerDate.selectedItem as LocalDate,
-                    spinnerTime.selectedItem as? LocalTime,
-                ) ?: return@setOnClickListener
-
+            val selectedDate: LocalDate = spinnerDate.selectedItem as LocalDate
+            val selectedTime: LocalTime? = spinnerTime.selectedItem as? LocalTime?
+            if (selectedTime == null) {
+                Toast.makeText(this, getString(R.string.message_not_allowed_time), Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+            val ticket = Ticket(movie.title, LocalDateTime.of(selectedDate, selectedTime), count)
             onConfirm(ticket).show()
         }
     }
@@ -222,23 +222,6 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-    }
-
-    private fun createTicket(
-        movieTitle: String,
-        localDate: LocalDate,
-        localTime: LocalTime?,
-    ): Ticket? {
-        if (localTime == null) {
-            Toast.makeText(this, getString(R.string.message_not_allowed_time), Toast.LENGTH_SHORT).show()
-            return null
-        }
-
-        return Ticket(
-            movieTitle,
-            LocalDateTime.of(localDate.year, localDate.month, localDate.dayOfMonth, localTime.hour, localTime.minute),
-            count,
-        )
     }
 
     companion object {
