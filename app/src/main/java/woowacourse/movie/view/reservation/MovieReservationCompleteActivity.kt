@@ -9,16 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.IntentKeys
+import woowacourse.movie.common.parcelableExtra
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.common.IntentKeys
-import woowacourse.movie.view.common.parcelableExtra
 import java.time.format.DateTimeFormatter
 
-class MovieReservationCompletionActivity : AppCompatActivity() {
+class MovieReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_reservation_completion)
+        setContentView(R.layout.activity_movie_reservation_complete)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -47,7 +47,7 @@ class MovieReservationCompletionActivity : AppCompatActivity() {
             context: Context,
             ticket: Ticket,
         ): Intent =
-            Intent(context, MovieReservationCompletionActivity::class.java).apply {
+            Intent(context, MovieReservationCompleteActivity::class.java).apply {
                 putExtra(IntentKeys.EXTRA_TICKET, ticket)
             }
 

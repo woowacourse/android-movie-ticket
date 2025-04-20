@@ -11,13 +11,13 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.common.IntentKeys
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.ticket
-import woowacourse.movie.view.common.IntentKeys
 import woowacourse.movie.view.reservation.MovieReservationActivity
-import woowacourse.movie.view.reservation.MovieReservationCompletionActivity
+import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
 
-class MovieReservationCompletionActivityTest {
+class MovieReservationCompleteActivityTest {
     private lateinit var intent: Intent
 
     @get:Rule
@@ -26,10 +26,10 @@ class MovieReservationCompletionActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(fakeContext, MovieReservationCompletionActivity::class.java).apply {
+            Intent(fakeContext, MovieReservationCompleteActivity::class.java).apply {
                 putExtra(IntentKeys.EXTRA_TICKET, ticket)
             }
-        ActivityScenario.launch<MovieReservationCompletionActivity>(intent)
+        ActivityScenario.launch<MovieReservationCompleteActivity>(intent)
     }
 
     @Test
@@ -40,7 +40,7 @@ class MovieReservationCompletionActivityTest {
 
     @Test
     @DisplayName("예매한 영화의 상영 시간이 표시된다")
-    fun displayReservedMovieShowTimeTest() {
+    fun displayReservedMovieShowtimeTest() {
         onView(withId(R.id.showtime)).check(matches(withText("2025.04.15 11:00")))
     }
 

@@ -1,4 +1,4 @@
-package woowacourse.movie.view.common
+package woowacourse.movie.common
 
 object IntentKeys {
     const val EXTRA_MOVIE = "extra_movie"

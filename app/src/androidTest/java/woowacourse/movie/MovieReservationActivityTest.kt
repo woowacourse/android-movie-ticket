@@ -16,9 +16,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.common.IntentKeys
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.movie
-import woowacourse.movie.view.common.IntentKeys
 import woowacourse.movie.view.reservation.MovieReservationActivity
 
 class MovieReservationActivityTest {

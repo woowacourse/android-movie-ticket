@@ -17,12 +17,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.IntentKeys
+import woowacourse.movie.common.parcelable
+import woowacourse.movie.common.parcelableExtra
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.common.IntentKeys
-import woowacourse.movie.view.common.parcelable
-import woowacourse.movie.view.common.parcelableExtra
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -34,6 +34,9 @@ class MovieReservationActivity : AppCompatActivity() {
     private var selectedTime: LocalTime? = null
     private var ticketCount = MINIMUM_TICKET_COUNT
     private val scheduler = Scheduler()
+
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.date_spinner) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.time_spinner) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,7 +52,8 @@ class MovieReservationActivity : AppCompatActivity() {
         val savedTicket =
             savedInstanceState?.parcelable(IntentKeys.EXTRA_TICKET, Ticket::class.java)
 
-        initSpinners(savedTicket)
+        initDateSpinner(savedTicket?.showtime)
+        initTimeSpinner(savedTicket?.showtime?.toLocalTime())
         savedTicket?.let { ticket ->
             ticketCount = ticket.count
             findViewById<TextView>(R.id.ticket_count).text = ticketCount.toString()
@@ -93,18 +97,7 @@ class MovieReservationActivity : AppCompatActivity() {
         runningTime.text = getString(R.string.running_time).format(movie.runningTime)
     }
 
-    private fun initSpinners(savedTicket: Ticket?) {
-        val dateSpinner = findViewById<Spinner>(R.id.date_spinner)
-        val timeSpinner = findViewById<Spinner>(R.id.time_spinner)
-        initDateSpinner(dateSpinner, timeSpinner, savedTicket?.showtime)
-        initTimeSpinner(timeSpinner, savedTicket?.showtime?.toLocalTime())
-    }
-
-    private fun initDateSpinner(
-        dateSpinner: Spinner,
-        timeSpinner: Spinner,
-        savedDateTime: LocalDateTime?,
-    ) {
+    private fun initDateSpinner(savedDateTime: LocalDateTime?) {
         val screeningDates =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
 
@@ -120,22 +113,19 @@ class MovieReservationActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     selectedDate = screeningDates[position]
-                    initTimeSpinner(timeSpinner, savedDateTime?.toLocalTime())
+                    initTimeSpinner(savedDateTime?.toLocalTime())
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
 
         savedDateTime?.toLocalDate()?.let { selectedDate = it }
         selectedDate.let { dateSpinner.setSelection(adapter.getPosition(it)) }
     }
 
-    private fun initTimeSpinner(
-        timeSpinner: Spinner,
-        savedTime: LocalTime?,
-    ) {
+    private fun initTimeSpinner(savedTime: LocalTime?) {
         val showtimes =
-            selectedDate?.let { scheduler.getShowTimes(it, LocalDateTime.now()) } ?: emptyList()
+            selectedDate?.let { scheduler.getShowtimes(it, LocalDateTime.now()) } ?: emptyList()
         val adapter =
             ArrayAdapter(
                 this@MovieReservationActivity,
@@ -155,7 +145,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     selectedTime = showtimes[position]
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
 
         savedTime?.let { selectedTime = it }
@@ -205,7 +195,7 @@ class MovieReservationActivity : AppCompatActivity() {
                     showtime = LocalDateTime.of(selectedDate, selectedTime),
                     count = ticketCount,
                 )
-            val intent = MovieReservationCompletionActivity.newIntent(this, ticket)
+            val intent = MovieReservationCompleteActivity.newIntent(this, ticket)
             startActivity(intent)
         } else {
             Toast.makeText(this, R.string.select_date_and_time, Toast.LENGTH_SHORT).show()

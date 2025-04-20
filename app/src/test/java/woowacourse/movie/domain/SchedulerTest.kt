@@ -65,7 +65,7 @@ class SchedulerTest {
         val now = LocalDateTime.of(2025, 4, 12, 0, 0, 0)
 
         // when
-        val actual = scheduler.getShowTimes(selectedDate, now)
+        val actual = scheduler.getShowtimes(selectedDate, now)
         val expected = (10 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         assertThat(actual).isEqualTo(expected)
@@ -78,7 +78,7 @@ class SchedulerTest {
         val now = LocalDateTime.of(2025, 4, 12, 0, 0, 0)
 
         // when
-        val actual = scheduler.getShowTimes(selectedDate, now)
+        val actual = scheduler.getShowtimes(selectedDate, now)
         val expected = (9 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         // then
@@ -92,7 +92,7 @@ class SchedulerTest {
         val now = LocalDateTime.of(2025, 4, 14, 13, 30, 0)
 
         // when
-        val actual = scheduler.getShowTimes(selectedDate, now)
+        val actual = scheduler.getShowtimes(selectedDate, now)
         val expected = (14 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         // then
@@ -106,7 +106,7 @@ class SchedulerTest {
         val now = LocalDateTime.of(2025, 4, 13, 13, 30, 0)
 
         // when
-        val actual = scheduler.getShowTimes(selectedDate, now)
+        val actual = scheduler.getShowtimes(selectedDate, now)
         val expected = (15 until 24 step 2).map { hour -> LocalTime.of(hour, 0) }
 
         // then
