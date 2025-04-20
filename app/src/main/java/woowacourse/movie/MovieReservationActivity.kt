@@ -35,7 +35,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initializeUi()
+        initializeView()
 
         movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run {
             finish()
@@ -65,7 +65,7 @@ class MovieReservationActivity : AppCompatActivity() {
         outState.putParcelable(KEY_TICKET, ticket)
     }
 
-    private fun initializeUi() {
+    private fun initializeView() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie_reservation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
