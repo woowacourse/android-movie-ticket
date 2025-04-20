@@ -45,6 +45,17 @@ class MovieListAdapter(
 
         val viewHolder = ViewHolder(view)
 
+        adaptMovie(viewHolder, movie)
+
+        clickMovieItem(viewHolder, position)
+
+        return view
+    }
+
+    private fun adaptMovie(
+        viewHolder: ViewHolder,
+        movie: Movie
+    ) {
         viewHolder.title.text = movie.title
         viewHolder.poster.setImageResource(movie.poster)
         viewHolder.screeningDate.text = viewHolder.screeningDate.context.getString(
@@ -56,11 +67,21 @@ class MovieListAdapter(
             R.string.movie_running_time,
             movie.runningTime
         )
-        viewHolder.movieItem.setOnClickListener {
-            onReservationClick.invoke(value[position])
-        }
+    }
 
-        return view
+    private fun clickMovieItem(viewHolder: ViewHolder, position: Int) {
+        viewHolder.movieItem.setOnClickListener {
+            if (viewHolder.movieItem.isClickable) {
+                onReservationClick.invoke(value[position])
+                viewHolder.movieItem.isClickable = false
+            }
+
+            viewHolder.movieItem.postDelayed({
+                viewHolder.movieItem.isClickable = true
+            }, 2000)
+
+            return@setOnClickListener
+        }
     }
 }
 
