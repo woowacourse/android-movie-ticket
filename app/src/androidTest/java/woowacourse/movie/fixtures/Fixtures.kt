@@ -8,7 +8,7 @@ import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-val fakeContext = ApplicationProvider.getApplicationContext<Context>()
+val fakeContext: Context = ApplicationProvider.getApplicationContext()
 
 val movie =
     Movie(
