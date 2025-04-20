@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
-class CompleteActivity : AppCompatActivity() {
+class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

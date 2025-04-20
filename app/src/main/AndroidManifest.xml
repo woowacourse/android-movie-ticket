@@ -17,7 +17,7 @@
             android:exported="false"
             android:parentActivityName=".activity.MainActivity"/>
         <activity
-            android:name=".activity.CompleteActivity"
+            android:name=".activity.ReservationCompleteActivity"
             android:exported="false"
             android:parentActivityName=".activity.MainActivity" />
         <activity

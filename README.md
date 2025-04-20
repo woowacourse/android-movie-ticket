@@ -48,10 +48,10 @@
 - [x] MyAdapter | 람다 함수를 적용하여 Intent를 넘기도록 수정
 - [x] 각 xml에 scrollView 넣기
 - [x] 각 xml layout id 변경
-- [ ] CompleteActivity 네이밍 변경
+- [x] CompleteActivity 네이밍 변경
 - [x] ReservationActivity | 잘못된 값을 받았을 때 Dialog를 띄우고 전 Activity로 돌아가도록 수정
 - [x] CompleteActivity | 잘못된 값을 받았을 때 Dialog를 띄우고 전 Activity로 돌아가도록 수정
 - [ ] ReservationActivity | onRestoreInstanceState를 추가
 - [x] ReservationDialog | Dialog Factory로 개선
-- [ ] ReservationActivity | return 부분 수정
+- [x] ReservationActivity | return 부분 수정
 - [ ] Uitest 추가

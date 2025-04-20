@@ -8,11 +8,11 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.activity.CompleteActivity
+import woowacourse.movie.activity.ReservationCompleteActivity
 
-class CompleteActivityTest {
+class ReservationCompleteActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(CompleteActivity::class.java)
+    val activityRule = ActivityScenarioRule(ReservationCompleteActivity::class.java)
 
     @Test
     fun haveCancelInfo() {

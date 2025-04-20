@@ -142,7 +142,7 @@ class ReservationActivity : AppCompatActivity() {
                     R.string.cancel,
                 ),
             ) {
-                val intent = Intent(this, CompleteActivity::class.java)
+                val intent = Intent(this, ReservationCompleteActivity::class.java)
                 intent.putExtra("ticket", ticket)
                 startActivity(intent)
             }.show()
