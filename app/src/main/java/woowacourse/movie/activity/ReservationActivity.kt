@@ -1,5 +1,6 @@
 package woowacourse.movie.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -13,8 +14,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.DialogFactory
+import woowacourse.movie.DialogInfo
 import woowacourse.movie.R
-import woowacourse.movie.ReservationDialog
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
@@ -117,7 +119,20 @@ class ReservationActivity : AppCompatActivity() {
                     spinnerDate.selectedItem as LocalDate,
                     spinnerTime.selectedItem as? LocalTime,
                 ) ?: return@setOnClickListener
-            ReservationDialog(this, ticket).popUp()
+
+            DialogFactory.create(
+                DialogInfo(
+                    this,
+                    R.string.reserve_confirm,
+                    R.string.askFor_reserve,
+                    R.string.complete,
+                    R.string.cancel,
+                ),
+            ) {
+                val intent = Intent(this, CompleteActivity::class.java)
+                intent.putExtra("ticket", ticket)
+                startActivity(intent)
+            }.show()
         }
     }
 
