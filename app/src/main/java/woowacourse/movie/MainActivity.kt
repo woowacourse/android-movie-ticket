@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var moviesView: ListView
+    private val moviesView: ListView by lazy { findViewById(R.id.lv_movies) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +21,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        moviesView = findViewById(R.id.lv_movies)
-
         val movies: List<Movie> = DefaultMovies.movies
 
         val adapter =
