@@ -6,21 +6,17 @@ import java.time.LocalDateTime
 class Reservation(
     val title: String,
     val reservedTime: LocalDateTime,
-    private val _count: TicketCount,
+    private val tickets: Tickets,
 ) : Serializable {
-    val count = _count.count
+    val ticketCount get() = tickets.count
 
-    fun totalPrice(): Int = TICKET_PRICE * count
+    fun totalPrice(): Int = tickets.totalPrice()
 
-    fun plusCount() = Reservation(title, reservedTime, _count + 1)
+    fun plusCount() = Reservation(title, reservedTime, tickets.add(TicketType.DEFAULT))
 
-    fun canMinus(): Boolean = _count.canMinus()
+    fun canMinus(): Boolean = tickets.canMinus()
 
-    fun minusCount() = Reservation(title, reservedTime, _count - 1)
+    fun minusCount() = Reservation(title, reservedTime, tickets.remove(TicketType.DEFAULT))
 
-    fun updateReservedTime(time: LocalDateTime) = Reservation(title, time, _count)
-
-    companion object {
-        private const val TICKET_PRICE = 13000
-    }
+    fun updateReservedTime(time: LocalDateTime) = Reservation(title, time, tickets)
 }

@@ -18,7 +18,7 @@ class ReservationTest {
                     APRIL_THIRTIETH,
                     LocalTime.of(12, 0),
                 ),
-                TicketCount(1),
+                Tickets(listOf(TicketType.DEFAULT)),
             )
     }
 
@@ -35,8 +35,8 @@ class ReservationTest {
     @Test
     fun `예매할 티켓 수를 증가한다`() {
         // given & when
-        val expected = reservation.count + 1
-        val actual = reservation.plusCount().count
+        val expected = reservation.ticketCount + 1
+        val actual = reservation.plusCount().ticketCount
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -48,8 +48,8 @@ class ReservationTest {
         reservation = reservation.plusCount()
 
         // when
-        val expected = reservation.count - 1
-        val actual = reservation.minusCount().count
+        val expected = reservation.ticketCount - 1
+        val actual = reservation.minusCount().ticketCount
 
         // then
         assertThat(actual).isEqualTo(expected)

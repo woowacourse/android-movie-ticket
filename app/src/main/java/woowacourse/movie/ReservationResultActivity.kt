@@ -67,7 +67,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
         title.text = reservation.title
         screeningDate.text = screeningDateView
-        ticketCount.text = getString(R.string.formatted_ticket_count, reservation.count)
+        ticketCount.text = getString(R.string.formatted_ticket_count, reservation.ticketCount)
         totalPrice.text = wonFormat(this).format(reservation.totalPrice())
     }
 

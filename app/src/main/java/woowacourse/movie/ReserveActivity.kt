@@ -21,7 +21,8 @@ import woowacourse.movie.domain.MovieTimeScheduler
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ReservationScheduler
 import woowacourse.movie.domain.ScreeningDate
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.domain.TicketType
+import woowacourse.movie.domain.Tickets
 import woowacourse.movie.factory.CustomDialogFactory
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -96,7 +97,7 @@ class ReserveActivity : AppCompatActivity() {
         reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
             ?: Reservation(
                 movie.title, getSelectedDateTime(),
-                TicketCount(DEFAULT_TICKET_COUNT_SIZE),
+                Tickets(listOf(TicketType.DEFAULT)),
             )
 
         updateTicketCount()
@@ -173,7 +174,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun updateTicketCount() {
-        ticketCountTextView.text = reservation.count.toString()
+        ticketCountTextView.text = reservation.ticketCount.toString()
     }
 
     private fun formatScreeningDate(screeningDate: ScreeningDate): String {
