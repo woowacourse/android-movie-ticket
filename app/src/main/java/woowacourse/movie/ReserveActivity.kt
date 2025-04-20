@@ -14,6 +14,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.ReservationResultActivity.Companion.KEY_RESERVATION
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieDateScheduler
 import woowacourse.movie.domain.MovieTimeScheduler
@@ -159,8 +160,8 @@ class ReserveActivity : AppCompatActivity() {
                 } else {
                     customDialogFactory.emptyValueDialog(
                         this,
-                        "예매 문제 발생",
-                        "예매 내역에 문제가 생겨서 예매를 할 수 없습니다.",
+                        getString(R.string.error_reservation_title),
+                        getString(R.string.error_reservation_message),
                         ::finish,
                     ).show()
                 }
@@ -221,7 +222,6 @@ class ReserveActivity : AppCompatActivity() {
 
     companion object {
         private const val DEFAULT_TICKET_COUNT_SIZE = 1
-        private const val KEY_MOVIE = "movie"
-        private const val KEY_RESERVATION = "reservation"
+        const val KEY_MOVIE = "movie"
     }
 }
