@@ -85,7 +85,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             views.setSpinnerItems(
                 views.spinnerDate,
                 dateSpinnerAdapter,
-                it.screeningPeriod.getAvailableDates(LocalDateTime.now()),
+                it.screeningPeriod.getAvailableDates(LocalDate.now()),
             )
         }
     }
@@ -122,7 +122,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         }
 
         movie?.let {
-            val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
+            val availableDates = it.screeningPeriod.getAvailableDates(LocalDate.now())
             views.setSpinnerItems(views.spinnerDate, dateSpinnerAdapter, availableDates)
 
             val formatter = SPINNER_DATETIME_FORMAT.toDateTimeFormatter()
@@ -161,7 +161,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         date: LocalDate,
         selectedTime: LocalTime? = null,
     ) {
-        val times = movie.screeningPeriod.getAvailableTimesFor(date)
+        val times = movie.screeningPeriod.getAvailableTimesFor(LocalDateTime.now(), date)
         views.setSpinnerItems(views.spinnerTime, timeSpinnerAdapter, times, selectedTime)
     }
 

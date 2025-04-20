@@ -16,9 +16,9 @@ data class ScreeningPeriod(
         }
     }
 
-    fun getAvailableDates(now: LocalDateTime): List<LocalDate> {
+    fun getAvailableDates(now: LocalDate): List<LocalDate> {
         val dates = mutableListOf<LocalDate>()
-        var date = now.toLocalDate()
+        var date = now
         while (!date.isAfter(endDate)) {
             dates.add(date)
             date = date.plusDays(INTERVAL_DAY)
@@ -26,12 +26,14 @@ data class ScreeningPeriod(
         return dates
     }
 
-    fun getAvailableTimesFor(date: LocalDate): List<LocalTime> {
-        val nowDateTime = LocalDateTime.now()
-        val isToday = date == nowDateTime.toLocalDate()
+    fun getAvailableTimesFor(
+        nowDateTime: LocalDateTime,
+        selectedDate: LocalDate,
+    ): List<LocalTime> {
+        val isToday = selectedDate == nowDateTime.toLocalDate()
         val currentTime = if (isToday) nowDateTime.toLocalTime() else LocalTime.MIN
 
-        val isWeekend = date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY
+        val isWeekend = selectedDate.dayOfWeek == DayOfWeek.SATURDAY || selectedDate.dayOfWeek == DayOfWeek.SUNDAY
         val startHour = if (isWeekend) WEEKEND_START_HOUR else WEEKDAY_START_HOUR
 
         return (startHour until END_HOUR step INTERVAL_HOUR)
