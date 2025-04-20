@@ -6,15 +6,14 @@ import woowacourse.movie.model.DefaultPricingPolicy
 
 class DefaultPricingPolicyTest {
     @Test
-    fun `기본 요금 정책의 티켓 가격은 13000원이다`() {
+    fun `기본 요금 정책은 1인당 13000원을 부과한다`() {
         // Given
-        val headCount = 2
         val defaultPricingPolicy = DefaultPricingPolicy()
 
         // When
-        val amount = defaultPricingPolicy.calculatePrice(headCount)
+        val amount = defaultPricingPolicy.calculatePrice(1)
 
         // Then
-        amount shouldBe 26000
+        amount shouldBe 13000
     }
 }
