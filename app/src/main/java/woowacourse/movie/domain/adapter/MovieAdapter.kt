@@ -1,7 +1,6 @@
 package woowacourse.movie.domain.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
-class MovieAdapter(private val items: List<Movie>) : BaseAdapter() {
+class MovieAdapter(
+    private val items: List<Movie>,
+    private val onButtonListener: (Movie) -> Unit,
+) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
     }
@@ -44,7 +45,6 @@ class MovieAdapter(private val items: List<Movie>) : BaseAdapter() {
         setTimeTextView(view, items[position].time, parent?.context)
         setReserveButton(
             view,
-            parent?.context,
             Movie(items[position].image, items[position].title, items[position].date, items[position].time),
         )
         return view
@@ -90,15 +90,12 @@ class MovieAdapter(private val items: List<Movie>) : BaseAdapter() {
 
     private fun setReserveButton(
         view: View,
-        context: Context?,
         movie: Movie,
     ) {
         val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
         reserveButton.setOnClickListener {
-            val intent = Intent(context, ReservationActivity::class.java)
-            intent.putExtra("movie", movie)
-            context?.startActivity(intent)
+            onButtonListener(movie)
         }
     }
 
