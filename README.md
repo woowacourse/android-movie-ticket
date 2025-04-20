@@ -39,3 +39,20 @@
 - [x] 평일에는 오전 10시부터 두 시간 간격으로 상영한다.
 - [x] 날짜와 시간은 기본값으로 초기화되어있다.
 - [x] 15분 전 setText에서 집어넣는 걸로 변경
+
+## 피드백 반영
+
+- [ ] ReservationActivity | Formatter를 공용으로 만들기
+- [ ] MyAdapter | 네이밍 수정
+- [ ] Movie | default값 생성자에 직접 넣기 -> 둘의 차이가 클까?
+- [ ] MyAdapter | ViewHolder패턴 적용
+- [ ] MyAdapter | 람다 함수를 적용하여 Intent를 넘기도록 수정
+- [ ] Movie, Ticket의 기본 값 생성자로 넣기
+- [ ] 각 xml에 scrollView 넣기
+- [ ] 각 xml layout id 변경
+- [ ] CompleteActivity 네이밍 변경
+- [ ] CompleteActivity 잘못된 값을 받았을 때 Dialog를 띄우고 전 Activity로 돌아가도록 수정
+- [ ] ReservationActivity | onRestoreInstanceState를 추가
+- [ ] ReservationDialog | Dialog Factory로 개선
+- [ ] ReservationActivity | return 부분 수정
+- [ ] Uitest 추가
