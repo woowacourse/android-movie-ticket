@@ -164,13 +164,15 @@ class BookingActivity : AppCompatActivity() {
         val peopleCount = findViewById<TextView>(R.id.tv_people_count)
 
         increaseBtn.setOnClickListener {
-            val count = peopleCount.text.toString().toInt() + 1
-            peopleCount.text = count.toString()
+            bookingPeopleCount = bookingPeopleCount.increase()
+            peopleCount.text = bookingPeopleCount.value.toString()
         }
 
         decreaseBtn.setOnClickListener {
-            val count = max(MIN_BOOKING_PEOPLE_COUNT, peopleCount.text.toString().toInt() - 1)
-            peopleCount.text = count.toString()
+            if (bookingPeopleCount.canDecrease()) {
+                bookingPeopleCount = bookingPeopleCount.decrease()
+                peopleCount.text = bookingPeopleCount.value.toString()
+            }
         }
 
         bookingBtn.setOnClickListener {
