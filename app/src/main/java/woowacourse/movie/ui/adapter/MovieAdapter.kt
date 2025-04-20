@@ -12,6 +12,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.ui.view.BookingActivity
+import woowacourse.movie.ui.view.IntentKeys
 
 class MovieAdapter(
     context: Context,
@@ -22,32 +23,50 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_movie, parent, false)
+        val view: View
+        val viewHolder: MovieViewHolder
 
-        val movie = movies[position]
-
-        val reservationBtn = view.findViewById<Button>(R.id.reservation)
-        reservationBtn.setOnClickListener {
-            val intent = Intent(context, BookingActivity::class.java)
-            intent.putExtra(context.getString(R.string.movie_info_key), movie)
-            context.startActivity(intent)
+        if (convertView == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+            viewHolder = MovieViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as MovieViewHolder
         }
 
-        val imagePoster = view.findViewById<ImageView>(R.id.poster)
-        val title = view.findViewById<TextView>(R.id.title)
-        val screeningDate = view.findViewById<TextView>(R.id.screeningDate)
-        val runningTime = view.findViewById<TextView>(R.id.runningTime)
-
-        title.text = movie.title
-        screeningDate.text =
-            context.getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
-        runningTime.text =
-            context.getString(R.string.runningTime_text, movie.runningTime.toString())
-        imagePoster.setImageResource(movie.posterRes)
+        val movie = movies[position]
+        viewHolder.bind(movie)
 
         return view
+    }
+
+    private inner class MovieViewHolder(view: View) {
+        private val poster: ImageView = view.findViewById(R.id.poster)
+        private val title: TextView = view.findViewById(R.id.title)
+        private val screeningDate: TextView = view.findViewById(R.id.screeningDate)
+        private val runningTime: TextView = view.findViewById(R.id.runningTime)
+        private val reservationBtn: Button = view.findViewById(R.id.reservation)
+
+        fun bind(movie: Movie) {
+            title.text = movie.title
+            screeningDate.text = context.getString(
+                R.string.date_text,
+                movie.startScreeningDate,
+                movie.endScreeningDate
+            )
+            runningTime.text = context.getString(
+                R.string.runningTime_text,
+                movie.runningTime.toString()
+            )
+            poster.setImageResource(movie.posterRes)
+
+            reservationBtn.setOnClickListener {
+                val intent = Intent(context, BookingActivity::class.java).apply {
+                    putExtra(IntentKeys.MOVIE, movie)
+                }
+                context.startActivity(intent)
+            }
+        }
     }
 }
