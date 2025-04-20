@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.MovieTicketActivity.Companion.KEY_MOVIE
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
@@ -127,13 +128,13 @@ class MovieBookingActivity : AppCompatActivity() {
     ) {
         val intent = Intent(
             this@MovieBookingActivity,
-            ReservationCompleteActivity::class.java
+            MovieBookedCompleteActivity::class.java
         ).putExtra(KEY_BOOKING_STATUS, bookingStatus)
         startActivity(intent)
     }
 
     private fun movie(): Movie {
-        return BuildVersion().movie(intent)
+        return BuildVersion().getParcelableClass(intent, KEY_MOVIE, Movie::class)
     }
 
     companion object {

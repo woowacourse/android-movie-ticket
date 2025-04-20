@@ -2,19 +2,17 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Build
-import woowacourse.movie.domain.Movie
+import android.os.Parcelable
+import kotlin.reflect.KClass
 
-class BuildVersion(
-    private val buildVersion: Int = Build.VERSION.SDK_INT,
-) {
-    fun movie(intent: Intent): Movie {
-        return if (buildVersion >= Build.VERSION_CODES.TIRAMISU) {
-            @Suppress("NewApi")
-            intent.getParcelableExtra(MovieTicketActivity.KEY_MOVIE, Movie::class.java)
+class BuildVersion {
+    fun <T : Parcelable> getParcelableClass(intent: Intent, name: String, clazz: KClass<T>): T {
+        return if (Build.VERSION.SDK_INT >= 33) {
+            intent.getParcelableExtra(name, clazz.java)
                 ?: throw IllegalStateException()
         } else {
             @Suppress("DEPRECATION")
-            intent.getParcelableExtra(MovieTicketActivity.KEY_MOVIE) as? Movie
+            intent.getParcelableExtra(name) as? T
                 ?: throw IllegalStateException()
         }
     }

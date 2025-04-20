@@ -1,15 +1,15 @@
 package woowacourse.movie
 
-import android.os.Build
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.MovieBookingActivity.Companion.KEY_BOOKING_STATUS
 import woowacourse.movie.databinding.BookingSuccessBinding
 import woowacourse.movie.domain.BookingStatus
 
-class ReservationCompleteActivity : AppCompatActivity() {
+class MovieBookedCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -47,13 +47,6 @@ class ReservationCompleteActivity : AppCompatActivity() {
     }
 
     private fun bookingStatus(): BookingStatus {
-        return if (Build.VERSION.SDK_INT >= 33) {
-            intent.getParcelableExtra("bookingStatus", BookingStatus::class.java)
-                ?: throw IllegalStateException()
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra("bookingStatus") as? BookingStatus
-                ?: throw IllegalStateException()
-        }
+        return BuildVersion().getParcelableClass(intent, KEY_BOOKING_STATUS, BookingStatus::class)
     }
 }
