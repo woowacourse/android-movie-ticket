@@ -2,18 +2,16 @@ package woowacourse.movie.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import java.time.LocalDate
+import java.time.LocalTime
 
 @Parcelize
 data class BookingResult(
     val title: String,
-    private var _headCount: Int,
-    private var _selectedDate: String,
-    private var _selectedTime: String,
+    val headCount: Int,
+    val selectedDate: LocalDate,
+    val selectedTime: LocalTime,
 ) : Parcelable {
-    val headCount get() = _headCount
-    val selectedDate get() = _selectedDate
-    val selectedTime get() = _selectedTime
-
     init {
         require(title.isNotBlank()) { ERROR_TITLE_BLANK_MESSAGE }
     }
@@ -22,25 +20,15 @@ data class BookingResult(
         return TICKET_PRICE * headCount
     }
 
-    fun plusHeadCount() {
-        _headCount++
-    }
+    fun plusHeadCount(): BookingResult = copy(headCount = headCount + 1)
 
-    fun minusHeadCount() {
-        _headCount--
-    }
+    fun minusHeadCount(): BookingResult = copy(headCount = headCount - 1)
 
-    fun updateDate(date: String) {
-        _selectedDate = date
-    }
+    fun updateDate(date: LocalDate): BookingResult = copy(selectedDate = date)
 
-    fun updateTime(time: String) {
-        _selectedTime = time
-    }
+    fun updateTime(time: LocalTime): BookingResult = copy(selectedTime = time)
 
-    fun isHeadCountValid(): Boolean {
-        return headCount > 0
-    }
+    fun isHeadCountValid(): Boolean = headCount > 0
 
     companion object {
         private const val TICKET_PRICE = 13_000
