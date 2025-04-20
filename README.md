@@ -44,7 +44,7 @@
 
 - [ ] ReservationActivity | Formatter를 공용으로 만들기
 - [x] MyAdapter | 네이밍 수정
-- [ ] MyAdapter | ViewHolder패턴 적용
+- [x] MyAdapter | ViewHolder패턴 적용
 - [x] MyAdapter | 람다 함수를 적용하여 Intent를 넘기도록 수정
 - [x] 각 xml에 scrollView 넣기
 - [x] 각 xml layout id 변경

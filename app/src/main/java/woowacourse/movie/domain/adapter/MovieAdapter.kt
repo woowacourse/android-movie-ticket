@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
@@ -34,67 +31,60 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(parent?.context)
-                .inflate(R.layout.item, parent, false)
+        val view: View
+        val viewHolder: MovieViewHolder
 
-        setImageView(view, items[position].image)
-        setTitleTextView(view, items[position].title)
-        setDateTextView(view, items[position].date, parent?.context)
-        setTimeTextView(view, items[position].time, parent?.context)
+        if (convertView == null) {
+            view =
+                LayoutInflater
+                    .from(parent?.context)
+                    .inflate(R.layout.item, parent, false)
+            viewHolder = MovieViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = convertView.tag as MovieViewHolder
+        }
+
+        val item = items[position]
+
+        viewHolder.movieImage.setImageResource(item.image)
+        viewHolder.movieTitle.text = item.title
+        setDateTextView(viewHolder, item.date, parent?.context)
+        setTimeTextView(viewHolder, item.time, parent?.context)
         setReserveButton(
-            view,
-            Movie(items[position].image, items[position].title, items[position].date, items[position].time),
+            viewHolder,
+            Movie(item.image, item.title, item.date, item.time),
         )
         return view
     }
 
-    private fun setImageView(
-        view: View,
-        movieImage: Int,
-    ) {
-        val imageView: ImageView = view.findViewById(R.id.movie_image)
-        imageView.setImageResource(movieImage)
-    }
-
-    private fun setTitleTextView(
-        view: View,
-        movieTitle: String,
-    ) {
-        val titleTextView: TextView = view.findViewById(R.id.movie_title)
-        titleTextView.text = movieTitle
-    }
-
     private fun setDateTextView(
-        view: View,
+        viewHolder: MovieViewHolder,
         movieDate: Date,
         context: Context?,
     ) {
-        val dateTextView: TextView = view.findViewById(R.id.movie_date)
         val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val startDateFormatted = movieDate.startDate.format(formatter)
         val endDateFormatted = movieDate.endDate.format(formatter)
-        dateTextView.text = context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
+        viewHolder.movieDate.text =
+            context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
     }
 
     private fun setTimeTextView(
-        view: View,
+        viewHolder: MovieViewHolder,
         movieRunningTime: Int,
         context: Context?,
     ) {
-        val timeTextView: TextView = view.findViewById(R.id.movie_time)
-
-        timeTextView.text = context?.getString(R.string.movieTime, movieRunningTime.toString())
+        viewHolder.movieTime.text =
+            context?.getString(R.string.movieTime, movieRunningTime.toString())
     }
 
     private fun setReserveButton(
-        view: View,
+        viewHolder: MovieViewHolder,
         movie: Movie,
     ) {
-        val reserveButton: Button = view.findViewById(R.id.reserve_button)
-
-        reserveButton.setOnClickListener {
+        viewHolder.reserveButton.setOnClickListener {
             onButtonListener(movie)
         }
     }
