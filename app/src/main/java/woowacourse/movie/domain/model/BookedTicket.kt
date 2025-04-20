@@ -6,4 +6,6 @@ class BookedTicket(
     val movieName: String,
     val headcount: Headcount,
     val time: String,
-) : Serializable
+) : Serializable {
+    fun ticketPrice(type: TicketType): Int = type.price * headcount.count
+}

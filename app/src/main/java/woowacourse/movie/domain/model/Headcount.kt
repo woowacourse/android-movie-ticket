@@ -9,8 +9,6 @@ class Headcount(
     var count: Int = count
         private set
 
-    fun ticketPrice(type: TicketType): Int = type.price * count
-
     fun increase() {
         if (count < MAX_HEADCOUNT) {
             count++

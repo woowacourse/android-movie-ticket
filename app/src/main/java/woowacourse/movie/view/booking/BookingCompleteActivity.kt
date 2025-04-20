@@ -33,7 +33,7 @@ class BookingCompleteActivity : AppCompatActivity() {
 
     private fun setViews() {
         val bookedTicket: BookedTicket = intent.getSerializableExtra("bookedTicket") as BookedTicket
-        val price: Int = bookedTicket.headcount.ticketPrice(TicketType.GENERAL)
+        val price: Int = bookedTicket.ticketPrice(TicketType.GENERAL)
         val priceFormat: String = thousandFormat(price)
 
         findViewById<TextView>(R.id.tv_title).text = bookedTicket.movieName
