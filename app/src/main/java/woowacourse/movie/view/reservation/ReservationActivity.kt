@@ -204,11 +204,9 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             context: Context,
             movie: Movie,
         ): Intent =
-            Intent(context, ReservationActivity::class.java).apply {
-                putExtra(
-                    BUNDLE_KEY_MOVIE,
-                    movie,
-                )
-            }
+            Intent(context, ReservationActivity::class.java).putExtra(
+                BUNDLE_KEY_MOVIE,
+                movie,
+            )
     }
 }
