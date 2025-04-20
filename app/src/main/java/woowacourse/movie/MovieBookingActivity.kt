@@ -130,6 +130,7 @@ class MovieBookingActivity : AppCompatActivity() {
             this@MovieBookingActivity,
             MovieBookedActivity::class.java
         ).putExtra(KEY_BOOKING_STATUS, bookingStatus)
+        finish()
         startActivity(intent)
     }
 
