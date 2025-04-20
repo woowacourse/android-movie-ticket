@@ -245,8 +245,8 @@ class BookingActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_MOVIE_DATA = "movieData"
-        const val KEY_HEAD_COUNT = "HEAD_COUNT"
-        const val KEY_SCREENING_DATE = "SCREENING_DATE"
-        const val KEY_SCREENING_TIME = "SCREENING_TIME"
+        private const val KEY_HEAD_COUNT = "HEAD_COUNT"
+        private const val KEY_SCREENING_DATE = "SCREENING_DATE"
+        private const val KEY_SCREENING_TIME = "SCREENING_TIME"
     }
 }
