@@ -31,7 +31,7 @@
 - [X] MovieListAdapter의 onBookClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각 -> 화면이 여러겹 쌓임
 - [X] MovieListAdapter의 onBookClick CallBack -> interface구현
 - [X] MovieListAdapter 기능별로 함수 분리
-- [ ] MovieListAdapterExt 정렬하기
+- [X] MovieListAdapterExt 정렬하기
 - [ ] ReservationActivity의 Intent Extra 따로 관리
 - [ ] ReservationActivity의 하드 코딩된 값 string.xml을 활용해 재사용
 - [ ] ReservationActivity 버전별 분기 함수로 재사용하도록 만들기

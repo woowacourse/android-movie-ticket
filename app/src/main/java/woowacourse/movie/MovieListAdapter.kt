@@ -60,8 +60,8 @@ class MovieListAdapter(
         viewHolder.poster.setImageResource(movie.poster)
         viewHolder.screeningDate.text = viewHolder.screeningDate.context.getString(
             R.string.movie_screening_date,
-            movie.screeningStartDate,
-            movie.screeningEndDate
+            movie.screeningStartDate.toDotFormat(),
+            movie.screeningEndDate.toDotFormat()
         )
         viewHolder.runningTime.text = viewHolder.runningTime.context.getString(
             R.string.movie_running_time,
