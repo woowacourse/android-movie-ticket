@@ -156,7 +156,7 @@ class BookingActivity : AppCompatActivity() {
         if (confirmDialog == null) {
             initConfirmDialog()
         }
-        confirmDialog?.show()
+        confirmDialog!!.show()
     }
 
     private fun initConfirmDialog() {
@@ -197,6 +197,12 @@ class BookingActivity : AppCompatActivity() {
 
     private fun updateHeadCount() {
         headCountView.text = String.format(Locale.getDefault(), "%d", headCount)
+    }
+
+    override fun onDestroy() {
+        confirmDialog?.dismiss()
+        confirmDialog = null
+        super.onDestroy()
     }
 
     companion object {
