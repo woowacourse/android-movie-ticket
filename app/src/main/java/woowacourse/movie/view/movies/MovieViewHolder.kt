@@ -1,0 +1,51 @@
+package woowacourse.movie.view.movies
+
+import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.view.extension.toDateTimeFormatter
+
+class MovieViewHolder(
+    private val parentView: View,
+    private val eventListener: OnMovieEventListener,
+) {
+    private val ivPoster: ImageView = parentView.findViewById(R.id.iv_poster)
+    private val tvTitle: TextView = parentView.findViewById(R.id.tv_title)
+    private val tvDate: TextView = parentView.findViewById(R.id.tv_date)
+    private val tvRunningTime: TextView = parentView.findViewById(R.id.tv_running_time)
+    private val btnReservation: Button = parentView.findViewById(R.id.btn_reservation)
+
+    fun bind(movie: Movie) {
+        movie.poster.toIntOrNull()?.let { ivPoster.setImageResource(it) }
+        tvTitle.text = movie.title
+        tvDate.text = getDate(movie)
+        tvRunningTime.text = getRunningTime(movie)
+
+        btnReservation.setOnClickListener {
+            eventListener.onClick(movie)
+        }
+    }
+
+    private fun getDate(movie: Movie): String =
+        movie.screeningPeriod.run {
+            parentView.context.getString(
+                R.string.movie_date,
+                MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                    startDate.format(formatter)
+                },
+                MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                    endDate.format(formatter)
+                },
+            )
+        }
+
+    private fun getRunningTime(movie: Movie): String =
+        parentView.context.getString(R.string.running_time, movie.runningTime.minute.toString())
+
+    companion object {
+        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
+    }
+}
