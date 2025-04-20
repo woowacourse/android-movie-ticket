@@ -58,11 +58,13 @@ class DetailBookingActivity : AppCompatActivity() {
 
         setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
 
-        count = savedInstanceState?.getInt(KEY_PERSONNEL_COUNT) ?: return
-        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
-        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        if (savedInstanceState != null) {
+            restoreInstanceState(savedInstanceState)
+        }
 
         spinnerDate.setSelection(selectedDatePosition)
+        spinnerTime.setSelection(selectedTimePosition)
+
         updateCounterText()
     }
 
@@ -72,6 +74,23 @@ class DetailBookingActivity : AppCompatActivity() {
         outState.putInt(KEY_PERSONNEL_COUNT, count)
         outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
         outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        restoreInstanceState(savedInstanceState)
+    }
+
+    private fun restoreInstanceState(savedInstanceState: Bundle) {
+        count = if (!savedInstanceState.containsKey(KEY_PERSONNEL_COUNT)) {
+            1
+        } else {
+            savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
+        }
+
+        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, 0) // 기본값 0
+        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, 0) // 기본값 0
     }
 
     private fun updateCounterText() {

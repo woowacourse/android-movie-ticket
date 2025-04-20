@@ -59,3 +59,4 @@
 - [x] 화면별로 패키지 분리
 - [x] 예매 화면, 예매 완료 화면 가로 모드 추가
 - [x] 파일명 변경 및 xml 레이아웃 id 변경
+- [x] onCreate 된 후 데이터를 복원하도록 onRestoreInstanceState 추가
