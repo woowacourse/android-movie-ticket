@@ -9,7 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.adapter.MyAdapter
+import woowacourse.movie.domain.adapter.MovieAdapter
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
 
         val movies: List<Movie> = initMovie()
         val listView: ListView = findViewById(R.id.list_view)
-        val myAdapter: MyAdapter = MyAdapter(movies)
+        val movieAdapter: MovieAdapter = MovieAdapter(movies)
 
-        listView.adapter = myAdapter
+        listView.adapter = movieAdapter
     }
 
     private fun initMovie(): List<Movie> {
