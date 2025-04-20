@@ -9,9 +9,9 @@ import kotlin.time.Duration.Companion.minutes
 
 @Parcelize
 data class Movies(
-    val movies: Map<String, Movie>,
+    val movies: Map<Title, Movie>,
 ) : Parcelable {
-    fun find(title: String): Movie {
+    fun find(title: Title): Movie {
         return movies[title] ?: throw IllegalStateException(ERR_MOVIE_NOT_FOUND)
     }
 
@@ -19,8 +19,13 @@ data class Movies(
 
     companion object {
         private const val ERR_MOVIE_NOT_FOUND = "영화가 존재하지 않습니다."
-        val value = listOf<Movie>(Movie("해리포터와 마법사의 돌", R.drawable.movie_poster,  LocalDate.of(2025, 4, 1),
-            LocalDate.of(2025, 4, 25),
-            125))
+        val value = listOf(
+            Movie(
+                Title("해리포터와 마법사의 돌"),
+                R.drawable.movie_poster,
+                ScreeningPeriod.ofDot("2025.04.01", "2025.04.25"),
+                125
+            )
+        )
     }
 }

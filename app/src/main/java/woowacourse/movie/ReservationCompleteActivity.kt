@@ -22,7 +22,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         }
         val bookingStatus = bookingStatus()
 
-        binding.bookedMovieTitleText.text = bookingStatus.movie.title
+        binding.bookedMovieTitleText.text = bookingStatus.movie.title.value
         binding.bookedMovieRunningDayText.text =
             binding.bookedMovieRunningDayText.context.getString(
                 R.string.movie_running_dateTime,
