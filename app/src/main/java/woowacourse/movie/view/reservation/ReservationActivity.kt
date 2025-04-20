@@ -183,7 +183,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     private fun setMovieInfo() {
         movie?.let { movie ->
-            findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(movie.posterResId)
+            findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(movie.posterResId.toInt())
             findViewById<TextView>(R.id.tv_reservation_title).text = movie.title
             findViewById<TextView>(R.id.tv_screening_period).text =
                 getString(
