@@ -3,6 +3,7 @@ package woowacourse.movie.domain.model
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -24,8 +25,11 @@ class ScreeningPeriodTest {
 
         val startDateExpected = LocalDate.of(2025, 4, 1)
         val endDateExpected = LocalDate.of(2025, 4, 3)
-        assertThat(screeningPeriod.startDate).isEqualTo(startDateExpected)
-        assertThat(screeningPeriod.endDate).isEqualTo(endDateExpected)
+
+        assertAll(
+            { assertThat(screeningPeriod.startDate).isEqualTo(startDateExpected) },
+            { assertThat(screeningPeriod.endDate).isEqualTo(endDateExpected) },
+        )
     }
 
     @Test

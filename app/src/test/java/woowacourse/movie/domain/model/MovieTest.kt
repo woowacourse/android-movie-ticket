@@ -2,6 +2,7 @@ package woowacourse.movie.domain.model
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import java.time.LocalDate
 
 class MovieTest {
@@ -22,9 +23,11 @@ class MovieTest {
                 runningTime = runningTime,
             )
 
-        assertThat(movie.title).isEqualTo("해리 포터와 마법사의 돌")
-        assertThat(movie.poster).isEqualTo("https://example.com/poster.jpg")
-        assertThat(movie.screeningPeriod).isEqualTo(screeningPeriod)
-        assertThat(movie.runningTime).isEqualTo(runningTime)
+        assertAll(
+            { assertThat(movie.title).isEqualTo("해리 포터와 마법사의 돌") },
+            { assertThat(movie.poster).isEqualTo("https://example.com/poster.jpg") },
+            { assertThat(movie.screeningPeriod).isEqualTo(screeningPeriod) },
+            { assertThat(movie.runningTime).isEqualTo(runningTime) },
+        )
     }
 }
