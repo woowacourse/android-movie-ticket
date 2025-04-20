@@ -28,7 +28,7 @@ class BookingActivity : AppCompatActivity() {
     private lateinit var headcount: Headcount
     private lateinit var movieItem: Movie
 
-    private val peopleCountView: TextView by lazy { findViewById(R.id.tv_title) }
+    private val peopleCountView: TextView by lazy { findViewById(R.id.tv_headcount) }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
 
