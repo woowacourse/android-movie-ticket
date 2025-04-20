@@ -24,7 +24,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
-    private var headCount: Int = 1
+    private var headCount: Int = DEFAULT_HEADCOUNT
     private val movie: Movie by lazy {
         intent.intentSerializable(
             getString(R.string.movie_info_key),
@@ -80,7 +80,7 @@ class BookingActivity : AppCompatActivity() {
         }
         val decreaseBtn = findViewById<Button>(R.id.decrease)
         decreaseBtn.setOnClickListener {
-            if (headCount > 1) {
+            if (headCount > DEFAULT_HEADCOUNT) {
                 headCount--
                 updateHeadCount()
             }
@@ -169,24 +169,32 @@ class BookingActivity : AppCompatActivity() {
         )
 
         val intent = Intent(this, BookingSummaryActivity::class.java)
-        intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
+        intent.putExtra(TICKET_KEY, movieTicket)
         startActivity(intent)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(getString(R.string.headCount_tag), headCount)
-        outState.putString(getString(R.string.date_tag), date.toString())
-        outState.putString(getString(R.string.time_tag), time.toString())
+        outState.putInt(HEADCOUNT_KEY, headCount)
+        outState.putString(DATE_KEY, date.toString())
+        outState.putString(TIME_KEY, time.toString())
     }
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
-        headCount = savedInstance.getInt(getString(R.string.headCount_tag))
-        date = LocalDate.parse(savedInstance.getString(getString(R.string.date_tag)))
-        time = LocalTime.parse(savedInstance.getString(getString(R.string.time_tag)))
+        headCount = savedInstance.getInt(HEADCOUNT_KEY)
+        date = LocalDate.parse(savedInstance.getString(DATE_KEY))
+        time = LocalTime.parse(savedInstance.getString(TIME_KEY))
     }
 
     private fun updateHeadCount() {
         headCountView.text = headCount.toString()
+    }
+
+    companion object {
+        private const val DEFAULT_HEADCOUNT = 1
+        private const val TICKET_KEY = "Ticket"
+        private const val HEADCOUNT_KEY = "HeadCount"
+        private const val DATE_KEY = "Date"
+        private const val TIME_KEY = "Time"
     }
 }
