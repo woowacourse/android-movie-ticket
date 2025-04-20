@@ -11,6 +11,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -42,7 +43,7 @@ class ReservationActivity : AppCompatActivity() {
         }
         val movie = intent.getSerializableExtra("movie") as? Movie
         if (movie == null) {
-            handleInvalidMovie()
+            handleInvalidMovie().show()
             return
         }
 
@@ -63,8 +64,8 @@ class ReservationActivity : AppCompatActivity() {
         updateCounterText()
     }
 
-    private fun handleInvalidMovie() {
-        DialogFactory.create(
+    private fun handleInvalidMovie(): AlertDialog {
+        return DialogFactory.create(
             DialogInfo(
                 this,
                 R.string.error,
