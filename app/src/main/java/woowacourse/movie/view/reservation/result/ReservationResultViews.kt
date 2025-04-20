@@ -22,7 +22,7 @@ class ReservationResultViews(
             tvMovieDate.text = info.reservationDateTime.format(formatter)
         }
         tvReservationCountInfo.text =
-            activity.getString(R.string.reservation_count_info).format(info.reservationCount)
+            activity.getString(R.string.reservation_count_info).format(info.reservationCount.value)
         tvTotalPrice.text =
             activity.getString(R.string.reservation_total_price).format(info.totalPrice())
         tvCancelDescription.text =

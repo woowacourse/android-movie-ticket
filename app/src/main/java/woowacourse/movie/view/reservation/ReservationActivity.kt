@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.ArrayAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.toDateTimeFormatter
@@ -19,7 +20,7 @@ import java.time.LocalTime
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     private lateinit var views: ReservationViews
-    private var reservationCount = ReservationInfo.RESERVATION_MIN_NUMBER
+    private var reservationCount = ReservationCount()
     private var shouldIgnoreNextSelection = false
     private var movie: Movie? = null
 
@@ -54,15 +55,22 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun setupUI() {
-        views.setOnReservationCountChanged(reservationCount) { count ->
-            reservationCount = count
-        }
+        views.setOnReservationCountChanged(
+            onCountDecreased = {
+                updateReservationCount { reservationCount -= 1 }
+            },
+            onCountIncreased = {
+                updateReservationCount { reservationCount += 1 }
+            },
+        )
 
         views.setOnFinishClickListener {
-            if (reservationCount >= ReservationInfo.RESERVATION_MIN_NUMBER) {
+            if (reservationCount.value >= ReservationCount.RESERVATION_MIN_COUNT) {
                 reservationDialog.show()
             }
         }
+
+        views.tvReservationCount.text = reservationCount.value.toString()
 
         views.setDateSpinner(
             adapter = dateSpinnerAdapter,
@@ -82,6 +90,20 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         }
     }
 
+    private fun updateReservationCount(updateCount: () -> Unit) {
+        runCatching {
+            updateCount()
+        }.onFailure {
+            showToast(
+                getString(
+                    R.string.invalid_reservation_count_message,
+                    ReservationCount.RESERVATION_MIN_COUNT,
+                ),
+            )
+        }
+        views.tvReservationCount.text = reservationCount.value.toString()
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val date = views.spinnerDate.selectedItem as? LocalDate
@@ -89,13 +111,15 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         val reservationDateTime =
             if (date != null && time != null) LocalDateTime.of(date, time).toString() else ""
         outState.putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime)
-        outState.putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount)
+        outState.putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount.value)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        reservationCount = savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
-        views.tvReservationCount.text = reservationCount.toString()
+        updateReservationCount {
+            reservationCount =
+                ReservationCount(savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER))
+        }
 
         movie?.let {
             val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
@@ -124,12 +148,6 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun setupData() {
-        reservationCount = views.tvReservationCount.text
-            .toString()
-            .toIntOrNull()
-            ?: ReservationInfo.RESERVATION_MIN_NUMBER
-        views.tvReservationCount.text = reservationCount.toString()
-
         movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
@@ -152,7 +170,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         val time = views.spinnerTime.selectedItem as? LocalTime
 
         if (date == null || time == null) {
-            showToast(getString(R.string.invalid_reservation_message))
+            showToast(getString(R.string.invalid_reservation_datetime_message))
             return
         }
 

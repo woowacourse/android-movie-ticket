@@ -38,24 +38,15 @@ class ReservationViews(
     }
 
     fun setOnReservationCountChanged(
-        initialCount: Int,
-        onCountChanged: (Int) -> Unit,
+        onCountDecreased: () -> Unit,
+        onCountIncreased: () -> Unit,
     ) {
-        var count = initialCount
-        tvReservationCount.text = count.toString()
-
         btnCountMinus.setOnClickListener {
-            if (count > 1) {
-                count--
-                tvReservationCount.text = count.toString()
-                onCountChanged(count)
-            }
+            onCountDecreased()
         }
 
         btnCountPlus.setOnClickListener {
-            count++
-            tvReservationCount.text = count.toString()
-            onCountChanged(count)
+            onCountIncreased()
         }
     }
 
