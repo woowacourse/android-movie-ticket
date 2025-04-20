@@ -27,14 +27,13 @@ class MovieViewHolder(
 
     fun bind(
         position: Int,
-        viewHolder: MovieViewHolder,
         item: Movie,
     ) {
-        viewHolder.position = position
-        viewHolder.moviePoster.setImageResource(item.posterId)
-        viewHolder.movieTitle.text = item.title
-        viewHolder.movieReleaseDate.text =
+        this.position = position
+        moviePoster.setImageResource(item.posterId)
+        movieTitle.text = item.title
+        movieReleaseDate.text =
             periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)
-        viewHolder.movieRunningTime.text = item.runningTime
+        movieRunningTime.text = item.runningTime
     }
 }

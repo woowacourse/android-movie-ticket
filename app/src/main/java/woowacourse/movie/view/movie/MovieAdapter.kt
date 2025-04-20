@@ -36,7 +36,7 @@ class MovieAdapter(
             viewHolder = view.tag as MovieViewHolder
         }
 
-        viewHolder.bind(position, viewHolder, item)
+        viewHolder.bind(position, item)
         return view
     }
 }
