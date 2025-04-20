@@ -7,7 +7,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
 
@@ -29,7 +28,7 @@ class MovieTicketActivity : AppCompatActivity() {
         val movies = Movies.value
         val movieListAdapter = MovieListAdapter(movies, object : MovieListClick {
             override fun navigateToBook(movie: Movie) {
-                val intent = Intent(this@MovieTicketActivity, ReservationActivity::class.java)
+                val intent = Intent(this@MovieTicketActivity, MovieBookingActivity::class.java)
                     .apply { putExtra(KEY_MOVIE, movie) }
                 startActivity(intent)
             }
