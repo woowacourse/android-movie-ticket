@@ -10,7 +10,7 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.movielist.MovieListActivity
 
-class MovieListAdapterActivityTest {
+class MovieListActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
 

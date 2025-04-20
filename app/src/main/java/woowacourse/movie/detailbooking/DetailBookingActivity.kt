@@ -83,11 +83,12 @@ class DetailBookingActivity : AppCompatActivity() {
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        count = if (!savedInstanceState.containsKey(KEY_PERSONNEL_COUNT)) {
-            1
-        } else {
-            savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
-        }
+        count =
+            if (!savedInstanceState.containsKey(KEY_PERSONNEL_COUNT)) {
+                1
+            } else {
+                savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
+            }
 
         selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, 0) // 기본값 0
         selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, 0) // 기본값 0
