@@ -22,6 +22,7 @@ import woowacourse.movie.model.MovieTicket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.util.Locale
 
 class BookingActivity : AppCompatActivity() {
     private var headCount: Int = DEFAULT_HEADCOUNT
@@ -187,7 +188,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun updateHeadCount() {
-        headCountView.text = headCount.toString()
+        headCountView.text = String.format(Locale.getDefault(), "%d", headCount)
     }
 
     companion object {
