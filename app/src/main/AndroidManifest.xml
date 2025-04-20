@@ -22,6 +22,10 @@
             android:parentActivityName=".view.reservation.MovieReservationActivity" />
         <activity
             android:name=".view.list.MovieListActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
