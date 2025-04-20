@@ -4,14 +4,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-<LinearLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/layout_completed_booking_root"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    tools:context=".completedbooking.CompletedBookingActivity">
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_completed_booking_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context=".completedbooking.CompletedBookingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

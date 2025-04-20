@@ -3,10 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/mlayout_detail_booking_root"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout_detail_booking_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -18,9 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:scaleType="centerCrop"
-            android:src="@drawable/harry">
-
-        </ImageView>
+            android:src="@drawable/harry" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -58,7 +54,7 @@
                 android:layout_marginBottom="30sp"
                 android:text="@string/movieTime"
                 android:textColor="@color/black"
-                android:textSize="15sp"></TextView>
+                android:textSize="15sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -91,7 +87,7 @@
                     android:layout_weight="1"
                     android:text="@string/minus"
                     android:textSize="25sp"
-                    android:textStyle="bold"></Button>
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/personnel"
@@ -102,7 +98,7 @@
                     android:text="@string/default_personnel"
                     android:textColor="@color/black"
                     android:textSize="25sp"
-                    android:textStyle="bold"></TextView>
+                    android:textStyle="bold" />
 
                 <Button
                     android:id="@+id/plus_button"
@@ -111,7 +107,7 @@
                     android:layout_weight="1"
                     android:text="@string/plus"
                     android:textSize="25sp"
-                    android:textStyle="bold"></Button>
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -123,7 +119,7 @@
                 android:padding="10sp"
                 android:text="@string/reserve_complete"
                 android:textSize="25sp"
-                android:textStyle="bold"></Button>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
