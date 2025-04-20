@@ -1,10 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.domain.BookingStatus
-import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.fixture.MovieFixture
 import java.time.LocalDateTime
 
@@ -20,7 +18,7 @@ class BookingStatusTest {
 
         val actual = newBookingStatus.isBooked
 
-        assertThat(actual).isTrue
+        Assertions.assertThat(actual).isTrue
     }
 
     @Test
@@ -44,7 +42,7 @@ class BookingStatusTest {
 
         val actual = bookingStatus.cancel()
 
-        assertThat(actual.isBooked).isFalse
+        Assertions.assertThat(actual.isBooked).isFalse
     }
 
     @Test
