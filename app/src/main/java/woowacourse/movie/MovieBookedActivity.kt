@@ -1,49 +1,54 @@
 package woowacourse.movie
 
 import android.os.Bundle
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.MovieBookingActivity.Companion.KEY_BOOKING_STATUS
-import woowacourse.movie.databinding.BookingSuccessBinding
 import woowacourse.movie.domain.BookingStatus
 
 class MovieBookedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val binding = BookingSuccessBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.booking_success)) { v, insets ->
+        setContentView(R.layout.movie_booked)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.booked)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
         val bookingStatus = bookingStatus()
 
-        binding.bookedMovieTitleText.text = bookingStatus.movie.title
-        binding.bookedMovieRunningDayText.text =
-            binding.bookedMovieRunningDayText.context.getString(
-                R.string.movie_running_dateTime,
-                bookingStatus.bookedTime
-            )
-        binding.memberCountText.text = binding.memberCountText.context.getString(
+        val title: TextView = findViewById(R.id.movie_title)
+        val bookingDateTime: TextView = findViewById(R.id.booking_date_time)
+        val memberCount: TextView = findViewById(R.id.member_count)
+        val movieTicketPrice: TextView = findViewById(R.id.movie_ticket_price)
+
+        adaptBookingStatus(title, bookingStatus, bookingDateTime, memberCount, movieTicketPrice)
+    }
+
+    private fun adaptBookingStatus(
+        title: TextView,
+        bookingStatus: BookingStatus,
+        bookingDateTime: TextView,
+        memberCount: TextView,
+        movieTicketPrice: TextView
+    ) {
+        title.text = bookingStatus.movie.title
+        bookingDateTime.text = bookingDateTime.context.getString(
+            R.string.movie_running_dateTime,
+            bookingStatus.bookedTime.toDotFormat()
+        )
+        memberCount.text = memberCount.context.getString(
             R.string.member_count,
             bookingStatus.memberCount
         )
-        binding.bookedMovieTicketPriceText.text =
-            binding.bookedMovieTicketPriceText.context.getString(
-                R.string.total_price,
-                bookingStatus.calculateTicketPrices()
-            )
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return super.onSupportNavigateUp()
+        movieTicketPrice.text = movieTicketPrice.context.getString(
+            R.string.total_price,
+            bookingStatus.calculateTicketPrices()
+        )
     }
 
     private fun bookingStatus(): BookingStatus {
