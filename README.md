@@ -50,6 +50,7 @@
 - [x] DateFormatter, PriceFormatter 분리
 - [x] also 스코프 대신 변수에 할당하게 변경
 - [x] Activity에서 화면을 전환하도록 변경
+- [x] ViewHolder 패턴 적용
 
 ## 변경 사항
 - [x] adapter 패키지 domain 패키지에서 분리 
