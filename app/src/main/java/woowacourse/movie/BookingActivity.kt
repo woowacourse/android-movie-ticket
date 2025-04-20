@@ -22,7 +22,6 @@ import woowacourse.movie.model.BookingResult
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var bookingResult: BookingResult
@@ -62,8 +61,9 @@ class BookingActivity : AppCompatActivity() {
         val savedScreeningDate = savedInstanceState?.getString(KEY_SCREENING_DATE)
         val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_DATE)
 
-        val date = savedScreeningDate ?: formatDate(LocalDate.now(), '-')
-        val time = savedScreeningTime ?: formatTime(LocalTime.now())
+        val date = savedScreeningDate?.let { LocalDate.parse(it) } ?: LocalDate.now()
+        val time = savedScreeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now()
+
         val headCount = savedCount ?: 0
         bookingResult = BookingResult(movie.title, headCount, date, time)
     }
@@ -91,7 +91,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun setUpScreeningDateSpinner(booking: Booking) {
         val screeningDateSpinner = findViewById<Spinner>(R.id.spinner_screening_date)
-        val screeningPeriods = booking.screeningPeriods()
+        val screeningPeriods: List<LocalDate> = booking.screeningPeriods()
 
         screeningDateSpinner.adapter =
             ArrayAdapter(
@@ -111,14 +111,14 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate = screeningDateSpinner.getItemAtPosition(position).toString()
+                    val selectedDate = screeningDateSpinner.getItemAtPosition(position) as LocalDate
                     bookingResult.updateDate(selectedDate)
                     setupScreeningTimeSpinner(booking)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    val date = screeningDateSpinner.getItemAtPosition(0).toString()
-                    bookingResult.updateDate(date)
+                    val date = screeningDateSpinner.getItemAtPosition(0) as LocalDate
+                    bookingResult = bookingResult.updateDate(date)
                 }
             }
     }
@@ -128,8 +128,8 @@ class BookingActivity : AppCompatActivity() {
         val screeningTimes = booking.screeningTimes(bookingResult.selectedDate)
 
         if (screeningTimes.isEmpty()) {
-            val nextDate = LocalDate.parse(bookingResult.selectedDate).plusDays(1)
-            bookingResult.updateDate(nextDate.toString())
+            val nextDate = bookingResult.selectedDate.plusDays(1)
+            bookingResult = bookingResult.updateDate(nextDate)
             val nextTimes = booking.screeningTimes(bookingResult.selectedDate)
 
             screeningTimeSpinner.adapter =
@@ -138,7 +138,9 @@ class BookingActivity : AppCompatActivity() {
                     android.R.layout.simple_spinner_item,
                     nextTimes,
                 )
-            bookingResult.updateTime(nextTimes.firstOrNull().orEmpty())
+            nextTimes.firstOrNull()?.let {
+                bookingResult = bookingResult.updateTime(it)
+            }
         } else {
             screeningTimeSpinner.adapter =
                 ArrayAdapter(
@@ -159,8 +161,8 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedTime = screeningTimeSpinner.getItemAtPosition(position).toString()
-                    bookingResult.updateTime(selectedTime)
+                    val selectedTime = screeningTimeSpinner.getItemAtPosition(position) as LocalTime
+                    bookingResult = bookingResult.updateTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -182,7 +184,7 @@ class BookingActivity : AppCompatActivity() {
     private fun setUpPlusButton(headCountView: TextView) {
         val btnPlus = findViewById<Button>(R.id.btn_plus)
         btnPlus.setOnClickListener {
-            bookingResult.plusHeadCount()
+            bookingResult = bookingResult.plusHeadCount()
             headCountView.text = bookingResult.headCount.toString()
         }
     }
@@ -190,7 +192,7 @@ class BookingActivity : AppCompatActivity() {
     private fun setUpMinusButton(headCountView: TextView) {
         val btnMinus = findViewById<Button>(R.id.btn_minus)
         btnMinus.setOnClickListener {
-            if (bookingResult.isHeadCountValid()) bookingResult.minusHeadCount()
+            if (bookingResult.isHeadCountValid()) bookingResult = bookingResult.minusHeadCount()
             headCountView.text = bookingResult.headCount.toString()
         }
     }
@@ -202,17 +204,6 @@ class BookingActivity : AppCompatActivity() {
                 showConfirmDialog(bookingResult)
             }
         }
-    }
-
-    private fun formatDate(
-        date: LocalDate,
-        delimiter: Char,
-    ): String {
-        return date.format(DateTimeFormatter.ofPattern("yyyy${delimiter}M${delimiter}d"))
-    }
-
-    private fun formatTime(time: LocalTime): String {
-        return time.format(DateTimeFormatter.ofPattern("kk:mm"))
     }
 
     private fun showConfirmDialog(bookingResult: BookingResult) {
@@ -239,8 +230,8 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         outState.putInt(KEY_HEAD_COUNT, bookingResult.headCount)
-        outState.putString(KEY_SCREENING_DATE, bookingResult.selectedDate)
-        outState.putString(KEY_SCREENING_TIME, bookingResult.selectedTime)
+        outState.putString(KEY_SCREENING_DATE, bookingResult.selectedDate.toString())
+        outState.putString(KEY_SCREENING_TIME, bookingResult.selectedTime.toString())
     }
 
     companion object {

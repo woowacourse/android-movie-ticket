@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.icu.text.DecimalFormat
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -8,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.BookingResult
 
 class BookingCompleteActivity : AppCompatActivity() {
@@ -45,18 +45,13 @@ class BookingCompleteActivity : AppCompatActivity() {
         val completeHeadCount = findViewById<TextView>(R.id.tv_head_count)
         val completeBookingAmount = findViewById<TextView>(R.id.tv_booking_amount)
 
-        completeTitle.text = bookingResult.title
-        completeScreenDate.text = formatDate(bookingResult.selectedDate)
-        completeScreenTime.text = bookingResult.selectedTime
-        completeHeadCount.text =
-            getString(R.string.screening_complete_headCount, bookingResult.headCount)
-        val bookingAmount: String = DecimalFormat("#,###").format(bookingResult.calculateAmount())
-        completeBookingAmount.text =
-            getString(R.string.screening_complete_booking_amount, bookingAmount)
-    }
+        val bookingResultUiData = bookingResult.toUiModel(resources)
 
-    private fun formatDate(date: String): String {
-        return date.replace("-", ".")
+        completeTitle.text = bookingResultUiData.title
+        completeScreenDate.text = bookingResultUiData.selectedDateText
+        completeScreenTime.text = bookingResultUiData.selectedTimeText
+        completeHeadCount.text = bookingResultUiData.headCount
+        completeBookingAmount.text = bookingResultUiData.bookingAmountText
     }
 
     override fun onSupportNavigateUp(): Boolean {
