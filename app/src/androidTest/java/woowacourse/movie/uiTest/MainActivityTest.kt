@@ -1,11 +1,13 @@
 package woowacourse.movie.uiTest
 
+import androidx.test.espresso.DataInteraction
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.anything
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
@@ -14,40 +16,37 @@ import woowacourse.movie.activity.MainActivity
 class MainActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    private lateinit var item: DataInteraction
+
+    @Before
+    fun setUp() {
+        item =
+            onData(anything())
+                .inAdapterView(withId(R.id.list_view))
+                .atPosition(0)
+    }
 
     @Test
     fun `첫번째_아이템의_영화_제목은_해리_포터와_마법사의_돌이다`() {
-        onData(anything())
-            .inAdapterView(withId(R.id.list_view))
-            .atPosition(0)
-            .onChildView(withId(R.id.movie_title))
+        item.onChildView(withId(R.id.movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `첫번째_아이템의_영화_상영일은_4_1_부터_4_25까지다`() {
-        onData(anything())
-            .inAdapterView(withId(R.id.list_view))
-            .atPosition(0)
-            .onChildView(withId(R.id.movie_date))
+        item.onChildView(withId(R.id.movie_date))
             .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
     }
 
     @Test
     fun `첫번째_아이템의_영화_러닝타임은_152분이다`() {
-        onData(anything())
-            .inAdapterView(withId(R.id.list_view))
-            .atPosition(0)
-            .onChildView(withId(R.id.movie_time))
+        item.onChildView(withId(R.id.movie_time))
             .check(matches(withText("러닝타임: 152분")))
     }
 
     @Test
     fun `첫번째_아이템의_영화_예매버튼은_지금_예매_라고_되어있다`() {
-        onData(anything())
-            .inAdapterView(withId(R.id.list_view))
-            .atPosition(0)
-            .onChildView(withId(R.id.reserve_button))
+        item.onChildView(withId(R.id.reserve_button))
             .check(matches(withText("지금 예매")))
     }
 }
