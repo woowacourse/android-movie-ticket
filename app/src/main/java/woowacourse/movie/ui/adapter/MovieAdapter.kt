@@ -15,7 +15,7 @@ import woowacourse.movie.ui.mapper.PosterMapper
 class MovieAdapter(
     context: Context,
     private val movies: List<Movie>,
-    private val onReservationClickListener: (Movie) -> Unit,
+    private val onReservationClickListener: (String) -> Unit,
 ) : ArrayAdapter<Movie>(context, 0, movies) {
     override fun getView(
         position: Int,
@@ -31,7 +31,7 @@ class MovieAdapter(
 
         val reservationBtn = view.findViewById<Button>(R.id.reservation)
         reservationBtn.setOnClickListener {
-            onReservationClickListener(movie)
+            onReservationClickListener(movie.id)
         }
 
         val imagePoster = view.findViewById<ImageView>(R.id.poster)
@@ -45,7 +45,7 @@ class MovieAdapter(
         runningTime.text =
             context.getString(R.string.runningTime_text, movie.runningTime.toString())
 
-        val posterRes = PosterMapper.mapPosterKeyToDrawableRes(movie.posterKey)
+        val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
         imagePoster.setImage(posterRes)
 
         return view

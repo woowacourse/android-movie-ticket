@@ -1,6 +1,5 @@
 package woowacourse.movie.domain.model
 
-import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
@@ -8,5 +7,5 @@ data class Movie(
     val startScreeningDate: LocalDate,
     val endScreeningDate: LocalDate,
     val runningTime: Int,
-    val posterKey: String,
-) : Serializable
+    val id: String,
+)

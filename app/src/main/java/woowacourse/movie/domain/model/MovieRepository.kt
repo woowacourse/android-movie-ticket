@@ -20,4 +20,6 @@ object MovieRepository {
                 "mickey",
             ),
         )
+
+    fun getMovieById(movieId: String): Movie? = getMovies().find { movie -> movie.id == movieId }
 }

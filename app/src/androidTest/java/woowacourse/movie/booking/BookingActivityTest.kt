@@ -34,10 +34,10 @@ class BookingActivityTest {
 
         val movie =
             Movie(
-                "Test",
-                LocalDate.of(2025, 4, 17),
-                LocalDate.of(2025, 4, 30),
-                100,
+                "승부",
+                LocalDate.of(2025, 3, 26),
+                LocalDate.of(2025, 4, 26),
+                115,
                 "match",
             )
 
@@ -46,7 +46,7 @@ class BookingActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 BookingActivity::class.java,
             ).apply {
-                putExtra("Movie", movie)
+                putExtra("Movie", movie.id)
             }
 
         ActivityScenario.launch<BookingActivity>(intent)
@@ -61,21 +61,21 @@ class BookingActivityTest {
     @Test
     fun titleTest() {
         onView(withId(R.id.title))
-            .check(matches(withText("Test")))
+            .check(matches(withText("승부")))
     }
 
     @DisplayName("상영일자가 출력된다")
     @Test
     fun screeningDateTest() {
         onView(withId(R.id.screeningDate))
-            .check(matches(withText("상영일: 2025-04-17 ~ 2025-04-30")))
+            .check(matches(withText("상영일: 2025-03-26 ~ 2025-04-26")))
     }
 
     @DisplayName("러닝타임이 출력된다")
     @Test
     fun runningTimeTest() {
         onView(withId(R.id.runningTime))
-            .check(matches(withText("러닝타임: 100분")))
+            .check(matches(withText("러닝타임: 115분")))
     }
 
     @DisplayName("증가 버튼을 누르면 숫자가 증가한다")

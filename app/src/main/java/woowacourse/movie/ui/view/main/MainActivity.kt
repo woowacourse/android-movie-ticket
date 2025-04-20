@@ -21,9 +21,9 @@ class MainActivity : AppCompatActivity() {
                 this,
                 MovieRepository.getMovies(),
                 onReservationClickListener =
-                    { movie ->
+                    { movieId ->
                         val intent = Intent(this, BookingActivity::class.java)
-                        intent.putExtra(getString(R.string.movie_info_key), movie)
+                        intent.putExtra(getString(R.string.movie_info_key), movieId)
                         startActivity(intent)
                     },
             )

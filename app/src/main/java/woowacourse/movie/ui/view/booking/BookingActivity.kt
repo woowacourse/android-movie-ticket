@@ -16,24 +16,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieRepository
 import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.domain.service.MovieTicketService
 import woowacourse.movie.ui.adapter.MovieAdapter.Companion.setImage
 import woowacourse.movie.ui.mapper.PosterMapper
-import woowacourse.movie.ui.view.utils.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     private var headCount: Int = 1
-    private val movie: Movie by lazy {
-        intent.intentSerializable(
-            getString(R.string.movie_info_key),
-            Movie::class.java,
-        )
-    }
+    private lateinit var movie: Movie
     private lateinit var date: LocalDate
     private lateinit var time: LocalTime
     private lateinit var headCountView: TextView
@@ -41,11 +36,28 @@ class BookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
+        if (!canLoadMovie()) return
         setupScreen()
         displayMovieInfo()
         bindTicketQuantityButtonListeners()
         bindSelectButtonListener()
         setupDateSpinner()
+    }
+
+    private fun canLoadMovie(): Boolean {
+        val movieId = intent.getStringExtra(getString(R.string.movie_info_key))
+        val foundMovie =
+            movieId?.let {
+                MovieRepository.getMovieById(it)
+            }
+
+        return if (foundMovie == null) {
+            showErrorDialog()
+            false
+        } else {
+            movie = foundMovie
+            true
+        }
     }
 
     private fun setupScreen() {
@@ -60,7 +72,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun displayMovieInfo() {
         val imagePoster = findViewById<ImageView>(R.id.poster)
-        val posterRes = PosterMapper.mapPosterKeyToDrawableRes(movie.posterKey)
+        val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
         imagePoster.setImage(posterRes)
 
         val title = findViewById<TextView>(R.id.title)
@@ -168,6 +180,15 @@ class BookingActivity : AppCompatActivity() {
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.complete)) { _, _ -> onConfirm() }
             .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
+            .show()
+    }
+
+    private fun showErrorDialog() {
+        AlertDialog
+            .Builder(this)
+            .setMessage("존재하지 않는 영화입니다.")
+            .setPositiveButton("확인") { _, _ -> finish() }
             .setCancelable(false)
             .show()
     }
