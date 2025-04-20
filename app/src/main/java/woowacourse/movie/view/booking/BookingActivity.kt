@@ -210,20 +210,21 @@ class BookingActivity : AppCompatActivity() {
 
     private fun moveToBookingCompleteActivity() {
         val intent =
-            Intent(this, BookingCompleteActivity::class.java)
-                .apply {
-                    val booking =
-                        Booking(
-                            title = findViewById<TextView>(R.id.tv_title).text.toString(),
-                            bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
-                            bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
-                            count = bookingPeopleCount,
-                            ticketType = TicketType.GENERAL,
-                        )
-                    putExtra(KEY_BOOKING, booking)
-                }
+            Intent(this, BookingCompleteActivity::class.java).apply {
+                putExtra(KEY_BOOKING, getBooking())
+            }
 
         startActivity(intent)
+    }
+
+    private fun getBooking(): Booking {
+        return Booking(
+            title = findViewById<TextView>(R.id.tv_title).text.toString(),
+            bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
+            bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
+            count = bookingPeopleCount,
+            ticketType = TicketType.GENERAL,
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
