@@ -34,7 +34,7 @@ class ReservationViews(
         val start = movie.screeningPeriod.startDate.format(formatter)
         val end = movie.screeningPeriod.endDate.format(formatter)
         tvScreeningPeriod.text = activity.getString(R.string.movie_date, start, end)
-        tvRunningTime.text = activity.getString(R.string.running_time, movie.runningTime.toString())
+        tvRunningTime.text = activity.getString(R.string.running_time, movie.runningTime.minute.toString())
     }
 
     fun setOnReservationCountChanged(
