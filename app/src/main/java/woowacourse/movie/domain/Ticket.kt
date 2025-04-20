@@ -17,7 +17,7 @@ data class Ticket(
     fun totalPrice(): Int = count * TICKET_PRICE
 
     companion object {
-        private const val MINIMUM_TICKET_COUNT = 1
+        const val MINIMUM_TICKET_COUNT = 1
         private const val TICKET_PRICE = 13_000
     }
 }

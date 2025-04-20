@@ -47,7 +47,7 @@ class MovieReservationActivity : AppCompatActivity() {
                 dateAdapter.getItem(0),
                 timeAdapter.getItem(0),
             ),
-            MINIMUM_TICKET_COUNT,
+            Ticket.MINIMUM_TICKET_COUNT,
         )
         initializeTicketCountButton()
         initializeSelectButton()
@@ -150,7 +150,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun initializeTicketCountButton() {
         val incrementButton = findViewById<Button>(R.id.increment_button)
         val decrementButton = findViewById<Button>(R.id.decrement_button)
-        if (ticket.count == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
+        if (ticket.count == Ticket.MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
         ticketCountTextView.text = ticket.count.toString()
 
@@ -163,7 +163,7 @@ class MovieReservationActivity : AppCompatActivity() {
         decrementButton.setOnClickListener {
             ticket = ticket.copy(count = ticket.count - 1)
             ticketCountTextView.text = ticket.count.toString()
-            if (ticket.count == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
+            if (ticket.count == Ticket.MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
         }
     }
 
@@ -190,6 +190,5 @@ class MovieReservationActivity : AppCompatActivity() {
 
     companion object {
         const val KEY_TICKET = "ticket"
-        private const val MINIMUM_TICKET_COUNT = 1
     }
 }
