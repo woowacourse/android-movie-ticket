@@ -1,7 +1,5 @@
 package woowacourse.movie.view.reservation.result
 
-import android.content.Intent
-import android.os.Bundle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -10,23 +8,22 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.fixture.fakeContext
 import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
+    private val reservationInfo =
+        ReservationInfo(
+            title = "해리 포터와 마법사의 돌",
+            reservationDateTime = LocalDateTime.of(2025, 4, 15, 11, 0),
+            reservationCount = ReservationCount(2),
+        )
+
     @Before
     fun setUp() {
-        val reservationInfo =
-            ReservationInfo(
-                title = "해리 포터와 마법사의 돌",
-                reservationDateTime = LocalDateTime.of(2025, 4, 15, 11, 0),
-                reservationCount = 2,
-            )
-        val bundle = Bundle().apply { putSerializable("reservation_info", reservationInfo) }
-        val intent =
-            Intent(fakeContext, ReservationResultActivity::class.java).putExtras(bundle)
-
+        val intent = ReservationResultActivity.newIntent(fakeContext, reservationInfo)
         ActivityScenario.launch<ReservationResultActivity>(intent)
     }
 

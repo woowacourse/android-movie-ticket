@@ -21,8 +21,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
             this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    startActivity(Intent(this@ReservationResultActivity, MoviesActivity::class.java))
-                    finish()
+                    navigateToMovies()
                 }
             },
         )
@@ -34,7 +33,10 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
         val reservationInfo =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent?.getSerializableExtra(BUNDLE_KEY_RESERVATION_INFO, ReservationInfo::class.java)
+                intent?.getSerializableExtra(
+                    BUNDLE_KEY_RESERVATION_INFO,
+                    ReservationInfo::class.java,
+                )
             } else {
                 intent?.getSerializableExtra(BUNDLE_KEY_RESERVATION_INFO) as? ReservationInfo
             }
@@ -57,6 +59,12 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    private fun navigateToMovies() {
+        val intent = Intent(this@ReservationResultActivity, MoviesActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     companion object {
         private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
 
@@ -64,8 +72,9 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
             context: Context,
             reservationInfo: ReservationInfo,
         ): Intent =
-            Intent(context, ReservationResultActivity::class.java).apply {
-                putExtra(BUNDLE_KEY_RESERVATION_INFO, reservationInfo)
-            }
+            Intent(context, ReservationResultActivity::class.java).putExtra(
+                BUNDLE_KEY_RESERVATION_INFO,
+                reservationInfo,
+            )
     }
 }
