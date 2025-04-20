@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movies
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
@@ -30,10 +29,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
     }
 
     private fun navigateToReservation(movie: Movie) {
-        val intent =
-            Intent(this@MoviesActivity, ReservationActivity::class.java).apply {
-                putExtra(ReservationActivity.BUNDLE_KEY_MOVIE, movie)
-            }
+        val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
     }
 

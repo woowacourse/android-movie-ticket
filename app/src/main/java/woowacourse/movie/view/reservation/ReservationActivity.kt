@@ -1,6 +1,7 @@
 package woowacourse.movie.view.reservation
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -162,10 +163,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                 reservationCount = reservationCount,
             )
 
-        val intent =
-            Intent(this, ReservationResultActivity::class.java).apply {
-                putExtra(ReservationResultActivity.BUNDLE_KEY_RESERVATION_INFO, reservationInfo)
-            }
+        val intent = ReservationResultActivity.newIntent(this, reservationInfo)
         startActivity(intent)
         finish()
     }
@@ -179,9 +177,20 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     companion object {
-        const val BUNDLE_KEY_MOVIE = "movie"
+        private const val BUNDLE_KEY_MOVIE = "movie"
         private const val RESTORE_BUNDLE_KEY_RESERVATION_DATETIME = "reservation_datetime"
         private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
         private const val SPINNER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm"
+
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(context, ReservationActivity::class.java).apply {
+                putExtra(
+                    BUNDLE_KEY_MOVIE,
+                    movie,
+                )
+            }
     }
 }
