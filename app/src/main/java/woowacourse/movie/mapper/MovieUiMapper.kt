@@ -3,12 +3,12 @@ package woowacourse.movie.mapper
 import android.content.res.Resources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieUiModel
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.ui.MovieUiModel
+import woowacourse.movie.util.Formatter.simpleDateFormat
 
 fun Movie.toUiModel(resources: Resources): MovieUiModel {
-    val screeningStartDate = screeningStartDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-    val screeningEndDate = screeningEndDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+    val screeningStartDate = simpleDateFormat(screeningStartDate)
+    val screeningEndDate = simpleDateFormat(screeningEndDate)
     return MovieUiModel(
         imageSource = getImageResIdFromUrl(imageSource),
         title = title,

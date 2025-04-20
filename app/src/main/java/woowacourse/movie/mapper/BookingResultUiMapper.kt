@@ -1,16 +1,17 @@
 package woowacourse.movie.mapper
 
 import android.content.res.Resources
-import android.icu.text.DecimalFormat
 import woowacourse.movie.R
 import woowacourse.movie.model.BookingResult
-import woowacourse.movie.model.BookingResultUiModel
-import java.time.format.DateTimeFormatter
+import woowacourse.movie.ui.BookingResultUiModel
+import woowacourse.movie.util.Formatter.moneyFormat
+import woowacourse.movie.util.Formatter.simpleDateFormat
+import woowacourse.movie.util.Formatter.simpleTimeFormat
 
 fun BookingResult.toUiModel(resources: Resources): BookingResultUiModel {
-    val selectedDateText = selectedDate.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
-    val selectedTimeText = selectedTime.format(DateTimeFormatter.ofPattern("KK:mm"))
-    val bookingAmount = DecimalFormat("#,###").format(calculateAmount())
+    val selectedDateText = simpleDateFormat(selectedDate)
+    val selectedTimeText = simpleTimeFormat(selectedTime)
+    val bookingAmount = moneyFormat(calculateAmount())
 
     return BookingResultUiModel(
         title = title,
