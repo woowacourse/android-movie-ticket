@@ -1,6 +1,7 @@
 package woowacourse.movie.view
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,17 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Screening
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_DAY
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_MONTH
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_YEAR
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_DAY
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_MONTH
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_YEAR
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
+import woowacourse.movie.view.model.ScreeningData
+import woowacourse.movie.view.model.TicketData
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -35,6 +28,14 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var screening: Screening
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
+    private val screeningData: ScreeningData by lazy {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33
+            intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA, ScreeningData::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA)
+        } ?: throw IllegalArgumentException("상영 정보가 전달되지 않았습니다")
+    }
 
     private var ticketCount = DEFAULT_TICKET_COUNT
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
@@ -67,19 +68,7 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        val title = intent.getStringExtra(EXTRA_TITLE) ?: error("영화 제목을 전달받지 못했습니다.")
-        val startYear = intent.getIntExtra(EXTRA_START_YEAR, -1).takeIf { it != -1 } ?: error("")
-        val startMonth = intent.getIntExtra(EXTRA_START_MONTH, 0)
-        val startDay = intent.getIntExtra(EXTRA_START_DAY, 0)
-        val endYear = intent.getIntExtra(EXTRA_END_YEAR, 0)
-        val endMonth = intent.getIntExtra(EXTRA_END_MONTH, 0)
-        val endDay = intent.getIntExtra(EXTRA_END_DAY, 0)
-        val posterId = intent.getIntExtra(EXTRA_POSTER_ID, 0)
-        val runningTIme = intent.getIntExtra(EXTRA_RUNNING_TIME, 0)
-        val startDate = LocalDate.of(startYear, startMonth, startDay)
-        val endDate = LocalDate.of(endYear, endMonth, endDay)
-        val period = startDate..endDate
-        screening = Screening(Movie(title, runningTIme, posterId), period)
+        screening = screeningData.toScreening()
         ticketCount = savedTicketCount
         timeItemPosition = savedTimeItemPosition
     }
@@ -138,18 +127,16 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToTicketActivity() {
+        val ticketData =
+            TicketData(
+                screeningData = screeningData,
+                showtime = LocalDateTime.of(selectedDate, selectedTime),
+                ticketCount = ticketCount,
+            )
+
         val intent =
             Intent(this, TicketActivity::class.java).apply {
-                putExtra(EXTRA_TITLE, screening.title)
-                putExtra(EXTRA_RUNNING_TIME, screening.runningTime)
-                putExtra(EXTRA_POSTER_ID, screening.posterId)
-                putExtra(EXTRA_TICKET_COUNT, ticketCount)
-                putExtra(EXTRA_START_DATE, screening.period.start.toString())
-                putExtra(EXTRA_END_DATE, screening.period.endInclusive.toString())
-                putExtra(
-                    EXTRA_SHOWTIME,
-                    LocalDateTime.of(selectedDate, selectedTime).toString(),
-                )
+                putExtra(EXTRA_TICKET_DATA, ticketData)
             }
         startActivity(intent)
     }
@@ -231,9 +218,6 @@ class ReservationActivity : AppCompatActivity() {
         const val TICKET_COUNT = "TICKET_COUNT"
         const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
-        const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
-        const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
-        const val EXTRA_START_DATE = "woowacourse.movie.EXTRA_START_DATE"
-        const val EXTRA_END_DATE = "woowacourse.movie.EXTRA_END_DATE"
+        const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
     }
 }

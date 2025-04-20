@@ -4,13 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Screening
+import woowacourse.movie.view.model.ScreeningData
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
@@ -47,39 +47,24 @@ class MainActivity : AppCompatActivity() {
         movieListView.adapter = movieAdapter
     }
 
-    private fun navigateToReservationActivity(
-        title: String,
-        period: ClosedRange<LocalDate>,
-        @DrawableRes posterId: Int,
-        runningTime: Int,
-    ) {
+    private fun navigateToReservationActivity(screening: Screening) {
+        val screeningData =
+            ScreeningData(
+                title = screening.title,
+                startDate = screening.period.start,
+                endDate = screening.period.endInclusive,
+                posterId = screening.posterId,
+                runningTime = screening.runningTime,
+            )
+
         val intent =
-            Intent(
-                this,
-                ReservationActivity::class.java,
-            ).apply {
-                putExtra(EXTRA_TITLE, title)
-                putExtra(EXTRA_START_YEAR, period.start.year)
-                putExtra(EXTRA_START_MONTH, period.start.monthValue)
-                putExtra(EXTRA_START_DAY, period.start.dayOfMonth)
-                putExtra(EXTRA_END_YEAR, period.endInclusive.year)
-                putExtra(EXTRA_END_MONTH, period.endInclusive.monthValue)
-                putExtra(EXTRA_END_DAY, period.endInclusive.dayOfMonth)
-                putExtra(EXTRA_POSTER_ID, posterId)
-                putExtra(EXTRA_RUNNING_TIME, runningTime)
+            Intent(this, ReservationActivity::class.java).apply {
+                putExtra(EXTRA_SCREENING_DATA, screeningData)
             }
         startActivity(intent)
     }
 
     companion object {
-        const val EXTRA_TITLE = "woowacourse.movie.EXTRA_TITLE"
-        const val EXTRA_START_YEAR = "woowacourse.movie.EXTRA_START_YEAR"
-        const val EXTRA_START_MONTH = "woowacourse.movie.EXTRA_START_MONTH"
-        const val EXTRA_START_DAY = "woowacourse.movie.EXTRA_START_DAY"
-        const val EXTRA_END_YEAR = "woowacourse.movie.EXTRA_END_YEAR"
-        const val EXTRA_END_MONTH = "woowacourse.movie.EXTRA_END_MONTH"
-        const val EXTRA_END_DAY = "woowacourse.movie.EXTRA_END_DAY"
-        const val EXTRA_POSTER_ID = "woowacourse.movie.EXTRA_POSTER_ID"
-        const val EXTRA_RUNNING_TIME = "woowacourse.movie.EXTRA_RUNNING_TIME"
+        const val EXTRA_SCREENING_DATA = "woowacourse.movie.EXTRA_SCREENING_DATA"
     }
 }
