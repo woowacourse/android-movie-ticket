@@ -36,29 +36,16 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-
         movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         if (!::dateAdapter.isInitialized) {
-            Toast.makeText(
-                this,
-                getString(R.string.no_screening_date_available_toast_message),
-                Toast.LENGTH_SHORT,
-            ).show()
+            showToast()
             finish()
             return
         }
         initializeTimeSpinner()
-
-        ticket = savedInstanceState?.getParcelableCompat<Ticket>(KEY_TICKET) ?: Ticket(
-            movie,
-            LocalDateTime.of(
-                dateAdapter.getItem(0),
-                timeAdapter.getItem(0),
-            ),
-            Ticket.MINIMUM_TICKET_COUNT,
-        )
+        initializeTicket()
         initializeTicketCountButton()
         initializeSelectButton()
     }
@@ -71,6 +58,7 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         ticket = savedInstanceState.getParcelableCompat<Ticket>(KEY_TICKET) ?: run { return }
+        initializeTicketCountButton()
     }
 
     private fun initializeView() {
@@ -159,10 +147,22 @@ class MovieReservationActivity : AppCompatActivity() {
         }
     }
 
+    private fun initializeTicket() {
+        ticket =
+            Ticket(
+                movie,
+                LocalDateTime.of(
+                    dateAdapter.getItem(0),
+                    timeAdapter.getItem(0),
+                ),
+                Ticket.MINIMUM_TICKET_COUNT,
+            )
+    }
+
     private fun initializeTicketCountButton() {
         val incrementButton = findViewById<Button>(R.id.increment_button)
         val decrementButton = findViewById<Button>(R.id.decrement_button)
-        if (ticket.count == Ticket.MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
+        decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
         ticketCountTextView.text = ticket.count.toString()
 
@@ -175,7 +175,7 @@ class MovieReservationActivity : AppCompatActivity() {
         decrementButton.setOnClickListener {
             ticket = ticket.copy(count = ticket.count - 1)
             ticketCountTextView.text = ticket.count.toString()
-            if (ticket.count == Ticket.MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
+            decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
         }
     }
 
@@ -198,6 +198,14 @@ class MovieReservationActivity : AppCompatActivity() {
         val intent = Intent(this, MovieReservationResultActivity::class.java)
         intent.putExtra(KEY_TICKET, ticket)
         startActivity(intent)
+    }
+
+    private fun showToast() {
+        Toast.makeText(
+            this,
+            getString(R.string.no_screening_date_available_toast_message),
+            Toast.LENGTH_SHORT,
+        ).show()
     }
 
     companion object {
