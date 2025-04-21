@@ -16,9 +16,9 @@
         android:paddingBottom="10dp">
 
         <TextView
+            android:id="@+id/textview_notice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/cancel_notice"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:gravity="bottom|center" />
