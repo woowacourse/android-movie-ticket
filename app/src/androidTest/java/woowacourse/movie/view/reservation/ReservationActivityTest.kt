@@ -5,10 +5,12 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
@@ -94,13 +96,16 @@ class ReservationActivityTest {
 
     @Test
     fun `화면을_회전해도_데이터가_유지된다`() {
-        onView(withId(R.id.btn_reservation_count_plus))
-            .perform(click())
-            .perform(click())
-
         scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
+
+        onView(withId(R.id.main))
+            .perform(swipeUp())
+
+        onView(withId(R.id.btn_reservation_count_plus))
+            .perform(click())
+            .perform(click())
 
         onView(withId(R.id.tv_reservation_count))
             .check(matches(withText("3")))
