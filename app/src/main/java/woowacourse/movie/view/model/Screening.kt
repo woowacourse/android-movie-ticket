@@ -27,6 +27,17 @@ class Screening(
     val endMonth: Int = end.monthValue
     val endDay: Int = end.dayOfMonth
 
+    val dates: List<LocalDate> =
+        run {
+            var currentDate = start
+            val screeningDates = mutableListOf<LocalDate>()
+            while (!currentDate.isAfter(end)) {
+                screeningDates.add(currentDate)
+                currentDate = currentDate.plusDays(1)
+            }
+            screeningDates
+        }
+
     fun showtimes(
         date: LocalDate,
         showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
