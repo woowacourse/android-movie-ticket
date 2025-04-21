@@ -1,14 +1,11 @@
 package woowacourse.movie.domain.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     private val items: List<Movie>,
@@ -46,50 +43,10 @@ class MovieAdapter(
             viewHolder = convertView.tag as MovieViewHolder
         }
 
-        val item = items[position]
-
-        viewHolder.movieImage.setImageResource(item.image)
-        viewHolder.movieTitle.text = item.title
-        setDateTextView(viewHolder, item.date, parent?.context)
-        setTimeTextView(viewHolder, item.time, parent?.context)
-        setReserveButton(
-            viewHolder,
-            Movie(item.image, item.title, item.date, item.time),
-        )
-        return view
-    }
-
-    private fun setDateTextView(
-        viewHolder: MovieViewHolder,
-        movieDate: Date,
-        context: Context?,
-    ) {
-        val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
-        val startDateFormatted = movieDate.startDate.format(formatter)
-        val endDateFormatted = movieDate.endDate.format(formatter)
-        viewHolder.movieDate.text =
-            context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
-    }
-
-    private fun setTimeTextView(
-        viewHolder: MovieViewHolder,
-        movieRunningTime: Int,
-        context: Context?,
-    ) {
-        viewHolder.movieTime.text =
-            context?.getString(R.string.movieTime, movieRunningTime.toString())
-    }
-
-    private fun setReserveButton(
-        viewHolder: MovieViewHolder,
-        movie: Movie,
-    ) {
-        viewHolder.reserveButton.setOnClickListener {
-            onButtonListener(movie)
+        viewHolder.bind(items[position]) {
+            onButtonListener(items[position])
         }
-    }
 
-    companion object {
-        private const val DATETIME_PATTERN = "yyyy.M.d"
+        return view
     }
 }
