@@ -14,10 +14,10 @@ class SchedulerTest {
         // given
         val startDate = LocalDate.of(2025, 4, 1)
         val endDate = LocalDate.of(2025, 4, 10)
-        val today = LocalDate.of(2025, 4, 5)
+        val now = LocalDateTime.of(2025, 4, 5, 0, 0)
 
         // when
-        val actual = scheduler.getScreeningDates(startDate, endDate, today)
+        val actual = scheduler.getScreeningDates(startDate, endDate, now)
         val expected =
             listOf(
                 LocalDate.of(2025, 4, 5),
@@ -33,20 +33,42 @@ class SchedulerTest {
     }
 
     @Test
-    fun `상영 시작일이 오늘 이후면 상영 기간 전체를 반환한다`() {
+    fun `상영 시작일이 오늘이거나 오늘보다 늦으면 상영 기간 전체를 반환한다`() {
         // given
         val startDate = LocalDate.of(2025, 4, 2)
         val endDate = LocalDate.of(2025, 4, 10)
-        val today = LocalDate.of(2025, 4, 1)
+        val now = LocalDateTime.of(2025, 4, 1, 0, 0)
 
         // when
-        val actual = scheduler.getScreeningDates(startDate, endDate, today)
+        val actual = scheduler.getScreeningDates(startDate, endDate, now)
         val expected =
             listOf(
                 LocalDate.of(2025, 4, 2),
                 LocalDate.of(2025, 4, 3),
                 LocalDate.of(2025, 4, 4),
                 LocalDate.of(2025, 4, 5),
+                LocalDate.of(2025, 4, 6),
+                LocalDate.of(2025, 4, 7),
+                LocalDate.of(2025, 4, 8),
+                LocalDate.of(2025, 4, 9),
+                LocalDate.of(2025, 4, 10),
+            )
+
+        // then
+        assertThat(actual).isEqualTo(expected)
+    }
+
+    @Test
+    fun `오늘 예매 가능한 시간이 없으면 오늘을 제외한 상영 기간을 반환한다`() {
+        // given
+        val startDate = LocalDate.of(2025, 4, 5)
+        val endDate = LocalDate.of(2025, 4, 10)
+        val now = LocalDateTime.of(2025, 4, 5, 23, 0)
+
+        // when
+        val actual = scheduler.getScreeningDates(startDate, endDate, now)
+        val expected =
+            listOf(
                 LocalDate.of(2025, 4, 6),
                 LocalDate.of(2025, 4, 7),
                 LocalDate.of(2025, 4, 8),

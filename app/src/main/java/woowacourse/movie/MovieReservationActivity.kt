@@ -86,7 +86,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun initializeDateSpinner() {
         val screeningDates =
-            scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
+            scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
         dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates)
         dateSpinner.adapter = dateAdapter
 
