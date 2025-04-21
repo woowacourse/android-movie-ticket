@@ -25,17 +25,15 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/select_layout"
         android:layout_below="@+id/movie_poster"
-        android:fillViewport="true"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:fillViewport="true">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/booking"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:orientation="vertical">
-
 
             <TextView
                 android:id="@+id/title"
@@ -52,7 +50,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintVertical_bias="0.007" />
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -177,6 +174,5 @@
             app:layout_constraintVertical_bias="0.0" />
 
     </LinearLayout>
-
 
 </RelativeLayout>
