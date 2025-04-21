@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 object ServiceLocator {
-    var movies: List<Movie> = Movies.movies
+    var movies: List<Movie> = Movies.dummy
     var today: LocalDate = LocalDate.now()
     var now: LocalDateTime = LocalDateTime.now()
 }
