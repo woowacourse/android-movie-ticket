@@ -45,8 +45,8 @@ class MovieAdapter(
 
         viewHolder.poster.setImageResource(movie.poster)
         viewHolder.title.text = movie.title
-        viewHolder.screeningDate.text = context.getString(R.string.screening_date_range, startDate, endDate)
-        viewHolder.runningTime.text = context.getString(R.string.running_time, movie.runningTime)
+        viewHolder.screeningDate.text = context.getString(R.string.screening_dates_format, startDate, endDate)
+        viewHolder.runningTime.text = context.getString(R.string.running_type_format, movie.runningTime)
         viewHolder.reserveButton.setOnClickListener { onReservationClick(movie) }
 
         return view

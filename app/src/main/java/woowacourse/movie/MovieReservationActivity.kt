@@ -41,7 +41,11 @@ class MovieReservationActivity : AppCompatActivity() {
         initializeMovieInfo()
         initializeDateSpinner()
         if (!::dateAdapter.isInitialized) {
-            Toast.makeText(this, getString(R.string.no_screening_date_available), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                getString(R.string.no_screening_date_available_toast_message),
+                Toast.LENGTH_SHORT,
+            ).show()
             finish()
             return
         }
@@ -90,8 +94,8 @@ class MovieReservationActivity : AppCompatActivity() {
         val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         val startDate = movie.startDate.format(formatter)
         val endDate = movie.endDate.format(formatter)
-        screeningDate.text = getString(R.string.screening_date_range).format(startDate, endDate)
-        runningTime.text = getString(R.string.running_time).format(movie.runningTime)
+        screeningDate.text = getString(R.string.screening_dates_format).format(startDate, endDate)
+        runningTime.text = getString(R.string.running_type_format).format(movie.runningTime)
     }
 
     private fun initializeDateSpinner() {
@@ -178,12 +182,12 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun initializeSelectButton() {
         val selectButton = findViewById<Button>(R.id.select_button)
         val alertDialog =
-            AlertDialog.Builder(this).setTitle(R.string.confirm_reservation_title)
-                .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.confirm_reservation_yes) { _, _ ->
+            AlertDialog.Builder(this).setTitle(R.string.confirm_reservation_alert_title)
+                .setMessage(R.string.confirm_reservation_alert_message)
+                .setPositiveButton(R.string.confirm_reservation_alert_yes) { _, _ ->
                     onConfirmReservation()
                 }
-                .setNegativeButton(R.string.confirm_reservation_no) { dialog, _ -> dialog.dismiss() }
+                .setNegativeButton(R.string.confirm_reservation_alert_no) { dialog, _ -> dialog.dismiss() }
         selectButton.setOnClickListener {
             alertDialog.show()
         }
