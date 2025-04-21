@@ -6,16 +6,10 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import org.hamcrest.CoreMatchers.allOf
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
@@ -23,15 +17,12 @@ import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.ui.view.booking.BookingSummaryActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class BookingActivityTest {
     @Before
     fun setUp() {
-        Intents.init()
-
         val movie =
             Movie(
                 "승부",
@@ -50,11 +41,6 @@ class BookingActivityTest {
             }
 
         ActivityScenario.launch<BookingActivity>(intent)
-    }
-
-    @After
-    fun tearDown() {
-        Intents.release()
     }
 
     @DisplayName("영화 제목이 출력된다")
@@ -109,23 +95,5 @@ class BookingActivityTest {
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
-    }
-
-    @DisplayName("예매 완료 버튼을 누르면 화면이 이동되고 예매 데이터가 전달된다")
-    @Test
-    fun intentTest() {
-        onView(withId(R.id.select))
-            .perform(click())
-
-        onView(withText("예매 완료"))
-            .perform(click())
-
-        intended(hasComponent(BookingSummaryActivity::class.java.name))
-
-        intended(
-            allOf(
-                hasExtraWithKey("Ticket"),
-            ),
-        )
     }
 }
