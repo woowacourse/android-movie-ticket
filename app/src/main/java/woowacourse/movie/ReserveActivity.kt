@@ -47,17 +47,11 @@ class ReserveActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie = getMovie()
+        reservation = getReservation(savedInstanceState, movie)
 
         initMovieInfo(movie)
         initDateSpinner(movie.screeningDate)
         initTimeSpinner(movie.screeningDate.startDate)
-
-        reservation = savedInstanceState?.getSerializable(getString(R.string.key_reservation)) as? Reservation
-            ?: Reservation(
-                title = movie.title,
-                _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
-                reservedTime = getSelectedDateTime(),
-            )
 
         updateTicketCount()
         initButtonClickListeners()
@@ -73,17 +67,46 @@ class ReserveActivity : AppCompatActivity() {
         return movie!!
     }
 
+    private fun getReservation(
+        savedInstanceState: Bundle?,
+        movie: Movie,
+    ): Reservation {
+        return savedInstanceState?.getSerializable(getString(R.string.key_reservation)) as? Reservation
+            ?: Reservation(
+                title = movie.title,
+                _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
+                reservedTime = getInitSchedule(movie.screeningDate),
+            )
+    }
+
+    private fun getInitSchedule(screeningDate: ScreeningDate): LocalDateTime {
+        val firstDate =
+            movieScheduler.dateScheduler.reservableDates(screeningDate, LocalDate.now()).first()
+
+        val currentDateTime =
+            LocalDateTime.now()
+                .withMinute(0)
+                .withSecond(0)
+                .withNano(0)
+
+        val firstTime =
+            movieScheduler.timeScheduler.reservableTimes(
+                firstDate,
+                currentDateTime,
+            ).first()
+
+        return LocalDateTime.of(firstDate, firstTime)
+    }
+
     private fun initMovieInfo(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.iv_poster)
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
         val runningTime = findViewById<TextView>(R.id.tv_running_time)
 
-        val formattedScreeningDate = formatting(movie.screeningDate)
-
         poster.setImageResource(movie.imageUrl)
         title.text = movie.title
-        screeningDate.text = formattedScreeningDate
+        screeningDate.text = formatting(movie.screeningDate)
         runningTime.text = getString(R.string.formatted_minute).format(movie.runningTime.time)
     }
 
@@ -96,6 +119,7 @@ class ReserveActivity : AppCompatActivity() {
                 android.R.layout.simple_spinner_item,
                 dates,
             )
+        dateSpinner.setSelection(dates.indexOf(reservation.reservedTime.toLocalDate()))
 
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -123,6 +147,7 @@ class ReserveActivity : AppCompatActivity() {
             )
 
         updateTimeSpinner(selectedDate)
+
         timeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -152,12 +177,15 @@ class ReserveActivity : AppCompatActivity() {
                 currentDateTime,
             )
 
-        timeSpinner.adapter =
+        val adapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
                 times,
             )
+        timeSpinner.adapter = adapter
+
+        timeSpinner.setSelection(times.indexOf(reservation.reservedTime.toLocalTime()))
     }
 
     private fun getSelectedDateTime(): LocalDateTime {
