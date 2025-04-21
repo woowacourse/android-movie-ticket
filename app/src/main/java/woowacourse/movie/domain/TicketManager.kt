@@ -30,6 +30,10 @@ class TicketManager(private val movie: Movie) {
         selectedDatePosition = position
     }
 
+    fun setTimePosition(position: Int) {
+        selectedTimePosition = position
+    }
+
     fun getDates(): List<String> {
         val dates = mutableListOf<String>()
         var current = movie.startDate

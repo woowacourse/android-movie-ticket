@@ -95,6 +95,7 @@ class BookingActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     ticketManager.setDatePosition(position)
+                    ticketManager.setTimePosition(position)
                     val selectedDate = ticketManager.getDates()[position]
                     val times = ticketManager.getTimes(selectedDate)
                     SpinnerAdapter.bind(this@BookingActivity, movieTime, times)
