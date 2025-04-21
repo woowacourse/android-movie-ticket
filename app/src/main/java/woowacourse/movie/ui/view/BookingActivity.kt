@@ -30,8 +30,8 @@ class BookingActivity : BaseActivity() {
             Movie::class.java
         ) ?: throw IllegalArgumentException(MOVIE_INTENT_ERROR)
     }
-    private lateinit var date: LocalDate
-    private lateinit var time: LocalTime
+    private lateinit var selectedDate: LocalDate
+    private lateinit var selectedTime: LocalTime
     private lateinit var headCountView: TextView
     private var confirmDialog: AlertDialog? = null
 
@@ -95,7 +95,7 @@ class BookingActivity : BaseActivity() {
             dates
         )
 
-        val index = if (::date.isInitialized) dates.indexOf(date) else 0
+        val index = if (::selectedDate.isInitialized) dates.indexOf(selectedDate) else 0
         dateSpinner.setSelection(index)
 
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -105,8 +105,8 @@ class BookingActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                date = dateSpinner.getItemAtPosition(position) as LocalDate
-                setupTimeSpinner(movieScheduler, date)
+                selectedDate = dateSpinner.getItemAtPosition(position) as LocalDate
+                setupTimeSpinner(movieScheduler, selectedDate)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -123,7 +123,7 @@ class BookingActivity : BaseActivity() {
             times
         )
 
-        val index = if (::time.isInitialized) times.indexOf(time) else 0
+        val index = if (::selectedTime.isInitialized) times.indexOf(selectedTime) else 0
         timeSpinner.setSelection(index)
 
         timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -133,7 +133,7 @@ class BookingActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                time = timeSpinner.getItemAtPosition(position) as LocalTime
+                selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -160,7 +160,7 @@ class BookingActivity : BaseActivity() {
     private fun onConfirm() {
         val movieTicket = MovieTicket(
             title = movie.title,
-            screeningDateTime = LocalDateTime.of(date, time),
+            screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
             headCount = headCount,
             pricingPolicy = DefaultPricingPolicy()
         )
@@ -173,18 +173,18 @@ class BookingActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(HEADCOUNT_KEY, headCount)
-        outState.putString(DATE_KEY, date.toString())
-        outState.putString(TIME_KEY, time.toString())
+        outState.putString(DATE_KEY, selectedDate.toString())
+        outState.putString(TIME_KEY, selectedTime.toString())
     }
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
         headCount = savedInstance.getInt(HEADCOUNT_KEY)
-        date = LocalDate.parse(savedInstance.getString(DATE_KEY))
-        time = LocalTime.parse(savedInstance.getString(TIME_KEY))
+        selectedDate = LocalDate.parse(savedInstance.getString(DATE_KEY))
+        selectedTime = LocalTime.parse(savedInstance.getString(TIME_KEY))
     }
 
     private fun updateHeadCount() {
-        headCountView.text = String.format(Locale.getDefault(), "%d", headCount)
+        headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, headCount)
     }
 
     override fun onDestroy() {
@@ -198,6 +198,7 @@ class BookingActivity : BaseActivity() {
         private const val HEADCOUNT_KEY = "HeadCount"
         private const val DATE_KEY = "Date"
         private const val TIME_KEY = "Time"
+        private const val INTEGER_FORMAT = "%d"
         private const val MOVIE_INTENT_ERROR = "[ERROR] 영화 정보에 대한 키 값이 올바르지 않습니다."
     }
 }
