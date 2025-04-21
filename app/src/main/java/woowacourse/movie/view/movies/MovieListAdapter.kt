@@ -30,12 +30,14 @@ class MovieListAdapter(
                 LayoutInflater
                     .from(parent?.context)
                     .inflate(R.layout.item_movie, parent, false)
-            viewHolder = MovieViewHolder(view).apply { bind(getItem(position), eventListener) }
+            viewHolder = MovieViewHolder(view)
             view.tag = viewHolder
         } else {
             view = convertView
-            (convertView.tag as MovieViewHolder).bind(getItem(position), eventListener)
+            viewHolder = (convertView.tag as MovieViewHolder)
         }
+
+        viewHolder.bind(getItem(position), eventListener)
         return view
     }
 }
