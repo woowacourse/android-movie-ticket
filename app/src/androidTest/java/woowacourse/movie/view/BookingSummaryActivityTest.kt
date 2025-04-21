@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -10,8 +10,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 import woowacourse.movie.model.DefaultPricingPolicy
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.ui.view.BookingActivity
@@ -39,31 +39,27 @@ class BookingSummaryActivityTest {
         ActivityScenario.launch<BookingActivity>(intent)
     }
 
-    @DisplayName("영화 제목이 출력된다")
     @Test
-    fun titleTest() {
-        onView(withId(R.id.title))
+    fun 영화_제목이_출력된다() {
+        onView(withId(R.id.textview_title))
             .check(matches(withText("Test")))
     }
 
-    @DisplayName("상영날짜와 시간이 출력된다")
     @Test
-    fun screeningDateTimeTest() {
-        onView(withId(R.id.screeningDateTime))
+    fun 상영날짜와_시간이_출력된다() {
+        onView(withId(R.id.textview_screeningdatetime))
             .check(matches(withText("2025.04.18 12:00")))
     }
 
-    @DisplayName("예매 인원이 출력된다")
     @Test
-    fun headCountTest() {
-        onView(withId(R.id.headCount))
+    fun 예매_인원이_출력된다() {
+        onView(withId(R.id.textview_headcount))
             .check(matches(withText("일반 2명")))
     }
 
-    @DisplayName("총 결제 금액이 출력된다")
     @Test
-    fun amountTest() {
-        onView(withId(R.id.amount))
+    fun 총_결제금액이_출력된다() {
+        onView(withId(R.id.textview_amount))
             .check(matches(withText("26,000원 (현장 결제)")))
     }
 }

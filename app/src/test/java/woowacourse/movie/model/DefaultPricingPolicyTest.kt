@@ -1,8 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.model
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.DefaultPricingPolicy
 
 class DefaultPricingPolicyTest {
     @Test

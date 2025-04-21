@@ -1,9 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.model
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.Movie
+import woowacourse.movie.R
 import java.time.LocalDate
 
 class MovieTest {

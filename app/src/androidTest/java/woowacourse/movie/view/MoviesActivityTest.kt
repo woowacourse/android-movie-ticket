@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
@@ -17,8 +17,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
+import woowacourse.movie.R
 import woowacourse.movie.ui.view.BookingActivity
 import woowacourse.movie.ui.view.MoviesActivity
 
@@ -37,23 +37,21 @@ class MoviesActivityTest {
         Intents.release()
     }
 
-    @DisplayName("영화 제목이 표시된다")
     @Test
-    fun movieTitleTest() {
+    fun 영화_제목이_표시된다() {
         val expected = listOf("승부", "미키 17")
 
         expected.forEachIndexed { index, title ->
             onData(anything())
-                .inAdapterView(withId(R.id.movies))
+                .inAdapterView(withId(R.id.listview_movies))
                 .atPosition(index)
-                .onChildView(withId(R.id.title))
+                .onChildView(withId(R.id.textview_title))
                 .check(matches(withText(title)))
         }
     }
 
-    @DisplayName("상영일이 표시된다")
     @Test
-    fun screeningDateTest() {
+    fun 상영일이_표시된다() {
         val expected = listOf(
             "상영일: 2025-03-26 ~ 2025-04-26",
             "상영일: 2025-04-01 ~ 2025-04-29"
@@ -61,16 +59,15 @@ class MoviesActivityTest {
 
         expected.forEachIndexed { index, title ->
             onData(anything())
-                .inAdapterView(withId(R.id.movies))
+                .inAdapterView(withId(R.id.listview_movies))
                 .atPosition(index)
-                .onChildView(withId(R.id.screeningDate))
+                .onChildView(withId(R.id.textview_screeningdate))
                 .check(matches(withText(title)))
         }
     }
 
-    @DisplayName("러닝타임이 표시된다")
     @Test
-    fun runningTimeTest() {
+    fun 러닝타임이_표시된다() {
         val expected = listOf(
             "러닝타임: 115분",
             "러닝타임: 137분"
@@ -78,20 +75,19 @@ class MoviesActivityTest {
 
         expected.forEachIndexed { index, title ->
             onData(anything())
-                .inAdapterView(withId(R.id.movies))
+                .inAdapterView(withId(R.id.listview_movies))
                 .atPosition(index)
-                .onChildView(withId(R.id.runningTime))
+                .onChildView(withId(R.id.textview_runningtime))
                 .check(matches(withText(title)))
         }
     }
 
-    @DisplayName("예매 버튼을 누르면 화면이 이동되고 영화 데이터가 전달된다")
     @Test
-    fun intentTest() {
+    fun 예매_버튼을_누르면_화면이_이동되고_영화_데이터가_전달된다() {
         onData(anything())
-            .inAdapterView(withId(R.id.movies))
+            .inAdapterView(withId(R.id.listview_movies))
             .atPosition(0)
-            .onChildView(withId(R.id.reservation))
+            .onChildView(withId(R.id.button_book))
             .perform(click())
 
         intended(hasComponent(BookingActivity::class.java.name))
