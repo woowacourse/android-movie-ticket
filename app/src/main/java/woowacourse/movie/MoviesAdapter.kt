@@ -26,36 +26,57 @@ class MoviesAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val validateParent = requireNotNull(parent) { "Parent ViewGroup must not be null" }
-        val itemView =
-            convertView ?: LayoutInflater.from(validateParent.context)
-                .inflate(R.layout.movie_item, parent, false)
-
+        val (view, viewHolder) = reuseOrCreateView(convertView, parent)
         val item: Movie = movies[position]
-        initItemView(validateParent, itemView, item)
-        initReserveButton(itemView, item)
-
-        return itemView
+        viewHolder.bind(item)
+        initReserveButton(view, item)
+        return view
     }
 
-    private fun initItemView(
-        parent: ViewGroup,
-        itemView: View,
-        item: Movie,
-    ) {
-        val poster = itemView.findViewById<ImageView>(R.id.iv_poster)
-        val title = itemView.findViewById<TextView>(R.id.tv_title)
-        val screeningDate = itemView.findViewById<TextView>(R.id.tv_screening_date)
-        val runningTime = itemView.findViewById<TextView>(R.id.tv_running_time)
+    private fun reuseOrCreateView(
+        convertView: View?,
+        parent: ViewGroup?,
+    ): Pair<View, ViewHolder> {
+        return if (convertView == null) {
+            val view =
+                LayoutInflater.from(parent?.context)
+                    .inflate(R.layout.movie_item, parent, false)
+            val viewHolder = ViewHolder(view)
+            view.tag = viewHolder
+            Pair(view, viewHolder)
+        } else {
+            val viewHolder = convertView.tag as ViewHolder
+            Pair(convertView, viewHolder)
+        }
+    }
 
-        itemView.parent
-        val formattedScreeningDate = formatScreeningDate(parent, item.screeningDate)
+    class ViewHolder(private val view: View) {
+        private val posterView: ImageView = view.findViewById(R.id.iv_poster)
+        private val titleView: TextView = view.findViewById(R.id.tv_title)
+        private val screeningDateView: TextView = view.findViewById(R.id.tv_screening_date)
+        private val runningTimeView: TextView = view.findViewById(R.id.tv_running_time)
 
-        poster.setImageResource(item.imageUrl)
-        title.text = item.title
-        screeningDate.text = formattedScreeningDate
-        runningTime.text =
-            parent.context.getString(R.string.formatted_minute, item.runningTime.time)
+        fun bind(movie: Movie) {
+            with(movie) {
+                val formattedScreeningDate = formatScreeningDate(view, screeningDate)
+                posterView.setImageResource(imageUrl)
+                titleView.text = title
+                screeningDateView.text = formattedScreeningDate
+                runningTimeView.text =
+                    view.context.getString(R.string.formatted_minute, runningTime.time)
+            }
+        }
+
+        private fun formatScreeningDate(
+            view: View,
+            screeningDate: ScreeningDate,
+        ): String {
+            val formatter: DateTimeFormatter =
+                DateTimeFormatter.ofPattern(view.context.getString(R.string.date_format))
+            val start = screeningDate.startDate.format(formatter)
+            val end = screeningDate.endDate.format(formatter)
+            return view.context.getString(R.string.formatted_screening_date, start, end)
+        }
     }
 
     private fun initReserveButton(
@@ -66,16 +87,5 @@ class MoviesAdapter(
         reserveBtn.setOnClickListener {
             onClick(item)
         }
-    }
-
-    private fun formatScreeningDate(
-        parent: ViewGroup,
-        screeningDate: ScreeningDate,
-    ): String {
-        val formatter: DateTimeFormatter =
-            DateTimeFormatter.ofPattern(parent.context.getString(R.string.date_format))
-        val start = screeningDate.startDate.format(formatter)
-        val end = screeningDate.endDate.format(formatter)
-        return parent.context.getString(R.string.formatted_screening_date, start, end)
     }
 }

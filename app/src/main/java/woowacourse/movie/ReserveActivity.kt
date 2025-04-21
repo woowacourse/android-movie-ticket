@@ -47,6 +47,23 @@ class ReserveActivity : AppCompatActivity() {
         initWithMovie(savedInstanceState)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(KEY_RESERVATION, reservation)
+        outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
+        outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
+        isDateInit = true
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        val datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
+        val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        dateSpinner.setSelection(datePosition)
+        timeSpinner.setSelection(timePosition)
+        isDateInit = true
+    }
+
     private fun initSystemUI() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -224,23 +241,6 @@ class ReserveActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_RESERVATION, reservation)
-        outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
-        outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
-        isDateInit = true
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onSaveInstanceState(savedInstanceState)
-        val datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
-        val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
-        dateSpinner.setSelection(datePosition)
-        timeSpinner.setSelection(timePosition)
-        isDateInit = true
-    }
 
     companion object {
         private const val KEY_DATE_POSITION = "datePosition"

@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ReserveActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/iv_poster"
@@ -84,82 +88,80 @@
             tools:text="152분" />
 
 
+        <TableLayout
+            android:id="@+id/tl_reserve_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:gravity="center"
+            android:paddingHorizontal="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_movie_info">
+
+            <TableRow>
+
+                <Spinner
+                    android:id="@+id/sp_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="26dp"
+                    android:layout_weight="1" />
+
+                <Spinner
+                    android:id="@+id/sp_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="20dp">
+
+                <Button
+                    android:id="@+id/btn_minus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/minus"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+                <TextView
+                    android:id="@+id/tv_ticket_count"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="2" />
+
+                <Button
+                    android:id="@+id/btn_plus"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/plus"
+                    android:textColor="@color/white"
+                    android:textSize="25sp" />
+
+            </TableRow>
+
+            <TableRow android:layout_marginTop="20dp">
+
+                <Button
+                    android:id="@+id/btn_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_weight="1"
+                    android:text="@string/select_complete"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+            </TableRow>
+        </TableLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TableLayout
-        android:id="@+id/tl_reserve_info"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:paddingHorizontal="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cl_movie_info">
-
-        <TableRow>
-
-            <Spinner
-                android:id="@+id/sp_date"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginEnd="26dp"
-                android:layout_weight="1" />
-
-            <Spinner
-                android:id="@+id/sp_time"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="20dp">
-
-            <Button
-                android:id="@+id/btn_minus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/minus"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-
-            <TextView
-                android:id="@+id/tv_ticket_count"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                tools:text="2" />
-
-            <Button
-                android:id="@+id/btn_plus"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/plus"
-                android:textColor="@color/white"
-                android:textSize="25sp" />
-
-        </TableRow>
-
-        <TableRow android:layout_marginTop="20dp">
-
-            <Button
-                android:id="@+id/btn_select"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_weight="1"
-                android:text="@string/select_complete"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-        </TableRow>
-    </TableLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

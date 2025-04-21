@@ -39,14 +39,14 @@ class MainActivity : AppCompatActivity() {
         val startDate: LocalDate = LocalDate.parse("2025.04.01", formatter)
         val endDate: LocalDate = LocalDate.parse("2025.04.25", formatter)
 
-        return listOf(
+        return List(1000) {
             Movie(
                 "해리포터와 마법사의 돌",
                 ScreeningDate(startDate, endDate),
                 RunningTime(152),
                 R.drawable.harrypotter,
-            ),
-        )
+            )
+        }
     }
 
     private fun initMoviesView(movies: List<Movie>) {
