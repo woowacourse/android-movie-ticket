@@ -23,5 +23,35 @@ class Screenings {
                 LocalDate.of(2025, 6, 1),
                 LocalDate.of(2025, 6, 25),
             ),
+            Screening(
+                movies.harryPotter,
+                LocalDate.of(2025, 7, 1),
+                LocalDate.of(2025, 7, 25),
+            ),
+            Screening(
+                movies.harryPotter,
+                LocalDate.of(2025, 8, 1),
+                LocalDate.of(2025, 8, 25),
+            ),
+            Screening(
+                movies.harryPotter,
+                LocalDate.of(2025, 9, 1),
+                LocalDate.of(2025, 9, 25),
+            ),
+            Screening(
+                movies.harryPotter,
+                LocalDate.of(2025, 10, 1),
+                LocalDate.of(2025, 10, 25),
+            ),
+            Screening(
+                movies.harryPotter,
+                LocalDate.of(2025, 11, 1),
+                LocalDate.of(2025, 11, 25),
+            ),
+            Screening(
+                movies.harryPotter,
+                LocalDate.of(2025, 12, 1),
+                LocalDate.of(2025, 12, 25),
+            ),
         )
 }

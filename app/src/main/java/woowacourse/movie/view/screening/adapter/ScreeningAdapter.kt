@@ -4,9 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.view.reservation.model.Screening
 
@@ -29,49 +26,16 @@ class ScreeningAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
+        val screening: Screening = screenings[position]
         val view =
             convertView ?: LayoutInflater
                 .from(parent?.context)
                 .inflate(R.layout.item_screening, parent, false)
-        val screening: Screening = screenings[position]
-        initMovieItemView(view, screening)
-
-        return view
-    }
-
-    private fun initMovieItemView(
-        view: View,
-        screening: Screening,
-    ) {
-        with(screening) {
-            val titleView = view.findViewById<TextView>(R.id.tv_item_screening_title)
-            titleView.text = screening.title
-
-            val screeningDateView = view.findViewById<TextView>(R.id.tv_item_screening_date)
-            screeningDateView.text =
-                view.context.getString(
-                    R.string.screening_period,
-                    startYear,
-                    startMonth,
-                    startDay,
-                    endYear,
-                    endMonth,
-                    endDay,
-                )
-
-            val runningTimeView = view.findViewById<TextView>(R.id.tv_item_screening_running_time)
-            runningTimeView.text =
-                view.context.getString(R.string.running_time, runningTime)
-
-            val posterView = view.findViewById<ImageView>(R.id.iv_item_screening_poster)
-            posterView.setImageResource(posterId)
-
-            val reserveButton = view.findViewById<Button>(R.id.btn_item_screening_reserve)
-            reserveButton.setOnClickListener {
-                onClickReserveButton(
-                    screening,
-                )
-            }
+        if (view.tag == null) {
+            view.tag = ScreeningItemViewHolder(view)
         }
+        val viewHolder: ScreeningItemViewHolder = view.tag as ScreeningItemViewHolder
+        viewHolder.bind(screening, onClickReserveButton)
+        return view
     }
 }
