@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.util.parcelableExtraWithVersion
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,16 +18,19 @@ class BookingCompleteActivity : AppCompatActivity() {
 
         setupView()
 
-        val title = intent.getStringExtra(MOVIE_TITLE_KEY)
-        val date = intent.getStringExtra(MOVIE_DATE_KEY)
-        val time = intent.getStringExtra(MOVIE_TIME_KEY)
-        val ticketCount = intent.getIntExtra(TICKET_COUNT_KEY, 0)
+        val ticketInfo = intent.parcelableExtraWithVersion(TICKET_INFO_KEY, TicketInfo::class.java)
+
+        val title = ticketInfo?.movie?.title ?: ""
+        val date = ticketInfo?.date ?: ""
+        val time = ticketInfo?.time ?: ""
+        val ticketCount = ticketInfo?.count ?: 0
         val ticketTotalPrice = DecimalFormat("#,###").format(ticketCount * 13000)
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
             getString(R.string.booking_complete_movie_date_time, date, time)
-        findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text = getString(R.string.booking_complete_ticket_count, ticketCount)
+        findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
+            getString(R.string.booking_complete_ticket_count, ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
@@ -54,19 +58,14 @@ class BookingCompleteActivity : AppCompatActivity() {
         const val MOVIE_DATE_KEY = "movie_date"
         const val MOVIE_TIME_KEY = "movie_time"
         const val TICKET_COUNT_KEY = "ticket_count"
+        const val TICKET_INFO_KEY = "ticket_info"
 
         fun newIntent(
             context: Context,
-            title: String,
-            date: String,
-            time: String,
-            ticketCount: Int,
+            ticketInfo: TicketInfo,
         ): Intent =
             Intent(context, BookingCompleteActivity::class.java).apply {
-                putExtra(MOVIE_TITLE_KEY, title)
-                putExtra(MOVIE_DATE_KEY, date)
-                putExtra(MOVIE_TIME_KEY, time)
-                putExtra(TICKET_COUNT_KEY, ticketCount)
+                putExtra(TICKET_INFO_KEY, ticketInfo)
             }
     }
 }

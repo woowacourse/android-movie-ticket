@@ -37,11 +37,7 @@ class MoviesActivity : AppCompatActivity() {
         val intent =
             BookingDetailActivity.newIntent(
                 context = this,
-                title = movie.title,
-                startDate = movie.startDate.toString(),
-                endDate = movie.endDate.toString(),
-                runningTime = movie.runningTime,
-                poster = movie.poster,
+                movie = movie,
             )
         startActivity(intent)
     }
