@@ -58,7 +58,7 @@ class MovieBookingActivity : AppCompatActivity() {
 
         adaptMovie(title, movie, poster, screeningDate, runningTimes)
         memberCount(memberCount, count, plusMemberCount, minusMemberCount)
-        
+
         val pair = updateBookedDate(date, movie, bookedDate, bookedTimes, time)
         bookedDate = pair.first
         bookedTimes = pair.second
@@ -94,7 +94,7 @@ class MovieBookingActivity : AppCompatActivity() {
         time.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View,
+                view: View?,
                 position: Int,
                 id: Long
             ) {
@@ -124,7 +124,7 @@ class MovieBookingActivity : AppCompatActivity() {
         date.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>,
-                view: View,
+                view: View?,
                 position: Int,
                 id: Long
             ) {
@@ -226,5 +226,3 @@ class MovieBookingActivity : AppCompatActivity() {
         const val KEY_BOOKING_STATUS = "bookingStatus"
     }
 }
-
-
