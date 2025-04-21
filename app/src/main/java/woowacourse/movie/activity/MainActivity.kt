@@ -8,10 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.adapter.MovieAdapter
-import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        val movies: List<Movie> = dummy
+        val movies: List<Movie> = Movie.dummy
         val listView: ListView = findViewById(R.id.list_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(movies) { movie ->
@@ -38,14 +36,5 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_MOVIE = "movie"
-        private val dummy: List<Movie> =
-            listOf(
-                Movie(
-                    R.drawable.harry,
-                    "해리 포터와 마법사의 돌",
-                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
-                    152,
-                ),
-            )
     }
 }

@@ -61,7 +61,7 @@
 - [ ] 패키지 구조 분리
 - [ ] MovieAdapter | onButtonListener네이밍 수정
 - [x] MovieViewHolder | bind 메서드 추가
-- [ ] MainActicity | 더미 데이터 위치 domain으로 이동
+- [x] MainActicity | 더미 데이터 위치 domain으로 이동
 - [x] 각 xml파일 scrollView를 전체 Layout으로 수정
 - [x] ReservationCompleteActivity | getSerializableExtra() 버전에 따라 메서드를 다르게 사용하도록 수정
 - [x] DialogFactory | DialogFactory의 구조를 변경하여 다이얼로그 중복 생성을 방지
