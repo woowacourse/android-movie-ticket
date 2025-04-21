@@ -2,7 +2,6 @@ package woowacourse.movie
 
 import android.content.Context
 import android.content.Intent
-import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -32,7 +31,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         val date = ticketInfo.date
         val time = ticketInfo.time
         val ticketCount = ticketInfo.quantity.value
-        val ticketTotalPrice = DecimalFormat("#,###").format(ticketInfo.quantity.totalPrice())
+        val ticketTotalPrice = StringFormatter.formatMoney(ticketInfo.quantity.totalPrice())
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
