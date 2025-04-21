@@ -14,7 +14,6 @@ import woowacourse.movie.view.model.TicketData
 import java.time.LocalDateTime
 
 class TicketActivity : AppCompatActivity() {
-    private lateinit var ticket: Ticket
     private val ticketData: TicketData by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33
             intent.getParcelableExtra(ReservationActivity.EXTRA_TICKET_DATA, TicketData::class.java)
@@ -22,6 +21,17 @@ class TicketActivity : AppCompatActivity() {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(ReservationActivity.EXTRA_TICKET_DATA)
         } ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
+    }
+
+    private val ticket: Ticket by lazy {
+        val screening = ticketData.screeningData.toScreening()
+        val ticketCount = ticketData.ticketCount
+        val showtime: LocalDateTime = ticketData.showtime
+        Ticket(
+            screening = screening,
+            ticketCount = TicketCount.create(ticketCount),
+            showtime = showtime,
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,22 +43,7 @@ class TicketActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        initModel()
         initViews()
-    }
-
-    private fun initModel() {
-        val screening = ticketData.screeningData.toScreening()
-        val ticketCount = ticketData.ticketCount
-        val showtime: LocalDateTime = ticketData.showtime
-
-        ticket =
-            Ticket(
-                screening = screening,
-                ticketCount = TicketCount.create(ticketCount),
-                showtime = showtime,
-            )
     }
 
     private fun initViews() {
