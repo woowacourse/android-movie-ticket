@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 fun LocalDate.toDotFormat(): String {
@@ -10,6 +11,10 @@ fun LocalDate.toDotFormat(): String {
 
 fun LocalDateTime.toDotFormat(): String {
     return this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"))
+}
+
+fun LocalTime.toDotFormat(): String {
+    return this.format(DateTimeFormatter.ofPattern("HH:mm"))
 }
 
 fun String.toLocalDateFromDot(): LocalDate {

@@ -38,7 +38,7 @@
 - [X] MovieBookingActivity 기능별로 분리
 - [X] 생명주기 공부하기
   - [ ] configurationChange 키워드 살펴보기
-- [ ] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
+- [X] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
 - [X] ReservationCompleteActivity의 Intent Extra 따로 관리
 - [X] dao, data 부분 삭제
 - [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
