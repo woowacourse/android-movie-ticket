@@ -10,7 +10,7 @@ import woowacourse.movie.utils.StringFormatter.periodFormat
 
 class MovieViewHolder(
     var position: Int,
-    convertView: View,
+    val convertView: View,
     onClickBooking: (Int) -> Unit,
 ) {
     val moviePoster: ImageView = convertView.findViewById<ImageView>(R.id.img_poster)
@@ -34,6 +34,7 @@ class MovieViewHolder(
         movieTitle.text = item.title
         movieReleaseDate.text =
             periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)
-        movieRunningTime.text = item.runningTime
+        movieRunningTime.text =
+            convertView.context.getString(R.string.text_minute).format(item.runningTime)
     }
 }

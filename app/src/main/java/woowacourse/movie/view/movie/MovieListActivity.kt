@@ -52,7 +52,7 @@ class MovieListActivity : AppCompatActivity() {
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 25),
                 ),
-                "152분",
+                152,
             ),
         )
 

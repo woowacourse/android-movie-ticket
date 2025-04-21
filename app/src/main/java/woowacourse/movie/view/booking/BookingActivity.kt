@@ -98,7 +98,7 @@ class BookingActivity : AppCompatActivity() {
         movieReleaseDateView.text =
             getString(R.string.text_date_period)
                 .format(dotDateFormat(startDate), dotDateFormat(endDate))
-        movieRunningTimeView.text = movieItem.runningTime
+        movieRunningTimeView.text = getString(R.string.text_minute).format(movieItem.runningTime)
         updatePeopleCountView()
     }
 

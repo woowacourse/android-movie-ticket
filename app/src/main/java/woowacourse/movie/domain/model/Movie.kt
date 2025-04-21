@@ -6,5 +6,5 @@ data class Movie(
     val title: String,
     val posterId: Int,
     val releaseDate: ScreeningDate,
-    val runningTime: String,
+    val runningTime: Int,
 ) : Serializable
