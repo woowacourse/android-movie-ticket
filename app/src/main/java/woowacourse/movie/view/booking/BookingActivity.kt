@@ -21,6 +21,8 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
+import woowacourse.movie.utils.bundleSerializable
+import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -43,7 +45,7 @@ class BookingActivity : AppCompatActivity() {
 
         applyWindowInsets()
 
-        movieItem = intent.getSerializableExtra(EXTRA_MOVIE) as Movie
+        movieItem = intent.intentSerializable(EXTRA_MOVIE, Movie::class.java) as Movie
 
         if (savedInstanceState != null) {
             restoreState(savedInstanceState)
@@ -71,7 +73,11 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
-        headcount = savedInstanceState.getSerializable(KEY_PEOPLE_COUNT) as Headcount
+        headcount =
+            savedInstanceState.bundleSerializable(
+                KEY_PEOPLE_COUNT,
+                Headcount::class.java,
+            ) as Headcount
         selectedDatePosition = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION, 0)
         selectedTimePosition = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION, 0)
     }

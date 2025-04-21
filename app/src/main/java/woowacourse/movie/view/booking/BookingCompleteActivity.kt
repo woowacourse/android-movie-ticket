@@ -12,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.utils.StringFormatter.thousandFormat
+import woowacourse.movie.utils.intentSerializable
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +34,8 @@ class BookingCompleteActivity : AppCompatActivity() {
     }
 
     private fun setViews() {
-        val bookedTicket: BookedTicket = intent.getSerializableExtra("bookedTicket") as BookedTicket
+        val bookedTicket: BookedTicket =
+            intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java) as BookedTicket
         val price: Int = bookedTicket.totalPrice()
         val priceFormat: String = thousandFormat(price)
 
