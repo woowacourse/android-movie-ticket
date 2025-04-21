@@ -38,8 +38,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                startActivity(Intent(this, MoviesActivity::class.java))
-                finish()
+                navigateToMovies()
             }
         }
 
@@ -52,8 +51,8 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     private fun navigateToMovies() {
         val intent = Intent(this@ReservationResultActivity, MoviesActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
-        finish()
     }
 
     companion object {

@@ -175,7 +175,6 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
         val intent = ReservationResultActivity.newIntent(this, reservationInfo)
         startActivity(intent)
-        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
