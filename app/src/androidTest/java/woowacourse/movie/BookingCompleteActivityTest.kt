@@ -8,7 +8,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.fixture.fakeContext
@@ -36,27 +35,23 @@ class BookingCompleteActivityTest {
         ActivityScenario.launch<BookingCompleteActivity>(intent)
     }
 
-    @DisplayName("전달 받은 영화 이름을 출력한다")
     @Test
-    fun movieTitleDisplayTest() {
+    fun `영화_이름을_출력한다`() {
         onView(withId(R.id.tv_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
-    @DisplayName("전달 받은 상영 시간을 출력한다")
     @Test
-    fun movieReleaseTimeDisplayTest() {
+    fun `상영_시간을_출력한다`() {
         onView(withId(R.id.tv_release_date)).check(matches(withText("2025.4.1 12:00")))
     }
 
-    @DisplayName("전달 받은 예매 인원을 출력한다")
     @Test
-    fun moviePeopleCountDisplayTest() {
+    fun `예매_인원을_출력한다`() {
         onView(withId(R.id.tv_headcount)).check(matches(withText("일반 2명")))
     }
 
-    @DisplayName("전달 받은 예매 가격을 출력한다")
     @Test
-    fun moviePriceDisplayTest() {
+    fun `예매_가격을_출력한다`() {
         onView(withId(R.id.tv_price)).check(matches(withText("26,000원 (현장 결제)")))
     }
 }
