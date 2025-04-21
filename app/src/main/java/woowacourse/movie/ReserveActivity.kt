@@ -37,6 +37,7 @@ class ReserveActivity : AppCompatActivity() {
         ReservationScheduler(MovieDateScheduler(), MovieTimeScheduler())
     private val customDialogFactory = CustomDialogFactory()
     private lateinit var reservation: Reservation
+    private var isDateInit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,8 +90,9 @@ class ReserveActivity : AppCompatActivity() {
         savedInstanceState: Bundle?,
         movie: Movie,
     ) {
+        val timePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: 0
         initDateSpinner(movie.screeningDate)
-        initTimeSpinner(movie.screeningDate.startDate)
+        initTimeSpinner(movie.screeningDate.startDate, timePosition)
 
         reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
             ?: Reservation(
@@ -100,6 +102,7 @@ class ReserveActivity : AppCompatActivity() {
 
         updateTicketCount()
         initButtonListeners()
+        timeSpinner.setSelection(timePosition)
     }
 
     private fun initDateSpinner(screeningDate: ScreeningDate) {
@@ -109,7 +112,10 @@ class ReserveActivity : AppCompatActivity() {
         dateSpinner.onItemSelectedListener = createDateSelectionListener(dates)
     }
 
-    private fun initTimeSpinner(startDate: LocalDate) {
+    private fun initTimeSpinner(
+        startDate: LocalDate,
+        timePosition: Int,
+    ) {
         updateTimeSpinner(reservationScheduler.startDate(startDate, LocalDate.now()))
         timeSpinner.onItemSelectedListener = createTimeSelectionListener()
     }
@@ -192,6 +198,11 @@ class ReserveActivity : AppCompatActivity() {
                 position: Int,
                 id: Long,
             ) {
+                if (isDateInit) {
+                    isDateInit = false
+                    return
+                }
+
                 val selectedDate = dates[position]
                 updateTimeSpinner(selectedDate)
                 reservation = reservation.updateReservedTime(getSelectedDateTime())
@@ -217,10 +228,23 @@ class ReserveActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putSerializable(KEY_RESERVATION, reservation)
+        outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
+        outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
+        isDateInit = true
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onSaveInstanceState(savedInstanceState)
+        val datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
+        val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        dateSpinner.setSelection(datePosition)
+        timeSpinner.setSelection(timePosition)
+        isDateInit = true
     }
 
     companion object {
-        private const val DEFAULT_TICKET_COUNT_SIZE = 1
+        private const val KEY_DATE_POSITION = "datePosition"
+        private const val KEY_TIME_POSITION = "timePosition"
         const val KEY_MOVIE = "movie"
     }
 }
