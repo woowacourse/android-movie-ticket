@@ -12,26 +12,30 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
 import woowacourse.movie.domain.MovieInfo
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.TicketManager
 
 class BookingActivity : AppCompatActivity() {
-    private var movieInfo: MovieInfo? = null
-    private var ticketCountValue = 0
+    private lateinit var movieInfo: MovieInfo
+    private lateinit var ticketManager: TicketManager
     private lateinit var movieTime: Spinner
     private lateinit var movieDate: Spinner
-    private lateinit var startDate: TextView
-    private lateinit var endDate: TextView
     private lateinit var ticketCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
 
-        startDate = findViewById(R.id.start_date)
-        endDate = findViewById(R.id.end_date)
         movieDate = findViewById(R.id.movie_date)
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
+
+        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO)
+            ?: run {
+                Toast.makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT).show()
+                finish()
+                return
+            }
+        ticketManager = TicketManager(movieInfo)
 
         setupPage()
         setupDateChangeListener()
@@ -61,25 +65,20 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setupPage() {
-        val title = findViewById<TextView>(R.id.title)
-        val runningTime = findViewById<TextView>(R.id.running_time)
-        val poster = findViewById<ImageView>(R.id.movie_poster)
+        val title: TextView = findViewById(R.id.title)
+        val runningTime:TextView = findViewById(R.id.running_time)
+        val poster:ImageView = findViewById(R.id.movie_poster)
 
-        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO)
+        poster.setImageResource(movieInfo.poster)
+        title.text = movieInfo.title
+        findViewById<TextView>(R.id.start_date).text = movieInfo.startDate
+        findViewById<TextView>(R.id.end_date).text = movieInfo.endDate
+        runningTime.text = movieInfo.runningTime
 
-        movieInfo?.let { info ->
-            poster.setImageResource(info.poster)
-            title.text = info.title
-            startDate.text = info.startDate
-            endDate.text = info.endDate
-            runningTime.text = info.runningTime
-
-            SpinnerAdapter.bind(this, movieDate, info.getDates())
-            SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
-        } ?: run {
-            Toast.makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT).show()
-            finish()
-        }
+        val dates = ticketManager.getDates()
+        val times = ticketManager.getTimes(dates[0])
+        SpinnerAdapter.bind(this, movieDate, dates)
+        SpinnerAdapter.bind(this, movieTime, times)
     }
 
     private fun setupDateChangeListener() {
@@ -91,13 +90,10 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    movieInfo?.let { info ->
-                        val selectedDate = info.getDates().getOrNull(position)
-                        selectedDate?.let {
-                            val selectedTimes = info.getTimes(it)
-                            SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
-                        }
-                    }
+                    ticketManager.setDatePosition(position)
+                    val selectedDate = ticketManager.getDates()[position]
+                    val times = ticketManager.getTimes(selectedDate)
+                    SpinnerAdapter.bind(this@BookingActivity, movieTime, times)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -108,7 +104,7 @@ class BookingActivity : AppCompatActivity() {
         val confirmButton : Button = findViewById(R.id.confirm_button)
 
         confirmButton.setOnClickListener {
-            if (ticketCountValue == 0) return@setOnClickListener
+            if (ticketManager.getTicketCount() == 0) return@setOnClickListener
             askToConfirmBooking()
         }
     }
@@ -118,26 +114,18 @@ class BookingActivity : AppCompatActivity() {
         val plusButton : Button = findViewById(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            ticketCountValue = (ticketCountValue - 1).coerceAtLeast(0)
-            ticketCount.text = "$ticketCountValue"
+            ticketManager.decrementTicketCount()
+            ticketCount.text = "${ticketManager.getTicketCount()}"
         }
 
         plusButton.setOnClickListener {
-            ticketCountValue += 1
-            ticketCount.text = "$ticketCountValue"
+            ticketManager.incrementTicketCount()
+            ticketCount.text = "${ticketManager.getTicketCount()}"
         }
     }
 
     private fun askToConfirmBooking() {
-        val ticket =
-            Ticket(
-                title = findViewById<TextView>(R.id.title).text.toString(),
-                date = movieDate.selectedItem.toString(),
-                time = movieTime.selectedItem.toString(),
-                count = ticketCount.text.toString(),
-                money = (ticketCount.text.toString().toInt() * TICKET_PRICE).toString(),
-            )
-
+        val ticket = ticketManager.createTicket()
         ConfirmDialog.show(this, ticket) {
             val intent =
                 Intent(this, BookingResultActivity::class.java).apply {
@@ -153,7 +141,5 @@ class BookingActivity : AppCompatActivity() {
         private const val KEY_MOVIE_TIME_POSITION = "MOVIE_TIME_POSITION"
         private const val KEY_MOVIE_INFO = "MOVIE_INFO"
         const val KEY_TICKET = "TICKET"
-
-        private const val TICKET_PRICE = 13000
     }
 }
