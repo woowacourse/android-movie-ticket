@@ -17,18 +17,6 @@ value class MovieTime(
     companion object {
         val weekdaysMovieTimes: List<MovieTime> =
             listOf(
-                "09:00",
-                "11:00",
-                "13:00",
-                "15:00",
-                "17:00",
-                "19:00",
-                "21:00",
-                "23:00",
-            ).map { from(it) }
-
-        val weekendsMovieTimes: List<MovieTime> =
-            listOf(
                 "10:00",
                 "12:00",
                 "14:00",
@@ -37,6 +25,18 @@ value class MovieTime(
                 "20:00",
                 "22:00",
                 "00:00",
+            ).map { from(it) }
+
+        val weekendsMovieTimes: List<MovieTime> =
+            listOf(
+                "09:00",
+                "11:00",
+                "13:00",
+                "15:00",
+                "17:00",
+                "19:00",
+                "21:00",
+                "23:00",
             ).map { from(it) }
 
         private fun from(value: String): MovieTime {
