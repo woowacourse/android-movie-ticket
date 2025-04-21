@@ -1,6 +1,8 @@
 package woowacourse.movie
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -14,6 +16,7 @@ import org.junit.Test
 class ReserveActivityTest {
     private lateinit var intent: Intent
     private val movie = HARRY_POTTER_MOVIE
+    private lateinit var scenario: ActivityScenario<ReserveActivity>
 
     @Before
     fun setUp() {
@@ -24,7 +27,7 @@ class ReserveActivityTest {
             ).apply {
                 putExtra("movie", movie)
             }
-        ActivityScenario.launch<ReserveActivity>(intent)
+        scenario = ActivityScenario.launch(intent)
         buttonPlus()
     }
 
@@ -67,5 +70,26 @@ class ReserveActivityTest {
 
         onView(withId(R.id.tv_ticket_count))
             .check(matches(withText("1")))
+    }
+
+    @Test
+    fun shouldRetainTitleAfterRotation() {
+        onView(withId(R.id.btn_plus))
+            .perform(click())
+        rotateScreen()
+        onView(withId(R.id.tv_ticket_count))
+            .check(matches(withText("3")))
+    }
+
+    private fun rotateScreen() {
+        scenario.onActivity { activity ->
+            val currentOrientation = activity.resources.configuration.orientation
+            activity.requestedOrientation =
+                if (currentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+                    ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+                } else {
+                    ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                }
+        }
     }
 }
