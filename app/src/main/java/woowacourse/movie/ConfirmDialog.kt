@@ -2,7 +2,7 @@ package woowacourse.movie
 
 import android.app.AlertDialog
 import android.content.Context
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.dto.Ticket
 
 object ConfirmDialog {
     fun show(

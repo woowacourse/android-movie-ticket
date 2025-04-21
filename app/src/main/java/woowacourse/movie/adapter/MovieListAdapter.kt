@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieInfo
+import woowacourse.movie.dto.MovieInfo
 
 class MovieListAdapter(
     context: Context,

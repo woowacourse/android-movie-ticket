@@ -10,8 +10,9 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
-import woowacourse.movie.domain.MovieInfo
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.MovieInfoGetter
+import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.dto.Ticket
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var movieInfo: MovieInfo
@@ -80,8 +81,8 @@ class BookingActivity : AppCompatActivity() {
                 )
             runningTime.text = resources.getString(R.string.running_time, info.runningTime)
 
-            SpinnerAdapter.bind(this, selectedDate, info.getDates())
-            SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
+            SpinnerAdapter.bind(this, selectedDate, MovieInfoGetter.getDates(info.startDate, info.endDate))
+            SpinnerAdapter.bind(this, movieTime, MovieInfoGetter.getTimes(info.startDate))
         }
     }
 
@@ -95,9 +96,9 @@ class BookingActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     movieInfo.let { info ->
-                        val selectedDate = info.getDates().getOrNull(position)
+                        val selectedDate = MovieInfoGetter.getDates(info.startDate, info.endDate).getOrNull(position)
                         selectedDate?.let {
-                            val selectedTimes = info.getTimes(it)
+                            val selectedTimes = MovieInfoGetter.getTimes(it)
                             SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
                         }
                     }

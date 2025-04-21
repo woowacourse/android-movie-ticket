@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.domain.MovieInfo
+import woowacourse.movie.dto.MovieInfo
 
 class MainActivity : AppCompatActivity() {
     private lateinit var allItems: MutableList<MovieInfo>
@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             mutableListOf(
                 MovieInfo(
                     R.drawable.harry_potter_poster,
-                    "해리 포터와 마법사의 돌, 더 위대하고 고져스한 어쩌구저쩌구 3줄 이상넘기면 어떤 일이일어날까요 두구두구두구두두구 아 5줄이었습니다 여기서 글을 더 써보도록 하죠 이정도면 5줄이려나요?",
+                    "해리 포터와 마법사의 돌",
                     "2025.4.1",
                     "2025.4.25",
                     152,
