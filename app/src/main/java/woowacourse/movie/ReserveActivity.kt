@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.ReservationResultActivity.Companion.KEY_RESERVATION
+import woowacourse.movie.domain.CurrentDateScheduler
+import woowacourse.movie.domain.CurrentTimeScheduler
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieDateScheduler
-import woowacourse.movie.domain.MovieTimeScheduler
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ReservationScheduler
 import woowacourse.movie.domain.ScreeningDate
@@ -34,7 +34,7 @@ class ReserveActivity : AppCompatActivity() {
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_ticket_count) }
     private val reservationScheduler =
-        ReservationScheduler(MovieDateScheduler(), MovieTimeScheduler())
+        ReservationScheduler(CurrentDateScheduler(), CurrentTimeScheduler())
     private val customDialogFactory = CustomDialogFactory()
     private lateinit var reservation: Reservation
     private var isDateInit = false

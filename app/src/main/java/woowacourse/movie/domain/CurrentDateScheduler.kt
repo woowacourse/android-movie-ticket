@@ -3,7 +3,7 @@ package woowacourse.movie.domain
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 
-class MovieDateScheduler : DateScheduler {
+class CurrentDateScheduler : DateScheduler {
     override fun reservableDates(
         screeningDate: ScreeningDate,
         currentDate: LocalDate,

@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-class MovieTimeScheduler : TimeScheduler {
+class CurrentTimeScheduler : TimeScheduler {
     override fun reservableTimes(
         selectedDate: LocalDate,
         currentDate: LocalDateTime,
