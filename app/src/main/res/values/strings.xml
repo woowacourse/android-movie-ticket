@@ -13,4 +13,8 @@
     <string name="dig_message">정말 예매하시겠습니까?</string>
     <string name="dig_btn_positive_message">예매 완료</string>
     <string name="dig_btn_negative_message">취소</string>
+    <string name="init_people_count">0</string>
+    <string name="btn_minus">-</string>
+    <string name="btn_plus">+</string>
+    <string name="select_complete">선택 완료</string>
 </resources>
