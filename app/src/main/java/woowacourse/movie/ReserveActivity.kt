@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -224,10 +225,7 @@ class ReserveActivity : AppCompatActivity() {
             .setTitle(getString(R.string.reserve_dialog_title))
             .setMessage(getString(R.string.reserve_dialog_message))
             .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
-                val intent =
-                    Intent(this, ReservationResultActivity::class.java).apply {
-                        putExtra(getString(R.string.key_reservation), reservation)
-                    }
+                val intent = ReservationResultActivity.newIntent(this, reservation)
                 startActivity(intent)
             }
             .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ ->
@@ -266,5 +264,13 @@ class ReserveActivity : AppCompatActivity() {
     companion object {
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
         private const val DEFAULT_TICKET_COUNT_SIZE = 1
+
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(context, ReserveActivity::class.java).apply {
+                putExtra(context.getString(R.string.key_movie), movie)
+            }
     }
 }

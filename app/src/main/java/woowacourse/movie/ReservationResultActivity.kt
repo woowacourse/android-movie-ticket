@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -70,5 +71,13 @@ class ReservationResultActivity : AppCompatActivity() {
     companion object {
         private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
         private val decimal = DecimalFormat("#,###")
+
+        fun newIntent(
+            context: Context,
+            reservation: Reservation,
+        ): Intent =
+            Intent(context, ReservationResultActivity::class.java).apply {
+                putExtra(context.getString(R.string.key_reservation), reservation)
+            }
     }
 }
