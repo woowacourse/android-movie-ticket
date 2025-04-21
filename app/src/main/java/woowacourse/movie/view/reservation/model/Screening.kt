@@ -7,6 +7,7 @@ import woowacourse.movie.domain.screening.DefaultShowtimePolicy
 import woowacourse.movie.domain.screening.ShowtimePolicy
 import woowacourse.movie.view.movie.model.Movie
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Parcelize
@@ -32,8 +33,9 @@ class Screening(
 
     fun showtimes(
         date: LocalDate,
+        current: LocalDateTime = LocalDateTime.now(),
         showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
-    ): List<LocalTime> = showTimePolicy.showtimes(date)
+    ): List<LocalTime> = showTimePolicy.showtimes(date, current)
 
     private val dates: List<LocalDate> =
         run {
