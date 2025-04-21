@@ -46,22 +46,29 @@ class BookingActivityTest {
     @DisplayName("영화 제목이 출력된다")
     @Test
     fun titleTest() {
-        onView(withId(R.id.title))
-            .check(matches(withText("승부")))
+        onView(withText("승부"))
+            .check(matches(isDisplayed()))
     }
 
     @DisplayName("상영일자가 출력된다")
     @Test
     fun screeningDateTest() {
-        onView(withId(R.id.screeningDate))
-            .check(matches(withText("상영일: 2025-03-26 ~ 2025-04-26")))
+        onView(withText("상영일: 2025-03-26 ~ 2025-04-26"))
+            .check(matches(isDisplayed()))
     }
 
     @DisplayName("러닝타임이 출력된다")
     @Test
     fun runningTimeTest() {
-        onView(withId(R.id.runningTime))
-            .check(matches(withText("러닝타임: 115분")))
+        onView(withText("러닝타임: 115분"))
+            .check(matches(isDisplayed()))
+    }
+
+    @DisplayName("예매 수량의 처음 값은 1이다.")
+    @Test
+    fun headCountViewTest() {
+        onView(withId(R.id.headCount))
+            .check(matches(withText("1")))
     }
 
     @DisplayName("증가 버튼을 누르면 숫자가 증가한다")
