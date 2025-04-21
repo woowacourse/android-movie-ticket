@@ -12,7 +12,7 @@ class MoviesAdapter(
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.count()
 
-    override fun getItem(position: Int): Any = movies[position]
+    override fun getItem(position: Int): Movie = movies[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -21,7 +21,7 @@ class MoviesAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val item: Movie = movies[position]
+        val item: Movie = getItem(position)
         val viewHolder: MoviesViewHolder
         val itemView: View
 
