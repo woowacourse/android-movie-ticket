@@ -11,7 +11,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
@@ -20,16 +19,20 @@ import woowacourse.movie.view.reservation.ReservationActivity
 class ReservationActivityTest {
     private lateinit var scenario: ActivityScenario<ReservationActivity>
     private val fakeMovie = Movie.value
+    private val fakeContext: Context = ApplicationProvider.getApplicationContext()
 
-    @Before
-    fun setup() {
-        val fakeContext: Context = ApplicationProvider.getApplicationContext()
+    @Test
+    fun 영화_인텐트_타입이_movie가_아니면_에러_발생_다이얼로그를_띄운다() {
+        val wrongTypeIntent = "1"
         val intent =
             Intent(
                 fakeContext,
                 ReservationActivity::class.java,
-            ).putExtra(Extras.MovieData.MOVIE_KEY, fakeMovie)
+            ).putExtra(Extras.MovieData.MOVIE_KEY, wrongTypeIntent)
         scenario = ActivityScenario.launch(intent)
+
+        onView(withText("에러 발생"))
+            .check(matches(isDisplayed()))
     }
 
     @Test
@@ -109,6 +112,13 @@ class ReservationActivityTest {
 
     @Test
     fun `화면을_회전해도_티켓_개수가_유지된다`() {
+        val intent =
+            Intent(
+                fakeContext,
+                ReservationActivity::class.java,
+            ).putExtra(Extras.MovieData.MOVIE_KEY, fakeMovie)
+        scenario = ActivityScenario.launch(intent)
+
         // when: 티켓 개수를 2 증가 시키고 가로모드로 회전했을 때
         onView(withId(R.id.btn_reservation_plus_ticket_count))
             .perform(click())
