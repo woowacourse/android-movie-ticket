@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -132,6 +133,20 @@ class BookingActivityTest {
     fun 선택완료_버튼을_누르면_다이얼로그가_나타난다() {
         onView(withId(R.id.button_select))
             .perform(click())
+
+        onView(withText("정말 예매하시겠습니까?"))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 다이얼로그가_출력될때_취소_버튼을_눌러도_다이얼로그가_사라지지_않는다() {
+        onView(withId(R.id.button_select))
+            .perform(click())
+
+        onView(withText("정말 예매하시겠습니까?"))
+            .check(matches(isDisplayed()))
+
+        pressBack()
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
