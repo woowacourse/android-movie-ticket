@@ -14,6 +14,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.model.BookingResult
+import woowacourse.movie.util.Keys
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
@@ -25,7 +26,7 @@ class BookingCompleteActivityTest {
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
-                putExtra("bookingResult", bookingResult)
+                putExtra(Keys.Extra.BOOKING_RESULT, bookingResult)
             }
 
         scenario = ActivityScenario.launch(intent)
