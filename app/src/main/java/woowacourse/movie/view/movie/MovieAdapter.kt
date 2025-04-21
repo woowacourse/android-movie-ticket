@@ -7,7 +7,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.ReservationUiFormatter
@@ -25,12 +24,30 @@ class MovieAdapter(
     override fun getItemId(position: Int): Long = position.toLong()
 
     private class ViewHolder(
-        val titleTextView: TextView,
-        val posterImageView: ImageView,
-        val screeningDateTextView: TextView,
-        val runningTimeTextView: TextView,
-        val reservationButton: Button,
-    )
+        val view: View,
+        val clickListener: MovieClickListener,
+        private val reservationUiFormatter: ReservationUiFormatter,
+    ) {
+        val titleTextView: TextView = view.findViewById(R.id.tv_movie_title)
+        val posterImageView: ImageView = view.findViewById(R.id.iv_movie_poster)
+        val screeningDateTextView: TextView = view.findViewById(R.id.tv_movie_screening_date)
+        val runningTimeTextView: TextView = view.findViewById(R.id.tv_movie_running_time)
+        val reservationButton: Button = view.findViewById(R.id.btn_movie_reservation)
+
+        fun bind(movie: Movie) {
+            titleTextView.text = movie.title
+            posterImageView.setImageResource(movie.poster)
+            screeningDateTextView.text =
+                view.context.getString(
+                    R.string.movie_screening_date,
+                    reservationUiFormatter.localDateToUI(movie.startDate),
+                    reservationUiFormatter.localDateToUI(movie.endDate),
+                )
+            runningTimeTextView.text =
+                view.context.getString(R.string.movie_running_time, movie.runningTime)
+            reservationButton.setOnClickListener { clickListener.onReservationClick(movie) }
+        }
+    }
 
     override fun getView(
         position: Int,
@@ -43,13 +60,7 @@ class MovieAdapter(
         if (convertView == null) {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
             viewHolder =
-                ViewHolder(
-                    view.findViewById(R.id.tv_movie_title),
-                    view.findViewById(R.id.iv_movie_poster),
-                    view.findViewById(R.id.tv_movie_screening_date),
-                    view.findViewById(R.id.tv_movie_running_time),
-                    view.findViewById(R.id.btn_movie_reservation),
-                )
+                ViewHolder(view, clickListener, reservationUiFormatter)
             view.tag = viewHolder
         } else {
             view = convertView
@@ -57,54 +68,8 @@ class MovieAdapter(
         }
 
         val movie = movies[position]
-        setupTitle(viewHolder, movie)
-        setupPoster(viewHolder, movie)
-        setupScreeningDate(viewHolder, movie)
-        setupRunningTime(viewHolder, movie)
-        setupReservationButtonClick(viewHolder, movie)
+        viewHolder.bind(movie)
 
         return view
-    }
-
-    private fun setupTitle(
-        viewHolder: ViewHolder,
-        movie: Movie,
-    ) {
-        viewHolder.titleTextView.text = movie.title
-    }
-
-    private fun setupPoster(
-        viewHolder: ViewHolder,
-        movie: Movie,
-    ) {
-        val poster = AppCompatResources.getDrawable(context, movie.poster)
-        viewHolder.posterImageView.setImageDrawable(poster)
-    }
-
-    private fun setupScreeningDate(
-        viewHolder: ViewHolder,
-        movie: Movie,
-    ) {
-        val startDate = reservationUiFormatter.localDateToUI(movie.startDate)
-        val endDate = reservationUiFormatter.localDateToUI(movie.endDate)
-        viewHolder.screeningDateTextView.text =
-            context.getString(R.string.movie_screening_date, startDate, endDate)
-    }
-
-    private fun setupRunningTime(
-        viewHolder: ViewHolder,
-        movie: Movie,
-    ) {
-        viewHolder.runningTimeTextView.text =
-            context.getString(R.string.movie_running_time, movie.runningTime)
-    }
-
-    private fun setupReservationButtonClick(
-        viewHolder: ViewHolder,
-        movie: Movie,
-    ) {
-        viewHolder.reservationButton.setOnClickListener {
-            clickListener.onReservationClick(movie)
-        }
     }
 }
