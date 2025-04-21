@@ -30,7 +30,6 @@ class MoviesActivity : AppCompatActivity() {
         val movieListView = findViewById<ListView>(R.id.lv_movies)
         movieListView.adapter =
             MovieAdapter(
-                this,
                 Movie.values,
                 object : MovieClickListener {
                     override fun onReservationClick(movie: Movie) {

@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movie
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.view.ReservationUiFormatter
 
 class MovieAdapter(
-    private val context: Context,
     private val movies: List<Movie>,
     private val clickListener: MovieClickListener,
 ) : BaseAdapter() {
@@ -43,7 +41,7 @@ class MovieAdapter(
         val viewHolder: ViewHolder
 
         if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
             viewHolder =
                 ViewHolder(
                     view.findViewById(R.id.tv_movie_title),
