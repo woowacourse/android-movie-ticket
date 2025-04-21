@@ -12,7 +12,7 @@ data class MovieUiModel(
 ) {
     companion object {
         private val moviePosterMap = mapOf(
-            "harry_potter" to R.drawable.harry_potter_poster,
+            "해리 포터와 마법사의 돌" to R.drawable.harry_potter_poster,
         )
 
         fun fromDomain(movie: Movie): MovieUiModel {
