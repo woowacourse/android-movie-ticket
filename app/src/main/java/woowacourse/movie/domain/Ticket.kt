@@ -1,13 +1,15 @@
 package woowacourse.movie.domain
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import java.time.LocalDateTime
 
+@Parcelize
 class Ticket(
-    screening: Screening,
+    val title: String,
     val count: Int,
     val showtime: LocalDateTime,
-) {
-    val title: String = screening.title
+) : Parcelable {
     val price: Int = count * TICKET_PRICE
 
     companion object {

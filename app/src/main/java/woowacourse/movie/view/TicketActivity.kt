@@ -1,25 +1,16 @@
 package woowacourse.movie.view
 
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_END_DATE
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_START_DATE
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_TICKET_COUNT
-import woowacourse.movie.view.model.Movie
-import woowacourse.movie.view.model.Screening
-import java.time.LocalDate
-import java.time.LocalDateTime
+import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_TICKET
 
 class TicketActivity : AppCompatActivity() {
     private lateinit var ticket: Ticket
@@ -39,38 +30,20 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initModel() {
-        val title = intent.getStringExtra(EXTRA_TITLE) ?: error("")
-        val runningTime = intent.getIntExtra(EXTRA_RUNNING_TIME, 0)
-
-        @DrawableRes val posterId = intent.getIntExtra(EXTRA_POSTER_ID, 0)
-
-        val movie =
-            Movie(
-                posterId,
-                title,
-                runningTime,
-            )
-
-        val startDate = LocalDate.parse(intent.getStringExtra(EXTRA_START_DATE))
-        val endDate = LocalDate.parse(intent.getStringExtra(EXTRA_END_DATE))
-
-        val screening =
-            Screening(
-                movie,
-                startDate,
-                endDate,
-            )
-
-        val ticketCount = intent.getIntExtra(EXTRA_TICKET_COUNT, 0)
-        val showtime: LocalDateTime = LocalDateTime.parse(intent.getStringExtra(EXTRA_SHOWTIME))
-
-        ticket =
-            Ticket(
-                screening = screening,
-                count = ticketCount,
-                showtime = showtime,
-            )
+        ticket = intent.getTicketExtra(EXTRA_TICKET) ?: error("티켓 정보가 전달되지 않았습니다.")
     }
+
+    @Suppress("DEPRECATION")
+    private fun Intent.getTicketExtra(key: String): Ticket? =
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+                getParcelableExtra(
+                    key,
+                    Ticket::class.java,
+                )
+
+            else -> getParcelableExtra(key) as? Ticket
+        }
 
     private fun initViews() {
         val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)

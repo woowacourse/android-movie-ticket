@@ -17,9 +17,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_SCREENING
 import woowacourse.movie.view.model.Screening
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
@@ -129,19 +131,15 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToTicketActivity() {
-//        val intent =
-//            Intent(this, TicketActivity::class.java).apply {
-//                putExtra(EXTRA_TITLE, screening.title)
-//                putExtra(EXTRA_RUNNING_TIME, screening.runningTime)
-//                putExtra(EXTRA_POSTER_ID, screening.posterId)
-//                putExtra(EXTRA_TICKET_COUNT, ticketCount)
-//                putExtra(EXTRA_START_DATE, screening.period.start.toString())
-//                putExtra(EXTRA_END_DATE, screening.period.endInclusive.toString())
-//                putExtra(
-//                    EXTRA_SHOWTIME,
-//                    LocalDateTime.of(selectedDate, selectedTime).toString(),
-//                )
-//            }
+        val intent =
+            Intent(this, TicketActivity::class.java).putExtra(
+                EXTRA_TICKET,
+                Ticket(
+                    screening.title,
+                    ticketCount,
+                    LocalDateTime.of(selectedDate, selectedTime),
+                ),
+            )
         startActivity(intent)
     }
 
@@ -226,5 +224,6 @@ class ReservationActivity : AppCompatActivity() {
         const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
         const val EXTRA_START_DATE = "woowacourse.movie.EXTRA_START_DATE"
         const val EXTRA_END_DATE = "woowacourse.movie.EXTRA_END_DATE"
+        const val EXTRA_TICKET = "woowacourse.movie.EXTRA_TICKET"
     }
 }
