@@ -8,9 +8,11 @@ class Ticket(
     val showtime: LocalDateTime,
 ) {
     val title: String = screening.title
-    val price: Int = count * TICKET_PRICE
+    val price: Int = count * DEFAULT_TICKET_PRICE
+    val cancelableMinute = DEFAULT_CANCELABLE_MINUTE
 
     companion object {
-        const val TICKET_PRICE = 13_000
+        private const val DEFAULT_TICKET_PRICE = 13_000
+        private const val DEFAULT_CANCELABLE_MINUTE = 15
     }
 }

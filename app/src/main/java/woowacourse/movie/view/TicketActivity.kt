@@ -60,6 +60,10 @@ class TicketActivity : AppCompatActivity() {
                 getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
             }
 
+        val cancelableMinuteView = findViewById<TextView>(R.id.tv_ticket_cancel_time_info)
+        cancelableMinuteView.text =
+            getString(R.string.ticket_cancelable_minute_info, ticket.cancelableMinute)
+
         val countView = findViewById<TextView>(R.id.tv_ticket_count)
         countView.text = getString(R.string.ticket_count, ticket.count)
 

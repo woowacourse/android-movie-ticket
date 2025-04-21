@@ -9,15 +9,16 @@
     tools:context=".view.TicketActivity">
 
     <TextView
+        android:id="@+id/tv_ticket_cancel_time_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/light_purple"
         android:paddingTop="66dp"
         android:paddingBottom="10dp"
-        android:text="@string/ticket_cancel_time_info"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="15sp" />
+        android:textSize="15sp"
+        tools:text="영화 상영 시작 시간 xx분 전까지\n 취소가 가능합니다." />
 
     <TextView
         android:id="@+id/tv_ticket_movie_title"
