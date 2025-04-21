@@ -50,6 +50,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     override fun setupViews(savedInstanceState: Bundle?) {
         views = ReservationViews(this)
+        views.updateReservationCountMinusButton(reservationCount)
         setupActionBar()
         setupData()
         movie?.let { views.bindMovieInfo(it) }
@@ -93,17 +94,9 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun updateReservationCount(updateCount: () -> Unit) {
-        runCatching {
-            updateCount()
-        }.onFailure {
-            showToast(
-                getString(
-                    R.string.invalid_reservation_count_message,
-                    ReservationCount.RESERVATION_MIN_COUNT,
-                ),
-            )
-        }
+        updateCount()
         views.tvReservationCount.text = reservationCount.value.toString()
+        views.updateReservationCountMinusButton(reservationCount)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

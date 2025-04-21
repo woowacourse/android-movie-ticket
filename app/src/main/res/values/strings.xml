@@ -14,7 +14,6 @@
     <string name="reservation_total_price">%,d원 (현장 결제)</string>
 
     <string name="invalid_reservation_datetime_message">예약 날짜 및 시간을 선택해 주세요</string>
-    <string name="invalid_reservation_count_message">최소 예매 인원은 %d명 입니다</string>
 
     <string name="reservation_dialog_title">예매 확인</string>
     <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>

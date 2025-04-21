@@ -10,6 +10,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.view.extension.toDateTimeFormatter
 import java.time.LocalDate
 
@@ -24,7 +25,7 @@ class ReservationViews(
     val spinnerDate: Spinner = activity.findViewById(R.id.spinner_reservation_date)
     val spinnerTime: Spinner = activity.findViewById(R.id.spinner_reservation_time)
     private val btnReservationFinish: Button = activity.findViewById(R.id.btn_reservation_finish)
-    private val btnCountMinus: Button = activity.findViewById(R.id.btn_reservation_count_minus)
+    val btnCountMinus: Button = activity.findViewById(R.id.btn_reservation_count_minus)
     private val btnCountPlus: Button = activity.findViewById(R.id.btn_reservation_count_plus)
 
     fun bindMovieInfo(movie: Movie) {
@@ -34,7 +35,8 @@ class ReservationViews(
         val start = movie.screeningPeriod.startDate.format(formatter)
         val end = movie.screeningPeriod.endDate.format(formatter)
         tvScreeningPeriod.text = activity.getString(R.string.movie_date, start, end)
-        tvRunningTime.text = activity.getString(R.string.running_time, movie.runningTime.minute.toString())
+        tvRunningTime.text =
+            activity.getString(R.string.running_time, movie.runningTime.minute.toString())
     }
 
     fun setOnReservationCountChanged(
@@ -96,6 +98,17 @@ class ReservationViews(
             val position = adapter.getPosition(it)
             if (position >= 0) spinner.setSelection(position)
         }
+    }
+
+    fun updateReservationCountMinusButton(reservationCount: ReservationCount) {
+        if (reservationCount.value == ReservationCount.RESERVATION_MIN_COUNT) {
+            btnCountMinus.alpha = 0.4f
+            btnCountMinus.isClickable = false
+            return
+        }
+
+        btnCountMinus.alpha = 1f
+        btnCountMinus.isClickable = true
     }
 
     companion object {
