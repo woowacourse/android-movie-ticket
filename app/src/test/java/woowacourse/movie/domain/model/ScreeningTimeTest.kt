@@ -10,7 +10,7 @@ class ScreeningTimeTest {
     private val screeningTime: ScreeningTime = ScreeningTime()
 
     @Test
-    fun `주말엔 10시 부터 2시간 간격으로 상영 시간을 반환한다`() {
+    fun `주말엔 9시부터 2시간 간격으로 상영 시간을 반환한다`() {
         val result =
             screeningTime.getAvailableScreeningTimes(
                 LocalDateTime.of(2025, 4, 19, 7, 20),
@@ -33,7 +33,7 @@ class ScreeningTimeTest {
     }
 
     @Test
-    fun `평일엔 9시부터 2시간 간격으로 상영 시간을 반환한다`() {
+    fun `평일엔 10시부터 2시간 간격으로 상영 시간을 반환한다`() {
         val result =
             screeningTime.getAvailableScreeningTimes(
                 LocalDateTime.of(2025, 4, 9, 3, 0),
