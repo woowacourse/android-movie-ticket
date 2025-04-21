@@ -37,6 +37,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private val dateSpinner: Spinner by lazy { findViewById(R.id.date_spinner) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.time_spinner) }
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.ticket_count) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +57,7 @@ class MovieReservationActivity : AppCompatActivity() {
         initTimeSpinner(savedTicket?.showtime?.toLocalTime())
         savedTicket?.let { ticket ->
             ticketCount = ticket.count
-            findViewById<TextView>(R.id.ticket_count).text = ticketCount.toString()
+            ticketCountTextView.text = ticketCount.toString()
         }
         initTicketCountButton()
         initSelectButton()
@@ -64,13 +65,16 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val ticket =
-            Ticket(
-                movie = movie,
-                showtime = LocalDateTime.of(selectedDate, selectedTime),
-                count = ticketCount,
-            )
-        outState.putParcelable(IntentKeys.EXTRA_TICKET, ticket)
+
+        if (selectedDate != null && selectedTime != null) {
+            val ticket =
+                Ticket(
+                    movie = movie,
+                    showtime = LocalDateTime.of(selectedDate, selectedTime),
+                    count = ticketCount,
+                )
+            outState.putParcelable(IntentKeys.EXTRA_TICKET, ticket)
+        }
     }
 
     private fun initUi() {
@@ -84,17 +88,17 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initMovieInfo() {
-        val poster = findViewById<ImageView>(R.id.poster)
-        val title = findViewById<TextView>(R.id.movie_title)
-        val screeningDate = findViewById<TextView>(R.id.screening_date)
-        val runningTime = findViewById<TextView>(R.id.running_time)
+        val poster: ImageView = findViewById(R.id.poster)
+        val title: TextView = findViewById(R.id.movie_title)
+        val screeningDate: TextView = findViewById(R.id.screening_date)
+        val runningTime: TextView = findViewById(R.id.running_time)
 
         poster.setImageResource(movie.poster)
         title.text = movie.title
         val startDate = movie.startDate.format(DATE_FORMAT)
         val endDate = movie.endDate.format(DATE_FORMAT)
-        screeningDate.text = getString(R.string.screening_date).format(startDate, endDate)
-        runningTime.text = getString(R.string.running_time).format(movie.runningTime)
+        screeningDate.text = getString(R.string.screening_date, startDate, endDate)
+        runningTime.text = getString(R.string.running_time, movie.runningTime)
     }
 
     private fun initDateSpinner(savedDateTime: LocalDateTime?) {
@@ -126,12 +130,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun initTimeSpinner(savedTime: LocalTime?) {
         val showtimes =
             selectedDate?.let { scheduler.getShowtimes(it, LocalDateTime.now()) } ?: emptyList()
-        val adapter =
-            ArrayAdapter(
-                this@MovieReservationActivity,
-                android.R.layout.simple_spinner_item,
-                showtimes,
-            )
+        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, showtimes)
         timeSpinner.adapter = adapter
 
         timeSpinner.onItemSelectedListener =
@@ -153,10 +152,9 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initTicketCountButton() {
-        val decrementButton = findViewById<Button>(R.id.decrement_button)
+        val decrementButton: Button = findViewById(R.id.decrement_button)
         if (ticketCount == MINIMUM_TICKET_COUNT) decrementButton.isEnabled = false
-        val incrementButton = findViewById<Button>(R.id.increment_button)
-        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
+        val incrementButton: Button = findViewById(R.id.increment_button)
 
         ticketCountTextView.text = ticketCount.toString()
         decrementButton.setOnClickListener {
@@ -172,7 +170,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initSelectButton() {
-        val selectButton = findViewById<Button>(R.id.select_button)
+        val selectButton: Button = findViewById(R.id.select_button)
         val alertDialog =
             AlertDialog
                 .Builder(this)

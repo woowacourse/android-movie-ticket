@@ -24,6 +24,7 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         val ticket =
             intent.parcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
                 ?: run {
@@ -31,15 +32,16 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
                     return
                 }
 
-        val title = findViewById<TextView>(R.id.movie_title)
-        val showtime = findViewById<TextView>(R.id.showtime)
-        val ticketCount = findViewById<TextView>(R.id.ticket_count)
-        val totalPrice = findViewById<TextView>(R.id.total_price)
+        bindTicketInfo(ticket)
+    }
 
-        title.text = ticket.movie.title
-        showtime.text = ticket.showtime.format(DATE_FORMAT)
-        ticketCount.text = getString(R.string.ticket_count).format(ticket.count)
-        totalPrice.text = getString(R.string.total_price).format(ticket.totalPrice())
+    private fun bindTicketInfo(ticket: Ticket) {
+        findViewById<TextView>(R.id.movie_title).text = ticket.movie.title
+        findViewById<TextView>(R.id.showtime).text = ticket.showtime.format(DATE_FORMAT)
+        findViewById<TextView>(R.id.ticket_count).text =
+            getString(R.string.ticket_count, ticket.count)
+        findViewById<TextView>(R.id.total_price).text =
+            getString(R.string.total_price, ticket.totalPrice())
     }
 
     companion object {
