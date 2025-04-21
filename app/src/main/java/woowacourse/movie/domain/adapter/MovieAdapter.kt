@@ -9,7 +9,7 @@ import woowacourse.movie.domain.Movie
 
 class MovieAdapter(
     private val items: List<Movie>,
-    private val onButtonListener: (Movie) -> Unit,
+    private val onClickReservation: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
@@ -44,7 +44,7 @@ class MovieAdapter(
         }
 
         viewHolder.bind(items[position]) {
-            onButtonListener(items[position])
+            onClickReservation(items[position])
         }
 
         return view

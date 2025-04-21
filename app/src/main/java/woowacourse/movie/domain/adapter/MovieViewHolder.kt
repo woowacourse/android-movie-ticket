@@ -19,14 +19,14 @@ class MovieViewHolder(private val view: View) {
 
     fun bind(
         movie: Movie,
-        onButtonListener: (Movie) -> Unit,
+        onClickReservation: (Movie) -> Unit,
     ) {
         movieImage.setImageResource(movie.image)
         movieTitle.text = movie.title
         setDateTextView(movie.date, view.context)
         setTimeTextView(movie.time, view.context)
         reserveButton.setOnClickListener {
-            onButtonListener(movie)
+            onClickReservation(movie)
         }
     }
 
