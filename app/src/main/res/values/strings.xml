@@ -24,6 +24,6 @@
     <string name="screening_dates_info">"상영일: "</string>
 
     <string name="cancel_reservation_info">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="ticket_type_info">일반</string>
-    <string name="payment_method_info">(현장 결제)</string>
+    <string name="ticket_type_info">"일반 "</string>
+    <string name="payment_method_info">" (현장 결제)"</string>
 </resources>
