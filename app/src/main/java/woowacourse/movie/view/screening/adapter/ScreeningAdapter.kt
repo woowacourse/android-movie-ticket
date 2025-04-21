@@ -14,6 +14,7 @@ class ScreeningAdapter(
     ) -> Unit,
 ) : BaseAdapter() {
     private val screenings: List<Screening> = screenings.toList()
+    private val viewHolderCache: MutableMap<Screening, ScreeningItemViewHolder> = mutableMapOf()
 
     override fun getCount(): Int = screenings.size
 
@@ -31,10 +32,8 @@ class ScreeningAdapter(
             convertView ?: LayoutInflater
                 .from(parent?.context)
                 .inflate(R.layout.item_screening, parent, false)
-        if (view.tag == null) {
-            view.tag = ScreeningItemViewHolder(view)
-        }
-        val viewHolder: ScreeningItemViewHolder = view.tag as ScreeningItemViewHolder
+        val viewHolder: ScreeningItemViewHolder =
+            viewHolderCache.getOrPut(screening) { ScreeningItemViewHolder(view) }
         viewHolder.bind(screening, onClickReserveButton)
         return view
     }
