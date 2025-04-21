@@ -35,7 +35,7 @@ class MovieAdapter(
             view =
                 LayoutInflater
                     .from(parent?.context)
-                    .inflate(R.layout.item, parent, false)
+                    .inflate(R.layout.movie_item, parent, false)
             viewHolder = MovieViewHolder(view)
             view.tag = viewHolder
         } else {
