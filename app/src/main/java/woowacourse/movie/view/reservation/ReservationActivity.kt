@@ -199,7 +199,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             findViewById<TextView>(R.id.tv_reservation_running_time).text =
                 getString(
                     R.string.running_time,
-                    movie.runningTime.toString(),
+                    movie.runningTime.minute.toString(),
                 )
         }
     }

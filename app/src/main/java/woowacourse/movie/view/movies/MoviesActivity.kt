@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.reservation.ReservationActivity
@@ -38,7 +39,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 25),
                 ),
-                152,
+                RunningTime(152),
             )
     }
 }
