@@ -10,7 +10,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -26,7 +28,6 @@ import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     private var bookingPeopleCount: PeopleCount = PeopleCount()
@@ -149,10 +150,15 @@ class BookingActivity : AppCompatActivity() {
         savedPosition: Int?,
     ) {
         val timeSpinner: Spinner = findViewById(R.id.sp_time)
+        val now = LocalDateTime.now()
+        val screeningTime = ScreeningTime(selectedDate)
 
-        val screeningTimes: List<LocalTime> =
-            ScreeningTime().getAvailableScreeningTimes(LocalDateTime.now(), selectedDate)
+        if (!screeningTime.hasAvailableScreeningTime(now)) {
+            showToast(R.string.text_no_booking_time)
+            return
+        }
 
+        val screeningTimes = screeningTime.getAvailableScreeningTimes(now)
         with(timeSpinner) {
             adapter =
                 ArrayAdapter(
@@ -225,6 +231,12 @@ class BookingActivity : AppCompatActivity() {
             count = bookingPeopleCount,
             ticketType = TicketType.GENERAL,
         )
+    }
+
+    private fun showToast(
+        @StringRes res: Int,
+    ) {
+        Toast.makeText(this, res, Toast.LENGTH_LONG).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
