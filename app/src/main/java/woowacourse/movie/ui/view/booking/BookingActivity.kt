@@ -29,9 +29,9 @@ import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var movie: Movie
-    private lateinit var date: LocalDate
-    private lateinit var time: LocalTime
     private lateinit var headCountView: TextView
+    private var date: LocalDate = LocalDate.now()
+    private var time: LocalTime = LocalTime.now()
     private val headCountManager = HeadCountManager()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -129,7 +129,7 @@ class BookingActivity : AppCompatActivity() {
                 dates,
             )
 
-        val index = if (::date.isInitialized) dates.indexOf(date) else 0
+        val index = 0
         dateSpinner.setSelection(index)
 
         dateSpinner.onItemSelectedListener =
@@ -162,7 +162,7 @@ class BookingActivity : AppCompatActivity() {
                 times,
             )
 
-        val index = if (::time.isInitialized) times.indexOf(time) else 0
+        val index = 0
         timeSpinner.setSelection(index)
 
         timeSpinner.onItemSelectedListener =
