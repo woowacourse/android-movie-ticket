@@ -5,7 +5,7 @@ import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
-class Movies {
+class MovieFactory {
     fun getAll(): List<Movie> {
         return createMovies(100)
     }

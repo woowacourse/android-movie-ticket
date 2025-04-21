@@ -69,7 +69,7 @@
 - [ ] getParcelableExtra 버전별 대응 확장함수로 변경
 - [ ] text 변경을 ViewHolder에서 하도록 변경
 - [ ] 스피너 기본 index 값 상수화
-- [ ] Movie에서 MovieTheater로 네이밍 변경
+- [x] Movie에서 MovieFactory로 네이밍 변경
 - [ ] intent 예외 던질 때 메시지 추가
 - [ ] createTicket() 분리
 - [ ] onClick 확장성 고려하기

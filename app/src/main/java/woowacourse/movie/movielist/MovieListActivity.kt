@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.data.Movies
+import woowacourse.movie.data.MovieFactory
 import woowacourse.movie.detailbooking.DetailBookingActivity
 import woowacourse.movie.domain.Movie
 
@@ -22,10 +22,10 @@ class MovieListActivity : AppCompatActivity() {
             insets
         }
 
-        val movies: List<Movie> = Movies().getAll()
+        val movieFactory: List<Movie> = MovieFactory().getAll()
         val listView: ListView = findViewById(R.id.movie_listview)
         val movieListAdapter =
-            MovieListAdapter(movies) { movie ->
+            MovieListAdapter(movieFactory) { movie ->
                 startActivity(DetailBookingActivity.newIntent(this, movie))
             }
 
