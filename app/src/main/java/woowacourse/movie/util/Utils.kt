@@ -2,7 +2,7 @@ package woowacourse.movie.util
 
 import android.content.Intent
 import android.os.Build
-import woowacourse.movie.Movie
+import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 fun <T> Intent.parcelableExtraWithVersion(

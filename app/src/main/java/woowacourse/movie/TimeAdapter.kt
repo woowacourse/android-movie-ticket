@@ -2,6 +2,8 @@ package woowacourse.movie
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import woowacourse.movie.domain.DateType
+import woowacourse.movie.domain.Time
 
 class TimeAdapter(
     context: Context,

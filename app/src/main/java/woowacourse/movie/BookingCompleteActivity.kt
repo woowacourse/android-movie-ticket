@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.TicketInfo
 import woowacourse.movie.util.parcelableExtraWithVersion
 
 class BookingCompleteActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.domain
 
 import java.time.DayOfWeek.SATURDAY
 import java.time.DayOfWeek.SUNDAY

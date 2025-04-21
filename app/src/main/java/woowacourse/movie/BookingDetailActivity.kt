@@ -15,6 +15,10 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.DateType
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.TicketInfo
+import woowacourse.movie.domain.TicketQuantity
 import woowacourse.movie.util.dateRange
 import woowacourse.movie.util.parcelableExtraWithVersion
 import java.time.LocalDate
