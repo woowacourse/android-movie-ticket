@@ -2,6 +2,7 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -51,7 +52,7 @@ class BookingActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putString(KEY_TICKET_COUNT, ticketCount.text.toString())
+        outState.putInt(KEY_TICKET_COUNT, ticketManager.getTicketCount())
         outState.putInt(KEY_MOVIE_DATE_POSITION, movieDate.selectedItemPosition)
         outState.putInt(KEY_MOVIE_TIME_POSITION, movieTime.selectedItemPosition)
     }
@@ -63,7 +64,8 @@ class BookingActivity : AppCompatActivity() {
                 movieTime.setSelection(state.getInt(KEY_MOVIE_TIME_POSITION))
             }
         }
-        ticketCount.text = state.getString(KEY_TICKET_COUNT)
+        ticketManager.setTicketCount(state.getInt(KEY_TICKET_COUNT))
+        ticketCount.text = state.getInt(KEY_TICKET_COUNT).toString()
     }
 
     private fun setupPage() {

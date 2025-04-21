@@ -22,6 +22,10 @@ class TicketManager(private val movie: Movie) {
         return ticketCountValue
     }
 
+    fun setTicketCount(ticketCount: Int) {
+        ticketCountValue = ticketCount
+    }
+
     fun setDatePosition(position: Int) {
         selectedDatePosition = position
     }
