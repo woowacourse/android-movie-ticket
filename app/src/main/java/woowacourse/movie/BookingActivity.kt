@@ -2,7 +2,6 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -41,7 +40,8 @@ class BookingActivity : AppCompatActivity() {
         ticketManager = TicketManager(movie)
 
         setupPage()
-        setupDateChangeListener()
+        setupDateChangeDateListener()
+        setupDateChangeTimeListener()
         countButtonHandler()
         confirmButtonHandler()
         if (savedInstanceState != null) {
@@ -85,7 +85,7 @@ class BookingActivity : AppCompatActivity() {
         SpinnerAdapter.bind(this, movieTime, times)
     }
 
-    private fun setupDateChangeListener() {
+    private fun setupDateChangeDateListener() {
         movieDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -99,6 +99,22 @@ class BookingActivity : AppCompatActivity() {
                     val selectedDate = ticketManager.getDates()[position]
                     val times = ticketManager.getTimes(selectedDate)
                     SpinnerAdapter.bind(this@BookingActivity, movieTime, times)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+    }
+
+    private fun setupDateChangeTimeListener() {
+        movieTime.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    ticketManager.setTimePosition(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
