@@ -14,6 +14,16 @@ class Screening(
 
     fun showtimes(date: LocalDate): List<LocalTime> = showTimePolicy.showtimes(date)
 
+    fun getScreeningDates(): MutableList<LocalDate> {
+        var currentDate = period.start
+        val screeningDates = mutableListOf<LocalDate>()
+        while (!currentDate.isAfter(period.endInclusive)) {
+            screeningDates.add(currentDate)
+            currentDate = currentDate.plusDays(1)
+        }
+        return screeningDates
+    }
+
     companion object {
         const val HARRY_POTTER_1_MOVIE_ID = "HarryPotter1"
 

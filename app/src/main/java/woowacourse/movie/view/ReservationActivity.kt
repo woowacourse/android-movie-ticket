@@ -25,7 +25,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
-    private lateinit var screening: Screening
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
     private val screeningData: ScreeningData by lazy {
@@ -36,6 +35,7 @@ class ReservationActivity : AppCompatActivity() {
             intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA)
         } ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
     }
+    private val screening: Screening by lazy { screeningData.toScreening() }
 
     private var ticketCount = TicketCount.create()
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
@@ -59,6 +59,7 @@ class ReservationActivity : AppCompatActivity() {
 
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
         val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
+
         initModel(savedTicketCount, savedTimeItemPosition)
         initViews()
     }
@@ -67,12 +68,21 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        screening = screeningData.toScreening()
         ticketCount = TicketCount.create(savedTicketCount)
         timeItemPosition = savedTimeItemPosition
     }
 
     private fun initViews() {
+        initScreeningInfoViews()
+
+        initDateSpinner()
+
+        initTicketCounterViews()
+
+        initCompleteButtonView()
+    }
+
+    private fun initScreeningInfoViews() {
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
         titleView.text = screening.title
 
@@ -92,37 +102,6 @@ class ReservationActivity : AppCompatActivity() {
 
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
         runningTimeView.text = getString(R.string.running_time, screening.runningTime)
-
-        initDateSpinner(screening.period.start, screening.period.endInclusive)
-
-        val ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
-        ticketCountView.text = ticketCount.toString()
-
-        val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
-        ticketCountPlusButton.setOnClickListener {
-            ticketCount = ticketCount.increase()
-            ticketCountView.text = ticketCount.toString()
-        }
-
-        val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
-        ticketCountMinusButton.setOnClickListener {
-            ticketCount = ticketCount.decrease()
-            ticketCountView.text = ticketCount.toString()
-        }
-
-        val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
-        completeButton.setOnClickListener {
-            AlertDialog
-                .Builder(this)
-                .setTitle(getString(R.string.ticket_dialog_title))
-                .setMessage(getString(R.string.ticket_dialog_message))
-                .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                    navigateToTicketActivity()
-                }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
-                    dialog.dismiss()
-                }.setCancelable(false)
-                .show()
-        }
     }
 
     private fun navigateToTicketActivity() {
@@ -140,16 +119,8 @@ class ReservationActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun initDateSpinner(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ) {
-        var currentDate = startDate
-        val screeningDates = mutableListOf<LocalDate>()
-        while (!currentDate.isAfter(endDate)) {
-            screeningDates.add(currentDate)
-            currentDate = currentDate.plusDays(1)
-        }
+    private fun initDateSpinner() {
+        val screeningDates = screening.getScreeningDates()
 
         val dateAdapter =
             ArrayAdapter(
@@ -161,24 +132,7 @@ class ReservationActivity : AppCompatActivity() {
         val dateSpinnerView = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
         dateSpinnerView.adapter = dateAdapter
 
-        val timeSpinnerView =
-            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
-
-        timeSpinnerView.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
-                    selectedTime = screeningTimes[position]
-                    timeItemPosition = position
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+        val timeSpinnerView = initTimeSpinner()
 
         dateSpinnerView.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -209,6 +163,61 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
+
+    private fun initTimeSpinner(): Spinner {
+        val timeSpinnerView =
+            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
+
+        timeSpinnerView.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
+                    selectedTime = screeningTimes[position]
+                    timeItemPosition = position
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        return timeSpinnerView
+    }
+
+    private fun initTicketCounterViews() {
+        val ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
+        ticketCountView.text = ticketCount.toString()
+
+        val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
+        ticketCountPlusButton.setOnClickListener {
+            ticketCount = ticketCount.increase()
+            ticketCountView.text = ticketCount.toString()
+        }
+
+        val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
+        ticketCountMinusButton.setOnClickListener {
+            ticketCount = ticketCount.decrease()
+            ticketCountView.text = ticketCount.toString()
+        }
+    }
+
+    private fun initCompleteButtonView() {
+        val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
+        completeButton.setOnClickListener {
+            AlertDialog
+                .Builder(this)
+                .setTitle(getString(R.string.ticket_dialog_title))
+                .setMessage(getString(R.string.ticket_dialog_message))
+                .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
+                    navigateToTicketActivity()
+                }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
+                    dialog.dismiss()
+                }.setCancelable(false)
+                .show()
+        }
     }
 
     companion object {
