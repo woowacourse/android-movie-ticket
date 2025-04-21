@@ -28,12 +28,6 @@ class ReserveActivityTest {
                 putExtra("movie", movie)
             }
         scenario = ActivityScenario.launch(intent)
-        buttonPlus()
-    }
-
-    private fun buttonPlus() {
-        onView(withId(R.id.btn_plus))
-            .perform(click())
     }
 
     @Test
@@ -55,30 +49,37 @@ class ReserveActivityTest {
     }
 
     @Test
-    fun shouldIncreaseTicketCount() {
-        onView(withId(R.id.btn_plus))
-            .perform(click())
-
-        onView(withId(R.id.tv_ticket_count))
-            .check(matches(withText("3")))
-    }
-
-    @Test
-    fun shouldDecreaseTicketCount() {
-        onView(withId(R.id.btn_minus))
-            .perform(click())
-
+    fun shouldDisplayTicketCount() {
         onView(withId(R.id.tv_ticket_count))
             .check(matches(withText("1")))
     }
 
     @Test
-    fun shouldRetainTitleAfterRotation() {
+    fun shouldIncreaseTicketCount() {
+        onView(withId(R.id.btn_plus))
+            .perform(click())
+
+        onView(withId(R.id.tv_ticket_count))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun shouldDecreaseTicketCount() {
+        onView(withId(R.id.btn_plus))
+            .perform(click())
+        onView(withId(R.id.btn_minus))
+            .perform(click())
+        onView(withId(R.id.tv_ticket_count))
+            .check(matches(withText("1")))
+    }
+
+    @Test
+    fun shouldRotateAndKeepCount() {
         onView(withId(R.id.btn_plus))
             .perform(click())
         rotateScreen()
         onView(withId(R.id.tv_ticket_count))
-            .check(matches(withText("3")))
+            .check(matches(withText("2")))
     }
 
     private fun rotateScreen() {
