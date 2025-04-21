@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.util.dateRange
 import woowacourse.movie.util.parcelableExtraWithVersion
 import java.time.LocalDate
 
@@ -23,6 +24,7 @@ class BookingDetailActivity : AppCompatActivity() {
     private lateinit var timeSpinner: Spinner
     private lateinit var timeAdapter: TimeAdapter
     private lateinit var dateAdapter: DateAdapter
+    private lateinit var movie: Movie
     private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,13 +32,13 @@ class BookingDetailActivity : AppCompatActivity() {
 
         setupView()
 
-        val movie = intent.parcelableExtraWithVersion(MOVIE_KEY, Movie::class.java)
+        movie = intent.parcelableExtraWithVersion(MOVIE_KEY, Movie::class.java) ?: return finish()
 
-        val title = movie?.title ?: ""
-        val startDate = movie?.startDate.toString()
-        val endDate = movie?.endDate.toString()
-        val runningTime = movie?.runningTime ?: 0
-        val poster = movie?.poster ?: 0
+        val title = movie.title
+        val startDate = movie.startDate
+        val endDate = movie.endDate
+        val runningTime = movie.runningTime
+        val poster = movie.poster
 
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_detail_date).text =
@@ -46,15 +48,13 @@ class BookingDetailActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
 
-        setupDateSpinner(startDate, endDate)
-        setupTimeSpinner(startDate)
+        setupDateSpinner(movie)
+        setupTimeSpinner(movie)
 
         setupDateSpinnerItemClickListener()
         setupTicketCountClickListeners()
 
-        movie?.let {
-            setupSelectCompleteClickListener(it)
-        }
+        setupSelectCompleteClickListener(movie)
     }
 
     private fun setupView() {
@@ -148,26 +148,20 @@ class BookingDetailActivity : AppCompatActivity() {
             }
     }
 
-    private fun setupDateSpinner(
-        startDate: String,
-        endDate: String,
-    ) {
+    private fun setupDateSpinner(movie: Movie) {
         dateSpinner = findViewById<Spinner>(R.id.sp_booking_detail_date)
 
-        dateAdapter =
-            DateAdapter(
-                this,
-                LocalDate.parse(startDate),
-                LocalDate.parse(endDate),
-            )
+        dateAdapter = DateAdapter(this, movie.dateRange(1))
+
         dateSpinner.adapter = dateAdapter
     }
 
-    private fun setupTimeSpinner(startDate: String) {
+    private fun setupTimeSpinner(movie: Movie) {
         timeSpinner = findViewById<Spinner>(R.id.sp_booking_detail_time)
 
         timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(LocalDate.parse(startDate)))
+        timeAdapter.updateTimes(DateType.from(movie.startDate))
+
         timeSpinner.adapter = timeAdapter
     }
 
@@ -204,11 +198,6 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MOVIE_TITLE_KEY = "movie_title"
-        const val MOVIE_START_DATE_KEY = "movie_start_date"
-        const val MOVIE_END_DATE_KEY = "movie_end_date"
-        const val MOVIE_RUNNING_TIME_KEY = "movie_running_time"
-        const val MOVIE_POSTER_KEY = "movie_poster"
         const val MOVIE_KEY = "movie"
         const val TICKET_DATE_KEY = "ticket_date"
         const val TICKET_TIME_KEY = "ticket_time"
