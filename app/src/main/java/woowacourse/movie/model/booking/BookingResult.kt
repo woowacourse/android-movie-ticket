@@ -37,6 +37,7 @@ data class BookingResult(
     fun isHeadCountValid() = headCount > 0
 
     companion object {
+        const val CANCELLATION_LIMIT_MINUTES = 15
         private const val TICKET_PRICE = 13_000
         private const val ERROR_TITLE_BLANK_MESSAGE = "예매한 영화 제목은 비어 있을 수 없다"
     }
