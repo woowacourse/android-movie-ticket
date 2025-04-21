@@ -17,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.MainActivity
 import woowacourse.movie.view.reservation.model.Screening
 import woowacourse.movie.view.ticket.TicketActivity
+import woowacourse.movie.view.ticket.model.Ticket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -54,9 +54,15 @@ class ReservationActivity : AppCompatActivity() {
 
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
         val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
-        Log.d("time", "$savedTimeItemPosition 값 oncreate")
         initModel(savedTicketCount, savedTimeItemPosition)
         initViews()
+
+        Log.e("Gio", "onCreate invoked...")
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.e("Gio", "onRestoreInstanceState invoked...")
     }
 
     private fun initModel(
