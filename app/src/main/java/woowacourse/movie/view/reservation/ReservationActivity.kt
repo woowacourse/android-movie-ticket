@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.R.layout
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
@@ -63,7 +62,8 @@ class ReservationActivity : AppCompatActivity() {
     private fun getSelectedMovieData(): Movie =
         try {
             val movie: Movie? = intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY)
-            movie ?: throw IllegalStateException("유효하지 않은 영화입니다.")
+            movie
+                ?: throw IllegalStateException(R.string.reservation_error_dialog_message.toString())
         } catch (e: Exception) {
             showErrorDialog(e.message.toString())
             Movie.value
@@ -254,9 +254,5 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
     }
 }
