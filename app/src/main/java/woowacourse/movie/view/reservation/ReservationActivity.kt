@@ -48,11 +48,13 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             .setNegativeButton(R.string.reservation_dialog_negative) { dialog, _ -> dialog.dismiss() }
     }
 
-    override fun setupViews(savedInstanceState: Bundle?) {
-        views = ReservationViews(this)
-        views.updateReservationCountMinusButton(reservationCount)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         setupActionBar()
         setupData()
+
+        views = ReservationViews(this)
+        views.updateReservationCountMinusButton(reservationCount)
         movie?.let { views.bindMovieInfo(it) }
         setupUI()
     }

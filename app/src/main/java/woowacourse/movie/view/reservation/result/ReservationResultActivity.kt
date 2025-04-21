@@ -19,6 +19,11 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupActionBar()
+
+        views = ReservationResultViews(this)
+        val reservationInfo = intent?.getParcelableCompat<ReservationInfoUiModel>(BUNDLE_KEY_RESERVATION_INFO)?.toModel()
+        reservationInfo?.let { info -> views.bindReservationResult(info) }
 
         onBackPressedDispatcher.addCallback(
             this,
@@ -28,14 +33,6 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
                 }
             },
         )
-    }
-
-    override fun setupViews(savedInstanceState: Bundle?) {
-        setupActionBar()
-        views = ReservationResultViews(this)
-
-        val reservationInfo = intent?.getParcelableCompat<ReservationInfoUiModel>(BUNDLE_KEY_RESERVATION_INFO)?.toModel()
-        reservationInfo?.let { info -> views.bindReservationResult(info) }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
