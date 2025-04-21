@@ -9,8 +9,8 @@ import java.time.LocalTime
 @Parcelize
 class Screening(
     private val movie: Movie,
-    private val start: LocalDate,
-    private val end: LocalDate,
+    val start: LocalDate,
+    val end: LocalDate,
 ) : Parcelable {
     @DrawableRes
     val posterId: Int = movie.posterId
