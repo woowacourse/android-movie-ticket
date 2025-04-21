@@ -8,14 +8,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
 import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.domain.Ticket
 
 class BookingActivity : AppCompatActivity() {
-    private var movieInfo: MovieInfo? = null
+    private lateinit var movieInfo: MovieInfo
     private lateinit var movieTime: Spinner
     private lateinit var selectedDate: Spinner
     private lateinit var ticketCount: TextView
@@ -62,9 +61,15 @@ class BookingActivity : AppCompatActivity() {
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
 
-        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO)
+        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO) ?: MovieInfo(
+            R.drawable.sample_poster,
+            "샘플입니다",
+            "2024-1-1",
+            "2025-1-1",
+            99,
+        )
 
-        movieInfo?.let { info ->
+        movieInfo.let { info ->
             poster.setImageResource(info.poster)
             title.text = info.title
             movieDate.text =
@@ -73,13 +78,11 @@ class BookingActivity : AppCompatActivity() {
                     info.startDate,
                     info.endDate,
                 )
-            runningTime.text = String.format(resources.getString(R.string.running_time), info.runningTime)
+            runningTime.text =
+                String.format(resources.getString(R.string.running_time), info.runningTime)
 
             SpinnerAdapter.bind(this, selectedDate, info.getDates())
             SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
-        } ?: run {
-            Toast.makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT).show()
-            finish()
         }
     }
 
@@ -92,7 +95,7 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    movieInfo?.let { info ->
+                    movieInfo.let { info ->
                         val selectedDate = info.getDates().getOrNull(position)
                         selectedDate?.let {
                             val selectedTimes = info.getTimes(it)
