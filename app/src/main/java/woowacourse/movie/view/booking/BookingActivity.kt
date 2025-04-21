@@ -17,12 +17,12 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Booking
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Movies
 import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -36,9 +36,9 @@ class BookingActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking)
 
-        intent.getSerializable(KEY_MOVIE, Movie::class.java)?.let {
-            initView(it, savedInstanceState)
-        }
+        val movieIdx = intent.getIntExtra(KEY_MOVIE, NO_MOVIE)
+        val movie = Movies.get(movieIdx)
+        initView(movie, savedInstanceState)
     }
 
     private fun initView(
@@ -253,6 +253,7 @@ class BookingActivity : AppCompatActivity() {
     companion object {
         const val KEY_BOOKING = "BOOKING"
 
+        private const val NO_MOVIE = -1
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"

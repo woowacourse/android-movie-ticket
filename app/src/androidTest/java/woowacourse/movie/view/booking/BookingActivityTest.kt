@@ -16,11 +16,8 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
-import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
@@ -32,18 +29,7 @@ class BookingActivityTest {
                 fakeContext,
                 BookingActivity::class.java,
             ).apply {
-                putExtra(
-                    KEY_MOVIE,
-                    Movie(
-                        "해리 포터와 마법사의 돌",
-                        R.drawable.ic_launcher_background.toString(),
-                        ScreeningDate(
-                            LocalDate.of(2025, 4, 1),
-                            LocalDate.of(2025, 4, 25),
-                        ),
-                        "152분",
-                    ),
-                )
+                putExtra(KEY_MOVIE, 1)
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -51,7 +37,7 @@ class BookingActivityTest {
 
     @Test
     fun `전달_받은_영화_이름_상영일_상영_시간을_출력한다`() {
-        onView(withText("해리 포터와 마법사의 돌")).check(matches(isDisplayed()))
+        onView(withText("해리 포터와 마법사의 돌 1")).check(matches(isDisplayed()))
         onView(withText("2025.4.1 ~ 2025.4.25")).check(matches(isDisplayed()))
         onView(withText("152분")).check(matches(isDisplayed()))
     }
