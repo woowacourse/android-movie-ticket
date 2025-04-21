@@ -95,7 +95,7 @@ class DetailBookingActivity : AppCompatActivity() {
     }
 
     private fun updateCounterText() {
-        val counterTextView = findViewById<TextView>(R.id.personnel)
+        val counterTextView = findViewById<TextView>(R.id.detail_personnel)
         counterTextView.text = count.toString()
     }
 
@@ -116,8 +116,8 @@ class DetailBookingActivity : AppCompatActivity() {
     }
 
     private fun setCountButtons() {
-        val minusButton = findViewById<Button>(R.id.minus_button)
-        val plusButton = findViewById<Button>(R.id.plus_button)
+        val minusButton = findViewById<Button>(R.id.decrement_button)
+        val plusButton = findViewById<Button>(R.id.increment_button)
 
         minusButton.setOnClickListener {
             if (count > DEFAULT_PERSONNEL) count--

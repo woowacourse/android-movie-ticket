@@ -63,3 +63,16 @@
 - [x] 영화 상영 목록 화면 UI 테스트 추가
 - [x] 영화 예매 화면 UI 테스트 추가 (스피너 제외)
 - [x] 티켓 예매 완료 화면 UI 테스트 추가
+
+## 2차 피드백 반영
+- [ ] getParcelableExtra 버전별 대응 확장함수로 변경
+- [ ] text 변경을 ViewHolder에서 하도록 변경
+- [ ] 스피너 기본 index 값 상수화
+- [ ] Movie에서 MovieTheater로 네이밍 변경
+- [ ] intent 예외 던질 때 메시지 추가
+- [ ] createTicket() 분리
+- [ ] onClick 확장성 고려하기
+- [ ] DetailBookingActivity 다이어트 (익명 객체를 외부로 분리, 파일 분리)
+- [ ] Movie의 image 타입 Int를 리소스 ID로 표현하기
+- [ ] 스피너 테스트 코드 추가
+- [ ] 화면 회전 테스트 코드 추가

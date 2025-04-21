@@ -68,29 +68,29 @@ class DetailBookingActivityTest {
     @Test
     @DisplayName("기본 인원은 1명이다")
     fun defaultPersonnelIs1() {
-        onView(withId(R.id.personnel))
+        onView(withId(R.id.detail_personnel))
             .check(matches(withText("1")))
     }
 
     @Test
     @DisplayName("인원을 추가하면 2명이다")
     fun addedPersonnelIs2() {
-        onView(withId(R.id.plus_button))
+        onView(withId(R.id.increment_button))
             .perform(click())
-        onView(withId(R.id.personnel))
+        onView(withId(R.id.detail_personnel))
             .check(matches(withText("2")))
     }
 
     @Test
     @DisplayName("인원을 두 번 추가하고 한 번 제외하면 2명이다")
     fun add2minus1PersonnelIs2() {
-        onView(withId(R.id.plus_button))
+        onView(withId(R.id.increment_button))
             .perform(click())
-        onView(withId(R.id.plus_button))
+        onView(withId(R.id.increment_button))
             .perform(click())
-        onView(withId(R.id.minus_button))
+        onView(withId(R.id.decrement_button))
             .perform(click())
-        onView(withId(R.id.personnel))
+        onView(withId(R.id.detail_personnel))
             .check(matches(withText("2")))
     }
 
