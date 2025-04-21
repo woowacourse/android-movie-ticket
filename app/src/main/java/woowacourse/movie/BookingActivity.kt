@@ -106,13 +106,13 @@ class BookingActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedDate = screeningDateSpinner.getItemAtPosition(position).toString()
-                    bookingResult.updateDate(selectedDate)
+                    bookingResult = bookingResult.updateDate(selectedDate)
                     setUpScreeningTimeSpinner(booking)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     val date = screeningDateSpinner.getItemAtPosition(0).toString()
-                    bookingResult.updateDate(date)
+                    bookingResult = bookingResult.updateDate(date)
                 }
             }
     }
@@ -123,7 +123,7 @@ class BookingActivity : AppCompatActivity() {
 
         if (screeningTimes.isEmpty()) {
             val nextDate = LocalDate.parse(bookingResult.selectedDate).plusDays(1)
-            bookingResult.updateDate(nextDate.toString())
+            bookingResult = bookingResult.updateDate(nextDate.toString())
             val nextTimes = booking.screeningTimes(bookingResult.selectedDate)
 
             screeningTimeSpinner.adapter =
@@ -132,7 +132,7 @@ class BookingActivity : AppCompatActivity() {
                     android.R.layout.simple_spinner_item,
                     nextTimes,
                 )
-            bookingResult.updateTime(nextTimes.firstOrNull().orEmpty())
+            bookingResult = bookingResult.updateTime(nextTimes.firstOrNull().orEmpty())
         } else {
             screeningTimeSpinner.adapter =
                 ArrayAdapter(
@@ -154,7 +154,7 @@ class BookingActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedTime = screeningTimeSpinner.getItemAtPosition(position).toString()
-                    bookingResult.updateTime(selectedTime)
+                    bookingResult = bookingResult.updateTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -176,7 +176,7 @@ class BookingActivity : AppCompatActivity() {
     private fun setUpPlusButton(headCountView: TextView) {
         val btnPlus = findViewById<Button>(R.id.btn_plus)
         btnPlus.setOnClickListener {
-            bookingResult.plusHeadCount()
+            bookingResult = bookingResult.plusHeadCount()
             headCountView.text = bookingResult.headCount.toString()
         }
     }
@@ -184,7 +184,7 @@ class BookingActivity : AppCompatActivity() {
     private fun setUpMinusButton(headCountView: TextView) {
         val btnMinus = findViewById<Button>(R.id.btn_minus)
         btnMinus.setOnClickListener {
-            if (bookingResult.isHeadCountValid()) bookingResult.minusHeadCount()
+            if (bookingResult.isHeadCountValid()) bookingResult = bookingResult.minusHeadCount()
             headCountView.text = bookingResult.headCount.toString()
         }
     }

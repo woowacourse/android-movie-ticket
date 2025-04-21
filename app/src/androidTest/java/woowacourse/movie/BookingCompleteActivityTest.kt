@@ -100,9 +100,9 @@ class BookingCompleteActivityTest {
     private fun mockBookingResult(): BookingResult {
         return BookingResult(
             title = "해리 포터와 마법사의 돌",
-            _headCount = 2,
-            _selectedDate = "2025.04.20",
-            _selectedTime = "12:00",
+            headCount = 2,
+            selectedDate = "2025.04.20",
+            selectedTime = "12:00",
         )
     }
 }

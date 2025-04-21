@@ -6,14 +6,10 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class BookingResult(
     val title: String,
-    private var _headCount: Int,
-    private var _selectedDate: String,
-    private var _selectedTime: String,
+    val headCount: Int,
+    val selectedDate: String,
+    val selectedTime: String,
 ) : Parcelable {
-    val headCount get() = _headCount
-    val selectedDate get() = _selectedDate
-    val selectedTime get() = _selectedTime
-
     init {
         require(title.isNotBlank()) { ERROR_TITLE_BLANK_MESSAGE }
     }
@@ -22,25 +18,23 @@ data class BookingResult(
         return TICKET_PRICE * headCount
     }
 
-    fun plusHeadCount() {
-        _headCount++
+    fun plusHeadCount(): BookingResult {
+        return this.copy(headCount = headCount + 1)
     }
 
-    fun minusHeadCount() {
-        _headCount--
+    fun minusHeadCount(): BookingResult {
+        return this.copy(headCount = headCount - 1)
     }
 
-    fun updateDate(date: String) {
-        _selectedDate = date
+    fun updateDate(date: String): BookingResult {
+        return this.copy(selectedDate = date)
     }
 
-    fun updateTime(time: String) {
-        _selectedTime = time
+    fun updateTime(time: String): BookingResult {
+        return this.copy(selectedTime = time)
     }
 
-    fun isHeadCountValid(): Boolean {
-        return headCount > 0
-    }
+    fun isHeadCountValid() = headCount > 0
 
     companion object {
         private const val TICKET_PRICE = 13_000
