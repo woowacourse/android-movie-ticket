@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Intent
-import android.os.Bundle
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -17,7 +16,7 @@ import woowacourse.movie.view.fixture.fakeContext
 import java.time.LocalDate
 
 class ReservationActivityTest {
-    val harryPotter =
+    private val harryPotter =
         Movie(
             title = "해리 포터와 마법사의 돌",
             screeningPeriod = ScreeningPeriod(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
@@ -27,10 +26,8 @@ class ReservationActivityTest {
 
     @Before
     fun setUp() {
-        val bundle = Bundle().apply { putSerializable("movie", harryPotter) }
         val intent =
-            Intent(fakeContext, ReservationActivity::class.java).putExtras(bundle)
-
+            Intent(fakeContext, ReservationActivity::class.java).putExtra("movie", harryPotter)
         ActivityScenario.launch<ReservationActivity>(intent)
     }
 
