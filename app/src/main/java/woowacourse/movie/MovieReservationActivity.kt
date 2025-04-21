@@ -37,11 +37,10 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE)
-            ?: run { return }
+        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
-        if (dateSpinner.selectedItem == null) {
+        if (!::dateAdapter.isInitialized) {
             Toast.makeText(this, getString(R.string.no_screening_date_available), Toast.LENGTH_SHORT).show()
             finish()
             return
@@ -63,6 +62,11 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_TICKET, ticket)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        ticket = savedInstanceState.getParcelableCompat<Ticket>(KEY_TICKET) ?: run { return }
     }
 
     private fun initializeView() {
