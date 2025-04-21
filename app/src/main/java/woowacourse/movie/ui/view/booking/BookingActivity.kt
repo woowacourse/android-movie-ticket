@@ -92,14 +92,22 @@ class BookingActivity : AppCompatActivity() {
         updateHeadCount()
         val increaseBtn = findViewById<Button>(R.id.increase)
         increaseBtn.setOnClickListener {
-            headCountManager.increase()
-            updateHeadCount()
+            increaseHeadCount()
         }
         val decreaseBtn = findViewById<Button>(R.id.decrease)
         decreaseBtn.setOnClickListener {
-            headCountManager.decrease()
-            updateHeadCount()
+            decreaseHeadCount()
         }
+    }
+
+    private fun decreaseHeadCount() {
+        headCountManager.decrease()
+        updateHeadCount()
+    }
+
+    private fun increaseHeadCount() {
+        headCountManager.increase()
+        updateHeadCount()
     }
 
     private fun setupSelectButtonListener() {
