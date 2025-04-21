@@ -30,8 +30,8 @@ class BookingCompleteActivity : AppCompatActivity() {
         val title = ticketInfo.movie.title
         val date = ticketInfo.date
         val time = ticketInfo.time
-        val ticketCount = ticketInfo.count.value
-        val ticketTotalPrice = DecimalFormat("#,###").format(ticketCount * 13000)
+        val ticketCount = ticketInfo.quantity.value
+        val ticketTotalPrice = DecimalFormat("#,###").format(ticketInfo.quantity.totalPrice())
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =

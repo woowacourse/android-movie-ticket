@@ -25,7 +25,7 @@ class BookingDetailActivity : AppCompatActivity() {
     private lateinit var timeAdapter: TimeAdapter
     private lateinit var dateAdapter: DateAdapter
     private lateinit var movie: Movie
-    private var ticketCount: TicketCount = TicketCount(0)
+    private var ticketQuantity: TicketQuantity = TicketQuantity(0)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class BookingDetailActivity : AppCompatActivity() {
             getString(R.string.movies_movie_date_with_tilde, startDate, endDate)
         findViewById<TextView>(R.id.tv_booking_detail_running_time).text =
             getString(R.string.movies_movie_running_time, runningTime)
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.value.toString()
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.value.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
 
         setupDateSpinner(movie)
@@ -78,7 +78,7 @@ class BookingDetailActivity : AppCompatActivity() {
                     movie = movie,
                     date = selectedDate,
                     time = selectedTime,
-                    count = ticketCount,
+                    quantity = ticketQuantity,
                 )
 
             showSelectCompleteDialog(ticketInfo)
@@ -119,17 +119,17 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun decreaseTicketCount() {
-        ticketCount = ticketCount.decrease()
+        ticketQuantity = ticketQuantity.decrease()
         updateTicketCountText()
     }
 
     private fun increaseTicketCount() {
-        ticketCount = ticketCount.increase()
+        ticketQuantity = ticketQuantity.increase()
         updateTicketCountText()
     }
 
     private fun updateTicketCountText() {
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.value.toString()
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.value.toString()
     }
 
     private fun setupDateSpinnerItemClickListener() {
@@ -179,7 +179,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         outState.putInt(TICKET_DATE_KEY, dateSpinner.selectedItemPosition)
         outState.putInt(TICKET_TIME_KEY, timeSpinner.selectedItemPosition)
-        outState.putInt(TICKET_COUNT_KEY, ticketCount.value)
+        outState.putInt(TICKET_COUNT_KEY, ticketQuantity.value)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -187,7 +187,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         val ticketDate = savedInstanceState.getInt(TICKET_DATE_KEY)
         val ticketTime = savedInstanceState.getInt(TICKET_TIME_KEY)
-        ticketCount = TicketCount(savedInstanceState.getInt(TICKET_COUNT_KEY))
+        ticketQuantity = TicketQuantity(savedInstanceState.getInt(TICKET_COUNT_KEY))
 
         dateSpinner.setSelection(ticketDate)
 
@@ -196,7 +196,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         timeSpinner.setSelection(ticketTime)
 
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketCount.toString()
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.toString()
     }
 
     companion object {
