@@ -1,156 +1,149 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/booking"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:orientation="horizontal">
+    android:fitsSystemWindows="true">
 
-    <ImageView
-        android:id="@+id/movie_poster"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/booking"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="430dp"
-        android:layout_gravity="center_horizontal"
-        android:scaleType="centerCrop"
-        android:src="@drawable/sample_poster"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        android:fitsSystemWindows="true"
+        android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.951"
-        app:layout_constraintStart_toStartOf="@+id/movie_poster"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.883">
-
-
-        <TextView
-            android:id="@+id/title"
+        <ImageView
+            android:id="@+id/movie_poster"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:text="영화제목"
-            android:textColor="@color/black"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="430dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/sample_poster"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.58" />
-
-
-        <TextView
-            android:id="@+id/movie_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:text="상영일 : xxxx.x.x ~ xxxx.x.x"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-
-        <TextView
-            android:id="@+id/running_time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:text="러닝타임 : 100분"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-
-        <LinearLayout
-            android:id="@+id/linearLayout2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.81">
+            app:layout_constraintEnd_toEndOf="parent" />
 
-            <Spinner
-                android:id="@+id/selected_date"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1" />
-
-            <Spinner
-                android:id="@+id/movie_time"
-                android:layout_width="wrap_content"
-                android:layout_height="50dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <RelativeLayout
+            android:id="@+id/right_layout"
+            android:layout_width="400dp"
+            android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.89">
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <Button
-                android:id="@+id/minus_button"
-                android:layout_width="wrap_content"
+            <ScrollView
+                android:id="@+id/text_scroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/select_layout"
+                android:fillViewport="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="엄청나게 기이이이ㅣ이이이이이이ㅣ잉이이이이이이ㅣ이이이ㅣㄴ이ㅣㅣ이이이이이이이이인 텍스트입니다"
+                        android:textColor="@color/black"
+                        android:textSize="35sp"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+            </ScrollView>
+
+
+            <LinearLayout
+                android:id="@+id/select_layout"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="-"
-                android:textSize="25sp" />
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:background="@color/white"
+>
 
-            <TextView
-                android:id="@+id/ticket_count"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="0"
-                android:textColor="@color/black"
-                android:textSize="30dp" />
+                <TextView
+                    android:id="@+id/movie_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="상영일 : xxxx.x.x ~ xxxx.x.x"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/plus_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end|end"
-                android:layout_weight="1"
-                android:text="+"
-                android:textSize="25sp" />
+                <TextView
+                    android:id="@+id/running_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="러닝타임 : 100분"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/confirm_button"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginHorizontal="25dp"
-            android:text="선택 완료"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.98" />
+                    <Spinner
+                        android:id="@+id/selected_date"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp" />
 
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <Spinner
+                        android:id="@+id/movie_time"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="50dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
+
+                    <Button
+                        android:id="@+id/minus_button"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="-"
+                        android:textSize="25sp" />
+
+                    <TextView
+                        android:id="@+id/ticket_count"
+                        android:layout_width="130dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@color/black"
+                        android:textSize="30sp" />
+
+                    <Button
+                        android:id="@+id/plus_button"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:textSize="25sp" />
+                </LinearLayout>
+
+
+
+                <Button
+                    android:id="@+id/confirm_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:text="선택 완료"
+                    android:textSize="20sp" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</RelativeLayout>
