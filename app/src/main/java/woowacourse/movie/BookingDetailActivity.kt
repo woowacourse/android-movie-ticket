@@ -38,6 +38,18 @@ class BookingDetailActivity : AppCompatActivity() {
 
         movie = intent.parcelableExtraWithVersion(MOVIE_KEY, Movie::class.java) ?: return finish()
 
+        bindMovie()
+
+        setupDateSpinner(movie)
+        setupTimeSpinner(movie)
+
+        setupDateSpinnerItemClickListener()
+        setupTicketCountClickListeners()
+
+        setupSelectCompleteClickListener(movie)
+    }
+
+    private fun bindMovie() {
         val title = movie.title
         val startDate = movie.startDate
         val endDate = movie.endDate
@@ -51,14 +63,6 @@ class BookingDetailActivity : AppCompatActivity() {
             getString(R.string.movies_movie_running_time, runningTime)
         findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.value.toString()
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(poster)
-
-        setupDateSpinner(movie)
-        setupTimeSpinner(movie)
-
-        setupDateSpinnerItemClickListener()
-        setupTicketCountClickListeners()
-
-        setupSelectCompleteClickListener(movie)
     }
 
     private fun setupView() {
