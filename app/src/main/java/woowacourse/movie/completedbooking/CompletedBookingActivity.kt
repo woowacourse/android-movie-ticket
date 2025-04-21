@@ -1,5 +1,7 @@
 package woowacourse.movie.completedbooking
 
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
@@ -25,10 +27,10 @@ class CompletedBookingActivity : AppCompatActivity() {
 
         val ticket: Ticket =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(Ticket.KEY_TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
+                intent.getParcelableExtra(KEY_TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
             } else {
                 @Suppress("DEPRECATION")
-                intent.getParcelableExtra(Ticket.KEY_TICKET) ?: throw IllegalArgumentException()
+                intent.getParcelableExtra(KEY_TICKET) ?: throw IllegalArgumentException()
             }
 
         setTicketInfo(ticket)
@@ -54,7 +56,15 @@ class CompletedBookingActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val KEY_TICKET = "ticket"
         private const val DEFAULT_PRICE = 13_000
         private const val CANCEL_DEADLINE = 15
+
+        fun newIntent(
+            context: Context,
+            ticket: Ticket,
+        ): Intent {
+            return Intent(context, CompletedBookingActivity::class.java).putExtra(KEY_TICKET, ticket)
+        }
     }
 }

@@ -65,6 +65,7 @@
 - [x] 티켓 예매 완료 화면 UI 테스트 추가
 
 ## 2차 피드백 반영
+- [x] Intent 생성 팩토리 메서드 추가 (+ 키 값)
 - [ ] getParcelableExtra 버전별 대응 확장함수로 변경
 - [ ] text 변경을 ViewHolder에서 하도록 변경
 - [ ] 스피너 기본 index 값 상수화

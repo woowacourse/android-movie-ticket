@@ -1,5 +1,6 @@
 package woowacourse.movie.detailbooking
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -43,10 +44,10 @@ class DetailBookingActivity : AppCompatActivity() {
 
         val movie: Movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent?.getParcelableExtra(Movie.KEY_MOVIE, Movie::class.java) ?: throw IllegalArgumentException()
+                intent?.getParcelableExtra(KEY_MOVIE, Movie::class.java) ?: throw IllegalArgumentException()
             } else {
                 @Suppress("DEPRECATION")
-                intent?.getParcelableExtra(Movie.KEY_MOVIE) ?: throw IllegalArgumentException()
+                intent?.getParcelableExtra(KEY_MOVIE) ?: throw IllegalArgumentException()
             }
 
         val spinnerDate = findViewById<Spinner>(R.id.detail_spinner_date)
@@ -148,9 +149,7 @@ class DetailBookingActivity : AppCompatActivity() {
                 ) ?: return@setOnClickListener
             ReservationDialog(this).popUp(
                 onPositiveClick = {
-                    val intent = Intent(this, CompletedBookingActivity::class.java)
-                    intent.putExtra(Ticket.KEY_TICKET, ticket)
-                    startActivity(intent)
+                    startActivity(CompletedBookingActivity.newIntent(this, ticket))
                 },
             )
         }
@@ -237,10 +236,18 @@ class DetailBookingActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val KEY_MOVIE = "movie"
         private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
         private const val MESSAGE_NOT_ALLOWED_TIME = "다른 날짜를 선택해 주세요"
         private const val DEFAULT_PERSONNEL = 1
+
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent {
+            return Intent(context, DetailBookingActivity::class.java).putExtra(KEY_MOVIE, movie)
+        }
     }
 }

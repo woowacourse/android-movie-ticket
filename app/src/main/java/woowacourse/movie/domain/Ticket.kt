@@ -9,8 +9,4 @@ data class Ticket(
     val title: String,
     val date: LocalDateTime,
     val personnel: Int,
-) : Parcelable {
-    companion object {
-        const val KEY_TICKET = "ticket"
-    }
-}
+) : Parcelable
