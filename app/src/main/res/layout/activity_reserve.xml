@@ -8,45 +8,39 @@
     tools:context=".ReserveActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_movie_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_poster"
-        android:layout_width="0dp"
-        android:layout_height="400dp"
-        android:background="@color/black"
-        android:contentDescription="@string/movie_poster"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_movie_info"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/tl_reserve_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/iv_poster">
+        <ImageView
+            android:id="@+id/iv_poster"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:contentDescription="@string/movie_poster"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@drawable/harrypotter" />
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="27dp"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_poster"
             tools:text="해리포터와 마법사의 돌" />
 
         <TextView
             android:id="@+id/tv_screening_date_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="21dp"
             android:layout_marginTop="29dp"
             android:text="@string/screening_date"
             android:textColor="@color/black"
@@ -87,81 +81,79 @@
             app:layout_constraintTop_toTopOf="@id/tv_running_time_label"
             tools:text="152분" />
 
-
-        <TableLayout
-            android:id="@+id/tl_reserve_info"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:paddingHorizontal="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+        <Spinner
+            android:id="@+id/sp_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toStartOf="@id/sp_time"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cl_movie_info">
+            app:layout_constraintTop_toBottomOf="@id/tv_running_time"
+            />
 
-            <TableRow>
+        <Spinner
+            android:id="@+id/sp_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="37dp"
+            android:layout_weight="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/sp_date"
+            app:layout_constraintTop_toTopOf="@id/sp_date" />
 
-                <Spinner
-                    android:id="@+id/sp_date"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="26dp"
-                    android:layout_weight="1" />
 
-                <Spinner
-                    android:id="@+id/sp_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/btn_minus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:text="@string/minus"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sp_date" />
 
-            </TableRow>
+        <TextView
+            android:id="@+id/tv_ticket_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/btn_minus"
+            app:layout_constraintEnd_toStartOf="@id/btn_plus"
+            app:layout_constraintStart_toEndOf="@id/btn_minus"
+            app:layout_constraintTop_toTopOf="@id/btn_minus"
+            tools:text="2" />
 
-            <TableRow android:layout_marginTop="20dp">
+        <Button
+            android:id="@+id/btn_plus"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:text="@string/plus"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_minus" />
 
-                <Button
-                    android:id="@+id/btn_minus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/minus"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
 
-                <TextView
-                    android:id="@+id/tv_ticket_count"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    tools:text="2" />
-
-                <Button
-                    android:id="@+id/btn_plus"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/plus"
-                    android:textColor="@color/white"
-                    android:textSize="25sp" />
-
-            </TableRow>
-
-            <TableRow android:layout_marginTop="20dp">
-
-                <Button
-                    android:id="@+id/btn_select"
-                    android:layout_width="match_parent"
-                    android:layout_height="55dp"
-                    android:layout_weight="1"
-                    android:text="@string/select_complete"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </TableRow>
-        </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <Button
+            android:id="@+id/btn_select"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_weight="1"
+            android:text="@string/select_complete"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_minus" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
