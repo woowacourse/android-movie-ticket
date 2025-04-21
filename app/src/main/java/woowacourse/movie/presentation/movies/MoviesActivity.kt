@@ -7,9 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Movie.Companion.movies
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
+import woowacourse.movie.presentation.mapper.toUi
+import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.movies.adapter.MoviesAdapter
 
 class MoviesActivity : AppCompatActivity() {
@@ -31,11 +32,11 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun setupMovies() {
-        val moviesAdapter = MoviesAdapter(this, movies) { movie -> bookMovie(movie) }
+        val moviesAdapter = MoviesAdapter(this, movies.map { it.toUi() }) { movie -> bookMovie(movie) }
         findViewById<ListView>(R.id.lv_movies).adapter = moviesAdapter
     }
 
-    private fun bookMovie(movie: Movie) {
+    private fun bookMovie(movie: MovieUiModel) {
         val intent =
             BookingDetailActivity.newIntent(
                 context = this,

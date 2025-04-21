@@ -1,19 +1,13 @@
 package woowacourse.movie.domain.model
 
-import android.os.Parcelable
-import androidx.annotation.DrawableRes
-import kotlinx.parcelize.Parcelize
-import woowacourse.movie.R
 import java.time.LocalDate
 
-@Parcelize
 data class Movie(
-    val title: String = "",
-    val startDate: LocalDate = LocalDate.now(),
-    val endDate: LocalDate = LocalDate.now(),
-    val runningTime: Int = 0,
-    @DrawableRes val poster: Int = 0,
-) : Parcelable {
+    val title: String,
+    val startDate: LocalDate,
+    val endDate: LocalDate,
+    val runningTime: Int,
+) {
     companion object {
         val movies: List<Movie> =
             listOf(
@@ -22,7 +16,6 @@ data class Movie(
                     startDate = LocalDate.of(2025, 4, 1),
                     endDate = LocalDate.of(2025, 4, 25),
                     runningTime = 152,
-                    poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
                 ),
             )
     }

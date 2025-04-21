@@ -1,20 +1,16 @@
 package woowacourse.movie.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
-import java.time.LocalTime
 
-@Parcelize
 data class BookingInfo(
-    val movie: Movie = Movie(),
-    val date: LocalDate = LocalDate.now(),
-    val movieTime: MovieTime = MovieTime(LocalTime.now()),
-    val count: Int = 0,
+    val movie: Movie,
+    val date: LocalDate,
+    val movieTime: MovieTime,
+    val ticketCount: Int,
     val eachPrice: Int = DEFAULT_TICKET_PRICE,
-) : Parcelable {
+) {
     val totalPrice: Int
-        get() = eachPrice * count
+        get() = eachPrice * ticketCount
 
     companion object {
         private const val DEFAULT_TICKET_PRICE = 13_000

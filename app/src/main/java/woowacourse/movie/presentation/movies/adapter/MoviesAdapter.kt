@@ -9,12 +9,12 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.model.MovieUiModel
 
 class MoviesAdapter(
     private val context: Context,
-    private val movies: List<Movie>,
-    private val onBookingClick: (Movie) -> Unit,
+    private val movies: List<MovieUiModel>,
+    private val onBookingClick: (MovieUiModel) -> Unit,
 ) : BaseAdapter() {
     override fun getView(
         position: Int,
@@ -50,7 +50,7 @@ class MoviesAdapter(
         return view
     }
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): MovieUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = 0
 

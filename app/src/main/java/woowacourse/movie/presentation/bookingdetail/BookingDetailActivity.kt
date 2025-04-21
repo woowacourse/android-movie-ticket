@@ -19,21 +19,23 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.DateType
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingdetail.adapter.DateAdapter
 import woowacourse.movie.presentation.bookingdetail.adapter.TimeAdapter
+import woowacourse.movie.presentation.mapper.toDomain
+import woowacourse.movie.presentation.mapper.toUi
+import woowacourse.movie.presentation.model.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
 
 class BookingDetailActivity : AppCompatActivity() {
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
-    private val movie: Movie by lazy { getMovieIntent() }
+    private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
+    private val movieUiModel: MovieUiModel by lazy { getMovieIntent() }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
-    private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
     private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,11 +43,12 @@ class BookingDetailActivity : AppCompatActivity() {
 
         setupView()
 
-        findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = movie.title
+        findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = movieUiModel.title
         findViewById<TextView>(R.id.tv_booking_detail_date).text =
-            getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
-        findViewById<TextView>(R.id.tv_booking_detail_running_time).text = getString(R.string.movies_movie_running_time, movie.runningTime)
-        findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(movie.poster)
+            getString(R.string.movies_movie_date_with_tilde, movieUiModel.startDate, movieUiModel.endDate)
+        findViewById<TextView>(R.id.tv_booking_detail_running_time).text =
+            getString(R.string.movies_movie_running_time, movieUiModel.runningTime)
+        findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(movieUiModel.poster)
         ticketCountView.text = ticketCount.toString()
 
         setupDateSpinner()
@@ -57,11 +60,11 @@ class BookingDetailActivity : AppCompatActivity() {
         setupSelectCompleteClickListener()
     }
 
-    private fun getMovieIntent(): Movie =
+    private fun getMovieIntent(): MovieUiModel =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MOVIE_KEY, Movie::class.java) ?: Movie()
+            intent.getParcelableExtra(MOVIE_KEY, MovieUiModel::class.java) ?: MovieUiModel()
         } else {
-            intent.getParcelableExtra<Movie>(MOVIE_KEY) ?: Movie()
+            intent.getParcelableExtra<MovieUiModel>(MOVIE_KEY) ?: MovieUiModel()
         }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -106,13 +109,13 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun setupDateSpinner() {
-        dateAdapter = DateAdapter(this, movie.startDate, movie.endDate)
+        dateAdapter = DateAdapter(this, movieUiModel.startDate, movieUiModel.endDate)
         dateSpinner.adapter = dateAdapter
     }
 
     private fun setupTimeSpinner() {
         timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(movie.startDate))
+        timeAdapter.updateTimes(DateType.from(movieUiModel.startDate))
         timeSpinner.adapter = timeAdapter
     }
 
@@ -183,11 +186,11 @@ class BookingDetailActivity : AppCompatActivity() {
                 context = this,
                 bookingInfo =
                     BookingInfo(
-                        movie = movie,
+                        movie = movieUiModel.toDomain(),
                         date = selectedDate,
                         movieTime = selectedTime,
-                        count = ticketCount,
-                    ),
+                        ticketCount = ticketCount,
+                    ).toUi(),
             )
 
         startActivity(intent)
@@ -202,7 +205,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         fun newIntent(
             context: Context,
-            movie: Movie,
+            movie: MovieUiModel,
         ): Intent =
             Intent(context, BookingDetailActivity::class.java).apply {
                 putExtra(MOVIE_KEY, movie)

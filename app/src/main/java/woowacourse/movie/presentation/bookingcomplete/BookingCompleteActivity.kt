@@ -13,9 +13,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
+import woowacourse.movie.presentation.mapper.toDomain
+import woowacourse.movie.presentation.model.BookingInfoUiModel
 
 class BookingCompleteActivity : AppCompatActivity() {
-    private val bookingInfo: BookingInfo by lazy { getMovieInfoIntent() }
+    private val bookingInfoUiModel: BookingInfoUiModel by lazy { getMovieInfoIntent() }
+    private val bookingInfo: BookingInfo by lazy { bookingInfoUiModel.toDomain() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +31,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
             getString(R.string.booking_complete_movie_date_time, bookingInfo.date, bookingInfo.movieTime)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
-            getString(R.string.booking_complete_ticket_count, bookingInfo.count)
+            getString(R.string.booking_complete_ticket_count, bookingInfo.ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
@@ -38,11 +41,11 @@ class BookingCompleteActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getMovieInfoIntent(): BookingInfo =
+    private fun getMovieInfoIntent(): BookingInfoUiModel =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(BOOKING_INFO_KEY, BookingInfo::class.java) ?: BookingInfo()
+            intent.getParcelableExtra(BOOKING_INFO_KEY, BookingInfoUiModel::class.java) ?: BookingInfoUiModel()
         } else {
-            intent.getParcelableExtra<BookingInfo>(BOOKING_INFO_KEY) ?: BookingInfo()
+            intent.getParcelableExtra<BookingInfoUiModel>(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
         }
 
     private fun setupView() {
@@ -61,7 +64,7 @@ class BookingCompleteActivity : AppCompatActivity() {
 
         fun newIntent(
             context: Context,
-            bookingInfo: BookingInfo,
+            bookingInfo: BookingInfoUiModel,
         ): Intent =
             Intent(context, BookingCompleteActivity::class.java).apply {
                 putExtra(BOOKING_INFO_KEY, bookingInfo)
