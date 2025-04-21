@@ -11,7 +11,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/fullContent"
+            android:id="@+id/linearlayout_full_content"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -22,7 +22,7 @@
             app:layout_constraintDimensionRatio="1:2">
 
             <ImageView
-                android:id="@+id/poster"
+                android:id="@+id/imageview_poster"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -36,7 +36,7 @@
                 android:padding="25dp">
 
                 <TextView
-                    android:id="@+id/title"
+                    android:id="@+id/textview_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -44,13 +44,13 @@
                     android:paddingBottom="20dp" />
 
                 <TextView
-                    android:id="@+id/screeningDate"
+                    android:id="@+id/textview_screeningdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/runningTime"
+                    android:id="@+id/textview_runningtime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20sp"
@@ -62,13 +62,13 @@
                     android:orientation="horizontal">
 
                     <Spinner
-                        android:id="@+id/dateSpinner"
+                        android:id="@+id/spinner_date"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
 
                     <Spinner
-                        android:id="@+id/timeSpinner"
+                        android:id="@+id/spinner_time"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1" />
@@ -82,14 +82,14 @@
                     android:gravity="center_vertical">
 
                     <Button
-                        android:id="@+id/decrease"
+                        android:id="@+id/button_decrease"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@string/decrease_sign" />
 
                     <TextView
-                        android:id="@+id/headCount"
+                        android:id="@+id/textview_headcount"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
@@ -98,7 +98,7 @@
                         android:textSize="18sp" />
 
                     <Button
-                        android:id="@+id/increase"
+                        android:id="@+id/button_increase"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -106,7 +106,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/select"
+                    android:id="@+id/button_select"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="10dp"

@@ -20,10 +20,10 @@ class BookingSummaryActivity : BaseActivity() {
     private fun displayBookingSummary() {
         val movieTicket = intent.intentSerializable(IntentKeys.TICKET, MovieTicket::class.java)
             ?: throw IllegalArgumentException(TICKET_INTENT_ERROR)
-        val title = findViewById<TextView>(R.id.title)
-        val screeningDateTime = findViewById<TextView>(R.id.screeningDateTime)
-        val headCount = findViewById<TextView>(R.id.headCount)
-        val amount = findViewById<TextView>(R.id.amount)
+        val title = findViewById<TextView>(R.id.textview_title)
+        val screeningDateTime = findViewById<TextView>(R.id.textview_screeningdatetime)
+        val headCount = findViewById<TextView>(R.id.textview_headcount)
+        val amount = findViewById<TextView>(R.id.textview_amount)
 
         title.text = movieTicket.title
         screeningDateTime.text = formatDateTime(movieTicket.screeningDateTime)

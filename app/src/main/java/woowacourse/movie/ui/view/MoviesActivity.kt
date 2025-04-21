@@ -15,7 +15,7 @@ class MoviesActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(layoutRes)
-        val listView = findViewById<ListView>(R.id.movies)
+        val listView = findViewById<ListView>(R.id.listview_movies)
         listView.adapter = movieAdapter
     }
 

@@ -32,7 +32,7 @@ class BookingActivity : BaseActivity() {
     private var headCount: Int = DEFAULT_HEADCOUNT
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
-    private val headCountView: TextView by lazy { findViewById(R.id.headCount) }
+    private val headCountView: TextView by lazy { findViewById(R.id.textview_headcount) }
     private var confirmDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,28 +74,28 @@ class BookingActivity : BaseActivity() {
     }
 
     private fun displayMovieInfo() {
-        val poster = findViewById<ImageView>(R.id.poster)
+        val poster = findViewById<ImageView>(R.id.imageview_poster)
         poster.setImageResource(movie.posterRes)
 
-        val title = findViewById<TextView>(R.id.title)
+        val title = findViewById<TextView>(R.id.textview_title)
         title.text = movie.title
 
-        val screeningDate = findViewById<TextView>(R.id.screeningDate)
+        val screeningDate = findViewById<TextView>(R.id.textview_screeningdate)
         screeningDate.text =
             getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
 
-        val runningTime = findViewById<TextView>(R.id.runningTime)
+        val runningTime = findViewById<TextView>(R.id.textview_runningtime)
         runningTime.text = getString(R.string.runningTime_text, movie.runningTime.toString())
     }
 
     private fun bindHeadCountButtonListeners() {
         updateHeadCount()
-        val increaseBtn = findViewById<Button>(R.id.increase)
+        val increaseBtn = findViewById<Button>(R.id.button_increase)
         increaseBtn.setOnClickListener {
             headCount++
             updateHeadCount()
         }
-        val decreaseBtn = findViewById<Button>(R.id.decrease)
+        val decreaseBtn = findViewById<Button>(R.id.button_decrease)
         decreaseBtn.setOnClickListener {
             if (headCount > DEFAULT_HEADCOUNT) {
                 headCount--
@@ -105,7 +105,7 @@ class BookingActivity : BaseActivity() {
     }
 
     private fun bindSelectButtonListener() {
-        val selectBtn = findViewById<Button>(R.id.select)
+        val selectBtn = findViewById<Button>(R.id.button_select)
         selectBtn.setOnClickListener {
             showConfirmDialog()
         }
@@ -113,7 +113,7 @@ class BookingActivity : BaseActivity() {
 
     private fun setupDateSpinner() {
         val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
-        val dateSpinner = findViewById<Spinner>(R.id.dateSpinner)
+        val dateSpinner = findViewById<Spinner>(R.id.spinner_date)
         val dates = movieScheduler.getBookableDates()
 
         dateSpinner.adapter = ArrayAdapter(
@@ -141,7 +141,7 @@ class BookingActivity : BaseActivity() {
     }
 
     private fun setupTimeSpinner(movieScheduler: MovieScheduler, selectedDate: LocalDate) {
-        val timeSpinner = findViewById<Spinner>(R.id.timeSpinner)
+        val timeSpinner = findViewById<Spinner>(R.id.spinner_time)
         val times = movieScheduler.getBookableTimes(selectedDate)
 
         timeSpinner.adapter = ArrayAdapter(

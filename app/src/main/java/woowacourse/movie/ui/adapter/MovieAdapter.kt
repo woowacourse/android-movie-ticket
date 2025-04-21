@@ -42,11 +42,11 @@ class MovieAdapter(
     }
 
     private inner class MovieViewHolder(view: View) {
-        private val poster: ImageView = view.findViewById(R.id.poster)
-        private val title: TextView = view.findViewById(R.id.title)
-        private val screeningDate: TextView = view.findViewById(R.id.screeningDate)
-        private val runningTime: TextView = view.findViewById(R.id.runningTime)
-        private val reservationBtn: Button = view.findViewById(R.id.reservation)
+        private val poster: ImageView = view.findViewById(R.id.imageview_poster)
+        private val title: TextView = view.findViewById(R.id.textview_title)
+        private val screeningDate: TextView = view.findViewById(R.id.textview_screeningdate)
+        private val runningTime: TextView = view.findViewById(R.id.textview_runningtime)
+        private val reservationBtn: Button = view.findViewById(R.id.button_book)
 
         fun bind(movie: Movie) {
             title.text = movie.title
