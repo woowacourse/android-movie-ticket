@@ -5,9 +5,7 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationCompleteActivity
@@ -16,9 +14,6 @@ import woowacourse.movie.uiTest.fixture.fakeContext
 import java.time.LocalDateTime
 
 class ReservationCompleteActivityTest {
-    @get:Rule
-    val activityRule = ActivityScenarioRule(ReservationCompleteActivity::class.java)
-
     private val ticket =
         Ticket(
             "해리 포터와 마법사의 돌",

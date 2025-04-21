@@ -5,13 +5,12 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
@@ -21,9 +20,6 @@ import woowacourse.movie.uiTest.fixture.fakeContext
 import java.time.LocalDate
 
 class ReservationActivityTest {
-    @get:Rule
-    val activityRule = ActivityScenarioRule(ReservationActivity::class.java)
-
     private lateinit var scenario: ActivityScenario<ReservationActivity>
     private val movie =
         Movie(
@@ -112,5 +108,40 @@ class ReservationActivityTest {
 
         onView(withId(R.id.tv_personnel))
             .check(matches(withText("3")))
+    }
+
+    @Test
+    fun `화면을_회전해도_플러스_버튼을_클릭할_수_있다`() {
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.root_layout_reservation))
+            .perform(swipeUp())
+
+        onView(withId(R.id.btn_plus_button))
+            .perform(click())
+            .perform(click())
+
+        onView(withId(R.id.tv_personnel))
+            .check(matches(withText("3")))
+    }
+
+    @Test
+    fun `화면을_회전해도_예매버튼을_클릭할_수_있다`() {
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        onView(withId(R.id.root_layout_reservation))
+            .perform(swipeUp())
+
+        onView(withId(R.id.btn_reservation))
+            .perform(click())
+
+        onView(withText("예매 확인")).check(matches(isDisplayed()))
+        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+        onView(withText("예매 완료")).check(matches(isDisplayed()))
+        onView(withText("취소")).check(matches(isDisplayed()))
     }
 }
