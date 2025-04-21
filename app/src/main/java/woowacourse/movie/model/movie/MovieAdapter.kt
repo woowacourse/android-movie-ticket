@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.movie
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import woowacourse.movie.BookingActivity
+import woowacourse.movie.ui.booking.BookingActivity
 import woowacourse.movie.R
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.Keys

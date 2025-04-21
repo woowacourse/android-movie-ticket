@@ -3,6 +3,7 @@ package woowacourse.movie.model
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.model.movie.Movie
 import java.time.LocalDate
 
 class MovieTest {

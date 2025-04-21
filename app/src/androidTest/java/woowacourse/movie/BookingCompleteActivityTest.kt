@@ -13,7 +13,8 @@ import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.model.BookingResult
+import woowacourse.movie.model.booking.BookingResult
+import woowacourse.movie.ui.booking.BookingCompleteActivity
 import woowacourse.movie.util.Keys
 
 class BookingCompleteActivityTest {

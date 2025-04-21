@@ -1,5 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.booking
 
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.util.DateTimeUtil
 import java.time.DayOfWeek
 import java.time.LocalDate

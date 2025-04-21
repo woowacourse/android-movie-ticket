@@ -4,6 +4,8 @@ import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.R
+import woowacourse.movie.model.booking.Booking
+import woowacourse.movie.model.movie.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 

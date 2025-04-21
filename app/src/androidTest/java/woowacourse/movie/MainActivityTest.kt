@@ -19,7 +19,9 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.ui.MainActivity
+import woowacourse.movie.ui.booking.BookingActivity
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
