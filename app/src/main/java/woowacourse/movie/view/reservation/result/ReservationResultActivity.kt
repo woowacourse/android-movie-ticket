@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation.result
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -92,6 +93,15 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
     companion object {
         private const val CANCELLATION_TIME = 15
         private const val RESERVATION_DATETIME_FORMAT = "yyyy.M.d HH:mm"
-        const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
+        private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
+
+        fun newIntent(
+            context: Context,
+            reservationInfo: ReservationInfo,
+        ): Intent =
+            Intent(context, ReservationResultActivity::class.java).putExtra(
+                BUNDLE_KEY_RESERVATION_INFO,
+                reservationInfo,
+            )
     }
 }

@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movies
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
@@ -23,11 +22,7 @@ class MoviesActivity : BaseActivity(R.layout.activity_movies) {
                 movies,
                 object : OnMovieEventListener {
                     override fun onReserveButtonClick(movie: Movie) {
-                        val intent =
-                            Intent(this@MoviesActivity, ReservationActivity::class.java).putExtra(
-                                ReservationActivity.BUNDLE_KEY_MOVIE,
-                                movie,
-                            )
+                        val intent = ReservationActivity.newIntent(this@MoviesActivity, movie)
                         startActivity(intent)
                     }
                 },
