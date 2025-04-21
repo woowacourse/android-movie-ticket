@@ -204,7 +204,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
         timeSpinner.setSelection(ticketTime)
 
-        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.toString()
+        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.value.toString()
     }
 
     companion object {
