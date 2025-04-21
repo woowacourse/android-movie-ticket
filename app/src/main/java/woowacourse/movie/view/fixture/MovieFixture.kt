@@ -8,6 +8,7 @@ import java.time.LocalDate
 
 val dummyMovie =
     Movie(
+        1,
         "해리 포터와 마법사의 돌",
         R.drawable.harrypotter.toString(),
         ScreeningPeriod(

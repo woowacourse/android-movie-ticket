@@ -10,7 +10,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.CoreMatchers.not
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
@@ -24,6 +23,7 @@ class ReservationActivityTest {
     private lateinit var scenario: ActivityScenario<ReservationActivity>
     private val fakeMovie =
         Movie(
+            1,
             "해리 포터와 마법사의 돌",
             R.drawable.harrypotter.toString(),
             ScreeningPeriod(

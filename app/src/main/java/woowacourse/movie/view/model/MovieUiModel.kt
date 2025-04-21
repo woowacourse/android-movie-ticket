@@ -8,12 +8,13 @@ import woowacourse.movie.domain.model.ScreeningPeriod
 
 @Parcelize
 data class MovieUiModel(
+    val id: Long,
     val title: String,
     val poster: String,
     val screeningPeriod: ScreeningPeriod,
     val runningTime: Int,
 ) : Parcelable
 
-fun Movie.toUiModel(): MovieUiModel = MovieUiModel(title, poster, screeningPeriod, runningTime.minute)
+fun Movie.toUiModel(): MovieUiModel = MovieUiModel(id, title, poster, screeningPeriod, runningTime.minute)
 
-fun MovieUiModel.toModel(): Movie = Movie(title, poster, screeningPeriod, RunningTime(runningTime))
+fun MovieUiModel.toModel(): Movie = Movie(id, title, poster, screeningPeriod, RunningTime(runningTime))

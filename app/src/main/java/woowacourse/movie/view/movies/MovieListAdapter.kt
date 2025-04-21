@@ -15,7 +15,7 @@ class MovieListAdapter(
 
     override fun getItem(position: Int): Movie = movies[position]
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun getItemId(position: Int): Long = movies[position].id
 
     override fun getView(
         position: Int,
