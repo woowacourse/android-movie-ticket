@@ -13,6 +13,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.newIntent
+import woowacourse.movie.presentation.mapper.toUi
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -33,12 +34,11 @@ class BookingCompleteActivityTest {
                                 startDate = LocalDate.of(2025, 4, 1),
                                 endDate = LocalDate.of(2025, 4, 25),
                                 runningTime = 152,
-                                poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
                             ),
                         date = LocalDate.of(2025, 4, 1),
                         movieTime = MovieTime(LocalTime.of(9, 0)),
-                        count = 1,
-                    ),
+                        ticketCount = 1,
+                    ).toUi(),
             )
 
         activityScenario = ActivityScenario.launch(intent)

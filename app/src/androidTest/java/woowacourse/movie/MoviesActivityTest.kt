@@ -19,6 +19,7 @@ import org.junit.Test
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.MOVIE_KEY
+import woowacourse.movie.presentation.mapper.toUi
 import woowacourse.movie.presentation.movies.MoviesActivity
 import java.time.LocalDate
 
@@ -53,8 +54,7 @@ class MoviesActivityTest {
                         startDate = LocalDate.of(2025, 4, 1),
                         endDate = LocalDate.of(2025, 4, 25),
                         runningTime = 152,
-                        poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
-                    ),
+                    ).toUi(),
                 ),
             ),
         )

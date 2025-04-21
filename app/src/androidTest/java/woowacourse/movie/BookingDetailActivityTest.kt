@@ -29,6 +29,7 @@ import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.BOOKING_INFO_KEY
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.newIntent
+import woowacourse.movie.presentation.mapper.toUi
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -47,21 +48,20 @@ class BookingDetailActivityTest {
                         startDate = LocalDate.of(2025, 4, 1),
                         endDate = LocalDate.of(2025, 4, 25),
                         runningTime = 152,
-                        poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
-                    ),
+                    ).toUi(),
             )
 
         activityScenario = ActivityScenario.launch(intent)
     }
 
     @Test
-    fun 선택한_날이_평일이면_기본_시간은_9시로_설정된다() {
+    fun 선택한_날이_평일이면_기본_시간은_10시로_설정된다() {
         onView(withId(R.id.sp_booking_detail_time))
-            .check(matches(withSpinnerText("09:00")))
+            .check(matches(withSpinnerText("10:00")))
     }
 
     @Test
-    fun 선택한_날이_주말이면_기본_시간은_10시로_설정된다() {
+    fun 선택한_날이_주말이면_기본_시간은_9시로_설정된다() {
         onView(withId(R.id.sp_booking_detail_date))
             .perform(click())
 
@@ -70,7 +70,7 @@ class BookingDetailActivityTest {
             .perform(click())
 
         onView(withId(R.id.sp_booking_detail_time))
-            .check(matches(withSpinnerText("10:00")))
+            .check(matches(withSpinnerText("09:00")))
     }
 
     @Test
@@ -161,12 +161,11 @@ class BookingDetailActivityTest {
                                 startDate = LocalDate.of(2025, 4, 1),
                                 endDate = LocalDate.of(2025, 4, 25),
                                 runningTime = 152,
-                                poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
                             ),
                         date = LocalDate.parse("2025-04-01"),
-                        movieTime = MovieTime(LocalTime.parse("09:00")),
-                        count = 1,
-                    ),
+                        movieTime = MovieTime(LocalTime.parse("10:00")),
+                        ticketCount = 1,
+                    ).toUi(),
                 ),
             ),
         )
@@ -201,7 +200,7 @@ class BookingDetailActivityTest {
             .check(matches(withSpinnerText("2025-04-02")))
 
         onView(withId(R.id.sp_booking_detail_time))
-            .check(matches(withSpinnerText("11:00")))
+            .check(matches(withSpinnerText("12:00")))
 
         onView(withId(R.id.tv_booking_detail_count))
             .check(matches(withText("1")))
