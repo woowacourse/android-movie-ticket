@@ -61,7 +61,14 @@ class ReservationActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun getSelectedMovieData(): Movie = intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY) ?: Movie.value
+    private fun getSelectedMovieData(): Movie =
+        try {
+            val movie: Movie? = intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY)
+            movie ?: throw IllegalStateException("유효하지 않은 영화입니다.")
+        } catch (e: Exception) {
+            showErrorDialog(e.message.toString())
+            Movie.value
+        }
 
     private fun setupMovieReservationInfo() {
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
@@ -181,26 +188,20 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun showReservationDialog(
-        title: String,
-        message: String,
-    ) {
-        if (reservationDialog == null) {
-            reservationDialog =
-                AlertDialog
-                    .Builder(this)
-                    .setTitle(title)
-                    .setMessage(message)
-                    .setCancelable(false)
-                    .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
-                        dialog.dismiss()
-                    }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
-                        val intent = movieTicketIntent()
-                        startActivity(intent)
-                        finish()
-                        dialog.dismiss()
-                    }.create()
-        }
+    private fun showErrorDialog(message: String) {
+        AlertDialog
+            .Builder(this)
+            .setTitle("에러 발생")
+            .setMessage(message)
+            .setCancelable(false)
+            .setNegativeButton("뒤로가기") { dialog, _ ->
+                val intent = Intent(this, MoviesActivity::class.java)
+                startActivity(intent)
+                finish()
+                dialog.dismiss()
+            }.create()
+            .show()
+    }
 
     private fun showReservationDialog(
         title: String,
