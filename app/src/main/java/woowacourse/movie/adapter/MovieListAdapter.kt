@@ -13,30 +13,31 @@ import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
 import woowacourse.movie.domain.MovieInfo
 
-class MovieListAdapter(context: Context, items: MutableList<MovieInfo>) :
-    ArrayAdapter<MovieInfo>(context, 0, items) {
+class MovieListAdapter(
+    context: Context,
+    items: MutableList<MovieInfo>,
+) : ArrayAdapter<MovieInfo>(context, 0, items) {
     override fun getView(
         position: Int,
         convertView: View?,
         parent: ViewGroup,
     ): View {
         val view =
-            convertView ?: LayoutInflater.from(context)
+            convertView ?: LayoutInflater
+                .from(context)
                 .inflate(R.layout.movie_list_item, parent, false)
 
         val item = getItem(position)
         val image = view.findViewById<ImageView>(R.id.movie_image)
         val title = view.findViewById<TextView>(R.id.title)
-        val startDate = view.findViewById<TextView>(R.id.start_date)
-        val endDate = view.findViewById<TextView>(R.id.end_date)
+        val movieDate = view.findViewById<TextView>(R.id.movie_date)
         val runningTime = view.findViewById<TextView>(R.id.running_time)
 
         item?.let {
             image.setImageResource(it.poster)
             title.text = it.title
-            startDate.text = it.startDate
-            endDate.text = it.endDate
-            runningTime.text = it.runningTime
+            movieDate.text = String.format(context.resources.getString(R.string.movie_date), it.startDate, it.endDate)
+            runningTime.text = String.format(context.resources.getString(R.string.running_time), it.runningTime)
         }
 
         val button = view.findViewById<Button>(R.id.reservation_button)

@@ -20,13 +20,13 @@ class MainActivityTest {
 
     @Test
     fun `화면에_해리포터_영화의_상영날짜가_표시된다`() {
-        onView(withId(R.id.start_date))
-            .check(matches(withText("2025.4.1")))
+        onView(withId(R.id.movie_date))
+            .check(matches(withText("상영일 : 2025.4.1 ~ 2025.4.25")))
     }
 
     @Test
     fun `화면에_해리포터_영화의_러닝타임이_표시된다`() {
         onView(withId(R.id.running_time))
-            .check(matches(withText("152분")))
+            .check(matches(withText("러닝타임 : 152분")))
     }
 }

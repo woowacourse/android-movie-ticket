@@ -13,7 +13,7 @@ data class MovieInfo(
     val title: String,
     val startDate: String,
     val endDate: String,
-    val runningTime: String,
+    val runningTime: Int,
 ) : Parcelable {
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
 

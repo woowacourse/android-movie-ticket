@@ -36,30 +36,13 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/movie_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="상영일: "
+                android:text="상영일: xxxx.x.x~xxxx.x.x"
                 android:textSize="13sp"/>
 
-            <TextView
-                android:id="@+id/start_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20xx.2.10"
-                android:textSize="13sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" ~ "
-                android:textSize="13sp"/>
-
-            <TextView
-                android:id="@+id/end_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="20xx.2.15"
-                android:textSize="13sp"/>
 
         </LinearLayout>
 
@@ -68,16 +51,10 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="러닝타임: "
-                android:textSize="13sp"/>
-
-            <TextView
                 android:id="@+id/running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="100분"
+                android:text="러닝타임 : 100분"
                 android:textSize="13sp"/>
 
         </LinearLayout>

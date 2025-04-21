@@ -24,7 +24,7 @@ class BookingActivityTest {
 
     @Before
     fun setupIntent() {
-        val movieInfo = MovieInfo(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", "152분")
+        val movieInfo = MovieInfo(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", 152)
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
@@ -61,7 +61,7 @@ class BookingActivityTest {
 
     @Test
     fun `평일_날짜를_선택하면_10시부터_상영이_시작된다`() {
-        onView(withId(R.id.movie_date))
+        onView(withId(R.id.selected_date))
             .perform(click())
 
         onData(anything())
@@ -74,7 +74,7 @@ class BookingActivityTest {
 
     @Test
     fun `주말_날짜를_선택하면_9시부터_상영이_시작된다`() {
-        onView(withId(R.id.movie_date))
+        onView(withId(R.id.selected_date))
             .perform(click())
 
         onData(anything())
@@ -88,7 +88,7 @@ class BookingActivityTest {
     @Test
     fun `화면이_회전되어도_입력된_정보가_유지된다`() {
         // given
-        onView(withId(R.id.movie_date))
+        onView(withId(R.id.selected_date))
             .perform(click())
 
         onData(anything())
@@ -109,7 +109,7 @@ class BookingActivityTest {
         onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
 
         // then
-        onView(withId(R.id.movie_date))
+        onView(withId(R.id.selected_date))
             .check(matches(withSpinnerText("2025.4.2")))
 
         onView(withId(R.id.movie_time))

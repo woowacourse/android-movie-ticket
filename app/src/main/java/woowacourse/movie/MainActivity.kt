@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                     "해리 포터와 마법사의 돌",
                     "2025.4.1",
                     "2025.4.25",
-                    "152분",
+                    152,
                 ),
             )
 

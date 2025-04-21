@@ -17,20 +17,18 @@ import woowacourse.movie.domain.Ticket
 class BookingActivity : AppCompatActivity() {
     private var movieInfo: MovieInfo? = null
     private lateinit var movieTime: Spinner
-    private lateinit var movieDate: Spinner
-    private lateinit var startDate: TextView
-    private lateinit var endDate: TextView
+    private lateinit var selectedDate: Spinner
     private lateinit var ticketCount: TextView
+    private lateinit var movieDate: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
 
-        startDate = findViewById(R.id.start_date)
-        endDate = findViewById(R.id.end_date)
-        movieDate = findViewById(R.id.movie_date)
+        selectedDate = findViewById(R.id.selected_date)
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
+        movieDate = findViewById(R.id.movie_date)
 
         setupPage()
         setupDateChangeListener()
@@ -45,13 +43,13 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         outState.putString(KEY_TICKET_COUNT, ticketCount.text.toString())
-        outState.putInt(KEY_MOVIE_DATE_POSITION, movieDate.selectedItemPosition)
+        outState.putInt(KEY_MOVIE_DATE_POSITION, selectedDate.selectedItemPosition)
         outState.putInt(KEY_MOVIE_TIME_POSITION, movieTime.selectedItemPosition)
     }
 
     private fun repairInstanceState(state: Bundle) {
-        movieDate.setSelection(state.getInt(KEY_MOVIE_DATE_POSITION))
-        movieDate.post {
+        selectedDate.setSelection(state.getInt(KEY_MOVIE_DATE_POSITION))
+        selectedDate.post {
             movieTime.post {
                 movieTime.setSelection(state.getInt(KEY_MOVIE_TIME_POSITION))
             }
@@ -69,11 +67,15 @@ class BookingActivity : AppCompatActivity() {
         movieInfo?.let { info ->
             poster.setImageResource(info.poster)
             title.text = info.title
-            startDate.text = info.startDate
-            endDate.text = info.endDate
-            runningTime.text = info.runningTime
+            movieDate.text =
+                String.format(
+                    resources.getString(R.string.movie_date),
+                    info.startDate,
+                    info.endDate,
+                )
+            runningTime.text = String.format(resources.getString(R.string.running_time), info.runningTime)
 
-            SpinnerAdapter.bind(this, movieDate, info.getDates())
+            SpinnerAdapter.bind(this, selectedDate, info.getDates())
             SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
         } ?: run {
             Toast.makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT).show()
@@ -82,7 +84,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun setupDateChangeListener() {
-        movieDate.onItemSelectedListener =
+        selectedDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -130,7 +132,7 @@ class BookingActivity : AppCompatActivity() {
         val ticket =
             Ticket(
                 title = findViewById<TextView>(R.id.title).text.toString(),
-                date = movieDate.selectedItem.toString(),
+                date = selectedDate.selectedItem.toString(),
                 time = movieTime.selectedItem.toString(),
                 count = ticketCount.text.toString(),
                 money = (ticketCount.text.toString().toInt() * TICKET_PRICE).toString(),
