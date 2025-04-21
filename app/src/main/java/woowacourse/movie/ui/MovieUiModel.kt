@@ -23,7 +23,7 @@ data class MovieUiModel(
                 title = movie.title,
                 startDate = movie.startDate.toString(),
                 endDate = movie.endDate.toString(),
-                runningTime = "${movie.runningTime.toMinutes()}"
+                runningTime = "${movie.runningTime.toMinutes()}분"
             )
         }
     }

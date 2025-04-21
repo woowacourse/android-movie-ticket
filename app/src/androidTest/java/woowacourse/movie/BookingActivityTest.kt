@@ -17,21 +17,23 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.Matchers.anything
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.ui.MovieUiModel
+import woowacourse.movie.domain.Movie
+import java.time.Duration
+import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
 
     @Before
     fun setupIntent() {
-        val movieUiModel = MovieUiModel(R.drawable.harry_potter_poster, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", "152분")
+        val movie = Movie("해리 포터와 마법사의 돌", LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25), Duration.ofMinutes(152))
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
-                putExtra("MOVIE_INFO", movieUiModel)
+                putExtra("MOVIE_INFO", movie)
             }
 
-        scenario = ActivityScenario.launch<BookingActivity>(intent)
+        scenario = ActivityScenario.launch(intent)
         onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
     }
 
