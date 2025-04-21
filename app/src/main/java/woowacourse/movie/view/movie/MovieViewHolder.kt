@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.StringFormatter.periodFormat
+import woowacourse.movie.utils.StringFormatter.periodFormat
 
 class MovieViewHolder(
     var position: Int,

@@ -11,7 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
-import woowacourse.movie.view.StringFormatter.thousandFormat
+import woowacourse.movie.utils.StringFormatter.thousandFormat
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

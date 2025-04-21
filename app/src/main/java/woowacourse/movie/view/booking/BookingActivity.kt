@@ -20,7 +20,7 @@ import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
-import woowacourse.movie.view.StringFormatter.dotDateFormat
+import woowacourse.movie.utils.StringFormatter.dotDateFormat
 import java.time.LocalDate
 import java.time.LocalDateTime
 
