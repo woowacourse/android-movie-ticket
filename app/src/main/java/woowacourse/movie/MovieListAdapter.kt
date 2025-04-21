@@ -1,17 +1,13 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.content.res.AppCompatResources
-import woowacourse.movie.MovieTicketActivity.Companion.KEY_MOVIE
 import woowacourse.movie.domain.Movie
-import java.time.format.DateTimeFormatter
+
 
 class MovieListAdapter(
     private val value: List<Movie>,

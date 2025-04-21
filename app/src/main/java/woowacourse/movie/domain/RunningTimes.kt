@@ -1,6 +1,5 @@
 package woowacourse.movie.domain
 
-import android.util.Log
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime

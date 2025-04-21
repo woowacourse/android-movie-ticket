@@ -3,10 +3,7 @@ package woowacourse.movie.domain
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.R
-import java.time.LocalDate
-import java.time.LocalDateTime
 import kotlin.IllegalArgumentException
-import kotlin.time.Duration.Companion.minutes
 
 @Parcelize
 data class Movies(

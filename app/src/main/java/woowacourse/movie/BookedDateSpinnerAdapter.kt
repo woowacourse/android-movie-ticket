@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class BookedDateSpinnerAdapter(val value: List<LocalDate>) : BaseAdapter() {
     override fun getCount(): Int {
