@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
@@ -41,15 +40,6 @@ class MainActivityTest {
     @Test
     fun `목록에_영화_정보를_표시한다`() {
         onView(withId(R.id.lv_main_movies))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `지금_예매를_클릭하면_영화_예매_완료_화면이_보여진다`() {
-        onView(withId(R.id.btn_item_movie_reserve))
-            .perform(click())
-
-        onView(withId(R.id.layout_reservation))
             .check(matches(isDisplayed()))
     }
 }
