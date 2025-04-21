@@ -23,6 +23,10 @@ class BookingCompleteActivity : AppCompatActivity() {
         ticketInfo = intent.parcelableExtraWithVersion(TICKET_INFO_KEY, TicketInfo::class.java)
             ?: return finish()
 
+        bindTicketInfo()
+    }
+
+    private fun bindTicketInfo() {
         val title = ticketInfo.movie.title
         val date = ticketInfo.date
         val time = ticketInfo.time
