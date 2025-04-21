@@ -68,7 +68,35 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun `티켓_인원수를_버튼으로_증감시킬_수_있다`() {
+    fun `티켓_인원수의_기본값이_표시된다`() {
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("1")))
+    }
+
+    @Test
+    fun `티켓_인원수를_버튼으로_증가시킬_수_있다`() {
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("1")))
+
+        onView(withId(R.id.btn_reservation_plus))
+            .perform(click())
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun `티켓_인원수는_기본값_이하로_감소시킬_수_없다`() {
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("1")))
+
+        onView(withId(R.id.btn_reservation_minus))
+            .perform(click())
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("1")))
+    }
+
+    @Test
+    fun `티켓_인원수를_버튼으로_감소시킬_수_있다`() {
         onView(withId(R.id.tv_reservation_audience_count))
             .check(matches(withText("1")))
 
