@@ -7,6 +7,8 @@
 
     <string name="reservation_complete_ticket_count">일반 %d명</string>
     <string name="reservation_complete_ticket_price">%s원 (현장 결제)</string>
+    <string name="reservation_error_dialog_title">에러 발생</string>
+    <string name="reservation_error_dialog_confirm">뒤로 가기</string>
     <string name="reservation_dialog_title">예매 확인</string>
     <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reservation_dialog_cancel">취소</string>

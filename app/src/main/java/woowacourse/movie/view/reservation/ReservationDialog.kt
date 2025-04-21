@@ -3,6 +3,7 @@ package woowacourse.movie.view.reservation
 import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
+import woowacourse.movie.R
 
 class ReservationDialog {
     private var reservationDialog: AlertDialog? = null
@@ -11,7 +12,7 @@ class ReservationDialog {
         context: Context,
         title: String,
         message: String,
-        negativeClick: (DialogInterface) -> Unit,
+        negativeClick: ((DialogInterface) -> Unit)?,
         positiveClick: (DialogInterface) -> Unit,
     ) {
         if (reservationDialog == null) {
@@ -25,17 +26,28 @@ class ReservationDialog {
         context: Context,
         title: String,
         message: String,
-        negativeClick: (DialogInterface) -> Unit,
+        negativeClick: ((DialogInterface) -> Unit)?,
         positiveClick: (DialogInterface) -> Unit,
     ): AlertDialog =
-        AlertDialog
-            .Builder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setCancelable(false)
-            .setNegativeButton("adsasd") { dialog, _ ->
-                negativeClick(dialog)
-            }.setPositiveButton("adsasd") { dialog, _ ->
-                positiveClick(dialog)
-            }.create()
+        if (negativeClick == null) {
+            AlertDialog
+                .Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.reservation_error_dialog_confirm) { dialog, _ ->
+                    positiveClick(dialog)
+                }.create()
+        } else {
+            AlertDialog
+                .Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton(R.string.reservation_dialog_cancel) { dialog, _ ->
+                    negativeClick(dialog)
+                }.setPositiveButton(R.string.reservation_dialog_complete) { dialog, _ ->
+                    positiveClick(dialog)
+                }.create()
+        }
 }

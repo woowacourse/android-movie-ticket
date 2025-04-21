@@ -11,7 +11,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
@@ -189,31 +188,27 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun showErrorDialog(message: String) {
-        AlertDialog
-            .Builder(this)
-            .setTitle("에러 발생")
-            .setMessage(message)
-            .setCancelable(false)
-            .setNegativeButton("뒤로가기") { dialog, _ ->
-                val intent = Intent(this, MoviesActivity::class.java)
-                startActivity(intent)
-                finish()
-                dialog.dismiss()
-            }.create()
-            .show()
+        reservationDialog.show(
+            this,
+            getString(R.string.reservation_error_dialog_title),
+            message,
+            null,
+        ) { _ ->
+            val intent = Intent(this, MoviesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun showReservationDialog(
         title: String,
         message: String,
     ) {
-        reservationDialog.show(this, title, message, { dialog ->
-            dialog.dismiss()
-        }, { _ ->
+        reservationDialog.show(this, title, message, null) { _ ->
             val intent = movieTicketIntent()
             startActivity(intent)
             finish()
-        })
+        }
     }
 
     private fun movieTicketIntent(): Intent {
