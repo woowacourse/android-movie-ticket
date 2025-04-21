@@ -216,18 +216,24 @@ class BookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(getString(R.string.headCount_tag), headCountManager.count)
-        outState.putString(getString(R.string.date_tag), date.toString())
-        outState.putString(getString(R.string.time_tag), time.toString())
+        outState.putInt(KEY_HEAD_COUNT, headCountManager.count)
+        outState.putString(KEY_DATE, date.toString())
+        outState.putString(KEY_TIME, time.toString())
     }
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
-        headCountManager.restore(savedInstance.getInt(getString(R.string.headCount_tag)))
-        date = LocalDate.parse(savedInstance.getString(getString(R.string.date_tag)))
-        time = LocalTime.parse(savedInstance.getString(getString(R.string.time_tag)))
+        headCountManager.restore(savedInstance.getInt(KEY_HEAD_COUNT))
+        date = LocalDate.parse(savedInstance.getString(KEY_DATE))
+        time = LocalTime.parse(savedInstance.getString(KEY_TIME))
     }
 
     private fun updateHeadCount() {
         headCountView.text = headCountManager.count.toString()
+    }
+
+    companion object {
+        private const val KEY_HEAD_COUNT = "HeadCount"
+        private const val KEY_DATE = "Date"
+        private const val KEY_TIME = "Time"
     }
 }
