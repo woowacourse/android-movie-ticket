@@ -3,7 +3,6 @@ package woowacourse.movie.view.reservation
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
@@ -13,6 +12,9 @@ import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.toDateTimeFormatter
+import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.toModel
+import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -148,12 +150,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun setupData() {
-        movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
-            } else {
-                intent?.getSerializableExtra(BUNDLE_KEY_MOVIE) as? Movie
-            }
+        movie = intent?.getParcelableExtra<MovieUiModel>(BUNDLE_KEY_MOVIE)?.toModel()
     }
 
     private fun updateTimeSpinner(
@@ -206,7 +203,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         ): Intent =
             Intent(context, ReservationActivity::class.java).putExtra(
                 BUNDLE_KEY_MOVIE,
-                movie,
+                movie.toUiModel(),
             )
     }
 }
