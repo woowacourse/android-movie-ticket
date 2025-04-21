@@ -159,11 +159,12 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initDateSpinner() {
+        val availableDates = screening.availableDates()
         val dateAdapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
-                screening.dates,
+                availableDates,
             )
 
         val dateSpinnerView = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
@@ -177,7 +178,7 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedDate = screening.dates[position]
+                    selectedDate = availableDates[position]
                     val showtimes: List<LocalTime> = screening.showtimes(selectedDate)
                     val timeAdapter =
                         ArrayAdapter(

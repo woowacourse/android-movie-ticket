@@ -12,8 +12,8 @@ import java.time.LocalTime
 @Parcelize
 class Screening(
     private val movie: Movie,
-    val start: LocalDate,
-    val end: LocalDate,
+    private val start: LocalDate,
+    private val end: LocalDate,
 ) : Parcelable {
     @DrawableRes
     val posterId: Int = movie.posterId
@@ -28,7 +28,14 @@ class Screening(
     val endMonth: Int = end.monthValue
     val endDay: Int = end.dayOfMonth
 
-    val dates: List<LocalDate> =
+    fun availableDates(now: LocalDate? = LocalDate.now()): List<LocalDate> = dates.filterNot { date -> date.isBefore(now) }
+
+    fun showtimes(
+        date: LocalDate,
+        showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
+    ): List<LocalTime> = showTimePolicy.showtimes(date)
+
+    private val dates: List<LocalDate> =
         run {
             var currentDate = start
             val screeningDates = mutableListOf<LocalDate>()
@@ -38,9 +45,4 @@ class Screening(
             }
             screeningDates
         }
-
-    fun showtimes(
-        date: LocalDate,
-        showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
-    ): List<LocalTime> = showTimePolicy.showtimes(date)
 }
