@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.os.Bundle
 import android.widget.TextView
@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.util.getParcelableCompat
 import java.time.format.DateTimeFormatter

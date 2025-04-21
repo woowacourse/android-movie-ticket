@@ -13,15 +13,15 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".MovieReservationActivity"
+            android:name=".view.MovieReservationActivity"
             android:exported="false"
-            android:parentActivityName=".MovieSelectionActivity" />
+            android:parentActivityName=".view.MovieSelectionActivity" />
         <activity
-            android:name=".MovieReservationResultActivity"
+            android:name=".view.MovieReservationResultActivity"
             android:exported="false"
-            android:parentActivityName=".MovieReservationActivity" />
+            android:parentActivityName=".view.MovieReservationActivity" />
         <activity
-            android:name=".MovieSelectionActivity"
+            android:name=".view.MovieSelectionActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
