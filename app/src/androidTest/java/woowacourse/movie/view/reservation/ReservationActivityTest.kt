@@ -25,7 +25,7 @@ class ReservationActivityTest {
             title = "해리 포터와 마법사의 돌",
             screeningPeriod = ScreeningPeriod(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
             runningTime = RunningTime(152),
-            posterResId = R.drawable.harrypotter.toString(),
+            poster = R.drawable.harrypotter.toString(),
         )
 
     @Before

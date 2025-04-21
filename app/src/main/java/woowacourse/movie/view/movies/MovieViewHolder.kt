@@ -21,7 +21,7 @@ class MovieViewHolder(
         movie: Movie,
         eventListener: OnMovieEventListener,
     ) {
-        ivPoster.setImageResource(movie.posterResId.toInt())
+        ivPoster.setImageResource(movie.poster.toInt())
         tvTitle.text = movie.title
         tvDate.text =
             movie.screeningPeriod.run {
