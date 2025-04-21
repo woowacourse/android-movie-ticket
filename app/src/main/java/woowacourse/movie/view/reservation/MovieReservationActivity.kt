@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.IntentKeys
 import woowacourse.movie.common.parcelable
 import woowacourse.movie.common.parcelableExtra
 import woowacourse.movie.domain.Movie
@@ -40,11 +39,8 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initUi()
 
-        movie = intent.parcelableExtra(IntentKeys.EXTRA_MOVIE, Movie::class.java)
-            ?: finish().run { return }
-        ticket =
-            savedInstanceState?.parcelable(IntentKeys.EXTRA_TICKET, Ticket::class.java)
-                ?: Ticket(movie)
+        movie = intent.parcelableExtra(EXTRA_MOVIE, Movie::class.java) ?: finish().run { return }
+        ticket = savedInstanceState?.parcelable(EXTRA_TICKET, Ticket::class.java) ?: Ticket(movie)
 
         initMovieInfo()
         initDateSpinner()
@@ -59,7 +55,7 @@ class MovieReservationActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         if (!dateSpinner.adapter.isEmpty && !timeSpinner.adapter.isEmpty) {
-            outState.putParcelable(IntentKeys.EXTRA_TICKET, ticket)
+            outState.putParcelable(EXTRA_TICKET, ticket)
         }
     }
 
@@ -213,9 +209,11 @@ class MovieReservationActivity : AppCompatActivity() {
             movie: Movie,
         ): Intent =
             Intent(context, MovieReservationActivity::class.java).apply {
-                putExtra(IntentKeys.EXTRA_MOVIE, movie)
+                putExtra(EXTRA_MOVIE, movie)
             }
 
+        private const val EXTRA_MOVIE = "extra_movie"
+        private const val EXTRA_TICKET = "extra_ticket"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }

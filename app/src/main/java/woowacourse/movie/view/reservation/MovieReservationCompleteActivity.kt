@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.IntentKeys
 import woowacourse.movie.common.parcelableExtra
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
@@ -26,12 +25,7 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
         }
 
         val ticket =
-            intent.parcelableExtra(IntentKeys.EXTRA_TICKET, Ticket::class.java)
-                ?: run {
-                    finish()
-                    return
-                }
-
+            intent.parcelableExtra(EXTRA_TICKET, Ticket::class.java) ?: finish().run { return }
         bindTicketInfo(ticket)
     }
 
@@ -50,9 +44,10 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
             ticket: Ticket,
         ): Intent =
             Intent(context, MovieReservationCompleteActivity::class.java).apply {
-                putExtra(IntentKeys.EXTRA_TICKET, ticket)
+                putExtra(EXTRA_TICKET, ticket)
             }
 
+        private const val EXTRA_TICKET = "extra_ticket"
         private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
     }
 }

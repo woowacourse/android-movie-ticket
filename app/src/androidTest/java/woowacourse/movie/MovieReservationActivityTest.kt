@@ -16,7 +16,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.common.IntentKeys
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.movie
 import woowacourse.movie.view.reservation.MovieReservationActivity
@@ -32,7 +31,7 @@ class MovieReservationActivityTest {
     fun setUp() {
         intent =
             Intent(fakeContext, MovieReservationActivity::class.java).apply {
-                putExtra(IntentKeys.EXTRA_MOVIE, movie)
+                putExtra("extra_movie", movie)
             }
         scenario = ActivityScenario.launch(intent)
     }
