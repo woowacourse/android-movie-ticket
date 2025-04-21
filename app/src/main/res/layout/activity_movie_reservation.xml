@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                tools:text="2025.4.1 ~ 2025.4.25" />
+                tools:text="2025.04.01 ~ 2025.04.25" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
