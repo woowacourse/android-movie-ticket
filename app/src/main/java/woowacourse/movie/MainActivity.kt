@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.domain.MovieInfo
+import woowacourse.movie.domain.Movie
+import java.time.Duration
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var allItems: MutableList<MovieInfo>
+    private lateinit var allItems: MutableList<Movie>
     private lateinit var adapter: MovieListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,12 +18,11 @@ class MainActivity : AppCompatActivity() {
 
         allItems =
             mutableListOf(
-                MovieInfo(
-                    R.drawable.harry_potter_poster,
+                Movie(
                     "해리 포터와 마법사의 돌",
-                    "2025.4.1",
-                    "2025.4.25",
-                    "152분",
+                    LocalDate.of(2025,4,1),
+                    LocalDate.of(2025,4,25),
+                    Duration.ofMinutes(152),
                 ),
             )
 

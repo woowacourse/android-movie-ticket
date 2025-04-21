@@ -7,14 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.BookingActivity
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieInfo
+import woowacourse.movie.ui.MovieUiModel
 
-class MovieListAdapter(private val context: Context, private val items: List<MovieInfo>) :
+class MovieListAdapter(private val context: Context, private val items: List<Movie>) :
     BaseAdapter() {
     override fun getCount(): Int = items.size
 
-    override fun getItem(position: Int): MovieInfo = items[position]
+    override fun getItem(position: Int): Movie = items[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
@@ -41,12 +42,14 @@ class MovieListAdapter(private val context: Context, private val items: List<Mov
 
         val item = getItem(position)
 
+        val movieUiModel = MovieUiModel.fromDomain(item)
+
         viewHolder.apply {
-            image.setImageResource(item.poster)
-            title.text = item.title
-            startDate.text = item.startDate
-            endDate.text = item.endDate
-            runningTime.text = item.runningTime
+            image.setImageResource(movieUiModel.poster)
+            title.text = movieUiModel.title
+            startDate.text = movieUiModel.startDate
+            endDate.text = movieUiModel.endDate
+            runningTime.text = movieUiModel.runningTime
 
             button.setOnClickListener {
                 val intent = Intent(context, BookingActivity::class.java).apply {

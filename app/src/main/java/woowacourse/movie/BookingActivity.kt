@@ -11,11 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
-import woowacourse.movie.domain.MovieInfo
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.ui.MovieUiModel
 import woowacourse.movie.domain.TicketManager
 
 class BookingActivity : AppCompatActivity() {
-    private lateinit var movieInfo: MovieInfo
+    private lateinit var movieUiModel: MovieUiModel
     private lateinit var ticketManager: TicketManager
     private lateinit var movieTime: Spinner
     private lateinit var movieDate: Spinner
@@ -29,13 +30,14 @@ class BookingActivity : AppCompatActivity() {
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
 
-        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO)
+        val movie: Movie = intent.getParcelableExtra(KEY_MOVIE_INFO)
             ?: run {
                 Toast.makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT).show()
                 finish()
                 return
             }
-        ticketManager = TicketManager(movieInfo)
+        movieUiModel = MovieUiModel.fromDomain(movie)
+        ticketManager = TicketManager(movie)
 
         setupPage()
         setupDateChangeListener()
@@ -69,11 +71,11 @@ class BookingActivity : AppCompatActivity() {
         val runningTime:TextView = findViewById(R.id.running_time)
         val poster:ImageView = findViewById(R.id.movie_poster)
 
-        poster.setImageResource(movieInfo.poster)
-        title.text = movieInfo.title
-        findViewById<TextView>(R.id.start_date).text = movieInfo.startDate
-        findViewById<TextView>(R.id.end_date).text = movieInfo.endDate
-        runningTime.text = movieInfo.runningTime
+        poster.setImageResource(movieUiModel.poster)
+        title.text = movieUiModel.title
+        findViewById<TextView>(R.id.start_date).text = movieUiModel.startDate
+        findViewById<TextView>(R.id.end_date).text = movieUiModel.endDate
+        runningTime.text = movieUiModel.runningTime
 
         val dates = ticketManager.getDates()
         val times = ticketManager.getTimes(dates[0])
