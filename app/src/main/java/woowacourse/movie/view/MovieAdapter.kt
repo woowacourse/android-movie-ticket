@@ -9,17 +9,16 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     private val context: Context,
-    private val movies: List<Movie>,
-    private val onReservationClick: (Movie) -> Unit,
+    private val movies: List<ParcelableMovie>,
+    private val onReservationClick: (ParcelableMovie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): ParcelableMovie = movies[position]
 
     override fun getItemId(position: Int): Long = position.toLong()
 

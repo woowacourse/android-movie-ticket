@@ -3,7 +3,6 @@ package woowacourse.movie.domain
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -17,7 +16,6 @@ class TicketText {
                 startDate = LocalDate.of(2025, 4, 16),
                 endDate = LocalDate.of(2025, 4, 25),
                 runningTime = 152,
-                poster = R.drawable.harry_potter_poster,
             )
         assertThrows<IllegalArgumentException> {
             Ticket(

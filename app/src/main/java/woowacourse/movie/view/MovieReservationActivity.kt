@@ -16,18 +16,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.util.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
-    private lateinit var movie: Movie
-    private lateinit var ticket: Ticket
+    private lateinit var movie: ParcelableMovie
+    private lateinit var ticket: ParcelableTicket
     private lateinit var dateAdapter: ArrayAdapter<LocalDate>
     private lateinit var timeAdapter: ArrayAdapter<LocalTime>
     private val dateSpinner by lazy { findViewById<Spinner>(R.id.date_spinner) }
@@ -37,7 +35,7 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        movie = intent.extras?.getParcelableCompat<Movie>(MovieAdapter.KEY_MOVIE) ?: run { return }
+        movie = intent.extras?.getParcelableCompat<ParcelableMovie>(MovieAdapter.KEY_MOVIE) ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         if (!::dateAdapter.isInitialized) {
@@ -58,7 +56,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        ticket = savedInstanceState.getParcelableCompat<Ticket>(KEY_TICKET) ?: run { return }
+        ticket = savedInstanceState.getParcelableCompat<ParcelableTicket>(KEY_TICKET) ?: run { return }
         initializeTicketCountButton()
     }
 
@@ -150,7 +148,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun initializeTicket() {
         ticket =
-            Ticket(
+            ParcelableTicket(
                 movie,
                 LocalDateTime.of(
                     dateAdapter.getItem(0),
@@ -169,12 +167,12 @@ class MovieReservationActivity : AppCompatActivity() {
 
         incrementButton.setOnClickListener {
             decrementButton.isEnabled = true
-            ticket = ticket.increment()
+            ticket = ticket.toTicket().increment().toParcelable()
             ticketCountTextView.text = ticket.count.toString()
         }
 
         decrementButton.setOnClickListener {
-            ticket = ticket.decrement()
+            ticket = ticket.toTicket().decrement().toParcelable()
             ticketCountTextView.text = ticket.count.toString()
             decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
         }

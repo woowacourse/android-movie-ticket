@@ -16,15 +16,14 @@ class MovieSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        val movies: List<Movie> =
+        val movies: List<ParcelableMovie> =
             (1..10000).map { n ->
                 Movie(
                     "해리 포터 $n",
                     startDate = LocalDate.of(2025, 4, 1),
                     endDate = LocalDate.of(2025, 4, 25),
                     runningTime = 152,
-                    poster = R.drawable.harry_potter_poster,
-                )
+                ).toParcelable()
             }
 
         val movieListView = findViewById<ListView>(R.id.movie_list)
@@ -42,7 +41,7 @@ class MovieSelectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun reserveMovie(movie: Movie) {
+    private fun reserveMovie(movie: ParcelableMovie) {
         val intent = Intent(this, MovieReservationActivity::class.java)
         intent.putExtra(MovieAdapter.KEY_MOVIE, movie)
         startActivity(intent)
