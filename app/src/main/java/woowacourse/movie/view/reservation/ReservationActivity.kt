@@ -26,6 +26,7 @@ import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
+import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -36,7 +37,7 @@ class ReservationActivity : AppCompatActivity() {
     private val movie by lazy { getSelectedMovieData() }
     private val movieTime by lazy { MovieTime() }
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
-    private var reservationDialog: AlertDialog? = null
+    private val reservationDialog by lazy { ReservationDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -201,7 +202,17 @@ class ReservationActivity : AppCompatActivity() {
                     }.create()
         }
 
-        reservationDialog?.show()
+    private fun showReservationDialog(
+        title: String,
+        message: String,
+    ) {
+        reservationDialog.show(this, title, message, { dialog ->
+            dialog.dismiss()
+        }, { _ ->
+            val intent = movieTicketIntent()
+            startActivity(intent)
+            finish()
+        })
     }
 
     private fun movieTicketIntent(): Intent {
@@ -250,7 +261,6 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        reservationDialog = null
         super.onDestroy()
     }
 }
