@@ -5,6 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
@@ -14,7 +15,6 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import io.kotest.matchers.string.match
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
@@ -28,6 +28,8 @@ import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
 class BookingActivityTest {
+    private lateinit var activityScenario: ActivityScenario<BookingActivity>
+
     @Before
     fun setUp() {
         Intents.init()
@@ -47,7 +49,7 @@ class BookingActivityTest {
             putExtra("Movie", movie)
         }
 
-        ActivityScenario.launch<BookingActivity>(intent)
+        activityScenario = ActivityScenario.launch(intent)
     }
 
     @After
@@ -81,9 +83,6 @@ class BookingActivityTest {
 
     @Test
     fun 증가_버튼을_누르면_숫자가_1_증가한다() {
-        onView(withId(R.id.textview_headcount))
-            .check(matches(withText("1")))
-
         onView(withId(R.id.button_increase))
             .perform(click())
 
@@ -108,14 +107,25 @@ class BookingActivityTest {
 
     @Test
     fun 값이_1일때_감소_버튼을_누르면_숫자가_감소하지_않는다() {
-        onView(withId(R.id.textview_headcount))
-            .check(matches(withText("1")))
-
         onView(withId(R.id.button_decrease))
             .perform(click())
 
         onView(withId(R.id.textview_headcount))
             .check(matches(withText("1")))
+    }
+
+    @Test
+    fun 화면이_회전되어도_숫자의_값은_유지된다() {
+        onView(withId(R.id.button_increase))
+            .perform(click())
+
+        onView(withId(R.id.textview_headcount))
+            .check(matches(withText("2")))
+
+        activityScenario.recreate()
+
+        onView(withId(R.id.textview_headcount))
+            .check(matches(withText("2")))
     }
 
     @Test
@@ -125,6 +135,20 @@ class BookingActivityTest {
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun 다이얼로그가_출력될때_화면이_회전되면_다이얼로그가_사라진다() {
+        onView(withId(R.id.button_select))
+            .perform(click())
+
+        onView(withText("정말 예매하시겠습니까?"))
+            .check(matches(isDisplayed()))
+
+        activityScenario.recreate()
+
+        onView(withText("정말 예매하시겠습니까?"))
+            .check(doesNotExist())
     }
 
     @Test
