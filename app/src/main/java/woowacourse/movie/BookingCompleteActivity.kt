@@ -42,17 +42,13 @@ class BookingCompleteActivity : AppCompatActivity() {
         val completeBookingAmount = findViewById<TextView>(R.id.tv_booking_amount)
 
         completeTitle.text = bookingResult.title
-        completeScreenDate.text = formatDate(bookingResult.selectedDate)
+        completeScreenDate.text = bookingResult.selectedDate.replace(oldValue = "-", newValue = ".")
         completeScreenTime.text = bookingResult.selectedTime
         completeHeadCount.text =
             getString(R.string.screening_complete_headCount, bookingResult.headCount)
         val bookingAmount: String = DecimalFormat("#,###").format(bookingResult.calculateAmount())
         completeBookingAmount.text =
             getString(R.string.screening_complete_booking_amount, bookingAmount)
-    }
-
-    private fun formatDate(date: String): String {
-        return date.replace("-", ".")
     }
 
     override fun onSupportNavigateUp(): Boolean {

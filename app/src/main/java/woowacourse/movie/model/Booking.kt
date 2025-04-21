@@ -1,53 +1,48 @@
 package woowacourse.movie.model
 
+import woowacourse.movie.util.DateTimeUtil
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class Booking(
     private val movie: Movie,
     private val today: LocalDate = LocalDate.now(),
     private val currentTime: LocalTime = LocalTime.now(),
 ) {
-    private val weekdayScreeningTimes = List(8) { idx -> LocalTime.of(9, 0).plusHours(idx * 2L) }
-    private val weekendScreeningTimes = List(8) { idx -> LocalTime.of(10, 0).plusHours(idx * 2L) }
+    private val weekdayScreeningTimes =
+        List(SCREENING_TIMES) { idx -> LocalTime.of(WEEKDAY_START_TIME, 0).plusHours(idx * 2L) }
+    private val weekendScreeningTimes =
+        List(SCREENING_TIMES) { idx -> LocalTime.of(WEEKEND_START_TIME, 0).plusHours(idx * 2L) }
 
     fun screeningPeriods(): List<String> {
         val startDate =
             if (movie.screeningStartDate.isBefore(today)) today else movie.screeningStartDate
+
         return generateSequence(startDate) { currentDate ->
             val next = currentDate.plusDays(1)
             if (next.isAfter(movie.screeningEndDate)) null else next
-        }.map { date -> formatDate(date) }.toList()
+        }.map { date -> DateTimeUtil.toFormattedString(date, DATE_FORMAT) }.toList()
     }
 
     fun screeningTimes(date: String): List<String> {
-        val selectedDate = localDate(date)
-        if (today == selectedDate) return screeningTimesType(today, currentTime)
+        val selectedDate: LocalDate = DateTimeUtil.toLocalDate(date, delimiter = "-")
+        if (today.isEqual(selectedDate)) return screeningTimesType(today, currentTime)
         return screeningTimesType(selectedDate)
     }
 
     private fun screeningTimesType(
         date: LocalDate,
-        baseTime: LocalTime = LocalTime.of(8, 0),
+        baseTime: LocalTime = LocalTime.of(BEFORE_FIRST_MOVIE_START, 0),
     ): List<String> {
         if (isWeekend(date)) {
             return weekendScreeningTimes.filter { time ->
-                time == LocalTime.MIDNIGHT ||
-                    time.isAfter(
-                        baseTime,
-                    )
-            }
-                .map { time -> formatTime(time) }
+                time == LocalTime.MIDNIGHT || time.isAfter(baseTime)
+            }.map { time -> DateTimeUtil.toFormattedString(time, TIME_FORMAT) }
         }
-        return weekdayScreeningTimes.filter { time -> time.isAfter(baseTime) }
-            .map { time -> formatTime(time) }
-    }
 
-    private fun localDate(date: String): LocalDate {
-        val (year, month, day) = date.split("-").map { it.toInt() }
-        return LocalDate.of(year, month, day)
+        return weekdayScreeningTimes.filter { time -> time.isAfter(baseTime) }
+            .map { time -> DateTimeUtil.toFormattedString(time, TIME_FORMAT) }
     }
 
     private fun isWeekend(date: LocalDate): Boolean {
@@ -57,11 +52,12 @@ class Booking(
         }
     }
 
-    private fun formatDate(date: LocalDate): String {
-        return date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-    }
-
-    private fun formatTime(time: LocalTime): String {
-        return time.format(DateTimeFormatter.ofPattern("kk:mm"))
+    companion object {
+        private const val BEFORE_FIRST_MOVIE_START = 8
+        private const val SCREENING_TIMES = 8
+        private const val WEEKDAY_START_TIME = 9
+        private const val WEEKEND_START_TIME = 10
+        private const val DATE_FORMAT = "yyyy-MM-dd"
+        private const val TIME_FORMAT = "kk:mm"
     }
 }

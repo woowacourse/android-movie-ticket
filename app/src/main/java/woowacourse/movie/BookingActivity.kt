@@ -17,10 +17,10 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.model.Booking
 import woowacourse.movie.model.BookingResult
 import woowacourse.movie.model.Movie
+import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var bookingResult: BookingResult
@@ -60,8 +60,8 @@ class BookingActivity : AppCompatActivity() {
         val savedScreeningDate = savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_DATE)
         val savedScreeningTime = savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
 
-        val date = savedScreeningDate ?: formatDate(LocalDate.now(), '-')
-        val time = savedScreeningTime ?: formatTime(LocalTime.now())
+        val date = savedScreeningDate ?: DateTimeUtil.toFormattedString(LocalDate.now(), MOVIE_DATE_FORMAT)
+        val time = savedScreeningTime ?: DateTimeUtil.toFormattedString(LocalTime.now(), TIME_FORMAT)
         val headCount = savedCount ?: 0
         bookingResult = BookingResult(movie.title, headCount, date, time)
     }
@@ -76,8 +76,8 @@ class BookingActivity : AppCompatActivity() {
         val bookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
 
         bookingTitle.text = movieData.title
-        val screeningStartDate = formatDate(movieData.screeningStartDate, '.')
-        val screeningEndDate = formatDate(movieData.screeningEndDate, '.')
+        val screeningStartDate = DateTimeUtil.toFormattedString(movieData.screeningStartDate, SCREENING_DATE_FORMAT)
+        val screeningEndDate = DateTimeUtil.toFormattedString(movieData.screeningEndDate, SCREENING_DATE_FORMAT)
         bookingScreenDate.text =
             getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
         bookingRunningTime.text = getString(R.string.minute_text, movieData.runningTime)
@@ -198,17 +198,6 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun formatDate(
-        date: LocalDate,
-        delimiter: Char,
-    ): String {
-        return date.format(DateTimeFormatter.ofPattern("yyyy${delimiter}M${delimiter}d"))
-    }
-
-    private fun formatTime(time: LocalTime): String {
-        return time.format(DateTimeFormatter.ofPattern("kk:mm"))
-    }
-
     private fun showConfirmDialog(bookingResult: BookingResult) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dig_title))
@@ -237,5 +226,11 @@ class BookingActivity : AppCompatActivity() {
             putString(Keys.SavedState.BOOKING_SCREENING_DATE, bookingResult.selectedDate)
             putString(Keys.SavedState.BOOKING_SCREENING_TIME, bookingResult.selectedTime)
         }
+    }
+
+    companion object {
+        private const val MOVIE_DATE_FORMAT = "yyyy-M-d"
+        private const val SCREENING_DATE_FORMAT = "yyyy.M.d"
+        private const val TIME_FORMAT = "kk:mm"
     }
 }

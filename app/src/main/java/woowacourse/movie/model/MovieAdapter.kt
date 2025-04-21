@@ -11,9 +11,8 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.BookingActivity
 import woowacourse.movie.R
+import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.Keys
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
     val movieList: List<Movie>,
@@ -59,15 +58,15 @@ class MovieAdapter(
         val posterImage = AppCompatResources.getDrawable(itemView.context, R.drawable.harry_potter)
         poster.setImageDrawable(posterImage)
         title.text = movie.title
-        val screeningStartDate = formatDate(movie.screeningStartDate)
-        val screeningEndDate = formatDate(movie.screeningEndDate)
+        val screeningStartDate = DateTimeUtil.toFormattedString(movie.screeningStartDate, DATE_FORMAT)
+        val screeningEndDate = DateTimeUtil.toFormattedString(movie.screeningEndDate, DATE_FORMAT)
         screeningDate.text = itemView.context.getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
         runningTime.text = itemView.context.getString(R.string.minute_text, movie.runningTime)
 
         return itemView
     }
 
-    private fun formatDate(date: LocalDate): String {
-        return date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+    companion object {
+        private const val DATE_FORMAT = "yyyy.M.d"
     }
 }
