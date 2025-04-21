@@ -78,28 +78,17 @@ class ReservationActivity : AppCompatActivity() {
         }
 
     private fun initViews() {
-        val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
-        titleView.text = screening.title
+        initTitleView()
+        initPeriodView()
+        initPosterView()
+        initRunningTimeView()
+        initDateSpinner()
+        initTimeSpinner()
+        initTicketCountLayout()
+        initCompleteButton()
+    }
 
-        val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
-        periodView.text =
-            getString(
-                R.string.screening_period,
-                screening.startYear,
-                screening.startMonth,
-                screening.startDay,
-                screening.endYear,
-                screening.endMonth,
-                screening.endDay,
-            )
-        val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        posterImageView.setImageResource(screening.posterId)
-
-        val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
-        runningTimeView.text = getString(R.string.running_time, screening.runningTime)
-
-        initDateSpinner(screening.start, screening.end)
-
+    private fun initTicketCountLayout() {
         val ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
         ticketCountView.text = ticketCount.toString()
 
@@ -114,7 +103,9 @@ class ReservationActivity : AppCompatActivity() {
             if (ticketCount > 1) ticketCount--
             ticketCountView.text = ticketCount.toString()
         }
+    }
 
+    private fun initCompleteButton() {
         val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
         completeButton.setOnClickListener {
             AlertDialog
@@ -130,40 +121,79 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToTicketActivity() {
-        val intent =
-            Intent(this, TicketActivity::class.java).putExtra(
-                EXTRA_TICKET,
-                Ticket(
-                    screening.title,
-                    ticketCount,
-                    LocalDateTime.of(selectedDate, selectedTime),
-                ),
-            )
-        startActivity(intent)
+    private fun initRunningTimeView() {
+        val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
+        runningTimeView.text = getString(R.string.running_time, screening.runningTime)
     }
 
-    private fun initDateSpinner(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ) {
-        var currentDate = startDate
-        val screeningDates = mutableListOf<LocalDate>()
-        while (!currentDate.isAfter(endDate)) {
-            screeningDates.add(currentDate)
-            currentDate = currentDate.plusDays(1)
-        }
+    private fun initPosterView() {
+        val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
+        posterImageView.setImageResource(screening.posterId)
+    }
 
+    private fun initPeriodView() {
+        val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
+        periodView.text =
+            getString(
+                R.string.screening_period,
+                screening.startYear,
+                screening.startMonth,
+                screening.startDay,
+                screening.endYear,
+                screening.endMonth,
+                screening.endDay,
+            )
+    }
+
+    private fun initTitleView() {
+        val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
+        titleView.text = screening.title
+    }
+
+    private fun initDateSpinner() {
         val dateAdapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
-                screeningDates,
+                screening.dates,
             )
 
         val dateSpinnerView = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
         dateSpinnerView.adapter = dateAdapter
 
+        dateSpinnerView.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    selectedDate = screening.dates[position]
+                    val showtimes: List<LocalTime> = screening.showtimes(selectedDate)
+                    val timeAdapter =
+                        ArrayAdapter(
+                            this@ReservationActivity,
+                            android.R.layout.simple_spinner_item,
+                            showtimes,
+                        )
+
+                    val timeSpinnerView =
+                        findViewById<Spinner>(R.id.spinner_reservation_screening_time)
+                    timeSpinnerView.adapter = timeAdapter
+
+                    if (timeItemPosition >= showtimes.size) {
+                        timeSpinnerView.setSelection(showtimes.lastIndex)
+                    } else {
+                        timeSpinnerView.setSelection(timeItemPosition)
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+    }
+
+    private fun initTimeSpinner() {
         val timeSpinnerView =
             findViewById<Spinner>(R.id.spinner_reservation_screening_time)
 
@@ -182,36 +212,19 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+    }
 
-        dateSpinnerView.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    selectedDate = screeningDates[position]
-                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
-
-                    val timeAdapter =
-                        ArrayAdapter(
-                            this@ReservationActivity,
-                            android.R.layout.simple_spinner_item,
-                            screeningTimes,
-                        )
-
-                    timeSpinnerView.adapter = timeAdapter
-
-                    if (timeItemPosition >= screeningTimes.size) {
-                        timeSpinnerView.setSelection(screeningTimes.lastIndex)
-                    } else {
-                        timeSpinnerView.setSelection(timeItemPosition)
-                    }
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
+    private fun navigateToTicketActivity() {
+        val intent =
+            Intent(this, TicketActivity::class.java).putExtra(
+                EXTRA_TICKET,
+                Ticket(
+                    screening.title,
+                    ticketCount,
+                    LocalDateTime.of(selectedDate, selectedTime),
+                ),
+            )
+        startActivity(intent)
     }
 
     companion object {

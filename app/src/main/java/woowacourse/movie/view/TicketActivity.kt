@@ -46,19 +46,32 @@ class TicketActivity : AppCompatActivity() {
         }
 
     private fun initViews() {
-        val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
-        titleView.text = ticket.title
+        initTitleView()
+        initShowtimeView()
+        initCountView()
+        initPriceView()
+    }
 
+    private fun initPriceView() {
+        val priceView = findViewById<TextView>(R.id.tv_ticket_price)
+        priceView.text = getString(R.string.ticket_price, ticket.price)
+    }
+
+    private fun initCountView() {
+        val countView = findViewById<TextView>(R.id.tv_ticket_count)
+        countView.text = getString(R.string.ticket_count, ticket.count)
+    }
+
+    private fun initShowtimeView() {
         val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
         showtimeView.text =
             ticket.showtime.run {
                 getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
             }
+    }
 
-        val countView = findViewById<TextView>(R.id.tv_ticket_count)
-        countView.text = getString(R.string.ticket_count, ticket.count)
-
-        val priceView = findViewById<TextView>(R.id.tv_ticket_price)
-        priceView.text = getString(R.string.ticket_price, ticket.price)
+    private fun initTitleView() {
+        val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
+        titleView.text = ticket.title
     }
 }
