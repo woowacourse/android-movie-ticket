@@ -52,14 +52,16 @@ class ReserveActivity : AppCompatActivity() {
         outState.putSerializable(KEY_RESERVATION, reservation)
         outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
         outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
-        isDateInit = true
+        outState.putSerializable(KEY_SELECTED_DATE, dateSpinner.selectedItem as LocalDate)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onSaveInstanceState(savedInstanceState)
         val datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
         val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
+        val selectedDate = savedInstanceState.getSerializable(KEY_SELECTED_DATE) as LocalDate
         dateSpinner.setSelection(datePosition)
+        updateTimeSpinner(selectedDate)
         timeSpinner.setSelection(timePosition)
         isDateInit = true
     }
@@ -109,14 +111,12 @@ class ReserveActivity : AppCompatActivity() {
     ) {
         val timePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: 0
         initDateSpinner(movie.screeningDate)
-        initTimeSpinner(movie.screeningDate.startDate, timePosition)
-
-        reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
+        initTimeSpinner(movie.screeningDate.startDate)
+        this.reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
             ?: Reservation(
                 movie.title, getSelectedDateTime(),
                 Tickets(listOf(TicketType.DEFAULT)),
             )
-
         updateTicketCount()
         initButtonListeners()
         timeSpinner.setSelection(timePosition)
@@ -129,10 +129,7 @@ class ReserveActivity : AppCompatActivity() {
         dateSpinner.onItemSelectedListener = createDateSelectionListener(dates)
     }
 
-    private fun initTimeSpinner(
-        startDate: LocalDate,
-        timePosition: Int,
-    ) {
+    private fun initTimeSpinner(startDate: LocalDate) {
         updateTimeSpinner(reservationScheduler.startDate(startDate, LocalDate.now()))
         timeSpinner.onItemSelectedListener = createTimeSelectionListener()
     }
@@ -245,6 +242,7 @@ class ReserveActivity : AppCompatActivity() {
     companion object {
         private const val KEY_DATE_POSITION = "datePosition"
         private const val KEY_TIME_POSITION = "timePosition"
+        private const val KEY_SELECTED_DATE = "selectedDate"
         const val KEY_MOVIE = "movie"
     }
 }
