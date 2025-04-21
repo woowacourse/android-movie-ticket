@@ -8,9 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.view.model.Movie
+import woowacourse.movie.data.Screenings
 import woowacourse.movie.view.model.Screening
-import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,22 +26,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initListView() {
-        val harryPotter =
-            Movie(
-                R.drawable.poster_harry_potter_and_the_philosophers_stone,
-                "해리 포터와 마법사의 돌",
-                152,
-            )
-        val harryPotterScreening =
-            Screening(
-                harryPotter,
-                LocalDate.of(2025, 4, 1),
-                LocalDate.of(2025, 4, 25),
-            )
-        val screenings: List<Screening> = listOf(harryPotterScreening)
-
+        val screenings: List<Screening> = Screenings().value
         val movieListView = findViewById<ListView>(R.id.lv_main_movies)
-
         val movieAdapter = MovieAdapter(screenings, ::navigateToReservationActivity)
         movieListView.adapter = movieAdapter
     }
