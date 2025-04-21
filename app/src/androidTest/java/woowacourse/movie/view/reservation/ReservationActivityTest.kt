@@ -1,6 +1,7 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Intent
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -16,6 +17,8 @@ import woowacourse.movie.view.fixture.fakeContext
 import java.time.LocalDate
 
 class ReservationActivityTest {
+    private lateinit var scenario: ActivityScenario<ReservationActivity>
+
     private val harryPotter =
         Movie(
             title = "해리 포터와 마법사의 돌",
@@ -28,7 +31,7 @@ class ReservationActivityTest {
     fun setUp() {
         val intent =
             Intent(fakeContext, ReservationActivity::class.java).putExtra("movie", harryPotter)
-        ActivityScenario.launch<ReservationActivity>(intent)
+        scenario = ActivityScenario.launch(intent)
     }
 
     @Test
@@ -63,6 +66,19 @@ class ReservationActivityTest {
 
         onView(withId(R.id.btn_reservation_number_minus))
             .perform(click())
+
+        onView(withId(R.id.tv_reservation_number))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun `회전하여도_선택한_데이터가_유지된다`() {
+        onView(withId(R.id.btn_reservation_number_plus))
+            .perform(click())
+
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
 
         onView(withId(R.id.tv_reservation_number))
             .check(matches(withText("2")))
