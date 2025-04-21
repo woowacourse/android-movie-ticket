@@ -8,10 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
-import woowacourse.movie.ui.view.utils.CustomFormatter.formatAmount
-import woowacourse.movie.ui.view.utils.CustomFormatter.formatDateTime
-import woowacourse.movie.ui.view.utils.CustomFormatter.formatHeadCount
 import woowacourse.movie.ui.view.utils.intentSerializable
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class BookingSummaryActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,5 +43,26 @@ class BookingSummaryActivity : AppCompatActivity() {
             formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)
         amount.text =
             formatAmount(getString(R.string.amount_message), movieTicket.amount)
+    }
+
+    companion object {
+        fun formatDateTime(dateTime: LocalDateTime): String {
+            val dateTimeFormatter: DateTimeFormatter =
+                DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
+
+            return dateTime.format(dateTimeFormatter)
+        }
+
+        fun formatHeadCount(
+            message: String,
+            headCount: Int,
+        ): String = String.format(message, headCount)
+
+        fun formatAmount(
+            message: String,
+            value: Int,
+        ): String = String.format(message, value.formatWithComma())
+
+        private fun Int.formatWithComma(): String = "%,d".format(this)
     }
 }
