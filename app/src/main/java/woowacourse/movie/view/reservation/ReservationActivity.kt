@@ -145,9 +145,11 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
         val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
         btnMinus.setOnClickListener {
-            if (reservationCount.count > ReservationCount.MINIMUM_RESERVATION_COUNT) {
+            runCatching {
                 tvReservationCount.text = (reservationCount - 1).count.toString()
                 reservationCount -= 1
+            }.onFailure {
+                showToast(getString(R.string.invalid_reservation_count_message, ReservationCount.MINIMUM_RESERVATION_COUNT))
             }
         }
 
