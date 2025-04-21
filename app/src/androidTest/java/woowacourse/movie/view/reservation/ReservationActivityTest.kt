@@ -14,6 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Poster
 import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.view.fixture.fakeContext
@@ -25,7 +26,7 @@ class ReservationActivityTest {
         Movie(
             1,
             "해리 포터와 마법사의 돌",
-            R.drawable.harrypotter.toString(),
+            Poster.Resource(R.drawable.harrypotter),
             ScreeningPeriod(
                 LocalDate.of(2025, 4, 1),
                 LocalDate.of(2025, 4, 25),
@@ -109,5 +110,26 @@ class ReservationActivityTest {
 
         onView(withId(R.id.tv_reservation_count))
             .check(matches(withText("3")))
+    }
+
+    @Test
+    fun `선택_가능한_날짜가_없다면_다이얼로그가_노출된다`() {
+        scenario.onActivity { activity ->
+            val intent =
+                ReservationActivity.newIntent(
+                    fakeContext,
+                    fakeMovie.copy(
+                        screeningPeriod =
+                            ScreeningPeriod(
+                                LocalDate.of(2025, 1, 1),
+                                LocalDate.of(2025, 1, 1),
+                            ),
+                    ),
+                )
+            activity.startActivity(intent)
+        }
+
+        onView(withText("선택 가능한 날짜/시간이 없습니다"))
+            .check(matches(isDisplayed()))
     }
 }

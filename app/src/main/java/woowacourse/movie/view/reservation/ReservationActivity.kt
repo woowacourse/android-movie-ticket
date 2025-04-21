@@ -1,6 +1,5 @@
 package woowacourse.movie.view.reservation
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -11,72 +10,94 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
+import woowacourse.movie.view.extension.getParcelableCompat
 import woowacourse.movie.view.extension.toDateTimeFormatter
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.toModel
 import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
+import woowacourse.movie.view.util.CustomAlertDialog
+import woowacourse.movie.view.util.DialogInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
-    private lateinit var views: ReservationViews
+    private val views: ReservationViews by lazy { ReservationViews(this) }
+    private val dialog: CustomAlertDialog by lazy { CustomAlertDialog(this) }
     private var reservationCount = ReservationCount()
     private var shouldIgnoreNextSelection = false
     private var movie: Movie? = null
 
     private val dateSpinnerAdapter: ArrayAdapter<LocalDate> by lazy {
-        ArrayAdapter<LocalDate>(this, android.R.layout.simple_spinner_item, mutableListOf()).apply {
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalDate>()).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
     }
 
     private val timeSpinnerAdapter: ArrayAdapter<LocalTime> by lazy {
-        ArrayAdapter<LocalTime>(this, android.R.layout.simple_spinner_item, mutableListOf()).apply {
+        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalTime>()).apply {
             setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
     }
 
-    private val reservationDialog by lazy {
-        AlertDialog
-            .Builder(this)
-            .setTitle(R.string.reservation_dialog_title)
-            .setMessage(R.string.reservation_dialog_message)
-            .setCancelable(false)
-            .setPositiveButton(R.string.reservation_dialog_positive) { _, _ -> navigateToResult() }
-            .setNegativeButton(R.string.reservation_dialog_negative) { dialog, _ -> dialog.dismiss() }
+    private val noAvailableTimesDialogInfo: DialogInfo by lazy {
+        DialogInfo(
+            title = getString(R.string.no_available_times_dialog_title),
+            message = getString(R.string.no_available_times_dialog_message),
+            positiveButtonText = getString(R.string.no_available_times_dialog_positive),
+            onClickPositiveButton = {
+                onBackPressedDispatcher.onBackPressed()
+            },
+        )
+    }
+
+    private val reservationConfirmationDialogInfo: DialogInfo by lazy {
+        DialogInfo(
+            title = getString(R.string.reservation_dialog_title),
+            message = getString(R.string.reservation_dialog_message),
+            positiveButtonText = getString(R.string.reservation_dialog_positive),
+            negativeButtonText = getString(R.string.reservation_dialog_negative),
+            onClickPositiveButton = {
+                navigateToResult()
+            },
+            onClickNegativeButton = { it.dismiss() },
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()
         setupData()
-
-        views = ReservationViews(this)
-        views.updateReservationCountMinusButton(reservationCount)
         movie?.let { views.bindMovieInfo(it) }
         setupUI()
     }
 
     private fun setupUI() {
-        views.setOnReservationCountChanged(
-            onCountDecreased = {
-                updateReservationCount { reservationCount -= 1 }
-            },
-            onCountIncreased = {
-                updateReservationCount { reservationCount += 1 }
-            },
-        )
+        setupReservationCountControls()
+        setupFinishButton()
+        setupDateSpinner()
+        setupAvailableDates()
+    }
 
+    private fun setupReservationCountControls() {
+        views.setOnReservationCountChanged(
+            onCountDecreased = { updateReservationCount { reservationCount -= 1 } },
+            onCountIncreased = { updateReservationCount { reservationCount += 1 } },
+        )
+        views.tvReservationCount.text = reservationCount.value.toString()
+        views.updateReservationCountMinusButton(reservationCount)
+    }
+
+    private fun setupFinishButton() {
         views.setOnFinishClickListener {
             if (reservationCount.value >= ReservationCount.RESERVATION_MIN_COUNT) {
-                reservationDialog.show()
+                dialog.show(reservationConfirmationDialogInfo)
             }
         }
+    }
 
-        views.tvReservationCount.text = reservationCount.value.toString()
-
+    private fun setupDateSpinner() {
         views.setDateSpinner(
             adapter = dateSpinnerAdapter,
             onDateSelected = { selectedDate ->
@@ -85,13 +106,17 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             shouldIgnoreNext = { shouldIgnoreNextSelection },
             clearIgnoreNext = { shouldIgnoreNextSelection = false },
         )
+    }
+
+    private fun setupAvailableDates() {
+        val availableDates = movie?.screeningPeriod?.getAvailableDates(LocalDate.now()) ?: emptyList()
+        if (availableDates.isEmpty()) {
+            dialog.show(noAvailableTimesDialogInfo)
+            return
+        }
 
         movie?.let {
-            views.setSpinnerItems(
-                views.spinnerDate,
-                dateSpinnerAdapter,
-                it.screeningPeriod.getAvailableDates(LocalDate.now()),
-            )
+            views.setSpinnerItems(views.spinnerDate, dateSpinnerAdapter, availableDates)
         }
     }
 
@@ -145,7 +170,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun setupData() {
-        movie = intent?.getParcelableExtra<MovieUiModel>(BUNDLE_KEY_MOVIE)?.toModel()
+        movie = intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)?.toModel()
     }
 
     private fun updateTimeSpinner(
@@ -155,6 +180,15 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     ) {
         val times = movie.screeningPeriod.getAvailableTimesFor(LocalDateTime.now(), date)
         views.setSpinnerItems(views.spinnerTime, timeSpinnerAdapter, times, selectedTime)
+
+        if (times.isEmpty()) {
+            val currentItemPos = views.spinnerDate.selectedItemPosition
+            runCatching {
+                views.spinnerDate.setSelection(currentItemPos + 1)
+            }.onFailure {
+                dialog.show(noAvailableTimesDialogInfo)
+            }
+        }
     }
 
     private fun navigateToResult() {
