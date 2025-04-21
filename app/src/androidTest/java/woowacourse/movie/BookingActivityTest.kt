@@ -17,7 +17,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.fixture.fakeContext
@@ -46,39 +45,33 @@ class BookingActivityTest {
         ActivityScenario.launch<BookingActivity>(intent)
     }
 
-    @DisplayName("전달 받은 영화 이름을 출력한다")
     @Test
-    fun movieTitleDisplayTest() {
+    fun `영화_이름을_출력한다`() {
         onView(withId(R.id.tv_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
-    @DisplayName("전달 받은 상영일 출력한다")
     @Test
-    fun movieReleaseDateDisplayTest() {
+    fun `영화_상영일을_출력한다`() {
         onView(withId(R.id.tv_screening_period)).check(matches(withText("2025.4.1 ~ 2025.4.25")))
     }
 
-    @DisplayName("전달 받은 상영 시간을 출력한다")
     @Test
-    fun movieRunningTimeDisplayTest() {
+    fun `영화_상영시간을_출력한다`() {
         onView(withId(R.id.tv_running_time)).check(matches(withText("152분")))
     }
 
-    @DisplayName("상영 날짜 스피너에 날짜 목록이 표시된다")
     @Test
-    fun releasedDateSpinnerDisplayTest() {
+    fun `영화_상영날짜_스피너에_날짜_목록이_표시된다`() {
         onView(withId(R.id.sp_date)).check(matches(isDisplayed()))
     }
 
-    @DisplayName("예매 가능 시간 스피너에 시간 목록이 표시된다")
     @Test
-    fun releasedTimeSpinnerDisplayTest() {
+    fun `영화_예매가능시간_스피너에_시간_목록이_표시된다`() {
         onView(withId(R.id.sp_time)).check(matches(isDisplayed()))
     }
 
-    @DisplayName("인원 증가 버튼을 누르면 인원이 1 증가한다")
     @Test
-    fun increaseBtnTest() {
+    fun `인원_증가_버튼을_누르면_인원이_1_증가한다`() {
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
 
         onView(withId(R.id.btn_increase)).perform(click())
@@ -86,9 +79,8 @@ class BookingActivityTest {
         onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
     }
 
-    @DisplayName("인원 감소 버튼을 누르면 인원이 1 감소한다")
     @Test
-    fun decreaseBtnTest() {
+    fun `인원_감소_버튼을_누르면_인원이_1_감소한다`() {
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
 
         onView(withId(R.id.btn_increase)).perform(click())
@@ -98,9 +90,8 @@ class BookingActivityTest {
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
 
-    @DisplayName("인원은 1명 이하로 감소하지 않는다")
     @Test
-    fun minDecreaseBtnTest() {
+    fun `인원은_1명_미만으로_감소하지_않는다`() {
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
 
         onView(withId(R.id.btn_decrease)).perform(click())
@@ -108,19 +99,18 @@ class BookingActivityTest {
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
 
-    @DisplayName("예매 선택 완료 버튼을 누르면 예매 확인 다이얼로그가 뜬다")
     @Test
-    fun bookingDialogDisplayTest() {
+    fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_나타난다`() {
         onView(withId(R.id.btn_booking_complete)).perform(click())
+
         onView(withText("예매 확인")).check(matches(isDisplayed()))
         onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
         onView(withText("취소")).check(matches(isDisplayed()))
         onView(withText("예매 완료")).check(matches(isDisplayed()))
     }
 
-    @DisplayName("다이얼로그 외부 영역을 클릭해도 다이얼로그가 유지된다")
     @Test
-    fun dialogOutsideTouchTest() {
+    fun `다이얼로그_외부_영역을_클릭해도_다이얼로그가_유지된다`() {
         onView(withId(R.id.btn_booking_complete))
             .perform(click())
 
@@ -132,39 +122,30 @@ class BookingActivityTest {
         onView(withText("예매 완료")).check(matches(isDisplayed()))
     }
 
-    @DisplayName("화면이 회전 되어도 인원수가 유지된다")
     @Test
-    fun configurationChangePeopleCountTest() {
+    fun `화면이_회전되어도_인원수가_유지된다`() {
         onView(withId(R.id.btn_increase)).perform(click())
+        onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
+
         onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
         onView(withId(R.id.tv_headcount)).check(matches(withText("2")))
+
         onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
     }
 
-    @DisplayName("화면이 회전 되어도 선택된 날짜가 유지된다")
     @Test
-    fun configurationChangeDateTest() {
-        onView(withId(R.id.sp_date))
-            .perform(click())
-
-        onData(anything())
-            .atPosition(8)
-            .perform(click())
-
-        onView(withId(R.id.sp_time))
-            .perform(click())
-
-        onData(anything())
-            .atPosition(1)
-            .perform(click())
+    fun `화면이_회전되어도_선택된_날짜가_유지된다`() {
+        onView(withId(R.id.sp_date)).perform(click())
+        onData(anything()).atPosition(8).perform(click())
+        onView(withId(R.id.sp_time)).perform(click())
+        onData(anything()).atPosition(1).perform(click())
+        onView(withId(R.id.sp_date)).check(matches(withSpinnerText("2025-04-25")))
+        onView(withId(R.id.sp_time)).check(matches(withSpinnerText("12:00")))
 
         onDevice().setScreenOrientation(ScreenOrientation.LANDSCAPE)
         onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
 
-        onView(withId(R.id.sp_date))
-            .check(matches(withSpinnerText("2025-04-25")))
-
-        onView(withId(R.id.sp_time))
-            .check(matches(withSpinnerText("12:00")))
+        onView(withId(R.id.sp_date)).check(matches(withSpinnerText("2025-04-25")))
+        onView(withId(R.id.sp_time)).check(matches(withSpinnerText("12:00")))
     }
 }
