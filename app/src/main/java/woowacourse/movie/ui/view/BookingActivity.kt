@@ -28,7 +28,7 @@ class BookingActivity : BaseActivity() {
         intent.intentSerializable(
             IntentKeys.MOVIE,
             Movie::class.java
-        )
+        ) ?: throw IllegalArgumentException(MOVIE_INTENT_ERROR)
     }
     private lateinit var date: LocalDate
     private lateinit var time: LocalTime
@@ -198,5 +198,6 @@ class BookingActivity : BaseActivity() {
         private const val HEADCOUNT_KEY = "HeadCount"
         private const val DATE_KEY = "Date"
         private const val TIME_KEY = "Time"
+        private const val MOVIE_INTENT_ERROR = "[ERROR] 영화 정보에 대한 키 값이 올바르지 않습니다."
     }
 }

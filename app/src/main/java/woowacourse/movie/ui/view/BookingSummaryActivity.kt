@@ -19,6 +19,7 @@ class BookingSummaryActivity : BaseActivity() {
 
     private fun displayBookingSummary() {
         val movieTicket = intent.intentSerializable(IntentKeys.TICKET, MovieTicket::class.java)
+            ?: throw IllegalArgumentException(TICKET_INTENT_ERROR)
         val title = findViewById<TextView>(R.id.title)
         val screeningDateTime = findViewById<TextView>(R.id.screeningDateTime)
         val headCount = findViewById<TextView>(R.id.headCount)
@@ -28,5 +29,9 @@ class BookingSummaryActivity : BaseActivity() {
         screeningDateTime.text = formatDateTime(movieTicket.screeningDateTime)
         headCount.text = formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)
         amount.text = formatAmount(getString(R.string.amount_message), movieTicket.amount)
+    }
+
+    companion object {
+        private const val TICKET_INTENT_ERROR = "[ERROR] 예매 정보에 대한 키 값이 올바르지 않습니다."
     }
 }
