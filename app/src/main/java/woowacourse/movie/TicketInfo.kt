@@ -8,5 +8,5 @@ data class TicketInfo(
     val movie: Movie,
     val date: String,
     val time: String,
-    val count: Int,
+    val count: TicketCount,
 ) : Parcelable

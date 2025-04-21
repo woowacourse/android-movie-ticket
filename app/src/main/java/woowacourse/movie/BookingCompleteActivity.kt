@@ -13,17 +13,20 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.util.parcelableExtraWithVersion
 
 class BookingCompleteActivity : AppCompatActivity() {
+    private lateinit var ticketInfo: TicketInfo
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
 
-        val ticketInfo = intent.parcelableExtraWithVersion(TICKET_INFO_KEY, TicketInfo::class.java)
+        ticketInfo = intent.parcelableExtraWithVersion(TICKET_INFO_KEY, TicketInfo::class.java)
+            ?: return finish()
 
-        val title = ticketInfo?.movie?.title ?: ""
-        val date = ticketInfo?.date ?: ""
-        val time = ticketInfo?.time ?: ""
-        val ticketCount = ticketInfo?.count ?: 0
+        val title = ticketInfo.movie.title
+        val date = ticketInfo.date
+        val time = ticketInfo.time
+        val ticketCount = ticketInfo.count.value
         val ticketTotalPrice = DecimalFormat("#,###").format(ticketCount * 13000)
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
