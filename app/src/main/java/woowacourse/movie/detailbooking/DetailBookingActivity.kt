@@ -91,8 +91,8 @@ class DetailBookingActivity : AppCompatActivity() {
                 savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
             }
 
-        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, 0) // 기본값 0
-        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, 0) // 기본값 0
+        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, selectedDatePosition)
+        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, selectedTimePosition)
     }
 
     private fun updateCounterText() {
