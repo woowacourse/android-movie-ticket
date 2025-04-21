@@ -36,4 +36,58 @@ object MovieFixture {
     val dates3 = listOf(
         LocalDate.of(2025, 4, 5)
     )
+
+    val movies = mapOf<Title, Movie>(
+        Title("해리포터와 마법사의 돌") to Movie(
+            Title("해리포터와 마법사의 돌"),
+            R.drawable.movie_poster,
+            ScreeningPeriod(
+                LocalDate.of(2025, 4, 1),
+                LocalDate.of(2025, 4, 25),
+            ),
+            152,
+        ),
+        Title("포니") to Movie(
+            Title("포니"),
+            R.drawable.movie_poster,
+            ScreeningPeriod(
+                LocalDate.of(2025, 4, 1),
+                LocalDate.of(2025, 4, 25),
+            ),
+            152,
+        )
+    )
+
+    val movies2 = mapOf<Title, Movie>(
+        Title("해리포터와 마법사") to Movie(
+            Title("해리포터와 마법사의 돌"),
+            R.drawable.movie_poster,
+            ScreeningPeriod(
+                LocalDate.of(2025, 4, 1),
+                LocalDate.of(2025, 4, 25),
+            ),
+            152,
+        ),
+    )
+
+    val listMovies = listOf<Movie>(
+        Movie(
+            Title("해리포터와 마법사의 돌"),
+            R.drawable.movie_poster,
+            ScreeningPeriod(
+                LocalDate.of(2025, 4, 1),
+                LocalDate.of(2025, 4, 25),
+            ),
+            152,
+        ),
+        Movie(
+            Title("포니"),
+            R.drawable.movie_poster,
+            ScreeningPeriod(
+                LocalDate.of(2025, 4, 1),
+                LocalDate.of(2025, 4, 25),
+            ),
+            152,
+        )
+    )
 }

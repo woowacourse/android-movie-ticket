@@ -5,14 +5,20 @@ import kotlinx.parcelize.Parcelize
 import woowacourse.movie.R
 import java.time.LocalDate
 import java.time.LocalDateTime
+import kotlin.IllegalArgumentException
 import kotlin.time.Duration.Companion.minutes
 
 @Parcelize
 data class Movies(
     val movies: Map<Title, Movie>,
 ) : Parcelable {
+    init {
+        movies.keys.map { key ->
+            require(key.value == movies[key]?.title) }
+    }
+
     fun find(title: Title): Movie {
-        return movies[title] ?: throw IllegalStateException(ERROR_MOVIE_NOT_FOUND)
+        return movies[title] ?: throw IllegalArgumentException(ERROR_MOVIE_NOT_FOUND)
     }
 
     fun toList(): List<Movie> = movies.values.toList()
