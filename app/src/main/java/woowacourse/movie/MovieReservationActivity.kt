@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +41,11 @@ class MovieReservationActivity : AppCompatActivity() {
             ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
+        if (dateSpinner.selectedItem == null) {
+            Toast.makeText(this, getString(R.string.no_screening_date_available), Toast.LENGTH_SHORT).show()
+            finish()
+            return
+        }
         initializeTimeSpinner()
 
         ticket = savedInstanceState?.getParcelableCompat<Ticket>(KEY_TICKET) ?: Ticket(
@@ -87,6 +93,7 @@ class MovieReservationActivity : AppCompatActivity() {
     private fun initializeDateSpinner() {
         val screeningDates =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
+        if (screeningDates.isEmpty()) return
         dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates)
         dateSpinner.adapter = dateAdapter
 
@@ -116,6 +123,7 @@ class MovieReservationActivity : AppCompatActivity() {
             (dateSpinner.selectedItem as LocalDate).let { selectedDate ->
                 scheduler.getShowtimes(selectedDate, LocalDateTime.now())
             }
+        if (showtimes.isEmpty()) return
         timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, showtimes)
         timeSpinner.adapter = timeAdapter
 
