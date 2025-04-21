@@ -32,12 +32,13 @@ class MovieViewHolder(
 
     private fun getDate(movie: Movie): String =
         movie.screeningPeriod.run {
+            val format = parentView.context.getString(R.string.movie_screening_period_format)
             parentView.context.getString(
                 R.string.movie_date,
-                MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                format.toDateTimeFormatter()?.let { formatter ->
                     startDate.format(formatter)
                 },
-                MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
+                format.toDateTimeFormatter()?.let { formatter ->
                     endDate.format(formatter)
                 },
             )
@@ -49,11 +50,8 @@ class MovieViewHolder(
     private fun setPoster(movie: Movie) {
         when (val poster = movie.poster) {
             is Poster.Resource -> ivPoster.setImageResource(poster.resId)
-            is Poster.Url -> { /* 이미지 로드 */ }
+            is Poster.Url -> { // 이미지 로드
+            }
         }
-    }
-
-    companion object {
-        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
     }
 }

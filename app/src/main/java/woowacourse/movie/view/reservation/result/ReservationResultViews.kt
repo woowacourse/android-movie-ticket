@@ -1,13 +1,12 @@
 package woowacourse.movie.view.reservation.result
 
-import android.app.Activity
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.extension.toDateTimeFormatter
 
 class ReservationResultViews(
-    private val activity: Activity,
+    private val activity: ReservationResultActivity,
 ) {
     private val tvCancelDescription: TextView = activity.findViewById(R.id.tv_cancel_description)
     private val tvMovieTitle: TextView = activity.findViewById(R.id.tv_movie_title)
@@ -18,9 +17,12 @@ class ReservationResultViews(
 
     fun bindReservationResult(info: ReservationInfo) {
         tvMovieTitle.text = info.title
-        RESERVATION_DATETIME_FORMAT.toDateTimeFormatter()?.let { formatter ->
-            tvMovieDate.text = info.reservationDateTime.format(formatter)
-        }
+        activity
+            .getString(R.string.reservation_datetime_format)
+            .toDateTimeFormatter()
+            ?.let { formatter ->
+                tvMovieDate.text = info.reservationDateTime.format(formatter)
+            }
         tvReservationCountInfo.text =
             activity.getString(R.string.reservation_count_info).format(info.reservationCount.value)
         tvTotalPrice.text =
@@ -34,6 +36,5 @@ class ReservationResultViews(
 
     companion object {
         private const val CANCELLATION_TIME = 15
-        private const val RESERVATION_DATETIME_FORMAT = "yyyy.M.d HH:mm"
     }
 }

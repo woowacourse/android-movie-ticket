@@ -1,6 +1,5 @@
 package woowacourse.movie.view.reservation
 
-import android.app.Activity
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -16,23 +15,23 @@ import woowacourse.movie.view.extension.toDateTimeFormatter
 import java.time.LocalDate
 
 class ReservationViews(
-    private val activity: Activity,
+    private val activity: ReservationActivity,
 ) {
-    val ivPoster: ImageView = activity.findViewById(R.id.iv_reservation_poster)
     val tvTitle: TextView = activity.findViewById(R.id.tv_reservation_title)
-    val tvScreeningPeriod: TextView = activity.findViewById(R.id.tv_screening_period)
-    val tvRunningTime: TextView = activity.findViewById(R.id.tv_reservation_running_time)
     val tvReservationCount: TextView = activity.findViewById(R.id.tv_reservation_count)
     val spinnerDate: Spinner = activity.findViewById(R.id.spinner_reservation_date)
     val spinnerTime: Spinner = activity.findViewById(R.id.spinner_reservation_time)
+    private val ivPoster: ImageView = activity.findViewById(R.id.iv_reservation_poster)
+    private val tvScreeningPeriod: TextView = activity.findViewById(R.id.tv_screening_period)
+    private val tvRunningTime: TextView = activity.findViewById(R.id.tv_reservation_running_time)
     private val btnReservationFinish: Button = activity.findViewById(R.id.btn_reservation_finish)
-    val btnCountMinus: Button = activity.findViewById(R.id.btn_reservation_count_minus)
+    private val btnCountMinus: Button = activity.findViewById(R.id.btn_reservation_count_minus)
     private val btnCountPlus: Button = activity.findViewById(R.id.btn_reservation_count_plus)
 
     fun bindMovieInfo(movie: Movie) {
         setPoster(movie)
         tvTitle.text = movie.title
-        val formatter = MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()
+        val formatter = activity.getString(R.string.movie_screening_period_format).toDateTimeFormatter()
         val start = movie.screeningPeriod.startDate.format(formatter)
         val end = movie.screeningPeriod.endDate.format(formatter)
         tvScreeningPeriod.text = activity.getString(R.string.movie_date, start, end)
@@ -117,9 +116,5 @@ class ReservationViews(
             is Poster.Resource -> ivPoster.setImageResource(poster.resId)
             is Poster.Url -> { /* 이미지 로드 */ }
         }
-    }
-
-    companion object {
-        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
     }
 }
