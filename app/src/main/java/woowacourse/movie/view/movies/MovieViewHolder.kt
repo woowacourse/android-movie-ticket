@@ -37,7 +37,7 @@ class MovieViewHolder(
             }
         tvRunningTime.text = view.context.getString(R.string.running_time, movie.runningTime.toString())
         btnReservation.setOnClickListener {
-            eventListener.onClick(movie)
+            eventListener.onReserveButtonClick(movie)
         }
     }
 
