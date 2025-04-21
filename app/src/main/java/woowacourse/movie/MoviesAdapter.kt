@@ -1,47 +1,35 @@
 package woowacourse.movie
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.domain.Movie
 
 class MoviesAdapter(
-//    private val context: Context,
     private val movies: List<Movie>,
     private val onBookingClick: (Movie) -> Unit,
 ) : BaseAdapter() {
-    @SuppressLint("ViewHolder")
     override fun getView(
         position: Int,
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val context = parent!!.context
-        val view: View =
-            LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_movie, parent, false)
+        val view: View
+        val viewHolder: MovieItemViewHolder
 
-        val title = view.findViewById<TextView>(R.id.tv_movie_title)
-        val poster = view.findViewById<ImageView>(R.id.iv_movie_poster)
-        val date = view.findViewById<TextView>(R.id.tv_movie_date)
-        val runningTime = view.findViewById<TextView>(R.id.tv_movie_running_time)
-
-        val movie = movies[position]
-
-        title.text = movie.title
-        poster.setImageResource(movie.poster)
-        date.text = context.getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
-        runningTime.text = context.getString(R.string.movies_movie_running_time, movie.runningTime)
-
-        view.findViewById<Button>(R.id.btn_movie_booking).setOnClickListener {
-            onBookingClick(movie)
+        if (convertView == null) {
+            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
+            viewHolder = MovieItemViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            view = convertView
+            viewHolder = view.tag as MovieItemViewHolder
         }
+
+        val movie = getItem(position)
+
+        viewHolder.bind(movie, onBookingClick)
 
         return view
     }
