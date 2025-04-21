@@ -1,26 +1,35 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
+import android.content.pm.ActivityInfo
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.model.Movie
+import woowacourse.movie.view.Extras
 import woowacourse.movie.view.reservation.ReservationActivity
 
 class ReservationActivityTest {
-    @get:Rule
-    val activityRule = ActivityScenarioRule(ReservationActivity::class.java)
+    private lateinit var scenario: ActivityScenario<ReservationActivity>
+    private val fakeMovie = Movie.value
 
     @Before
     fun setup() {
-        Intents.init()
+        val fakeContext: Context = ApplicationProvider.getApplicationContext()
+        val intent =
+            Intent(
+                fakeContext,
+                ReservationActivity::class.java,
+            ).putExtra(Extras.MovieData.MOVIE_KEY, fakeMovie)
+        scenario = ActivityScenario.launch(intent)
     }
 
     @Test
@@ -98,8 +107,19 @@ class ReservationActivityTest {
             .check(matches(isDisplayed()))
     }
 
-    @After
-    fun finish() {
-        Intents.release()
+    @Test
+    fun `화면을_회전해도_티켓_개수가_유지된다`() {
+        // when: 티켓 개수를 2 증가 시키고 가로모드로 회전했을 때
+        onView(withId(R.id.btn_reservation_plus_ticket_count))
+            .perform(click())
+            .perform(click())
+
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+
+        // then: 티켓 개수 3이 유지된다
+        onView(withId(R.id.tv_reservation_ticket_count))
+            .check(matches(withText("3")))
     }
 }

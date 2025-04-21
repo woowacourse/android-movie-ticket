@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.R.layout
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
@@ -204,11 +205,17 @@ class ReservationActivity : AppCompatActivity() {
         title: String,
         message: String,
     ) {
-        reservationDialog.show(this, title, message, null) { _ ->
-            val intent = movieTicketIntent()
-            startActivity(intent)
-            finish()
-        }
+        reservationDialog.show(
+            this,
+            title,
+            message,
+            { dialog -> dialog.dismiss() },
+            { _ ->
+                val intent = movieTicketIntent()
+                startActivity(intent)
+                finish()
+            },
+        )
     }
 
     private fun movieTicketIntent(): Intent {
