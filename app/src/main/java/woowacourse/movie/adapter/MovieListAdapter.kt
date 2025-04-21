@@ -43,8 +43,8 @@ class MovieListAdapter(
             image.setImageResource(it.poster)
             title.text = it.title
             movieDate.text =
-                String.format(
-                    context.resources.getString(R.string.movie_date),
+                context.resources.getString(
+                    R.string.movie_date,
                     it.startDate,
                     it.endDate,
                 )

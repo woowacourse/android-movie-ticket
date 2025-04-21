@@ -73,13 +73,12 @@ class BookingActivity : AppCompatActivity() {
             poster.setImageResource(info.poster)
             title.text = info.title
             movieDate.text =
-                String.format(
-                    resources.getString(R.string.movie_date),
+                resources.getString(
+                    R.string.movie_date,
                     info.startDate,
                     info.endDate,
                 )
-            runningTime.text =
-                String.format(resources.getString(R.string.running_time), info.runningTime)
+            runningTime.text = resources.getString(R.string.running_time, info.runningTime)
 
             SpinnerAdapter.bind(this, selectedDate, info.getDates())
             SpinnerAdapter.bind(this, movieTime, info.getTimes(info.startDate))
