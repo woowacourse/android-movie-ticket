@@ -67,6 +67,12 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
+        screening = screening()
+        ticketCount = savedTicketCount
+        timeItemPosition = savedTimeItemPosition
+    }
+
+    private fun screening(): Screening {
         val title = intent.getStringExtra(EXTRA_TITLE) ?: error("영화 제목을 전달받지 못했습니다.")
         val startYear = intent.getIntExtra(EXTRA_START_YEAR, -1).takeIf { it != -1 } ?: error("")
         val startMonth = intent.getIntExtra(EXTRA_START_MONTH, 0)
@@ -79,9 +85,7 @@ class ReservationActivity : AppCompatActivity() {
         val startDate = LocalDate.of(startYear, startMonth, startDay)
         val endDate = LocalDate.of(endYear, endMonth, endDay)
         val period = startDate..endDate
-        screening = Screening(Movie(title, runningTIme, posterId), period)
-        ticketCount = savedTicketCount
-        timeItemPosition = savedTimeItemPosition
+        return Screening(Movie(title, runningTIme, posterId), period)
     }
 
     private fun initViews() {
