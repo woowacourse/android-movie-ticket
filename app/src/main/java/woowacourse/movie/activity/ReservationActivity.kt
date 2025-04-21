@@ -2,6 +2,7 @@ package woowacourse.movie.activity
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -41,7 +42,12 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movie = intent.getSerializableExtra(KEY_MOVIE) as? Movie
+        val movie: Movie? =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra(KEY_MOVIE, Movie::class.java)
+            } else {
+                intent.getSerializableExtra(KEY_MOVIE) as? Movie
+            }
         if (movie == null) {
             handleInvalidMovie()
             return
