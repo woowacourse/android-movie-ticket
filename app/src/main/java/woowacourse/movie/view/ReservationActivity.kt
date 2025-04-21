@@ -75,7 +75,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun initViews() {
         initScreeningInfoViews()
 
-        initDateSpinner()
+        initDateSpinner(initTimeSpinner())
 
         initTicketCounterViews()
 
@@ -119,7 +119,29 @@ class ReservationActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun initDateSpinner() {
+    private fun initTimeSpinner(): Spinner {
+        val timeSpinnerView =
+            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
+
+        timeSpinnerView.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
+                    selectedTime = screeningTimes[position]
+                    timeItemPosition = position
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        return timeSpinnerView
+    }
+
+    private fun initDateSpinner(timeSpinnerView: Spinner) {
         val screeningDates = screening.getScreeningDates()
 
         val dateAdapter =
@@ -131,8 +153,6 @@ class ReservationActivity : AppCompatActivity() {
 
         val dateSpinnerView = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
         dateSpinnerView.adapter = dateAdapter
-
-        val timeSpinnerView = initTimeSpinner()
 
         dateSpinnerView.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -163,28 +183,6 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-    }
-
-    private fun initTimeSpinner(): Spinner {
-        val timeSpinnerView =
-            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
-
-        timeSpinnerView.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
-                    selectedTime = screeningTimes[position]
-                    timeItemPosition = position
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-        return timeSpinnerView
     }
 
     private fun initTicketCounterViews() {
