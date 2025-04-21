@@ -21,7 +21,7 @@ class TicketActivity : AppCompatActivity() {
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(ReservationActivity.EXTRA_TICKET_DATA)
-        } ?: throw IllegalArgumentException("티켓 정보가 전달되지 않았습니다")
+        } ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,5 +70,9 @@ class TicketActivity : AppCompatActivity() {
 
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
         priceView.text = getString(R.string.ticket_price, ticket.price)
+    }
+
+    companion object {
+        private const val ERROR_CANT_READ_TICKET_INFO = "티켓 정보가 전달되지 않았습니다"
     }
 }
