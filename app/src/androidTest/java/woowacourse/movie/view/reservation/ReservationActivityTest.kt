@@ -17,20 +17,17 @@ import woowacourse.movie.view.fixture.fakeContext
 import java.time.LocalDate
 
 class ReservationActivityTest {
+    val harryPotter =
+        Movie(
+            title = "해리 포터와 마법사의 돌",
+            screeningPeriod = ScreeningPeriod(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+            runningTime = 152,
+            posterResId = R.drawable.harrypotter.toString(),
+        )
+
     @Before
     fun setUp() {
-        val movie =
-            Movie(
-                posterResId = R.drawable.harrypotter.toString(),
-                title = "해리 포터와 마법사의 돌",
-                screeningPeriod =
-                    ScreeningPeriod(
-                        LocalDate.of(2025, 4, 1),
-                        LocalDate.of(2025, 4, 25),
-                    ),
-                runningTime = 152,
-            )
-        val bundle = Bundle().apply { putSerializable("movie", movie) }
+        val bundle = Bundle().apply { putSerializable("movie", harryPotter) }
         val intent =
             Intent(fakeContext, ReservationActivity::class.java).putExtras(bundle)
 

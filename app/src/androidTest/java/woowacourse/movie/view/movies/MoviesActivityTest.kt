@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.view.fixture.MovieFixture
 
 class MoviesActivityTest {
     @get:Rule
@@ -32,7 +31,7 @@ class MoviesActivityTest {
     fun `영화의_제목이_보여진다`() {
         movieItem
             .onChildView(withId(R.id.tv_title))
-            .check(matches(withText(MovieFixture.harryPotter.title)))
+            .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
@@ -46,7 +45,7 @@ class MoviesActivityTest {
     fun `영화의_러닝타임이_보여진다`() {
         movieItem
             .onChildView(withId(R.id.tv_running_time))
-            .check(matches(withText(MovieFixture.harryPotter.runningTime)))
+            .check(matches(withText("러닝타임: 152분")))
     }
 
     @Test
