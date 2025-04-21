@@ -106,24 +106,16 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun setCompleteButtonEventListener(movie: Movie) {
         binding.commonButton.setOnClickListener {
-            AlertDialog.Builder(this)
-                .setTitle(getString(R.string.complete_dialog_title))
-                .setMessage(getString(R.string.complete_dialog_message))
-                .setPositiveButton(getString(R.string.complete_dialog_positive_button)) { _, _ ->
-                    navigateToReservationComplete(
-                        BookingStatus(
-                            movie = movie,
-                            isBooked = true,
-                            memberCount = MemberCount(memberCount),
-                            bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
-                        ),
-                    )
-                }
-                .setNegativeButton(R.string.complete_dialog_negative_button) { dialog, _ ->
-                    dialog.dismiss()
-                }
-                .show()
-                .setCancelable(false)
+            dialog {
+                navigateToReservationComplete(
+                    BookingStatus(
+                        movie = movie,
+                        isBooked = true,
+                        memberCount = MemberCount(memberCount),
+                        bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
+                    ),
+                )
+            }.show()
         }
     }
 
@@ -184,6 +176,20 @@ class ReservationActivity : AppCompatActivity() {
     private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
         val intent = newIntent<ReservationCompleteActivity>(listOf(BOOKING_STATUS_KEY to bookingStatus))
         startActivity(intent)
+    }
+
+    private fun dialog(block: () -> Unit): AlertDialog {
+        return AlertDialog.Builder(this)
+            .setTitle(getString(R.string.complete_dialog_title))
+            .setMessage(getString(R.string.complete_dialog_message))
+            .setPositiveButton(getString(R.string.complete_dialog_positive_button)) { _, _ ->
+                block()
+            }
+            .setNegativeButton(R.string.complete_dialog_negative_button) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .create()
     }
 
     companion object {
