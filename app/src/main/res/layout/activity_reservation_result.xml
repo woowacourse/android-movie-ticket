@@ -14,7 +14,7 @@
         android:background="@color/light_purple"
         android:gravity="bottom|center_horizontal"
         android:paddingBottom="10dp"
-        android:text="@string/cancel_guide"
+        tools:text="@string/cancel_guide"
         android:textColor="@color/white"
         android:textSize="15sp"
         android:textStyle="bold"

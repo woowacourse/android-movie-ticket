@@ -57,6 +57,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation(reservation: Reservation) {
+        val cancelGuide = findViewById<TextView>(R.id.tv_cancel_guide)
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
         val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)
@@ -64,6 +65,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
         val screeningDateView = screeningDate(reservation.reservedTime)
 
+        cancelGuide.text = getString(R.string.cancel_guide, reservation.cancelMinute)
         title.text = reservation.title
         screeningDate.text = screeningDateView
         ticketCount.text = getString(R.string.formatted_ticket_count, reservation.ticketCount)
