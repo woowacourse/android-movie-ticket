@@ -9,7 +9,7 @@
 
     <ImageView
         android:id="@+id/iv_poster"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="400dp"
         android:background="@color/black"
         android:contentDescription="@string/movie_poster"
@@ -20,7 +20,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_movie_info"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="20dp"
         app:layout_constraintBottom_toTopOf="@+id/tl_reserve_info"
@@ -88,7 +88,7 @@
 
     <TableLayout
         android:id="@+id/tl_reserve_info"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:paddingHorizontal="20dp"

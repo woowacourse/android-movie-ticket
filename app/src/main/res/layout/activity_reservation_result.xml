@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/tv_cancel_guide"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="114dp"
         android:background="@color/light_purple"
         android:gravity="bottom|center_horizontal"
