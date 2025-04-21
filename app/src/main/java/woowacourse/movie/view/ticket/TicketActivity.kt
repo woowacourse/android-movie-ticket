@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.ticket
 
 import android.content.Intent
 import android.os.Build
@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_TICKET
+import woowacourse.movie.domain.ticket.Ticket
+import woowacourse.movie.view.reservation.ReservationActivity
 
 class TicketActivity : AppCompatActivity() {
     private lateinit var ticket: Ticket
@@ -30,7 +30,8 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initModel() {
-        ticket = intent.getTicketExtra(EXTRA_TICKET) ?: error("티켓 정보가 전달되지 않았습니다.")
+        ticket = intent.getTicketExtra(ReservationActivity.Companion.EXTRA_TICKET)
+            ?: error("티켓 정보가 전달되지 않았습니다.")
     }
 
     @Suppress("DEPRECATION")

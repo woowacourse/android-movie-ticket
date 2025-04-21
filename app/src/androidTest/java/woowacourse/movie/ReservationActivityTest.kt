@@ -26,7 +26,7 @@ import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_DAY
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_MONTH
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_YEAR
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
-import woowacourse.movie.view.ReservationActivity
+import woowacourse.movie.view.reservation.ReservationActivity
 import java.time.LocalDate
 import java.time.LocalTime
 

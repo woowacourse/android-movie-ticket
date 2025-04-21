@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.ticket
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

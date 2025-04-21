@@ -5,7 +5,7 @@
     <string name="running_time">러닝타임: %1$d분</string>
 
     <!--item_movie.xml-->
-    <string name="item_movie_reserve">지금 예매</string>
+    <string name="item_screening_reserve">지금 예매</string>
 
     <!--activity_reservation.xml-->
     <string name="reservation_plus_symbol">+</string>

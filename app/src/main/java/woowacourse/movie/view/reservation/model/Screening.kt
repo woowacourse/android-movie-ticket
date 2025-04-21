@@ -1,10 +1,11 @@
-package woowacourse.movie.view.model
+package woowacourse.movie.view.reservation.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.DefaultShowtimePolicy
-import woowacourse.movie.domain.ShowtimePolicy
+import woowacourse.movie.domain.screening.DefaultShowtimePolicy
+import woowacourse.movie.domain.screening.ShowtimePolicy
+import woowacourse.movie.view.movie.model.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 

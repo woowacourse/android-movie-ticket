@@ -16,25 +16,25 @@ class MainActivityTest {
 
     @Test
     fun `앱을_실행하면_영화_제목이_표시된다`() {
-        onView(withId(R.id.tv_item_movie_title))
+        onView(withId(R.id.tv_item_screening_title))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `상영일이_표시된다`() {
-        onView(withId(R.id.tv_item_movie_screening_date))
+        onView(withId(R.id.tv_item_screening_date))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `포스터가_표시된다`() {
-        onView(withId(R.id.iv_item_movie_poster))
+        onView(withId(R.id.iv_item_screening_poster))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `러닝타임이_표시된다`() {
-        onView(withId(R.id.tv_item_movie_running_time))
+        onView(withId(R.id.tv_item_screening_running_time))
             .check(matches(isDisplayed()))
     }
 
@@ -46,7 +46,7 @@ class MainActivityTest {
 
     @Test
     fun `지금_예매를_클릭하면_영화_예매_완료_화면이_보여진다`() {
-        onView(withId(R.id.btn_item_movie_reserve))
+        onView(withId(R.id.btn_item_screening_reserve))
             .perform(click())
 
         onView(withId(R.id.layout_reservation))

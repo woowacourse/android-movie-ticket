@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.reservation
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -17,9 +17,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_SCREENING
-import woowacourse.movie.view.model.Screening
+import woowacourse.movie.domain.ticket.Ticket
+import woowacourse.movie.view.MainActivity
+import woowacourse.movie.view.reservation.model.Screening
+import woowacourse.movie.view.ticket.TicketActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -62,7 +63,8 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        screening = intent.getScreeningExtra(EXTRA_SCREENING) ?: error("상영 정보가 전달되지 않았습니다.")
+        screening = intent.getScreeningExtra(MainActivity.Companion.EXTRA_SCREENING)
+            ?: error("상영 정보가 전달되지 않았습니다.")
         ticketCount = savedTicketCount
         timeItemPosition = savedTimeItemPosition
     }

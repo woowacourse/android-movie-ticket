@@ -8,8 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.data.Screenings
-import woowacourse.movie.view.model.Screening
+import woowacourse.movie.data.screening.Screenings
+import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.reservation.model.Screening
+import woowacourse.movie.view.screening.adapter.ScreeningAdapter
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,7 +30,7 @@ class MainActivity : AppCompatActivity() {
     private fun initListView() {
         val screenings: List<Screening> = Screenings().value
         val movieListView = findViewById<ListView>(R.id.lv_main_movies)
-        val movieAdapter = MovieAdapter(screenings, ::navigateToReservationActivity)
+        val movieAdapter = ScreeningAdapter(screenings, ::navigateToReservationActivity)
         movieListView.adapter = movieAdapter
     }
 

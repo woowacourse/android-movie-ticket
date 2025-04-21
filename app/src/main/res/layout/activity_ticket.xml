@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        tools:context=".view.TicketActivity">
+        tools:context=".view.ticket.TicketActivity">
 
         <TextView
             android:layout_width="match_parent"

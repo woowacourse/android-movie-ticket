@@ -1,6 +1,7 @@
-package woowacourse.movie.data
+package woowacourse.movie.data.screening
 
-import woowacourse.movie.view.model.Screening
+import woowacourse.movie.data.movie.Movies
+import woowacourse.movie.view.reservation.model.Screening
 import java.time.LocalDate
 
 class Screenings {
