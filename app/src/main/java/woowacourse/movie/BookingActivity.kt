@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.adapter.SpinnerAdapter
 import woowacourse.movie.domain.MovieInfoGetter
+import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.dto.Ticket
 
@@ -20,6 +21,7 @@ class BookingActivity : AppCompatActivity() {
     private lateinit var selectedDate: Spinner
     private lateinit var ticketCount: TextView
     private lateinit var movieDate: TextView
+    private var ticketCountValue = TicketCount()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,12 +124,11 @@ class BookingActivity : AppCompatActivity() {
         val plusButton = findViewById<Button>(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            ticketCount.text = (ticketCount.text.toString().toInt() - 1).toString()
-            if (ticketCount.text.toString().toInt() < 0) ticketCount.text = "0"
+            ticketCount.text = ticketCountValue.downCount().toString()
         }
 
         plusButton.setOnClickListener {
-            ticketCount.text = (ticketCount.text.toString().toInt() + 1).toString()
+            ticketCount.text = ticketCountValue.upCount().toString()
         }
     }
 
