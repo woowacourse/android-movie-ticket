@@ -3,6 +3,7 @@ package woowacourse.movie.view.model
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Poster
 import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningPeriod
 
@@ -10,7 +11,7 @@ import woowacourse.movie.domain.model.ScreeningPeriod
 data class MovieUiModel(
     val id: Long,
     val title: String,
-    val poster: String,
+    val poster: Poster,
     val screeningPeriod: ScreeningPeriod,
     val runningTime: Int,
 ) : Parcelable
