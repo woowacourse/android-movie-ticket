@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.ui.view.CustomFormatter.formatAmount
-import woowacourse.movie.ui.view.CustomFormatter.formatDateTime
-import woowacourse.movie.ui.view.CustomFormatter.formatHeadCount
+import woowacourse.movie.ui.view.TicketUiFormatter.formatAmount
+import woowacourse.movie.ui.view.TicketUiFormatter.formatDateTime
+import woowacourse.movie.ui.view.TicketUiFormatter.formatHeadCount
 
 class BookingSummaryActivity : BaseActivity() {
     override val layoutRes: Int

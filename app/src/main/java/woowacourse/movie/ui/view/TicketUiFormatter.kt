@@ -3,7 +3,7 @@ package woowacourse.movie.ui.view
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-object CustomFormatter {
+object TicketUiFormatter {
     private val dateTimeFormatter: DateTimeFormatter =
         DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
