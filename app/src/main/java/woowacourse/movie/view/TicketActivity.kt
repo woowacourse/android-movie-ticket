@@ -8,8 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Screening
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
@@ -18,6 +16,8 @@ import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_END_DATE
 import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_SHOWTIME
 import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_START_DATE
 import woowacourse.movie.view.ReservationActivity.Companion.EXTRA_TICKET_COUNT
+import woowacourse.movie.view.model.Movie
+import woowacourse.movie.view.model.Screening
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -46,9 +46,9 @@ class TicketActivity : AppCompatActivity() {
 
         val movie =
             Movie(
+                posterId,
                 title,
                 runningTime,
-                posterId,
             )
 
         val startDate = LocalDate.parse(intent.getStringExtra(EXTRA_START_DATE))
@@ -57,7 +57,8 @@ class TicketActivity : AppCompatActivity() {
         val screening =
             Screening(
                 movie,
-                startDate..endDate,
+                startDate,
+                endDate,
             )
 
         val ticketCount = intent.getIntExtra(EXTRA_TICKET_COUNT, 0)

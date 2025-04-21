@@ -17,8 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening
 import woowacourse.movie.view.MainActivity.Companion.EXTRA_SCREENING
+import woowacourse.movie.view.model.Screening
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -8,8 +8,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.view.model.Movie
+import woowacourse.movie.view.model.Screening
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
