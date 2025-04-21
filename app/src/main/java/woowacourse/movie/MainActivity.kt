@@ -9,7 +9,7 @@ import java.time.Duration
 import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var allItems: MutableList<Movie>
+    private lateinit var allItems: List<Movie>
     private lateinit var adapter: MovieListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         allItems =
-            mutableListOf(
+            listOf(
                 Movie(
                     "해리 포터와 마법사의 돌",
                     LocalDate.of(2025,4,1),
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
                 ),
             )
 
-        val listView = findViewById<ListView>(R.id.movie_list)
+        val listView: ListView = findViewById(R.id.movie_list)
         adapter = MovieListAdapter(this, allItems)
         listView.adapter = adapter
     }
