@@ -1,10 +1,35 @@
-package woowacourse.movie
+package woowacourse.movie.dialog
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog
+import woowacourse.movie.R
 
-object DialogFactory {
-    fun create(
+class DialogFactory {
+    private var dialog: AlertDialog? = null
+    private var errorDialog: AlertDialog? = null
+
+    fun show(
+        dialogInfo: DialogInfo,
+        onConfirmed: () -> Unit,
+    ) {
+        if (dialog == null) {
+            dialog = create(dialogInfo, onConfirmed)
+        }
+
+        dialog?.show()
+    }
+
+    fun showError(
+        context: Context,
+        onConfirmed: () -> Unit,
+    ) {
+        if (errorDialog == null) {
+            errorDialog = createErrorDialog(context, onConfirmed)
+        }
+        errorDialog?.show()
+    }
+
+    private fun create(
         dialogInfo: DialogInfo,
         onConfirmed: () -> Unit,
     ): AlertDialog {
@@ -22,7 +47,7 @@ object DialogFactory {
         return builder.create()
     }
 
-    fun createErrorDialog(
+    private fun createErrorDialog(
         context: Context,
         onConfirmed: () -> Unit,
     ): AlertDialog {

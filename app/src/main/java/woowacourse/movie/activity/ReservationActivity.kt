@@ -12,13 +12,12 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.DialogFactory
-import woowacourse.movie.DialogInfo
 import woowacourse.movie.R
+import woowacourse.movie.dialog.DialogFactory
+import woowacourse.movie.dialog.DialogInfo
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
@@ -44,7 +43,7 @@ class ReservationActivity : AppCompatActivity() {
         }
         val movie = intent.getSerializableExtra(KEY_MOVIE) as? Movie
         if (movie == null) {
-            handleInvalidMovie().show()
+            handleInvalidMovie()
             return
         }
 
@@ -62,8 +61,8 @@ class ReservationActivity : AppCompatActivity() {
         spinnerDate.setSelection(selectedDatePosition)
     }
 
-    private fun handleInvalidMovie(): AlertDialog {
-        return DialogFactory.createErrorDialog(this) {
+    private fun handleInvalidMovie() {
+        DialogFactory().showError(this) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
@@ -129,7 +128,7 @@ class ReservationActivity : AppCompatActivity() {
         movie: Movie,
         spinnerDate: Spinner,
         spinnerTime: Spinner,
-        onConfirm: (Ticket) -> AlertDialog,
+        onConfirm: (Ticket) -> Unit,
     ) {
         val reservationButton = findViewById<Button>(R.id.btn_reservation)
 
@@ -141,12 +140,12 @@ class ReservationActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             val ticket = Ticket(movie.title, LocalDateTime.of(selectedDate, selectedTime), count)
-            onConfirm(ticket).show()
+            onConfirm(ticket)
         }
     }
 
-    private fun askReservationDialog(ticket: Ticket): AlertDialog {
-        return DialogFactory.create(
+    private fun askReservationDialog(ticket: Ticket) {
+        DialogFactory().show(
             DialogInfo(
                 this,
                 R.string.reserve_confirm,

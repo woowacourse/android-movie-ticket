@@ -54,4 +54,14 @@
 - [x] ReservationDialog | Dialog Factory로 개선
 - [x] ReservationActivity | return 부분 수정
 - [x] ReservationActivity | createTicket 메서드 삭제
-- [ ] Uitest 추가
+- [x] Uitest 추가
+
+## 2차 피드백 반영
+
+- [ ] 패키지 구조 분리
+- [ ] MovieAdapter | onButtonListener네이밍 수정
+- [ ] MovieViewHolder | bind 메서드 추가
+- [ ] MainActicity | 더미 데이터 위치 domain으로 이동
+- [x] 각 xml파일 scrollView를 전체 Layout으로 수정
+- [ ] ReservationCompleteActivity | getSerializableExtra() 버전에 따라 메서드를 다르게 사용하도록 수정
+- [x] DialogFactory | DialogFactory의 구조를 변경하여 다이얼로그 중복 생성을 방지
