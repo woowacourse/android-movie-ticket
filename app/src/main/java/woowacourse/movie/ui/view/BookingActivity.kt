@@ -23,26 +23,54 @@ import java.util.Locale
 class BookingActivity : BaseActivity() {
     override val layoutRes: Int
         get() = R.layout.activity_booking
-    private var headCount: Int = DEFAULT_HEADCOUNT
     private val movie: Movie by lazy {
         intent.intentSerializable(
             IntentKeys.MOVIE,
             Movie::class.java
         ) ?: throw IllegalArgumentException(MOVIE_INTENT_ERROR)
     }
+    private var headCount: Int = DEFAULT_HEADCOUNT
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
-    private lateinit var headCountView: TextView
+    private val headCountView: TextView by lazy { findViewById(R.id.headCount) }
     private var confirmDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         setupScreen(layoutRes)
+        setupUI()
+        bindListeners()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(HEADCOUNT_KEY, headCount)
+        outState.putString(DATE_KEY, selectedDate.toString())
+        outState.putString(TIME_KEY, selectedTime.toString())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        headCount = savedInstanceState.getInt(HEADCOUNT_KEY)
+        updateHeadCount()
+        selectedDate = LocalDate.parse(savedInstanceState.getString(DATE_KEY))
+        selectedTime = LocalTime.parse(savedInstanceState.getString(TIME_KEY))
+    }
+
+    override fun onDestroy() {
+        confirmDialog?.dismiss()
+        confirmDialog = null
+        super.onDestroy()
+    }
+
+    private fun setupUI() {
         displayMovieInfo()
-        bindTicketQuantityButtonListeners()
-        bindSelectButtonListener()
         setupDateSpinner()
+    }
+
+    private fun bindListeners() {
+        bindHeadCountButtonListeners()
+        bindSelectButtonListener()
     }
 
     private fun displayMovieInfo() {
@@ -60,8 +88,7 @@ class BookingActivity : BaseActivity() {
         runningTime.text = getString(R.string.runningTime_text, movie.runningTime.toString())
     }
 
-    private fun bindTicketQuantityButtonListeners() {
-        headCountView = findViewById(R.id.headCount)
+    private fun bindHeadCountButtonListeners() {
         updateHeadCount()
         val increaseBtn = findViewById<Button>(R.id.increase)
         increaseBtn.setOnClickListener {
@@ -170,27 +197,8 @@ class BookingActivity : BaseActivity() {
         startActivity(intent)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(HEADCOUNT_KEY, headCount)
-        outState.putString(DATE_KEY, selectedDate.toString())
-        outState.putString(TIME_KEY, selectedTime.toString())
-    }
-
-    private fun loadSavedInstanceState(savedInstance: Bundle) {
-        headCount = savedInstance.getInt(HEADCOUNT_KEY)
-        selectedDate = LocalDate.parse(savedInstance.getString(DATE_KEY))
-        selectedTime = LocalTime.parse(savedInstance.getString(TIME_KEY))
-    }
-
     private fun updateHeadCount() {
         headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, headCount)
-    }
-
-    override fun onDestroy() {
-        confirmDialog?.dismiss()
-        confirmDialog = null
-        super.onDestroy()
     }
 
     companion object {
