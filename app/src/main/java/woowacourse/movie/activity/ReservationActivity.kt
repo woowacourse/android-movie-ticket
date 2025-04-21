@@ -163,6 +163,7 @@ class ReservationActivity : AppCompatActivity() {
             val intent = Intent(this, ReservationCompleteActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)
             startActivity(intent)
+            finish()
         }
     }
 
