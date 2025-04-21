@@ -84,19 +84,20 @@ class ReserveActivity : AppCompatActivity() {
         val firstDate =
             movieScheduler.dateScheduler.reservableDates(screeningDate, LocalDate.now()).first()
 
-        val currentDateTime =
-            LocalDateTime.now()
-                .withMinute(0)
-                .withSecond(0)
-                .withNano(0)
-
         val firstTime =
             movieScheduler.timeScheduler.reservableTimes(
                 firstDate,
-                currentDateTime,
+                getCurrentTime(),
             ).first()
 
         return LocalDateTime.of(firstDate, firstTime)
+    }
+
+    private fun getCurrentTime(): LocalDateTime {
+        return LocalDateTime.now()
+            .withMinute(0)
+            .withSecond(0)
+            .withNano(0)
     }
 
     private fun initMovieInfo(movie: Movie) {
@@ -166,16 +167,10 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun updateTimeSpinner(selectedDate: LocalDate) {
-        val currentDateTime =
-            LocalDateTime.now()
-                .withMinute(0)
-                .withSecond(0)
-                .withNano(0)
-
         val times =
             movieScheduler.timeScheduler.reservableTimes(
                 selectedDate,
-                currentDateTime,
+                getCurrentTime(),
             )
 
         val adapter =
