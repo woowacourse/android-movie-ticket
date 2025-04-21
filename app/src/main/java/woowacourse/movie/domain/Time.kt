@@ -4,10 +4,8 @@ import java.time.LocalTime
 
 @JvmInline
 value class Time(
-    private val value: LocalTime,
+    val value: LocalTime,
 ) {
-    override fun toString(): String = "%02d:%02d".format(value.hour, value.minute)
-
     companion object {
         val weekdaysTimes: List<Time> =
             listOf(

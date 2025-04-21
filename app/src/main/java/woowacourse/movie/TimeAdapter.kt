@@ -25,7 +25,7 @@ class TimeAdapter(
                 DateType.WEEKEND -> Time.weekendsTimes
             }
 
-        addAll(times.map { it.toString() })
+        addAll(times.map { StringFormatter.formatTime(it) })
 
         notifyDataSetChanged()
     }
