@@ -1,57 +1,69 @@
 package woowacourse.movie
 
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.MainActivity
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.global.ServiceLocator
+import java.time.LocalDateTime
+import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
 class MainActivityTest {
+    init {
+        ServiceLocator.movies =
+            listOf<Movie>(
+                Movie(
+                    "해리포터와 마법사의 돌",
+                    R.drawable.movie_poster,
+                    LocalDateTime.of(2025, 4, 1, 0, 0, 0),
+                    LocalDateTime.of(2025, 4, 25, 23, 59, 59),
+                    125.minutes,
+                ),
+            )
+    }
+
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
     @Test
-    fun 영화_목록이_표시된다() {
-        onView(withId(R.id.movies))
+    fun 영화_정보가_표시된다() {
+        onView(withId(R.id.main))
             .check(matches(isDisplayed()))
-        onView(withId(R.id.movie_item_root))
-            .check(matches(isDisplayed()))
+
+        val data =
+            onData(anything())
+                .inAdapterView(withId(R.id.movies))
+                .atPosition(0)
+        listOf(
+            withText("해리포터와 마법사의 돌"),
+            withText("상영일: 2025.04.01 ~ 2025.04.25"),
+            withText("러닝타임: 125분"),
+            withText("지금 예매"),
+            withId(R.id.movie_poster),
+        ).forEach {
+            data.onChildView(it)
+                .check(matches(isDisplayed()))
+        }
     }
 
     @Test
-    fun 초기_화면에_리스트_아이템의_요소들이_로드된다() {
-        onView(withId(R.id.movie_title))
-            .check(
-                matches(
-                    withText(
-                        "해리포터와 마법사의 돌",
-                    ),
-                ),
-            )
-        onView(withId(R.id.movie_date))
-            .check(
-                matches(
-                    withText(
-                        "상영일: 2025.04.01",
-                    ),
-                ),
-            )
-
-        onView(withId(R.id.movie_running))
-            .check(
-                matches(
-                    withText(
-                        "러닝타임: 125분",
-                    ),
-                ),
-            )
+    fun 지금_예매_버튼을_누르면_예매_화면으로_이동한다() {
+        onView(withText("지금 예매"))
+            .perform(click())
+        onView(withId(R.id.booking))
+            .check(matches(isDisplayed()))
     }
 }

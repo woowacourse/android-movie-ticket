@@ -20,19 +20,15 @@ class RunningTimes(
         val startDateTime =
             LocalDateTime.of(
                 targetDay,
-                if (isWeekdays(targetDay)) LocalTime.of(9, 0) else LocalTime.of(10, 0),
+                if (isWeekdays(targetDay)) LocalTime.of(10, 0) else LocalTime.of(9, 0),
             )
-        val endDateTime =
-            LocalDateTime.of(
-                targetDay,
-                if (isWeekdays(targetDay)) LocalTime.of(23, 0) else LocalTime.of(22, 0),
-            )
+        val endDateTime = targetDay.plusDays(1).atTime(LocalTime.of(0, 0, 0))
 
         if (currentDateTime.isAfter(endDateTime)) throw IllegalStateException("이미 오늘의 상영이 종료되었습니다.")
         val potentialAndFutureTimes =
             generateSequence(startDateTime) { it.plusHours(2) }
-                .takeWhile { !it.isAfter(endDateTime) }
-                .filter { it.isAfter(currentDateTime) || it.isEqual(currentDateTime) }
+                .takeWhile { it <= endDateTime }
+                .filter { if (targetDay == currentDateTime.toLocalDate()) it > currentDateTime else true }
                 .toList()
         return potentialAndFutureTimes.map { it.toLocalTime() }
     }

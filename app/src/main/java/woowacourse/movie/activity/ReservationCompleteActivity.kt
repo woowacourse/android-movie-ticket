@@ -9,6 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationCompleteBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.global.getObjectFromIntent
+import woowacourse.movie.global.toFormattedString
 
 class ReservationCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,11 +25,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         val bookingStatus = intent.getObjectFromIntent<BookingStatus>(ReservationActivity.BOOKING_STATUS_KEY)
 
         binding.bookedMovieTitleText.text = bookingStatus.movie.title
-        binding.bookedMovieRunningDayText.text =
-            binding.bookedMovieRunningDayText.context.getString(
-                R.string.movie_running_dateTime,
-                bookingStatus.bookedTime,
-            )
+        binding.bookedMovieRunningDayText.text = bookingStatus.bookedTime.toFormattedString()
         binding.memberCountText.text =
             binding.memberCountText.context.getString(
                 R.string.member_count,

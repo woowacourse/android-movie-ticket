@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.global.toFormattedDate
 
 class MovieListAdapter(
     private val movies: List<Movie>,
@@ -62,8 +63,8 @@ class MovieListAdapter(
             screeningDateTextView.text =
                 screeningDateTextView.context.getString(
                     R.string.movie_screening_date,
-                    movie.startDateTime.toFormattedString(),
-                    movie.endDateTime.toFormattedString(),
+                    movie.startDateTime.toFormattedDate(),
+                    movie.endDateTime.toFormattedDate(),
                 )
             posterImageView.setImageResource(R.drawable.movie_poster)
             buttonView.setOnClickListener {

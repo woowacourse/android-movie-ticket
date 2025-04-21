@@ -9,7 +9,7 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
+import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.newIntent
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movies = Movies.Companion.movies
+
+        val movies = ServiceLocator.movies
         val movieListView = binding.movies
         val movieListAdapter = MovieListAdapter(movies, ::navigateToReservationComplete)
         movieListView.adapter = movieListAdapter

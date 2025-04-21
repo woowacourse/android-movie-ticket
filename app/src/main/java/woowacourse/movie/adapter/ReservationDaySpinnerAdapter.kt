@@ -4,8 +4,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
+import woowacourse.movie.global.toFormattedString
 import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class ReservationDaySpinnerAdapter(val items: List<LocalDate>) : BaseAdapter() {
     override fun getCount(): Int {
@@ -13,7 +13,7 @@ class ReservationDaySpinnerAdapter(val items: List<LocalDate>) : BaseAdapter() {
     }
 
     // 특정 위치의 데이터를 반환
-    override fun getItem(position: Int): Any {
+    override fun getItem(position: Int): LocalDate {
         return items[position]
     }
 
@@ -28,7 +28,7 @@ class ReservationDaySpinnerAdapter(val items: List<LocalDate>) : BaseAdapter() {
         parent: ViewGroup,
     ): View {
         val view: TextView = convertView as? TextView ?: TextView(parent.context)
-        view.text = DateTimeFormatter.ofPattern("yyyy.MM.dd").format(items[position])
+        view.text = getItem(position).toFormattedString()
         return view
     }
 }
