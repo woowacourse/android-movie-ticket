@@ -11,7 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
-import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.view.StringFormatter.thousandFormat
 
 class BookingCompleteActivity : AppCompatActivity() {
@@ -35,7 +34,7 @@ class BookingCompleteActivity : AppCompatActivity() {
 
     private fun setViews() {
         val bookedTicket: BookedTicket = intent.getSerializableExtra("bookedTicket") as BookedTicket
-        val price: Int = bookedTicket.ticketPrice(TicketType.GENERAL)
+        val price: Int = bookedTicket.totalPrice()
         val priceFormat: String = thousandFormat(price)
 
         findViewById<TextView>(R.id.tv_title).text = bookedTicket.movieName

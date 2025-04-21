@@ -7,5 +7,5 @@ class BookedTicket(
     val headcount: Headcount,
     val time: String,
 ) : Serializable {
-    fun ticketPrice(type: TicketType): Int = type.price * headcount.count
+    fun totalPrice(): Int = headcount.price()
 }
