@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,16 +10,17 @@ import android.widget.ImageView
 import android.widget.TextView
 
 class MoviesAdapter(
-    private val context: Context,
+//    private val context: Context,
     private val movies: List<Movie>,
     private val onBookingClick: (Movie) -> Unit,
 ) : BaseAdapter() {
+    @SuppressLint("ViewHolder")
     override fun getView(
         position: Int,
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        @SuppressLint("ViewHolder")
+        val context = parent!!.context
         val view: View =
             LayoutInflater
                 .from(context)
