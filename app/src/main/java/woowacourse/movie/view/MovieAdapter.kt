@@ -9,15 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Screening
-import java.time.LocalDate
 
 class MovieAdapter(
     screenings: List<Screening>,
     private val onClickReserveButton: (
-        title: String,
-        period: ClosedRange<LocalDate>,
-        posterId: Int,
-        runningTime: Int,
+        Screening,
     ) -> Unit,
 ) : BaseAdapter() {
     private val screenings: List<Screening> = screenings.toList()
@@ -55,12 +51,12 @@ class MovieAdapter(
             screeningDateView.text =
                 view.context.getString(
                     R.string.screening_period,
-                    period.start.year,
-                    period.start.monthValue,
-                    period.start.dayOfMonth,
-                    period.endInclusive.year,
-                    period.endInclusive.monthValue,
-                    period.endInclusive.dayOfMonth,
+                    startYear,
+                    startMonth,
+                    startDay,
+                    endYear,
+                    endMonth,
+                    endDay,
                 )
 
             val runningTimeView = view.findViewById<TextView>(R.id.tv_item_movie_running_time)
@@ -73,10 +69,7 @@ class MovieAdapter(
             val reserveButton = view.findViewById<Button>(R.id.btn_item_movie_reserve)
             reserveButton.setOnClickListener {
                 onClickReserveButton(
-                    title,
-                    period,
-                    posterId,
-                    runningTime,
+                    screening,
                 )
             }
         }
