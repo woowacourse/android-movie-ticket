@@ -2,6 +2,9 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
@@ -18,6 +21,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimes
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class MovieBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,9 +35,10 @@ class MovieBookingActivity : AppCompatActivity() {
         }
 
         val movie = movie()
-        val bookingStatus =
-            BookingStatus(movie, true, MemberCount(2), LocalDateTime.of(2024, 1, 1, 0, 0, 0))
         var count = 1
+        var bookedDate: LocalDate = movie.screeningPeriod.betweenDates()[0]
+        var bookedTimes: List<LocalTime> = emptyList()
+        var bookedTime: LocalTime = LocalTime.now()
 
         // 영화 정보
         val title: TextView = findViewById(R.id.movie_title)
@@ -55,10 +60,53 @@ class MovieBookingActivity : AppCompatActivity() {
 
         adaptMovie(title, movie, poster, screeningDate, runningTimes)
         memberCount(memberCount, count, plusMemberCount, minusMemberCount)
-        bookMovieButton(bookingComplete, bookingStatus)
 
-        date.adapter = ReservationDaySpinnerAdapter(movie.screeningPeriod.betweenDates())
-        time.adapter = RunningTimeSpinnerAdapter(RunningTimes().runningTimes(LocalDate.now()))
+
+        date.adapter = BookedDateSpinnerAdapter(movie.screeningPeriod.betweenDates())
+        date.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val selectedDate = (parent.adapter as BookedDateSpinnerAdapter).getItem(position)
+                bookedDate = selectedDate
+                bookedTimes = RunningTimes(bookedDate).runningTimes()
+                time.adapter = BookedTimeSpinnerAdapter(bookedTimes)
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        time.adapter = BookedTimeSpinnerAdapter(bookedTimes)
+        time.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View,
+                position: Int,
+                id: Long
+            ) {
+                val selectedTime = (parent.adapter as BookedTimeSpinnerAdapter).getItem(position)
+                bookedTime = selectedTime
+                Log.d("date", selectedTime.toString())
+                Log.d("date", bookedTime.toString())
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        bookMovieButton(
+            bookingComplete,
+            movie,
+            { count },
+            { bookedDate },
+            { bookedTime },
+        )
     }
 
     private fun memberCount(
@@ -86,9 +134,13 @@ class MovieBookingActivity : AppCompatActivity() {
 
     private fun bookMovieButton(
         bookingComplete: Button,
-        bookingStatus: BookingStatus
+        movie: Movie,
+        count: () -> Int,
+        bookedDate: () -> LocalDate,
+        bookedTime: () -> LocalTime,
     ) {
         bookingComplete.setOnClickListener {
+            val bookingStatus = BookingStatus.invoke(movie, count(), bookedDate(), bookedTime())
             AlertDialog.Builder(this@MovieBookingActivity)
                 .setTitle(getString(R.string.check_movie_booking))
                 .setMessage(getString(R.string.confirm_reservation_message))
