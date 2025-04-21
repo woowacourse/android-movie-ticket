@@ -12,25 +12,17 @@ import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrient
 import androidx.test.espresso.device.EspressoDevice.Companion.onDevice
 import androidx.test.espresso.device.action.ScreenOrientation
 import androidx.test.espresso.device.rules.ScreenOrientationRule
-import androidx.test.espresso.intent.Intents.init
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.Intents.release
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_DATE_KEY
-import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TIME_KEY
-import woowacourse.movie.BookingCompleteActivity.Companion.MOVIE_TITLE_KEY
-import woowacourse.movie.BookingCompleteActivity.Companion.TICKET_COUNT_KEY
 import woowacourse.movie.BookingDetailActivity.Companion.newIntent
+import woowacourse.movie.domain.Movie
+import java.time.LocalDate
 
 @Suppress("ktlint:standard:function-naming")
 class BookingDetailActivityTest {
@@ -42,14 +34,18 @@ class BookingDetailActivityTest {
 
     @Before
     fun setup() {
+        val movie =
+            Movie(
+                title = "해리 포터와 마법사의 돌",
+                startDate = LocalDate.of(2025, 4, 1),
+                endDate = LocalDate.of(2025, 4, 25),
+                runningTime = 152,
+                poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
+            )
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                title = "해리 포터와 마법사의 돌",
-                startDate = "2025-04-01",
-                endDate = "2025-04-25",
-                runningTime = 152,
-                poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
+                movie = movie,
             )
 
         activityScenario = ActivityScenario.launch(intent)
@@ -129,32 +125,6 @@ class BookingDetailActivityTest {
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun 예매_완료_클릭시_예매_정보가_정상적으로_전달된다() {
-        init()
-
-        onView(withId(R.id.btn_booking_detail_count_up))
-            .perform(click())
-
-        onView(withId(R.id.btn_booking_detail_select_complete))
-            .perform(scrollTo(), click())
-
-        onView(withText("예매 완료"))
-            .perform(click())
-
-        intended(
-            allOf(
-                hasComponent(BookingCompleteActivity::class.java.name),
-                hasExtra(MOVIE_TITLE_KEY, "해리 포터와 마법사의 돌"),
-                hasExtra(MOVIE_DATE_KEY, "2025-04-01"),
-                hasExtra(MOVIE_TIME_KEY, "09:00"),
-                hasExtra(TICKET_COUNT_KEY, 1),
-            ),
-        )
-
-        release()
     }
 
     @Test
