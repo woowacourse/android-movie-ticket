@@ -62,9 +62,13 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun getSelectedMovieData(): Movie =
         try {
-            val movie: Movie? = intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY)
-            movie
-                ?: throw IllegalStateException(R.string.reservation_error_dialog_message.toString())
+            val movie: Movie =
+                intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY) ?: Movie.value
+            if (movie.endDate < LocalDate.now()) {
+                throw IllegalStateException(getString(R.string.reservation_error_dialog_message))
+            } else {
+                movie
+            }
         } catch (e: Exception) {
             showErrorDialog(e.message.toString())
             Movie.value
@@ -94,7 +98,8 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setupDateAdapter() {
-        val duration: List<LocalDate> = movieDate.getDateTable(LocalDate.now())
+        var duration: List<LocalDate> = movieDate.getDateTable(LocalDate.now())
+        if (duration.isEmpty()) duration = listOf(movie.startDate)
 
         val dateAdapter =
             ArrayAdapter(
