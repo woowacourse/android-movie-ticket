@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -25,8 +26,8 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
-    private lateinit var selectedDate: LocalDate
-    private lateinit var selectedTime: LocalTime
+    private var selectedDate: LocalDate? = null
+    private var selectedTime: LocalTime? = null
     private val screeningData: ScreeningData by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33
             intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA, ScreeningData::class.java)
@@ -105,6 +106,11 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToTicketActivity() {
+        if (selectedDate == null || selectedTime == null) {
+            Toast.makeText(this, ERROR_NOT_SELECTED_SPINNER, Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val ticketData =
             TicketData(
                 screeningData = screeningData,
@@ -131,6 +137,7 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
+                    val selectedDate = selectedDate ?: return
                     val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
                     selectedTime = screeningTimes[position]
                     timeItemPosition = position
@@ -162,7 +169,8 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedDate = screeningDates[position]
+                    val selectedDate = screeningDates[position]
+                    this@ReservationActivity.selectedDate = selectedDate
                     val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
 
                     val timeAdapter =
@@ -225,6 +233,7 @@ class ReservationActivity : AppCompatActivity() {
         const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
         private const val ERROR_CANT_READ_SCREENING_INFO = "상영 정보가 전달되지 않았습니다"
+        private const val ERROR_NOT_SELECTED_SPINNER = "예매 정보가 선택되지 않았습니다"
 
         const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
     }
