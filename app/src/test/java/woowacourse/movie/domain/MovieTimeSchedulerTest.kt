@@ -12,10 +12,9 @@ class MovieTimeSchedulerTest {
     fun `현재 날짜와 선택된 날짜가 같고 평일인데, 현재 시간이 빠른 경우 현재 시간 기준으로 짝수 시간을 반환한다`() {
         // given
         val selectedDate = APRIL_THIRTIETH
-        val currentTime = LocalDateTime.of(APRIL_THIRTIETH, LocalTime.of(20, 0))
+        val currentTime = LocalDateTime.of(APRIL_THIRTIETH, LocalTime.of(20, 1))
         val expected: List<LocalTime> =
             listOf(
-                LocalTime.of(20, 0),
                 LocalTime.of(22, 0),
             )
 

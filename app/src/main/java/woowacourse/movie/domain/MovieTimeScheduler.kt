@@ -18,7 +18,7 @@ class MovieTimeScheduler : TimeScheduler {
             } else {
                 currentDate.toLocalTime().coerceAtLeast(screeningDayType.startTime)
             }
-        return getTimesBetween(startTime.withMinute(0).withSecond(0).withNano(0), screeningDayType)
+        return getTimesBetween(startTime, screeningDayType)
     }
 
     private fun getTimesBetween(
@@ -26,11 +26,12 @@ class MovieTimeScheduler : TimeScheduler {
         screeningDayType: ScreeningDayType,
         endTime: LocalTime = END_TIME,
     ): List<LocalTime> {
+        val startHourTime = startTime.withMinute(0).withSecond(0).withNano(0)
         if (startTime > endTime) return listOf()
 
-        val hourDiff = ChronoUnit.HOURS.between(startTime, endTime)
+        val hourDiff = ChronoUnit.HOURS.between(startHourTime, endTime)
 
-        val hours = (0..hourDiff).map { startTime.plusHours(it) }
+        val hours = (1..hourDiff).map { startHourTime.plusHours(it) }
 
         return when (screeningDayType) {
             ScreeningDayType.WEEKDAY -> hours.filter { it.hour % 2 == 0 }
