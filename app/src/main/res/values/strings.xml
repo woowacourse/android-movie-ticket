@@ -19,6 +19,7 @@
     <string name="increment_button">+</string>
     <string name="confirm_reservation_button">선택 완료</string>
 
+    <string name="poster_description">영화 포스터</string>
     <string name="running_time_info">"러닝타임: "</string>
     <string name="screening_dates_info">"상영일: "</string>
 
