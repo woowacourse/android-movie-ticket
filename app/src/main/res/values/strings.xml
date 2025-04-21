@@ -7,10 +7,10 @@
     <string name="reservation_button_text">지금 예매</string>
 
     <string name="reservation_finish_button_text">선택 완료</string>
-    <string name="reservation_number_plus">+</string>
-    <string name="reservation_number_minus">-</string>
+    <string name="reservation_count_plus">+</string>
+    <string name="reservation_count_minus">-</string>
 
-    <string name="reservation_number_info">일반 %s명</string>
+    <string name="reservation_count_info">일반 %s명</string>
     <string name="reservation_total_price">%,d원 (현장 결제)</string>
 
     <string name="reservation_dialog_title">예매 확인</string>
@@ -19,4 +19,5 @@
     <string name="reservation_dialog_negative">취소</string>
 
     <string name="reservation_result_cancel_time_description">영화 상영 시작 시간 %d분 전까지\n취소가 가능합니다.</string>
+    <string name="invalid_reservation_message">"예약 날짜 및 시간을 선택해 주세요"</string>
 </resources>

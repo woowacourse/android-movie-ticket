@@ -18,7 +18,7 @@ class ReservationResultActivityTest {
         ReservationInfo(
             title = "해리 포터와 마법사의 돌",
             reservationDateTime = LocalDateTime.of(2025, 4, 15, 11, 0),
-            reservationNumber = 2,
+            reservationCount = 2,
         )
 
     @Before

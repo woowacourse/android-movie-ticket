@@ -47,7 +47,7 @@
         tools:text="2025.4.1" />
 
     <TextView
-        android:id="@+id/tv_reservation_number_info"
+        android:id="@+id/tv_reservation_count_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/tv_movie_date"
@@ -61,7 +61,7 @@
         android:id="@+id/tv_reservation_total_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_reservation_number_info"
+        app:layout_constraintTop_toBottomOf="@id/tv_reservation_count_info"
         android:layout_marginTop="32dp"
         tools:text="26,000원 (현장 결제)"
         android:textSize="20sp"

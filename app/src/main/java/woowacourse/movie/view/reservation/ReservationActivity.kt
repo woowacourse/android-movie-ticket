@@ -14,6 +14,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.toDateTimeFormatter
@@ -23,11 +24,11 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
-    private var reservationNumber = ReservationInfo.RESERVATION_MIN_NUMBER
+    private var reservationCount = ReservationCount()
     private var shouldIgnoreNextSelection = false
     private var movie: Movie? = null
 
-    private val tvReservationNumber by lazy { findViewById<TextView>(R.id.tv_reservation_number) }
+    private val tvReservationCount by lazy { findViewById<TextView>(R.id.tv_reservation_count) }
     private val spinnerDate by lazy { findViewById<Spinner>(R.id.spinner_reservation_date) }
     private val spinnerTime by lazy { findViewById<Spinner>(R.id.spinner_reservation_time) }
     private val dateSpinnerAdapter: ArrayAdapter<LocalDate> by lazy {
@@ -82,13 +83,13 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
         outState.apply {
             putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime.toString())
-            putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationNumber)
+            putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount.count)
         }
     }
 
     private fun restoreReservationInfo(savedInstanceState: Bundle) {
-        reservationNumber = savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
-        tvReservationNumber.text = reservationNumber.toString()
+        reservationCount = ReservationCount(savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER))
+        tvReservationCount.text = reservationCount.count.toString()
 
         movie?.let {
             val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
@@ -126,9 +127,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun setupData() {
-        reservationNumber = tvReservationNumber.text.toString().toIntOrNull()
-            ?: ReservationInfo.RESERVATION_MIN_NUMBER
-        tvReservationNumber.text = reservationNumber.toString()
+        tvReservationCount.text = reservationCount.count.toString()
         movie =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
@@ -140,20 +139,22 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     private fun setupListener() {
         val btnReservationFinish = findViewById<Button>(R.id.btn_reservation_finish)
         btnReservationFinish.setOnClickListener {
-            if (reservationNumber < ReservationInfo.RESERVATION_MIN_NUMBER) return@setOnClickListener
+            if (reservationCount.count < ReservationCount.MINIMUM_RESERVATION_COUNT) return@setOnClickListener
             reservationDialog.show()
         }
 
-        val btnMinus = findViewById<Button>(R.id.btn_reservation_number_minus)
+        val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
         btnMinus.setOnClickListener {
-            if (reservationNumber > ReservationInfo.RESERVATION_MIN_NUMBER) {
-                tvReservationNumber.text = (--reservationNumber).toString()
+            if (reservationCount.count > ReservationCount.MINIMUM_RESERVATION_COUNT) {
+                tvReservationCount.text = (reservationCount - 1).count.toString()
+                reservationCount -= 1
             }
         }
 
-        val btnPlus = findViewById<Button>(R.id.btn_reservation_number_plus)
+        val btnPlus = findViewById<Button>(R.id.btn_reservation_count_plus)
         btnPlus.setOnClickListener {
-            tvReservationNumber.text = (++reservationNumber).toString()
+            tvReservationCount.text = (reservationCount + 1).count.toString()
+            reservationCount += 1
         }
     }
 
@@ -162,7 +163,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         val reservationTime = spinnerTime.selectedItem as? LocalTime
 
         if (reservationDate == null || reservationTime == null) {
-            showToast(INVALID_RESERVATION_MESSAGE)
+            showToast(getString(R.string.invalid_reservation_message))
             return
         }
 
@@ -170,7 +171,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             ReservationInfo(
                 title = findViewById<TextView>(R.id.tv_reservation_title).text.toString(),
                 reservationDateTime = LocalDateTime.of(reservationDate, reservationTime),
-                reservationNumber = reservationNumber,
+                reservationCount = reservationCount,
             )
 
         val intent =
@@ -257,6 +258,5 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
         private const val SPINNER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm"
         private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
-        private const val INVALID_RESERVATION_MESSAGE = "예약 날짜 및 시간을 선택해 주세요"
     }
 }
