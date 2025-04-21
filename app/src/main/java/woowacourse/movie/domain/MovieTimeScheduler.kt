@@ -26,14 +26,34 @@ class MovieTimeScheduler : TimeScheduler {
         screeningDayType: ScreeningDayType,
         endTime: LocalTime = END_TIME,
     ): List<LocalTime> {
-        val startHourTime = startTime.withMinute(0).withSecond(0).withNano(0)
-        if (startTime > endTime) return listOf()
+        if (startTime > endTime) return emptyList()
 
+        val startHourTime = roundDownToHour(startTime)
         val hourDiff = ChronoUnit.HOURS.between(startHourTime, endTime)
+        val hours = generateHours(startTime, startHourTime, hourDiff)
 
-        val hours = (1..hourDiff).map { startHourTime.plusHours(it) }
+        return filterByDayType(hours, screeningDayType)
+    }
 
-        return when (screeningDayType) {
+    private fun roundDownToHour(time: LocalTime): LocalTime {
+        return time.withMinute(0).withSecond(0).withNano(0)
+    }
+
+    private fun generateHours(
+        originalStart: LocalTime,
+        roundedStart: LocalTime,
+        hourDiff: Long,
+    ): List<LocalTime> {
+        val isPartialHourPassed = roundedStart < originalStart
+        val startOffset = if (isPartialHourPassed) 1 else 0
+        return (startOffset..hourDiff).map { roundedStart.plusHours(it) }
+    }
+
+    private fun filterByDayType(
+        hours: List<LocalTime>,
+        dayType: ScreeningDayType,
+    ): List<LocalTime> {
+        return when (dayType) {
             ScreeningDayType.WEEKDAY -> hours.filter { it.hour % 2 == 0 }
             ScreeningDayType.WEEKEND -> hours.filter { it.hour % 2 == 1 }
         }
