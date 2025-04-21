@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.mapper
 
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.presentation.model.BookingInfoUiModel
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.model.getPosterImage
@@ -40,3 +41,8 @@ fun BookingInfoUiModel.toDomain(): BookingInfo =
         ticketCount = ticketCount,
         eachPrice = eachPrice,
     )
+
+fun MovieTime.toUi(): String {
+    val hour = if (value.hour == 0) 24 else value.hour
+    return "%02d:%02d".format(hour, value.minute)
+}

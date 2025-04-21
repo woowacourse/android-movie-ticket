@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.presentation.mapper.toDomain
+import woowacourse.movie.presentation.mapper.toUi
 import woowacourse.movie.presentation.model.BookingInfoUiModel
 
 class BookingCompleteActivity : AppCompatActivity() {
@@ -29,7 +30,7 @@ class BookingCompleteActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfo.movie.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
-            getString(R.string.booking_complete_movie_date_time, bookingInfo.date, bookingInfo.movieTime)
+            getString(R.string.booking_complete_movie_date_time, bookingInfo.date, bookingInfo.movieTime.toUi())
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
             getString(R.string.booking_complete_ticket_count, bookingInfo.ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =

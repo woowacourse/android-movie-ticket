@@ -7,13 +7,8 @@ import java.time.LocalTime
 @JvmInline
 @Parcelize
 value class MovieTime(
-    private val value: LocalTime = LocalTime.now(),
+    val value: LocalTime = LocalTime.now(),
 ) : Parcelable {
-    override fun toString(): String {
-        val hour = if (value.hour == 0) 24 else value.hour
-        return "%02d:%02d".format(hour, value.minute)
-    }
-
     companion object {
         val weekdaysMovieTimes: List<MovieTime> =
             listOf(
