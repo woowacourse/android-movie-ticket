@@ -3,17 +3,26 @@ package woowacourse.movie.uiTest
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import woowacourse.movie.R
+import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.activity.ReservationCompleteActivity
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.uiTest.fixture.fakeContext
 import java.time.LocalDateTime
 
 class ReservationCompleteActivityTest {
+    private lateinit var testName: String
+
+    @get:Rule
+    val nameRule = TestName()
+
     private val ticket =
         Ticket(
             "해리 포터와 마법사의 돌",
@@ -23,6 +32,8 @@ class ReservationCompleteActivityTest {
 
     @Before
     fun setUp() {
+        testName = nameRule.methodName
+        if (testName == "`null값이_Intent된_경우_ErrorDialog를_띄운다`") return
         val intent = ReservationCompleteActivity.newIntent(fakeContext, ticket)
         ActivityScenario.launch<ReservationCompleteActivity>(intent)
     }
@@ -55,5 +66,15 @@ class ReservationCompleteActivityTest {
     fun `예매한_영화의_총_티켓_가격을_보여준다`() {
         onView(withId(R.id.tv_movie_total_price))
             .check(matches(withText("26,000원 (현장 결제)")))
+    }
+
+    @Test
+    fun `null값이_Intent된_경우_ErrorDialog를_띄운다`() {
+        val intent = ReservationActivity.newIntent(fakeContext, null)
+        ActivityScenario.launch<ReservationCompleteActivity>(intent)
+
+        onView(withText("오류가 생겼습니다.")).check(matches(isDisplayed()))
+        onView(withText("잘못된 접근입니다.")).check(matches(isDisplayed()))
+        onView(withText("확인")).check(matches(isDisplayed()))
     }
 }

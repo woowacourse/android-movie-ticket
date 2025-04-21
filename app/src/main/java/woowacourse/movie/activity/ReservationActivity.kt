@@ -238,7 +238,7 @@ class ReservationActivity : AppCompatActivity() {
 
         fun newIntent(
             context: Context,
-            movie: Movie,
+            movie: Movie?,
         ): Intent =
             Intent(context, ReservationActivity::class.java).putExtra(
                 KEY_MOVIE,

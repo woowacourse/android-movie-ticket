@@ -11,7 +11,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import woowacourse.movie.R
 import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.domain.Date
@@ -21,6 +23,11 @@ import java.time.LocalDate
 
 class ReservationActivityTest {
     private lateinit var scenario: ActivityScenario<ReservationActivity>
+    private lateinit var testName: String
+
+    @get:Rule
+    val nameRule = TestName()
+
     private val movie =
         Movie(
             R.drawable.harry,
@@ -31,6 +38,8 @@ class ReservationActivityTest {
 
     @Before
     fun setUp() {
+        testName = nameRule.methodName
+        if (testName == "`null값이_Intent된_경우_ErrorDialog를_띄운다`") return
         val intent = ReservationActivity.newIntent(fakeContext, movie)
         scenario = ActivityScenario.launch<ReservationActivity>(intent)
     }
@@ -143,5 +152,15 @@ class ReservationActivityTest {
         onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
         onView(withText("예매 완료")).check(matches(isDisplayed()))
         onView(withText("취소")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `null값이_Intent된_경우_ErrorDialog를_띄운다`() {
+        val intent = ReservationActivity.newIntent(fakeContext, null)
+        ActivityScenario.launch<ReservationActivity>(intent)
+
+        onView(withText("오류가 생겼습니다.")).check(matches(isDisplayed()))
+        onView(withText("잘못된 접근입니다.")).check(matches(isDisplayed()))
+        onView(withText("확인")).check(matches(isDisplayed()))
     }
 }
