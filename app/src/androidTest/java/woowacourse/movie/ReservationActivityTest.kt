@@ -20,12 +20,11 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.MainActivity.Companion.MOVIE_KEY
 import woowacourse.movie.activity.ReservationActivity
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.fixture.AndroidTestFixture
 import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.newIntent
 import java.time.LocalDate
 import java.time.LocalDateTime
-import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
@@ -35,14 +34,7 @@ class ReservationActivityTest {
         ServiceLocator.now = LocalDateTime.of(2025, 4, 4, 14, 0, 0)
     }
 
-    val movie =
-        Movie(
-            "해리포터와 마법사의 돌",
-            R.drawable.movie_poster,
-            LocalDateTime.of(2025, 4, 3, 0, 0, 0),
-            LocalDateTime.of(2025, 4, 5, 23, 59, 59),
-            125.minutes,
-        )
+    val movie = AndroidTestFixture.movie1
 
     val intent =
         ApplicationProvider.getApplicationContext<Context>()
