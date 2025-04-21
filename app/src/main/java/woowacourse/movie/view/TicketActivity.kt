@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDateTime
 
@@ -45,7 +46,7 @@ class TicketActivity : AppCompatActivity() {
         ticket =
             Ticket(
                 screening = screening,
-                count = ticketCount,
+                ticketCount = TicketCount.create(ticketCount),
                 showtime = showtime,
             )
     }
@@ -65,7 +66,7 @@ class TicketActivity : AppCompatActivity() {
             getString(R.string.ticket_cancelable_minute_info, ticket.cancelableMinute)
 
         val countView = findViewById<TextView>(R.id.tv_ticket_count)
-        countView.text = getString(R.string.ticket_count, ticket.count)
+        countView.text = getString(R.string.ticket_count, ticket.ticketCount.value)
 
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
         priceView.text = getString(R.string.ticket_price, ticket.price)

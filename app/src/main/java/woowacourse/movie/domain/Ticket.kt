@@ -4,11 +4,11 @@ import java.time.LocalDateTime
 
 class Ticket(
     screening: Screening,
-    val count: Int,
+    var ticketCount: TicketCount,
     val showtime: LocalDateTime,
 ) {
     val title: String = screening.title
-    val price: Int = count * DEFAULT_TICKET_PRICE
+    val price: Int = ticketCount.value * DEFAULT_TICKET_PRICE
     val cancelableMinute = DEFAULT_CANCELABLE_MINUTE
 
     companion object {

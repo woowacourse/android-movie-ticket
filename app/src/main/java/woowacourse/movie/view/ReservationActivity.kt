@@ -3,7 +3,6 @@ package woowacourse.movie.view
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -18,6 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Screening
+import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDate
@@ -34,16 +34,16 @@ class ReservationActivity : AppCompatActivity() {
         } else {
             @Suppress("DEPRECATION")
             intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA)
-        } ?: throw IllegalArgumentException("상영 정보가 전달되지 않았습니다")
+        } ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
     }
 
-    private var ticketCount = DEFAULT_TICKET_COUNT
+    private var ticketCount = TicketCount.create()
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt(TICKET_COUNT, ticketCount)
+        outState.putInt(TICKET_COUNT, ticketCount.value)
         outState.putInt(TIME_ITEM_POSITION, timeItemPosition)
     }
 
@@ -59,7 +59,6 @@ class ReservationActivity : AppCompatActivity() {
 
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
         val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
-        Log.d("time", "$savedTimeItemPosition 값 oncreate")
         initModel(savedTicketCount, savedTimeItemPosition)
         initViews()
     }
@@ -69,7 +68,7 @@ class ReservationActivity : AppCompatActivity() {
         savedTimeItemPosition: Int,
     ) {
         screening = screeningData.toScreening()
-        ticketCount = savedTicketCount
+        ticketCount = TicketCount.create(savedTicketCount)
         timeItemPosition = savedTimeItemPosition
     }
 
@@ -101,13 +100,13 @@ class ReservationActivity : AppCompatActivity() {
 
         val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
         ticketCountPlusButton.setOnClickListener {
-            ticketCount++
+            ticketCount = ticketCount.increase()
             ticketCountView.text = ticketCount.toString()
         }
 
         val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
         ticketCountMinusButton.setOnClickListener {
-            if (ticketCount > 1) ticketCount--
+            ticketCount = ticketCount.decrease()
             ticketCountView.text = ticketCount.toString()
         }
 
@@ -131,7 +130,7 @@ class ReservationActivity : AppCompatActivity() {
             TicketData(
                 screeningData = screeningData,
                 showtime = LocalDateTime.of(selectedDate, selectedTime),
-                ticketCount = ticketCount,
+                ticketCount = ticketCount.value,
             )
 
         val intent =
@@ -217,6 +216,8 @@ class ReservationActivity : AppCompatActivity() {
         const val DEFAULT_TIME_ITEM_POSITION = 0
         const val TICKET_COUNT = "TICKET_COUNT"
         const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
+
+        private const val ERROR_CANT_READ_SCREENING_INFO = "상영 정보가 전달되지 않았습니다"
 
         const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
     }
