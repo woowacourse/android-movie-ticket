@@ -1,43 +1,44 @@
 package woowacourse.movie.domain
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import android.util.Log
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-@Parcelize
 class RunningTimes(
-    val currentDateTime: LocalDateTime = LocalDateTime.now(),
-) : Parcelable {
-    private fun isWeekdays(targetDay: LocalDate): Boolean {
-        val dayOfWeek = targetDay.dayOfWeek
+    val targetDate: LocalDate
+) {
+    private fun isWeekdays(): Boolean {
+        val dayOfWeek = targetDate.dayOfWeek
         return dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY
     }
 
-    fun runningTimes(targetDay: LocalDate): List<LocalTime> {
+    fun runningTimes(): List<LocalTime> {
         val runningTimes = mutableListOf<LocalTime>()
+        val currentDateTime = LocalDateTime.now()
 
-        val startTime = if (isWeekdays(targetDay)) LocalTime.of(9, 0) else LocalTime.of(10, 0)
-        val endTime = if (isWeekdays(targetDay)) LocalTime.of(23, 0) else LocalTime.of(22, 0)
-        val startDateTime = LocalDateTime.of(targetDay, startTime)
-        val endDateTime = LocalDateTime.of(targetDay, endTime)
+        val startTime = if (isWeekdays()) LocalTime.of(9, 0) else LocalTime.of(10, 0)
+        val endTime = if (isWeekdays()) LocalTime.of(23, 0) else LocalTime.of(22, 0)
+        val startDateTime = LocalDateTime.of(targetDate, startTime)
+        val endDateTime = LocalDateTime.of(targetDate, endTime)
 
+        if (currentDateTime.isAfter(endDateTime)) {
+            throw IllegalStateException(ERROR_TODAY_MOVIE_FINISH)
+        }
 
-        if (currentDateTime.isAfter(endDateTime)) throw IllegalStateException(ERROR_TODAY_MOVIE_FINISH)
         var movieTime = startDateTime
 
         while (!movieTime.isAfter(endDateTime)) {
-            if (currentDateTime.toLocalDate() == targetDay && !movieTime.isBefore(currentDateTime)) {
+            if (currentDateTime.toLocalDate() == targetDate && movieTime.isBefore(currentDateTime)) {
                 movieTime = movieTime.plusHours(2)
                 continue
             }
+
             runningTimes.add(movieTime.toLocalTime())
             movieTime = movieTime.plusHours(2)
-
         }
-        return runningTimes.toList()
+        return runningTimes
     }
 
     companion object {

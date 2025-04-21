@@ -7,7 +7,7 @@ import woowacourse.movie.toLocalDateFromDot
 import java.time.LocalDate
 
 @Parcelize
-class ScreeningPeriod(
+data class ScreeningPeriod(
     val screeningStartDate: LocalDate,
     val screeningEndDate: LocalDate,
 ) : Parcelable {

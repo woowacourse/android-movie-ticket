@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class Title(
+data class Title(
     val value: String
 ) : Parcelable {
     init {
