@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -12,7 +13,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,6 +25,8 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
+    private val showReservationDialog by lazy { ShowReservationDialog(this) }
+
     private lateinit var screening: Screening
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
@@ -108,16 +110,14 @@ class ReservationActivity : AppCompatActivity() {
     private fun initCompleteButton() {
         val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
         completeButton.setOnClickListener {
-            AlertDialog
-                .Builder(this)
-                .setTitle(getString(R.string.ticket_dialog_title))
-                .setMessage(getString(R.string.ticket_dialog_message))
-                .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                    navigateToTicketActivity()
-                }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
-                    dialog.dismiss()
-                }.setCancelable(false)
-                .show()
+            showReservationDialog(
+                title = getString(R.string.ticket_dialog_title),
+                message = getString(R.string.ticket_dialog_message),
+                positiveButtonText = getString(R.string.ticket_dialog_positive_button),
+                positiveButtonAction = { _, _ -> navigateToTicketActivity() },
+                negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
+                negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
+            )
         }
     }
 
