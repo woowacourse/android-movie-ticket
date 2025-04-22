@@ -30,7 +30,7 @@ class BookingDetailActivityTest {
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                movie = MOVIE_UI_MODEL_01,
+                movie = MOVIE_UI_MODEL_01.copy(),
             )
 
         activityScenario = ActivityScenario.launch(intent)

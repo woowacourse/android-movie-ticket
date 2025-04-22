@@ -22,7 +22,7 @@ class BookingCompleteActivityTest {
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                bookingInfo = BOOKING_INFO_UI_MODEL_01,
+                bookingInfo = BOOKING_INFO_UI_MODEL_01.copy(),
             )
 
         activityScenario = ActivityScenario.launch(intent)

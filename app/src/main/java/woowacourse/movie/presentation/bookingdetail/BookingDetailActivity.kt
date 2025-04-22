@@ -85,7 +85,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
     private fun createSelectCompleteDialog(): AlertDialog.Builder =
         AlertDialog
-            .Builder(applicationContext)
+            .Builder(this@BookingDetailActivity)
             .setTitle(getString(R.string.booking_detail_booking_check))
             .setMessage(getString(R.string.booking_detail_booking_check_description))
             .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
