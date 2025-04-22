@@ -36,6 +36,17 @@ class ReservationActivity : AppCompatActivity() {
     private val movieTime by lazy { MovieTime() }
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
 
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_reservation_ticket_count) }
+    private val posterImageView: ImageView by lazy { findViewById(R.id.iv_reservation_poster) }
+    private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_title) }
+    private val screeningDateTextView: TextView by lazy { findViewById(R.id.tv_reservation_screening_date) }
+    private val runningTimeTextView: TextView by lazy { findViewById(R.id.tv_reservation_running_time) }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.spinner_reservation_time) }
+    private val plusButton: Button by lazy { findViewById(R.id.btn_reservation_plus_ticket_count) }
+    private val minusButton: Button by lazy { findViewById(R.id.btn_reservation_minus_ticket_count) }
+    private val completeButton: Button by lazy { findViewById(R.id.btn_reservation_select_complete) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -46,7 +57,6 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_ticket_count)
         setupMovieReservationInfo()
         setupDateAdapter()
         setupTimeAdapter()
@@ -67,24 +77,19 @@ class ReservationActivity : AppCompatActivity() {
         }
 
     private fun setupMovieReservationInfo() {
-        val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         val poster =
             AppCompatResources.getDrawable(
                 this,
                 movie.poster,
             )
         posterImageView.setImageDrawable(poster)
-
-        val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_title)
         movieTitleTextView.text = movie.title
 
-        val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
         val startDate = formatter.localDateToUI(movie.startDate)
         val endDate = formatter.localDateToUI(movie.endDate)
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
-        val runningTimeTextView = findViewById<TextView>(R.id.tv_reservation_running_time)
         val runningTime = movie.runningTime
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
     }
@@ -98,8 +103,7 @@ class ReservationActivity : AppCompatActivity() {
                 com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
                 duration,
             )
-
-        findViewById<Spinner>(R.id.spinner_reservation_date).apply {
+        dateSpinner.apply {
             adapter = dateAdapter
             setSelection(selectedDatePosition)
             onItemSelectedListener =
@@ -131,7 +135,7 @@ class ReservationActivity : AppCompatActivity() {
                 timeTable.map { formatter.movieTimeToUI(it) },
             )
 
-        findViewById<Spinner>(R.id.spinner_reservation_time).apply {
+        timeSpinner.apply {
             adapter = timeAdapter
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -153,20 +157,20 @@ class ReservationActivity : AppCompatActivity() {
     private fun setupSavedData(savedInstanceState: Bundle?) {
         val savedCount = savedInstanceState?.getInt(TICKET_COUNT_DATA_KEY) ?: 1
         ticketCount = TicketCount(savedCount)
-        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
+        ticketCountTextView.text = ticketCount.value.toString()
 
         selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
     }
 
     private fun setupPlusButtonClick(peopleCountTextView: TextView) {
-        findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
+        plusButton.setOnClickListener {
             ticketCount += 1
             peopleCountTextView.text = ticketCount.value.toString()
         }
     }
 
     private fun setupMinusButtonClick(peopleCountTextView: TextView) {
-        findViewById<Button>(R.id.btn_reservation_minus_ticket_count).setOnClickListener {
+        minusButton.setOnClickListener {
             runCatching {
                 ticketCount - 1
             }.onSuccess {
@@ -184,7 +188,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setupCompleteButtonClick() {
-        findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
+        completeButton.setOnClickListener {
             showReservationDialog()
         }
     }

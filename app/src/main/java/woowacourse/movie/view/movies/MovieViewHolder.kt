@@ -17,11 +17,11 @@ class MovieViewHolder(
 ) {
     private val formatter: Formatter by lazy { Formatter() }
 
-    val titleTextView: TextView = view.findViewById(R.id.tv_movie_title)
-    val posterImageView: ImageView = view.findViewById(R.id.iv_movie_poster)
-    val screeningDateTextView: TextView = view.findViewById(R.id.tv_movie_screening_date)
-    val runningTimeTextView: TextView = view.findViewById(R.id.tv_movie_running_time)
-    val button: Button = view.findViewById(R.id.btn_movie_reservation)
+    private val titleTextView: TextView by lazy { view.findViewById(R.id.tv_movie_title) }
+    private val posterImageView: ImageView by lazy { view.findViewById(R.id.iv_movie_poster) }
+    private val screeningDateTextView: TextView by lazy { view.findViewById(R.id.tv_movie_screening_date) }
+    private val runningTimeTextView: TextView by lazy { view.findViewById(R.id.tv_movie_running_time) }
+    private val button: Button by lazy { view.findViewById(R.id.btn_movie_reservation) }
 
     fun bind(item: Movie) {
         setupTitle(item)

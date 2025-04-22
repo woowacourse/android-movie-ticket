@@ -15,6 +15,11 @@ class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }
     private val formatter: Formatter by lazy { Formatter() }
 
+    private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_title) }
+    private val screeningDateTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_timestamp) }
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_ticket_count) }
+    private val ticketPriceTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_ticket_price) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -37,18 +42,10 @@ class ReservationCompleteActivity : AppCompatActivity() {
         }
 
     private fun setupMovieTicketInfo() {
-        val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
         movieTitleTextView.text = movieTicket?.title
-
-        val screeningDateTextView =
-            findViewById<TextView>(R.id.tv_reservation_complete_timestamp)
         screeningDateTextView.text = movieTicket?.timeStamp
-
-        val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_count)
         ticketCountTextView.text =
             resources.getString(R.string.reservation_complete_ticket_count, movieTicket?.count)
-
-        val ticketPriceTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_price)
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
