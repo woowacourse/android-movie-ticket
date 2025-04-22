@@ -1,5 +1,7 @@
 package woowacourse.movie.view
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
@@ -39,12 +41,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservation(movie: Movie) {
-        val intent = Intent(this@MainActivity, ReservationActivity::class.java)
-        intent.putExtra(KEY_MOVIE, movie)
+        val intent = ReservationActivity.newIntent(this@MainActivity, movie)
         startActivity(intent)
     }
 
     companion object {
-        private const val KEY_MOVIE = "movie"
+        fun returnToMain(context: Context): Intent {
+            if (context is Activity) {
+                context.finish()
+            }
+            return Intent(context, ReservationActivity::class.java)
+        }
     }
 }

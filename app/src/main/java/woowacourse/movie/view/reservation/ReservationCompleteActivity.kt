@@ -34,9 +34,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
     private fun handleInvalidTicket() {
         DialogFactory().showError(this) {
-            val intent = Intent(this, ReservationActivity::class.java)
-            startActivity(intent)
-            finish()
+            ReservationActivity.returnToReserve(this)
         }
     }
 

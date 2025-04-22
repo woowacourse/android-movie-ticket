@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -65,9 +66,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun handleInvalidMovie() {
         DialogFactory().showError(this) {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-            finish()
+            MainActivity.returnToMain(this)
         }
     }
 
@@ -166,11 +165,14 @@ class ReservationActivity : AppCompatActivity() {
                 R.string.cancel,
             ),
         ) {
-            val intent = Intent(this, ReservationCompleteActivity::class.java)
-            intent.putExtra(KEY_TICKET, ticket)
-            startActivity(intent)
+            navigateToReservationComplete(ticket)
             finish()
         }
+    }
+
+    private fun navigateToReservationComplete(ticket: Ticket) {
+        val intent = ReservationCompleteActivity.newIntent(this@ReservationActivity, ticket)
+        startActivity(intent)
     }
 
     private fun setDateSpinner(
@@ -242,7 +244,6 @@ class ReservationActivity : AppCompatActivity() {
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
         private const val KEY_MOVIE = "movie"
-        private const val KEY_TICKET = "ticket"
         private const val DATE_PATTERN = "yyyy.M.d"
         private const val DEFAULT_PERSONNEL = 1
         private const val DEFAULT_DATE_POSITION = 0
@@ -256,5 +257,12 @@ class ReservationActivity : AppCompatActivity() {
                 KEY_MOVIE,
                 movie,
             )
+
+        fun returnToReserve(context: Context): Intent {
+            if (context is Activity) {
+                context.finish()
+            }
+            return Intent(context, ReservationActivity::class.java)
+        }
     }
 }
