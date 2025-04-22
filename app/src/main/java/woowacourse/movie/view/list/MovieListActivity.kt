@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.DummyData
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.reservation.MovieReservationActivity
-import java.time.LocalDate
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,7 +24,7 @@ class MovieListActivity : AppCompatActivity() {
             insets
         }
 
-        val movies = dummyMovies()
+        val movies = DummyData.movies
         initMovieList(movies)
     }
 
@@ -36,17 +36,6 @@ class MovieListActivity : AppCompatActivity() {
             }
         movieListView.adapter = movieAdapter
     }
-
-    private fun dummyMovies(): List<Movie> =
-        List(100) {
-            Movie(
-                title = "해리 포터와 마법사의 돌 $it",
-                startDate = LocalDate.of(2025, 4, 1),
-                endDate = LocalDate.of(2025, 4, 25),
-                runningTime = 152,
-                poster = R.drawable.harry_potter_poster,
-            )
-        }
 
     companion object {
         fun newIntent(context: Context): Intent = Intent(context, MovieListActivity::class.java)
