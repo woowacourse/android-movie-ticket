@@ -1,5 +1,6 @@
 package woowacourse.movie.view.ticket
 
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -10,9 +11,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.ticket.Ticket
-import woowacourse.movie.view.screening.ReservationActivity.Companion.EXTRA_SHOWTIME
-import woowacourse.movie.view.screening.ReservationActivity.Companion.EXTRA_TICKET_COUNT
-import woowacourse.movie.view.screening.ReservationActivity.Companion.EXTRA_TICKET_TITLE
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDateTime
 
@@ -100,5 +98,20 @@ class TicketActivity : AppCompatActivity() {
 
     companion object {
         private const val TICKET_COUNT_NOT_PROVIDED = -1
+
+        private const val EXTRA_TICKET_TITLE = "woowacourse.movie.EXTRA_TICKET_TITLE"
+        private const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
+        private const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
+
+        fun newIntent(
+            context: Context,
+            title: String,
+            count: Int,
+            showtime: LocalDateTime,
+        ): Intent =
+            Intent(context, TicketActivity::class.java)
+                .putExtra(EXTRA_TICKET_TITLE, title)
+                .putExtra(EXTRA_TICKET_COUNT, count)
+                .putExtra(EXTRA_SHOWTIME, showtime)
     }
 }

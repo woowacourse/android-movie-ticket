@@ -1,5 +1,6 @@
 package woowacourse.movie.view.screening
 
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
@@ -61,7 +62,7 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        screening = intent.getScreeningExtra(ScreeningActivity.Companion.EXTRA_SCREENING)
+        screening = intent.getScreeningExtra(EXTRA_SCREENING)
             ?: error(ErrorMessage("screening").notProvided())
         ticketCount = savedTicketCount
         timeItemPosition = savedTimeItemPosition
@@ -238,27 +239,31 @@ class ReservationActivity : AppCompatActivity() {
     private fun navigateToTicketActivity() {
         val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
         val intent =
-            Intent(this, TicketActivity::class.java)
-                .putExtra(
-                    EXTRA_TICKET_TITLE,
-                    screening.title,
-                ).putExtra(EXTRA_TICKET_COUNT, ticketCount)
-                .putExtra(EXTRA_SHOWTIME, LocalDateTime.of(selectedDate, selectedTime))
+            TicketActivity.newIntent(
+                this,
+                screening.title,
+                ticketCount,
+                LocalDateTime.of(selectedDate, selectedTime),
+            )
         startActivity(intent)
         finish()
     }
 
     companion object {
-        const val DEFAULT_TICKET_COUNT = 1
-        const val DEFAULT_TIME_ITEM_POSITION = 0
-        const val TICKET_COUNT = "TICKET_COUNT"
-        const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
+        private const val DEFAULT_TICKET_COUNT = 1
+        private const val DEFAULT_TIME_ITEM_POSITION = 0
+        private const val TICKET_COUNT = "TICKET_COUNT"
+        private const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
-        const val EXTRA_TICKET_TITLE = "woowacourse.movie.EXTRA_TICKET_TITLE"
-        const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
-        const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
-        const val EXTRA_START_DATE = "woowacourse.movie.EXTRA_START_DATE"
-        const val EXTRA_END_DATE = "woowacourse.movie.EXTRA_END_DATE"
-        const val EXTRA_TICKET = "woowacourse.movie.EXTRA_TICKET"
+        private const val EXTRA_SCREENING = "woowacourse.movie.EXTRA_SCREENING"
+
+        fun newIntent(
+            context: Context,
+            screening: Screening,
+        ): Intent =
+            Intent(context, ReservationActivity::class.java).putExtra(
+                EXTRA_SCREENING,
+                screening,
+            )
     }
 }
