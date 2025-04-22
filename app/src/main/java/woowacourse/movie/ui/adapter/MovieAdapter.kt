@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +10,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.ui.view.BookingActivity
-import woowacourse.movie.ui.constant.IntentKeys
 
 class MovieAdapter(
     context: Context,
@@ -24,22 +21,23 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val view: View
-        val viewHolder: MovieViewHolder
-
-        if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
-            viewHolder = MovieViewHolder(view, context, onClick)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = view.tag as MovieViewHolder
-        }
-
-        val movie = movies[position]
-        viewHolder.bind(movie)
-
+        val (view, movieViewHolder) = getOrCreateViewHolder(convertView, parent)
+        movieViewHolder.bind(movies[position])
         return view
+    }
+
+    private fun getOrCreateViewHolder(
+        convertView: View?,
+        parent: ViewGroup
+    ): Pair<View, MovieViewHolder> {
+        return if (convertView == null) {
+            val view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+            val viewHolder = MovieViewHolder(view, context, onClick)
+            view.tag = viewHolder
+            view to viewHolder
+        } else {
+            convertView to (convertView.tag as MovieViewHolder)
+        }
     }
 
     private class MovieViewHolder(
