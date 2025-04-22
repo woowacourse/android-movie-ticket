@@ -29,7 +29,7 @@ class ReservationResultActivityTest {
                 fakeActivity,
                 ReservationResultActivity::class.java,
             ).apply {
-                putExtra(fakeActivity.getString(R.string.key_reservation), reservation)
+                putExtra(KeyIdentifiers.KEY_RESERVATION, reservation)
             }
 
         ActivityScenario.launch<ReservationResultActivity>(intent)

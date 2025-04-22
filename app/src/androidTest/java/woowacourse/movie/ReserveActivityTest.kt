@@ -36,7 +36,7 @@ class ReserveActivityTest {
                 fakeActivity,
                 ReserveActivity::class.java,
             ).apply {
-                putExtra(fakeActivity.getString(R.string.key_movie), movie)
+                putExtra(KeyIdentifiers.KEY_MOVIE, movie)
             }
 
         scenario = ActivityScenario.launch(intent)
