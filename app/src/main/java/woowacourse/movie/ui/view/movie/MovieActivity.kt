@@ -9,7 +9,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.domain.model.movie.MovieAdapter
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 

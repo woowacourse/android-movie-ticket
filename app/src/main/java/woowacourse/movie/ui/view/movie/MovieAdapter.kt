@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model.movie
+package woowacourse.movie.ui.view.movie
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.Keys
