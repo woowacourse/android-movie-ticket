@@ -1,4 +1,4 @@
-package woowacourse.movie.dialog
+package woowacourse.movie.view.dialog
 
 import android.content.Context
 import androidx.appcompat.app.AlertDialog

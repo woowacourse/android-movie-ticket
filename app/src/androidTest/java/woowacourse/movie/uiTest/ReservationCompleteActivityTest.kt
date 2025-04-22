@@ -11,10 +11,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity
-import woowacourse.movie.activity.ReservationCompleteActivity
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.uiTest.fixture.fakeContext
+import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.reservation.ReservationCompleteActivity
 import java.time.LocalDateTime
 
 class ReservationCompleteActivityTest {

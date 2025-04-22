@@ -58,7 +58,7 @@
 
 ## 2차 피드백 반영
 
-- [ ] 패키지 구조 분리
+- [x] 패키지 구조 분리
 - [x] MovieAdapter | onButtonListener 네이밍 onClickReservation으로 수정
 - [x] MovieViewHolder | bind 메서드 추가
 - [x] MainActicity | 더미 데이터 위치 domain으로 이동

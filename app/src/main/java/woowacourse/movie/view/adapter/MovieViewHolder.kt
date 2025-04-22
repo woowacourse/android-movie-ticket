@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.adapter
+package woowacourse.movie.view.adapter
 
 import android.content.Context
 import android.view.View

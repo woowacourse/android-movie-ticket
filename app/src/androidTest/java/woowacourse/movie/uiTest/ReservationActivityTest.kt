@@ -15,10 +15,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestName
 import woowacourse.movie.R
-import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.uiTest.fixture.fakeContext
+import woowacourse.movie.view.reservation.ReservationActivity
 import java.time.LocalDate
 
 class ReservationActivityTest {

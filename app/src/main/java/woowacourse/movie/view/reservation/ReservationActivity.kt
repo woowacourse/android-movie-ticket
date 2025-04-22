@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.view.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -17,12 +17,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.dialog.DialogFactory
-import woowacourse.movie.dialog.DialogInfo
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.MainActivity
+import woowacourse.movie.view.dialog.DialogFactory
+import woowacourse.movie.view.dialog.DialogInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
