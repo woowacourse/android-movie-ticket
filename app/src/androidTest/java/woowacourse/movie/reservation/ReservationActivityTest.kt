@@ -12,8 +12,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.Movie
 import woowacourse.movie.view.reservation.ReservationActivity
+import java.time.LocalDate
 
 class ReservationActivityTest {
     @get:Rule
@@ -129,10 +130,12 @@ class ReservationActivityTest {
         Intents.intended(
             IntentMatchers.hasExtra(
                 "movieTicket",
-                MovieTicket(
+                Movie(
                     "라라랜드",
-                    "2025.04.17 12:00",
-                    1,
+                    R.drawable.lalaland,
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 20),
+                    120,
                 ),
             ),
         )
