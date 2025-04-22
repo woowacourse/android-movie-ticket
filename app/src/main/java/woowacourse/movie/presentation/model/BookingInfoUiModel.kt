@@ -12,4 +12,5 @@ data class BookingInfoUiModel(
     val movieTime: MovieTime = MovieTime(),
     val ticketCount: Int = 0,
     val eachPrice: Int = 0,
+    val totalPrice: Int = 0,
 ) : Parcelable

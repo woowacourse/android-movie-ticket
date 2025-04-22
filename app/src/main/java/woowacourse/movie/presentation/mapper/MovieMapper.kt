@@ -31,6 +31,7 @@ fun BookingInfo.toUi(): BookingInfoUiModel =
         movieTime = movieTime,
         ticketCount = ticketCount,
         eachPrice = eachPrice,
+        totalPrice = totalPrice,
     )
 
 fun BookingInfoUiModel.toDomain(): BookingInfo =
