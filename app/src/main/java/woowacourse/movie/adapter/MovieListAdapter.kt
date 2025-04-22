@@ -8,6 +8,7 @@ import android.widget.BaseAdapter
 import woowacourse.movie.BookingActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
+import woowacourse.movie.adapter.MovieViewHolder.Companion.TAG_KEY
 import woowacourse.movie.ui.MovieUiModel
 
 class MovieListAdapter(private val items: List<Movie>) :
@@ -33,10 +34,10 @@ class MovieListAdapter(private val items: List<Movie>) :
                 view.findViewById(R.id.running_time),
                 view.findViewById(R.id.reservation_button)
             )
-            view.tag = viewHolder
+            view.setTag(TAG_KEY, viewHolder)
         } else {
             view = convertView
-            viewHolder = view.tag as MovieViewHolder
+            viewHolder = view.getTag(TAG_KEY) as MovieViewHolder
         }
 
         val item = getItem(position)
