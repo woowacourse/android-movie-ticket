@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
 
-class MovieTicketActivity : AppCompatActivity() {
+class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -28,7 +28,7 @@ class MovieTicketActivity : AppCompatActivity() {
         val movies = Movies.value
         val movieListAdapter = MovieListAdapter(movies, object : MovieListClick {
             override fun navigateToBook(movie: Movie) {
-                val intent = Intent(this@MovieTicketActivity, MovieBookingActivity::class.java)
+                val intent = Intent(this@MovieActivity, MovieBookingActivity::class.java)
                     .apply { putExtra(KEY_MOVIE, movie) }
                 startActivity(intent)
             }

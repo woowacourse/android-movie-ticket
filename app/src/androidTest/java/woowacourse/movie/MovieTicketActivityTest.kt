@@ -21,7 +21,7 @@ import woowacourse.movie.MovieFixture.HARRY_POTTER_TITLE
 @LargeTest
 class MovieTicketActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MovieTicketActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieActivity::class.java)
 
     @Test
     fun `초기_화면에는_영화_목록이_있다`() {
