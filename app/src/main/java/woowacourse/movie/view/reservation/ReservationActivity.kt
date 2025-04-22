@@ -215,12 +215,8 @@ class ReservationActivity : AppCompatActivity() {
                     ReservationCompleteActivity.Companion.TICKET_DATA_KEY,
                     MovieTicket(
                         title = movie.title,
-                        timeStamp =
-                            getString(
-                                R.string.reservation_ticket_timestamp,
-                                formatter.localDateToUI(movieDate.value),
-                                formatter.movieTimeToUI(movieTime.value),
-                            ),
+                        movieDate = movieDate,
+                        movieTime = movieTime,
                         count = ticketCount.value,
                     ),
                 )

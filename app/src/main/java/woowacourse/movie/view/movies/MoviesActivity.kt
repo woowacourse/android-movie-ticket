@@ -34,13 +34,13 @@ class MoviesActivity : AppCompatActivity() {
                 movieClickListener =
                     object : MovieClickListener {
                         override fun onReservationClick(movie: Movie) {
-                            ::navigateToReservationComplete
+                            navigateToReservation(movie)
                         }
                     },
             )
     }
 
-    private fun navigateToReservationComplete(movie: Movie) {
+    private fun navigateToReservation(movie: Movie) {
         val intent =
             Intent(
                 this,

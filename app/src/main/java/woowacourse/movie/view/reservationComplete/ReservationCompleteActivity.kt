@@ -10,6 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.view.Formatter
+import java.time.LocalDate
+import java.time.LocalTime
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }
@@ -43,7 +45,12 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
     private fun setupMovieTicketInfo() {
         movieTitleTextView.text = movieTicket?.title
-        screeningDateTextView.text = movieTicket?.timeStamp
+        screeningDateTextView.text =
+            getString(
+                R.string.reservation_ticket_timestamp,
+                formatter.localDateToUI(movieTicket?.movieDate?.value ?: LocalDate.now()),
+                formatter.movieTimeToUI(movieTicket?.movieTime?.value ?: LocalTime.now().hour),
+            )
         ticketCountTextView.text =
             resources.getString(R.string.reservation_complete_ticket_count, movieTicket?.count)
         ticketPriceTextView.text =
