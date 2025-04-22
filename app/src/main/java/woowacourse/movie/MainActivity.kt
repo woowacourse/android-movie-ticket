@@ -43,9 +43,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun movieOrNull(): Movie? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("movieData", Movie::class.java)
+            intent.getParcelableExtra(KEY_MOVIE_DATA, Movie::class.java)
         } else {
-            intent.getParcelableExtra("movieData")
+            intent.getParcelableExtra(KEY_MOVIE_DATA)
         }
     }
 
