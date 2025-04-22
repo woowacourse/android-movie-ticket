@@ -9,11 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.util.ErrorMessage
 import woowacourse.movie.view.reservation.ReservationActivity
 import woowacourse.movie.view.ticket.model.Ticket
 
 class TicketActivity : AppCompatActivity() {
-    private lateinit var ticket: Ticket
+    private var ticket: Ticket? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +32,7 @@ class TicketActivity : AppCompatActivity() {
 
     private fun initModel() {
         ticket = intent.getTicketExtra(ReservationActivity.Companion.EXTRA_TICKET)
-            ?: error("티켓 정보가 전달되지 않았습니다.")
+            ?: error(ErrorMessage("ticket").notProvided())
     }
 
     @Suppress("DEPRECATION")
@@ -54,16 +55,19 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initPriceView() {
+        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
         priceView.text = getString(R.string.ticket_price, ticket.price)
     }
 
     private fun initCountView() {
+        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
         val countView = findViewById<TextView>(R.id.tv_ticket_count)
         countView.text = getString(R.string.ticket_count, ticket.count)
     }
 
     private fun initShowtimeView() {
+        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
         val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
         showtimeView.text =
             ticket.showtime.run {
@@ -72,6 +76,7 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initTitleView() {
+        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
         val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
         titleView.text = ticket.title
     }

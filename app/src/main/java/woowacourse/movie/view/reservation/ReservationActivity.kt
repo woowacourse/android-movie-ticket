@@ -4,7 +4,6 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -17,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.util.ErrorMessage
 import woowacourse.movie.view.MainActivity
 import woowacourse.movie.view.reservation.model.Screening
 import woowacourse.movie.view.ticket.TicketActivity
@@ -28,9 +28,9 @@ import java.time.LocalTime
 class ReservationActivity : AppCompatActivity() {
     private val showReservationDialog by lazy { ShowReservationDialog(this) }
 
-    private lateinit var screening: Screening
-    private lateinit var selectedDate: LocalDate
-    private lateinit var selectedTime: LocalTime
+    private var screening: Screening? = null
+    private var selectedDate: LocalDate? = null
+    private var selectedTime: LocalTime? = null
 
     private var ticketCount = DEFAULT_TICKET_COUNT
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
@@ -56,13 +56,6 @@ class ReservationActivity : AppCompatActivity() {
         val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
         initModel(savedTicketCount, savedTimeItemPosition)
         initViews()
-
-        Log.e("Gio", "onCreate invoked...")
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        Log.e("Gio", "onRestoreInstanceState invoked...")
     }
 
     private fun initModel(
@@ -70,7 +63,7 @@ class ReservationActivity : AppCompatActivity() {
         savedTimeItemPosition: Int,
     ) {
         screening = intent.getScreeningExtra(MainActivity.Companion.EXTRA_SCREENING)
-            ?: error("상영 정보가 전달되지 않았습니다.")
+            ?: error(ErrorMessage("screening").notProvided())
         ticketCount = savedTicketCount
         timeItemPosition = savedTimeItemPosition
     }
@@ -130,16 +123,25 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initRunningTimeView() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
-        runningTimeView.text = getString(R.string.running_time, screening.runningTime)
+        runningTimeView.text =
+            getString(
+                R.string.running_time,
+                screening.runningTime,
+            )
     }
 
     private fun initPosterView() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
+
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         posterImageView.setImageResource(screening.posterId)
     }
 
     private fun initPeriodView() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
+
         val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
         periodView.text =
             getString(
@@ -154,11 +156,14 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initTitleView() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
         titleView.text = screening.title
     }
 
     private fun initDateSpinner() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
+
         val availableDates = screening.availableDates()
         val dateAdapter =
             ArrayAdapter(
@@ -179,7 +184,10 @@ class ReservationActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     selectedDate = availableDates[position]
-                    val showtimes: List<LocalTime> = screening.showtimes(selectedDate)
+                    val showtimes: List<LocalTime> =
+                        screening.showtimes(
+                            selectedDate ?: error(ErrorMessage("date").notSelected()),
+                        )
                     val timeAdapter =
                         ArrayAdapter(
                             this@ReservationActivity,
@@ -203,6 +211,8 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
+
         val timeSpinnerView =
             findViewById<Spinner>(R.id.spinner_reservation_screening_time)
 
@@ -214,7 +224,10 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
+                    val screeningTimes: List<LocalTime> =
+                        screening.showtimes(
+                            selectedDate ?: error(ErrorMessage("date").notSelected()),
+                        )
                     selectedTime = screeningTimes[position]
                     timeItemPosition = position
                 }
@@ -224,6 +237,8 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToTicketActivity() {
+        val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
+
         val intent =
             Intent(this, TicketActivity::class.java).putExtra(
                 EXTRA_TICKET,
