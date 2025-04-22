@@ -1,11 +1,12 @@
 package woowacourse.movie.domain
 
+import androidx.annotation.DrawableRes
 import woowacourse.movie.R
 import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
-    val image: Int,
+    @DrawableRes val image: Int,
     val title: String,
     val date: Date,
     val time: Int,
