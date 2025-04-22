@@ -18,7 +18,6 @@ import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieDateTime
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.ServiceLocator
@@ -136,7 +135,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun setScreeningDate(movie: Movie) {
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
-                MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(today),
+                movie.betweenDates(),
             )
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
