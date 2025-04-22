@@ -14,8 +14,8 @@ class BookingInfoTest {
 
     @BeforeEach
     fun setup() {
-        movie = MOVIE_01
-        bookingInfo = BOOKING_INFO_01
+        movie = MOVIE_01.copy()
+        bookingInfo = BOOKING_INFO_01.copy()
     }
 
     @Test

@@ -3,7 +3,7 @@ package woowacourse.movie.domain.model
 import woowacourse.movie.domain.model.MovieTime.Companion.getMovieTimes
 import java.time.LocalDate
 
-class BookingInfo(
+data class BookingInfo(
     val movie: Movie,
 ) {
     private var _date: LocalDate = movie.startDate

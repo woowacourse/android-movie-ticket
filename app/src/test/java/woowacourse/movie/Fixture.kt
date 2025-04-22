@@ -26,5 +26,4 @@ val BOOKING_INFO_01 =
     ).apply {
         updateDate(LocalDate.of(2025, 4, 1))
         updateMovieTime(MovieTime(LocalTime.of(9, 0)))
-        increaseTicketCount(1)
     }
