@@ -1,5 +1,6 @@
 package woowacourse.movie.uiTest
 
+import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -19,6 +20,7 @@ import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 class DetailBookingActivityTest {
+    private lateinit var scenario: ActivityScenario<DetailBookingActivity>
     @Before
     fun setUp() {
         val movie =
@@ -28,10 +30,9 @@ class DetailBookingActivityTest {
                 Date(LocalDate.of(3025, 4, 1), LocalDate.of(3025, 4, 25)),
                 152,
             )
-
         val intent = DetailBookingActivity.newIntent(ApplicationProvider.getApplicationContext(), movie)
 
-        ActivityScenario.launch<DetailBookingActivity>(intent)
+        scenario = ActivityScenario.launch(intent)
     }
 
     @Test
@@ -180,5 +181,18 @@ class DetailBookingActivityTest {
             .perform(click())
         onView(withText("예매 완료"))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun informationMustBeMaintainedWhenScreenRotated() {
+        onView(withId(R.id.scrollView))
+            .perform(swipeUp())
+        onView(withId(R.id.increment_button))
+            .perform(click())
+        scenario.onActivity { activity ->
+            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        }
+        onView(withId(R.id.detail_personnel))
+            .check(matches(withText("2")))
     }
 }
