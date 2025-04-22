@@ -32,10 +32,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun extractReservation(): Reservation {
-        val reservation: Reservation? = intent.getSerializableCompat(KeyIdentifiers.KEY_RESERVATION)
-        if (reservation == null) finish()
-
-        return reservation!!
+        return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
     }
 
     private fun bindReservation(reservation: Reservation) {

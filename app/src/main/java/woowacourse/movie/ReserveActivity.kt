@@ -56,13 +56,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun setUpMovie(): Movie {
-        val movie: Movie? = intent.getSerializableCompat(KeyIdentifiers.KEY_MOVIE)
-
-        if (movie == null) {
-            finish()
-        }
-
-        return movie!!
+        return intent.getSerializableCompat<Movie>(KeyIdentifiers.KEY_MOVIE)
     }
 
     private fun getReservation(savedInstanceState: Bundle?): Reservation {
