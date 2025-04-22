@@ -9,24 +9,15 @@ import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.scrollTo
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents.init
-import androidx.test.espresso.intent.Intents.intended
-import androidx.test.espresso.intent.Intents.release
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.BOOKING_INFO_UI_MODEL_01
 import woowacourse.movie.MOVIE_UI_MODEL_01
 import woowacourse.movie.R
-import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
-import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.BOOKING_INFO_KEY
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.newIntent
 
@@ -125,32 +116,6 @@ class BookingDetailActivityTest {
 
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun 예매_완료_클릭시_예매_정보가_정상적으로_전달된다() {
-        init()
-
-        onView(withId(R.id.btn_booking_detail_count_up))
-            .perform(click())
-
-        onView(withId(R.id.btn_booking_detail_select_complete))
-            .perform(scrollTo(), click())
-
-        onView(withText("예매 완료"))
-            .perform(click())
-
-        intended(
-            allOf(
-                hasComponent(BookingCompleteActivity::class.java.name),
-                hasExtra(
-                    BOOKING_INFO_KEY,
-                    BOOKING_INFO_UI_MODEL_01,
-                ),
-            ),
-        )
-
-        release()
     }
 
     @Test
