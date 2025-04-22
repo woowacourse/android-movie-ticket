@@ -18,11 +18,11 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
-import woowacourse.movie.view.extension.toDateTimeFormatter
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     private var reservationCount = ReservationCount()
@@ -89,7 +89,8 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     }
 
     private fun restoreReservationInfo(savedInstanceState: Bundle) {
-        reservationCount = ReservationCount(savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER))
+        reservationCount =
+            ReservationCount(savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER))
         tvReservationCount.text = reservationCount.count.toString()
 
         movie?.let {
@@ -99,9 +100,13 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             val reservationDateTime =
                 savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
             val dateTime =
-                SPINNER_DATETIME_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                    LocalDateTime.parse(reservationDateTime, formatter)
-                }
+                LocalDateTime.parse(
+                    reservationDateTime,
+                    DateTimeFormatter.ofPattern(
+                        SPINNER_DATETIME_FORMAT,
+                    ),
+                )
+
             dateTime?.toLocalDate()?.let { selectedDate ->
                 val datePosition = dateSpinnerAdapter.getPosition(selectedDate)
                 if (datePosition >= 0) {
@@ -150,7 +155,12 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                 tvReservationCount.text = (reservationCount - 1).count.toString()
                 reservationCount -= 1
             }.onFailure {
-                showToast(getString(R.string.invalid_reservation_count_message, ReservationCount.MINIMUM_RESERVATION_COUNT))
+                showToast(
+                    getString(
+                        R.string.invalid_reservation_count_message,
+                        ReservationCount.MINIMUM_RESERVATION_COUNT,
+                    ),
+                )
             }
         }
 
@@ -184,17 +194,15 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     private fun setMovieInfo() {
         movie?.let { movie ->
+            val formatter = DateTimeFormatter.ofPattern(getString(R.string.movie_screening_period_format))
             findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(movie.poster.toInt())
             findViewById<TextView>(R.id.tv_reservation_title).text = movie.title
             findViewById<TextView>(R.id.tv_screening_period).text =
                 getString(
                     R.string.movie_date,
-                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.startDate.format(formatter)
-                    },
-                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.endDate.format(formatter)
-                    },
+                    movie.screeningPeriod.startDate.format(formatter),
+                    movie.screeningPeriod.endDate
+                        .format(formatter),
                 )
             findViewById<TextView>(R.id.tv_reservation_running_time).text =
                 getString(
@@ -257,7 +265,6 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         private const val RESTORE_BUNDLE_KEY_RESERVATION_DATETIME = "reservation_datetime"
         private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
         private const val SPINNER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm"
-        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
 
         fun newIntent(
             context: Context,

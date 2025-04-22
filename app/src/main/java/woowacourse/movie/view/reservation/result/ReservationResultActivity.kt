@@ -10,9 +10,9 @@ import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
-import woowacourse.movie.view.extension.toDateTimeFormatter
 import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,9 +73,12 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     private fun setupMovieDate(reservationDateTime: LocalDateTime?) {
         val tvMovieDate = findViewById<TextView>(R.id.tv_movie_date)
-        RESERVATION_DATETIME_FORMAT.toDateTimeFormatter()?.let { formatter ->
-            tvMovieDate?.text = reservationDateTime?.format(formatter)
-        }
+        tvMovieDate.text =
+            reservationDateTime?.format(
+                DateTimeFormatter.ofPattern(
+                    getString(R.string.reservation_datetime_format),
+                ),
+            )
     }
 
     private fun setupReservationCount(reservationCount: Int?) {
@@ -92,7 +95,6 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
     companion object {
         private const val CANCELLATION_TIME = 15
-        private const val RESERVATION_DATETIME_FORMAT = "yyyy.M.d HH:mm"
         private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
 
         fun newIntent(

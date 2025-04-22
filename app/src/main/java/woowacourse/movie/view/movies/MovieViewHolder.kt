@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.extension.toDateTimeFormatter
+import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
     val view: View,
@@ -21,27 +21,20 @@ class MovieViewHolder(
         movie: Movie,
         eventListener: OnMovieEventListener,
     ) {
+        val format = view.context.getString(R.string.movie_screening_period_format)
         ivPoster.setImageResource(movie.poster.toInt())
         tvTitle.text = movie.title
         tvDate.text =
             movie.screeningPeriod.run {
                 view.context.getString(
                     R.string.movie_date,
-                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.startDate.format(formatter)
-                    },
-                    MOVIE_SCREENING_PERIOD_FORMAT.toDateTimeFormatter()?.let { formatter ->
-                        movie.screeningPeriod.endDate.format(formatter)
-                    },
+                    movie.screeningPeriod.startDate.format(DateTimeFormatter.ofPattern(format)),
+                    movie.screeningPeriod.endDate.format(DateTimeFormatter.ofPattern(format)),
                 )
             }
         tvRunningTime.text = view.context.getString(R.string.running_time, movie.runningTime.minute.toString())
         btnReservation.setOnClickListener {
             eventListener.onReserveButtonClick(movie)
         }
-    }
-
-    companion object {
-        private const val MOVIE_SCREENING_PERIOD_FORMAT = "yyyy.M.d"
     }
 }
