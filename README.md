@@ -48,7 +48,7 @@
 - [ ] 화면 test code 작성하기
 - [ ] 기능별 / 담당하는 내용별로 패키지를 분리
 - [X] BuildVersion IllegalStateException 상황 적어주기
-- [ ] 확장함수 관리하는 방법 생각 - 두루 object 추천
+- [X] 확장함수 관리하는 방법 생각 - 두루 object 추천
 - [X] adaptBookingStatus -> init, setUp으로 수정
 - [ ] 연속 방지 클릭에 대해서 utils 선언
 - [X] dimens.xml - 마진 / 패딩등 dp

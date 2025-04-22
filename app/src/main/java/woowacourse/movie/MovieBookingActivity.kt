@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.MovieTicketActivity.Companion.KEY_MOVIE
+import woowacourse.movie.Utils.toDotFormat
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimes
