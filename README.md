@@ -23,7 +23,7 @@
 - [x] 예매 완료 화면에 예매한 가격 정보와 인원이 나온다
   - 영화 티켓 한 장은 13,000원이다.
 
-## 1, 2 두루 review 반영
+## 1, 2 단계 두루 review 1차 반영
 - [X] 하드코딩된 내용을 더미데이터로 만듬 ex) movie
 - [X] MainActivity -> 미션 주제가 들어나도록 네이밍 변경
 - [X] MainActivity onCreate 함수 기능별로 분리
@@ -37,12 +37,24 @@
 - [X] MovieBookingActivity 버전별 분기 함수로 재사용하도록 만들기
 - [X] MovieBookingActivity 기능별로 분리
 - [X] 생명주기 공부하기
-  - [ ] configurationChange 키워드 살펴보기
 - [X] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
 - [X] ReservationCompleteActivity의 Intent Extra 따로 관리
 - [X] dao, data 부분 삭제
-- [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
 - [X] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
+
+## 1, 2 단계 두루 review 2차 반영
+- [ ] configurationChange 키워드 살펴보기
+- [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
+- [ ] 화면 test code 작성하기
+- [ ] 기능별 / 담당하는 내용별로 패키지를 분리
+- [ ] BuildVersion IllegalStateException 상황 적어주기
+- [ ] 확장함수 관리하는 방법 생각 - 두루 object 추천
+- [ ] adaptBookingStatus -> init, setUp으로 수정
+- [ ] 연속 방지 클릭에 대해서 utils 선언
+- [ ] dimens.xml - 마진 / 패딩등 dp
+- [ ] dp / sp 공부해보기
+- [ ] MovieListAdapter Extension로 만드는 것
+- [ ] savedStateHandle: SavedStateHandle
 
 ## 개인적으로 해 보고 싶은 부분
 - [ ] 확장함수 class로 만들기
