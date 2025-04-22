@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
@@ -27,7 +28,13 @@ class MainActivity : AppCompatActivity() {
             )
 
         val listView: ListView = findViewById(R.id.movie_list)
-        adapter = MovieListAdapter(allItems)
+        adapter = MovieListAdapter(allItems) { movie ->
+            val intent = Intent(this, BookingActivity::class.java).apply {
+                putExtra("MOVIE_INFO", movie)
+            }
+            startActivity(intent)
+        }
+
         listView.adapter = adapter
     }
 }

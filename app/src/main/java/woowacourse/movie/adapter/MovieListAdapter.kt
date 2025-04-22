@@ -1,17 +1,15 @@
 package woowacourse.movie.adapter
 
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import woowacourse.movie.BookingActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieViewHolder.Companion.TAG_KEY
 import woowacourse.movie.ui.MovieUiModel
 
-class MovieListAdapter(private val items: List<Movie>) :
+class MovieListAdapter(private val items: List<Movie>, private val onButtonClick: (Movie) -> Unit) :
     BaseAdapter() {
     override fun getCount(): Int = items.size
 
@@ -52,10 +50,7 @@ class MovieListAdapter(private val items: List<Movie>) :
             runningTime.text = movieUiModel.runningTime
 
             button.setOnClickListener {
-                val intent = Intent(parent.context, BookingActivity::class.java).apply {
-                    putExtra("MOVIE_INFO", item)
-                }
-                parent.context.startActivity(intent)
+                onButtonClick(item)
             }
         }
 
