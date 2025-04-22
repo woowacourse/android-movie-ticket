@@ -60,7 +60,7 @@ class ReservationActivity : AppCompatActivity() {
         memberCount = savedInstanceState.getInt(MEMBER_COUNT_KEY)
         binding.count.text = memberCount.toString()
         binding.datePickerActions.setSelection(savedInstanceState.getInt(RESERVATION_DAY_KEY))
-        runningTimePosition = savedInstanceState.getInt(RUNNING_TIME_KEY)
+        binding.timePickerActions.setSelection(savedInstanceState.getInt(RUNNING_TIME_KEY))
     }
 
     private fun init() {
@@ -139,7 +139,7 @@ class ReservationActivity : AppCompatActivity() {
                         items = RunningTimes(ServiceLocator.now).runningTimes(reservationDay)
                         notifyDataSetChanged()
                     }
-                    binding.timePickerActions.setSelection(runningTimePosition)
+                    runningTimePosition = DEFAULT_POSITION
                     datePosition = position
                 }
 
