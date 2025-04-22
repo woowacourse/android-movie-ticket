@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.view.reservation.model.Screening
+import woowacourse.movie.domain.screening.Screening
 
 class ScreeningItemViewHolder(
     private val view: View,

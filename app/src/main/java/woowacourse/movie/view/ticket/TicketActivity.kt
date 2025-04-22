@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.reservation.ReservationActivity
-import woowacourse.movie.view.ticket.model.Ticket
 import woowacourse.movie.view.util.ErrorMessage
 
 class TicketActivity : AppCompatActivity() {

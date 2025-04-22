@@ -1,7 +1,7 @@
 package woowacourse.movie.data.movie
 
 import woowacourse.movie.R
-import woowacourse.movie.view.movie.model.Movie
+import woowacourse.movie.domain.movie.Movie
 
 class Movies {
     val harryPotter =

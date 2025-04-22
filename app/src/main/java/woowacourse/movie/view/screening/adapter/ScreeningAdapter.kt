@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.view.reservation.model.Screening
+import woowacourse.movie.domain.screening.Screening
 
 class ScreeningAdapter(
     screenings: List<Screening>,

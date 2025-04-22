@@ -9,8 +9,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.data.screening.Screenings
+import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.view.reservation.ReservationActivity
-import woowacourse.movie.view.reservation.model.Screening
 import woowacourse.movie.view.screening.adapter.ScreeningAdapter
 
 class MainActivity : AppCompatActivity() {

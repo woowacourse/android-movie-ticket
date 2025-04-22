@@ -16,10 +16,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.MainActivity
-import woowacourse.movie.view.reservation.model.Screening
 import woowacourse.movie.view.ticket.TicketActivity
-import woowacourse.movie.view.ticket.model.Ticket
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalDateTime
