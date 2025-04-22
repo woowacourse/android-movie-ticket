@@ -72,12 +72,12 @@ class ReservationActivity : AppCompatActivity() {
     private fun Intent.getScreeningExtra(key: String): Screening? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-                getParcelableExtra(
+                getSerializableExtra(
                     key,
                     Screening::class.java,
                 )
 
-            else -> getParcelableExtra(key) as? Screening
+            else -> getSerializableExtra(key) as? Screening
         }
 
     private fun initViews() {
