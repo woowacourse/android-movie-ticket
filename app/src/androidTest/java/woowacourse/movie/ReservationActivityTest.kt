@@ -17,16 +17,16 @@ import org.hamcrest.core.Is.`is`
 import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_DAY
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_MONTH
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_END_YEAR
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_POSTER_ID
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_RUNNING_TIME
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_DAY
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_MONTH
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_START_YEAR
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_TITLE
 import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_DAY
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_MONTH
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_YEAR
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_POSTER_ID
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_RUNNING_TIME
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_START_DAY
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_START_MONTH
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_START_YEAR
+import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_TITLE
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -18,8 +18,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.domain.ticket.Ticket
-import woowacourse.movie.view.MainActivity
 import woowacourse.movie.view.screening.Poster.posterId
+import woowacourse.movie.view.screening.ScreeningActivity
 import woowacourse.movie.view.ticket.TicketActivity
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate
@@ -63,7 +63,7 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        screening = intent.getScreeningExtra(MainActivity.Companion.EXTRA_SCREENING)
+        screening = intent.getScreeningExtra(ScreeningActivity.Companion.EXTRA_SCREENING)
             ?: error(ErrorMessage("screening").notProvided())
         ticketCount = savedTicketCount
         timeItemPosition = savedTimeItemPosition

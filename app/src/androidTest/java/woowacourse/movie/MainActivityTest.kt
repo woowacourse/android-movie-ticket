@@ -8,11 +8,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.view.MainActivity
+import woowacourse.movie.view.screening.ScreeningActivity
 
 class MainActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(ScreeningActivity::class.java)
 
     @Test
     fun `앱을_실행하면_영화_제목이_표시된다`() {
@@ -40,7 +40,7 @@ class MainActivityTest {
 
     @Test
     fun `목록에_영화_정보를_표시한다`() {
-        onView(withId(R.id.lv_main_movies))
+        onView(withId(R.id.lv_screening_movies))
             .check(matches(isDisplayed()))
     }
 

@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.screening
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,12 +13,12 @@ import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.view.reservation.ReservationActivity
 import woowacourse.movie.view.screening.adapter.ScreeningAdapter
 
-class MainActivity : AppCompatActivity() {
+class ScreeningActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.lv_main_movies)) { v, insets ->
+        setContentView(R.layout.activity_screening)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.lv_screening_movies)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initListView() {
         val screenings: List<Screening> = Screenings().value
-        val movieListView = findViewById<ListView>(R.id.lv_main_movies)
+        val movieListView = findViewById<ListView>(R.id.lv_screening_movies)
         val movieAdapter = ScreeningAdapter(screenings, ::navigateToReservationActivity)
         movieListView.adapter = movieAdapter
     }
