@@ -238,7 +238,6 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun navigateToTicketActivity() {
         val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
-
         val intent =
             Intent(this, TicketActivity::class.java).putExtra(
                 EXTRA_TICKET,
@@ -249,6 +248,7 @@ class ReservationActivity : AppCompatActivity() {
                 ),
             )
         startActivity(intent)
+        finish()
     }
 
     companion object {
