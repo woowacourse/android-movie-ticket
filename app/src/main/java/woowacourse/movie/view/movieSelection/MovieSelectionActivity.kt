@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movieSelection
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.movieReservation.MovieReservationActivity
+import woowacourse.movie.view.utils.toUiModel
 import java.time.LocalDate
 
 class MovieSelectionActivity : AppCompatActivity() {
@@ -16,14 +19,14 @@ class MovieSelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         initializeView()
 
-        val movies: List<ParcelableMovie> =
+        val movies: List<MovieUiModel> =
             (1..10000).map { n ->
                 Movie(
                     "해리 포터 $n",
                     startDate = LocalDate.of(2025, 4, 1),
                     endDate = LocalDate.of(2025, 4, 25),
                     runningTime = 152,
-                ).toParcelable()
+                ).toUiModel()
             }
 
         val movieListView = findViewById<ListView>(R.id.movie_list)
@@ -41,7 +44,7 @@ class MovieSelectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun reserveMovie(movie: ParcelableMovie) {
+    private fun reserveMovie(movie: MovieUiModel) {
         val intent = Intent(this, MovieReservationActivity::class.java)
         intent.putExtra(MovieAdapter.KEY_MOVIE, movie)
         startActivity(intent)

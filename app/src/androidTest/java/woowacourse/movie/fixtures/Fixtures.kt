@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.toModel
-import woowacourse.movie.view.toParcelable
+import woowacourse.movie.view.utils.toDomain
+import woowacourse.movie.view.utils.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -17,11 +17,11 @@ val movie =
         startDate = LocalDate.of(2025, 4, 1),
         endDate = LocalDate.of(2025, 4, 25),
         runningTime = 152,
-    ).toParcelable()
+    ).toUiModel()
 
 val ticket =
     Ticket(
-        movie = movie.toModel(),
+        movie = movie.toDomain(),
         showtime = LocalDateTime.of(2025, 4, 15, 11, 0, 0),
         count = 2,
-    ).toParcelable()
+    ).toUiModel()

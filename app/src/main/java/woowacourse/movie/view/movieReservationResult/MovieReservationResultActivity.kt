@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movieReservationResult
 
 import android.os.Bundle
 import android.widget.TextView
@@ -7,6 +7,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.movieReservation.MovieReservationActivity
+import woowacourse.movie.view.utils.getParcelableCompat
+import woowacourse.movie.view.utils.toDomain
 import java.time.format.DateTimeFormatter
 
 class MovieReservationResultActivity : AppCompatActivity() {
@@ -32,13 +36,13 @@ class MovieReservationResultActivity : AppCompatActivity() {
         val ticketCount = findViewById<TextView>(R.id.ticket_count)
         val totalPrice = findViewById<TextView>(R.id.total_price)
 
-        val ticket: ParcelableTicket =
-            intent.extras?.getParcelableCompat<ParcelableTicket>(MovieReservationActivity.KEY_TICKET)
+        val ticket: TicketUiModel =
+            intent.extras?.getParcelableCompat<TicketUiModel>(MovieReservationActivity.KEY_TICKET)
                 ?: run { return }
         title.text = ticket.movie.title
         showtime.text =
             ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
         ticketCount.text = getString(R.string.ticket_count_format).format(ticket.count)
-        totalPrice.text = getString(R.string.ticket_price_format).format(ticket.toModel().totalPrice())
+        totalPrice.text = getString(R.string.ticket_price_format).format(ticket.toDomain().totalPrice())
     }
 }

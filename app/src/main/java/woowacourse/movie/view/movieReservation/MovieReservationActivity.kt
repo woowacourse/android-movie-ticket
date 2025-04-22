@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movieReservation
 
 import android.content.Intent
 import android.os.Bundle
@@ -18,14 +18,21 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
+import woowacourse.movie.view.movieSelection.MovieAdapter
+import woowacourse.movie.view.utils.getParcelableCompat
+import woowacourse.movie.view.utils.toDomain
+import woowacourse.movie.view.utils.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity() {
-    private lateinit var movie: ParcelableMovie
-    private lateinit var ticket: ParcelableTicket
+    private lateinit var movie: MovieUiModel
+    private lateinit var ticket: TicketUiModel
     private lateinit var dateAdapter: ArrayAdapter<LocalDate>
     private lateinit var timeAdapter: ArrayAdapter<LocalTime>
     private val dateSpinner by lazy { findViewById<Spinner>(R.id.date_spinner) }
@@ -35,7 +42,7 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        movie = intent.extras?.getParcelableCompat<ParcelableMovie>(MovieAdapter.KEY_MOVIE) ?: run { return }
+        movie = intent.extras?.getParcelableCompat<MovieUiModel>(MovieAdapter.KEY_MOVIE) ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         if (!::dateAdapter.isInitialized) {
@@ -56,7 +63,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        ticket = savedInstanceState.getParcelableCompat<ParcelableTicket>(KEY_TICKET) ?: run { return }
+        ticket = savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: run { return }
         initializeTicketCountButton()
     }
 
@@ -148,7 +155,7 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun initializeTicket() {
         ticket =
-            ParcelableTicket(
+            TicketUiModel(
                 movie,
                 LocalDateTime.of(
                     dateAdapter.getItem(0),
@@ -167,12 +174,12 @@ class MovieReservationActivity : AppCompatActivity() {
 
         incrementButton.setOnClickListener {
             decrementButton.isEnabled = true
-            ticket = ticket.toModel().increment().toParcelable()
+            ticket = ticket.toDomain().increment().toUiModel()
             ticketCountTextView.text = ticket.count.toString()
         }
 
         decrementButton.setOnClickListener {
-            ticket = ticket.toModel().decrement().toParcelable()
+            ticket = ticket.toDomain().decrement().toUiModel()
             ticketCountTextView.text = ticket.count.toString()
             decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
         }

@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.model
 
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
 @Parcelize
-data class ParcelableMovie(
+data class MovieUiModel(
     val title: String,
     val startDate: LocalDate,
     val endDate: LocalDate,
