@@ -1,6 +1,5 @@
 package woowacourse.movie.adapter
 
-import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.R
 import woowacourse.movie.ui.MovieUiModel
 
-class MovieListAdapter(private val context: Context, private val items: List<Movie>) :
+class MovieListAdapter(private val items: List<Movie>) :
     BaseAdapter() {
     override fun getCount(): Int = items.size
 
@@ -19,12 +18,12 @@ class MovieListAdapter(private val context: Context, private val items: List<Mov
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val view: View
         val viewHolder: MovieViewHolder
 
         if (convertView == null) {
-            view = LayoutInflater.from(context)
+            view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.movie_list_item, parent, false)
             viewHolder = MovieViewHolder(
                 view.findViewById(R.id.movie_image),
@@ -52,10 +51,10 @@ class MovieListAdapter(private val context: Context, private val items: List<Mov
             runningTime.text = movieUiModel.runningTime
 
             button.setOnClickListener {
-                val intent = Intent(context, BookingActivity::class.java).apply {
+                val intent = Intent(parent.context, BookingActivity::class.java).apply {
                     putExtra("MOVIE_INFO", item)
                 }
-                context.startActivity(intent)
+                parent.context.startActivity(intent)
             }
         }
 

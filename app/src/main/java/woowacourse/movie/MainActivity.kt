@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
             )
 
         val listView: ListView = findViewById(R.id.movie_list)
-        adapter = MovieListAdapter(this, allItems)
+        adapter = MovieListAdapter(allItems)
         listView.adapter = adapter
     }
 }
