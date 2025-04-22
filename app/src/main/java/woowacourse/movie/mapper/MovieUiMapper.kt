@@ -24,7 +24,7 @@ fun Movie.toUiModel(resources: Resources): MovieUiModel {
 
 private fun getImageResIdFromUrl(imageUrl: String): Int {
     val resourceName = imageUrl.substringBeforeLast('.')
-    return imageNameToResIdMap[resourceName] ?: 0
+    return imageNameToResIdMap[resourceName] ?: R.drawable.harry_potter
 }
 
 private val imageNameToResIdMap =
