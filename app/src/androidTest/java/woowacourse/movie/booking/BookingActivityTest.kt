@@ -64,7 +64,7 @@ class BookingActivityTest {
             .check(matches(isDisplayed()))
     }
 
-    @DisplayName("예매 수량의 처음 값은 1이다.")
+    @DisplayName("초기 예매 수량은 1로 표시된다.")
     @Test
     fun headCountViewTest() {
         onView(withId(R.id.headCount))

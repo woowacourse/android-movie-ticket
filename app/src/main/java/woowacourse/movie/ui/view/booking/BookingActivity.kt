@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.HeadCountManager
+import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieRepository
 import woowacourse.movie.domain.policy.DefaultPricingPolicy
@@ -32,7 +32,7 @@ class BookingActivity : AppCompatActivity() {
     private lateinit var headCountView: TextView
     private var date: LocalDate = LocalDate.now()
     private var time: LocalTime = LocalTime.now()
-    private val headCountManager = HeadCountManager()
+    private var headCount = HeadCount()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,12 +101,12 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun decreaseHeadCount() {
-        headCountManager.decrease()
+        headCount.decrease()
         updateHeadCount()
     }
 
     private fun increaseHeadCount() {
-        headCountManager.increase()
+        headCount.increase()
         updateHeadCount()
     }
 
@@ -206,7 +206,7 @@ class BookingActivity : AppCompatActivity() {
             movieTicketService.createMovieTicket(
                 movie.title,
                 LocalDateTime.of(date, time),
-                headCountManager.count,
+                headCount.getCount(),
             )
 
         val intent = Intent(this, BookingSummaryActivity::class.java)
@@ -216,19 +216,20 @@ class BookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_HEAD_COUNT, headCountManager.count)
+        outState.putInt(KEY_HEAD_COUNT, headCount.getCount())
         outState.putString(KEY_DATE, date.toString())
         outState.putString(KEY_TIME, time.toString())
     }
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
-        headCountManager.restore(savedInstance.getInt(KEY_HEAD_COUNT))
+        val restoredCount = savedInstance.getInt(KEY_HEAD_COUNT, headCount.getCount())
+        headCount = HeadCount(restoredCount)
         date = LocalDate.parse(savedInstance.getString(KEY_DATE))
         time = LocalTime.parse(savedInstance.getString(KEY_TIME))
     }
 
     private fun updateHeadCount() {
-        headCountView.text = headCountManager.count.toString()
+        headCountView.text = headCount.getCount().toString()
     }
 
     companion object {
