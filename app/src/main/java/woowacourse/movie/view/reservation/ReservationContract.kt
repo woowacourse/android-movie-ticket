@@ -48,5 +48,7 @@ interface ReservationContract {
             title: String,
             message: String,
         )
+
+        fun createTicket(): MovieTicket
     }
 }

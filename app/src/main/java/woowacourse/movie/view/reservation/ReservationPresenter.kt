@@ -78,4 +78,17 @@ class ReservationPresenter(
             message,
         )
     }
+
+    override fun createTicket(): MovieTicket =
+        MovieTicket(
+            title = movie.title,
+            timeStamp = "${formatter.localDateToUI(movieDate.value)} ${
+                formatter.movieTimeToUI(
+                    movieTime.value,
+                )
+            }",
+            count = ticketCount.value,
+        )
+
+    private fun getMovieFromIntent(intent: Intent): Movie? = intent.getParcelableExtraCompat<Movie>(Extras.MovieData.MOVIE_KEY)
 }

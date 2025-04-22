@@ -181,6 +181,19 @@ class ReservationActivity :
         }
     }
 
+    override fun setTicketCount(count: Int) {
+        ticketCountTextView.text = count.toString()
+    }
+
+    private fun setupCompleteButtonClick() {
+        findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
+            presenter.onReservationCompleted(
+                getString(R.string.reservation_dialog_title),
+                getString(R.string.reservation_dialog_message),
+            )
+        }
+    }
+
     override fun showReservationDialog(
         title: String,
         message: String,
@@ -199,23 +212,11 @@ class ReservationActivity :
     }
 
     private fun movieTicketIntent(): Intent {
-        val intent =
-            Intent(this, ReservationCompleteActivity::class.java).apply {
-                putExtra(
-                    Extras.TicketData.TICKET_KEY,
-                    MovieTicket(
-                        title = movie.title,
-                        timeStamp =
-                            getString(
-                                R.string.reservation_ticket_timestamp,
-                                reservationUiFormatter.localDateToUI(movieDate.value),
-                                reservationUiFormatter.movieTimeToUI(movieTime.value),
-                            ),
-                        count = ticketCount.value,
-                    ),
-                )
-            }
-        return intent
+        val ticket = presenter.createTicket()
+
+        return Intent(this, ReservationCompleteActivity::class.java).apply {
+            putExtra(Extras.TicketData.TICKET_KEY, ticket)
+        }
     }
 
     private fun setupSavedData(savedInstanceState: Bundle?) {
