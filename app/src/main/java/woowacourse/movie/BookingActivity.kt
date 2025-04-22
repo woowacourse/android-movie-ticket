@@ -16,7 +16,6 @@ import woowacourse.movie.ui.MovieUiModel
 import woowacourse.movie.domain.TicketManager
 
 class BookingActivity : AppCompatActivity() {
-    private lateinit var movieUiModel: MovieUiModel
     private lateinit var ticketManager: TicketManager
     private lateinit var movieTime: Spinner
     private lateinit var movieDate: Spinner
@@ -36,10 +35,10 @@ class BookingActivity : AppCompatActivity() {
                 finish()
                 return
             }
-        movieUiModel = MovieUiModel.fromDomain(movie)
+        val movieUiModel = MovieUiModel.fromDomain(movie)
         ticketManager = TicketManager(movie)
 
-        setupPage()
+        setupPage(movieUiModel)
         setupDateChangeDateListener()
         setupDateChangeTimeListener()
         countButtonHandler()
@@ -68,7 +67,7 @@ class BookingActivity : AppCompatActivity() {
         ticketCount.text = state.getInt(KEY_TICKET_COUNT).toString()
     }
 
-    private fun setupPage() {
+    private fun setupPage(movieUiModel: MovieUiModel) {
         val title: TextView = findViewById(R.id.title)
         val runningTime:TextView = findViewById(R.id.running_time)
         val poster:ImageView = findViewById(R.id.movie_poster)
