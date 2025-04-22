@@ -1,3 +1,25 @@
 <resources>
+    <!--    App-->
     <string name="app_name">Movie</string>
+
+    <!--    MoviesActivity-->
+    <string name="movies_movie_date_with_tilde">%s ~ %s</string>
+    <string name="movies_movie_running_time">%d분</string>
+
+    <!--    BookingDetailActivity-->
+    <string name="booking_detail_date_label">상영일 :</string>
+    <string name="booking_detail_running_time_label">러닝타임 :</string>
+    <string name="booking_detail_decrease_count">-</string>
+    <string name="booking_detail_increase_count">+</string>
+    <string name="booking_detail_select_complete">선택 완료</string>
+    <string name="booking_detail_booking_check">예매 확인</string>
+    <string name="booking_detail_booking_check_description">정말 예매하시겠습니까?</string>
+    <string name="booking_detail_booking_complete">예매 완료</string>
+    <string name="booking_detail_booking_cancel">취소</string>
+
+    <!--    BookingCompleteActivity-->
+    <string name="booking_complete_cancel_notice">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
+    <string name="booking_complete_movie_date_time">%s %s</string>
+    <string name="booking_complete_ticket_count">일반 %d명</string>
+    <string name="booking_complete_ticket_total_price">%s원 (현장 결제)</string>
 </resources>
