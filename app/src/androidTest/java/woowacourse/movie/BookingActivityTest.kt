@@ -37,7 +37,7 @@ class BookingActivityTest {
                         "해리 포터와 마법사의 돌",
                         R.drawable.harry_potter_one,
                         ScreeningDate(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
-                        "152분",
+                        152,
                     ),
                 )
             }

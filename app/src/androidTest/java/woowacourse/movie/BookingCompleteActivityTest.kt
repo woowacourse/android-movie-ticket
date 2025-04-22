@@ -12,6 +12,7 @@ import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingCompleteActivity
+import java.time.LocalDateTime
 
 class BookingCompleteActivityTest {
     private lateinit var intent: Intent
@@ -28,7 +29,7 @@ class BookingCompleteActivityTest {
                     BookedTicket(
                         "해리 포터와 마법사의 돌",
                         Headcount(2),
-                        "2025.4.1 12:00",
+                        LocalDateTime.of(2025, 4, 1, 12, 0),
                     ),
                 )
             }
