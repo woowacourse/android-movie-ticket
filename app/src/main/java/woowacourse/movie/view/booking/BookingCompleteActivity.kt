@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
+import woowacourse.movie.utils.StringFormatter.dateTimeFormat
 import woowacourse.movie.utils.StringFormatter.thousandFormat
 import woowacourse.movie.utils.intentSerializable
 
@@ -41,7 +42,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         val priceFormat: String = thousandFormat(price)
 
         findViewById<TextView>(R.id.tv_title).text = bookedTicket.movieName
-        findViewById<TextView>(R.id.tv_release_date).text = bookedTicket.time
+        findViewById<TextView>(R.id.tv_release_date).text = dateTimeFormat(bookedTicket.time)
         findViewById<TextView>(R.id.tv_price).text =
             getString(R.string.text_on_site_payment).format(priceFormat)
         findViewById<TextView>(R.id.tv_headcount).text =

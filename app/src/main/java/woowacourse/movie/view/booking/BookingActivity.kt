@@ -25,6 +25,7 @@ import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var headcount: Headcount
@@ -105,7 +106,7 @@ class BookingActivity : AppCompatActivity() {
 
     private fun setDateSpinner(releaseDate: ScreeningDate) {
         val (startDate, endDate) = releaseDate
-        val screeningBookingDates = ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
+        val screeningBookingDates: List<LocalDate> = ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
 
         with(dateSpinner) {
             adapter =
@@ -195,11 +196,11 @@ class BookingActivity : AppCompatActivity() {
 
     private fun madeBookedTicket(): BookedTicket {
         val title: String = movieItem.title
-        val date: String = dateSpinner.selectedItem.toString()
-        val time: String = timeSpinner.selectedItem.toString()
+        val date: LocalDate = dateSpinner.selectedItem as LocalDate
+        val time: LocalTime = timeSpinner.selectedItem as LocalTime
         val count: Int = headcount.count
 
-        return BookedTicket(title, Headcount(count), "$date $time")
+        return BookedTicket(title, Headcount(count), LocalDateTime.of(date, time))
     }
 
     private fun moveToBookingCompleteActivity() {
