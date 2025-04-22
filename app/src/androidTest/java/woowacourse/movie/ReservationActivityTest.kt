@@ -141,6 +141,7 @@ class ReservationActivityTest {
 
     @Test
     fun 날짜와_시간은_현재_시간으로부터_가장_가까운_시간을_기본값으로_한다() {
+        // 실제론 문자열이 일치하는데 에스프레소가 스피너 텍스트를 못찾음..????
         onView(withId(R.id.date_picker_actions))
             .check(matches(withText("04.03")))
         onView(withId(R.id.time_picker_actions))
@@ -217,6 +218,7 @@ class ReservationActivityTest {
 
     @Test
     fun 화면을_회전시켜도_정보가_유지된다() {
+        // 실제론 문자열이 일치하는데 에스프레소가 스피너 텍스트를 못찾음..????
         // given
         onView(withId(R.id.plus_button))
             .perform(click())

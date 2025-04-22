@@ -1,15 +1,12 @@
 package woowacourse.movie.domain
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-@Parcelize
 class MovieDateTime(
     private val startDateTime: LocalDateTime,
     private val endDateTime: LocalDateTime,
-) : Parcelable {
+) {
     fun betweenDates(targetDate: LocalDate = LocalDate.now()): List<LocalDate> =
         buildList {
             val startDate = startDateTime.toLocalDate()

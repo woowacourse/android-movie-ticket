@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationCompleteBinding
-import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.getObjectFromIntent
 import woowacourse.movie.global.toFormattedString
 
@@ -24,7 +24,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val bookingStatus = intent.getObjectFromIntent<BookingStatus>(BOOKING_STATUS_KEY)
+        val bookingStatus = intent.getObjectFromIntent<ReservationDto>(BOOKING_STATUS_KEY)
 
         binding.bookedMovieTitleText.text = bookingStatus.movie.title
         binding.bookedMovieRunningDayText.text = bookingStatus.bookedTime.toFormattedString()
@@ -36,7 +36,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         binding.bookedMovieTicketPriceText.text =
             getString(
                 R.string.total_price,
-                bookingStatus.calculateTicketPrices(),
+                bookingStatus.totalPrice,
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -52,7 +52,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
         fun newIntent(
             from: Activity,
-            dto: BookingStatus,
+            dto: ReservationDto,
         ): Intent {
             return Intent(from, ReservationCompleteActivity::class.java).apply {
                 putExtra(BOOKING_STATUS_KEY, dto)

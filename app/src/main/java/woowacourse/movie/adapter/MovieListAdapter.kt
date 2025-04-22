@@ -9,6 +9,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
 
 class MovieListAdapter(
@@ -66,7 +67,7 @@ class MovieListAdapter(
                     movie.startDateTime.toFormattedDate(),
                     movie.endDateTime.toFormattedDate(),
                 )
-            posterImageView.setImageResource(R.drawable.movie_poster)
+            posterImageView.setImage(movie.posterUrl)
             buttonView.setOnClickListener {
                 onReservationClick(movie)
             }

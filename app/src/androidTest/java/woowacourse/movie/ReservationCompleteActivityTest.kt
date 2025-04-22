@@ -15,22 +15,14 @@ import org.junit.runner.RunWith
 import woowacourse.movie.activity.ReservationCompleteActivity
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.fixture.AndroidTestFixture
 import woowacourse.movie.global.newIntent
 import java.time.LocalDateTime
-import kotlin.time.Duration.Companion.minutes
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
 class ReservationCompleteActivityTest {
-    val movie =
-        Movie(
-            "해리포터와 마법사의 돌",
-            R.drawable.movie_poster,
-            LocalDateTime.of(2025, 4, 3, 0, 0, 0),
-            LocalDateTime.of(2025, 4, 5, 23, 59, 59),
-            125.minutes,
-        )
+    val movie = AndroidTestFixture.movie1
     val bookingStatus =
         BookingStatus(
             movie,

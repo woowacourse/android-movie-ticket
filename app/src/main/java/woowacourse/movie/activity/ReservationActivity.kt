@@ -20,9 +20,12 @@ import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieDateTime
 import woowacourse.movie.domain.RunningTimes
+import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.getObjectFromIntent
 import woowacourse.movie.global.newIntent
+import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -66,7 +69,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val movie = intent.getObjectFromIntent<Movie>(MOVIE_KEY)
+        val movie = intent.getObjectFromIntent<MovieDto>(MOVIE_KEY).toMovie()
         setBindingText(movie)
         setScreeningDate(movie)
         setScreeningTime()
@@ -88,6 +91,7 @@ class ReservationActivity : AppCompatActivity() {
                 R.string.movie_running_time,
                 movie.runningTime.inWholeMinutes,
             )
+        binding.moviePoster.setImage(movie.posterUrl)
     }
 
     private fun setCounterEventListener() {
@@ -175,7 +179,9 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
-        val intent = ReservationCompleteActivity.newIntent(this, bookingStatus)
+        val intent =
+            ReservationCompleteActivity
+                .newIntent(this, ReservationDto.fromBookingStatus(bookingStatus))
         startActivity(intent)
     }
 
@@ -194,7 +200,7 @@ class ReservationActivity : AppCompatActivity() {
 
         fun newIntent(
             from: Context,
-            dto: Movie,
+            dto: MovieDto,
         ): Intent {
             return Intent(from, ReservationActivity::class.java)
                 .apply { putExtra(MOVIE_KEY, dto) }

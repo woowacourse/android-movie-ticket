@@ -9,8 +9,8 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.global.ServiceLocator
-import woowacourse.movie.global.newIntent
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(movie: Movie) {
-        val intent = ReservationActivity.newIntent(this, movie)
+        val intent = ReservationActivity.newIntent(this, MovieDto.fromMovie(movie))
         startActivity(intent)
     }
 }
