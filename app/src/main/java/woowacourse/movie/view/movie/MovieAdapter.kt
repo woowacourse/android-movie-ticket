@@ -11,8 +11,6 @@ class MovieAdapter(
     val onClickBooking: (Movie) -> Unit,
     private val items: List<Movie>,
 ) : BaseAdapter() {
-    private val viewToViewHolders: MutableMap<View, MovieViewHolder> = mutableMapOf()
-
     override fun getCount(): Int = items.size
 
     override fun getItem(position: Int): Movie = items[position]
