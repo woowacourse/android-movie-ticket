@@ -12,7 +12,7 @@ object DefaultMovies {
     val movies =
         listOf(
             Movie(
-                "해리포터와 마법사의 돌",
+                "해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌해리포터와 마법사의 돌",
                 ScreeningDate(startDate, endDate),
                 RunningTime(152),
                 R.drawable.harrypotter,

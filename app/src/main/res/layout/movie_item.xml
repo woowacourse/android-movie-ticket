@@ -33,44 +33,26 @@
         tools:text="영화 제목" />
 
     <TextView
-        android:id="@+id/tv_screening_date_label"
-        style="@style/Text_Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="13dp"
-        android:text="@string/label_screening_date"
-        app:layout_constraintStart_toStartOf="@id/tv_title"
-        app:layout_constraintTop_toBottomOf="@id/tv_title" />
-
-    <TextView
         android:id="@+id/tv_screening_date"
         style="@style/Text_Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_screening_date_label"
-        app:layout_constraintStart_toEndOf="@id/tv_screening_date_label"
-        app:layout_constraintTop_toTopOf="@id/tv_screening_date_label"
-        tools:text="2025.4.1" />
-
-    <TextView
-        android:id="@+id/tv_running_time_label"
-        style="@style/Text_Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="@string/label_running_time"
-        app:layout_constraintStart_toStartOf="@id/tv_screening_date_label"
-        app:layout_constraintTop_toBottomOf="@id/tv_screening_date_label" />
+        android:layout_marginTop="13dp"
+        app:layout_constraintStart_toStartOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="상영일: 2025.4.1 ~ 2025.4.5"
+        />
 
     <TextView
         android:id="@+id/tv_running_time"
         style="@style/Text_Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="@id/tv_running_time_label"
-        app:layout_constraintStart_toEndOf="@id/tv_running_time_label"
-        app:layout_constraintTop_toTopOf="@id/tv_running_time_label"
-        tools:text="152분" />
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@id/tv_screening_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_screening_date"
+        tools:text="러닝타임: 152분"
+        />
 
     <Button
         android:id="@+id/btn_reserve"

@@ -32,10 +32,10 @@ class MoviesViewHolder(
         screeningDate.text =
             formatting(
                 item.screeningDate,
-                itemView.context.getString(R.string.formatted_screening_period),
+                itemView.context.getString(R.string.text_screening_date),
             )
         runningTime.text =
-            itemView.context.getString(R.string.formatted_minute)
+            itemView.context.getString(R.string.text_running_time)
                 .format(item.runningTime.time)
     }
 

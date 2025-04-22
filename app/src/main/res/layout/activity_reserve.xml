@@ -49,49 +49,29 @@
                 tools:text="해리포터와 마법사의 돌" />
 
             <TextView
-                android:id="@+id/tv_screening_date_label"
+                android:id="@+id/tv_screening_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="29dp"
-                android:text="@string/label_screening_date"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                tools:text="상영일: 2025.4.1 ~ 2025.4.5"/>
 
-            <TextView
-                android:id="@+id/tv_screening_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_screening_date_label"
-                app:layout_constraintStart_toEndOf="@id/tv_screening_date_label"
-                app:layout_constraintTop_toTopOf="@id/tv_screening_date_label"
-                tools:text="2025.4.1" />
-
-            <TextView
-                android:id="@+id/tv_running_time_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:text="@string/label_running_time"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@id/tv_screening_date_label"
-                app:layout_constraintTop_toBottomOf="@id/tv_screening_date_label" />
 
             <TextView
                 android:id="@+id/tv_running_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@id/tv_running_time_label"
-                app:layout_constraintStart_toEndOf="@id/tv_running_time_label"
-                app:layout_constraintTop_toTopOf="@id/tv_running_time_label"
-                tools:text="152분" />
+                app:layout_constraintStart_toStartOf="@id/tv_screening_date"
+                app:layout_constraintTop_toBottomOf="@id/tv_screening_date"
+                tools:text="러닝타임: 152분"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

@@ -107,7 +107,7 @@ class ReserveActivity : AppCompatActivity() {
         poster.setImageResource(movie.imageUrl)
         title.text = movie.title
         screeningDate.text = formatting(movie.screeningDate)
-        runningTime.text = getString(R.string.formatted_minute).format(movie.runningTime.time)
+        runningTime.text = getString(R.string.text_running_time).format(movie.runningTime.time)
     }
 
     private fun initDateSpinner() {
@@ -233,7 +233,7 @@ class ReserveActivity : AppCompatActivity() {
     private fun formatting(screeningDate: ScreeningDate): String {
         val start = screeningDate.startDate.format(formatter)
         val end = screeningDate.endDate.format(formatter)
-        return getString(R.string.formatted_screening_period).format(start, end)
+        return getString(R.string.text_screening_date).format(start, end)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
