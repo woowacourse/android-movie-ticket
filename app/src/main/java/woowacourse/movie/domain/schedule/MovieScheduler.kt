@@ -23,24 +23,28 @@ class MovieScheduler(
     }
 
     fun getBookableTimes(
-        date: LocalDate,
+        selectedDate: LocalDate,
         now: LocalDateTime = LocalDateTime.now(),
     ): List<LocalTime> {
-        val dayType = DayType.from(date)
-        val startHour = if (dayType == DayType.WEEKEND) WEEKEND_START_TIME else WEEKDAY_START_TIME
+        val selectedDayType = DayType.from(selectedDate)
+        val firstBookableHour =
+            if (selectedDayType == DayType.WEEKEND) WEEKEND_START_TIME else WEEKDAY_START_TIME
 
-        val times = mutableListOf<LocalTime>()
-        var time = LocalDateTime.of(date, LocalTime.of(startHour, START_MINUTE))
+        val bookableTimes = mutableListOf<LocalTime>()
+        var currentTime =
+            LocalDateTime.of(selectedDate, LocalTime.of(firstBookableHour, START_MINUTE))
 
-        while (time.toLocalTime() < LocalTime.MAX && time.toLocalDate().isEqual(date)) {
-            if (time.isAfter(now)) {
-                times.add(time.toLocalTime())
+        while (currentTime.toLocalTime() < LocalTime.MAX &&
+            currentTime.toLocalDate().isEqual(selectedDate)
+        ) {
+            if (currentTime.isAfter(now)) {
+                bookableTimes.add(currentTime.toLocalTime())
             }
 
-            time = time.plusHours(HOURS_TO_ADD)
+            currentTime = currentTime.plusHours(HOURS_TO_ADD)
         }
 
-        return times
+        return bookableTimes
     }
 
     companion object {
