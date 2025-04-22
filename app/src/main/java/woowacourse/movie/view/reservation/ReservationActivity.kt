@@ -19,6 +19,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.MainActivity
+import woowacourse.movie.view.screening.Poster.posterId
 import woowacourse.movie.view.ticket.TicketActivity
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate
@@ -134,9 +135,9 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun initPosterView() {
         val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
-
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        posterImageView.setImageResource(screening.posterId)
+        val posterResourceId = screening.posterId()
+        if (posterResourceId != null) posterImageView.setImageResource(posterResourceId)
     }
 
     private fun initPeriodView() {

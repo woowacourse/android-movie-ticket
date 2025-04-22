@@ -6,6 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.view.screening.Poster.posterId
 
 class ScreeningItemViewHolder(
     private val view: View,
@@ -28,7 +29,8 @@ class ScreeningItemViewHolder(
                 )
             runningTimeView.text =
                 view.context.getString(R.string.running_time, runningTime)
-            posterView.setImageResource(posterId)
+            val posterResourceId = posterId()
+            if (posterResourceId != null) posterView.setImageResource(posterResourceId)
             reserveButton.setOnClickListener {
                 onClickReserveButton(
                     screening,

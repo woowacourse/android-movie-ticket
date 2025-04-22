@@ -1,13 +1,9 @@
 package woowacourse.movie.domain.movie
 
-import android.os.Parcelable
-import androidx.annotation.DrawableRes
-import kotlinx.parcelize.Parcelize
+import java.io.Serializable
 
-@Parcelize
 class Movie(
-    @DrawableRes
-    val posterId: Int,
+    val id: Int,
     val title: String,
     val runningTime: Int,
-) : Parcelable
+) : Serializable

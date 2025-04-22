@@ -1,21 +1,17 @@
 package woowacourse.movie.domain.screening
 
-import android.os.Parcelable
-import androidx.annotation.DrawableRes
-import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.movie.Movie
+import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-@Parcelize
 class Screening(
-    private val movie: Movie,
-    private val start: LocalDate,
-    private val end: LocalDate,
-) : Parcelable {
-    @DrawableRes
-    val posterId: Int = movie.posterId
+    movie: Movie,
+    start: LocalDate,
+    end: LocalDate,
+) : Serializable {
+    val id: Int = movie.id
     val title: String = movie.title
     val runningTime: Int = movie.runningTime
 
