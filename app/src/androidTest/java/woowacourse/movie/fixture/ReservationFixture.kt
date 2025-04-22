@@ -18,3 +18,7 @@ fun createReservation(movieName: String): Reservation =
                 LocalTime.of(12, 0),
             ),
     )
+
+const val SCREENING_DATE: String = "2025.04.30 12:00"
+const val TICKET_COUNT: String = "2명"
+const val TOTAL_COUNT: String = "26,000원"

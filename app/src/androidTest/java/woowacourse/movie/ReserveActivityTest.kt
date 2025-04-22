@@ -1,5 +1,6 @@
 package woowacourse.movie
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
@@ -15,21 +16,27 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.fixture.FIRST_DATE
+import woowacourse.movie.fixture.FIRST_TIME
+import woowacourse.movie.fixture.MOVIE_NAME
+import woowacourse.movie.fixture.RUNNING_TIME
+import woowacourse.movie.fixture.SCREENING_PERIOD
 import woowacourse.movie.fixture.createMovie
 
 class ReserveActivityTest {
     private lateinit var intent: Intent
-    private val movie = createMovie("해리포터")
+    private val movie = createMovie(MOVIE_NAME)
     private lateinit var scenario: ActivityScenario<ReserveActivity>
 
     @Before
     fun setUp() {
+        val fakeActivity: Context = ApplicationProvider.getApplicationContext()
         intent =
             Intent(
-                ApplicationProvider.getApplicationContext(),
+                fakeActivity,
                 ReserveActivity::class.java,
             ).apply {
-                putExtra("movie", movie)
+                putExtra(fakeActivity.getString(R.string.key_movie), movie)
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -39,21 +46,21 @@ class ReserveActivityTest {
     @Test
     fun titleTest() {
         onView(withId(R.id.tv_title))
-            .check(matches(withText("해리포터")))
+            .check(matches(withText(MOVIE_NAME)))
     }
 
     @DisplayName("상영일 글자 표시 테스트")
     @Test
     fun screeningDateTest() {
         onView(withId(R.id.tv_screening_date))
-            .check(matches(withText("2025.04.30 ~ 2025.05.04")))
+            .check(matches(withText(SCREENING_PERIOD)))
     }
 
     @DisplayName("러닝타임 글자 표시 테스트")
     @Test
     fun runningTimeTest() {
         onView(withId(R.id.tv_running_time))
-            .check(matches(withText("152분")))
+            .check(matches(withText(RUNNING_TIME)))
     }
 
     @DisplayName("예매 티켓 수 조정 버튼 클릭 테스트")
@@ -87,7 +94,7 @@ class ReserveActivityTest {
         }
 
         // then
-        onView(withId(R.id.sp_date)).check(matches(withSpinnerText("2025-04-30")))
-        onView(withId(R.id.sp_time)).check(matches(withSpinnerText("10:00")))
+        onView(withId(R.id.sp_date)).check(matches(withSpinnerText(FIRST_DATE)))
+        onView(withId(R.id.sp_time)).check(matches(withSpinnerText(FIRST_TIME)))
     }
 }

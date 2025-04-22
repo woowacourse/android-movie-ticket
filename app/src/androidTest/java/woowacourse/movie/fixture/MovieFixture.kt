@@ -23,3 +23,9 @@ fun createMovie(movieName: String): Movie =
             ),
         imageUrl = R.drawable.harrypotter,
     )
+
+const val MOVIE_NAME: String = "해리포터"
+const val SCREENING_PERIOD: String = "2025.04.30 ~ 2025.05.04"
+const val RUNNING_TIME: String = "152분"
+const val FIRST_DATE: String = "2025-04-30"
+const val FIRST_TIME: String = "10:00"
