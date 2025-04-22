@@ -115,7 +115,7 @@ class BookingActivity : AppCompatActivity() {
 
         confirmButton.setOnClickListener {
             if (ticketCount.text.toString() == "0") return@setOnClickListener
-            askToConfirmBooking()
+            askToConfirmBook()
         }
     }
 
@@ -132,7 +132,7 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun askToConfirmBooking() {
+    private fun askToConfirmBook() {
         val ticket =
             Ticket(
                 title = findViewById<TextView>(R.id.title).text.toString(),
