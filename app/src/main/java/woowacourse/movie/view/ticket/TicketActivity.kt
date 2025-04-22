@@ -36,16 +36,17 @@ class TicketActivity : AppCompatActivity() {
         ticket =
             intent.run {
                 val title: String =
-                    getStringExtra(EXTRA_TICKET_TITLE) ?: error(ErrorMessage("title").notProvided())
+                    getStringExtra(EXTRA_TICKET_TITLE)
+                        ?: error(ErrorMessage(CAUSE_TITLE).notProvided())
                 val count: Int =
                     getIntExtra(
                         EXTRA_TICKET_COUNT,
                         TICKET_COUNT_NOT_PROVIDED,
                     ).takeIf { it != TICKET_COUNT_NOT_PROVIDED }
-                        ?: error(ErrorMessage("ticket count").notProvided())
+                        ?: error(ErrorMessage(CAUSE_TICKET_COUNT).notProvided())
                 val showtime: LocalDateTime =
                     getLocalDateTimeExtra(EXTRA_SHOWTIME) ?: error(
-                        ErrorMessage("showtime").notProvided(),
+                        ErrorMessage(CAUSE_SHOWTIME).notProvided(),
                     )
                 Ticket(title, count, showtime)
             }
@@ -81,19 +82,19 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initPriceView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
+        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
         priceView.text = getString(R.string.ticket_price, ticket.price)
     }
 
     private fun initCountView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
+        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
         val countView = findViewById<TextView>(R.id.tv_ticket_count)
         countView.text = getString(R.string.ticket_count, ticket.count)
     }
 
     private fun initShowtimeView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
+        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
         val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
         showtimeView.text =
             ticket.showtime.run {
@@ -102,13 +103,18 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initTitleView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
+        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
         val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
         titleView.text = ticket.title
     }
 
     companion object {
         private const val TICKET_COUNT_NOT_PROVIDED = -1
+
+        private const val CAUSE_TICKET = "ticket"
+        private const val CAUSE_TITLE = "title"
+        private const val CAUSE_TICKET_COUNT = "ticket count"
+        private const val CAUSE_SHOWTIME = "showtime"
 
         private const val EXTRA_TICKET_TITLE = "woowacourse.movie.EXTRA_TICKET_TITLE"
         private const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
