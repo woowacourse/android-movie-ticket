@@ -66,11 +66,11 @@
 
 ## 2차 피드백 반영
 - [x] Intent 생성 팩토리 메서드 추가 (+ 키 값)
-- [ ] getParcelableExtra 버전별 대응 확장함수로 변경
+- [x] getParcelableExtra 버전별 대응 확장함수로 변경
 - [ ] text 변경을 ViewHolder에서 하도록 변경
 - [x] 스피너 기본값 selectedDatePosition, selectedTimePosition 변수 활용
 - [x] Movie에서 MovieFactory로 네이밍 변경
-- [ ] intent 예외 던질 때 메시지 추가
+- [x] intent 값을 찾을 수 없다는 에러 메시지 추가
 - [ ] createTicket() 분리
 - [ ] onClick 확장성 고려하기
 - [ ] DetailBookingActivity 다이어트 (익명 객체를 외부로 분리, 파일 분리)

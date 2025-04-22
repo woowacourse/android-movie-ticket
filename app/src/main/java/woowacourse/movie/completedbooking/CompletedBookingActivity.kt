@@ -13,6 +13,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.utils.PriceFormatter
+import woowacourse.movie.utils.version
 
 class CompletedBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,13 +26,7 @@ class CompletedBookingActivity : AppCompatActivity() {
             insets
         }
 
-        val ticket: Ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(KEY_TICKET, Ticket::class.java) ?: throw IllegalArgumentException()
-            } else {
-                @Suppress("DEPRECATION")
-                intent.getParcelableExtra(KEY_TICKET) ?: throw IllegalArgumentException()
-            }
+        val ticket: Ticket = intent.version(KEY_TICKET, Ticket::class.java)
 
         setTicketInfo(ticket)
     }
