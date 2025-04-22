@@ -32,15 +32,13 @@ class MovieListActivity : AppCompatActivity() {
     private fun setListView(itemList: List<Movie>) {
         val listView = findViewById<ListView>(R.id.list_view)
 
-        with(listView) {
-            adapter =
-                MovieAdapter(
-                    items = itemList,
-                    onClickBooking = { movie ->
-                        moveToBookingComplete(movie)
-                    },
-                )
-        }
+        listView.adapter =
+            MovieAdapter(
+                items = itemList,
+                onClickBooking = { movie ->
+                    moveToBookingComplete(movie)
+                },
+            )
     }
 
     private fun dummyMovieList(): List<Movie> =

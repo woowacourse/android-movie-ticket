@@ -19,14 +19,16 @@ class MovieViewHolder(
     val bookingBtn: Button = convertView.findViewById<Button>(R.id.btn_booking)
 
     fun bind(item: Movie) {
-        moviePoster.setImageResource(item.posterId)
-        movieTitle.text = item.title
-        movieReleaseDate.text =
-            periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)
-        movieRunningTime.text =
-            convertView.context.getString(R.string.text_minute).format(item.runningTime)
-        bookingBtn.setOnClickListener {
-            onClickBooking(item)
+        with(item) {
+            moviePoster.setImageResource(posterId)
+            movieTitle.text = title
+            movieReleaseDate.text =
+                periodFormat(releaseDate.startDate, releaseDate.endDate)
+            movieRunningTime.text =
+                convertView.context.getString(R.string.text_minute).format(runningTime)
+            bookingBtn.setOnClickListener {
+                onClickBooking(this)
+            }
         }
     }
 }
