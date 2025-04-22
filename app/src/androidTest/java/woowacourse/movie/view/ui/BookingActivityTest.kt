@@ -139,7 +139,7 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 다이얼로그가_출력될때_취소_버튼을_눌러도_다이얼로그가_사라지지_않는다() {
+    fun 다이얼로그가_출력될때_뒤로가기_버튼을_눌러도_다이얼로그가_사라지지_않는다() {
         onView(withId(R.id.button_select))
             .perform(click())
 
