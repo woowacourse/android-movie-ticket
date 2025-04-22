@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/reservation"
@@ -16,26 +15,26 @@
         android:background="@color/custom_purple"
         android:gravity="center|bottom"
         android:padding="20dp"
-        android:text="영화 상영 시작 시간 15분 전까지 \n 취소가 가능합니다"
         android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-199dp"
-        tools:layout_editor_absoluteY="0dp" />
+        tools:layout_editor_absoluteY="0dp"
+        tools:text="영화 상영 시작 시간 15분 전까지 \n 취소가 가능합니다" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="영화 제목"
+        android:textColor="@color/black"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.307"/>
+        app:layout_constraintVertical_bias="0.307"
+        tools:text="영화 제목" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -51,20 +50,20 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
             android:layout_gravity="center"
-            android:text="상영 시간"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/black"
             android:textSize="25sp"
-            android:textColor="@color/black"/>
+            tools:text="상영 시간" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="상영 날짜"
+            android:textColor="@color/black"
             android:textSize="25sp"
-            android:textColor="@color/black"/>
+            tools:text="상영 날짜" />
 
     </LinearLayout>
 
@@ -74,15 +73,15 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="일반 0명"
-        android:textSize="25sp"
         android:textColor="@color/black"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.55" />
+        app:layout_constraintVertical_bias="0.55"
+        tools:text="일반 0명" />
 
     <TextView
         android:id="@+id/money"
@@ -90,14 +89,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="0원 (현장 결제)"
-        android:textSize="25sp"
         android:textColor="@color/black"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.62"
+        tools:text="0원 (현장 결제)" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
