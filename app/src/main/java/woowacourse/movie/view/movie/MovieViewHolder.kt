@@ -9,9 +9,8 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.utils.StringFormatter.periodFormat
 
 class MovieViewHolder(
-    var position: Int,
     val convertView: View,
-    onClickBooking: (Int) -> Unit,
+    val onClickBooking: (Movie) -> Unit,
 ) {
     val moviePoster: ImageView = convertView.findViewById<ImageView>(R.id.img_poster)
     val movieTitle: TextView = convertView.findViewById<TextView>(R.id.tv_title)
@@ -19,22 +18,15 @@ class MovieViewHolder(
     val movieRunningTime: TextView = convertView.findViewById<TextView>(R.id.tv_running_time)
     val bookingBtn: Button = convertView.findViewById<Button>(R.id.btn_booking)
 
-    init {
-        bookingBtn.setOnClickListener {
-            onClickBooking(position)
-        }
-    }
-
-    fun bind(
-        position: Int,
-        item: Movie,
-    ) {
-        this.position = position
+    fun bind(item: Movie) {
         moviePoster.setImageResource(item.posterId)
         movieTitle.text = item.title
         movieReleaseDate.text =
             periodFormat(item.releaseDate.startDate, item.releaseDate.endDate)
         movieRunningTime.text =
             convertView.context.getString(R.string.text_minute).format(item.runningTime)
+        bookingBtn.setOnClickListener {
+            onClickBooking(item)
+        }
     }
 }

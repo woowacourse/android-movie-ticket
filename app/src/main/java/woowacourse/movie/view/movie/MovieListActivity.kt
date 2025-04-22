@@ -36,25 +36,25 @@ class MovieListActivity : AppCompatActivity() {
             adapter =
                 MovieAdapter(
                     items = itemList,
-                    onClickBooking = { idx ->
-                        moveToBookingComplete(itemList[idx])
+                    onClickBooking = { movie ->
+                        moveToBookingComplete(movie)
                     },
                 )
         }
     }
 
     private fun dummyMovieList(): List<Movie> =
-        listOf(
+        (1..100).map {
             Movie(
-                "해리 포터와 마법사의 돌",
+                "해리 포터와 마법사의 돌 $it",
                 R.drawable.harry_potter_one,
                 ScreeningDate(
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 25),
                 ),
                 152,
-            ),
-        )
+            )
+        }
 
     private fun moveToBookingComplete(movie: Movie) {
         startActivity(BookingActivity.newIntent(this, movie))

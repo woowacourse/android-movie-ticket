@@ -8,7 +8,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 
 class MovieAdapter(
-    val onClickBooking: (Int) -> Unit,
+    val onClickBooking: (Movie) -> Unit,
     private val items: List<Movie>,
 ) : BaseAdapter() {
     override fun getCount(): Int = items.size
@@ -29,14 +29,14 @@ class MovieAdapter(
 
         if (convertView == null) {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
-            viewHolder = MovieViewHolder(position, view, onClickBooking)
+            viewHolder = MovieViewHolder(view, onClickBooking)
             view.tag = viewHolder
         } else {
             view = convertView
             viewHolder = view.tag as MovieViewHolder
         }
 
-        viewHolder.bind(position, item)
+        viewHolder.bind(item)
         return view
     }
 }
