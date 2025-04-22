@@ -14,10 +14,12 @@
 
         <ImageView
             android:id="@+id/poster"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/harry_potter_poster" />
 
@@ -63,11 +65,16 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
+            android:id="@+id/spinners"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
+            app:layout_constraintBottom_toTopOf="@id/ticket_select"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/movie_info">
 
             <Spinner
@@ -90,13 +97,16 @@
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ticket_select"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingHorizontal="20dp"
-            app:layout_constraintBottom_toTopOf="@id/select_button">
+            app:layout_constraintBottom_toTopOf="@id/select_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spinners">
 
             <Button
                 android:id="@+id/decrement_button"
@@ -129,15 +139,19 @@
 
         <Button
             android:id="@+id/select_button"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
             android:paddingVertical="12dp"
             android:text="@string/select"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ticket_select" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
