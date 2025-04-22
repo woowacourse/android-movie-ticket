@@ -25,7 +25,7 @@ class DetailBookingActivityTest {
             Movie(
                 R.drawable.harry,
                 "해리 포터와 마법사의 돌",
-                Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+                Date(LocalDate.of(3025, 4, 1), LocalDate.of(3025, 4, 25)),
                 152,
             )
 
@@ -53,12 +53,12 @@ class DetailBookingActivityTest {
     }
 
     @Test
-    @DisplayName("영화 상영일은 '상영일: 2025.4.1 ~ 2025.4.25'이다")
+    @DisplayName("영화 상영일은 '상영일: 3025.4.1 ~ 3025.4.25'이다")
     fun movieDateIsApril1to25() {
         onView(withId(R.id.scrollView))
             .perform(swipeUp())
         onView(withId(R.id.detail_movie_date))
-            .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
+            .check(matches(withText("상영일: 3025.4.1 ~ 3025.4.25")))
     }
 
     @Test
@@ -68,6 +68,30 @@ class DetailBookingActivityTest {
             .perform(swipeUp())
         onView(withId(R.id.detail_movie_time))
             .check(matches(withText("러닝타임: 152분")))
+    }
+
+    @Test
+    fun dateSpinnerCanSelectFirstItem() {
+        onView(withId(R.id.scrollView))
+            .perform(swipeUp())
+        onView(withId(R.id.detail_spinner_date))
+            .perform(click())
+        onView(withText("3025-04-25"))
+            .perform(click())
+        onView(withText("3025-04-25"))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun timeSpinnerCanSelectFirstItem() {
+        onView(withId(R.id.scrollView))
+            .perform(swipeUp())
+        onView(withId(R.id.detail_spinner_time))
+            .perform(click())
+        onView(withText("12:00"))
+            .perform(click())
+        onView(withText("12:00"))
+            .check(matches(isDisplayed()))
     }
 
     @Test
