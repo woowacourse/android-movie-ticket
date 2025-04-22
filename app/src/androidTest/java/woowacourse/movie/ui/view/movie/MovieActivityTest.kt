@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui.view.movie
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -22,7 +22,6 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.ui.view.movie.MovieActivity
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
