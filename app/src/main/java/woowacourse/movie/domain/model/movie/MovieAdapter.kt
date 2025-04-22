@@ -1,8 +1,7 @@
-package woowacourse.movie.model.movie
+package woowacourse.movie.domain.model.movie
 
 import android.content.Context
 import android.content.Intent
-import android.provider.Settings.System.DATE_FORMAT
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,7 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.ui.booking.BookingActivity
+import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.Keys
 

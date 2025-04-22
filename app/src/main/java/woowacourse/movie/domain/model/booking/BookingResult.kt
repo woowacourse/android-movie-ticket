@@ -1,4 +1,4 @@
-package woowacourse.movie.model.booking
+package woowacourse.movie.domain.model.booking
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.ui.view
 
 import android.os.Bundle
 import android.widget.ListView
@@ -8,8 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
-import woowacourse.movie.model.movie.Movie
-import woowacourse.movie.model.movie.MovieAdapter
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.MovieAdapter
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 

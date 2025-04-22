@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.booking
+package woowacourse.movie.ui.view.booking
 
 import android.icu.text.DecimalFormat
 import android.os.Bundle
@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
-import woowacourse.movie.model.booking.BookingResult
+import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.util.Keys
 
 class BookingCompleteActivity : AppCompatActivity() {

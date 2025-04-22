@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.domain.model.booking
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.model.booking.BookingResult
 
 class BookingResultTest {
     @Test

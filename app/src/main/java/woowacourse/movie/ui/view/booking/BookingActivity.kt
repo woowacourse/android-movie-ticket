@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.booking
+package woowacourse.movie.ui.view.booking
 
 import android.content.Intent
 import android.os.Bundle
@@ -15,9 +15,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
-import woowacourse.movie.model.booking.Booking
-import woowacourse.movie.model.booking.BookingResult
-import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.booking.BookingResult
+import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.Keys
 import java.time.LocalDate

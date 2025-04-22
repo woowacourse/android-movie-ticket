@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui.view.booking
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -13,8 +13,8 @@ import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.model.booking.BookingResult
-import woowacourse.movie.ui.booking.BookingCompleteActivity
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.util.Keys
 
 class BookingCompleteActivityTest {

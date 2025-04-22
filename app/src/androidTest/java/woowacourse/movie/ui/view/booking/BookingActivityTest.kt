@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui.view.booking
 
 import android.content.Intent
 import android.content.pm.ActivityInfo
@@ -25,9 +25,8 @@ import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.model.movie.Movie
-import woowacourse.movie.ui.booking.BookingActivity
-import woowacourse.movie.ui.booking.BookingCompleteActivity
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
