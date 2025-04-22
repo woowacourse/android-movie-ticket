@@ -43,6 +43,8 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
+        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
         val movie: Movie? =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getSerializableExtra(KEY_MOVIE, Movie::class.java)
@@ -52,23 +54,13 @@ class ReservationActivity : AppCompatActivity() {
         if (movie == null) {
             handleInvalidMovie()
         } else {
-            setSpinnerInfo(movie)
+            setMovieInfo(movie)
+            setCountButtons()
+            setReservationButton(movie, spinnerDate, spinnerTime) { ticket ->
+                askReservationDialog(ticket)
+            }
+            setSpinnerInfo(movie, spinnerDate, spinnerTime)
         }
-    }
-
-    private fun setSpinnerInfo(movie: Movie) {
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
-
-        setMovieInfo(movie)
-        setCountButtons()
-        setReservationButton(movie, spinnerDate, spinnerTime) { ticket ->
-            askReservationDialog(ticket)
-        }
-
-        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
-
-        spinnerDate.setSelection(selectedDatePosition)
     }
 
     private fun handleInvalidMovie() {
@@ -99,6 +91,16 @@ class ReservationActivity : AppCompatActivity() {
     private fun updateCounterText() {
         val counterTextView = findViewById<TextView>(R.id.tv_personnel)
         counterTextView.text = count.toString()
+    }
+
+    private fun setSpinnerInfo(
+        movie: Movie,
+        spinnerDate: Spinner,
+        spinnerTime: Spinner,
+    ) {
+        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
+
+        spinnerDate.setSelection(selectedDatePosition)
     }
 
     private fun setMovieInfo(movie: Movie) {
