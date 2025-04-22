@@ -24,7 +24,7 @@ class BookingSummaryActivityTest {
     fun setUp() {
         val ticket =
             MovieTicket(
-                "Test",
+                "match",
                 LocalDateTime.of(2025, 4, 18, 12, 0),
                 2,
                 26000,
@@ -45,7 +45,7 @@ class BookingSummaryActivityTest {
     @Test
     fun titleTest() {
         onView(withId(R.id.title))
-            .check(matches(withText("Test")))
+            .check(matches(withText("승부")))
     }
 
     @DisplayName("상영날짜와 시간이 출력된다")

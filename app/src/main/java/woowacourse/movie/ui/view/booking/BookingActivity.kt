@@ -204,7 +204,7 @@ class BookingActivity : AppCompatActivity() {
         val movieTicketService = MovieTicketService(DefaultPricingPolicy())
         val movieTicket =
             movieTicketService.createMovieTicket(
-                movie.title,
+                movie.id,
                 LocalDateTime.of(date, time),
                 headCount.getCount(),
             )

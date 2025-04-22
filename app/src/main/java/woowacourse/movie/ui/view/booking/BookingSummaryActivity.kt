@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.utils.intentSerializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -37,7 +38,7 @@ class BookingSummaryActivity : AppCompatActivity() {
         val headCount = findViewById<TextView>(R.id.headCount)
         val amount = findViewById<TextView>(R.id.amount)
 
-        title.text = movieTicket.title
+        title.text = PosterMapper.mapMovieIdToMovieTitle(movieTicket.movieId)
         screeningDateTime.text = formatDateTime(movieTicket.screeningDateTime)
         headCount.text =
             formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)

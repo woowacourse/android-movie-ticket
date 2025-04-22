@@ -8,11 +8,11 @@ class MovieTicketService(
     private val pricingPolicy: PricingPolicy,
 ) {
     fun createMovieTicket(
-        title: String,
+        id: String,
         screeningDateTime: LocalDateTime,
         headCount: Int,
     ): MovieTicket {
         val amount = pricingPolicy.calculatePrice(headCount)
-        return MovieTicket(title, screeningDateTime, headCount, amount)
+        return MovieTicket(id, screeningDateTime, headCount, amount)
     }
 }

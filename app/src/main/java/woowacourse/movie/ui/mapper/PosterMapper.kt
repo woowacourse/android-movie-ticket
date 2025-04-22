@@ -9,4 +9,11 @@ object PosterMapper {
             "mickey" -> R.drawable.mickey
             else -> null
         }
+
+    fun mapMovieIdToMovieTitle(key: String): String? =
+        when (key) {
+            "match" -> "승부"
+            "mickey" -> "미키 17"
+            else -> null
+        }
 }

@@ -18,11 +18,11 @@ class MovieTicketServiceTest {
 
     @Test
     fun `가격 정책에 맞는 티켓을 발행한다`() {
-        val title = "승부"
+        val movieId = "match"
         val screeningDate = LocalDateTime.of(2025, 4, 22, 10, 0)
         val headCount = 2
-        val result = movieTicketService.createMovieTicket(title, screeningDate, headCount)
+        val result = movieTicketService.createMovieTicket(movieId, screeningDate, headCount)
 
-        result shouldBe MovieTicket("승부", LocalDateTime.of(2025, 4, 22, 10, 0), 2, 26000)
+        result shouldBe MovieTicket("match", LocalDateTime.of(2025, 4, 22, 10, 0), 2, 26000)
     }
 }
