@@ -18,7 +18,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieRepository
-import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.domain.service.MovieTicketService
 import woowacourse.movie.ui.adapter.MovieAdapter.Companion.setImage
@@ -198,7 +197,7 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun onConfirm() {
-        val movieTicketService = MovieTicketService(DefaultPricingPolicy())
+        val movieTicketService = MovieTicketService()
         val movieTicket =
             movieTicketService.createMovieTicket(
                 movie.id,

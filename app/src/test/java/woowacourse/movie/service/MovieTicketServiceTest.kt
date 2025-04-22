@@ -4,7 +4,6 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.MovieTicket
-import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import woowacourse.movie.domain.service.MovieTicketService
 import java.time.LocalDateTime
 
@@ -13,7 +12,7 @@ class MovieTicketServiceTest {
 
     @BeforeEach
     fun setUp() {
-        movieTicketService = MovieTicketService(DefaultPricingPolicy())
+        movieTicketService = MovieTicketService()
     }
 
     @Test

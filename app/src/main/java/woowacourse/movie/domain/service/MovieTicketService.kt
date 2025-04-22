@@ -1,11 +1,12 @@
 package woowacourse.movie.domain.service
 
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.policy.DefaultPricingPolicy
 import woowacourse.movie.domain.policy.PricingPolicy
 import java.time.LocalDateTime
 
 class MovieTicketService(
-    private val pricingPolicy: PricingPolicy,
+    private val pricingPolicy: PricingPolicy = DefaultPricingPolicy(),
 ) {
     fun createMovieTicket(
         id: Int,
