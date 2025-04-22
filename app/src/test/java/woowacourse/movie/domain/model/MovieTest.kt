@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 class MovieTest {
     @Test
-    fun `Movie 객체 생성 테스트`() {
+    fun `Movie_객체_생성_테스트`() {
         val movie =
             Movie(
                 title = "해리 포터와 마법사의 돌",

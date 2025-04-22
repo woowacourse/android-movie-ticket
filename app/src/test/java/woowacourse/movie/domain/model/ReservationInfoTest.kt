@@ -14,7 +14,7 @@ class ReservationInfoTest {
         )
 
     @Test
-    fun `예약 정보를 생성 할 수 있다`() {
+    fun `예약_정보를_생성_할_수_있다`() {
         assertAll(
             { assertThat(reservationInfo.title).isEqualTo("해리 포터와 마법사의 돌") },
             {
@@ -27,7 +27,7 @@ class ReservationInfoTest {
     }
 
     @Test
-    fun `영화 예매 인원 수에 따라 티켓 금액을 계산할 수 있다`() {
+    fun `영화_예매_인원_수에_따라_티켓_금액을_계산할_수_있다`() {
         val ticketPrice = reservationInfo.totalPrice()
         val expected = 26000
         assertThat(ticketPrice).isEqualTo(expected)
