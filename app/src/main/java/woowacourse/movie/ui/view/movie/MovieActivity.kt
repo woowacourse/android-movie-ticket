@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui.view.movie
 
 import android.os.Bundle
 import android.widget.ListView
@@ -13,11 +13,11 @@ import woowacourse.movie.domain.model.movie.MovieAdapter
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
-class MainActivity : AppCompatActivity() {
+class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_movie)
         applySystemBarInsets()
 
         val movies = loadMoviesOrNull() ?: mockMovies()

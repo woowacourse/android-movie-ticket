@@ -22,11 +22,12 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.view.booking.BookingActivity
+import woowacourse.movie.ui.view.movie.MovieActivity
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
-class MainActivityTest {
-    private lateinit var scenario: ActivityScenario<MainActivity>
+class MovieActivityTest {
+    private lateinit var scenario: ActivityScenario<MovieActivity>
     private val movies = mockMovies()
 
     @Before
@@ -34,7 +35,7 @@ class MainActivityTest {
         Intents.init()
 
         val intent =
-            Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java).apply {
+            Intent(ApplicationProvider.getApplicationContext(), MovieActivity::class.java).apply {
                 putExtra(Keys.Extra.LOADED_MOVIE_ITEMS, movies)
             }
 
