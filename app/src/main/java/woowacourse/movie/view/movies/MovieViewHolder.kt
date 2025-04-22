@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movies
 
 import android.content.Context
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.view.Formatter
 
 class MovieViewHolder(
     view: View,

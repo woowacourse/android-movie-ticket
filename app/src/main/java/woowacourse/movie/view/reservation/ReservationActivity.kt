@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.reservation
 
 import android.content.Intent
 import android.os.Build
@@ -17,13 +17,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.R.layout
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
+import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -60,7 +61,7 @@ class ReservationActivity : AppCompatActivity() {
 
     private fun getSelectedMovieData(): Movie =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.value
+            intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.Companion.value
         } else {
             intent.getSerializableExtra(MOVIE_DATA_KEY) as Movie
         }
@@ -94,7 +95,7 @@ class ReservationActivity : AppCompatActivity() {
         val dateAdapter =
             ArrayAdapter(
                 this,
-                layout.support_simple_spinner_dropdown_item,
+                com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
                 duration,
             )
 
@@ -126,7 +127,7 @@ class ReservationActivity : AppCompatActivity() {
         val timeAdapter =
             ArrayAdapter(
                 this,
-                layout.support_simple_spinner_dropdown_item,
+                com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
                 timeTable.map { formatter.movieTimeToUI(it) },
             )
 
