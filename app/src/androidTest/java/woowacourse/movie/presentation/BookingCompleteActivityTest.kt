@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -8,14 +8,10 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.domain.model.BookingInfo
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTime
+import woowacourse.movie.BOOKING_INFO_UI_MODEL_01
+import woowacourse.movie.R
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.newIntent
-import woowacourse.movie.presentation.mapper.toUi
-import java.time.LocalDate
-import java.time.LocalTime
 
 @Suppress("ktlint:standard:function-naming")
 class BookingCompleteActivityTest {
@@ -26,19 +22,7 @@ class BookingCompleteActivityTest {
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                bookingInfo =
-                    BookingInfo(
-                        movie =
-                            Movie(
-                                title = "해리 포터와 마법사의 돌",
-                                startDate = LocalDate.of(2025, 4, 1),
-                                endDate = LocalDate.of(2025, 4, 25),
-                                runningTime = 152,
-                            ),
-                        date = LocalDate.of(2025, 4, 1),
-                        movieTime = MovieTime(LocalTime.of(9, 0)),
-                        ticketCount = 1,
-                    ).toUi(),
+                bookingInfo = BOOKING_INFO_UI_MODEL_01,
             )
 
         activityScenario = ActivityScenario.launch(intent)

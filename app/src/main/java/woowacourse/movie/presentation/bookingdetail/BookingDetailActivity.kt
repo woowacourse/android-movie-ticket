@@ -24,40 +24,45 @@ import woowacourse.movie.presentation.bookingdetail.adapter.DateAdapter
 import woowacourse.movie.presentation.bookingdetail.adapter.TimeAdapter
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toUi
+import woowacourse.movie.presentation.model.BookingInfoUiModel
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.util.getExtra
 import java.time.LocalDate
-import java.time.LocalTime
 
 class BookingDetailActivity : AppCompatActivity() {
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
     private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
     private val movieUiModel: MovieUiModel by lazy { intent.getExtra(MOVIE_KEY) ?: MovieUiModel() }
+    private val bookingInfo: BookingInfo by lazy { BookingInfo(movieUiModel.toDomain()) }
+    private val bookingInfoUiModel: BookingInfoUiModel get() = bookingInfo.toUi()
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
-    private var ticketCount: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
-
-        findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = movieUiModel.title
-        findViewById<TextView>(R.id.tv_booking_detail_date).text =
-            getString(R.string.movies_movie_date_with_tilde, movieUiModel.startDate, movieUiModel.endDate)
-        findViewById<TextView>(R.id.tv_booking_detail_running_time).text =
-            getString(R.string.movies_movie_running_time, movieUiModel.runningTime)
-        findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(movieUiModel.poster)
-        ticketCountView.text = ticketCount.toString()
+        updateView(bookingInfoUiModel)
 
         setupDateSpinner()
         setupTimeSpinner()
 
         setupDateSpinnerItemClickListener()
+        setupTimeSpinnerItemClickListener()
         setupTicketCountClickListeners()
 
         setupSelectCompleteClickListener()
+    }
+
+    private fun updateView(bookingInfo: BookingInfoUiModel) {
+        findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = bookingInfo.movie.title
+        findViewById<TextView>(R.id.tv_booking_detail_date).text =
+            getString(R.string.movies_movie_date_with_tilde, bookingInfo.movie.startDate, bookingInfo.movie.endDate)
+        findViewById<TextView>(R.id.tv_booking_detail_running_time).text =
+            getString(R.string.movies_movie_running_time, bookingInfo.movie.runningTime)
+        findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(bookingInfo.movie.poster)
+        ticketCountView.text = bookingInfo.ticketCount.toString()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -67,27 +72,14 @@ class BookingDetailActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        outState.putInt(TICKET_DATE_KEY, dateSpinner.selectedItemPosition)
-        outState.putInt(TICKET_TIME_KEY, timeSpinner.selectedItemPosition)
-        outState.putInt(TICKET_COUNT_KEY, ticketCount)
+        outState.putParcelable(BOOKING_INFO_KEY, bookingInfoUiModel)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
 
-        val ticketDate = savedInstanceState.getInt(TICKET_DATE_KEY)
-        val ticketTime = savedInstanceState.getInt(TICKET_TIME_KEY)
-        ticketCount = savedInstanceState.getInt(TICKET_COUNT_KEY)
-
-        dateSpinner.setSelection(ticketDate)
-
-        val selectedDate = DateType.from(LocalDate.parse(dateSpinner.selectedItem.toString()))
-        timeAdapter.updateTimes(selectedDate)
-
-        timeSpinner.setSelection(ticketTime)
-
-        ticketCountView.text = ticketCount.toString()
+        val bookingInfo: BookingInfoUiModel = savedInstanceState.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
+        updateView(bookingInfo)
     }
 
     private fun setupView() {
@@ -122,8 +114,27 @@ class BookingDetailActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedDate = parent?.getItemAtPosition(position) as LocalDate
+                    bookingInfo.updateDate(selectedDate)
+
                     val dateType = DateType.from(selectedDate)
                     timeAdapter.updateTimes(dateType)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    private fun setupTimeSpinnerItemClickListener() {
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedTime = parent?.getItemAtPosition(position) as String
+                    bookingInfo.updateMovieTime(MovieTime.from(selectedTime))
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -141,15 +152,13 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun decreaseTicketCount() {
-        if (ticketCount > 0) {
-            ticketCount--
-            ticketCountView.text = ticketCount.toString()
-        }
+        bookingInfo.decreaseTicketCount()
+        ticketCountView.text = bookingInfoUiModel.ticketCount.toString()
     }
 
     private fun increaseTicketCount() {
-        ticketCount++
-        ticketCountView.text = ticketCount.toString()
+        bookingInfo.increaseTicketCount()
+        ticketCountView.text = bookingInfoUiModel.ticketCount.toString()
     }
 
     private fun setupSelectCompleteClickListener() {
@@ -171,19 +180,10 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun navigateToBookingComplete() {
-        val selectedDate = LocalDate.parse(dateSpinner.selectedItem.toString())
-        val selectedTime = MovieTime(LocalTime.parse(timeSpinner.selectedItem.toString()))
-
         val intent =
             BookingCompleteActivity.newIntent(
                 context = this,
-                bookingInfo =
-                    BookingInfo(
-                        movie = movieUiModel.toDomain(),
-                        date = selectedDate,
-                        movieTime = selectedTime,
-                        ticketCount = ticketCount,
-                    ).toUi(),
+                bookingInfo = bookingInfoUiModel,
             )
 
         startActivity(intent)
@@ -192,9 +192,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
     companion object {
         const val MOVIE_KEY = "movie"
-        const val TICKET_DATE_KEY = "ticket_date"
-        const val TICKET_TIME_KEY = "ticket_time"
-        const val TICKET_COUNT_KEY = "ticket_count"
+        private const val BOOKING_INFO_KEY = "booking_info"
 
         fun newIntent(
             context: Context,

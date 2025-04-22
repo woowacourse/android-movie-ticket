@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
@@ -16,6 +16,7 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.MOVIE_KEY

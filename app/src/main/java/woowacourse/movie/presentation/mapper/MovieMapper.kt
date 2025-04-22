@@ -34,15 +34,6 @@ fun BookingInfo.toUi(): BookingInfoUiModel =
         totalPrice = totalPrice,
     )
 
-fun BookingInfoUiModel.toDomain(): BookingInfo =
-    BookingInfo(
-        movie = movie.toDomain(),
-        date = date,
-        movieTime = movieTime,
-        ticketCount = ticketCount,
-        eachPrice = eachPrice,
-    )
-
 fun MovieTime.toUi(): String {
     val hour = if (value.hour == 0) 24 else value.hour
     return "%02d:%02d".format(hour, value.minute)

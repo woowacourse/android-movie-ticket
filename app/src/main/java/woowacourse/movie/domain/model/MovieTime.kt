@@ -10,7 +10,23 @@ value class MovieTime(
     val value: LocalTime = LocalTime.now(),
 ) : Parcelable {
     companion object {
-        val weekdaysMovieTimes: List<MovieTime> =
+        fun from(value: String): MovieTime {
+            val time = value.split(":")
+            return MovieTime(
+                LocalTime.of(
+                    time[0].toInt(),
+                    time[1].toInt(),
+                ),
+            )
+        }
+
+        fun getMovieTimes(dateType: DateType): List<MovieTime> =
+            when (dateType) {
+                DateType.WEEKDAY -> weekdaysMovieTimes
+                DateType.WEEKEND -> weekendsMovieTimes
+            }
+
+        private val weekdaysMovieTimes: List<MovieTime> =
             listOf(
                 "10:00",
                 "12:00",
@@ -22,7 +38,7 @@ value class MovieTime(
                 "00:00",
             ).map { from(it) }
 
-        val weekendsMovieTimes: List<MovieTime> =
+        private val weekendsMovieTimes: List<MovieTime> =
             listOf(
                 "09:00",
                 "11:00",
@@ -33,15 +49,5 @@ value class MovieTime(
                 "21:00",
                 "23:00",
             ).map { from(it) }
-
-        private fun from(value: String): MovieTime {
-            val time = value.split(":")
-            return MovieTime(
-                LocalTime.of(
-                    time[0].toInt(),
-                    time[1].toInt(),
-                ),
-            )
-        }
     }
 }

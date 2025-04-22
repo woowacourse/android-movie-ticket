@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presentation
 
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
@@ -22,16 +22,13 @@ import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.domain.model.BookingInfo
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTime
+import woowacourse.movie.BOOKING_INFO_UI_MODEL_01
+import woowacourse.movie.MOVIE_UI_MODEL_01
+import woowacourse.movie.R
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.BOOKING_INFO_KEY
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
 import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.newIntent
-import woowacourse.movie.presentation.mapper.toUi
-import java.time.LocalDate
-import java.time.LocalTime
 
 @Suppress("ktlint:standard:function-naming")
 class BookingDetailActivityTest {
@@ -42,13 +39,7 @@ class BookingDetailActivityTest {
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                movie =
-                    Movie(
-                        title = "해리 포터와 마법사의 돌",
-                        startDate = LocalDate.of(2025, 4, 1),
-                        endDate = LocalDate.of(2025, 4, 25),
-                        runningTime = 152,
-                    ).toUi(),
+                movie = MOVIE_UI_MODEL_01,
             )
 
         activityScenario = ActivityScenario.launch(intent)
@@ -154,18 +145,7 @@ class BookingDetailActivityTest {
                 hasComponent(BookingCompleteActivity::class.java.name),
                 hasExtra(
                     BOOKING_INFO_KEY,
-                    BookingInfo(
-                        movie =
-                            Movie(
-                                title = "해리 포터와 마법사의 돌",
-                                startDate = LocalDate.of(2025, 4, 1),
-                                endDate = LocalDate.of(2025, 4, 25),
-                                runningTime = 152,
-                            ),
-                        date = LocalDate.parse("2025-04-01"),
-                        movieTime = MovieTime(LocalTime.parse("10:00")),
-                        ticketCount = 1,
-                    ).toUi(),
+                    BOOKING_INFO_UI_MODEL_01,
                 ),
             ),
         )

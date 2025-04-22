@@ -4,6 +4,7 @@ import android.content.Context
 import android.widget.ArrayAdapter
 import woowacourse.movie.domain.model.DateType
 import woowacourse.movie.domain.model.MovieTime
+import woowacourse.movie.domain.model.MovieTime.Companion.getMovieTimes
 import woowacourse.movie.presentation.mapper.toUi
 
 class TimeAdapter(
@@ -20,12 +21,7 @@ class TimeAdapter(
     fun updateTimes(dateType: DateType) {
         clear()
 
-        val movieTimes: List<MovieTime> =
-            when (dateType) {
-                DateType.WEEKDAY -> MovieTime.weekdaysMovieTimes
-                DateType.WEEKEND -> MovieTime.weekendsMovieTimes
-            }
-
+        val movieTimes: List<MovieTime> = getMovieTimes(dateType)
         addAll(movieTimes.map { it.toUi() })
 
         notifyDataSetChanged()
