@@ -1,6 +1,6 @@
-package woowacourse.movie.data.movie
+package woowacourse.movie.data.screening
 
-import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.screening.Movie
 
 class Movies {
     val harryPotter =

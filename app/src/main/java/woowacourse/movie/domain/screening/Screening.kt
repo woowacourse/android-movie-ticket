@@ -1,6 +1,5 @@
 package woowacourse.movie.domain.screening
 
-import woowacourse.movie.domain.movie.Movie
 import java.io.Serializable
 import java.time.LocalDate
 import java.time.LocalDateTime

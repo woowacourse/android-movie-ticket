@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.movie
+package woowacourse.movie.domain.screening
 
 import java.io.Serializable
 
