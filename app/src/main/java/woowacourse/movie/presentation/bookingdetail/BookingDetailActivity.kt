@@ -38,6 +38,7 @@ class BookingDetailActivity : AppCompatActivity() {
     private val bookingInfoUiModel: BookingInfoUiModel get() = bookingInfo.toUi()
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
+    private val selectCompleteDialog: AlertDialog.Builder by lazy { createSelectCompleteDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,6 +82,16 @@ class BookingDetailActivity : AppCompatActivity() {
         val bookingInfo: BookingInfoUiModel = savedInstanceState.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
         updateView(bookingInfo)
     }
+
+    private fun createSelectCompleteDialog(): AlertDialog.Builder =
+        AlertDialog
+            .Builder(applicationContext)
+            .setTitle(getString(R.string.booking_detail_booking_check))
+            .setMessage(getString(R.string.booking_detail_booking_check_description))
+            .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
+                navigateToBookingComplete()
+            }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
+            .setCancelable(false)
 
     private fun setupView() {
         enableEdgeToEdge()
@@ -163,20 +174,8 @@ class BookingDetailActivity : AppCompatActivity() {
 
     private fun setupSelectCompleteClickListener() {
         findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
-            showSelectCompleteDialog()
+            selectCompleteDialog.show()
         }
-    }
-
-    private fun showSelectCompleteDialog() {
-        AlertDialog
-            .Builder(this)
-            .setTitle(getString(R.string.booking_detail_booking_check))
-            .setMessage(getString(R.string.booking_detail_booking_check_description))
-            .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
-                navigateToBookingComplete()
-            }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
-            .setCancelable(false)
-            .show()
     }
 
     private fun navigateToBookingComplete() {
