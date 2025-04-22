@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.movies.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +11,19 @@ import woowacourse.movie.R
 import woowacourse.movie.presentation.model.MovieUiModel
 
 class MoviesAdapter(
-    private val context: Context,
     private val movies: List<MovieUiModel>,
     private val onBookingClick: (MovieUiModel) -> Unit,
 ) : BaseAdapter() {
     override fun getView(
         position: Int,
         convertView: View?,
-        parent: ViewGroup?,
+        parent: ViewGroup,
     ): View {
         val movieViewHolder: MovieViewHolder
         val view: View
 
         if (convertView == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
+            view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
             movieViewHolder = MovieViewHolder(view)
             view.tag = movieViewHolder
         } else {
@@ -37,8 +35,8 @@ class MoviesAdapter(
 
         movieViewHolder.title.text = movie.title
         movieViewHolder.poster.setImageResource(movie.poster)
-        movieViewHolder.date.text = context.getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
-        movieViewHolder.runningTime.text = context.getString(R.string.movies_movie_running_time, movie.runningTime)
+        movieViewHolder.date.text = parent.context.getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
+        movieViewHolder.runningTime.text = parent.context.getString(R.string.movies_movie_running_time, movie.runningTime)
         movieViewHolder.bookingButton.setOnClickListener {
             onBookingClick(movie)
         }

@@ -32,7 +32,7 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun setupMovies() {
-        val moviesAdapter = MoviesAdapter(this, movies.map { it.toUi() }) { movie -> bookMovie(movie) }
+        val moviesAdapter = MoviesAdapter(movies.map { it.toUi() }) { movie -> bookMovie(movie) }
         findViewById<ListView>(R.id.lv_movies).adapter = moviesAdapter
     }
 
