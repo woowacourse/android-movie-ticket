@@ -17,30 +17,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieDate
-import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Extras
-import woowacourse.movie.view.ReservationUiFormatter
-import woowacourse.movie.view.getParcelableExtraCompat
 import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
     private lateinit var ticketCountTextView: TextView
-    private var ticketCount: TicketCount = TicketCount()
-    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this, ticketCount) }
     private var selectedDatePosition: Int = 0
-    private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
-    private val movie by lazy { getSelectedMovieData() }
-    private val movieTime by lazy { MovieTime() }
-    private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
+    private var ticketCount: TicketCount = TicketCount()
     private val reservationDialog by lazy { ReservationDialog() }
+    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this, ticketCount) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,9 +42,8 @@ class ReservationActivity :
         }
 
         ticketCountTextView = findViewById(R.id.tv_reservation_ticket_count)
-        setupMovieReservationInfo()
-        setupDateAdapter()
-        setupTimeAdapter()
+
+        presenter.fetchData(this.intent)
 
         setupMinusButtonClick()
         setupPlusButtonClick()
@@ -64,40 +52,29 @@ class ReservationActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun getSelectedMovieData(): Movie =
-        try {
-            val movie: Movie =
-                intent.getParcelableExtraCompat(Extras.MovieData.MOVIE_KEY) ?: Movie.value
-            if (movie.endDate < LocalDate.now()) {
-                throw IllegalStateException(getString(R.string.reservation_error_dialog_message))
-            } else {
-                movie
-            }
-        } catch (e: Exception) {
-            showErrorDialog(e.message.toString())
-            Movie.value
-        }
-
-    private fun setupMovieReservationInfo() {
+    private fun setupMovieReservationInfo(
+        posterResId: Int,
+        title: String,
+        startDate: String,
+        endDate: String,
+        runningTime: Int,
+    ) {
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         val poster =
             AppCompatResources.getDrawable(
                 this,
-                movie.poster,
+                posterResId,
             )
         posterImageView.setImageDrawable(poster)
 
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_title)
-        movieTitleTextView.text = movie.title
+        movieTitleTextView.text = title
 
         val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        val startDate = reservationUiFormatter.localDateToUI(movie.startDate)
-        val endDate = reservationUiFormatter.localDateToUI(movie.endDate)
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
         val runningTimeTextView = findViewById<TextView>(R.id.tv_reservation_running_time)
-        val runningTime = movie.runningTime
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
     }
 
@@ -125,7 +102,6 @@ class ReservationActivity :
                     ) {
                         movieDate.updateDate(duration[position])
                         selectedDatePosition = position
-                        setupTimeAdapter()
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -184,25 +160,21 @@ class ReservationActivity :
         }
     }
 
-    override fun setTicketCount(count: Int) {
-        ticketCountTextView.text = count.toString()
-        ticketCount = TicketCount(count) // 에반디
+    override fun updateMovieInfo(
+        posterResId: Int,
+        title: String,
+        startDate: String,
+        endDate: String,
+        runningTime: Int,
+    ) {
+        setupMovieReservationInfo(posterResId, title, startDate, endDate, runningTime)
     }
 
-    private fun setupCompleteButtonClick() {
-        findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
-            presenter.onReservationCompleted(
-                getString(R.string.reservation_dialog_title),
-                getString(R.string.reservation_dialog_message),
-            )
-        }
-    }
-
-    private fun showErrorDialog(message: String) {
+    override fun showErrorDialog() {
         reservationDialog.show(
             this,
             getString(R.string.reservation_error_dialog_title),
-            message,
+            getString(R.string.reservation_error_dialog_message),
             null,
         ) { _ ->
             val intent = Intent(this, MoviesActivity::class.java)
