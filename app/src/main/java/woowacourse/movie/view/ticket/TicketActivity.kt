@@ -39,12 +39,12 @@ class TicketActivity : AppCompatActivity() {
     private fun Intent.getTicketExtra(key: String): Ticket? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-                getParcelableExtra(
+                getSerializableExtra(
                     key,
                     Ticket::class.java,
                 )
 
-            else -> getParcelableExtra(key) as? Ticket
+            else -> getSerializableExtra(key) as? Ticket
         }
 
     private fun initViews() {
