@@ -53,6 +53,15 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             .setNegativeButton(R.string.reservation_dialog_negative) { dialog, _ -> dialog.dismiss() }
     }
 
+    private val showUnavailableDateTimeDialog by lazy {
+        AlertDialog
+            .Builder(this)
+            .setMessage("선택 가능한 날짜 및 시간이 없습니다")
+            .setPositiveButton("확인") { _, _ ->
+                onBackPressedDispatcher.onBackPressed()
+            }
+    }
+
     override fun setupViews(savedInstanceState: Bundle?) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupData()
@@ -237,6 +246,9 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         movie?.let {
             val nowDateTime = LocalDateTime.now()
             val availableDates = it.screeningPeriod.getAvailableDates(nowDateTime)
+            availableDates.ifEmpty {
+                showUnavailableDateTimeDialog.show()
+            }
             updateDateSpinner(availableDates)
         }
     }
@@ -248,6 +260,13 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     ) {
         timeSpinnerAdapter.clear()
         val times = movie.screeningPeriod.getAvailableTimesFor(date)
+        if (times.isEmpty()) {
+            val datePosition = spinnerDate.selectedItemPosition
+            runCatching { spinnerDate.setSelection(datePosition + 1) }.onFailure {
+                showUnavailableDateTimeDialog.show()
+            }
+        }
+
         timeSpinnerAdapter.addAll(times)
         timeSpinnerAdapter.notifyDataSetChanged()
         spinnerTime.adapter = timeSpinnerAdapter
