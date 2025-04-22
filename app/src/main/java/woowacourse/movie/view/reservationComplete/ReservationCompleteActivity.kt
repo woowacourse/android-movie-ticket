@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -63,9 +64,5 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
-    }
-
-    companion object {
-        const val TICKET_DATA_KEY = "movieTicket"
     }
 }

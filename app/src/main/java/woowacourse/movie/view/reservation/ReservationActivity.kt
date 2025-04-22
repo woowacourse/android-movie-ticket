@@ -24,6 +24,8 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.IntentExtraConstants.MOVIE_DATA_KEY
+import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
 import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -212,7 +214,7 @@ class ReservationActivity : AppCompatActivity() {
         val intent =
             Intent(this, ReservationCompleteActivity::class.java).apply {
                 putExtra(
-                    ReservationCompleteActivity.Companion.TICKET_DATA_KEY,
+                    TICKET_DATA_KEY,
                     MovieTicket(
                         title = movie.title,
                         movieDate = movieDate,
@@ -236,7 +238,6 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MOVIE_DATA_KEY = "data"
         private const val TICKET_COUNT_DATA_KEY = "count"
         private const val TICKET_DATE_POSITION_DATA_KEY = "date"
     }
