@@ -3,6 +3,7 @@ package woowacourse.movie.dto
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.domain.PriceRule
 import java.time.LocalDateTime
 
 @Parcelize
@@ -20,7 +21,7 @@ data class ReservationDto(
                 isBooked = bookingStatus.isBooked,
                 memberCount = bookingStatus.memberCount.value,
                 bookedTime = bookingStatus.bookedTime,
-                totalPrice = bookingStatus.calculateTicketPrices(),
+                totalPrice = PriceRule.NORMAL.price(bookingStatus.memberCount),
             )
         }
     }
