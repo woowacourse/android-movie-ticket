@@ -25,10 +25,10 @@ class MoviesAdapter(
         if (convertView == null) {
             view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
             movieViewHolder = MovieViewHolder(view)
-            view.tag = movieViewHolder
+            MovieViewHolder.setTag(view, movieViewHolder)
         } else {
             view = convertView
-            movieViewHolder = convertView.tag as MovieViewHolder
+            movieViewHolder = MovieViewHolder.getTag(view)
         }
 
         movieViewHolder.bind(movies[position]) { movie -> onBookingClick(movie) }
@@ -72,6 +72,19 @@ class MoviesAdapter(
                 )
 
             bookingButton.setOnClickListener { onBookingClick(movie) }
+        }
+
+        companion object {
+            private val MOVIE_VIEW_TYPE = R.id.tag_movie_view_holder
+
+            fun setTag(
+                view: View,
+                tag: MovieViewHolder,
+            ) {
+                view.setTag(MOVIE_VIEW_TYPE, tag)
+            }
+
+            fun getTag(view: View): MovieViewHolder = view.getTag(MOVIE_VIEW_TYPE) as MovieViewHolder
         }
     }
 }
