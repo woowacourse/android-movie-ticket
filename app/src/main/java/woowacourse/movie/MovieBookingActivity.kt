@@ -42,7 +42,7 @@ class MovieBookingActivity : AppCompatActivity() {
         // 영화 정보
         val title: TextView = findViewById(R.id.movie_title)
         val poster: ImageView = findViewById(R.id.movie_poster)
-        val screeningDate: TextView = findViewById(R.id.movie_screening_date)
+        val screeningDate: TextView = findViewById(R.id.movie_date)
         val runningTimes: TextView = findViewById(R.id.movie_running_time)
 
         // 날짜, 시간 선택

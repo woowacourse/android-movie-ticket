@@ -54,7 +54,7 @@
 
 
         <TextView
-            android:id="@+id/movie_screening_date"
+            android:id="@+id/movie_date"
             style="@style/MovieBookingSubTitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_screening_date"
+            app:layout_constraintTop_toBottomOf="@id/movie_date"
             tools:text="러닝타임: 125분"/>
 
         <Spinner
