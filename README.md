@@ -51,7 +51,7 @@
 - [ ] 확장함수 관리하는 방법 생각 - 두루 object 추천
 - [ ] adaptBookingStatus -> init, setUp으로 수정
 - [ ] 연속 방지 클릭에 대해서 utils 선언
-- [ ] dimens.xml - 마진 / 패딩등 dp
+- [X] dimens.xml - 마진 / 패딩등 dp
 - [X] dp / sp 공부해보기
 - [ ] MovieListAdapter Extension로 만드는 것
 - [ ] savedStateHandle: SavedStateHandle
