@@ -28,7 +28,7 @@ class MovieAdapter(
 
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
-            viewHolder = MovieViewHolder(view)
+            viewHolder = MovieViewHolder(view, context)
             view.tag = viewHolder
         } else {
             view = convertView
@@ -41,7 +41,10 @@ class MovieAdapter(
         return view
     }
 
-    private inner class MovieViewHolder(view: View) {
+    private class MovieViewHolder(
+        view: View,
+        private val context: Context
+    ) {
         private val poster: ImageView = view.findViewById(R.id.imageview_poster)
         private val title: TextView = view.findViewById(R.id.textview_title)
         private val screeningDate: TextView = view.findViewById(R.id.textview_screeningdate)
