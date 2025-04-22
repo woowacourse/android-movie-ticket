@@ -172,7 +172,7 @@ class MovieBookingActivity : AppCompatActivity() {
         bookedTime: () -> LocalTime,
     ) {
         bookingComplete.setOnClickListener {
-            val bookingStatus = BookingStatus.invoke(movie, count(), bookedDate(), bookedTime())
+            val bookingStatus = BookingStatus(movie, count(), bookedDate(), bookedTime())
             AlertDialog.Builder(this@MovieBookingActivity)
                 .setTitle(getString(R.string.check_movie_booking))
                 .setMessage(getString(R.string.confirm_reservation_message))

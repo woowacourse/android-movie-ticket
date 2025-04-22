@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Parcelize
-data class BookingStatus (
+data class BookingStatus(
     val movie: Movie,
     val isBooked: Boolean = true,
     private val _memberCount: MemberCount,
@@ -34,7 +34,12 @@ data class BookingStatus (
         private const val ERROR_ALREADY_BOOKED = "이미 예매된 상태입니다."
         private const val ERROR_NOT_BOOKED = "예매가 되어있지 않습니다"
 
-        operator fun invoke(movie: Movie, count: Int, bookedDate: LocalDate, bookedTime: LocalTime): BookingStatus {
+        fun from(
+            movie: Movie,
+            count: Int,
+            bookedDate: LocalDate,
+            bookedTime: LocalTime
+        ): BookingStatus {
             val bookedDateTime = LocalDateTime.of(bookedDate, bookedTime)
             return BookingStatus(
                 movie = movie,
@@ -42,6 +47,13 @@ data class BookingStatus (
                 bookedTime = bookedDateTime
             )
         }
+
+        operator fun invoke(
+            movie: Movie,
+            count: Int,
+            bookedDate: LocalDate,
+            bookedTime: LocalTime
+        ): BookingStatus = from(movie, count, bookedDate, bookedTime)
     }
 }
 
