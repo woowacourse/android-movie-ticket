@@ -4,19 +4,32 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.repository.MovieRepository
+import woowacourse.movie.presenter.MoviePresenter
 import woowacourse.movie.ui.adapter.MovieAdapter
 import woowacourse.movie.ui.view.BaseActivity
 import woowacourse.movie.ui.view.booking.BookingActivity
 
-class MoviesActivity : BaseActivity() {
+class MoviesActivity :
+    BaseActivity(),
+    MovieContract.View {
+    private lateinit var presenter: MoviePresenter
+    private val movieRepository = MovieRepository()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_main)
+
+        presenter = MoviePresenter(this, movieRepository)
+        presenter.loadMovies()
+    }
+
+    override fun showMovies(movies: List<Movie>) {
         val adapter =
             MovieAdapter(
                 this,
-                MovieRepository.movies,
+                movieRepository.getAllMovies(),
                 onReservationClickListener =
                     { movieId ->
                         val intent = Intent(this, BookingActivity::class.java)
