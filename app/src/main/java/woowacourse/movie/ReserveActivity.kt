@@ -56,7 +56,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun setUpMovie(): Movie {
-        val movie: Movie? = intent.getSerializableCompat(getString(R.string.key_movie))
+        val movie: Movie? = intent.getSerializableCompat(KeyIdentifiers.KEY_MOVIE)
 
         if (movie == null) {
             finish()
@@ -66,7 +66,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun getReservation(savedInstanceState: Bundle?): Reservation {
-        return savedInstanceState?.getSerializable(getString(R.string.key_reservation)) as? Reservation
+        return savedInstanceState?.getSerializable(KeyIdentifiers.KEY_RESERVATION) as? Reservation
             ?: Reservation(
                 title = movie.title,
                 _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
@@ -243,7 +243,7 @@ class ReserveActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putSerializable(getString(R.string.key_reservation), reservation)
+        outState.putSerializable(KeyIdentifiers.KEY_RESERVATION, reservation)
     }
 
     companion object {
@@ -255,7 +255,7 @@ class ReserveActivity : AppCompatActivity() {
             movie: Movie,
         ): Intent =
             Intent(context, ReserveActivity::class.java).apply {
-                putExtra(context.getString(R.string.key_movie), movie)
+                putExtra(KeyIdentifiers.KEY_MOVIE, movie)
             }
     }
 }

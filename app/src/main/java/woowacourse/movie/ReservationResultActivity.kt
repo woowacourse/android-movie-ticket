@@ -32,7 +32,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun extractReservation(): Reservation {
-        val reservation: Reservation? = intent.getSerializableCompat(getString(R.string.key_reservation))
+        val reservation: Reservation? = intent.getSerializableCompat(KeyIdentifiers.KEY_RESERVATION)
         if (reservation == null) finish()
 
         return reservation!!
@@ -77,7 +77,7 @@ class ReservationResultActivity : AppCompatActivity() {
             reservation: Reservation,
         ): Intent =
             Intent(context, ReservationResultActivity::class.java).apply {
-                putExtra(context.getString(R.string.key_reservation), reservation)
+                putExtra(KeyIdentifiers.KEY_RESERVATION, reservation)
             }
     }
 }
