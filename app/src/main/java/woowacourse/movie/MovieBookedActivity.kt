@@ -26,10 +26,10 @@ class MovieBookedActivity : AppCompatActivity() {
         val memberCount: TextView = findViewById(R.id.member_count)
         val movieTicketPrice: TextView = findViewById(R.id.movie_ticket_price)
 
-        adaptBookingStatus(title, bookingStatus, bookingDateTime, memberCount, movieTicketPrice)
+        initBookingStatus(title, bookingStatus, bookingDateTime, memberCount, movieTicketPrice)
     }
 
-    private fun adaptBookingStatus(
+    private fun initBookingStatus(
         title: TextView,
         bookingStatus: BookingStatus,
         bookingDateTime: TextView,

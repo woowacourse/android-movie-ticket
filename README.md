@@ -37,7 +37,7 @@
 - [X] MovieBookingActivity 버전별 분기 함수로 재사용하도록 만들기
 - [X] MovieBookingActivity 기능별로 분리
 - [X] 생명주기 공부하기
-- [X] ReservationDaySpinnerAdapter DateTimeFormatter 부분 extension 재사용
+- [X] ReservationDayadaptinnerAdapter DateTimeFormatter 부분 extension 재사용
 - [X] ReservationCompleteActivity의 Intent Extra 따로 관리
 - [X] dao, data 부분 삭제
 - [X] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
@@ -49,7 +49,7 @@
 - [ ] 기능별 / 담당하는 내용별로 패키지를 분리
 - [X] BuildVersion IllegalStateException 상황 적어주기
 - [ ] 확장함수 관리하는 방법 생각 - 두루 object 추천
-- [ ] adaptBookingStatus -> init, setUp으로 수정
+- [X] adaptBookingStatus -> init, setUp으로 수정
 - [ ] 연속 방지 클릭에 대해서 utils 선언
 - [X] dimens.xml - 마진 / 패딩등 dp
 - [X] dp / sp 공부해보기

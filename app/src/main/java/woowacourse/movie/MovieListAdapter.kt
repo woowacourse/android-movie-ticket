@@ -41,14 +41,14 @@ class MovieListAdapter(
 
         val viewHolder = ViewHolder(view)
 
-        adaptMovie(viewHolder, movie)
+        initMovie(viewHolder, movie)
 
         clickMovieItem(viewHolder, position)
 
         return view
     }
 
-    private fun adaptMovie(
+    private fun initMovie(
         viewHolder: ViewHolder,
         movie: Movie
     ) {

@@ -56,7 +56,7 @@ class MovieBookingActivity : AppCompatActivity() {
         // 선택 완료 버튼
         val bookingComplete: Button = findViewById(R.id.booking_complete_button)
 
-        adaptMovie(title, movie, poster, screeningDate, runningTimes)
+        initMovie(title, movie, poster, screeningDate, runningTimes)
         memberCount(memberCount, count, plusMemberCount, minusMemberCount)
 
         val pair = updateBookedDate(date, movie, bookedDate, bookedTimes, time)
@@ -187,7 +187,7 @@ class MovieBookingActivity : AppCompatActivity() {
         }
     }
 
-    private fun adaptMovie(
+    private fun initMovie(
         title: TextView,
         movie: Movie,
         poster: ImageView,
