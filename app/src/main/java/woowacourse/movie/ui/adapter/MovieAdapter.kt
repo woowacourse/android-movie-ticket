@@ -12,7 +12,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.ui.view.BookingActivity
-import woowacourse.movie.ui.view.IntentKeys
+import woowacourse.movie.ui.constant.IntentKeys
 
 class MovieAdapter(
     context: Context,

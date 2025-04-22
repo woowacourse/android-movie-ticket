@@ -15,6 +15,8 @@ import woowacourse.movie.model.DefaultPricingPolicy
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieScheduler
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.ui.constant.IntentKeys
+import woowacourse.movie.ui.util.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

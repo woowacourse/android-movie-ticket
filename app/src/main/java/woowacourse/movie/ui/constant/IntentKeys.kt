@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui.constant
 
 object IntentKeys {
     const val MOVIE = "Movie"

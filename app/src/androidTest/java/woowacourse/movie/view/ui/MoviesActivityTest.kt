@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.ui
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
