@@ -27,9 +27,9 @@ class ReservationCompleteActivity : AppCompatActivity() {
         val ticket = intent.getSerializableExtra(KEY_TICKET) as? Ticket
         if (ticket == null) {
             handleInvalidTicket()
-            return
+        } else {
+            setTicketInfo(ticket)
         }
-        setTicketInfo(ticket)
     }
 
     private fun handleInvalidTicket() {
