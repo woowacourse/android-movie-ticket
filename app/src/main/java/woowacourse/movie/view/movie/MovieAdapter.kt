@@ -11,6 +11,8 @@ class MovieAdapter(
     val onClickBooking: (Movie) -> Unit,
     private val items: List<Movie>,
 ) : BaseAdapter() {
+    private val viewToViewHolders: MutableMap<View, MovieViewHolder> = mutableMapOf()
+
     override fun getCount(): Int = items.size
 
     override fun getItem(position: Int): Movie = items[position]
@@ -30,10 +32,10 @@ class MovieAdapter(
         if (convertView == null) {
             view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
             viewHolder = MovieViewHolder(view, onClickBooking)
-            view.tag = viewHolder
+            view.setTag(R.id.view_holder_tag, viewHolder)
         } else {
             view = convertView
-            viewHolder = view.tag as MovieViewHolder
+            viewHolder = view.getTag(R.id.view_holder_tag) as MovieViewHolder
         }
 
         viewHolder.bind(item)
