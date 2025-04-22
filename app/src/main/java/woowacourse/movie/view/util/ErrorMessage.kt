@@ -1,4 +1,4 @@
-package woowacourse.movie.util
+package woowacourse.movie.view.util
 
 @JvmInline
 value class ErrorMessage(
