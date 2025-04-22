@@ -24,19 +24,19 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val bookingStatus = intent.getObjectFromIntent<ReservationDto>(BOOKING_STATUS_KEY)
+        val reservationDto = intent.getObjectFromIntent<ReservationDto>(BOOKING_STATUS_KEY)
 
-        binding.bookedMovieTitleText.text = bookingStatus.movie.title
-        binding.bookedMovieRunningDayText.text = bookingStatus.bookedTime.toFormattedString()
+        binding.bookedMovieTitleText.text = reservationDto.movie.title
+        binding.bookedMovieRunningDayText.text = reservationDto.bookedTime.toFormattedString()
         binding.memberCountText.text =
             getString(
                 R.string.member_count,
-                bookingStatus.memberCount.value,
+                reservationDto.memberCount,
             )
         binding.bookedMovieTicketPriceText.text =
             getString(
                 R.string.total_price,
-                bookingStatus.totalPrice,
+                reservationDto.totalPrice,
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

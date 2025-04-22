@@ -19,7 +19,6 @@ import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieDateTime
-import woowacourse.movie.domain.RunningTimes
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.ServiceLocator
@@ -32,18 +31,25 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivity : AppCompatActivity() {
-    private lateinit var binding: ActivityReservationBinding
     private lateinit var reservationDay: LocalDate
     private lateinit var runningDateTime: LocalTime
     private lateinit var screeningTimeAdapter: RunningTimeSpinnerAdapter
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
+    private val runningTimeRule by lazy {
+        ServiceLocator.runningTimeRule
+    }
+    private val today by lazy {
+        ServiceLocator.today
+    }
+    private val binding: ActivityReservationBinding by lazy {
+        ActivityReservationBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityReservationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.booking)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -130,7 +136,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun setScreeningDate(movie: Movie) {
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
-                MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(ServiceLocator.today),
+                MovieDateTime(movie.startDateTime, movie.endDateTime).betweenDates(today),
             )
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
@@ -144,7 +150,7 @@ class ReservationActivity : AppCompatActivity() {
                 ) {
                     reservationDay = parent?.getItemAtPosition(position) as LocalDate
                     screeningTimeAdapter.apply {
-                        items = RunningTimes(ServiceLocator.now).runningTimes(reservationDay)
+                        items = runningTimeRule.whenTargetDay(reservationDay)
                         notifyDataSetChanged()
                     }
                     runningTimePosition = DEFAULT_POSITION
@@ -158,7 +164,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun setScreeningTime() {
         screeningTimeAdapter =
             RunningTimeSpinnerAdapter(
-                RunningTimes(ServiceLocator.now).runningTimes(reservationDay),
+                runningTimeRule.whenTargetDay(reservationDay),
             )
         binding.timePickerActions.adapter = screeningTimeAdapter
         runningDateTime = binding.timePickerActions.selectedItem as LocalTime

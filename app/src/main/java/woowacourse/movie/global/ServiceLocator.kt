@@ -1,6 +1,7 @@
 package woowacourse.movie.global
 
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.RunningTimeRuleImpl
 import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
@@ -18,4 +19,5 @@ object ServiceLocator {
         )
     var today: LocalDate = LocalDate.now()
     var now: LocalDateTime = LocalDateTime.now()
+    var runningTimeRule = RunningTimeRuleImpl()
 }
