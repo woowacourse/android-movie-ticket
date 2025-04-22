@@ -6,24 +6,23 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ScreeningTime(
-    private val date: LocalDateTime,
+    private val date: LocalDate,
+    private val currentDateTime: LocalDateTime,
 ) {
     fun selectableTimes(): List<LocalTime> {
         val endHour = LocalTime.of(END_HOUR, DEFAULT_MINUTE)
         val startHour = createLocalTime()
-
-        var currentTime = LocalTime.of(date.hour, date.minute)
-
-        if (LocalDate.of(date.year, date.month, date.dayOfMonth) == LocalDate.now()) {
-            currentTime = LocalTime.now()
-        }
 
         val screeningTime =
             generateSequence(startHour) {
                 if (it in startHour..<endHour) it.plusHours(HOURS_INTERVAL) else null
             }.toList()
 
-        return screeningTime.filter { it > currentTime }
+        if (LocalDate.of(date.year, date.month, date.dayOfMonth) == currentDateTime.toLocalDate()) {
+            return screeningTime.filter { it > currentDateTime.toLocalTime() }
+        }
+
+        return screeningTime
     }
 
     private fun createLocalTime(): LocalTime {

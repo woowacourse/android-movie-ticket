@@ -204,7 +204,7 @@ class ReservationActivity : AppCompatActivity() {
         spinner: Spinner,
         localDate: LocalDate,
     ) {
-        val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).selectableTimes()
+        val currentTimeTable = ScreeningTime(localDate, LocalDateTime.now()).selectableTimes()
         spinner.adapter =
             ArrayAdapter(
                 this,
