@@ -5,4 +5,8 @@
     <string name="complete_dialog_message">정말 예매하시겠습니까?</string>
     <string name="complete_dialog_positive_button">예매 완료</string>
     <string name="complete_dialog_negative_button">취소</string>
+    <string name="minus_button_text">-</string>
+    <string name="plus_button_text">+</string>
+    <string name="request_reserve_text">선택 완료</string>
+
 </resources>
