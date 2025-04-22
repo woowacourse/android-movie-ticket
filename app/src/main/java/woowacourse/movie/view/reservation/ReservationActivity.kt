@@ -51,9 +51,12 @@ class ReservationActivity : AppCompatActivity() {
             }
         if (movie == null) {
             handleInvalidMovie()
-            return
+        } else {
+            setSpinnerInfo(movie)
         }
+    }
 
+    private fun setSpinnerInfo(movie: Movie) {
         val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
 
