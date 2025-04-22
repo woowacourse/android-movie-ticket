@@ -17,6 +17,7 @@ import woowacourse.movie.ui.constant.IntentKeys
 class MovieAdapter(
     context: Context,
     private val movies: List<Movie>,
+    private val onClick: (Movie) -> Unit,
 ) : ArrayAdapter<Movie>(context, 0, movies) {
     override fun getView(
         position: Int,
@@ -28,7 +29,7 @@ class MovieAdapter(
 
         if (convertView == null) {
             view = LayoutInflater.from(context).inflate(R.layout.item_movie, parent, false)
-            viewHolder = MovieViewHolder(view, context)
+            viewHolder = MovieViewHolder(view, context, onClick)
             view.tag = viewHolder
         } else {
             view = convertView
@@ -43,7 +44,8 @@ class MovieAdapter(
 
     private class MovieViewHolder(
         view: View,
-        private val context: Context
+        private val context: Context,
+        private val onClick: (Movie) -> Unit,
     ) {
         private val poster: ImageView = view.findViewById(R.id.imageview_poster)
         private val title: TextView = view.findViewById(R.id.textview_title)
@@ -65,10 +67,7 @@ class MovieAdapter(
             poster.setImageResource(movie.posterRes)
 
             reservationBtn.setOnClickListener {
-                val intent = Intent(context, BookingActivity::class.java).apply {
-                    putExtra(IntentKeys.MOVIE, movie)
-                }
-                context.startActivity(intent)
+                onClick(movie)
             }
         }
     }
