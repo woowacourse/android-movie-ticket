@@ -40,7 +40,7 @@ class ScreeningTime(
         private const val HOURS_INTERVAL = 2L
         private const val WEEKEND_START_HOUR = 9
         private const val WEEKDAY_START_HOUR = 10
-        private const val END_HOUR = 23
+        private const val END_HOUR = 22
         private const val DEFAULT_MINUTE = 0
     }
 }
