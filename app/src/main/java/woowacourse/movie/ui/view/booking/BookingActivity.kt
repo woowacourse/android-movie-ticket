@@ -20,8 +20,8 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieRepository
 import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.domain.service.MovieTicketService
-import woowacourse.movie.ui.adapter.MovieAdapter.Companion.setImage
 import woowacourse.movie.ui.mapper.PosterMapper
+import woowacourse.movie.ui.view.utils.setImage
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

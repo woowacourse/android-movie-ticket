@@ -11,6 +11,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.mapper.PosterMapper
+import woowacourse.movie.ui.view.utils.setImage
 
 class MovieAdapter(
     context: Context,
@@ -49,16 +50,5 @@ class MovieAdapter(
         imagePoster.setImage(posterRes)
 
         return view
-    }
-
-    companion object {
-        fun ImageView.setImage(res: Int?) {
-            if (res != null) {
-                this.setImageResource(res)
-                this.visibility = View.VISIBLE
-            } else {
-                this.visibility = View.INVISIBLE
-            }
-        }
     }
 }
