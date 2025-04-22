@@ -48,7 +48,7 @@ class BookingActivity : BaseActivity() {
             showErrorDialog()
             false
         } else {
-            val foundMovie = MovieRepository.getMovieById(movieId)
+            val foundMovie = MovieRepository().getMovieById(movieId)
             movie = foundMovie
             true
         }

@@ -3,8 +3,8 @@ package woowacourse.movie.domain.repository
 import woowacourse.movie.domain.model.Movie
 import java.time.LocalDate
 
-object MovieRepository {
-    val movies: List<Movie> =
+class MovieRepository {
+    fun getAllMovies(): List<Movie> =
         listOf(
             Movie(
                 "승부",
@@ -22,5 +22,5 @@ object MovieRepository {
             ),
         )
 
-    fun getMovieById(movieId: Int): Movie = movies[movieId - 1]
+    fun getMovieById(movieId: Int): Movie = getAllMovies()[movieId - 1]
 }
