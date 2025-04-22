@@ -72,7 +72,7 @@
 - [x] Movie에서 MovieFactory로 네이밍 변경
 - [x] intent 값을 찾을 수 없다는 에러 메시지 추가
 - [x] createTicket() 함수에 LocalTime null 검증 로직 분리
-- [ ] onClick 확장성 고려하기
+- [x] onClick 확장성을 고려하여 interface로 구현
 - [ ] DetailBookingActivity 다이어트 (익명 객체를 외부로 분리, 파일 분리)
 - [x] Movie의 image 타입 Int를 리소스 ID로 표현하기
 - [ ] 스피너 테스트 코드 추가

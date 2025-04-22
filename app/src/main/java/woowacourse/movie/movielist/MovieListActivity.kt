@@ -25,10 +25,11 @@ class MovieListActivity : AppCompatActivity() {
         val movieFactory: List<Movie> = MovieFactory().getAll()
         val listView: ListView = findViewById(R.id.movie_listview)
         val movieListAdapter =
-            MovieListAdapter(movieFactory) { movie ->
-                startActivity(DetailBookingActivity.newIntent(this, movie))
-            }
-
+            MovieListAdapter(movieFactory, object : ClickListener {
+                override fun onReserveClick(movie: Movie) {
+                    startActivity(DetailBookingActivity.newIntent(this@MovieListActivity, movie))
+                }
+            })
         listView.adapter = movieListAdapter
     }
 }
