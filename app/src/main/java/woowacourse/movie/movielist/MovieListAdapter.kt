@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.utils.DateFormatter
 
 class MovieListAdapter(
     private val items: List<Movie>,
@@ -39,14 +38,7 @@ class MovieListAdapter(
             movieListViewHolder = view.tag as MovieListViewHolder
         }
 
-        val dateFormatter = DateFormatter()
-        val formattedStartDate = dateFormatter.format(item.date.startDate)
-        val formattedEndDate = dateFormatter.format(item.date.endDate)
-
-        movieListViewHolder.imageView.setImageResource(item.image)
-        movieListViewHolder.titleTextView.text = item.title
-        movieListViewHolder.dateTextView.text = view.context.getString(R.string.movieDate, formattedStartDate, formattedEndDate)
-        movieListViewHolder.timeTextView.text = view.context.getString(R.string.movieTime, item.time.toString())
+        movieListViewHolder.setItem(item)
         movieListViewHolder.reserveButton.setOnClickListener {
             onReserveClick(item)
         }
