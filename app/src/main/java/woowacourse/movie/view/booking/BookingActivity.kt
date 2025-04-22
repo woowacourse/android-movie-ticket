@@ -45,7 +45,8 @@ class BookingActivity : AppCompatActivity() {
 
         applyWindowInsets()
 
-        movieItem = intent.intentSerializable(EXTRA_MOVIE, Movie::class.java) as Movie
+        movieItem =
+            intent.intentSerializable(EXTRA_MOVIE, Movie::class.java) ?: finish().run { return }
 
         if (savedInstanceState != null) {
             restoreState(savedInstanceState)

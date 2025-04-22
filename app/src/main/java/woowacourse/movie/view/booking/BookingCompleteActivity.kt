@@ -35,7 +35,8 @@ class BookingCompleteActivity : AppCompatActivity() {
 
     private fun setViews() {
         val bookedTicket: BookedTicket =
-            intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java) as BookedTicket
+            intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java)
+                ?: finish().run { return }
         val price: Int = bookedTicket.totalPrice()
         val priceFormat: String = thousandFormat(price)
 
@@ -62,7 +63,7 @@ class BookingCompleteActivity : AppCompatActivity() {
             context: Context,
             bookedTicket: BookedTicket,
         ): Intent =
-            Intent(context, BookingActivity::class.java).apply {
+            Intent(context, BookingCompleteActivity::class.java).apply {
                 putExtra(EXTRA_BOOKED_TICKET, bookedTicket)
             }
 
