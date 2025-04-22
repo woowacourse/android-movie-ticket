@@ -78,10 +78,10 @@ class ReservationActivity :
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
     }
 
-    private fun setupDateAdapter() {
-        var duration: List<LocalDate> = movieDate.getDateTable(LocalDate.now())
-        if (duration.isEmpty()) duration = listOf(movie.startDate)
-
+    override fun updateDateAdapter(
+        duration: List<LocalDate>,
+        selected: Int,
+    ) {
         val dateAdapter =
             ArrayAdapter(
                 this,
@@ -100,7 +100,7 @@ class ReservationActivity :
                         position: Int,
                         id: Long,
                     ) {
-                        movieDate.updateDate(duration[position])
+                        presenter.onDateSelected(duration[position])
                         selectedDatePosition = position
                     }
 
@@ -110,14 +110,12 @@ class ReservationActivity :
         }
     }
 
-    private fun setupTimeAdapter() {
-        val timeTable: List<Int> =
-            movieTime.getTimeTable(LocalDateTime.now(), movieDate.value)
+    override fun updateTimeAdapter(times: List<String>) {
         val timeAdapter =
             ArrayAdapter(
                 this,
                 layout.support_simple_spinner_dropdown_item,
-                timeTable.map { reservationUiFormatter.movieTimeToUI(it) },
+                times,
             )
 
         findViewById<Spinner>(R.id.spinner_reservation_time).apply {
@@ -130,7 +128,7 @@ class ReservationActivity :
                         position: Int,
                         id: Long,
                     ) {
-                        movieTime.updateTime(timeTable[position])
+                        presenter.onTimeSelected(position)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {

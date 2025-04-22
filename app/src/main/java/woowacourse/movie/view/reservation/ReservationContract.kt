@@ -22,14 +22,27 @@ interface ReservationContract {
             title: String,
             message: String,
         )
+
+        fun updateDateAdapter(
+            duration: List<LocalDate>,
+            selected: Int,
+        )
+
+        fun updateTimeAdapter(times: List<String>)
     }
 
     interface Presenter {
         fun fetchData(intent: Intent)
 
+        fun initDateAdapter()
+
         fun plusTicketCount()
 
         fun minusTicketCount()
+
+        fun onDateSelected(date: LocalDate)
+
+        fun onTimeSelected(index: Int)
 
         fun onReservationCompleted(
             title: String,

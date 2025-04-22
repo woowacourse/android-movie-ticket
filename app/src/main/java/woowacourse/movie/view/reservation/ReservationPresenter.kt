@@ -38,6 +38,15 @@ class ReservationPresenter(
             runningTime = movie.runningTime,
         )
 
+        initDateAdapter()
+    }
+
+    override fun initDateAdapter() {
+        var duration = movieDate.getDateTable(LocalDate.now())
+        if (duration.isEmpty()) duration = listOf(movie.startDate)
+
+        view.updateDateAdapter(duration, 0)
+        onDateSelected(duration[0])
     }
 
     override fun plusTicketCount() {
@@ -48,6 +57,16 @@ class ReservationPresenter(
     override fun minusTicketCount() {
         ticketCount = ticketCount.minus(1)
         view.setTicketCount(ticketCount.value)
+    }
+
+    override fun onDateSelected(date: LocalDate) {
+        movieDate.updateDate(date)
+        val timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
+        view.updateTimeAdapter(timeTable.map { ReservationUiFormatter().movieTimeToUI(it) })
+    }
+
+    override fun onTimeSelected(index: Int) {
+        movieTime.updateTime(index)
     }
 
     override fun onReservationCompleted(
