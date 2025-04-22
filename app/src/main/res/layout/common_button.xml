@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/common_button"
+    style="@style/MovieItemBtnTextStyle"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="지금 예매"
-    android:textColor="@android:color/white"
     android:backgroundTint="@color/purple_500"
     android:paddingHorizontal="16dp"
     android:paddingVertical="8dp"

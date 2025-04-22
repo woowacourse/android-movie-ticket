@@ -47,12 +47,12 @@ class MovieTicketActivityTest {
 
     @Test
     fun 영화_목록_아이템에는_지금예매_버튼이_있다() {
-        onView(withId(R.id.btn_book)).check(matches(isDisplayed()))
+        onView(withId(R.id.movie_book_btn)).check(matches(isDisplayed()))
     }
 
     @Test
     fun 영화_목록_아이템에_버튼이름이_지금예매이다() {
-        onView(withId(R.id.btn_book)).check(matches(withText("지금 예매")))
+        onView(withId(R.id.movie_book_btn)).check(matches(withText("지금 예매")))
     }
 
     @Test

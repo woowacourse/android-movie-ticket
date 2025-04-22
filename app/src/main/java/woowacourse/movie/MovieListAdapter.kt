@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.Utils.toDotFormat
@@ -64,6 +65,7 @@ class MovieListAdapter(
             R.string.movie_running_time,
             movie.runningTime
         )
+        viewHolder.bookBtn.text = viewHolder.bookBtn.context.getString(R.string.movie_book)
     }
 
     private fun clickMovieItem(viewHolder: ViewHolder, position: Int) {
@@ -83,9 +85,10 @@ class MovieListAdapter(
 }
 
 private class ViewHolder(view: View) {
-    val movieItem: View = view.findViewById(R.id.movie_item_root)
+    val movieItem: View = view.findViewById(R.id.movie_item)
     val title: TextView = view.findViewById(R.id.movie_title)
     val poster: ImageView = view.findViewById(R.id.movie_poster)
     val screeningDate: TextView = view.findViewById(R.id.movie_date)
     val runningTime: TextView = view.findViewById(R.id.movie_running_time)
+    val bookBtn: Button = view.findViewById(R.id.movie_book_btn)
 }
