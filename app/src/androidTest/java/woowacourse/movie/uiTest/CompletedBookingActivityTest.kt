@@ -1,6 +1,5 @@
 package woowacourse.movie.uiTest
 
-import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -26,10 +25,7 @@ class CompletedBookingActivityTest {
                 2,
             )
 
-        val intent =
-            Intent(ApplicationProvider.getApplicationContext(), CompletedBookingActivity::class.java).apply {
-                putExtra(Ticket.KEY_TICKET, ticket)
-            }
+        val intent = CompletedBookingActivity.newIntent(ApplicationProvider.getApplicationContext(), ticket)
 
         ActivityScenario.launch<DetailBookingActivity>(intent)
     }

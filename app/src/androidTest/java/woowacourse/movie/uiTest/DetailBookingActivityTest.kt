@@ -29,10 +29,7 @@ class DetailBookingActivityTest {
                 152,
             )
 
-        val intent =
-            Intent(ApplicationProvider.getApplicationContext(), DetailBookingActivity::class.java).apply {
-                putExtra(Movie.KEY_MOVIE, movie)
-            }
+        val intent = DetailBookingActivity.newIntent(ApplicationProvider.getApplicationContext(), movie)
 
         ActivityScenario.launch<DetailBookingActivity>(intent)
     }
