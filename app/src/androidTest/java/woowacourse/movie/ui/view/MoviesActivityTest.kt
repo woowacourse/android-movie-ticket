@@ -1,4 +1,4 @@
-package woowacourse.movie.view.ui
+package woowacourse.movie.ui.view
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
@@ -19,8 +19,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.ui.view.BookingActivity
-import woowacourse.movie.ui.view.MoviesActivity
 
 @RunWith(AndroidJUnit4::class)
 class MoviesActivityTest {
