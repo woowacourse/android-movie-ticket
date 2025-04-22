@@ -29,12 +29,12 @@ class ReservationCompleteActivity : AppCompatActivity() {
         binding.bookedMovieTitleText.text = bookingStatus.movie.title
         binding.bookedMovieRunningDayText.text = bookingStatus.bookedTime.toFormattedString()
         binding.memberCountText.text =
-            binding.memberCountText.context.getString(
+            getString(
                 R.string.member_count,
                 bookingStatus.memberCount.value,
             )
         binding.bookedMovieTicketPriceText.text =
-            binding.bookedMovieTicketPriceText.context.getString(
+            getString(
                 R.string.total_price,
                 bookingStatus.calculateTicketPrices(),
             )

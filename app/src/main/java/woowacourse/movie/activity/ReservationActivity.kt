@@ -77,14 +77,14 @@ class ReservationActivity : AppCompatActivity() {
     private fun setBindingText(movie: Movie) {
         binding.count.text = memberCount.toString()
         binding.bookedMovieRunningDayText.text =
-            binding.bookedMovieRunningDayText.context.getString(
+            getString(
                 R.string.movie_screening_date,
                 movie.startDateTime.toFormattedDate(),
                 movie.endDateTime.toFormattedDate(),
             )
         binding.bookedMovieTitleText.text = movie.title
         binding.bookedMovieRunningTimeText.text =
-            binding.bookedMovieRunningTimeText.context.getString(
+            getString(
                 R.string.movie_running_time,
                 movie.runningTime.inWholeMinutes,
             )
@@ -97,7 +97,7 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         binding.minusButton.setOnClickListener {
-            if (memberCount.toString().toInt() <= MINIMUM_MEMBER_COUNT) {
+            if (memberCount <= MINIMUM_MEMBER_COUNT) {
                 Toast.makeText(this, getString(R.string.request_least_one_person), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
