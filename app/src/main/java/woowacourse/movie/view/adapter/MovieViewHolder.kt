@@ -8,6 +8,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.OnMovieEventListener
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(private val view: View) {
@@ -19,14 +20,14 @@ class MovieViewHolder(private val view: View) {
 
     fun bind(
         movie: Movie,
-        onClickReservation: (Movie) -> Unit,
+        eventListener: OnMovieEventListener,
     ) {
         movieImage.setImageResource(movie.image)
         movieTitle.text = movie.title
         setDateTextView(movie.date, view.context)
         setTimeTextView(movie.time, view.context)
         reserveButton.setOnClickListener {
-            onClickReservation(movie)
+            eventListener.onClickReservation(movie)
         }
     }
 

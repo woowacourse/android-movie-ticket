@@ -26,13 +26,22 @@ class MainActivity : AppCompatActivity() {
         val movies: List<Movie> = Movie.dummy
         val listView: ListView = findViewById(R.id.list_view)
         val movieAdapter: MovieAdapter =
-            MovieAdapter(movies) { movie ->
-                val intent = Intent(this, ReservationActivity::class.java)
-                intent.putExtra(KEY_MOVIE, movie)
-                startActivity(intent)
-            }
+            MovieAdapter(
+                movies,
+                object : OnMovieEventListener {
+                    override fun onClickReservation(movie: Movie) {
+                        navigateToReservation(movie)
+                    }
+                },
+            )
 
         listView.adapter = movieAdapter
+    }
+
+    private fun navigateToReservation(movie: Movie) {
+        val intent = Intent(this@MainActivity, ReservationActivity::class.java)
+        intent.putExtra(KEY_MOVIE, movie)
+        startActivity(intent)
     }
 
     companion object {

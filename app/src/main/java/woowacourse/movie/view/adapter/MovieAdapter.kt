@@ -6,10 +6,11 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.OnMovieEventListener
 
 class MovieAdapter(
     private val items: List<Movie>,
-    private val onClickReservation: (Movie) -> Unit,
+    private val eventListener: OnMovieEventListener,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
@@ -43,9 +44,7 @@ class MovieAdapter(
             viewHolder = convertView.tag as MovieViewHolder
         }
 
-        viewHolder.bind(items[position]) {
-            onClickReservation(items[position])
-        }
+        viewHolder.bind(items[position], eventListener)
 
         return view
     }
