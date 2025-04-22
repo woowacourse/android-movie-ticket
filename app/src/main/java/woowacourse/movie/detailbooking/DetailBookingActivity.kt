@@ -135,12 +135,16 @@ class DetailBookingActivity : AppCompatActivity() {
         val reservationButton = findViewById<Button>(R.id.detail_reservation_button)
 
         reservationButton.setOnClickListener {
+            if (spinnerTime.selectedItem == null) {
+                Toast.makeText(this, MESSAGE_NOT_ALLOWED_TIME, Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
             val ticket =
                 createTicket(
                     movie.title,
                     spinnerDate.selectedItem as LocalDate,
-                    spinnerTime.selectedItem as? LocalTime,
-                ) ?: return@setOnClickListener
+                    spinnerTime.selectedItem as LocalTime,
+                )
             ReservationDialog(this).popUp(
                 onPositiveClick = {
                     startActivity(CompletedBookingActivity.newIntent(this, ticket))
@@ -215,13 +219,8 @@ class DetailBookingActivity : AppCompatActivity() {
     private fun createTicket(
         movieTitle: String,
         localDate: LocalDate,
-        localTime: LocalTime?,
-    ): Ticket? {
-        if (localTime == null) {
-            Toast.makeText(this, MESSAGE_NOT_ALLOWED_TIME, Toast.LENGTH_SHORT).show()
-            return null
-        }
-
+        localTime: LocalTime,
+    ): Ticket {
         return Ticket(
             movieTitle,
             LocalDateTime.of(localDate.year, localDate.month, localDate.dayOfMonth, localTime.hour, localTime.minute),

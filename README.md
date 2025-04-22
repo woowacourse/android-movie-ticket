@@ -71,9 +71,10 @@
 - [x] 스피너 기본값 selectedDatePosition, selectedTimePosition 변수 활용
 - [x] Movie에서 MovieFactory로 네이밍 변경
 - [x] intent 값을 찾을 수 없다는 에러 메시지 추가
-- [ ] createTicket() 분리
+- [x] createTicket() 함수에 LocalTime null 검증 로직 분리
 - [ ] onClick 확장성 고려하기
 - [ ] DetailBookingActivity 다이어트 (익명 객체를 외부로 분리, 파일 분리)
 - [x] Movie의 image 타입 Int를 리소스 ID로 표현하기
 - [ ] 스피너 테스트 코드 추가
 - [ ] 화면 회전 테스트 코드 추가
+- [ ] createTicket()이 activity에 있는 것이 적절한지 고민하기
