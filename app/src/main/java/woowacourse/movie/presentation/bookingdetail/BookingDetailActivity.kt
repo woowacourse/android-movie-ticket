@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.bookingdetail
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -26,6 +25,7 @@ import woowacourse.movie.presentation.bookingdetail.adapter.TimeAdapter
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toUi
 import woowacourse.movie.presentation.model.MovieUiModel
+import woowacourse.movie.util.getExtra
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -33,7 +33,7 @@ class BookingDetailActivity : AppCompatActivity() {
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
     private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
-    private val movieUiModel: MovieUiModel by lazy { getMovieIntent() }
+    private val movieUiModel: MovieUiModel by lazy { intent.getExtra(MOVIE_KEY) ?: MovieUiModel() }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
     private var ticketCount: Int = 0
@@ -59,13 +59,6 @@ class BookingDetailActivity : AppCompatActivity() {
 
         setupSelectCompleteClickListener()
     }
-
-    private fun getMovieIntent(): MovieUiModel =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(MOVIE_KEY, MovieUiModel::class.java) ?: MovieUiModel()
-        } else {
-            intent.getParcelableExtra<MovieUiModel>(MOVIE_KEY) ?: MovieUiModel()
-        }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) finish()

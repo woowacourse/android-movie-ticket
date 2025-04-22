@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.bookingcomplete
 import android.content.Context
 import android.content.Intent
 import android.icu.text.DecimalFormat
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -16,9 +15,10 @@ import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toUi
 import woowacourse.movie.presentation.model.BookingInfoUiModel
+import woowacourse.movie.util.getExtra
 
 class BookingCompleteActivity : AppCompatActivity() {
-    private val bookingInfoUiModel: BookingInfoUiModel by lazy { getMovieInfoIntent() }
+    private val bookingInfoUiModel: BookingInfoUiModel by lazy { intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel() }
     private val bookingInfo: BookingInfo by lazy { bookingInfoUiModel.toDomain() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,13 +41,6 @@ class BookingCompleteActivity : AppCompatActivity() {
         if (item.itemId == android.R.id.home) finish()
         return super.onOptionsItemSelected(item)
     }
-
-    private fun getMovieInfoIntent(): BookingInfoUiModel =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(BOOKING_INFO_KEY, BookingInfoUiModel::class.java) ?: BookingInfoUiModel()
-        } else {
-            intent.getParcelableExtra<BookingInfoUiModel>(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
-        }
 
     private fun setupView() {
         enableEdgeToEdge()
