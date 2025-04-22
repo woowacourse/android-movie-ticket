@@ -20,7 +20,7 @@ fun Movie.toParcelable(): ParcelableMovie {
     return ParcelableMovie(title, startDate, endDate, runningTime, R.drawable.harry_potter_poster)
 }
 
-fun ParcelableMovie.toMovie(): Movie {
+fun ParcelableMovie.toModel(): Movie {
     return Movie(title, startDate, endDate, runningTime)
 }
 
@@ -28,6 +28,6 @@ fun Ticket.toParcelable(): ParcelableTicket {
     return ParcelableTicket(movie.toParcelable(), showtime, count)
 }
 
-fun ParcelableTicket.toTicket(): Ticket {
-    return Ticket(movie.toMovie(), showtime, count)
+fun ParcelableTicket.toModel(): Ticket {
+    return Ticket(movie.toModel(), showtime, count)
 }

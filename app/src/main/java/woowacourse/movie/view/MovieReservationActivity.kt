@@ -167,12 +167,12 @@ class MovieReservationActivity : AppCompatActivity() {
 
         incrementButton.setOnClickListener {
             decrementButton.isEnabled = true
-            ticket = ticket.toTicket().increment().toParcelable()
+            ticket = ticket.toModel().increment().toParcelable()
             ticketCountTextView.text = ticket.count.toString()
         }
 
         decrementButton.setOnClickListener {
-            ticket = ticket.toTicket().decrement().toParcelable()
+            ticket = ticket.toModel().decrement().toParcelable()
             ticketCountTextView.text = ticket.count.toString()
             decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
         }

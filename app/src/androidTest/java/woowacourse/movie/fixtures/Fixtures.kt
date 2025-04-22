@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.toMovie
+import woowacourse.movie.view.toModel
 import woowacourse.movie.view.toParcelable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -21,7 +21,7 @@ val movie =
 
 val ticket =
     Ticket(
-        movie = movie.toMovie(),
+        movie = movie.toModel(),
         showtime = LocalDateTime.of(2025, 4, 15, 11, 0, 0),
         count = 2,
     ).toParcelable()

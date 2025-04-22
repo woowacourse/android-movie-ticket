@@ -39,6 +39,6 @@ class MovieReservationResultActivity : AppCompatActivity() {
         showtime.text =
             ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
         ticketCount.text = getString(R.string.ticket_count_format).format(ticket.count)
-        totalPrice.text = getString(R.string.ticket_price_format).format(ticket.toTicket().totalPrice())
+        totalPrice.text = getString(R.string.ticket_price_format).format(ticket.toModel().totalPrice())
     }
 }
