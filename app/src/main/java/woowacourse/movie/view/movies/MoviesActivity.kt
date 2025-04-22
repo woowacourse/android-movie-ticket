@@ -29,9 +29,14 @@ class MoviesActivity : AppCompatActivity() {
         val movieListView = findViewById<ListView>(R.id.lv_main_movies)
         movieListView.adapter =
             MovieAdapter(
-                this,
-                Movie.values,
-                ::navigateToReservationComplete,
+                context = this,
+                movies = Movie.values,
+                movieClickListener =
+                    object : MovieClickListener {
+                        override fun onReservationClick(movie: Movie) {
+                            ::navigateToReservationComplete
+                        }
+                    },
             )
     }
 

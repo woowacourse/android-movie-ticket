@@ -11,7 +11,7 @@ import woowacourse.movie.model.Movie
 class MovieAdapter(
     private val context: Context,
     private val movies: List<Movie>,
-    private val onReservationClick: (selectedMovie: Movie) -> Unit,
+    private val movieClickListener: MovieClickListener,
 ) : BaseAdapter() {
     private lateinit var movieViewHolder: MovieViewHolder
 
@@ -32,7 +32,7 @@ class MovieAdapter(
                 LayoutInflater
                     .from(parent?.context)
                     .inflate(R.layout.item_movie, parent, false)
-            movieViewHolder = MovieViewHolder(view, context, onReservationClick)
+            movieViewHolder = MovieViewHolder(view, context, movieClickListener)
             view.tag = movieViewHolder
         } else {
             view = convertView

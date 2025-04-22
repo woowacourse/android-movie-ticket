@@ -13,7 +13,7 @@ import woowacourse.movie.view.Formatter
 class MovieViewHolder(
     view: View,
     private val context: Context,
-    private val onReservationClick: (selectedMovie: Movie) -> Unit,
+    private val movieClickListener: MovieClickListener,
 ) {
     private val formatter: Formatter by lazy { Formatter() }
 
@@ -56,7 +56,7 @@ class MovieViewHolder(
 
     private fun setupButtonClick(item: Movie) {
         button.setOnClickListener {
-            onReservationClick.invoke(item)
+            movieClickListener.onReservationClick(item)
         }
     }
 }
