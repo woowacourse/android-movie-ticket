@@ -2,7 +2,6 @@ package woowacourse.movie.completedbooking
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
