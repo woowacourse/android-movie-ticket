@@ -31,15 +31,7 @@ class MoviesAdapter(
             movieViewHolder = convertView.tag as MovieViewHolder
         }
 
-        val movie = movies[position]
-
-        movieViewHolder.title.text = movie.title
-        movieViewHolder.poster.setImageResource(movie.poster)
-        movieViewHolder.date.text = parent.context.getString(R.string.movies_movie_date_with_tilde, movie.startDate, movie.endDate)
-        movieViewHolder.runningTime.text = parent.context.getString(R.string.movies_movie_running_time, movie.runningTime)
-        movieViewHolder.bookingButton.setOnClickListener {
-            onBookingClick(movie)
-        }
+        movieViewHolder.bind(movies[position]) { movie -> onBookingClick(movie) }
 
         return view
     }
@@ -51,12 +43,35 @@ class MoviesAdapter(
     override fun getCount(): Int = movies.size
 
     private class MovieViewHolder(
-        view: View,
+        private val view: View,
     ) {
-        val title: TextView = view.findViewById(R.id.tv_movie_title)
-        val poster: ImageView = view.findViewById(R.id.iv_movie_poster)
-        val date: TextView = view.findViewById(R.id.tv_movie_date)
-        val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
-        val bookingButton: Button = view.findViewById(R.id.btn_movie_booking)
+        private val title: TextView = view.findViewById(R.id.tv_movie_title)
+        private val poster: ImageView = view.findViewById(R.id.iv_movie_poster)
+        private val date: TextView = view.findViewById(R.id.tv_movie_date)
+        private val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
+        private val bookingButton: Button = view.findViewById(R.id.btn_movie_booking)
+
+        fun bind(
+            movie: MovieUiModel,
+            onBookingClick: (MovieUiModel) -> Unit,
+        ) {
+            title.text = movie.title
+            poster.setImageResource(movie.poster)
+
+            date.text =
+                view.context.getString(
+                    R.string.movies_movie_date_with_tilde,
+                    movie.startDate,
+                    movie.endDate,
+                )
+
+            runningTime.text =
+                view.context.getString(
+                    R.string.movies_movie_running_time,
+                    movie.runningTime,
+                )
+
+            bookingButton.setOnClickListener { onBookingClick(movie) }
+        }
     }
 }
