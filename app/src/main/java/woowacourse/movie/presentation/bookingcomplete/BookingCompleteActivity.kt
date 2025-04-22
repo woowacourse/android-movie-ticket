@@ -16,20 +16,20 @@ import woowacourse.movie.presentation.model.BookingInfoUiModel
 import woowacourse.movie.util.getExtra
 
 class BookingCompleteActivity : AppCompatActivity() {
-    private val bookingInfo: BookingInfoUiModel by lazy { intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel() }
+    private val bookingInfoUiModel: BookingInfoUiModel by lazy { intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
 
-        val ticketTotalPrice = DecimalFormat("#,###").format(bookingInfo.totalPrice)
+        val ticketTotalPrice = DecimalFormat("#,###").format(bookingInfoUiModel.totalPrice)
 
-        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfo.movie.title
+        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfoUiModel.movie.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
-            getString(R.string.booking_complete_movie_date_time, bookingInfo.date, bookingInfo.movieTime.toUi())
+            getString(R.string.booking_complete_movie_date_time, bookingInfoUiModel.date, bookingInfoUiModel.movieTime.toUi())
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
-            getString(R.string.booking_complete_ticket_count, bookingInfo.ticketCount)
+            getString(R.string.booking_complete_ticket_count, bookingInfoUiModel.ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
