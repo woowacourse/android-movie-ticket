@@ -21,7 +21,21 @@ data class Movie(
                     R.drawable.lalaland,
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 30),
-                    120,
+                    123,
+                ),
+                Movie(
+                    "승부",
+                    R.drawable.match,
+                    LocalDate.of(2025, 4, 11),
+                    LocalDate.of(2025, 4, 30),
+                    114,
+                ),
+                Movie(
+                    "야당",
+                    R.drawable.yadang,
+                    LocalDate.of(2025, 4, 21),
+                    LocalDate.of(2025, 4, 30),
+                    109,
                 ),
             )
 
