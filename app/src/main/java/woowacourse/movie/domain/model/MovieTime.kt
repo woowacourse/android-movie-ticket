@@ -10,14 +10,15 @@ value class MovieTime(
     val value: LocalTime = LocalTime.now(),
 ) : Parcelable {
     companion object {
-        fun from(value: String): MovieTime {
-            val time = value.split(":")
-            return MovieTime(
-                LocalTime.of(
-                    time[0].toInt(),
-                    time[1].toInt(),
-                ),
-            )
+        /**
+         * 문자열을 기반으로 `MovieTime` 객체를 생성합니다.
+         *
+         * @param time "hh:mm" 형식의 문자열 (예: "14:30")
+         * @return 해당 시간 정보를 가지는 `MovieTime` 객체
+         */
+        fun from(time: String): MovieTime {
+            val (hour, minute) = time.split(":").map { it.toInt() }
+            return MovieTime(LocalTime.of(hour, minute))
         }
 
         fun getMovieTimes(dateType: DateType): List<MovieTime> =
