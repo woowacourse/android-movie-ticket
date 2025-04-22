@@ -26,14 +26,25 @@ class Scheduler {
         selectedDate: LocalDate,
         now: LocalDateTime,
     ): List<LocalTime> {
-        val dayType: DayType = DayType.of(selectedDate)
+        val openingHour =
+            when (DayType.of(selectedDate)) {
+                DayType.WEEKDAY -> WEEKDAY_OPENING_HOUR
+                DayType.WEEKEND -> WEEKEND_OPENING_HOUR
+            }
         val showtimes: List<LocalTime> =
-            (dayType.openingHour until dayType.closingHour step dayType.interval).map { hour ->
+            (openingHour until CLOSING_HOUR step SHOWTIME_INTERVAL_HOUR).map { hour ->
                 LocalTime.of(hour, 0)
             }
         return when (selectedDate == now.toLocalDate()) {
             true -> showtimes.filter { showtime -> showtime.hour > now.hour }
             else -> showtimes
         }
+    }
+
+    companion object {
+        private const val WEEKDAY_OPENING_HOUR = 10
+        private const val WEEKEND_OPENING_HOUR = 9
+        private const val CLOSING_HOUR = 24
+        private const val SHOWTIME_INTERVAL_HOUR = 2
     }
 }
