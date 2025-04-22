@@ -12,8 +12,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.model.DefaultPricingPolicy
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.domain.model.DefaultPricingPolicy
+import woowacourse.movie.domain.model.MovieTicket
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)

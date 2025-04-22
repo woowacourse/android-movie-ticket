@@ -12,11 +12,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.model.DefaultPricingPolicy
-import woowacourse.movie.model.HeadCount
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieScheduler
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.domain.model.DefaultPricingPolicy
+import woowacourse.movie.domain.model.HeadCount
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieScheduler
+import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.intentSerializable
 import java.time.LocalDate
@@ -180,7 +180,7 @@ class BookingActivity : BaseActivity() {
         if (confirmDialog == null) {
             initConfirmDialog()
         }
-        confirmDialog!!.show()
+        confirmDialog?.show()
     }
 
     private fun initConfirmDialog() {

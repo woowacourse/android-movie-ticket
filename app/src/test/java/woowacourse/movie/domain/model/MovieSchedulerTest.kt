@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.domain.model
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.inspectors.forAll
@@ -6,6 +6,7 @@ import io.kotest.matchers.collections.shouldNotBeEmpty
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.MovieScheduler
 import java.time.LocalDate
 import java.time.LocalTime
 

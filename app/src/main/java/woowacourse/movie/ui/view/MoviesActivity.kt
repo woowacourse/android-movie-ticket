@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.adapter.MovieAdapter
 import woowacourse.movie.ui.constant.IntentKeys
 import java.time.LocalDate
