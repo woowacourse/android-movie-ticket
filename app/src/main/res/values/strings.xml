@@ -16,4 +16,6 @@
     <string name="ticket_info_key">Ticket</string>
     <string name="headCount_message">일반 %s명</string>
     <string name="amount_message">%s원 (현장 결제)</string>
+    <string name="movie_not_found_message">존재하지 않는 영화입니다.</string>
+    <string name="confirm">확인</string>
 </resources>

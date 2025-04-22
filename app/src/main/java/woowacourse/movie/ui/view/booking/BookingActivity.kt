@@ -194,8 +194,8 @@ class BookingActivity : AppCompatActivity() {
     private fun showErrorDialog() {
         AlertDialog
             .Builder(this)
-            .setMessage("존재하지 않는 영화입니다.")
-            .setPositiveButton("확인") { _, _ -> finish() }
+            .setMessage(R.string.movie_not_found_message)
+            .setPositiveButton(R.string.confirm) { _, _ -> finish() }
             .setCancelable(false)
             .show()
     }
