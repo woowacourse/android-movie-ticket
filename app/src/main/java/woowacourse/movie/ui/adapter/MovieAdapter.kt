@@ -10,11 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.model.MovieUiModel
+import woowacourse.movie.ui.model.toUiModel
 
 class MovieAdapter(
     context: Context,
     private val movies: List<Movie>,
-    private val onClick: (Movie) -> Unit,
+    private val onClick: (MovieUiModel) -> Unit,
 ) : ArrayAdapter<Movie>(context, 0, movies) {
     override fun getView(
         position: Int,
@@ -22,7 +24,7 @@ class MovieAdapter(
         parent: ViewGroup,
     ): View {
         val (view, movieViewHolder) = getOrCreateViewHolder(convertView, parent)
-        movieViewHolder.bind(movies[position])
+        movieViewHolder.bind(movies[position].toUiModel())
         return view
     }
 
@@ -43,7 +45,7 @@ class MovieAdapter(
     private class MovieViewHolder(
         view: View,
         private val context: Context,
-        private val onClick: (Movie) -> Unit,
+        private val onClick: (MovieUiModel) -> Unit,
     ) {
         private val poster: ImageView = view.findViewById(R.id.imageview_poster)
         private val title: TextView = view.findViewById(R.id.textview_title)
@@ -51,21 +53,21 @@ class MovieAdapter(
         private val runningTime: TextView = view.findViewById(R.id.textview_runningtime)
         private val reservationBtn: Button = view.findViewById(R.id.button_book)
 
-        fun bind(movie: Movie) {
-            title.text = movie.title
+        fun bind(movieUiModel: MovieUiModel) {
+            title.text = movieUiModel.title
             screeningDate.text = context.getString(
                 R.string.date_text,
-                movie.startScreeningDate,
-                movie.endScreeningDate
+                movieUiModel.startScreeningDate,
+                movieUiModel.endScreeningDate
             )
             runningTime.text = context.getString(
                 R.string.runningTime_text,
-                movie.runningTime.toString()
+                movieUiModel.runningTime
             )
-            poster.setImageResource(movie.posterRes)
+            poster.setImageResource(movieUiModel.posterResId)
 
             reservationBtn.setOnClickListener {
-                onClick(movie)
+                onClick(movieUiModel)
             }
         }
     }

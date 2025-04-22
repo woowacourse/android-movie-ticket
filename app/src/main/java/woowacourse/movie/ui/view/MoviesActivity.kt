@@ -13,9 +13,9 @@ class MoviesActivity : BaseActivity() {
     override val layoutRes: Int
         get() = R.layout.activity_movies
     private val movieAdapter: MovieAdapter by lazy {
-        MovieAdapter(this, movies) { movie ->
+        MovieAdapter(this, movies) { movieUiModel ->
             val intent = Intent(this, BookingActivity::class.java).apply {
-                putExtra(IntentKeys.MOVIE, movie)
+                putExtra(IntentKeys.MOVIE, movieUiModel)
             }
             startActivity(intent)
         }
@@ -36,14 +36,14 @@ class MoviesActivity : BaseActivity() {
                     LocalDate.of(2025, 3, 26),
                     LocalDate.of(2025, 4, 26),
                     115,
-                    R.drawable.match,
+                    "Match",
                 ),
                 Movie(
                     "미키 17",
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 29),
                     137,
-                    R.drawable.mickey,
+                    "Mickey 17",
                 ),
             )
     }

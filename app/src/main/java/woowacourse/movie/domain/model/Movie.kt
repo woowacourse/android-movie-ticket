@@ -1,7 +1,5 @@
 package woowacourse.movie.domain.model
 
-import androidx.annotation.DrawableRes
-import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
@@ -9,5 +7,5 @@ data class Movie(
     val startScreeningDate: LocalDate,
     val endScreeningDate: LocalDate,
     val runningTime: Int,
-    @DrawableRes val posterRes: Int,
-) : Serializable
+    val poster: String,
+)
