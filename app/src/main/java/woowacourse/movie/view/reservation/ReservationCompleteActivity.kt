@@ -3,6 +3,7 @@ package woowacourse.movie.view.reservation
 import android.content.Context
 import android.content.Intent
 import android.icu.text.DecimalFormat
+import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -24,7 +25,13 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket = intent.getSerializableExtra(KEY_TICKET) as? Ticket
+        val ticket =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra(KEY_TICKET, Ticket::class.java)
+            } else {
+                intent.getSerializableExtra(KEY_TICKET) as? Ticket
+            }
+
         if (ticket == null) {
             handleInvalidTicket()
         } else {
