@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
 import woowacourse.movie.model.DefaultPricingPolicy
@@ -26,12 +27,7 @@ import java.util.Locale
 class BookingActivity : BaseActivity() {
     override val layoutRes: Int
         get() = R.layout.activity_booking
-    private val movie: Movie by lazy {
-        intent.intentSerializable(
-            IntentKeys.MOVIE,
-            Movie::class.java
-        ) ?: throw IllegalArgumentException(MOVIE_INTENT_ERROR)
-    }
+    private lateinit var movie: Movie
     private var headCount: HeadCount = HeadCount()
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
@@ -40,6 +36,7 @@ class BookingActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (!fetchMovieFromIntent()) return
         setupScreen(layoutRes)
         setupUI()
         bindListeners()
@@ -64,6 +61,17 @@ class BookingActivity : BaseActivity() {
         confirmDialog?.dismiss()
         confirmDialog = null
         super.onDestroy()
+    }
+
+    private fun fetchMovieFromIntent(): Boolean {
+        val data = intent.intentSerializable(IntentKeys.MOVIE, Movie::class.java)
+        if (data == null) {
+            Toast.makeText(this, MOVIE_INTENT_ERROR, Toast.LENGTH_SHORT).show()
+            finish()
+            return false
+        }
+        movie = data
+        return true
     }
 
     private fun setupUI() {
@@ -193,8 +201,9 @@ class BookingActivity : BaseActivity() {
             pricingPolicy = DefaultPricingPolicy()
         )
 
-        val intent = Intent(this, BookingSummaryActivity::class.java)
-        intent.putExtra(IntentKeys.TICKET, movieTicket)
+        val intent = Intent(this, BookingSummaryActivity::class.java).apply {
+            putExtra(IntentKeys.TICKET, movieTicket)
+        }
         startActivity(intent)
     }
 
