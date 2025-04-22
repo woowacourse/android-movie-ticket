@@ -29,8 +29,13 @@ import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ReservationActivity : AppCompatActivity() {
+class ReservationActivity :
+    AppCompatActivity(),
+    ReservationContract.View {
     private var ticketCount: TicketCount = TicketCount()
+    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this, ticketCount) }
+    private lateinit var ticketCountTextView: TextView
+
     private var selectedDatePosition: Int = 0
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
     private val movie by lazy { getSelectedMovieData() }
@@ -48,13 +53,13 @@ class ReservationActivity : AppCompatActivity() {
             insets
         }
 
-        val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_ticket_count)
+        ticketCountTextView = findViewById(R.id.tv_reservation_ticket_count)
         setupMovieReservationInfo()
         setupDateAdapter()
         setupTimeAdapter()
 
-        setupMinusButtonClick(ticketCountTextView)
-        setupPlusButtonClick(ticketCountTextView)
+        setupMinusButtonClick()
+        setupPlusButtonClick()
         setupCompleteButtonClick()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -159,28 +164,24 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupPlusButtonClick(peopleCountTextView: TextView) {
+    private fun setupPlusButtonClick() {
         findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
-            ticketCount += 1
-            peopleCountTextView.text = ticketCount.value.toString()
+            presenter.plusTicketCount()
         }
     }
 
-    private fun setupMinusButtonClick(peopleCountTextView: TextView) {
+    private fun setupMinusButtonClick() {
         findViewById<Button>(R.id.btn_reservation_minus_ticket_count).setOnClickListener {
-            runCatching {
-                ticketCount - 1
-            }.onSuccess {
-                ticketCount -= 1
-            }.onFailure { error ->
+            try {
+                presenter.minusTicketCount()
+            } catch (e: IllegalArgumentException) {
                 Toast
                     .makeText(
                         this,
-                        error.message,
+                        e.message,
                         Toast.LENGTH_SHORT,
                     ).show()
             }
-            peopleCountTextView.text = ticketCount.value.toString()
         }
     }
 
@@ -266,5 +267,9 @@ class ReservationActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun setTicketCount(count: Int) {
+        ticketCountTextView.text = count.toString()
     }
 }
