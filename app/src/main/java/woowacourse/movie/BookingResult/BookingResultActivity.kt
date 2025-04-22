@@ -1,8 +1,9 @@
-package woowacourse.movie
+package woowacourse.movie.BookingResult
 
 import android.os.Bundle
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.R
 import woowacourse.movie.dto.Ticket
 
 class BookingResultActivity : AppCompatActivity() {

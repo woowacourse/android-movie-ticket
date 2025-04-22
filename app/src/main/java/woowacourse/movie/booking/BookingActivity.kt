@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.booking
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,9 +9,8 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.adapter.SpinnerAdapter
-import woowacourse.movie.domain.MovieInfoGetter
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.BookingResult.BookingResultActivity
+import woowacourse.movie.R
 import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.dto.Ticket
 

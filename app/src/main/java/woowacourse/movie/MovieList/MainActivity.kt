@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.MovieList
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.adapter.MovieListAdapter
+import woowacourse.movie.R
+import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.dto.MovieInfo
 
 class MainActivity : AppCompatActivity() {
