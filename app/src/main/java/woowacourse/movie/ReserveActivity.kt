@@ -206,15 +206,13 @@ class ReserveActivity : AppCompatActivity() {
             updateTicketCount()
         }
 
-        val alertDialog = initSelectDialog()
-
         selectBtn.setOnClickListener {
-            alertDialog.show()
+            showSelectDialog()
         }
     }
 
-    private fun initSelectDialog(): AlertDialog.Builder {
-        return AlertDialog.Builder(this)
+    private fun showSelectDialog() {
+        AlertDialog.Builder(this)
             .setTitle(getString(R.string.reserve_dialog_title))
             .setMessage(getString(R.string.reserve_dialog_message))
             .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
@@ -225,6 +223,7 @@ class ReserveActivity : AppCompatActivity() {
                 dialog.dismiss()
             }
             .setCancelable(false)
+            .show()
     }
 
     private fun updateTicketCount() {
