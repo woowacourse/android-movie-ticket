@@ -50,7 +50,7 @@ class MainActivityTest {
 
     @Test
     fun 지금_예매_버튼을_누르면_예매_화면으로_이동한다() {
-        onView(withText("지금 예매"))
+        onView(withId(R.id.btn_book))
             .perform(click())
         onView(withId(R.id.booking))
             .check(matches(isDisplayed()))

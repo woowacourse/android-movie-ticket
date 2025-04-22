@@ -29,8 +29,8 @@ import java.time.LocalDateTime
 @Suppress("FunctionName")
 class ReservationActivityTest {
     init {
-        ServiceLocator.today = LocalDate.of(2025, 4, 4)
-        ServiceLocator.now = LocalDateTime.of(2025, 4, 4, 14, 0, 0)
+        ServiceLocator.today = LocalDate.of(2025, 4, 3)
+        ServiceLocator.now = LocalDateTime.of(2025, 4, 3, 14, 0, 0)
     }
 
     val movie = AndroidTestFixture.movie1
@@ -110,13 +110,13 @@ class ReservationActivityTest {
 
     @Test
     fun 평일에는_오전_10시부터_두_시간_간격으로_상영한다() {
-        // 2025년 4월 3일은 평일입니다
+        // 2025년 4월 4일은 평일입니다
         // given
         onView(withId(R.id.date_picker_actions))
             .perform(click())
 
         // when
-        onView(withText("04.03"))
+        onView(withText("04.04"))
             .perform(click())
 
         // then
@@ -141,15 +141,15 @@ class ReservationActivityTest {
 
     @Test
     fun 날짜와_시간은_현재_시간으로부터_가장_가까운_시간을_기본값으로_한다() {
-        onView(withText("04.04"))
-            .check(matches(isDisplayed()))
-        onView(withText("15:00"))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.date_picker_actions))
+            .check(matches(withText("04.03")))
+        onView(withId(R.id.time_picker_actions))
+            .check(matches(withText("16:00")))
     }
 
     @Test
     fun 플러스_버튼으로_인원_수를_1명_늘릴_수_있다() {
-        onView(withText("+"))
+        onView(withId(R.id.plus_button))
             .perform(click())
         onView(withId(R.id.count))
             .check(matches(withText("2")))
@@ -158,10 +158,10 @@ class ReservationActivityTest {
     @Test
     fun 마이너스_버튼으로_인원_수를_1명_줄일_수_있다() {
         // given
-        onView(withText("+"))
+        onView(withId(R.id.plus_button))
             .perform(click())
 
-        onView(withText("-"))
+        onView(withId(R.id.minus_button))
             .perform(click())
         onView(withId(R.id.count))
             .check(matches(withText("1")))
@@ -169,24 +169,25 @@ class ReservationActivityTest {
 
     @Test
     fun 한_명_일때_인원_수를_줄일_수_없다() {
-        onView(withText("-"))
+        onView(withId(R.id.minus_button))
             .perform(click())
         onView(withId(R.id.count))
             .check(matches(withText("1")))
     }
 
     @Test
-    fun 예매_완료_버튼을_누르면_다이얼로그가_표시된다() {
-        onView(withText("예매 완료"))
+    fun 선택_완료_버튼을_누르면_다이얼로그가_표시된다() {
+        onView(withId(R.id.common_button))
             .perform(click())
 
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+        onView(withText(R.string.complete_dialog_title))
+            .check(matches(isDisplayed()))
     }
 
     @Test
     fun 다이얼로그의_바깥_쪽을_터치해도_사라지지_않는다() {
         // given
-        onView(withText("선택 완료"))
+        onView(withId(R.id.common_button))
             .perform(click())
 
         // when
@@ -194,19 +195,19 @@ class ReservationActivityTest {
             .perform(click())
 
         // then
-        onView(withText("정말 예매하시겠습니까?"))
+        onView((withText(R.string.complete_dialog_title)))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun 다이얼로그에서_예매완료를_선택하면_예매_내역_화면으로_이동한다() {
         // given
-        onView(withText("선택 완료"))
+        onView(withId(R.id.common_button))
             .perform(click())
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+        onView(withText(R.string.complete_dialog_title)).check(matches(isDisplayed()))
 
         // when
-        onView(withText("예매 완료"))
+        onView(withText(R.string.complete_dialog_positive_button))
             .perform(click())
 
         // then
@@ -217,7 +218,7 @@ class ReservationActivityTest {
     @Test
     fun 화면을_회전시켜도_정보가_유지된다() {
         // given
-        onView(withText("+"))
+        onView(withId(R.id.plus_button))
             .perform(click())
         onView(withId(R.id.date_picker_actions))
             .perform(click())
@@ -237,9 +238,9 @@ class ReservationActivityTest {
         // then
         onView(withId(R.id.count))
             .check(matches(withText("2")))
-        onView(withText("04.05"))
-            .check(matches(isDisplayed()))
-        onView(withText("15:00"))
-            .check(matches(isDisplayed()))
+        onView(withId(R.id.date_picker_actions))
+            .check(matches(withText("04.05")))
+        onView(withId(R.id.time_picker_actions))
+            .check(matches(withText("15:00")))
     }
 }
