@@ -23,12 +23,12 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.ui.view.main.MainActivity
+import woowacourse.movie.ui.view.movies.MoviesActivity
 
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class MoviesActivityTest {
     @get:Rule
-    val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityScenarioRule = ActivityScenarioRule(MoviesActivity::class.java)
 
     @Before
     fun setUp() {

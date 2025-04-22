@@ -9,24 +9,21 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieRepository
+import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.domain.service.MovieTicketService
 import woowacourse.movie.ui.mapper.PosterMapper
+import woowacourse.movie.ui.view.BaseActivity
 import woowacourse.movie.ui.view.utils.setImage
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class BookingActivity : AppCompatActivity() {
+class BookingActivity : BaseActivity() {
     private lateinit var movie: Movie
     private lateinit var headCountView: TextView
     private var date: LocalDate = LocalDate.now()
@@ -37,7 +34,7 @@ class BookingActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         if (!canLoadMovie()) return
-        setupScreen()
+        setupScreen(R.layout.activity_booking)
         displayMovieInfo()
         setupTicketQuantityButtonListeners()
         setupSelectButtonListener()
@@ -54,16 +51,6 @@ class BookingActivity : AppCompatActivity() {
             val foundMovie = MovieRepository.getMovieById(movieId)
             movie = foundMovie
             true
-        }
-    }
-
-    private fun setupScreen() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_booking)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 

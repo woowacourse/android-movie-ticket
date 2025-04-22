@@ -20,7 +20,7 @@
             android:name=".ui.view.booking.BookingSummaryActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.main.MainActivity"
+            android:name=".ui.view.movies.MoviesActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
