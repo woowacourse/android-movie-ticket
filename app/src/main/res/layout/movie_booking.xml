@@ -58,7 +58,7 @@
             style="@style/MovieBookingSubTitleTextStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
             android:id="@+id/date_picker"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toTopOf="@id/minus_member_count"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginEnd="8dp" />
@@ -89,7 +89,7 @@
             android:id="@+id/time_picker"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10sp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintTop_toTopOf="@id/date_picker"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"/>
