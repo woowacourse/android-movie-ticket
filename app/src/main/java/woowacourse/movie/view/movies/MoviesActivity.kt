@@ -5,30 +5,35 @@ import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.base.BaseActivity
-import woowacourse.movie.view.fixture.dummyMovie
 import woowacourse.movie.view.reservation.ReservationActivity
 
-class MoviesActivity : BaseActivity(R.layout.activity_movies) {
+class MoviesActivity :
+    BaseActivity(R.layout.activity_movies),
+    MoviesContract.View {
+    private val presenter: MoviesPresenter by lazy { MoviesPresenter(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setMovieListView()
+        presenter.fetchData()
     }
 
-    private fun setMovieListView() {
+    override fun setScreen(
+        movies: List<Movie>,
+        navigateToReservationScreen: (Movie) -> Unit,
+    ) {
         val lvMovie = findViewById<ListView>(R.id.lv_movie)
-        val movies = listOf(dummyMovie)
         lvMovie.adapter =
             MovieListAdapter(
                 movies,
                 object : OnMovieEventListener {
                     override fun onClick(movie: Movie) {
-                        navigateToReservation(movie)
+                        navigateToReservationScreen(movie)
                     }
                 },
             )
     }
 
-    private fun navigateToReservation(movie: Movie) {
+    override fun navigateToReservationScreen(movie: Movie) {
         val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
     }
