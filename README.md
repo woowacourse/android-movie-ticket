@@ -74,6 +74,6 @@
 - [ ] createTicket() 분리
 - [ ] onClick 확장성 고려하기
 - [ ] DetailBookingActivity 다이어트 (익명 객체를 외부로 분리, 파일 분리)
-- [ ] Movie의 image 타입 Int를 리소스 ID로 표현하기
+- [x] Movie의 image 타입 Int를 리소스 ID로 표현하기
 - [ ] 스피너 테스트 코드 추가
 - [ ] 화면 회전 테스트 코드 추가
