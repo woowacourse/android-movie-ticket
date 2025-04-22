@@ -34,14 +34,16 @@ class MovieListAdapter(
     ): View {
         val movie = getItem(position)
         val view: View
+        val viewHolder: ViewHolder
 
         if (convertView == null) {
             view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+            viewHolder = ViewHolder(view)
+            view.tag = viewHolder
         } else {
             view = convertView
+            viewHolder = view.tag as ViewHolder
         }
-
-        val viewHolder = ViewHolder(view)
 
         initMovie(viewHolder, movie)
 
