@@ -30,10 +30,10 @@ class ReservationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityReservationBinding
     private lateinit var reservationDay: LocalDate
     private lateinit var runningDateTime: LocalTime
+    private lateinit var screeningTimeAdapter: RunningTimeSpinnerAdapter
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
-    private var isSpinnerInitialized = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,15 +134,11 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    if (!isSpinnerInitialized) {
-                        isSpinnerInitialized = true
-                        return
-                    }
                     reservationDay = parent?.getItemAtPosition(position) as LocalDate
-                    binding.timePickerActions.adapter =
-                        RunningTimeSpinnerAdapter(
-                            RunningTimes(ServiceLocator.now).runningTimes(reservationDay),
-                        )
+                    screeningTimeAdapter.apply {
+                        items = RunningTimes(ServiceLocator.now).runningTimes(reservationDay)
+                        notifyDataSetChanged()
+                    }
                     binding.timePickerActions.setSelection(runningTimePosition)
                     datePosition = position
                 }
@@ -152,10 +148,11 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun setScreeningTime() {
-        binding.timePickerActions.adapter =
+        screeningTimeAdapter =
             RunningTimeSpinnerAdapter(
                 RunningTimes(ServiceLocator.now).runningTimes(reservationDay),
             )
+        binding.timePickerActions.adapter = screeningTimeAdapter
         runningDateTime = binding.timePickerActions.selectedItem as LocalTime
         binding.timePickerActions.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {

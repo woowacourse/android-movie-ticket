@@ -7,7 +7,7 @@ import android.widget.TextView
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class RunningTimeSpinnerAdapter(val items: List<LocalTime>) : BaseAdapter() {
+class RunningTimeSpinnerAdapter(var items: List<LocalTime>) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
     }

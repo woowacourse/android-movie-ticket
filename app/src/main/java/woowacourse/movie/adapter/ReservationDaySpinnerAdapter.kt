@@ -7,7 +7,7 @@ import android.widget.TextView
 import woowacourse.movie.global.toFormattedString
 import java.time.LocalDate
 
-class ReservationDaySpinnerAdapter(val items: List<LocalDate>) : BaseAdapter() {
+class ReservationDaySpinnerAdapter(var items: List<LocalDate>) : BaseAdapter() {
     override fun getCount(): Int {
         return items.size
     }
