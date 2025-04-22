@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 
-class TimeScheduler {
+object TimeScheduler {
     fun reservableTimes(
         selectedDate: LocalDate,
         currentDate: LocalDateTime,
@@ -24,7 +24,7 @@ class TimeScheduler {
     private fun getTimesBetween(
         startTime: LocalTime,
         screeningDayType: ScreeningDayType,
-        endTime: LocalTime = END_TIME,
+        endTime: LocalTime = LocalTime.MAX,
     ): List<LocalTime> {
         if (startTime > endTime) return listOf()
 
@@ -36,9 +36,5 @@ class TimeScheduler {
             ScreeningDayType.WEEKDAY -> hours.filter { it.hour % 2 == 0 }
             ScreeningDayType.WEEKEND -> hours.filter { it.hour % 2 == 1 }
         }
-    }
-
-    companion object {
-        private val END_TIME = LocalTime.of(23, 59)
     }
 }

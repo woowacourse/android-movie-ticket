@@ -6,8 +6,6 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class TimeSchedulerTest {
-    private val timeScheduler = TimeScheduler()
-
     @Test
     fun `현재 날짜와 선택된 날짜가 같고 평일인데, 현재 시간이 빠른 경우 현재 시간 기준으로 짝수 시간을 반환한다`() {
         // given
@@ -20,7 +18,7 @@ class TimeSchedulerTest {
             )
 
         // when
-        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = TimeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -38,7 +36,7 @@ class TimeSchedulerTest {
             )
 
         // when
-        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = TimeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -61,7 +59,7 @@ class TimeSchedulerTest {
             )
 
         // when
-        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = TimeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -85,7 +83,7 @@ class TimeSchedulerTest {
             )
 
         // when
-        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = TimeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)
@@ -99,7 +97,7 @@ class TimeSchedulerTest {
         val expected: List<LocalTime> = listOf()
 
         // when
-        val actual = timeScheduler.reservableTimes(selectedDate, currentTime)
+        val actual = TimeScheduler.reservableTimes(selectedDate, currentTime)
 
         // then
         assertThat(actual).isEqualTo(expected)

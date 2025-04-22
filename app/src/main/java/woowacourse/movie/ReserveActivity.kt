@@ -16,9 +16,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.domain.DateScheduler
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieScheduler
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.domain.TicketCount
@@ -30,7 +28,6 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReserveActivity : AppCompatActivity() {
-    private val movieScheduler = MovieScheduler(DateScheduler(), TimeScheduler())
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val ticketCount: TextView by lazy { findViewById(R.id.tv_ticket_count) }
@@ -79,10 +76,10 @@ class ReserveActivity : AppCompatActivity() {
 
     private fun getInitSchedule(screeningDate: ScreeningDate): LocalDateTime {
         val firstDate =
-            movieScheduler.dateScheduler.reservableDates(screeningDate, LocalDate.now()).first()
+            screeningDate.reservableDates(LocalDate.now()).first()
 
         val firstTime =
-            movieScheduler.timeScheduler.reservableTimes(
+            TimeScheduler.reservableTimes(
                 firstDate,
                 getCurrentTime(),
             ).first()
@@ -111,7 +108,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun initDateSpinner() {
-        val dates = movieScheduler.dateScheduler.reservableDates(movie.screeningDate, LocalDate.now())
+        val dates = movie.screeningDate.reservableDates(LocalDate.now())
 
         dateSpinner.adapter =
             ArrayAdapter(
@@ -140,11 +137,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner() {
-        val selectedDate =
-            movieScheduler.dateScheduler.startDate(
-                movie.screeningDate.startDate,
-                LocalDate.now(),
-            )
+        val selectedDate = dateSpinner.selectedItem as LocalDate
 
         updateTimeSpinner(selectedDate)
 
@@ -166,7 +159,7 @@ class ReserveActivity : AppCompatActivity() {
 
     private fun updateTimeSpinner(selectedDate: LocalDate) {
         val times =
-            movieScheduler.timeScheduler.reservableTimes(
+            TimeScheduler.reservableTimes(
                 selectedDate,
                 getCurrentTime(),
             )
