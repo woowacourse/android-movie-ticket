@@ -32,10 +32,9 @@ import java.time.LocalDateTime
 class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
+    private lateinit var ticketCountTextView: TextView
     private var ticketCount: TicketCount = TicketCount()
     private val presenter: ReservationPresenter by lazy { ReservationPresenter(this, ticketCount) }
-    private lateinit var ticketCountTextView: TextView
-
     private var selectedDatePosition: Int = 0
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
     private val movie by lazy { getSelectedMovieData() }
@@ -185,9 +184,14 @@ class ReservationActivity :
         }
     }
 
+    override fun setTicketCount(count: Int) {
+        ticketCountTextView.text = count.toString()
+        ticketCount = TicketCount(count) // 에반디
+    }
+
     private fun setupCompleteButtonClick() {
         findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
-            showReservationDialog(
+            presenter.onReservationCompleted(
                 getString(R.string.reservation_dialog_title),
                 getString(R.string.reservation_dialog_message),
             )
@@ -207,7 +211,7 @@ class ReservationActivity :
         }
     }
 
-    private fun showReservationDialog(
+    override fun showReservationDialog(
         title: String,
         message: String,
     ) {
@@ -267,9 +271,5 @@ class ReservationActivity :
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
-    }
-
-    override fun setTicketCount(count: Int) {
-        ticketCountTextView.text = count.toString()
     }
 }

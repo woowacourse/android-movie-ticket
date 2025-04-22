@@ -15,4 +15,14 @@ class ReservationPresenter(
         ticketCount = ticketCount.minus(1)
         view.setTicketCount(ticketCount.value)
     }
+
+    override fun onReservationCompleted(
+        title: String,
+        message: String,
+    ) {
+        view.showReservationDialog(
+            title,
+            message,
+        )
+    }
 }
