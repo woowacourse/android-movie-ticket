@@ -34,6 +34,7 @@ class ReserveActivity : AppCompatActivity() {
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val ticketCount: TextView by lazy { findViewById(R.id.tv_ticket_count) }
+    private val movie: Movie by lazy { setUpMovie() }
     private lateinit var reservation: Reservation
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +48,17 @@ class ReserveActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val movie = getMovie()
-        reservation = getReservation(savedInstanceState, movie)
+        reservation = getReservation(savedInstanceState)
 
-        initMovieInfo(movie)
-        initDateSpinner(movie.screeningDate)
-        initTimeSpinner(movie.screeningDate.startDate)
+        initMovieInfo()
+        initDateSpinner()
+        initTimeSpinner()
 
         updateTicketCount()
         initButtonClickListeners()
     }
 
-    private fun getMovie(): Movie {
+    private fun setUpMovie(): Movie {
         val movie: Movie? = intent.getSerializableCompat(getString(R.string.key_movie))
 
         if (movie == null) {
@@ -68,10 +68,7 @@ class ReserveActivity : AppCompatActivity() {
         return movie!!
     }
 
-    private fun getReservation(
-        savedInstanceState: Bundle?,
-        movie: Movie,
-    ): Reservation {
+    private fun getReservation(savedInstanceState: Bundle?): Reservation {
         return savedInstanceState?.getSerializable(getString(R.string.key_reservation)) as? Reservation
             ?: Reservation(
                 title = movie.title,
@@ -101,7 +98,7 @@ class ReserveActivity : AppCompatActivity() {
             .withNano(0)
     }
 
-    private fun initMovieInfo(movie: Movie) {
+    private fun initMovieInfo() {
         val poster = findViewById<ImageView>(R.id.iv_poster)
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
@@ -113,8 +110,8 @@ class ReserveActivity : AppCompatActivity() {
         runningTime.text = getString(R.string.formatted_minute).format(movie.runningTime.time)
     }
 
-    private fun initDateSpinner(screeningDate: ScreeningDate) {
-        val dates = movieScheduler.dateScheduler.reservableDates(screeningDate, LocalDate.now())
+    private fun initDateSpinner() {
+        val dates = movieScheduler.dateScheduler.reservableDates(movie.screeningDate, LocalDate.now())
 
         dateSpinner.adapter =
             ArrayAdapter(
@@ -142,10 +139,10 @@ class ReserveActivity : AppCompatActivity() {
             }
     }
 
-    private fun initTimeSpinner(startDate: LocalDate) {
+    private fun initTimeSpinner() {
         val selectedDate =
             movieScheduler.dateScheduler.startDate(
-                startDate,
+                movie.screeningDate.startDate,
                 LocalDate.now(),
             )
 
