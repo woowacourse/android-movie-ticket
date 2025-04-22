@@ -1,20 +1,33 @@
 package woowacourse.movie
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.adapter.MovieListAdapter
+import woowacourse.movie.domain.Movie
+import java.time.Duration
+import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var allItems: List<Movie>
+    private lateinit var adapter: MovieListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+
+        allItems =
+            listOf(
+                Movie(
+                    "해리 포터와 마법사의 돌",
+                    LocalDate.of(2025,4,1),
+                    LocalDate.of(2025,4,25),
+                    Duration.ofMinutes(152),
+                ),
+            )
+
+        val listView: ListView = findViewById(R.id.movie_list)
+        adapter = MovieListAdapter(this, allItems)
+        listView.adapter = adapter
     }
 }
