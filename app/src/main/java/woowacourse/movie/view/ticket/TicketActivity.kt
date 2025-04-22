@@ -10,8 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.ticket.Ticket
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.screening.ReservationActivity.Companion.EXTRA_SHOWTIME
+import woowacourse.movie.view.screening.ReservationActivity.Companion.EXTRA_TICKET_COUNT
+import woowacourse.movie.view.screening.ReservationActivity.Companion.EXTRA_TICKET_TITLE
 import woowacourse.movie.view.util.ErrorMessage
+import java.time.LocalDateTime
 
 class TicketActivity : AppCompatActivity() {
     private var ticket: Ticket? = null
@@ -31,20 +34,34 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initModel() {
-        ticket = intent.getTicketExtra(ReservationActivity.Companion.EXTRA_TICKET)
-            ?: error(ErrorMessage("ticket").notProvided())
+        ticket =
+            intent.run {
+                val title: String =
+                    getStringExtra(EXTRA_TICKET_TITLE) ?: error(ErrorMessage("title").notProvided())
+                val count: Int =
+                    getIntExtra(
+                        EXTRA_TICKET_COUNT,
+                        TICKET_COUNT_NOT_PROVIDED,
+                    ).takeIf { it != TICKET_COUNT_NOT_PROVIDED }
+                        ?: error(ErrorMessage("ticket count").notProvided())
+                val showtime: LocalDateTime =
+                    getLocalDateTimeExtra(EXTRA_SHOWTIME) ?: error(
+                        ErrorMessage("showtime").notProvided(),
+                    )
+                Ticket(title, count, showtime)
+            }
     }
 
     @Suppress("DEPRECATION")
-    private fun Intent.getTicketExtra(key: String): Ticket? =
+    private fun Intent.getLocalDateTimeExtra(key: String): LocalDateTime? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
                 getSerializableExtra(
                     key,
-                    Ticket::class.java,
+                    LocalDateTime::class.java,
                 )
 
-            else -> getSerializableExtra(key) as? Ticket
+            else -> getSerializableExtra(key) as? LocalDateTime
         }
 
     private fun initViews() {
@@ -79,5 +96,9 @@ class TicketActivity : AppCompatActivity() {
         val ticket: Ticket = ticket ?: error(ErrorMessage("ticket").notProvided())
         val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
         titleView.text = ticket.title
+    }
+
+    companion object {
+        private const val TICKET_COUNT_NOT_PROVIDED = -1
     }
 }

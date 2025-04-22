@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.screening
 
 import android.content.DialogInterface
 import android.content.Intent
@@ -17,9 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.screening.Screening
-import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.screening.Poster.posterId
-import woowacourse.movie.view.screening.ScreeningActivity
 import woowacourse.movie.view.ticket.TicketActivity
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate
@@ -240,14 +238,12 @@ class ReservationActivity : AppCompatActivity() {
     private fun navigateToTicketActivity() {
         val screening: Screening = screening ?: error(ErrorMessage("screening").notProvided())
         val intent =
-            Intent(this, TicketActivity::class.java).putExtra(
-                EXTRA_TICKET,
-                Ticket(
+            Intent(this, TicketActivity::class.java)
+                .putExtra(
+                    EXTRA_TICKET_TITLE,
                     screening.title,
-                    ticketCount,
-                    LocalDateTime.of(selectedDate, selectedTime),
-                ),
-            )
+                ).putExtra(EXTRA_TICKET_COUNT, ticketCount)
+                .putExtra(EXTRA_SHOWTIME, LocalDateTime.of(selectedDate, selectedTime))
         startActivity(intent)
         finish()
     }
@@ -258,6 +254,7 @@ class ReservationActivity : AppCompatActivity() {
         const val TICKET_COUNT = "TICKET_COUNT"
         const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
+        const val EXTRA_TICKET_TITLE = "woowacourse.movie.EXTRA_TICKET_TITLE"
         const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
         const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
         const val EXTRA_START_DATE = "woowacourse.movie.EXTRA_START_DATE"

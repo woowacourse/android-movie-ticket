@@ -17,7 +17,7 @@ import org.hamcrest.core.Is.`is`
 import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.screening.ReservationActivity
 import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_DAY
 import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_MONTH
 import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_YEAR
