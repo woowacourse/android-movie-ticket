@@ -12,7 +12,11 @@ import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.reservation.ReservationActivity
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity :
+    AppCompatActivity(),
+    MovieContract.View {
+    private val presenter: MoviePresenter by lazy { MoviePresenter(this) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -23,14 +27,18 @@ class MoviesActivity : AppCompatActivity() {
             insets
         }
 
-        setupMovieAdapter()
+        presenter.fetchMovies()
     }
 
-    private fun setupMovieAdapter() {
+    override fun updateView(movies: List<Movie>) {
+        setupMovieAdapter(movies)
+    }
+
+    private fun setupMovieAdapter(movies: List<Movie>) {
         val movieListView = findViewById<ListView>(R.id.lv_movies)
         movieListView.adapter =
             MovieAdapter(
-                Movie.values,
+                movies,
                 object : MovieClickListener {
                     override fun onReservationClick(movie: Movie) {
                         navigateToReservationComplete(movie)
