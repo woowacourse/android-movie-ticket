@@ -109,14 +109,16 @@ class ReservationActivity : AppCompatActivity() {
     private fun setCompleteButtonEventListener(movie: Movie) {
         binding.commonButton.setOnClickListener {
             dialog {
-                navigateToReservationComplete(
-                    BookingStatus(
-                        movie = movie,
-                        isBooked = true,
-                        memberCount = MemberCount(memberCount),
-                        bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
-                    ),
-                )
+                onPositiveButtonClicked {
+                    navigateToReservationComplete(
+                        BookingStatus(
+                            movie = movie,
+                            isBooked = true,
+                            memberCount = MemberCount(memberCount),
+                            bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
+                        ),
+                    )
+                }
             }.show()
         }
     }
@@ -177,18 +179,8 @@ class ReservationActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun dialog(block: () -> Unit): AlertDialog {
-        return AlertDialog.Builder(this)
-            .setTitle(getString(R.string.complete_dialog_title))
-            .setMessage(getString(R.string.complete_dialog_message))
-            .setPositiveButton(getString(R.string.complete_dialog_positive_button)) { _, _ ->
-                block()
-            }
-            .setNegativeButton(R.string.complete_dialog_negative_button) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setCancelable(false)
-            .create()
+    private fun dialog(block: DialogBuilder.() -> Unit): AlertDialog {
+        return DialogBuilder(this).apply(block).build()
     }
 
     companion object {
@@ -208,4 +200,24 @@ class ReservationActivity : AppCompatActivity() {
                 .apply { putExtra(MOVIE_KEY, dto) }
         }
     }
+}
+
+private class DialogBuilder(val context: Context) {
+    private var dialog: AlertDialog.Builder =
+        AlertDialog.Builder(context)
+            .setTitle(context.getString(R.string.complete_dialog_title))
+            .setMessage(context.getString(R.string.complete_dialog_message))
+            .setNegativeButton(R.string.complete_dialog_negative_button) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+
+    fun onPositiveButtonClicked(block: () -> Unit): DialogBuilder {
+        dialog.setPositiveButton(context.getString(R.string.complete_dialog_positive_button)) { _, _ ->
+            block()
+        }
+        return this
+    }
+
+    fun build(): AlertDialog = dialog.create()
 }
