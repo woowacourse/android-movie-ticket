@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.time.LocalDateTime
 
 data class MovieTicket(
-    val movieId: String,
+    val movieId: Int,
     val screeningDateTime: LocalDateTime,
     val headCount: Int,
     val amount: Int,

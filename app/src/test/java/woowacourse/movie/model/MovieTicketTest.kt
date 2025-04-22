@@ -14,7 +14,7 @@ class MovieTicketTest {
     fun setUp() {
         movieTicket =
             MovieTicket(
-                "match",
+                1,
                 LocalDateTime.of(2025, 4, 16, 11, 0),
                 3,
                 39000,
@@ -25,7 +25,7 @@ class MovieTicketTest {
     fun `id, 상영날짜, 인원을 가진다`() {
         // Then
         assertSoftly(movieTicket) {
-            movieId shouldBe "match"
+            movieId shouldBe 1
             screeningDateTime shouldBe LocalDateTime.of(2025, 4, 16, 11, 0)
             headCount shouldBe 3
         }

@@ -29,7 +29,7 @@ class BookingActivityTest {
                 LocalDate.of(2025, 3, 26),
                 LocalDate.of(2025, 4, 26),
                 115,
-                "match",
+                1,
             )
 
         val intent =

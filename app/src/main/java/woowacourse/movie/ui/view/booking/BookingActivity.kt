@@ -46,16 +46,13 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun canLoadMovie(): Boolean {
-        val movieId = intent.getStringExtra(getString(R.string.movie_info_key))
-        val foundMovie =
-            movieId?.let {
-                MovieRepository.getMovieById(it)
-            }
+        val movieId = intent.getIntExtra(getString(R.string.movie_info_key), -1)
 
-        return if (foundMovie == null) {
+        return if (movieId == -1) {
             showErrorDialog()
             false
         } else {
+            val foundMovie = MovieRepository.getMovieById(movieId)
             movie = foundMovie
             true
         }

@@ -8,7 +8,7 @@ class MovieTicketService(
     private val pricingPolicy: PricingPolicy,
 ) {
     fun createMovieTicket(
-        id: String,
+        id: Int,
         screeningDateTime: LocalDateTime,
         headCount: Int,
     ): MovieTicket {

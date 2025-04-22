@@ -24,7 +24,7 @@ class BookingSummaryActivityTest {
     fun setUp() {
         val ticket =
             MovieTicket(
-                "match",
+                1,
                 LocalDateTime.of(2025, 4, 18, 12, 0),
                 2,
                 26000,

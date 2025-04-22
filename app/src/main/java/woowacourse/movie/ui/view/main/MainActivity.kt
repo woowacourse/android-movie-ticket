@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         val adapter =
             MovieAdapter(
                 this,
-                MovieRepository.getMovies(),
+                MovieRepository.movies,
                 onReservationClickListener =
                     { movieId ->
                         val intent = Intent(this, BookingActivity::class.java)

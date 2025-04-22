@@ -15,7 +15,7 @@ import woowacourse.movie.ui.mapper.PosterMapper
 class MovieAdapter(
     context: Context,
     private val movies: List<Movie>,
-    private val onReservationClickListener: (String) -> Unit,
+    private val onReservationClickListener: (Int) -> Unit,
 ) : ArrayAdapter<Movie>(context, 0, movies) {
     override fun getView(
         position: Int,

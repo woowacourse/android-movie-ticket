@@ -15,7 +15,7 @@ class MovieTest {
                 LocalDate.of(2025, 3, 26),
                 LocalDate.of(2025, 3, 27),
                 115,
-                "match",
+                1,
             )
 
         assertSoftly(movie) {
@@ -23,7 +23,7 @@ class MovieTest {
             startScreeningDate shouldBe LocalDate.of(2025, 3, 26)
             endScreeningDate shouldBe LocalDate.of(2025, 3, 27)
             runningTime shouldBe 115
-            id shouldBe "match"
+            id shouldBe 1
         }
     }
 }

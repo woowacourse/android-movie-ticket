@@ -3,17 +3,17 @@ package woowacourse.movie.ui.mapper
 import woowacourse.movie.R
 
 object PosterMapper {
-    fun mapMovieIdToDrawableRes(key: String): Int? =
-        when (key) {
-            "match" -> R.drawable.match
-            "mickey" -> R.drawable.mickey
+    fun mapMovieIdToDrawableRes(id: Int): Int? =
+        when (id) {
+            1 -> R.drawable.match
+            2 -> R.drawable.mickey
             else -> null
         }
 
-    fun mapMovieIdToMovieTitle(key: String): String? =
-        when (key) {
-            "match" -> "승부"
-            "mickey" -> "미키 17"
+    fun mapMovieIdToMovieTitle(id: Int): String? =
+        when (id) {
+            1 -> "승부"
+            2 -> "미키 17"
             else -> null
         }
 }
