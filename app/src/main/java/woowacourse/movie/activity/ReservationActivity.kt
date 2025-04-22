@@ -1,6 +1,8 @@
 package woowacourse.movie.activity
 
 import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -64,7 +66,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        val movie = intent.getObjectFromIntent<Movie>(MainActivity.MOVIE_KEY)
+        val movie = intent.getObjectFromIntent<Movie>(MOVIE_KEY)
         setBindingText(movie)
         setScreeningDate(movie)
         setScreeningTime()
@@ -171,7 +173,7 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
-        val intent = newIntent<ReservationCompleteActivity>(listOf(BOOKING_STATUS_KEY to bookingStatus))
+        val intent = ReservationCompleteActivity.newIntent(this, bookingStatus)
         startActivity(intent)
     }
 
@@ -190,12 +192,20 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
+        const val MOVIE_KEY = "movie"
         const val MEMBER_COUNT_KEY = "memberCount"
         const val RUNNING_TIME_KEY = "runningTime"
         const val RESERVATION_DAY_KEY = "reservationDay"
-        const val BOOKING_STATUS_KEY = "bookingStatus"
         const val MEMBER_COUNT_DEFAULT = 1
         const val MINIMUM_MEMBER_COUNT = 1
         const val DEFAULT_POSITION = 0
+
+        fun newIntent(
+            from: Context,
+            dto: Movie,
+        ): Intent {
+            return Intent(from, ReservationActivity::class.java)
+                .apply { putExtra(MOVIE_KEY, dto) }
+        }
     }
 }

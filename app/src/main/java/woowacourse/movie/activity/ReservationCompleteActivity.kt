@@ -1,5 +1,7 @@
 package woowacourse.movie.activity
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +24,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val bookingStatus = intent.getObjectFromIntent<BookingStatus>(ReservationActivity.BOOKING_STATUS_KEY)
+        val bookingStatus = intent.getObjectFromIntent<BookingStatus>(BOOKING_STATUS_KEY)
 
         binding.bookedMovieTitleText.text = bookingStatus.movie.title
         binding.bookedMovieRunningDayText.text = bookingStatus.bookedTime.toFormattedString()
@@ -43,5 +45,18 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        const val BOOKING_STATUS_KEY = "bookingStatus"
+
+        fun newIntent(
+            from: Activity,
+            dto: BookingStatus,
+        ): Intent {
+            return Intent(from, ReservationCompleteActivity::class.java).apply {
+                putExtra(BOOKING_STATUS_KEY, dto)
+            }
+        }
     }
 }

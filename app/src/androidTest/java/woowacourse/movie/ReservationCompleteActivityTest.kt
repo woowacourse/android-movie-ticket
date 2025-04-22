@@ -12,7 +12,6 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.ReservationActivity.Companion.BOOKING_STATUS_KEY
 import woowacourse.movie.activity.ReservationCompleteActivity
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
@@ -43,7 +42,7 @@ class ReservationCompleteActivityTest {
         ApplicationProvider.getApplicationContext<Context>()
             .newIntent<ReservationCompleteActivity>(
                 listOf(
-                    BOOKING_STATUS_KEY to bookingStatus,
+                    ReservationCompleteActivity.BOOKING_STATUS_KEY to bookingStatus,
                 ),
             )
 

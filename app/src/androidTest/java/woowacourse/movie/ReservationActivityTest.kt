@@ -18,7 +18,6 @@ import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.MainActivity.Companion.MOVIE_KEY
 import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.fixture.AndroidTestFixture
 import woowacourse.movie.global.ServiceLocator
@@ -40,7 +39,7 @@ class ReservationActivityTest {
         ApplicationProvider.getApplicationContext<Context>()
             .newIntent<ReservationActivity>(
                 listOf(
-                    MOVIE_KEY to movie,
+                    ReservationActivity.MOVIE_KEY to movie,
                 ),
             )
 

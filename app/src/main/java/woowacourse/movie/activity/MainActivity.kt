@@ -31,11 +31,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservationComplete(movie: Movie) {
-        val intent = newIntent<ReservationActivity>(listOf(MOVIE_KEY to movie))
+        val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
-    }
-
-    companion object {
-        const val MOVIE_KEY = "movie"
     }
 }
