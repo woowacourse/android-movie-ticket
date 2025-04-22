@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.ticket.CancelTimePolicy
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDateTime
@@ -63,10 +64,20 @@ class TicketActivity : AppCompatActivity() {
         }
 
     private fun initViews() {
+        initCancelDescriptionView()
         initTitleView()
         initShowtimeView()
         initCountView()
         initPriceView()
+    }
+
+    private fun initCancelDescriptionView() {
+        val cancelDescriptionView = findViewById<TextView>(R.id.tv_ticket_cancel_description)
+        cancelDescriptionView.text =
+            getString(
+                R.string.ticket_cancel_time_description,
+                CancelTimePolicy.CANCELABLE_MINUTES,
+            )
     }
 
     private fun initPriceView() {
