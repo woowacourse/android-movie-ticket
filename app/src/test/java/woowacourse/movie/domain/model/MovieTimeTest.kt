@@ -6,7 +6,7 @@ import java.time.LocalTime
 
 class MovieTimeTest {
     @Test
-    fun `from는 문자열을 LocalTime으로 파싱해 MovieTime으로 변환한다`() {
+    fun `from은 문자열을 LocalTime으로 파싱해 MovieTime으로 변환한다`() {
         // given
         val timeString = "14:30"
 
