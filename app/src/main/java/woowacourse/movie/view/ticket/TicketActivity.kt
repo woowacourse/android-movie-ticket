@@ -33,35 +33,21 @@ class TicketActivity : AppCompatActivity() {
     }
 
     private fun initModel() {
-        ticket =
-            intent.run {
-                val title: String =
-                    getStringExtra(EXTRA_TICKET_TITLE)
-                        ?: error(ErrorMessage(CAUSE_TITLE).notProvided())
-                val count: Int =
-                    getIntExtra(
-                        EXTRA_TICKET_COUNT,
-                        TICKET_COUNT_NOT_PROVIDED,
-                    ).takeIf { it != TICKET_COUNT_NOT_PROVIDED }
-                        ?: error(ErrorMessage(CAUSE_TICKET_COUNT).notProvided())
-                val showtime: LocalDateTime =
-                    getLocalDateTimeExtra(EXTRA_SHOWTIME) ?: error(
-                        ErrorMessage(CAUSE_SHOWTIME).notProvided(),
-                    )
-                Ticket(title, count, showtime)
-            }
+        ticket = intent.getTicketExtra(EXTRA_TICKET) ?: error(
+            ErrorMessage(CAUSE_TICKET).notProvided(),
+        )
     }
 
     @Suppress("DEPRECATION")
-    private fun Intent.getLocalDateTimeExtra(key: String): LocalDateTime? =
+    private fun Intent.getTicketExtra(key: String): Ticket? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
                 getSerializableExtra(
                     key,
-                    LocalDateTime::class.java,
+                    Ticket::class.java,
                 )
 
-            else -> getSerializableExtra(key) as? LocalDateTime
+            else -> getSerializableExtra(key) as? Ticket
         }
 
     private fun initViews() {
@@ -109,16 +95,9 @@ class TicketActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TICKET_COUNT_NOT_PROVIDED = -1
-
         private const val CAUSE_TICKET = "ticket"
-        private const val CAUSE_TITLE = "title"
-        private const val CAUSE_TICKET_COUNT = "ticket count"
-        private const val CAUSE_SHOWTIME = "showtime"
 
-        private const val EXTRA_TICKET_TITLE = "woowacourse.movie.EXTRA_TICKET_TITLE"
-        private const val EXTRA_TICKET_COUNT = "woowacourse.movie.EXTRA_TICKET_COUNT"
-        private const val EXTRA_SHOWTIME = "woowacourse.movie.EXTRA_SHOWTIME"
+        private const val EXTRA_TICKET = "woowacourse.movie.EXTRA_TICKET"
 
         fun newIntent(
             context: Context,
@@ -126,9 +105,10 @@ class TicketActivity : AppCompatActivity() {
             count: Int,
             showtime: LocalDateTime,
         ): Intent =
-            Intent(context, TicketActivity::class.java)
-                .putExtra(EXTRA_TICKET_TITLE, title)
-                .putExtra(EXTRA_TICKET_COUNT, count)
-                .putExtra(EXTRA_SHOWTIME, showtime)
+            run {
+                val ticket = Ticket(title, count, showtime)
+                Intent(context, TicketActivity::class.java)
+                    .putExtra(EXTRA_TICKET, ticket)
+            }
     }
 }
