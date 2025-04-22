@@ -57,3 +57,16 @@
 - [x] ticketPrice를 열거형 객체로 변경
 - [x] ConstraintLayout 학습 및 위치 관계 및 크기 정의 수정
 - [x] 입장 가능 시간 비즈니스 로직으로 분리
+
+### 2차 피드백 반영
+
+- [ ] 팩토리에서 필요할때 생성하고 사용하도록 구현?
+- [ ] onRestoreInstanceState에서 onSaveInstanceState를 호출해도 실행되는 이유 분석
+- [ ] view, viewHolder를 묶는 데이터 클래스 구현
+- [ ] ViewHolder 접근 제어자 추가
+- [ ] 싱글톤과 확장함수 테스트 구현 전략에 따른 구별
+- [ ] domain 및 ui 패키지 분리
+- [ ] TicketType을 가지는 Ticket 구현
+- [ ] deprecated된 코드 수정
+- [ ] key 동반 객체의 중복 방지 고민
+- [ ] 불변 객체에 getter 수정
