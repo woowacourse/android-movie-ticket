@@ -46,19 +46,19 @@ class BookingSummaryActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun formatDateTime(dateTime: LocalDateTime): String {
+        private fun formatDateTime(dateTime: LocalDateTime): String {
             val dateTimeFormatter: DateTimeFormatter =
                 DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
 
             return dateTime.format(dateTimeFormatter)
         }
 
-        fun formatHeadCount(
+        private fun formatHeadCount(
             message: String,
             headCount: Int,
         ): String = String.format(message, headCount)
 
-        fun formatAmount(
+        private fun formatAmount(
             message: String,
             value: Int,
         ): String = String.format(message, value.formatWithComma())
