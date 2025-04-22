@@ -1,10 +1,11 @@
 package woowacourse.movie.model
 
+import java.io.Serializable
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class MovieTime {
+class MovieTime : Serializable {
     var value: Int = 0
         private set
 

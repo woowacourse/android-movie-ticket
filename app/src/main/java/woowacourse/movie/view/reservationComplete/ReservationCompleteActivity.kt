@@ -1,6 +1,5 @@
 package woowacourse.movie.view.reservationComplete
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -11,11 +10,12 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.view.Formatter
 import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
+import woowacourse.movie.view.getSerializableExtraData
 import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationCompleteActivity : AppCompatActivity() {
-    private val movieTicket by lazy { getMovieTicketData() }
+    private val movieTicket by lazy { intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY) }
     private val formatter: Formatter by lazy { Formatter() }
 
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_title) }
@@ -36,13 +36,6 @@ class ReservationCompleteActivity : AppCompatActivity() {
         setupMovieTicketInfo()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-    private fun getMovieTicketData(): MovieTicket? =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(TICKET_DATA_KEY, MovieTicket::class.java)
-        } else {
-            intent.getSerializableExtra(TICKET_DATA_KEY) as MovieTicket
-        }
 
     private fun setupMovieTicketInfo() {
         movieTitleTextView.text = movieTicket?.title

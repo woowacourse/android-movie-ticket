@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -26,6 +25,7 @@ import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Formatter
 import woowacourse.movie.view.IntentExtraConstants.MOVIE_DATA_KEY
 import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
+import woowacourse.movie.view.getSerializableExtraData
 import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -34,7 +34,9 @@ class ReservationActivity : AppCompatActivity() {
     private var ticketCount: TicketCount = TicketCount()
     private var selectedDatePosition: Int = 0
     private val formatter: Formatter by lazy { Formatter() }
-    private val movie by lazy { getSelectedMovieData() }
+    private val movie by lazy {
+        intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY) ?: Movie.value
+    }
     private val movieTime by lazy { MovieTime() }
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
 
@@ -70,13 +72,6 @@ class ReservationActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
-    private fun getSelectedMovieData(): Movie =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getSerializableExtra(MOVIE_DATA_KEY, Movie::class.java) ?: Movie.Companion.value
-        } else {
-            intent.getSerializableExtra(MOVIE_DATA_KEY) as Movie
-        }
 
     private fun setupMovieReservationInfo() {
         val poster =

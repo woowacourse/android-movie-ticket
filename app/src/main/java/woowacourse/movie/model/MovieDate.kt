@@ -1,11 +1,12 @@
 package woowacourse.movie.model
 
+import java.io.Serializable
 import java.time.LocalDate
 
 class MovieDate(
     private val startDate: LocalDate,
     private val endDate: LocalDate,
-) {
+) : Serializable {
     var value: LocalDate = LocalDate.now()
         private set
 
