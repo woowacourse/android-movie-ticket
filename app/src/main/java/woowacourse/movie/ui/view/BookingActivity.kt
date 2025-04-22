@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
 import woowacourse.movie.model.DefaultPricingPolicy
+import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieScheduler
 import woowacourse.movie.model.MovieTicket
@@ -31,7 +32,7 @@ class BookingActivity : BaseActivity() {
             Movie::class.java
         ) ?: throw IllegalArgumentException(MOVIE_INTENT_ERROR)
     }
-    private var headCount: Int = DEFAULT_HEADCOUNT
+    private var headCount: HeadCount = HeadCount()
     private lateinit var selectedDate: LocalDate
     private lateinit var selectedTime: LocalTime
     private val headCountView: TextView by lazy { findViewById(R.id.textview_headcount) }
@@ -46,14 +47,14 @@ class BookingActivity : BaseActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(HEADCOUNT_KEY, headCount)
+        outState.putInt(HEADCOUNT_KEY, headCount.value)
         outState.putString(DATE_KEY, selectedDate.toString())
         outState.putString(TIME_KEY, selectedTime.toString())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        headCount = savedInstanceState.getInt(HEADCOUNT_KEY)
+        headCount = HeadCount(savedInstanceState.getInt(HEADCOUNT_KEY))
         updateHeadCount()
         selectedDate = LocalDate.parse(savedInstanceState.getString(DATE_KEY))
         selectedTime = LocalTime.parse(savedInstanceState.getString(TIME_KEY))
@@ -94,15 +95,13 @@ class BookingActivity : BaseActivity() {
         updateHeadCount()
         val increaseBtn = findViewById<Button>(R.id.button_increase)
         increaseBtn.setOnClickListener {
-            headCount++
+            headCount.increase()
             updateHeadCount()
         }
         val decreaseBtn = findViewById<Button>(R.id.button_decrease)
         decreaseBtn.setOnClickListener {
-            if (headCount > DEFAULT_HEADCOUNT) {
-                headCount--
-                updateHeadCount()
-            }
+            headCount.decrease()
+            updateHeadCount()
         }
     }
 
@@ -190,7 +189,7 @@ class BookingActivity : BaseActivity() {
         val movieTicket = MovieTicket(
             title = movie.title,
             screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
-            headCount = headCount,
+            headCount = headCount.value,
             pricingPolicy = DefaultPricingPolicy()
         )
 
@@ -200,11 +199,10 @@ class BookingActivity : BaseActivity() {
     }
 
     private fun updateHeadCount() {
-        headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, headCount)
+        headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, headCount.value)
     }
 
     companion object {
-        private const val DEFAULT_HEADCOUNT = 1
         private const val HEADCOUNT_KEY = "HeadCount"
         private const val DATE_KEY = "Date"
         private const val TIME_KEY = "Time"
