@@ -126,4 +126,18 @@ class ReservationActivityTest {
         onView(withText(R.string.ticket_dialog_title))
             .check(matches(isDisplayed()))
     }
+
+    @Test
+    fun `화면이_다시_그려질_때_데이터를_유지한다`() {
+        onView(withId(R.id.btn_reservation_plus))
+            .perform(click())
+
+        onView(withId(R.id.btn_reservation_plus))
+            .perform(click())
+
+        activityRule.scenario.recreate()
+
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("3")))
+    }
 }
