@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -17,9 +18,14 @@ import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.BookingResult
-import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.ui.model.movie.MovieUiModel
+import woowacourse.movie.ui.model.movie.setPosterImage
 import woowacourse.movie.util.DateTimeUtil
+import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
+import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_FORMAT
+import woowacourse.movie.util.DateTimeUtil.SPINNER_DATE_FORMAT
 import woowacourse.movie.util.Keys
+import woowacourse.movie.util.mapper.MovieModelMapper
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -37,7 +43,7 @@ class BookingActivity : AppCompatActivity() {
 
         setUpMovieInfo(movieData)
 
-        val booking = Booking(movieData)
+        val booking = Booking(MovieModelMapper.toDomain(movieData))
         setUpScreeningDateSpinner(booking)
         setUpScreeningTimeSpinner(booking)
         setUpHeadCount()
@@ -53,35 +59,50 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
+    private fun movieOrNull(): MovieUiModel? {
+        return IntentCompat.getParcelableExtra(
+            intent,
+            Keys.Extra.SELECTED_MOVIE_ITEM,
+            MovieUiModel::class.java,
+        )
+    }
+
     private fun restoreData(
-        movie: Movie,
+        movie: MovieUiModel,
         savedInstanceState: Bundle?,
     ) {
         val savedCount = savedInstanceState?.getInt(Keys.SavedState.BOOKING_HEAD_COUNT)
-        val savedScreeningDate = savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_DATE)
-        val savedScreeningTime = savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
+        val savedScreeningDate =
+            savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_DATE)
+        val savedScreeningTime =
+            savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
 
-        val date = savedScreeningDate ?: DateTimeUtil.toFormattedString(LocalDate.now(), MOVIE_DATE_FORMAT)
-        val time = savedScreeningTime ?: DateTimeUtil.toFormattedString(LocalTime.now(), TIME_FORMAT)
+        val date =
+            savedScreeningDate ?: DateTimeUtil.toFormattedString(
+                LocalDate.now(),
+                SPINNER_DATE_FORMAT,
+            )
+        val time =
+            savedScreeningTime ?: DateTimeUtil.toFormattedString(LocalTime.now(), MOVIE_TIME_FORMAT)
         val headCount = savedCount ?: 0
         bookingResult = BookingResult(movie.title, headCount, date, time)
     }
 
-    private fun movieOrNull(): Movie? {
-        return IntentCompat.getParcelableExtra(intent, Keys.Extra.SELECTED_MOVIE_ITEM, Movie::class.java)
-    }
+    private fun setUpMovieInfo(movieUiModel: MovieUiModel) {
+        val poster: ImageView = findViewById(R.id.img_booking_poster)
+        val bookingTitle: TextView = findViewById(R.id.tv_booking_title)
+        val bookingScreenDate: TextView = findViewById(R.id.tv_booking_screening_date)
+        val bookingRunningTime: TextView = findViewById(R.id.tv_booking_running_time)
 
-    private fun setUpMovieInfo(movieData: Movie) {
-        val bookingTitle = findViewById<TextView>(R.id.tv_booking_title)
-        val bookingScreenDate = findViewById<TextView>(R.id.tv_booking_screening_date)
-        val bookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
-
-        bookingTitle.text = movieData.title
-        val screeningStartDate = DateTimeUtil.toFormattedString(movieData.screeningStartDate, SCREENING_DATE_FORMAT)
-        val screeningEndDate = DateTimeUtil.toFormattedString(movieData.screeningEndDate, SCREENING_DATE_FORMAT)
+        poster.setPosterImage(movieUiModel.poster)
+        bookingTitle.text = movieUiModel.title
+        val screeningStartDate =
+            DateTimeUtil.toFormattedString(movieUiModel.screeningStartDate, MOVIE_DATE_FORMAT)
+        val screeningEndDate =
+            DateTimeUtil.toFormattedString(movieUiModel.screeningEndDate, MOVIE_DATE_FORMAT)
         bookingScreenDate.text =
             getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
-        bookingRunningTime.text = getString(R.string.minute_text, movieData.runningTime)
+        bookingRunningTime.text = getString(R.string.minute_text, movieUiModel.runningTime)
     }
 
     private fun setUpScreeningDateSpinner(booking: Booking) {
@@ -227,11 +248,5 @@ class BookingActivity : AppCompatActivity() {
             putString(Keys.SavedState.BOOKING_SCREENING_DATE, bookingResult.selectedDate)
             putString(Keys.SavedState.BOOKING_SCREENING_TIME, bookingResult.selectedTime)
         }
-    }
-
-    companion object {
-        private const val MOVIE_DATE_FORMAT = "yyyy-M-d"
-        private const val SCREENING_DATE_FORMAT = "yyyy.M.d"
-        private const val TIME_FORMAT = "kk:mm"
     }
 }

@@ -20,14 +20,15 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.ui.model.movie.MovieUiModel
+import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
 class MovieActivityTest {
     private lateinit var scenario: ActivityScenario<MovieActivity>
-    private val movies = mockMovies()
+    private val movieUiModels = mockMovieUiModels()
 
     @Before
     fun setUp() {
@@ -35,7 +36,7 @@ class MovieActivityTest {
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), MovieActivity::class.java).apply {
-                putExtra(Keys.Extra.LOADED_MOVIE_ITEMS, movies)
+                putParcelableArrayListExtra(Keys.Extra.LOADED_MOVIE_ITEMS, movieUiModels)
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -123,7 +124,7 @@ class MovieActivityTest {
         intended(
             allOf(
                 hasComponent(BookingActivity::class.java.name),
-                hasExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movies[0]),
+                hasExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModels[0]),
             ),
         )
     }
@@ -156,17 +157,19 @@ class MovieActivityTest {
         onView(withId(R.id.img_booking_poster)).check(matches(isDisplayed()))
     }
 
-    private fun mockMovies(): ArrayList<Movie> {
+    private fun mockMovieUiModels(): ArrayList<MovieUiModel> {
         return arrayListOf(
-            Movie(
-                imageSource = R.drawable.harry_potter,
+            MovieUiModel(
+                id = 1L,
+                poster = Poster.Resource(R.drawable.prepare_poster),
                 title = "테스트 데이터 제목",
                 runningTime = 151,
                 screeningStartDate = LocalDate.of(2025, 4, 1),
                 screeningEndDate = LocalDate.of(2025, 4, 25),
             ),
-            Movie(
-                imageSource = R.drawable.harry_potter,
+            MovieUiModel(
+                id = 2L,
+                poster = Poster.Resource(R.drawable.harry_potter),
                 title = "해리포터와 불의 잔 - 테스트용",
                 runningTime = 150,
                 screeningStartDate = LocalDate.of(2025, 4, 12),

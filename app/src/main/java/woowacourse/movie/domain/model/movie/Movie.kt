@@ -1,18 +1,14 @@
 package woowacourse.movie.domain.model.movie
 
-import android.os.Parcelable
-import androidx.annotation.DrawableRes
-import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
-@Parcelize
 data class Movie(
-    @DrawableRes val imageSource: Int,
+    val id: Long,
     val title: String,
     val screeningStartDate: LocalDate,
     val screeningEndDate: LocalDate,
     val runningTime: Int,
-) : Parcelable {
+) {
     init {
         require(title.isNotBlank()) { ERROR_TITLE_BLACK_MESSAGE }
         require(runningTime > 0) { ERROR_RUNNING_TIME_MESSAGE }
@@ -21,9 +17,7 @@ data class Movie(
 
     private fun isDateValid(): Boolean {
         return screeningStartDate.isBefore(screeningEndDate) ||
-            screeningStartDate.isEqual(
-                screeningEndDate,
-            )
+            screeningStartDate.isEqual(screeningEndDate)
     }
 
     companion object {

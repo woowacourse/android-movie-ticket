@@ -26,13 +26,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.ui.model.movie.MovieUiModel
+import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.util.Keys
 import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
-    private val movie = mockMovie()
+    private val movieUiModel = mockMovieUiModel()
 
     @Before
     fun setUp() {
@@ -40,7 +41,7 @@ class BookingActivityTest {
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
-                putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movie)
+                putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModel)
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -302,9 +303,10 @@ class BookingActivityTest {
         onView(withId(R.id.spinner_screening_time)).check(matches(withSpinnerText(targetTime)))
     }
 
-    private fun mockMovie(): Movie {
-        return Movie(
-            imageSource = R.drawable.harry_potter,
+    private fun mockMovieUiModel(): MovieUiModel {
+        return MovieUiModel(
+            id = 1L,
+            poster = Poster.Resource(R.drawable.harry_potter),
             title = "해리 포터와 마법사의 돌",
             runningTime = 152,
             screeningStartDate = LocalDate.of(2025, 4, 1),
