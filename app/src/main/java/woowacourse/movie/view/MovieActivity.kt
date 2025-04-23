@@ -12,6 +12,7 @@ import woowacourse.movie.MovieListClick
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
+import woowacourse.movie.view.MovieBookingActivity.Companion.movieBookingIntent
 
 class MovieActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,15 +32,10 @@ class MovieActivity : AppCompatActivity() {
         val movies = Movies.Companion.value
         val movieListAdapter = MovieListAdapter(movies, object : MovieListClick {
             override fun navigateToBook(movie: Movie) {
-                val intent = Intent(this@MovieActivity, MovieBookingActivity::class.java)
-                    .apply { putExtra(KEY_MOVIE, movie) }
+                val intent = movieBookingIntent(this@MovieActivity, movie)
                 startActivity(intent)
             }
         })
         movieListView.adapter = movieListAdapter
-    }
-
-    companion object {
-        const val KEY_MOVIE = "movie"
     }
 }

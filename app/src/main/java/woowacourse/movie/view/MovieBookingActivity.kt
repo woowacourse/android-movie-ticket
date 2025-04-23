@@ -21,6 +21,7 @@ import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimes
 import woowacourse.movie.helper.LocalDateHelper.toDotFormat
+import woowacourse.movie.view.MovieBookedActivity.Companion.movieBookedIntent
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -211,19 +212,21 @@ class MovieBookingActivity : AppCompatActivity() {
     private fun navigateToReservationComplete(
         bookingStatus: BookingStatus
     ) {
-        val intent = Intent(
-            this@MovieBookingActivity,
-            MovieBookedActivity::class.java
-        ).putExtra(KEY_BOOKING_STATUS, bookingStatus)
+        val intent = movieBookedIntent(this@MovieBookingActivity, bookingStatus)
         finish()
         startActivity(intent)
     }
 
     private fun movie(): Movie {
-        return BuildVersion().getParcelableClass(intent, MovieActivity.Companion.KEY_MOVIE, Movie::class)
+        return BuildVersion().getParcelableClass(intent, KEY_MOVIE, Movie::class)
     }
 
     companion object {
-        const val KEY_BOOKING_STATUS = "bookingStatus"
+        private const val KEY_MOVIE = "movie"
+
+        fun movieBookingIntent(otherActivity: AppCompatActivity, movie: Movie): Intent {
+            return Intent(otherActivity, MovieBookingActivity::class.java)
+                .apply { putExtra(KEY_MOVIE, movie) }
+        }
     }
 }

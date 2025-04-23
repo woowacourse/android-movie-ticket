@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -54,7 +55,22 @@ class MovieBookedActivity : AppCompatActivity() {
     }
 
     private fun bookingStatus(): BookingStatus {
-        return BuildVersion().getParcelableClass(intent,
-            MovieBookingActivity.Companion.KEY_BOOKING_STATUS, BookingStatus::class)
+        return BuildVersion().getParcelableClass(
+            intent,
+            KEY_BOOKING_STATUS,
+            BookingStatus::class
+        )
+    }
+
+    companion object {
+        private const val KEY_BOOKING_STATUS = "bookingStatus"
+
+        fun movieBookedIntent(
+            otherActivity: AppCompatActivity,
+            bookingStatus: BookingStatus
+        ): Intent {
+            return Intent(otherActivity, MovieBookedActivity::class.java)
+                .apply { putExtra(KEY_BOOKING_STATUS, bookingStatus) }
+        }
     }
 }
