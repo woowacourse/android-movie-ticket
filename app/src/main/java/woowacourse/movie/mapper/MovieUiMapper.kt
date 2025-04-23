@@ -4,11 +4,11 @@ import android.content.res.Resources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.ui.MovieUiModel
-import woowacourse.movie.util.Formatter.simpleDateFormat
+import woowacourse.movie.util.Formatter.formatDateDotSeparated
 
 fun Movie.toUiModel(resources: Resources): MovieUiModel {
-    val screeningStartDate = simpleDateFormat(screeningStartDate)
-    val screeningEndDate = simpleDateFormat(screeningEndDate)
+    val screeningStartDate = formatDateDotSeparated(screeningStartDate)
+    val screeningEndDate = formatDateDotSeparated(screeningEndDate)
     return MovieUiModel(
         imageSource = getImageResIdFromUrl(imageSource),
         title = title,

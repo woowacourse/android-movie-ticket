@@ -6,9 +6,9 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 object Formatter {
-    fun simpleDateFormat(date: LocalDate): String = date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+    fun formatDateDotSeparated(date: LocalDate): String = date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
 
-    fun simpleTimeFormat(time: LocalTime): String {
+    fun formatTimeWithMidnight24(time: LocalTime): String {
         return if (time == LocalTime.MIDNIGHT) {
             "24:00"
         } else {
@@ -16,5 +16,5 @@ object Formatter {
         }
     }
 
-    fun moneyFormat(amount: Int): String = DecimalFormat("#,###").format(amount)
+    fun formatMoney(amount: Int): String = DecimalFormat("#,###").format(amount)
 }

@@ -4,14 +4,14 @@ import android.content.res.Resources
 import woowacourse.movie.R
 import woowacourse.movie.model.BookingResult
 import woowacourse.movie.ui.BookingResultUiModel
-import woowacourse.movie.util.Formatter.moneyFormat
-import woowacourse.movie.util.Formatter.simpleDateFormat
-import woowacourse.movie.util.Formatter.simpleTimeFormat
+import woowacourse.movie.util.Formatter.formatDateDotSeparated
+import woowacourse.movie.util.Formatter.formatMoney
+import woowacourse.movie.util.Formatter.formatTimeWithMidnight24
 
 fun BookingResult.toUiModel(resources: Resources): BookingResultUiModel {
-    val selectedDateText = simpleDateFormat(selectedDate)
-    val selectedTimeText = simpleTimeFormat(selectedTime)
-    val bookingAmount = moneyFormat(calculateAmount())
+    val selectedDateText = formatDateDotSeparated(selectedDate)
+    val selectedTimeText = formatTimeWithMidnight24(selectedTime)
+    val bookingAmount = formatMoney(calculateAmount())
 
     return BookingResultUiModel(
         title = title,
