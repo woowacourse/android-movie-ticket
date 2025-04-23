@@ -121,11 +121,13 @@ class BookingActivity : AppCompatActivity() {
         val plusButton = findViewById<Button>(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            ticketCount.text = ticketCountValue.downCount().toString()
+            ticketCountValue.downCount()
+            ticketCount.text = ticketCountValue.count.toString()
         }
 
         plusButton.setOnClickListener {
-            ticketCount.text = ticketCountValue.upCount().toString()
+            ticketCountValue.upCount()
+            ticketCount.text = ticketCountValue.count.toString()
         }
     }
 

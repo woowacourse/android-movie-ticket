@@ -1,16 +1,17 @@
 package woowacourse.movie.booking
 
 class TicketCount(
-    private var count: Int = 0,
+    startCount: Int = 0,
 ) {
-    fun upCount(): Int {
+    var count: Int = startCount
+        private set
+
+    fun upCount() {
         count += 1
-        return count
     }
 
-    fun downCount(): Int {
+    fun downCount() {
         count -= 1
         if (count < 0) count = 0
-        return count
     }
 }
