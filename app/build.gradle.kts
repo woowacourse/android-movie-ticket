@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.junit5)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -40,6 +41,10 @@ android {
             excludes += "META-INF/**"
             excludes += "win32-x86*/**"
         }
+    }
+
+    testOptions {
+        animationsDisabled = true
     }
 }
 
