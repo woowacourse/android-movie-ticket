@@ -1,17 +1,18 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.BookingActivity.Companion.KEY_MOVIE_DATA
+import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.adapter.MovieAdapter
-import java.time.LocalDate
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,8 +21,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setUpUi()
 
-        val intentMovieData =
-            movieOrNull() ?: mockData()
+        val intentMovieData = requireMainOrFinish() ?: return
 
         val movieList = listOf(intentMovieData)
         val movieAdapter =
@@ -41,12 +41,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun movieOrNull(): Movie? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(KEY_MOVIE_DATA, Movie::class.java)
-        } else {
-            intent.getParcelableExtra(KEY_MOVIE_DATA)
+    private fun requireMainOrFinish(): Movie? {
+        val intentMovieData =
+            IntentCompat.getParcelableExtra(intent, KEY_MOVIE_DATA, Movie::class.java)
+        if (intentMovieData == null) {
+            Log.e("MainActivity", "intentMovieData가 null입니다. 인텐트에 영화 데이터가 포함되지 않았습니다.")
+            Toast.makeText(this, getString(R.string.booking_toast_message), Toast.LENGTH_SHORT)
+                .show()
+            finish()
         }
+        return intentMovieData
     }
 
     private fun startBookingActivity(movie: Movie) {
@@ -55,15 +59,5 @@ class MainActivity : AppCompatActivity() {
                 putExtra(KEY_MOVIE_DATA, movie)
             }
         startActivity(intent)
-    }
-
-    private fun mockData(): Movie {
-        return Movie(
-            imageSource = "harry_potter.png",
-            title = "해리 포터와 마법사의 돌",
-            runningTime = 152,
-            screeningStartDate = LocalDate.of(2025, 4, 1),
-            screeningEndDate = LocalDate.of(2025, 4, 25),
-        )
     }
 }
