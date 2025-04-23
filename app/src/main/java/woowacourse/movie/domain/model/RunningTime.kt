@@ -1,9 +1,13 @@
 package woowacourse.movie.domain.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 @JvmInline
 value class RunningTime(
     val minute: Int,
-) {
+) : Parcelable {
     init {
         require(minute >= MINIMUM_RUNNING_TIME) { INVALID_RUNNING_TIME_MESSAGE }
     }

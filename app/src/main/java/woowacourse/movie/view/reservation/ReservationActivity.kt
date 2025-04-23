@@ -3,7 +3,6 @@ package woowacourse.movie.view.reservation
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -18,6 +17,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
+import woowacourse.movie.view.extension.getParcelableCompat
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -143,12 +143,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
 
     private fun setupData() {
         tvReservationCount.text = reservationCount.count.toString()
-        movie =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent?.getSerializableExtra(BUNDLE_KEY_MOVIE, Movie::class.java)
-            } else {
-                intent?.getSerializableExtra(BUNDLE_KEY_MOVIE) as? Movie
-            }
+        movie = intent?.getParcelableCompat<Movie>(BUNDLE_KEY_MOVIE)
     }
 
     private fun setupListener() {

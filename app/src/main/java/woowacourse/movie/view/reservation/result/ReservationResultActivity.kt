@@ -2,7 +2,6 @@ package woowacourse.movie.view.reservation.result
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -10,6 +9,7 @@ import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
+import woowacourse.movie.view.extension.getParcelableCompat
 import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -44,15 +44,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
     }
 
     private fun displayReservationResult() {
-        val reservationInfo =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent?.getSerializableExtra(
-                    BUNDLE_KEY_RESERVATION_INFO,
-                    ReservationInfo::class.java,
-                )
-            } else {
-                intent?.getSerializableExtra(BUNDLE_KEY_RESERVATION_INFO) as? ReservationInfo
-            }
+        val reservationInfo = intent?.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
         setupCancelDescription()
         setupMovieTitle(reservationInfo?.title)
         setupMovieDate(reservationInfo?.reservationDateTime)
