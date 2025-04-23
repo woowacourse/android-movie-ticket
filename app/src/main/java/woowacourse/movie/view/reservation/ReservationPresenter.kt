@@ -20,6 +20,7 @@ class ReservationPresenter(
     private lateinit var movieDate: MovieDate
     private val movieTime = MovieTime()
     private val formatter = ReservationUiFormatter()
+    private var selectedDatePosition: Int = 0
 
     override fun fetchData(intent: Intent) {
         val result = getMovieFromIntent(intent)
@@ -46,7 +47,7 @@ class ReservationPresenter(
         if (duration.isEmpty()) duration = listOf(movie.startDate)
 
         view.updateDateAdapter(duration, 0)
-        onDateSelected(duration[0])
+        onDateSelected(duration[0], selectedDatePosition)
     }
 
     override fun plusTicketCount() {
@@ -59,9 +60,10 @@ class ReservationPresenter(
         view.setTicketCount(ticketCount.value)
     }
 
-    override fun onDateSelected(date: LocalDate) {
+    override fun onDateSelected(date: LocalDate, position: Int) {
         movieDate.updateDate(date)
         val timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
+        selectedDatePosition = position
         view.updateTimeAdapter(timeTable.map { ReservationUiFormatter().movieTimeToUI(it) })
     }
 
@@ -89,6 +91,8 @@ class ReservationPresenter(
             }",
             count = ticketCount.value,
         )
+
+    fun currentDatePosition(): Int = selectedDatePosition
 
     private fun getMovieFromIntent(intent: Intent): Movie? = intent.getParcelableExtraCompat<Movie>(Extras.MovieData.MOVIE_KEY)
 }

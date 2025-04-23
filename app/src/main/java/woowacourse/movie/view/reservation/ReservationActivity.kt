@@ -26,7 +26,6 @@ class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
     private lateinit var ticketCountTextView: TextView
-    private var selectedDatePosition: Int = 0
     private var ticketCount: TicketCount = TicketCount()
     private val reservationDialog by lazy { ReservationDialog() }
     private val presenter: ReservationPresenter by lazy { ReservationPresenter(this, ticketCount) }
@@ -91,7 +90,7 @@ class ReservationActivity :
 
         findViewById<Spinner>(R.id.spinner_reservation_date).apply {
             adapter = dateAdapter
-            setSelection(selectedDatePosition)
+            setSelection(selected)
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -100,8 +99,7 @@ class ReservationActivity :
                         position: Int,
                         id: Long,
                     ) {
-                        presenter.onDateSelected(duration[position])
-                        selectedDatePosition = position
+                        presenter.onDateSelected(duration[position], position)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -223,15 +221,12 @@ class ReservationActivity :
         val savedCount = savedInstanceState?.getInt(Extras.ReservationData.TICKET_COUNT_KEY) ?: 1
         ticketCount = TicketCount(savedCount)
         findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
-
-        selectedDatePosition =
-            savedInstanceState?.getInt(Extras.ReservationData.DATE_POSITION_KEY) ?: 0
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(Extras.ReservationData.TICKET_COUNT_KEY, ticketCount.value)
-        outState.putInt(Extras.ReservationData.DATE_POSITION_KEY, selectedDatePosition)
+        outState.putInt(Extras.ReservationData.DATE_POSITION_KEY, presenter.currentDatePosition())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
