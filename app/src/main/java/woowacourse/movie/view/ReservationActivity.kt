@@ -28,6 +28,7 @@ import java.time.LocalTime
 class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
+    private var dialog: AlertDialog? = null
     private val screeningData: ScreeningData by lazy {
         intent.getParcelableExtraCompat<ScreeningData>(MainActivity.EXTRA_SCREENING_DATA)
             ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
@@ -209,17 +210,28 @@ class ReservationActivity : AppCompatActivity() {
     private fun initCompleteButtonView() {
         val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
         completeButton.setOnClickListener {
-            AlertDialog
-                .Builder(this)
-                .setTitle(getString(R.string.ticket_dialog_title))
-                .setMessage(getString(R.string.ticket_dialog_message))
-                .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                    navigateToTicketActivity()
-                }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
-                    dialog.dismiss()
-                }.setCancelable(false)
-                .show()
+            dialog =
+                AlertDialog
+                    .Builder(this)
+                    .setTitle(getString(R.string.ticket_dialog_title))
+                    .setMessage(getString(R.string.ticket_dialog_message))
+                    .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
+                        navigateToTicketActivity()
+                    }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.setCancelable(false)
+                    .show()
         }
+    }
+
+    override fun onDestroy() {
+        dialog?.let {
+            if (it.isShowing) {
+                it.dismiss()
+            }
+        }
+        dialog = null
+        super.onDestroy()
     }
 
     companion object {
