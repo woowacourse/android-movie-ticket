@@ -12,4 +12,5 @@
     <string name="minus">-</string>
     <string name="plus">+</string>
     <string name="confirm_selection_button">선택 완료</string>
+    <string name="screen">SCREEN</string>
 </resources>
