@@ -1,6 +1,5 @@
 package woowacourse.movie.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -44,14 +43,6 @@ class MainActivity : AppCompatActivity() {
                 runningTime = screening.runningTime,
             )
 
-        val intent =
-            Intent(this, ReservationActivity::class.java).apply {
-                putExtra(EXTRA_SCREENING_DATA, screeningData)
-            }
-        startActivity(intent)
-    }
-
-    companion object {
-        const val EXTRA_SCREENING_DATA = "woowacourse.movie.EXTRA_SCREENING_DATA"
+        startActivity(ReservationActivity.newIntent(this, screeningData))
     }
 }

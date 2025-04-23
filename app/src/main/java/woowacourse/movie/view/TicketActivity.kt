@@ -1,5 +1,7 @@
 package woowacourse.movie.view
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -16,7 +18,7 @@ import java.time.LocalDateTime
 
 class TicketActivity : AppCompatActivity() {
     private val ticketData: TicketData by lazy {
-        intent.getParcelableExtraCompat<TicketData>(ReservationActivity.EXTRA_TICKET_DATA)
+        intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
             ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
     }
 
@@ -66,5 +68,15 @@ class TicketActivity : AppCompatActivity() {
 
     companion object {
         private const val ERROR_CANT_READ_TICKET_INFO = "티켓 정보가 전달되지 않았습니다"
+
+        private const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
+
+        fun newIntent(
+            context: Context,
+            ticketData: TicketData,
+        ): Intent =
+            Intent(context, TicketActivity::class.java).apply {
+                putExtra(EXTRA_TICKET_DATA, ticketData)
+            }
     }
 }

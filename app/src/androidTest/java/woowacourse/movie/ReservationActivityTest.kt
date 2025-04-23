@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
@@ -19,30 +18,25 @@ import org.hamcrest.core.Is.`is`
 import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.view.MainActivity.Companion.EXTRA_SCREENING_DATA
 import woowacourse.movie.view.ReservationActivity
 import woowacourse.movie.view.model.ScreeningData
 import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationActivityTest {
+    val screeningData =
+        ScreeningData(
+            title = "영화 제목",
+            startDate = LocalDate.of(2025, 4, 16),
+            endDate = LocalDate.of(2025, 4, 21),
+            movieId = "HarryPotter1",
+            runningTime = 152,
+        )
+
     @get:Rule
     val activityRule =
         ActivityScenarioRule<ReservationActivity>(
-            Intent(
-                ApplicationProvider.getApplicationContext(),
-                ReservationActivity::class.java,
-            ).apply {
-                val screeningData =
-                    ScreeningData(
-                        title = "영화 제목",
-                        startDate = LocalDate.of(2025, 4, 16),
-                        endDate = LocalDate.of(2025, 4, 21),
-                        movieId = "HarryPotter1",
-                        runningTime = 152,
-                    )
-                putExtra(EXTRA_SCREENING_DATA, screeningData)
-            },
+            ReservationActivity.newIntent(ApplicationProvider.getApplicationContext(), screeningData),
         )
 
     private fun rotateToLandscape() {

@@ -1,5 +1,6 @@
 package woowacourse.movie.view
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -33,7 +34,7 @@ class ReservationActivity : AppCompatActivity() {
     private var selectedTime: LocalTime? = null
     private var dialog: AlertDialog? = null
     private val screeningData: ScreeningData by lazy {
-        intent.getParcelableExtraCompat<ScreeningData>(MainActivity.EXTRA_SCREENING_DATA)
+        intent.getParcelableExtraCompat<ScreeningData>(EXTRA_SCREENING_DATA)
             ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
     }
     private val screening: Screening by lazy { screeningData.toScreening() }
@@ -117,12 +118,7 @@ class ReservationActivity : AppCompatActivity() {
                 showtime = LocalDateTime.of(selectedDate, selectedTime),
                 ticketCount = ticketCount.value,
             )
-
-        val intent =
-            Intent(this, TicketActivity::class.java).apply {
-                putExtra(EXTRA_TICKET_DATA, ticketData)
-            }
-        startActivity(intent)
+        startActivity(TicketActivity.newIntent(this, ticketData))
     }
 
     private fun initTimeSpinner(): Spinner {
@@ -250,6 +246,14 @@ class ReservationActivity : AppCompatActivity() {
         private const val ERROR_CANT_READ_SCREENING_INFO = "상영 정보가 전달되지 않았습니다"
         private const val ERROR_NOT_SELECTED_SPINNER = "예매 정보가 선택되지 않았습니다"
 
-        const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
+        private const val EXTRA_SCREENING_DATA = "woowacourse.movie.EXTRA_SCREENING_DATA"
+
+        fun newIntent(
+            context: Context,
+            screeningData: ScreeningData,
+        ): Intent =
+            Intent(context, ReservationActivity::class.java).apply {
+                putExtra(EXTRA_SCREENING_DATA, screeningData)
+            }
     }
 }
