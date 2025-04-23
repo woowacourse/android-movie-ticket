@@ -18,7 +18,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.uiTest.fixture.fakeContext
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.reservation.detail.ReservationActivity
 import java.time.LocalDate
 
 class ReservationActivityTest {

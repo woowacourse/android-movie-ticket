@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.reservation.result
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.dialog.DialogFactory
+import woowacourse.movie.view.reservation.detail.ReservationActivity
 import java.time.format.DateTimeFormatter
 
 class ReservationCompleteActivity : AppCompatActivity() {

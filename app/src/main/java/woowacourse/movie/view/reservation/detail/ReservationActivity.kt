@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.reservation.detail
 
 import android.app.Activity
 import android.content.Context
@@ -22,9 +22,10 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.MainActivity
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
+import woowacourse.movie.view.movies.MainActivity
+import woowacourse.movie.view.reservation.result.ReservationCompleteActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

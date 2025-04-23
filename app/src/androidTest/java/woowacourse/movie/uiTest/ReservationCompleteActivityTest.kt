@@ -13,8 +13,8 @@ import org.junit.rules.TestName
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.uiTest.fixture.fakeContext
-import woowacourse.movie.view.reservation.ReservationActivity
-import woowacourse.movie.view.reservation.ReservationCompleteActivity
+import woowacourse.movie.view.reservation.detail.ReservationActivity
+import woowacourse.movie.view.reservation.result.ReservationCompleteActivity
 import java.time.LocalDateTime
 
 class ReservationCompleteActivityTest {

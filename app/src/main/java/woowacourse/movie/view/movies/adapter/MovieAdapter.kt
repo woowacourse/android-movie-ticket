@@ -1,4 +1,4 @@
-package woowacourse.movie.view.adapter
+package woowacourse.movie.view.movies.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.view.OnMovieEventListener
+import woowacourse.movie.view.movies.OnMovieEventListener
 
 class MovieAdapter(
     private val items: List<Movie>,

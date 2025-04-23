@@ -1,4 +1,4 @@
-package woowacourse.movie.view.adapter
+package woowacourse.movie.view.movies.adapter
 
 import android.content.Context
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.view.OnMovieEventListener
+import woowacourse.movie.view.movies.OnMovieEventListener
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(private val view: View) {

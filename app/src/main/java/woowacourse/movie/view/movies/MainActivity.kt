@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.movies
 
 import android.app.Activity
 import android.content.Context
@@ -11,8 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.view.adapter.MovieAdapter
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.movies.adapter.MovieAdapter
+import woowacourse.movie.view.reservation.detail.ReservationActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
