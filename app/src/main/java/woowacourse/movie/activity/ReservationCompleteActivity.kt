@@ -1,6 +1,6 @@
 package woowacourse.movie.activity
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -51,7 +51,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         const val BOOKING_STATUS_KEY = "bookingStatus"
 
         fun newIntent(
-            from: Activity,
+            from: Context,
             dto: ReservationDto,
         ): Intent {
             return Intent(from, ReservationCompleteActivity::class.java).apply {

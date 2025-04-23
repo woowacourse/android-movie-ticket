@@ -19,9 +19,9 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.ReservationActivity
+import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.fixture.AndroidTestFixture
 import woowacourse.movie.global.ServiceLocator
-import woowacourse.movie.global.newIntent
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -34,14 +34,11 @@ class ReservationActivityTest {
     }
 
     val movie = AndroidTestFixture.movie1
-
     val intent =
-        ApplicationProvider.getApplicationContext<Context>()
-            .newIntent<ReservationActivity>(
-                listOf(
-                    ReservationActivity.MOVIE_KEY to movie,
-                ),
-            )
+        ReservationActivity.newIntent(
+            ApplicationProvider.getApplicationContext<Context>(),
+            MovieDto.fromMovie(movie),
+        )
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationActivity>(intent)

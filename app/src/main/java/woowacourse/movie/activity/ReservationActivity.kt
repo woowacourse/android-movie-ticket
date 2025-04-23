@@ -22,7 +22,6 @@ import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.getObjectFromIntent
-import woowacourse.movie.global.newIntent
 import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
 import java.time.LocalDate
@@ -135,7 +134,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun setScreeningDate(movie: Movie) {
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
-                movie.betweenDates(),
+                movie.betweenDates(today),
             )
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 

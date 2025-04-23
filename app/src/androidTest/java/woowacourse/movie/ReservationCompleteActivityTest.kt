@@ -15,8 +15,8 @@ import org.junit.runner.RunWith
 import woowacourse.movie.activity.ReservationCompleteActivity
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
+import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.fixture.AndroidTestFixture
-import woowacourse.movie.global.newIntent
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
@@ -31,12 +31,10 @@ class ReservationCompleteActivityTest {
             LocalDateTime.of(2025, 4, 3, 11, 0, 0),
         )
     val intent =
-        ApplicationProvider.getApplicationContext<Context>()
-            .newIntent<ReservationCompleteActivity>(
-                listOf(
-                    ReservationCompleteActivity.BOOKING_STATUS_KEY to bookingStatus,
-                ),
-            )
+        ReservationCompleteActivity.newIntent(
+            ApplicationProvider.getApplicationContext<Context>(),
+            ReservationDto.fromBookingStatus(bookingStatus),
+        )
 
     @get:Rule
     val activityRule = ActivityScenarioRule<ReservationCompleteActivity>(intent)
