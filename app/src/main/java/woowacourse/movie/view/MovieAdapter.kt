@@ -18,6 +18,16 @@ class MovieAdapter(
 ) : BaseAdapter() {
     private val screenings: List<Screening> = screenings.toList()
 
+    private class ViewHolder(
+        view: View,
+    ) {
+        val titleView: TextView = view.findViewById(R.id.tv_item_movie_title)
+        val screeningDateView: TextView = view.findViewById(R.id.tv_item_movie_screening_date)
+        val runningTimeView: TextView = view.findViewById(R.id.tv_item_movie_running_time)
+        val posterView: ImageView = view.findViewById(R.id.iv_item_movie_poster)
+        val reserveButton: Button = view.findViewById(R.id.btn_item_movie_reserve)
+    }
+
     override fun getCount(): Int = screenings.size
 
     override fun getItem(position: Int): Screening = screenings[position]
@@ -29,44 +39,50 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(parent?.context)
-                .inflate(R.layout.item_movie, parent, false)
+        val view: View
+        val viewHolder: ViewHolder
+        if (convertView == null) {
+            view =
+                LayoutInflater
+                    .from(parent?.context)
+                    .inflate(R.layout.item_movie, parent, false)
+            viewHolder = ViewHolder(view)
+            view.tag = viewHolder
+        } else {
+            viewHolder = convertView.tag as ViewHolder
+            view = convertView
+        }
         val screening: Screening = screenings[position]
-        initMovieItemView(view, screening)
+        bindMovieItemViewHolder(viewHolder, screening)
 
         return view
     }
 
-    private fun initMovieItemView(
-        view: View,
+    private fun bindMovieItemViewHolder(
+        viewHolder: ViewHolder,
         screening: Screening,
     ) {
-        with(screening) {
-            val titleView = view.findViewById<TextView>(R.id.tv_item_movie_title)
+        with(viewHolder) {
+            val context = titleView.context
+
             titleView.text = screening.title
 
-            val screeningDateView = view.findViewById<TextView>(R.id.tv_item_movie_screening_date)
             screeningDateView.text =
-                view.context.getString(
+                context.getString(
                     R.string.screening_period,
-                    period.start.year,
-                    period.start.monthValue,
-                    period.start.dayOfMonth,
-                    period.endInclusive.year,
-                    period.endInclusive.monthValue,
-                    period.endInclusive.dayOfMonth,
+                    screening.period.start.year,
+                    screening.period.start.monthValue,
+                    screening.period.start.dayOfMonth,
+                    screening.period.endInclusive.year,
+                    screening.period.endInclusive.monthValue,
+                    screening.period.endInclusive.dayOfMonth,
                 )
 
-            val runningTimeView = view.findViewById<TextView>(R.id.tv_item_movie_running_time)
             runningTimeView.text =
-                view.context.getString(R.string.running_time, runningTime)
+                context.getString(R.string.running_time, screening.runningTime)
 
-            val posterView = view.findViewById<ImageView>(R.id.iv_item_movie_poster)
             posterView.setImageResource(ResourceMapper.movieIdToPoster(screening.movieId))
 
-            val reserveButton = view.findViewById<Button>(R.id.btn_item_movie_reserve)
             reserveButton.setOnClickListener {
                 onClickReserveButton(screening)
             }
