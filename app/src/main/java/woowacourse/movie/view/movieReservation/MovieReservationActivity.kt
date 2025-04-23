@@ -11,7 +11,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,6 +21,7 @@ import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.movieSelection.MovieSelectionActivity
+import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat
 import woowacourse.movie.view.utils.toDomain
 import woowacourse.movie.view.utils.toUiModel
@@ -42,7 +42,8 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        movie = intent.extras?.getParcelableCompat<MovieUiModel>(MovieSelectionActivity.KEY_MOVIE) ?: run { return }
+        movie = intent.extras?.getParcelableCompat<MovieUiModel>(MovieSelectionActivity.KEY_MOVIE)
+            ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         if (!::dateAdapter.isInitialized) {
@@ -186,18 +187,15 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun initializeSelectButton() {
-        val selectButton = findViewById<Button>(R.id.select_button)
         val alertDialog =
-            AlertDialog.Builder(this).setTitle(R.string.confirm_reservation_alert_title)
-                .setMessage(R.string.confirm_reservation_alert_message)
-                .setPositiveButton(R.string.confirm_reservation_alert_yes) { _, _ ->
-                    onConfirmReservation()
-                }
-                .setNegativeButton(R.string.confirm_reservation_alert_no) { dialog, _ -> dialog.dismiss() }
-        selectButton.setOnClickListener {
-            alertDialog.show()
-        }
-        alertDialog.setCancelable(false)
+            buildAlertDialog(
+                title = R.string.confirm_reservation_alert_title,
+                message = R.string.confirm_reservation_alert_message,
+                yes = R.string.confirm_reservation_alert_yes,
+            ) { onConfirmReservation() }
+
+        val selectButton = findViewById<Button>(R.id.select_button)
+        selectButton.setOnClickListener { alertDialog.show() }
     }
 
     private fun onConfirmReservation() {

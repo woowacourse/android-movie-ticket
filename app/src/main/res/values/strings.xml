@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Movie</string>
 
+    <string name="alert_default_yes">확인</string>
+    <string name="alert_default_no">취소</string>
+
     <string name="poster_description">영화 포스터</string>
     <string name="reserve_now_button">지금 예매</string>
     <string name="running_time_label">"러닝타임: "</string>
@@ -16,7 +19,6 @@
     <string name="confirm_reservation_alert_title">예매 확인</string>
     <string name="confirm_reservation_alert_message">정말 예매하시겠습니까?</string>
     <string name="confirm_reservation_alert_yes">예매 완료</string>
-    <string name="confirm_reservation_alert_no">취소</string>
 
     <string name="no_screening_date_available_toast_message">예매 가능한 날짜가 없습니다.</string>
 
