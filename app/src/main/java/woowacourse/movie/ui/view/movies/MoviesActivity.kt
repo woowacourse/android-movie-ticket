@@ -22,10 +22,10 @@ class MoviesActivity :
         setupScreen(R.layout.activity_main)
 
         presenter = MoviePresenter(this, movieRepository)
-        presenter.loadMovies()
+        presenter.loadAllMovies()
     }
 
-    override fun showMovies(movies: List<Movie>) {
+    override fun showAllMovies(movies: List<Movie>) {
         val adapter =
             MovieAdapter(
                 this,

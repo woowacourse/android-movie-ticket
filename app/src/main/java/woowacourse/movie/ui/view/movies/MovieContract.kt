@@ -4,10 +4,10 @@ import woowacourse.movie.domain.model.Movie
 
 interface MovieContract {
     interface View {
-        fun showMovies(movies: List<Movie>)
+        fun showAllMovies(movies: List<Movie>)
     }
 
     interface Presenter {
-        fun loadMovies()
+        fun loadAllMovies()
     }
 }

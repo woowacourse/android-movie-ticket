@@ -7,8 +7,8 @@ class MoviePresenter(
     private val view: MovieContract.View,
     private val repository: MovieRepository,
 ) : MovieContract.Presenter {
-    override fun loadMovies() {
+    override fun loadAllMovies() {
         val movies = repository.getAllMovies()
-        view.showMovies(movies)
+        view.showAllMovies(movies)
     }
 }
