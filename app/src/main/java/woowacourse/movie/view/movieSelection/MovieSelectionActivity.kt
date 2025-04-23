@@ -46,7 +46,11 @@ class MovieSelectionActivity : AppCompatActivity() {
 
     private fun reserveMovie(movie: MovieUiModel) {
         val intent = Intent(this, MovieReservationActivity::class.java)
-        intent.putExtra(MovieAdapter.KEY_MOVIE, movie)
+        intent.putExtra(KEY_MOVIE, movie)
         startActivity(intent)
+    }
+
+    companion object {
+        const val KEY_MOVIE = "movie"
     }
 }

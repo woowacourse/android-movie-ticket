@@ -21,7 +21,7 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
-import woowacourse.movie.view.movieSelection.MovieAdapter
+import woowacourse.movie.view.movieSelection.MovieSelectionActivity
 import woowacourse.movie.view.utils.getParcelableCompat
 import woowacourse.movie.view.utils.toDomain
 import woowacourse.movie.view.utils.toUiModel
@@ -42,7 +42,7 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        movie = intent.extras?.getParcelableCompat<MovieUiModel>(MovieAdapter.KEY_MOVIE) ?: run { return }
+        movie = intent.extras?.getParcelableCompat<MovieUiModel>(MovieSelectionActivity.KEY_MOVIE) ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
         if (!::dateAdapter.isInitialized) {
