@@ -20,7 +20,7 @@ class Movies(
                         "해리 포터와 마법사의 돌 $it",
                         R.drawable.harry_potter_one.toString(),
                         screeningDate,
-                        "152분",
+                        152,
                     )
                 },
             )

@@ -37,7 +37,9 @@ class MovieViewHolder(
                 StringFormatter.dotDateFormat(item.releaseDate.startDate),
                 StringFormatter.dotDateFormat(item.releaseDate.endDate),
             )
-        movieRunningTime.text = item.runningTime
+        movieRunningTime.text =
+            movieRunningTime.context.getString(R.string.text_running_time_ㅡminute_unit)
+                .format(item.runningTime)
     }
 
     companion object {

@@ -89,9 +89,10 @@ class BookingActivity : AppCompatActivity() {
             )
     }
 
-    private fun initRunningTimeView(runningTime: String) {
+    private fun initRunningTimeView(runningTime: Int) {
         val movieRunningTimeView = findViewById<TextView>(R.id.tv_running_time)
-        movieRunningTimeView.text = runningTime
+        movieRunningTimeView.text =
+            getString(R.string.text_running_time_ㅡminute_unit).format(runningTime)
     }
 
     private fun initPeopleCountView() {
