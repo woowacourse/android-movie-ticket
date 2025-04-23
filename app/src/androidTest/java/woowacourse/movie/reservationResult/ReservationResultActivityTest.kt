@@ -24,7 +24,7 @@ class ReservationResultActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 ReservationResultActivity::class.java,
             ).apply {
-                putExtra("reservation", reservation)
+                putExtra("key_reservation_result_activity_reservation", reservation)
             }
 
         ActivityScenario.launch<ReservationResultActivity>(intent)

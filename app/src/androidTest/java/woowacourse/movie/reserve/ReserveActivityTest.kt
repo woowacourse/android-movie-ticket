@@ -28,7 +28,7 @@ class ReserveActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 ReserveActivity::class.java,
             ).apply {
-                putExtra("movie", movie)
+                putExtra("key_reserve_activity_movie", movie)
             }
         scenario = ActivityScenario.launch(intent)
     }

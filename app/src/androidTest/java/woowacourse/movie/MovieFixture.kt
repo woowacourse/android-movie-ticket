@@ -4,6 +4,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.domain.model.Tickets
 import java.time.LocalDateTime
@@ -27,7 +28,7 @@ val HARRY_POTTER_MOVIE =
 val HARRY_POTTER_RESERVATION =
     Reservation(
         title = HARRY_POTTER_TITLE,
-        tickets = Tickets(listOf(TicketType.DEFAULT, TicketType.DEFAULT)),
+        tickets = Tickets(listOf(Ticket(TicketType.DEFAULT), Ticket(TicketType.DEFAULT))),
         reservedTime =
             LocalDateTime.of(
                 APRIL_THIRTIETH,

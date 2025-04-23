@@ -20,7 +20,7 @@ class ReservationTest {
                     APRIL_THIRTIETH,
                     LocalTime.of(12, 0),
                 ),
-                Tickets(listOf(TicketType.DEFAULT)),
+                Tickets(listOf(Ticket(TicketType.DEFAULT))),
             )
     }
 

@@ -7,7 +7,7 @@ class TicketsTest {
     @Test
     fun `예매 개수가 최소 예매 개수와 같은 경우 감소할 수 없다`() {
         // given
-        val tickets = Tickets(listOf(TicketType.DEFAULT))
+        val tickets = Tickets(listOf(Ticket(TicketType.DEFAULT)))
 
         // when
         val actual = tickets.canMinus()
@@ -19,7 +19,7 @@ class TicketsTest {
     @Test
     fun `예매 개수가 최소 예매 개수보다 많은 경우 감소할 수 있다`() {
         // given
-        val tickets = Tickets(listOf(TicketType.DEFAULT, TicketType.DEFAULT))
+        val tickets = Tickets(listOf(Ticket(TicketType.DEFAULT), Ticket(TicketType.DEFAULT)))
 
         // when
         val actual = tickets.canMinus()
