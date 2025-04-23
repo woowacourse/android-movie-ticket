@@ -10,7 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -27,6 +26,7 @@ import woowacourse.movie.view.Formatter.localDateToUI
 import woowacourse.movie.view.Formatter.movieTimeToUI
 import woowacourse.movie.view.getSerializableExtraData
 import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
+import woowacourse.movie.view.showShortToast
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -172,12 +172,7 @@ class ReservationActivity : AppCompatActivity() {
             }.onSuccess {
                 ticketCount -= 1
             }.onFailure { error ->
-                Toast
-                    .makeText(
-                        this,
-                        error.message,
-                        Toast.LENGTH_SHORT,
-                    ).show()
+                showShortToast(error.message.toString())
             }
             peopleCountTextView.text = ticketCount.value.toString()
         }
