@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.view.movies
+package woowacourse.movie.view.movies
 
 import io.mockk.Runs
 import io.mockk.every
@@ -10,8 +10,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.fixture.dummyMovie
-import woowacourse.movie.view.movies.MoviesContract
-import woowacourse.movie.view.movies.MoviesPresenter
 
 class MoviesPresenterTest {
     private lateinit var presenter: MoviesContract.Presenter
