@@ -1,104 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/booked"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.MovieBookedActivity">
+    android:fillViewport="true">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/notice_text_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/purple_300"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.20">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/notice_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fontFamily="sans-serif"
-            android:gravity="bottom|center_horizontal"
-            android:paddingBottom="10dp"
-            android:letterSpacing="0"
-            android:lineSpacingMultiplier="1.29"
-            android:text="영화 상영 시작 시간 15분전까지\n취소가 가능합니다."
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_size_small"
-            android:textStyle="normal"
-            />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/booking_information_text_container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_percent="0.8">
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline_10_percent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.08" />
-
-        <TextView
-            android:id="@+id/movie_title"
-            style="@style/TitleTextStyle"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/booked"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/guideline_10_percent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:layout_editor_absoluteX="0dp"
-            tools:text="해리 포터와 마법사의 돌"/>
+            android:maxWidth="700dp"
+            tools:context=".view.MovieBookedActivity">
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/notice_text_container"
+                android:layout_width="0dp"
+                android:layout_height="200dp"
+                android:background="@color/purple_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/booking_date_time"
-            style="@style/SubTitleTextStyle"
+                <TextView
+                    android:id="@+id/notice_text"
+                    style="@style/NoticeTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="10dp"
+                    android:text="영화 상영 시작 시간 15분전까지\n취소가 가능합니다."
+                    tools:layout_editor_absoluteX="0dp"
+                    tools:layout_editor_absoluteY="0dp" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/booking_information_text_container"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_title"
-            tools:text="2025.04.01 10:00"/>
+            android:layout_height="400dp"
+            android:background="@color/white">
 
-        <TextView
-            android:id="@+id/member_count"
-            style="@style/SubTitleTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/booking_date_time"
-            tools:text="일반 2명" />
 
-        <TextView
-            android:id="@+id/movie_ticket_price"
-            style="@style/SubTitleTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="216dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/movie_title"
-            tools:text="26,000원 (현장 결제)" />
+            <TextView
+                android:id="@+id/movie_title"
+                style="@style/TitleTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="220dp"
+                android:paddingTop="50dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/booking_date_time"
+                tools:text="해리 포터와 마법사의 돌" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/booking_date_time"
+                style="@style/SubTitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/movie_title"
+                tools:text="2025.04.01 10:00" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/member_count"
+                style="@style/SubTitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/booking_date_time"
+                tools:text="일반 2명" />
+
+            <TextView
+                android:id="@+id/movie_ticket_price"
+                style="@style/SubTitleTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="140dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/booking_date_time"
+                tools:text="26,000원 (현장 결제)" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</ScrollView>

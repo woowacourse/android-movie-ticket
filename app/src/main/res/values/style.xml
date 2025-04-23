@@ -31,6 +31,14 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- 예약 완료 화면용 안내 글자 -->
+    <style name="NoticeTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
     <!-- 제목 스타일 -->
     <style name="TitleTextStyle" parent="BaseTextStyle">
         <item name="android:gravity">center</item>
