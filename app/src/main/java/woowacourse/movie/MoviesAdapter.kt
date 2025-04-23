@@ -50,7 +50,7 @@ class MoviesAdapter(
         }
     }
 
-    class ViewHolder(private val view: View) {
+    private class ViewHolder(private val view: View) {
         private val posterView: ImageView = view.findViewById(R.id.iv_poster)
         private val titleView: TextView = view.findViewById(R.id.tv_title)
         private val screeningDateView: TextView = view.findViewById(R.id.tv_screening_date)

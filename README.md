@@ -63,7 +63,7 @@
 - [ ] 팩토리에서 필요할때 생성하고 사용하도록 구현?
 - [ ] onRestoreInstanceState에서 onSaveInstanceState를 호출해도 실행되는 이유 분석
 - [ ] view, viewHolder를 묶는 데이터 클래스 구현
-- [ ] ViewHolder 접근 제어자 추가
+- [x] ViewHolder 접근 제어자 추가
 - [ ] 싱글톤과 확장함수 테스트 구현 전략에 따른 구별
 - [ ] domain 및 ui 패키지 분리
 - [ ] TicketType을 가지는 Ticket 구현
