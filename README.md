@@ -45,6 +45,6 @@
     - [x] Activity 전환 테스트 삭제
 
 - [x] 리스트뷰의 view holder 적용
-- [ ] activity가 dialog보다 먼저 종료되는 경우의 처리
+- [x] activity가 dialog보다 먼저 종료되는 경우의 처리
 - [x] getParcelableExtra의 확장함수를 구현하여 적용
 - [ ] 비논리오류의 sealed calss 적용
