@@ -2,6 +2,7 @@ package woowacourse.movie.ui.view.booking
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -42,17 +43,31 @@ class BookingActivity : AppCompatActivity() {
         applySystemBarInsets()
 
         val movieUiData: MovieUiModel = movieOrNull() ?: return
-        restoreData(movieUiData, savedInstanceState)
-
         setUpMovieInfo(movieUiData)
 
         val movieData = MovieModelMapper.toDomain(movieUiData)
         val booking = Booking(movieData)
+        initBookingResult(movieData, booking)
+
         setUpScreeningDateSpinner(movieData, booking)
         setUpScreeningTimeSpinner(movieData, booking)
         setUpHeadCount()
 
         setUpReserveConfirm()
+    }
+
+    private fun initBookingResult(
+        movieData: Movie,
+        booking: Booking,
+    ) {
+        val selectedDate = booking.screeningPeriods()[0]
+        bookingResult =
+            BookingResult(
+                title = movieData.title,
+                headCount = 0,
+                selectedDate = selectedDate,
+                selectedTime = booking.screeningTimes(selectedDate)[0],
+            )
     }
 
     private fun applySystemBarInsets() {
@@ -69,23 +84,6 @@ class BookingActivity : AppCompatActivity() {
             Keys.Extra.SELECTED_MOVIE_ITEM,
             MovieUiModel::class.java,
         )
-    }
-
-    private fun restoreData(
-        movie: MovieUiModel,
-        savedInstanceState: Bundle?,
-    ) {
-        val savedCount = savedInstanceState?.getInt(Keys.SavedState.BOOKING_HEAD_COUNT)
-        val savedScreeningDate =
-            savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_DATE)
-        val savedScreeningTime =
-            savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
-
-        val headCount = savedCount ?: 0
-        val date = savedScreeningDate?.let { DateTimeUtil.toLocalDate(it, MOVIE_DATE_DELIMITER) } ?: LocalDate.now()
-        val time = savedScreeningTime?.let { DateTimeUtil.toLocalTime(it, MOVIE_TIME_DELIMITER) } ?: LocalTime.now()
-
-        bookingResult = BookingResult(movie.title, headCount, date, time)
     }
 
     private fun setUpMovieInfo(movieUiModel: MovieUiModel) {
@@ -215,7 +213,9 @@ class BookingActivity : AppCompatActivity() {
 
     private fun setUpHeadCount() {
         val headCountView: TextView = findViewById(R.id.tv_people_count)
-        headCountView.text = bookingResult.headCount.toString()
+        val uiModel = BookingResultModelMapper.toUi(bookingResult)
+        Log.d("restore_inactivity", uiModel.headCount)
+        headCountView.text = uiModel.headCount
 
         setUpPlusButton(headCountView)
         setUpMinusButton(headCountView)
@@ -277,5 +277,25 @@ class BookingActivity : AppCompatActivity() {
             putString(Keys.SavedState.BOOKING_SCREENING_DATE, bookingResultUiModel.selectedDate)
             putString(Keys.SavedState.BOOKING_SCREENING_TIME, bookingResultUiModel.selectedTime)
         }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val savedCount = savedInstanceState.getInt(Keys.SavedState.BOOKING_HEAD_COUNT)
+        val savedScreeningDate =
+            savedInstanceState.getString(Keys.SavedState.BOOKING_SCREENING_DATE)
+        val savedScreeningTime =
+            savedInstanceState.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
+
+        val date =
+            savedScreeningDate?.let { DateTimeUtil.toLocalDate(it, MOVIE_DATE_DELIMITER) }
+                ?: LocalDate.now()
+        val time =
+            savedScreeningTime?.let { DateTimeUtil.toLocalTime(it, MOVIE_TIME_DELIMITER) }
+                ?: LocalTime.now()
+
+        val headCountView: TextView = findViewById(R.id.tv_people_count)
+        headCountView.text = savedCount.toString()
+        bookingResult = BookingResult(bookingResult.title, savedCount, date, time)
     }
 }
