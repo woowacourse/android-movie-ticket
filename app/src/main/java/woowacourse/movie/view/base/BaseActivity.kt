@@ -16,10 +16,7 @@ abstract class BaseActivity(
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setWindowInsets()
-        setupViews(savedInstanceState)
     }
-
-    abstract fun setupViews(savedInstanceState: Bundle?)
 
     fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter
 class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        setupViews()
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -30,7 +30,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         )
     }
 
-    override fun setupViews(savedInstanceState: Bundle?) {
+    private fun setupViews() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         displayReservationResult()
     }
