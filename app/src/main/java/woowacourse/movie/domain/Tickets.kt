@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 import java.io.Serializable
 
-class Tickets(private val tickets: List<TicketType>) : Serializable {
+class Tickets(private val tickets: List<Ticket>) : Serializable {
     val count get() = tickets.size
 
     init {
@@ -13,11 +13,11 @@ class Tickets(private val tickets: List<TicketType>) : Serializable {
 
     fun canMinus(): Boolean = count > MINIMUM_COUNT
 
-    fun add(ticket: TicketType): Tickets = Tickets(tickets + ticket)
+    fun add(ticket: Ticket): Tickets = Tickets(tickets + ticket)
 
-    fun remove(ticket: TicketType): Tickets = removeLast(ticket)
+    fun remove(ticket: Ticket): Tickets = removeLast(ticket)
 
-    private fun removeLast(ticket: TicketType): Tickets {
+    private fun removeLast(ticket: Ticket): Tickets {
         val removeIndex = tickets.lastIndexOf(ticket)
         val mutableTickets = tickets.toMutableList()
         mutableTickets.removeAt(removeIndex)

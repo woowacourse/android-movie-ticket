@@ -20,6 +20,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ReservationScheduler
 import woowacourse.movie.domain.ScreeningDate
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketType
 import woowacourse.movie.domain.Tickets
 import woowacourse.movie.extensions.serializableData
@@ -122,7 +123,7 @@ class ReserveActivity : AppCompatActivity() {
             savedInstanceState?.serializableData(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, Reservation::class.java)
                 ?: Reservation(
                     movie.title, getSelectedDateTime(),
-                    Tickets(listOf(TicketType.DEFAULT)),
+                    Tickets(listOf(Ticket(TicketType.DEFAULT))),
                 )
         updateTicketCount()
         initButtonListeners()

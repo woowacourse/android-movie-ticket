@@ -14,11 +14,11 @@ class Reservation(
 
     fun totalPrice(): Int = tickets.totalPrice()
 
-    fun plusCount() = Reservation(title, reservedTime, tickets.add(TicketType.DEFAULT))
+    fun plusCount() = Reservation(title, reservedTime, tickets.add(Ticket(TicketType.DEFAULT)))
 
     fun canMinus(): Boolean = tickets.canMinus()
 
-    fun minusCount() = Reservation(title, reservedTime, tickets.remove(TicketType.DEFAULT))
+    fun minusCount() = Reservation(title, reservedTime, tickets.remove(Ticket(TicketType.DEFAULT)))
 
     fun updateReservedTime(time: LocalDateTime) = Reservation(title, time, tickets)
 }
