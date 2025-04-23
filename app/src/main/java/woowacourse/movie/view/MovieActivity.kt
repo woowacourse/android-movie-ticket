@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.view.adpater.MovieListAdapter
+import woowacourse.movie.MovieListClick
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Movies
 
@@ -25,7 +28,7 @@ class MovieActivity : AppCompatActivity() {
     }
 
     private fun movieListAdapter(movieListView: ListView) {
-        val movies = Movies.value
+        val movies = Movies.Companion.value
         val movieListAdapter = MovieListAdapter(movies, object : MovieListClick {
             override fun navigateToBook(movie: Movie) {
                 val intent = Intent(this@MovieActivity, MovieBookingActivity::class.java)

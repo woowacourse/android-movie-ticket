@@ -46,7 +46,7 @@
 - [ ] configurationChange 키워드 살펴보기
 - [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
 - [ ] 화면 test code 작성하기
-- [ ] 기능별 / 담당하는 내용별로 패키지를 분리
+- [X] 기능별 / 담당하는 내용별로 패키지를 분리
 - [X] BuildVersion IllegalStateException 상황 적어주기
 - [X] 확장함수 관리하는 방법 생각 - 두루 object 추천
 - [X] adaptBookingStatus -> init, setUp으로 수정

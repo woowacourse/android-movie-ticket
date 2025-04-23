@@ -16,6 +16,7 @@ import org.junit.runner.RunWith
 import woowacourse.movie.MovieFixture.HARRY_POTTER_DATE
 import woowacourse.movie.MovieFixture.HARRY_POTTER_RUNNING_TIME
 import woowacourse.movie.MovieFixture.HARRY_POTTER_TITLE
+import woowacourse.movie.view.MovieActivity
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest

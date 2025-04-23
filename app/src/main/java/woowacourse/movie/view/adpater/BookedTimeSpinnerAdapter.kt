@@ -1,18 +1,19 @@
-package woowacourse.movie
+package woowacourse.movie.view.adpater
 
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import woowacourse.movie.LocalDateHelper.toDotFormat
-import java.time.LocalDate
+import woowacourse.movie.R
+import woowacourse.movie.helper.LocalDateHelper.toDotFormat
+import java.time.LocalTime
 
-class BookedDateSpinnerAdapter(val value: List<LocalDate>) : BaseAdapter() {
+class BookedTimeSpinnerAdapter(val value: List<LocalTime>) : BaseAdapter() {
     override fun getCount(): Int {
         return value.size
     }
 
-    override fun getItem(position: Int): LocalDate {
+    override fun getItem(position: Int): LocalTime {
         return value[position]
     }
 

@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.helper
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -33,4 +33,3 @@ object LocalDateHelper {
         return LocalDate.of(year, month, day)
     }
 }
-

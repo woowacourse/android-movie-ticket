@@ -1,8 +1,7 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -14,11 +13,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MovieActivity.Companion.KEY_MOVIE
-import woowacourse.movie.LocalDateHelper.toDotFormat
+import woowacourse.movie.view.adpater.BookedDateSpinnerAdapter
+import woowacourse.movie.view.adpater.BookedTimeSpinnerAdapter
+import woowacourse.movie.helper.BuildVersion
+import woowacourse.movie.R
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimes
+import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -171,7 +173,7 @@ class MovieBookingActivity : AppCompatActivity() {
         bookedTime: () -> LocalTime,
     ) {
         bookingComplete.setOnClickListener {
-            val bookingStatus = BookingStatus(movie, count(), bookedDate(), bookedTime())
+            val bookingStatus = BookingStatus.Companion(movie, count(), bookedDate(), bookedTime())
             AlertDialog.Builder(this@MovieBookingActivity)
                 .setTitle(getString(R.string.check_movie_booking))
                 .setMessage(getString(R.string.confirm_reservation_message))
@@ -218,7 +220,7 @@ class MovieBookingActivity : AppCompatActivity() {
     }
 
     private fun movie(): Movie {
-        return BuildVersion().getParcelableClass(intent, KEY_MOVIE, Movie::class)
+        return BuildVersion().getParcelableClass(intent, MovieActivity.Companion.KEY_MOVIE, Movie::class)
     }
 
     companion object {

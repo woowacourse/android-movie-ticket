@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view
 
 import android.os.Bundle
 import android.widget.TextView
@@ -6,9 +6,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MovieBookingActivity.Companion.KEY_BOOKING_STATUS
-import woowacourse.movie.LocalDateHelper.toDotFormat
+import woowacourse.movie.helper.BuildVersion
+import woowacourse.movie.R
 import woowacourse.movie.domain.BookingStatus
+import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 
 class MovieBookedActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +54,7 @@ class MovieBookedActivity : AppCompatActivity() {
     }
 
     private fun bookingStatus(): BookingStatus {
-        return BuildVersion().getParcelableClass(intent, KEY_BOOKING_STATUS, BookingStatus::class)
+        return BuildVersion().getParcelableClass(intent,
+            MovieBookingActivity.Companion.KEY_BOOKING_STATUS, BookingStatus::class)
     }
 }

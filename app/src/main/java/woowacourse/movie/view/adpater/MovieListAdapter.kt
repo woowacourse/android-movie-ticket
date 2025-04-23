@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.view.adpater
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,11 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.CustomClickListener.setOnSingleClickListener
-import woowacourse.movie.LocalDateHelper.toDotFormat
+import woowacourse.movie.MovieListClick
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-
+import woowacourse.movie.helper.CustomClickListenerHelper.setOnSingleClickListener
+import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 
 class MovieListAdapter(
     private val value: List<Movie>,

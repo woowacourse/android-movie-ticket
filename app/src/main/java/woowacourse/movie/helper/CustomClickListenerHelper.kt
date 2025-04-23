@@ -1,8 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.helper
 
 import android.view.View
 
-object CustomClickListener {
+object CustomClickListenerHelper {
     @JvmStatic
     fun View.setOnSingleClickListener(
         intervalTime: Long = 1000,
@@ -21,4 +21,3 @@ object CustomClickListener {
         }
     }
 }
-
