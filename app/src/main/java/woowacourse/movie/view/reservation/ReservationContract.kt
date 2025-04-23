@@ -18,17 +18,17 @@ interface ReservationContract {
 
         fun setTicketCount(count: Int)
 
-        fun showReservationDialog(
-            title: String,
-            message: String,
-        )
-
         fun updateDateAdapter(
             duration: List<LocalDate>,
             selected: Int,
         )
 
         fun updateTimeAdapter(times: List<String>)
+
+        fun showReservationDialog(
+            title: String,
+            message: String,
+        )
     }
 
     interface Presenter {
@@ -36,19 +36,19 @@ interface ReservationContract {
 
         fun initDateAdapter()
 
+        fun onDateSelected(date: LocalDate, position: Int)
+
+        fun onTimeSelected(index: Int)
+
         fun plusTicketCount()
 
         fun minusTicketCount()
 
-        fun onDateSelected(date: LocalDate, position: Int)
-
-        fun onTimeSelected(index: Int)
+        fun createTicket(): MovieTicket
 
         fun onReservationCompleted(
             title: String,
             message: String,
         )
-
-        fun createTicket(): MovieTicket
     }
 }

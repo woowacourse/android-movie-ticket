@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
 import woowacourse.movie.R
-import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
@@ -50,30 +49,31 @@ class ReservationActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupMovieReservationInfo(
+    override fun updateMovieInfo(
         posterResId: Int,
         title: String,
         startDate: String,
         endDate: String,
         runningTime: Int,
     ) {
-        val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        val poster =
-            AppCompatResources.getDrawable(
-                this,
-                posterResId,
-            )
-        posterImageView.setImageDrawable(poster)
+        setupMovieReservationInfo(posterResId, title, startDate, endDate, runningTime)
+    }
 
-        val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_title)
-        movieTitleTextView.text = title
+    override fun showErrorDialog() {
+        reservationDialog.show(
+            this,
+            getString(R.string.reservation_error_dialog_title),
+            getString(R.string.reservation_error_dialog_message),
+            null,
+        ) { _ ->
+            val intent = Intent(this, MoviesActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
 
-        val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
-        screeningDateTextView.text =
-            resources.getString(R.string.movie_screening_date, startDate, endDate)
-
-        val runningTimeTextView = findViewById<TextView>(R.id.tv_reservation_running_time)
-        runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
+    override fun setTicketCount(count: Int) {
+        ticketCountTextView.text = count.toString()
     }
 
     override fun updateDateAdapter(
@@ -134,6 +134,23 @@ class ReservationActivity :
         }
     }
 
+    override fun showReservationDialog(
+        title: String,
+        message: String,
+    ) {
+        reservationDialog.show(
+            this,
+            title,
+            message,
+            { dialog -> dialog.dismiss() },
+            { _ ->
+                val intent = movieTicketIntent()
+                startActivity(intent)
+                finish()
+            },
+        )
+    }
+
     private fun setupPlusButtonClick() {
         findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
             presenter.plusTicketCount()
@@ -155,31 +172,30 @@ class ReservationActivity :
         }
     }
 
-    override fun updateMovieInfo(
+    private fun setupMovieReservationInfo(
         posterResId: Int,
         title: String,
         startDate: String,
         endDate: String,
         runningTime: Int,
     ) {
-        setupMovieReservationInfo(posterResId, title, startDate, endDate, runningTime)
-    }
+        val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
+        val poster =
+            AppCompatResources.getDrawable(
+                this,
+                posterResId,
+            )
+        posterImageView.setImageDrawable(poster)
 
-    override fun showErrorDialog() {
-        reservationDialog.show(
-            this,
-            getString(R.string.reservation_error_dialog_title),
-            getString(R.string.reservation_error_dialog_message),
-            null,
-        ) { _ ->
-            val intent = Intent(this, MoviesActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
+        val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_title)
+        movieTitleTextView.text = title
 
-    override fun setTicketCount(count: Int) {
-        ticketCountTextView.text = count.toString()
+        val screeningDateTextView = findViewById<TextView>(R.id.tv_reservation_screening_date)
+        screeningDateTextView.text =
+            resources.getString(R.string.movie_screening_date, startDate, endDate)
+
+        val runningTimeTextView = findViewById<TextView>(R.id.tv_reservation_running_time)
+        runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
     }
 
     private fun setupCompleteButtonClick() {
@@ -189,23 +205,6 @@ class ReservationActivity :
                 getString(R.string.reservation_dialog_message),
             )
         }
-    }
-
-    override fun showReservationDialog(
-        title: String,
-        message: String,
-    ) {
-        reservationDialog.show(
-            this,
-            title,
-            message,
-            { dialog -> dialog.dismiss() },
-            { _ ->
-                val intent = movieTicketIntent()
-                startActivity(intent)
-                finish()
-            },
-        )
     }
 
     private fun movieTicketIntent(): Intent {

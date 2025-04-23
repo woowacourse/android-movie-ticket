@@ -59,16 +59,6 @@ class ReservationPresenter(val view: ReservationContract.View) : ReservationCont
         movieTime.updateTime(index)
     }
 
-    override fun onReservationCompleted(
-        title: String,
-        message: String,
-    ) {
-        view.showReservationDialog(
-            title,
-            message,
-        )
-    }
-
     override fun plusTicketCount() {
         ticketCount = ticketCount.plus(1)
         view.setTicketCount(ticketCount.value)
@@ -89,6 +79,16 @@ class ReservationPresenter(val view: ReservationContract.View) : ReservationCont
             }",
             count = ticketCount.value,
         )
+
+    override fun onReservationCompleted(
+        title: String,
+        message: String,
+    ) {
+        view.showReservationDialog(
+            title,
+            message,
+        )
+    }
 
     fun currentDatePosition(): Int = selectedDatePosition
 
