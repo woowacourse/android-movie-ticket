@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
@@ -156,20 +157,20 @@ class MovieReservationActivity : AppCompatActivity() {
 
     private fun initializeTicket() {
         ticket =
-            TicketUiModel(
-                movie,
+            Ticket(
+                movie.toDomain(),
                 LocalDateTime.of(
                     dateAdapter.getItem(0),
                     timeAdapter.getItem(0),
                 ),
-                Ticket.MINIMUM_TICKET_COUNT,
-            )
+                TicketCount.of(TicketCount.MIN_COUNT),
+            ).toUiModel()
     }
 
     private fun initializeTicketCountButton() {
         val incrementButton = findViewById<Button>(R.id.increment_button)
         val decrementButton = findViewById<Button>(R.id.decrement_button)
-        decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
+        decrementButton.isEnabled = ticket.count > TicketCount.MIN_COUNT
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
         ticketCountTextView.text = ticket.count.toString()
 
@@ -182,7 +183,7 @@ class MovieReservationActivity : AppCompatActivity() {
         decrementButton.setOnClickListener {
             ticket = ticket.toDomain().decrement().toUiModel()
             ticketCountTextView.text = ticket.count.toString()
-            decrementButton.isEnabled = ticket.count > Ticket.MINIMUM_TICKET_COUNT
+            decrementButton.isEnabled = ticket.count > TicketCount.MIN_COUNT
         }
     }
 

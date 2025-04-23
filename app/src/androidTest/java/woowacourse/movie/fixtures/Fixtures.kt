@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import java.time.LocalDate
@@ -23,5 +24,5 @@ val ticket =
     Ticket(
         movie = movie.toDomain(),
         showtime = LocalDateTime.of(2025, 4, 15, 11, 0, 0),
-        count = 2,
+        count = TicketCount.of(2),
     ).toUiModel()
