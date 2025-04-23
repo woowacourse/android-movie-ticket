@@ -7,10 +7,10 @@ class Reservation(
     val title: String,
     val reservedTime: LocalDateTime,
     private val tickets: Tickets,
-    private val purchaseType: PurchaseType = PurchaseType.DEFAULT,
+    purchaseType: PurchaseType = PurchaseType.DEFAULT,
 ) : Serializable {
-    val ticketCount get() = tickets.count
-    val cancelMinute get() = purchaseType.cancelTime.minute
+    val ticketCount = tickets.count
+    val cancelMinute = purchaseType.cancelTime.minute
 
     fun totalPrice(): Int = tickets.totalPrice()
 
