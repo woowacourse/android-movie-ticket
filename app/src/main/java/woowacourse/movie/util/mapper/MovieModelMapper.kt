@@ -4,19 +4,21 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
+import woowacourse.movie.util.DateTimeUtil
+import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
+import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
 
 object MovieModelMapper {
     private val posterDrawableMapper = hashMapOf<Long, Poster>()
 
     fun toDomain(movieUiModel: MovieUiModel): Movie {
         posterDrawableMapper.putIfAbsent(movieUiModel.id, movieUiModel.poster)
-
         return Movie(
             movieUiModel.id,
             movieUiModel.title,
-            movieUiModel.screeningStartDate,
-            movieUiModel.screeningEndDate,
-            movieUiModel.runningTime,
+            DateTimeUtil.toLocalDate(movieUiModel.screeningStartDate, MOVIE_DATE_DELIMITER),
+            DateTimeUtil.toLocalDate(movieUiModel.screeningEndDate, MOVIE_DATE_DELIMITER),
+            movieUiModel.runningTime.toInt(),
         )
     }
 
@@ -26,14 +28,13 @@ object MovieModelMapper {
                 movie.id,
                 defaultValue = Poster.Resource(R.drawable.prepare_poster),
             )
-
         return MovieUiModel(
             movie.id,
             poster,
             movie.title,
-            movie.screeningStartDate,
-            movie.screeningEndDate,
-            movie.runningTime,
+            DateTimeUtil.toFormattedString(movie.screeningStartDate, MOVIE_DATE_FORMAT),
+            DateTimeUtil.toFormattedString(movie.screeningEndDate, MOVIE_DATE_FORMAT),
+            movie.runningTime.toString(),
         )
     }
 }

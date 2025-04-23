@@ -23,7 +23,10 @@ import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
 import woowacourse.movie.util.DateTimeUtil
+import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
+import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
+import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_FORMAT
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.BookingResultModelMapper
@@ -81,8 +84,8 @@ class BookingActivity : AppCompatActivity() {
             savedInstanceState?.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
 
         val headCount = savedCount ?: 0
-        val date = savedScreeningDate?.let { DateTimeUtil.toLocalDate(it, ".") } ?: LocalDate.now()
-        val time = savedScreeningTime?.let { DateTimeUtil.toLocalTime(it, ":") } ?: LocalTime.now()
+        val date = savedScreeningDate?.let { DateTimeUtil.toLocalDate(it, MOVIE_DATE_DELIMITER) } ?: LocalDate.now()
+        val time = savedScreeningTime?.let { DateTimeUtil.toLocalTime(it, MOVIE_TIME_DELIMITER) } ?: LocalTime.now()
 
         bookingResult = BookingResult(movie.title, headCount, date, time)
     }
@@ -95,10 +98,8 @@ class BookingActivity : AppCompatActivity() {
 
         poster.setPosterImage(movieUiModel.poster)
         bookingTitle.text = movieUiModel.title
-        val screeningStartDate =
-            DateTimeUtil.toFormattedString(movieUiModel.screeningStartDate, MOVIE_DATE_FORMAT)
-        val screeningEndDate =
-            DateTimeUtil.toFormattedString(movieUiModel.screeningEndDate, MOVIE_DATE_FORMAT)
+        val screeningStartDate = movieUiModel.screeningStartDate
+        val screeningEndDate = movieUiModel.screeningEndDate
         bookingScreenDate.text =
             getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
         bookingRunningTime.text = getString(R.string.minute_text, movieUiModel.runningTime)
@@ -132,14 +133,14 @@ class BookingActivity : AppCompatActivity() {
                     val selectedSpinnerDate: String =
                         screeningDateSpinner.getItemAtPosition(position).toString()
                     val selectedDate =
-                        DateTimeUtil.toLocalDate(selectedSpinnerDate, "-")
+                        DateTimeUtil.toLocalDate(selectedSpinnerDate, MOVIE_SPINNER_DATE_DELIMITER)
                     bookingResult = bookingResult.updateDate(selectedDate)
                     setUpScreeningTimeSpinner(movieData, booking)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     val date: String = screeningDateSpinner.getItemAtPosition(0).toString()
-                    bookingResult = bookingResult.updateDate(DateTimeUtil.toLocalDate(date, "-"))
+                    bookingResult = bookingResult.updateDate(DateTimeUtil.toLocalDate(date, MOVIE_SPINNER_DATE_DELIMITER))
                 }
             }
     }
@@ -192,13 +193,13 @@ class BookingActivity : AppCompatActivity() {
                     val selectedSpinnerTime: String =
                         screeningTimeSpinner.getItemAtPosition(position).toString()
                     val selectedTime =
-                        DateTimeUtil.toLocalTime(selectedSpinnerTime, ":")
+                        DateTimeUtil.toLocalTime(selectedSpinnerTime, MOVIE_TIME_DELIMITER)
                     bookingResult = bookingResult.updateTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     val time: String = screeningTimeSpinner.getItemAtPosition(0).toString()
-                    bookingResult = bookingResult.updateTime(DateTimeUtil.toLocalTime(time, ":"))
+                    bookingResult = bookingResult.updateTime(DateTimeUtil.toLocalTime(time, MOVIE_TIME_DELIMITER))
                 }
             }
 

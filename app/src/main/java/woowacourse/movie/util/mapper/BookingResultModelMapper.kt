@@ -3,14 +3,16 @@ package woowacourse.movie.util.mapper
 import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.DateTimeUtil
+import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
+import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 
 object BookingResultModelMapper {
     fun toDomain(bookingResultUiModel: BookingResultUiModel): BookingResult {
         return BookingResult(
             title = bookingResultUiModel.title,
             headCount = bookingResultUiModel.headCount.toInt(),
-            selectedDate = DateTimeUtil.toLocalDate(bookingResultUiModel.selectedDate, "."),
-            selectedTime = DateTimeUtil.toLocalTime(bookingResultUiModel.selectedTime, ":"),
+            selectedDate = DateTimeUtil.toLocalDate(bookingResultUiModel.selectedDate, MOVIE_DATE_DELIMITER),
+            selectedTime = DateTimeUtil.toLocalTime(bookingResultUiModel.selectedTime, MOVIE_TIME_DELIMITER),
         )
     }
 

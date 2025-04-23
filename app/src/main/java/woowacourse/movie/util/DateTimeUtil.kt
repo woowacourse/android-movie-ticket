@@ -5,9 +5,12 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 object DateTimeUtil {
+    const val MOVIE_SPINNER_DATE_DELIMITER = "-"
+    const val MOVIE_DATE_DELIMITER = "."
+    const val MOVIE_TIME_DELIMITER = ":"
     const val MOVIE_DATE_FORMAT = "yyyy.M.d"
-    const val SPINNER_DATE_FORMAT = "yyyy-M-d"
     const val MOVIE_TIME_FORMAT = "kk:mm"
+    private const val SPINNER_DATE_FORMAT = "yyyy-M-d"
 
     fun toFormattedString(
         date: LocalDate,

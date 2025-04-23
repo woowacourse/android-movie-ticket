@@ -14,8 +14,6 @@ import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.util.DateTimeUtil
-import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.MovieModelMapper
 
@@ -32,15 +30,11 @@ class MovieAdapter(
         fun bind(movieUiModel: MovieUiModel) {
             poster.setPosterImage(movieUiModel.poster)
             title.text = movieUiModel.title
-            val screeningStartDate =
-                DateTimeUtil.toFormattedString(movieUiModel.screeningStartDate, MOVIE_DATE_FORMAT)
-            val screeningEndDate =
-                DateTimeUtil.toFormattedString(movieUiModel.screeningEndDate, MOVIE_DATE_FORMAT)
+            val screeningStartDate = movieUiModel.screeningStartDate
+            val screeningEndDate = movieUiModel.screeningEndDate
             screeningDate.text =
                 context?.getString(
-                    R.string.screening_date_period,
-                    screeningStartDate,
-                    screeningEndDate,
+                    R.string.screening_date_period, screeningStartDate, screeningEndDate,
                 )
             runningTime.text = context?.getString(R.string.minute_text, movieUiModel.runningTime)
 
