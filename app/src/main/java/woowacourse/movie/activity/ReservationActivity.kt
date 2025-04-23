@@ -35,20 +35,11 @@ class ReservationActivity : AppCompatActivity() {
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
-    private val runningTimeRule by lazy {
-        ServiceLocator.runningTimeRule
-    }
-    private val today by lazy {
-        ServiceLocator.today
-    }
-
-    private val now by lazy {
-        ServiceLocator.now
-    }
-
-    private val binding: ActivityReservationBinding by lazy {
+    private val runningTimeRule = ServiceLocator.runningTimeRule
+    private val today = ServiceLocator.today
+    private val now = ServiceLocator.now
+    private val binding: ActivityReservationBinding =
         ActivityReservationBinding.inflate(layoutInflater)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
