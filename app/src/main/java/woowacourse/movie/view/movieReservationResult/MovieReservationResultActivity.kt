@@ -1,5 +1,7 @@
 package woowacourse.movie.view.movieReservationResult
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -36,13 +38,23 @@ class MovieReservationResultActivity : AppCompatActivity() {
         val ticketCount = findViewById<TextView>(R.id.ticket_count)
         val totalPrice = findViewById<TextView>(R.id.total_price)
 
-        val ticket: TicketUiModel =
-            intent.extras?.getParcelableCompat<TicketUiModel>(MovieReservationActivity.KEY_TICKET)
-                ?: run { return }
+        val ticket: TicketUiModel = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: run { return }
         title.text = ticket.movie.title
-        showtime.text =
-            ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
+        showtime.text = ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
         ticketCount.text = getString(R.string.ticket_count_format).format(ticket.count)
         totalPrice.text = getString(R.string.ticket_price_format).format(ticket.toDomain().totalPrice())
+    }
+
+    companion object {
+        const val KEY_TICKET = "ticket"
+
+        fun createIntent(
+            context: Context,
+            ticket: TicketUiModel,
+        ): Intent {
+            val intent = Intent(context, MovieReservationActivity::class.java)
+            intent.putExtra(KEY_TICKET, ticket)
+            return intent
+        }
     }
 }

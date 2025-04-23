@@ -1,5 +1,6 @@
 package woowacourse.movie.view.movieReservation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -23,7 +24,7 @@ import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
-import woowacourse.movie.view.movieSelection.MovieSelectionActivity
+import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_TICKET
 import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
@@ -43,7 +44,7 @@ class MovieReservationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        movie = intent.extras?.getParcelableCompat<MovieUiModel>(MovieSelectionActivity.KEY_MOVIE)
+        movie = intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE)
             ?: run { return }
         initializeMovieInfo()
         initializeDateSpinner()
@@ -200,8 +201,7 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     private fun onConfirmReservation() {
-        val intent = Intent(this, MovieReservationResultActivity::class.java)
-        intent.putExtra(KEY_TICKET, ticket)
+        val intent = MovieReservationResultActivity.createIntent(this, ticket)
         startActivity(intent)
     }
 
@@ -214,6 +214,15 @@ class MovieReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val KEY_TICKET = "ticket"
+        private const val KEY_MOVIE = "movie"
+
+        fun createIntent(
+            context: Context,
+            movie: MovieUiModel,
+        ): Intent {
+            val intent = Intent(context, MovieReservationActivity::class.java)
+            intent.putExtra(KEY_MOVIE, movie)
+            return intent
+        }
     }
 }
