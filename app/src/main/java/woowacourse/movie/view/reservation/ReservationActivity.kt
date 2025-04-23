@@ -212,7 +212,7 @@ class ReservationActivity : AppCompatActivity() {
                     TICKET_DATA_KEY,
                     MovieTicket(
                         title = movie.title,
-                        movieDate = movieDate,
+                        movieDate = movieDate.value,
                         movieTime = movieTime,
                         count = ticketCount.value,
                     ),

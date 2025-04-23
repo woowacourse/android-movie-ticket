@@ -1,10 +1,11 @@
 package woowacourse.movie.model
 
 import java.io.Serializable
+import java.time.LocalDate
 
 data class MovieTicket(
     val title: String,
-    val movieDate: MovieDate,
+    val movieDate: LocalDate,
     val movieTime: MovieTime,
     val count: Int,
 ) : Serializable {

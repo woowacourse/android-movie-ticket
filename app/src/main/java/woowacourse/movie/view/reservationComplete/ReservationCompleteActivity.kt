@@ -42,7 +42,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
         screeningDateTextView.text =
             getString(
                 R.string.reservation_ticket_timestamp,
-                formatter.localDateToUI(movieTicket?.movieDate?.value ?: LocalDate.now()),
+                formatter.localDateToUI(movieTicket?.movieDate ?: LocalDate.now()),
                 formatter.movieTimeToUI(movieTicket?.movieTime?.value ?: LocalTime.now().hour),
             )
         ticketCountTextView.text =
