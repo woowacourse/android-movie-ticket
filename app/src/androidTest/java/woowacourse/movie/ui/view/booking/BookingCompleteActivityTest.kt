@@ -14,20 +14,23 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.booking.BookingResult
+import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.Keys
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
-    private val bookingResult = mockBookingResult()
+    private val bookingResultUiModel = mockBookingResultUiModel()
 
     @Before
     fun setUp() {
         Intents.init()
 
         val intent =
-            Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
-                putExtra(Keys.Extra.BOOKING_RESULT, bookingResult)
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                BookingCompleteActivity::class.java,
+            ).apply {
+                putExtra(Keys.Extra.BOOKING_RESULT, bookingResultUiModel)
             }
 
         scenario = ActivityScenario.launch(intent)
@@ -56,7 +59,7 @@ class BookingCompleteActivityTest {
         onView(withId(R.id.tv_complete_screening_date)).check(
             matches(
                 allOf(
-                    withText("2025.04.20"),
+                    withText("2025.4.20"),
                     isDisplayed(),
                 ),
             ),
@@ -99,11 +102,11 @@ class BookingCompleteActivityTest {
         )
     }
 
-    private fun mockBookingResult(): BookingResult {
-        return BookingResult(
+    private fun mockBookingResultUiModel(): BookingResultUiModel {
+        return BookingResultUiModel(
             title = "해리 포터와 마법사의 돌",
-            headCount = 2,
-            selectedDate = "2025.04.20",
+            headCount = "2",
+            selectedDate = "2025.4.20",
             selectedTime = "12:00",
         )
     }

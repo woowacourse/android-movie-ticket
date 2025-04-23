@@ -24,10 +24,8 @@ import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
-import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
 import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
-import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_FORMAT
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.BookingResultModelMapper
 import woowacourse.movie.util.mapper.MovieModelMapper
@@ -140,7 +138,10 @@ class BookingActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     val date: String = screeningDateSpinner.getItemAtPosition(0).toString()
-                    bookingResult = bookingResult.updateDate(DateTimeUtil.toLocalDate(date, MOVIE_SPINNER_DATE_DELIMITER))
+                    bookingResult =
+                        bookingResult.updateDate(
+                            DateTimeUtil.toLocalDate(date, MOVIE_SPINNER_DATE_DELIMITER),
+                        )
                 }
             }
     }
@@ -199,7 +200,13 @@ class BookingActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     val time: String = screeningTimeSpinner.getItemAtPosition(0).toString()
-                    bookingResult = bookingResult.updateTime(DateTimeUtil.toLocalTime(time, MOVIE_TIME_DELIMITER))
+                    bookingResult =
+                        bookingResult.updateTime(
+                            DateTimeUtil.toLocalTime(
+                                time,
+                                MOVIE_TIME_DELIMITER,
+                            ),
+                        )
                 }
             }
 
@@ -266,14 +273,9 @@ class BookingActivity : AppCompatActivity() {
 
         with(outState) {
             putInt(Keys.SavedState.BOOKING_HEAD_COUNT, bookingResult.headCount)
-            putString(
-                Keys.SavedState.BOOKING_SCREENING_DATE,
-                DateTimeUtil.toFormattedString(bookingResult.selectedDate, MOVIE_DATE_FORMAT),
-            )
-            putString(
-                Keys.SavedState.BOOKING_SCREENING_TIME,
-                DateTimeUtil.toFormattedString(bookingResult.selectedTime, MOVIE_TIME_FORMAT),
-            )
+            val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
+            putString(Keys.SavedState.BOOKING_SCREENING_DATE, bookingResultUiModel.selectedDate)
+            putString(Keys.SavedState.BOOKING_SCREENING_TIME, bookingResultUiModel.selectedTime)
         }
     }
 }

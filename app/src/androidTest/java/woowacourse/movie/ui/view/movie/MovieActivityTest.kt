@@ -24,7 +24,6 @@ import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.util.Keys
-import java.time.LocalDate
 
 class MovieActivityTest {
     private lateinit var scenario: ActivityScenario<MovieActivity>
@@ -163,17 +162,17 @@ class MovieActivityTest {
                 id = 1L,
                 poster = Poster.Resource(R.drawable.prepare_poster),
                 title = "테스트 데이터 제목",
-                runningTime = 151,
-                screeningStartDate = LocalDate.of(2025, 4, 1),
-                screeningEndDate = LocalDate.of(2025, 4, 25),
+                runningTime = "151",
+                screeningStartDate = "2025.4.1",
+                screeningEndDate = "2025.4.25",
             ),
             MovieUiModel(
                 id = 2L,
                 poster = Poster.Resource(R.drawable.harry_potter),
                 title = "해리포터와 불의 잔 - 테스트용",
-                runningTime = 150,
-                screeningStartDate = LocalDate.of(2025, 4, 12),
-                screeningEndDate = LocalDate.of(2025, 4, 25),
+                runningTime = "150",
+                screeningStartDate = "2025.4.12",
+                screeningEndDate = "2025.4.25",
             ),
         )
     }

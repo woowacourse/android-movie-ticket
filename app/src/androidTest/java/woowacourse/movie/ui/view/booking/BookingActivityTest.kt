@@ -29,7 +29,6 @@ import woowacourse.movie.R
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.util.Keys
-import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
@@ -271,7 +270,7 @@ class BookingActivityTest {
         onView(withId(R.id.tv_complete_title))
             .check(matches(allOf(withText("해리 포터와 마법사의 돌"), isDisplayed())))
         onView(withId(R.id.tv_complete_screening_date))
-            .check(matches(allOf(withText("2035.04.18"), isDisplayed())))
+            .check(matches(allOf(withText("2035.4.18"), isDisplayed())))
         onView(withId(R.id.tv_complete_screening_time))
             .check(matches(allOf(withText("11:00"), isDisplayed())))
         onView(withId(R.id.tv_head_count))
@@ -308,9 +307,9 @@ class BookingActivityTest {
             id = 1L,
             poster = Poster.Resource(R.drawable.harry_potter),
             title = "해리 포터와 마법사의 돌",
-            runningTime = 152,
-            screeningStartDate = LocalDate.of(2025, 4, 1),
-            screeningEndDate = LocalDate.of(2035, 4, 25),
+            runningTime = "152",
+            screeningStartDate = "2025.4.1",
+            screeningEndDate = "2035.4.25",
         )
     }
 }

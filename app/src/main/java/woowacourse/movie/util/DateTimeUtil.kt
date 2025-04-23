@@ -10,7 +10,7 @@ object DateTimeUtil {
     const val MOVIE_TIME_DELIMITER = ":"
     const val MOVIE_DATE_FORMAT = "yyyy.M.d"
     const val MOVIE_TIME_FORMAT = "kk:mm"
-    private const val SPINNER_DATE_FORMAT = "yyyy-M-d"
+    private const val SPINNER_DATE_FORMAT = "yyyy-MM-dd"
 
     fun toFormattedString(
         date: LocalDate,

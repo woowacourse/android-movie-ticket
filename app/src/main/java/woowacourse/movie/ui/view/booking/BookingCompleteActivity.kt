@@ -58,7 +58,8 @@ class BookingCompleteActivity : AppCompatActivity() {
         completeHeadCount.text =
             getString(R.string.screening_complete_headCount, bookingResultUiModel.headCount)
 
-        val money = BookingResultModelMapper.toDomain(bookingResultUiModel).calculateAmount()
+        val bookingResult = BookingResultModelMapper.toDomain(bookingResultUiModel)
+        val money = bookingResult.calculateAmount()
         val bookingAmount: String = DecimalFormat("#,###").format(money)
         completeBookingAmount.text =
             getString(R.string.screening_complete_booking_amount, bookingAmount)
