@@ -1,0 +1,59 @@
+package woowacourse.movie.domain.model.booking
+
+import woowacourse.movie.domain.model.movie.Movie
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.LocalTime
+
+class Booking(
+    private val movie: Movie,
+    private val today: LocalDate = LocalDate.now(),
+    private val currentTime: LocalTime = LocalTime.now(),
+) {
+    private val weekdayScreeningTimes =
+        List(SCREENING_TIMES) { idx -> LocalTime.of(WEEKDAY_START_TIME, 0).plusHours(idx * 2L) }
+    private val weekendScreeningTimes =
+        List(SCREENING_TIMES) { idx -> LocalTime.of(WEEKEND_START_TIME, 0).plusHours(idx * 2L) }
+
+    fun screeningPeriods(): List<LocalDate> {
+        val startDate =
+            if (movie.screeningStartDate.isBefore(today)) today else movie.screeningStartDate
+
+        return generateSequence(startDate) { currentDate ->
+            val next = currentDate.plusDays(1)
+            if (next.isAfter(movie.screeningEndDate)) null else next
+        }.toList()
+    }
+
+    fun screeningTimes(selectedDate: LocalDate): List<LocalTime> {
+        if (today.isEqual(selectedDate)) return screeningTimesType(today, currentTime)
+        return screeningTimesType(selectedDate)
+    }
+
+    private fun screeningTimesType(
+        date: LocalDate,
+        baseTime: LocalTime = LocalTime.of(BEFORE_FIRST_MOVIE_START, 0),
+    ): List<LocalTime> {
+        if (isWeekend(date)) {
+            return weekendScreeningTimes.filter { time ->
+                time == LocalTime.MIDNIGHT || time.isAfter(baseTime)
+            }
+        }
+
+        return weekdayScreeningTimes.filter { time -> time.isAfter(baseTime) }
+    }
+
+    private fun isWeekend(date: LocalDate): Boolean {
+        return when (date.dayOfWeek) {
+            DayOfWeek.SATURDAY, DayOfWeek.SUNDAY -> true
+            else -> false
+        }
+    }
+
+    companion object {
+        private const val BEFORE_FIRST_MOVIE_START = 8
+        private const val SCREENING_TIMES = 8
+        private const val WEEKDAY_START_TIME = 9
+        private const val WEEKEND_START_TIME = 10
+    }
+}
