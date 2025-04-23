@@ -133,11 +133,12 @@ class DetailBookingActivity : AppCompatActivity() {
             val selectedDate = spinnerDate.selectedItem as LocalDate
             val selectedTime = spinnerTime.selectedItem as LocalTime
             val selectedDateTIme = LocalDateTime.of(selectedDate, selectedTime)
-            val ticket = Ticket(
-                movie.title,
-                selectedDateTIme,
-                counterTextView.text.toString().toInt(),
-            )
+            val ticket =
+                Ticket(
+                    movie.title,
+                    selectedDateTIme,
+                    counterTextView.text.toString().toInt(),
+                )
             ReservationDialog(this).popUp(
                 onPositiveClick = {
                     startActivity(CompletedBookingActivity.newIntent(this, ticket))

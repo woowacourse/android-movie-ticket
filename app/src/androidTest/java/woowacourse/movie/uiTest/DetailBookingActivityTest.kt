@@ -21,6 +21,7 @@ import java.time.LocalDate
 
 class DetailBookingActivityTest {
     private lateinit var scenario: ActivityScenario<DetailBookingActivity>
+
     @Before
     fun setUp() {
         val movie =
