@@ -5,6 +5,10 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 object DateTimeUtil {
+    const val MOVIE_DATE_FORMAT = "yyyy.M.d"
+    const val SPINNER_DATE_FORMAT = "yyyy-M-d"
+    const val MOVIE_TIME_FORMAT = "kk:mm"
+
     fun toFormattedString(
         date: LocalDate,
         pattern: String,
