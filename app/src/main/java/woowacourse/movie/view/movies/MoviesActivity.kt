@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movies
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -9,7 +8,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.IntentExtraConstants.MOVIE_DATA_KEY
 import woowacourse.movie.view.reservation.ReservationActivity
 
 class MoviesActivity : AppCompatActivity() {
@@ -42,11 +40,6 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun navigateToReservation(movie: Movie) {
-        val intent =
-            Intent(
-                this,
-                ReservationActivity::class.java,
-            ).apply { putExtra(MOVIE_DATA_KEY, movie) }
-        startActivity(intent)
+        startActivity(ReservationActivity.getIntent(this, movie))
     }
 }

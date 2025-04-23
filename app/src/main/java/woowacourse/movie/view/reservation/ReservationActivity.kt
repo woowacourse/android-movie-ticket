@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -24,8 +25,6 @@ import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Formatter.localDateToUI
 import woowacourse.movie.view.Formatter.movieTimeToUI
-import woowacourse.movie.view.IntentExtraConstants.MOVIE_DATA_KEY
-import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
 import woowacourse.movie.view.getSerializableExtraData
 import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
 import java.time.LocalDate
@@ -199,26 +198,19 @@ class ReservationActivity : AppCompatActivity() {
             .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
                 dialog.dismiss()
             }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
-                val intent = movieTicketIntent()
-                startActivity(intent)
-                dialog.dismiss()
-            }.show()
-    }
-
-    private fun movieTicketIntent(): Intent {
-        val intent =
-            Intent(this, ReservationCompleteActivity::class.java).apply {
-                putExtra(
-                    TICKET_DATA_KEY,
-                    MovieTicket(
-                        title = movie.title,
-                        movieDate = movieDate.value,
-                        movieTime = movieTime,
-                        count = ticketCount.value,
+                startActivity(
+                    ReservationCompleteActivity.getIntent(
+                        this,
+                        MovieTicket(
+                            title = movie.title,
+                            movieDate = movieDate.value,
+                            movieTime = movieTime,
+                            count = ticketCount.value,
+                        ),
                     ),
                 )
-            }
-        return intent
+                dialog.dismiss()
+            }.show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -235,5 +227,15 @@ class ReservationActivity : AppCompatActivity() {
     companion object {
         private const val TICKET_COUNT_DATA_KEY = "count"
         private const val TICKET_DATE_POSITION_DATA_KEY = "date"
+        private const val MOVIE_DATA_KEY = "data"
+
+        fun getIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(
+                context,
+                ReservationActivity::class.java,
+            ).apply { putExtra(MOVIE_DATA_KEY, movie) }
     }
 }

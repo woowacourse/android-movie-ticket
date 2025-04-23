@@ -1,5 +1,7 @@
 package woowacourse.movie.view.reservationComplete
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -11,8 +13,8 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.view.Formatter.localDateToUI
 import woowacourse.movie.view.Formatter.movieTimeToUI
 import woowacourse.movie.view.Formatter.priceToUI
-import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
 import woowacourse.movie.view.getSerializableExtraData
+import woowacourse.movie.view.reservation.ReservationActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -58,5 +60,17 @@ class ReservationCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        private const val TICKET_DATA_KEY = "movieTicket"
+
+        fun getIntent(
+            context: Context,
+            movieTicket: MovieTicket,
+        ): Intent =
+            Intent(context, ReservationActivity::class.java).apply {
+                putExtra(TICKET_DATA_KEY, movieTicket)
+            }
     }
 }
