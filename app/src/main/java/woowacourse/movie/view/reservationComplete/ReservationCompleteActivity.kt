@@ -8,7 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.Formatter.localDateToUI
+import woowacourse.movie.view.Formatter.movieTimeToUI
+import woowacourse.movie.view.Formatter.priceToUI
 import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
 import woowacourse.movie.view.getSerializableExtraData
 import java.time.LocalDate
@@ -16,7 +18,6 @@ import java.time.LocalTime
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY) }
-    private val formatter: Formatter by lazy { Formatter() }
 
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_title) }
     private val screeningDateTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_timestamp) }
@@ -42,15 +43,15 @@ class ReservationCompleteActivity : AppCompatActivity() {
         screeningDateTextView.text =
             getString(
                 R.string.reservation_ticket_timestamp,
-                formatter.localDateToUI(movieTicket?.movieDate ?: LocalDate.now()),
-                formatter.movieTimeToUI(movieTicket?.movieTime?.value ?: LocalTime.now().hour),
+                localDateToUI(movieTicket?.movieDate ?: LocalDate.now()),
+                movieTimeToUI(movieTicket?.movieTime?.value ?: LocalTime.now().hour),
             )
         ticketCountTextView.text =
             resources.getString(R.string.reservation_complete_ticket_count, movieTicket?.count)
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                formatter.priceToUI(movieTicket?.price() ?: 13000),
+                priceToUI(movieTicket?.price() ?: 13000),
             )
     }
 

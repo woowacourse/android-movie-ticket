@@ -8,15 +8,13 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.Formatter.localDateToUI
 
 class MovieViewHolder(
     view: View,
     private val context: Context,
     private val movieClickListener: MovieClickListener,
 ) {
-    private val formatter: Formatter by lazy { Formatter() }
-
     private val titleTextView: TextView by lazy { view.findViewById(R.id.tv_movie_title) }
     private val posterImageView: ImageView by lazy { view.findViewById(R.id.iv_movie_poster) }
     private val screeningDateTextView: TextView by lazy { view.findViewById(R.id.tv_movie_screening_date) }
@@ -42,8 +40,8 @@ class MovieViewHolder(
     }
 
     private fun setupScreeningDate(item: Movie) {
-        val startDate = formatter.localDateToUI(item.startDate)
-        val endDate = formatter.localDateToUI(item.endDate)
+        val startDate = localDateToUI(item.startDate)
+        val endDate = localDateToUI(item.endDate)
         screeningDateTextView.text =
             context.getString(R.string.movie_screening_date, startDate, endDate)
     }

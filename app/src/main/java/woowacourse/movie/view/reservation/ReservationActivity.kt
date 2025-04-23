@@ -22,7 +22,8 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
-import woowacourse.movie.view.Formatter
+import woowacourse.movie.view.Formatter.localDateToUI
+import woowacourse.movie.view.Formatter.movieTimeToUI
 import woowacourse.movie.view.IntentExtraConstants.MOVIE_DATA_KEY
 import woowacourse.movie.view.IntentExtraConstants.TICKET_DATA_KEY
 import woowacourse.movie.view.getSerializableExtraData
@@ -33,7 +34,6 @@ import java.time.LocalDateTime
 class ReservationActivity : AppCompatActivity() {
     private var ticketCount: TicketCount = TicketCount()
     private var selectedDatePosition: Int = 0
-    private val formatter: Formatter by lazy { Formatter() }
     private val movie by lazy {
         intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY) ?: Movie.value
     }
@@ -82,8 +82,8 @@ class ReservationActivity : AppCompatActivity() {
         posterImageView.setImageDrawable(poster)
         movieTitleTextView.text = movie.title
 
-        val startDate = formatter.localDateToUI(movie.startDate)
-        val endDate = formatter.localDateToUI(movie.endDate)
+        val startDate = localDateToUI(movie.startDate)
+        val endDate = localDateToUI(movie.endDate)
         screeningDateTextView.text =
             resources.getString(R.string.movie_screening_date, startDate, endDate)
 
@@ -129,7 +129,7 @@ class ReservationActivity : AppCompatActivity() {
             ArrayAdapter(
                 this,
                 com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
-                timeTable.map { formatter.movieTimeToUI(it) },
+                timeTable.map { movieTimeToUI(it) },
             )
 
         timeSpinner.apply {
