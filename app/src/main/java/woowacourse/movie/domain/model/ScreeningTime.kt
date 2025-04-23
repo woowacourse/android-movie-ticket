@@ -6,19 +6,20 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ScreeningTime(
+    private val nowDateTime: LocalDateTime,
     private val selectedDate: LocalDate,
 ) : Serializable {
-    fun getAvailableScreeningTimes(nowDateTime: LocalDateTime): List<LocalTime> {
+    fun getAvailableScreeningTimes(): List<LocalTime> {
         val times = getScreeningTimes(DayType.of(selectedDate))
-        return if (isToday(nowDateTime, selectedDate)) {
+        return if (isToday()) {
             times.filter { it.isAfter(nowDateTime.toLocalTime()) }
         } else {
             times
         }
     }
 
-    fun hasAvailableScreeningTime(nowDateTime: LocalDateTime): Boolean {
-        return getAvailableScreeningTimes(nowDateTime).isNotEmpty()
+    fun hasAvailableScreeningTime(): Boolean {
+        return getAvailableScreeningTimes().isNotEmpty()
     }
 
     private fun getScreeningTimes(dayType: DayType): List<LocalTime> {
@@ -29,12 +30,7 @@ class ScreeningTime(
             }
     }
 
-    private fun isToday(
-        nowDateTime: LocalDateTime,
-        selectedDate: LocalDate,
-    ): Boolean {
-        return selectedDate.isEqual(nowDateTime.toLocalDate())
-    }
+    private fun isToday(): Boolean = selectedDate.isEqual(nowDateTime.toLocalDate())
 
     companion object {
         private const val MIDNIGHT = 24

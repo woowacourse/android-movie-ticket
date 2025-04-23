@@ -8,16 +8,20 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ScreeningTimeTest {
-    private val screeningTime: ScreeningTime = ScreeningTime()
-
     @Test
     fun `주말엔 10시 부터 2시간 간격으로 상영 시간을 반환한다`() {
-        val result =
-            screeningTime.getAvailableScreeningTimes(
-                LocalDateTime.of(2025, 4, 19, 7, 20),
-                LocalDate.of(2025, 5, 17),
+        // when
+        val screeningTime =
+            ScreeningTime(
+                LocalDateTime.of(2025, 4, 24, 15, 20),
+                LocalDate.of(2025, 4, 26),
             )
 
+        // given
+        val result =
+            screeningTime.getAvailableScreeningTimes()
+
+        // then
         assertEquals(
             result,
             listOf(
@@ -35,12 +39,17 @@ class ScreeningTimeTest {
 
     @Test
     fun `평일엔 9시부터 2시간 간격으로 상영 시간을 반환한다`() {
-        val result =
-            screeningTime.getAvailableScreeningTimes(
-                LocalDateTime.of(2025, 4, 9, 3, 0),
-                LocalDate.of(2025, 4, 17),
+        // when
+        val screeningTime =
+            ScreeningTime(
+                LocalDateTime.of(2025, 4, 24, 15, 20),
+                LocalDate.of(2025, 4, 25),
             )
 
+        // given
+        val result = screeningTime.getAvailableScreeningTimes()
+
+        // result
         assertEquals(
             result,
             listOf(
@@ -57,11 +66,17 @@ class ScreeningTimeTest {
 
     @Test
     fun `선택된 예매 날짜가 당일이면 당일 시간 이전은 제외한 예매 시간을 반환한다`() {
-        val result =
-            screeningTime.getAvailableScreeningTimes(
-                LocalDateTime.of(2025, 4, 16, 15, 0),
-                LocalDate.of(2025, 4, 16),
+        // when
+        val screeningTime =
+            ScreeningTime(
+                LocalDateTime.of(2025, 4, 24, 15, 20),
+                LocalDate.of(2025, 4, 24),
             )
+
+        // given
+        val result = screeningTime.getAvailableScreeningTimes()
+
+        // then
         assertEquals(
             result,
             listOf(

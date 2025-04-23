@@ -150,14 +150,14 @@ class BookingActivity : AppCompatActivity() {
     ) {
         val timeSpinner: Spinner = findViewById(R.id.sp_time)
         val now = LocalDateTime.now()
-        val screeningTime = ScreeningTime(selectedDate)
+        val screeningTime = ScreeningTime(now, selectedDate)
 
-        if (!screeningTime.hasAvailableScreeningTime(now)) {
+        if (!screeningTime.hasAvailableScreeningTime()) {
             showToast(R.string.text_no_booking_time)
             return
         }
 
-        val screeningTimes = screeningTime.getAvailableScreeningTimes(now)
+        val screeningTimes = screeningTime.getAvailableScreeningTimes()
         with(timeSpinner) {
             adapter =
                 ArrayAdapter(
