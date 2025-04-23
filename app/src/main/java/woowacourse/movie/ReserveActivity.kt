@@ -60,9 +60,10 @@ class ReserveActivity : AppCompatActivity() {
         super.onSaveInstanceState(savedInstanceState)
         val datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
         val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
-        val selectedDate = savedInstanceState.getSerializable(KEY_SELECTED_DATE) as LocalDate
+        val selectedDate =
+            savedInstanceState.serializableData(KEY_SELECTED_DATE, LocalDate::class.java)
         dateSpinner.setSelection(datePosition)
-        updateTimeSpinner(selectedDate)
+        if (selectedDate != null) updateTimeSpinner(selectedDate)
         timeSpinner.setSelection(timePosition)
         isDateInit = true
     }
@@ -117,11 +118,12 @@ class ReserveActivity : AppCompatActivity() {
         val timePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: 0
         initDateSpinner(movie.screeningDate)
         initTimeSpinner(movie.screeningDate.startDate)
-        this.reservation = savedInstanceState?.getSerializable(KEY_RESERVATION) as? Reservation
-            ?: Reservation(
-                movie.title, getSelectedDateTime(),
-                Tickets(listOf(TicketType.DEFAULT)),
-            )
+        this.reservation =
+            savedInstanceState?.serializableData(KEY_RESERVATION, Reservation::class.java)
+                ?: Reservation(
+                    movie.title, getSelectedDateTime(),
+                    Tickets(listOf(TicketType.DEFAULT)),
+                )
         updateTicketCount()
         initButtonListeners()
         timeSpinner.setSelection(timePosition)
