@@ -39,7 +39,7 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservationResult() {
-        val reservation = intent.serializableData(KEY_RESERVATION, Reservation::class.java)
+        val reservation = intent.serializableData(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, Reservation::class.java)
 
         if (reservation == null) {
             showReservationError()
@@ -98,6 +98,6 @@ class ReservationResultActivity : AppCompatActivity() {
     companion object {
         private fun wonFormat(context: Context) = DecimalFormat(context.getString(R.string.won_format))
 
-        const val KEY_RESERVATION = "reservation"
+        const val KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION = "key_reservation_result_activity_reservation"
     }
 }

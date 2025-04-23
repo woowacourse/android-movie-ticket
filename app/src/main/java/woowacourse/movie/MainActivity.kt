@@ -7,7 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.ReserveActivity.Companion.KEY_MOVIE
+import woowacourse.movie.ReserveActivity.Companion.KEY_RESERVE_ACTIVITY_MOVIE
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTime
 import woowacourse.movie.domain.ScreeningDate
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         val adapter =
             MoviesAdapter(movies) { movie ->
                 val intent = Intent(this, ReserveActivity::class.java)
-                intent.putExtra(KEY_MOVIE, movie)
+                intent.putExtra(KEY_RESERVE_ACTIVITY_MOVIE, movie)
                 startActivity(intent)
             }
         moviesView.adapter = adapter

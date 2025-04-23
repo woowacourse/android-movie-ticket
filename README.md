@@ -68,5 +68,5 @@
 - [ ] domain 및 ui 패키지 분리
 - [ ] TicketType을 가지는 Ticket 구현
 - [x] deprecated된 코드 수정
-- [ ] key 동반 객체의 중복 방지 고민
+- [x] key 동반 객체의 중복 방지 고민
 - [x] 불변 객체에 getter 수정

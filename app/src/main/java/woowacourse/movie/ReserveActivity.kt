@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.ReservationResultActivity.Companion.KEY_RESERVATION
+import woowacourse.movie.ReservationResultActivity.Companion.KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION
 import woowacourse.movie.domain.CurrentDateScheduler
 import woowacourse.movie.domain.CurrentTimeScheduler
 import woowacourse.movie.domain.Movie
@@ -50,7 +50,7 @@ class ReserveActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_RESERVATION, reservation)
+        outState.putSerializable(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
         outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
         outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
         outState.putSerializable(KEY_SELECTED_DATE, dateSpinner.selectedItem as LocalDate)
@@ -86,7 +86,7 @@ class ReserveActivity : AppCompatActivity() {
         }
     }
 
-    private fun movie(): Movie? = intent.serializableData(KEY_MOVIE, Movie::class.java)
+    private fun movie(): Movie? = intent.serializableData(KEY_RESERVE_ACTIVITY_MOVIE, Movie::class.java)
 
     private fun showMissingMovieDialog() {
         val dialogInfo =
@@ -119,7 +119,7 @@ class ReserveActivity : AppCompatActivity() {
         initDateSpinner(movie.screeningDate)
         initTimeSpinner(movie.screeningDate.startDate)
         this.reservation =
-            savedInstanceState?.serializableData(KEY_RESERVATION, Reservation::class.java)
+            savedInstanceState?.serializableData(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, Reservation::class.java)
                 ?: Reservation(
                     movie.title, getSelectedDateTime(),
                     Tickets(listOf(TicketType.DEFAULT)),
@@ -200,7 +200,7 @@ class ReserveActivity : AppCompatActivity() {
         if (::reservation.isInitialized) {
             startActivity(
                 Intent(this, ReservationResultActivity::class.java).apply {
-                    putExtra(KEY_RESERVATION, reservation)
+                    putExtra(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
                 },
             )
         } else {
@@ -268,6 +268,6 @@ class ReserveActivity : AppCompatActivity() {
         private const val KEY_DATE_POSITION = "datePosition"
         private const val KEY_TIME_POSITION = "timePosition"
         private const val KEY_SELECTED_DATE = "selectedDate"
-        const val KEY_MOVIE = "movie"
+        const val KEY_RESERVE_ACTIVITY_MOVIE = "key_reserve_activity_movie"
     }
 }
