@@ -182,10 +182,8 @@ class BookingActivity : AppCompatActivity() {
         }
 
         decreaseBtn.setOnClickListener {
-            if (bookingPeopleCount.canDecrease()) {
-                bookingPeopleCount = bookingPeopleCount.decrease()
-                peopleCount.text = bookingPeopleCount.value.toString()
-            }
+            bookingPeopleCount = bookingPeopleCount.decrease()
+            peopleCount.text = bookingPeopleCount.value.toString()
         }
 
         bookingBtn.setOnClickListener {

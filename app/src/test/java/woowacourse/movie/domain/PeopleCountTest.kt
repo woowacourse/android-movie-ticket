@@ -35,9 +35,9 @@ class PeopleCountTest {
         val peopleCount = PeopleCount(1)
 
         // when
-        val expected = peopleCount.canDecrease()
+        val expected = peopleCount.decrease().value
 
         // then
-        assertEquals(expected, false)
+        assertEquals(expected, PeopleCount(1).value)
     }
 }
