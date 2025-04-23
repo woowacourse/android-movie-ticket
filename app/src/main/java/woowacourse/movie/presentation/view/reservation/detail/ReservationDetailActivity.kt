@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.reservation.reservation
+package woowacourse.movie.presentation.view.reservation.detail
 
 import android.content.Context
 import android.content.Intent
@@ -19,11 +19,11 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity :
+class ReservationDetailActivity :
     BaseActivity(R.layout.activity_reservation),
-    ReservationContract.View {
-    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this) }
-    private val views: ReservationViews by lazy { ReservationViews(this) }
+    ReservationDetailContract.View {
+    private val presenter: ReservationDetailPresenter by lazy { ReservationDetailPresenter(this) }
+    private val views: ReservationDetailViews by lazy { ReservationDetailViews(this) }
 
     private var shouldIgnoreNextSelection = false
 
@@ -190,7 +190,7 @@ class ReservationActivity :
             context: Context,
             movie: Movie,
         ): Intent =
-            Intent(context, ReservationActivity::class.java).putExtra(
+            Intent(context, ReservationDetailActivity::class.java).putExtra(
                 BUNDLE_KEY_MOVIE,
                 movie.toUiModel(),
             )

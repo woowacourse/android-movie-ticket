@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.reservation.reservation
+package woowacourse.movie.presentation.view.reservation.detail
 
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationCount
@@ -7,9 +7,9 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationPresenter(
-    private val view: ReservationContract.View,
-) : ReservationContract.Presenter {
+class ReservationDetailPresenter(
+    private val view: ReservationDetailContract.View,
+) : ReservationDetailContract.Presenter {
     private var movie: Movie? = null
     private var reservationCount = ReservationCount()
 

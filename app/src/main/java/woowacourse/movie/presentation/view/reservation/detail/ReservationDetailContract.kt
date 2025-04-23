@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.reservation.reservation
+package woowacourse.movie.presentation.view.reservation.detail
 
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationInfo
@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-interface ReservationContract {
+interface ReservationDetailContract {
     interface Presenter {
         fun fetchData(
             initCount: Int? = null,

@@ -5,7 +5,7 @@ import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.base.BaseActivity
-import woowacourse.movie.presentation.view.reservation.reservation.ReservationActivity
+import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailActivity
 
 class MoviesActivity :
     BaseActivity(R.layout.activity_movies),
@@ -34,7 +34,7 @@ class MoviesActivity :
     }
 
     override fun navigateToReservationScreen(movie: Movie) {
-        val intent = ReservationActivity.newIntent(this, movie)
+        val intent = ReservationDetailActivity.newIntent(this, movie)
         startActivity(intent)
     }
 }

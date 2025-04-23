@@ -10,19 +10,19 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.presentation.fixture.dummyMovie
-import woowacourse.movie.presentation.view.reservation.reservation.ReservationContract
-import woowacourse.movie.presentation.view.reservation.reservation.ReservationPresenter
+import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailContract
+import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailPresenter
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ReservationPresenterTest {
-    private lateinit var presenter: ReservationContract.Presenter
-    private lateinit var view: ReservationContract.View
+class ReservationDetailPresenterTest {
+    private lateinit var presenter: ReservationDetailContract.Presenter
+    private lateinit var view: ReservationDetailContract.View
 
     @BeforeEach
     fun setUp() {
         view = mockk()
-        presenter = ReservationPresenter(view)
+        presenter = ReservationDetailPresenter(view)
     }
 
     @Test

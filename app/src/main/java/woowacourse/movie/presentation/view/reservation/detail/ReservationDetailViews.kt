@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.reservation.reservation
+package woowacourse.movie.presentation.view.reservation.detail
 
 import android.view.View
 import android.widget.AdapterView
@@ -16,8 +16,8 @@ import woowacourse.movie.presentation.util.CustomAlertDialog
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservationViews(
-    private val activity: ReservationActivity,
+class ReservationDetailViews(
+    private val activity: ReservationDetailActivity,
 ) {
     private val tvReservationCount: TextView = activity.findViewById(R.id.tv_reservation_count)
     private val spinnerDate: Spinner = activity.findViewById(R.id.spinner_reservation_date)

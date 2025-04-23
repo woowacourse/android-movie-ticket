@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.reservation
+package woowacourse.movie.presentation.view.reservation.detail
 
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
@@ -18,11 +18,10 @@ import woowacourse.movie.domain.model.Poster
 import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.presentation.fixture.fakeContext
-import woowacourse.movie.presentation.view.reservation.reservation.ReservationActivity
 import java.time.LocalDate
 
-class ReservationActivityTest {
-    private lateinit var scenario: ActivityScenario<ReservationActivity>
+class ReservationDetailActivityTest {
+    private lateinit var scenario: ActivityScenario<ReservationDetailActivity>
     private val fakeMovie =
         Movie(
             1,
@@ -37,7 +36,7 @@ class ReservationActivityTest {
 
     @Before
     fun setUp() {
-        val intent = ReservationActivity.newIntent(fakeContext, fakeMovie)
+        val intent = ReservationDetailActivity.newIntent(fakeContext, fakeMovie)
         scenario = ActivityScenario.launch(intent)
     }
 
@@ -117,7 +116,7 @@ class ReservationActivityTest {
     fun `선택_가능한_날짜가_없다면_다이얼로그가_노출된다`() {
         scenario.onActivity { activity ->
             val intent =
-                ReservationActivity.newIntent(
+                ReservationDetailActivity.newIntent(
                     fakeContext,
                     fakeMovie.copy(
                         screeningPeriod =
