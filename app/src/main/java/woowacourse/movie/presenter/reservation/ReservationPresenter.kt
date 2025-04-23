@@ -12,10 +12,12 @@ import woowacourse.movie.view.getParcelableExtraCompat
 import woowacourse.movie.view.reservation.ReservationContract
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class ReservationPresenter(val view: ReservationContract.View) : ReservationContract.Presenter {
     private lateinit var movie: Movie
     private lateinit var movieDate: MovieDate
+    private var timeTable: List<Int> = emptyList()
     private val movieTime = MovieTime()
     private val formatter = ReservationUiFormatter()
     private var ticketCount = TicketCount()
@@ -51,13 +53,13 @@ class ReservationPresenter(val view: ReservationContract.View) : ReservationCont
 
     override fun onDateSelected(date: LocalDate, position: Int) {
         movieDate.updateDate(date)
-        val timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
+        timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
         selectedDatePosition = position
         view.updateTimeAdapter(timeTable.map { ReservationUiFormatter().movieTimeToUI(it) })
     }
 
-    override fun onTimeSelected(index: Int) {
-        movieTime.updateTime(index)
+    override fun onTimeSelected(position: Int) {
+        movieTime.updateTime(timeTable[position])
     }
 
     override fun plusTicketCount() {

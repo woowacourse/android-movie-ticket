@@ -38,7 +38,7 @@ interface ReservationContract {
 
         fun onDateSelected(date: LocalDate, position: Int)
 
-        fun onTimeSelected(index: Int)
+        fun onTimeSelected(position: Int)
 
         fun plusTicketCount()
 
