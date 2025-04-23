@@ -15,13 +15,13 @@
         <activity
             android:name=".view.reservation.MovieReservationActivity"
             android:exported="false"
-            android:parentActivityName=".view.list.MovieListActivity" />
+            android:parentActivityName=".view.movie.MovieListActivity" />
         <activity
             android:name=".view.reservation.MovieReservationCompleteActivity"
             android:exported="false"
             android:parentActivityName=".view.reservation.MovieReservationActivity" />
         <activity
-            android:name=".view.list.MovieListActivity"
+            android:name=".view.movie.MovieListActivity"
             android:exported="false">
         </activity>
         <activity
