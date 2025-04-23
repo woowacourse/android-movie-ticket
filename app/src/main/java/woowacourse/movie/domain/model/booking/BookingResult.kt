@@ -13,8 +13,8 @@ data class BookingResult(
         require(title.isNotBlank()) { ERROR_TITLE_BLANK_MESSAGE }
     }
 
-    fun calculateAmount(): Int {
-        return TICKET_PRICE * headCount
+    fun calculateAmount(ticketPrice: TicketPrice): Int {
+        return ticketPrice.calculate(headCount)
     }
 
     fun plusHeadCount(): BookingResult {
@@ -37,7 +37,6 @@ data class BookingResult(
 
     companion object {
         const val CANCELLATION_LIMIT_MINUTES = 15
-        private const val TICKET_PRICE = 13_000
         private const val ERROR_TITLE_BLANK_MESSAGE = "예매한 영화 제목은 비어 있을 수 없다"
     }
 }

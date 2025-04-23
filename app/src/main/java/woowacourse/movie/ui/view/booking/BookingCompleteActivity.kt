@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.BookingResult
+import woowacourse.movie.domain.model.booking.TicketPrice
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.BookingResultModelMapper
@@ -59,7 +60,8 @@ class BookingCompleteActivity : AppCompatActivity() {
             getString(R.string.screening_complete_headCount, bookingResultUiModel.headCount)
 
         val bookingResult = BookingResultModelMapper.toDomain(bookingResultUiModel)
-        val money = bookingResult.calculateAmount()
+        val ticketPrice = TicketPrice()
+        val money = bookingResult.calculateAmount(ticketPrice)
         val bookingAmount: String = DecimalFormat("#,###").format(money)
         completeBookingAmount.text =
             getString(R.string.screening_complete_booking_amount, bookingAmount)

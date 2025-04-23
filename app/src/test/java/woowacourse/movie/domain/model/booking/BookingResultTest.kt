@@ -24,9 +24,10 @@ class BookingResultTest {
     @Test
     fun `예매 인원에 맞는 금액을 계산한다`() {
         val bookingResult = BookingResult("해리포터", 2, LocalDate.of(2025, 4, 17), LocalTime.of(11, 0))
+        val ticketPrice = TicketPrice()
         val expected = 26_000
 
-        val actual = bookingResult.calculateAmount()
+        val actual = bookingResult.calculateAmount(ticketPrice)
 
         assertEquals(expected, actual)
     }

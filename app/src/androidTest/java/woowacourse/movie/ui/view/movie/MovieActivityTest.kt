@@ -119,11 +119,21 @@ class MovieActivityTest {
             .onChildView(withId(R.id.btn_reserve))
             .perform(click())
 
+        val expected =
+            MovieUiModel(
+                id = 1L,
+                poster = Poster.Resource(R.drawable.prepare_poster),
+                title = "테스트 데이터 제목",
+                runningTime = "151",
+                screeningStartDate = "2025.4.1",
+                screeningEndDate = "2025.4.25",
+            )
+
         // then
         intended(
             allOf(
                 hasComponent(BookingActivity::class.java.name),
-                hasExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModels[0]),
+                hasExtra(Keys.Extra.SELECTED_MOVIE_ITEM, expected),
             ),
         )
     }
