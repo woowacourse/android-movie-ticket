@@ -1,11 +1,11 @@
 package woowacourse.movie
 
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Reservation
-import woowacourse.movie.domain.RunningTime
-import woowacourse.movie.domain.ScreeningDate
-import woowacourse.movie.domain.TicketType
-import woowacourse.movie.domain.Tickets
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.RunningTime
+import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.TicketType
+import woowacourse.movie.domain.model.Tickets
 import java.time.LocalDateTime
 
 const val HARRY_POTTER_TITLE = "해리포터"
