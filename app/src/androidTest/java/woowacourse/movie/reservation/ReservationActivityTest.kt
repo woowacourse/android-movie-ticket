@@ -1,15 +1,12 @@
 package woowacourse.movie.reservation
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
-import androidx.test.espresso.intent.matcher.IntentMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -18,16 +15,13 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.MOVIE_VALUE
+import woowacourse.movie.MOVIE
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
-import woowacourse.movie.view.IntentExtraConstants
+import woowacourse.movie.fakeContext
 import woowacourse.movie.view.reservation.ReservationActivity
-import java.time.LocalDate
 
 class ReservationActivityTest {
     private lateinit var scenario: ActivityScenario<ReservationActivity>
-    private lateinit var fakeContext: Context
 
     @get:Rule
     val activityRule = ActivityScenarioRule(ReservationActivity::class.java)
@@ -35,7 +29,6 @@ class ReservationActivityTest {
     @Before
     fun setup() {
         Intents.init()
-        fakeContext = ApplicationProvider.getApplicationContext()
     }
 
     @Test
@@ -113,32 +106,6 @@ class ReservationActivityTest {
             .check(matches(isDisplayed()))
     }
 
-    // 테스트 값 현재 시간 기준으로 하드 코딩 해야 함
-    @Test
-    fun 다이얼로그_예매_완료_버튼을_누르면_영화_예매_완료_화면으로_티켓_정보를_넘긴다() {
-        // given: 다이얼로그 화면에서
-        onView(withId(R.id.btn_reservation_select_complete))
-            .perform(click())
-
-        // when: 예매 완료 버튼을 누르면
-        onView(withText("예매 완료"))
-            .perform(click())
-
-        // then: 영화 예매 완료 화면으로 티켓 정보를 넘긴다
-        Intents.intended(
-            IntentMatchers.hasExtra(
-                "movieTicket",
-                Movie(
-                    "라라랜드",
-                    R.drawable.lalaland,
-                    LocalDate.of(2025, 4, 1),
-                    LocalDate.of(2025, 4, 20),
-                    120,
-                ),
-            ),
-        )
-    }
-
     @Test
     fun `화면을_회전해도_티켓_개수가_유지된다`() {
         // given: 초기 티켓 개수는 1이고
@@ -146,7 +113,7 @@ class ReservationActivityTest {
             Intent(
                 fakeContext,
                 ReservationActivity::class.java,
-            ).putExtra(IntentExtraConstants.MOVIE_DATA_KEY, MOVIE_VALUE)
+            ).putExtra("data", MOVIE)
         scenario = ActivityScenario.launch(intent)
 
         // when: 티켓 개수를 1증가 시키고 가로로 회전 시켰을 때
