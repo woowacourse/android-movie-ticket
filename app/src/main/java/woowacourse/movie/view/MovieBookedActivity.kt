@@ -13,6 +13,11 @@ import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 
 class MovieBookedActivity : AppCompatActivity() {
+    private lateinit var title: TextView
+    private lateinit var bookingDateTime: TextView
+    private lateinit var memberCount: TextView
+    private lateinit var movieTicketPrice: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,20 +29,16 @@ class MovieBookedActivity : AppCompatActivity() {
         }
         val bookingStatus = bookingStatus()
 
-        val title: TextView = findViewById(R.id.movie_title)
-        val bookingDateTime: TextView = findViewById(R.id.booking_date_time)
-        val memberCount: TextView = findViewById(R.id.member_count)
-        val movieTicketPrice: TextView = findViewById(R.id.movie_ticket_price)
+        title = findViewById(R.id.movie_title)
+        bookingDateTime = findViewById(R.id.booking_date_time)
+        memberCount = findViewById(R.id.member_count)
+        movieTicketPrice = findViewById(R.id.movie_ticket_price)
 
-        initBookingStatus(title, bookingStatus, bookingDateTime, memberCount, movieTicketPrice)
+        initBookingStatus(bookingStatus)
     }
 
     private fun initBookingStatus(
-        title: TextView,
         bookingStatus: BookingStatus,
-        bookingDateTime: TextView,
-        memberCount: TextView,
-        movieTicketPrice: TextView
     ) {
         title.text = bookingStatus.movie.title
         bookingDateTime.text = bookingDateTime.context.getString(
