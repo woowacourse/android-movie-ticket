@@ -1,0 +1,80 @@
+package woowacourse.movie
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.MenuItem
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.Reservation
+import woowacourse.movie.ext.getSerializableCompat
+import java.text.DecimalFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+
+class ReservationResultActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_reservation_result)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val reservation = extractReservation()
+        bindReservation(reservation)
+    }
+
+    private fun extractReservation(): Reservation {
+        return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
+    }
+
+    private fun bindReservation(reservation: Reservation) {
+        val title = findViewById<TextView>(R.id.tv_title)
+        val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
+        val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)
+        val totalPrice = findViewById<TextView>(R.id.tv_total_price)
+
+        val formattedScreeningDate = formatting(reservation.reservedTime)
+
+        title.text = reservation.title
+        screeningDate.text = formattedScreeningDate
+        ticketCount.text = getString(R.string.formatted_ticket_count).format(reservation.count)
+        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(reservation.totalPrice()))
+    }
+
+    private fun formatting(reservedDateTime: LocalDateTime): String {
+        return reservedDateTime.format(formatter)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    companion object {
+        private val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
+        private val decimal = DecimalFormat("#,###")
+
+        fun newIntent(
+            context: Context,
+            reservation: Reservation,
+        ): Intent =
+            Intent(context, ReservationResultActivity::class.java).apply {
+                putExtra(KeyIdentifiers.KEY_RESERVATION, reservation)
+            }
+    }
+}

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ReservationResultActivity">
+
+    <TextView
+        android:id="@+id/tv_cancel_guide"
+        android:layout_width="match_parent"
+        android:layout_height="114dp"
+        android:background="@color/light_purple"
+        android:gravity="bottom|center_horizontal"
+        android:paddingBottom="10dp"
+        android:text="@string/reservation_cancel_guide"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_cancel_guide"
+        tools:text="영화 제목" />
+
+    <TextView
+        android:id="@+id/tv_screening_date"
+        style="@style/Text_Normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        tools:text="상영일" />
+
+    <TextView
+        android:id="@+id/tv_ticket_tier"
+        style="@style/Text_Normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="end"
+        android:text="@string/reservation_ticket_tier_standard"
+        app:layout_constraintEnd_toStartOf="@id/tv_ticket_count"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_screening_date" />
+
+    <TextView
+        android:id="@+id/tv_ticket_count"
+        style="@style/Text_Normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_ticket_tier"
+        app:layout_constraintTop_toBottomOf="@id/tv_screening_date"
+        tools:text="N명" />
+
+    <TextView
+        android:id="@+id/tv_total_price"
+        style="@style/Text_Normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="end"
+        app:layout_constraintEnd_toStartOf="@id/tv_purchase_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_ticket_tier"
+        tools:text="26,000원" />
+
+    <TextView
+        android:id="@+id/tv_purchase_type"
+        style="@style/Text_Normal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/reservation_purchase_type_on_site"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_total_price"
+        app:layout_constraintTop_toBottomOf="@id/tv_ticket_tier" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
