@@ -65,3 +65,11 @@
 - [x] 각 xml파일 scrollView를 전체 Layout으로 수정
 - [x] ReservationCompleteActivity | getSerializableExtra() 버전에 따라 메서드를 다르게 사용하도록 수정
 - [x] DialogFactory | DialogFactory의 구조를 변경하여 다이얼로그 중복 생성을 방지
+
+## 3단계 개요
+- [ ] 필요없는 companion 메서드 제거
+- [ ] 패키지 구조 분리
+- [ ] dialog 인스턴스 전역으로 따로 생성
+- [ ] MainActivity | MVP구조로 분리
+- [ ] ReservationActivity | MVP구조로 분리
+- [ ] ReservationCompleteActivity | MVP구조로 분리
