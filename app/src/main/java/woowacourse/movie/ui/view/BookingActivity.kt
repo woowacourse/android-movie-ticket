@@ -18,6 +18,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieScheduler
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.ui.constant.IntentKeys
+import woowacourse.movie.ui.util.PosterMapper
 import woowacourse.movie.ui.util.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -27,10 +28,13 @@ import java.util.Locale
 class BookingActivity : BaseActivity() {
     override val layoutRes: Int
         get() = R.layout.activity_booking
+
     private lateinit var movie: Movie
     private var headCount: HeadCount = HeadCount()
-    private lateinit var selectedDate: LocalDate
-    private lateinit var selectedTime: LocalTime
+    private var dateItemPosition: Int = DEFAULT_POSITION
+    private var timeItemPosition: Int = DEFAULT_POSITION
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.spinner_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.spinner_time) }
     private val headCountView: TextView by lazy { findViewById(R.id.textview_headcount) }
     private var confirmDialog: AlertDialog? = null
 
@@ -45,16 +49,16 @@ class BookingActivity : BaseActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(HEADCOUNT_KEY, headCount.value)
-        outState.putString(DATE_KEY, selectedDate.toString())
-        outState.putString(TIME_KEY, selectedTime.toString())
+        outState.putInt(DATE_POSITION_KEY, dateItemPosition)
+        outState.putInt(TIME_POSITION_KEY, timeItemPosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         headCount = HeadCount(savedInstanceState.getInt(HEADCOUNT_KEY))
         updateHeadCount()
-        selectedDate = LocalDate.parse(savedInstanceState.getString(DATE_KEY))
-        selectedTime = LocalTime.parse(savedInstanceState.getString(TIME_KEY))
+        dateItemPosition = savedInstanceState.getInt(DATE_POSITION_KEY)
+        timeItemPosition = savedInstanceState.getInt(TIME_POSITION_KEY)
     }
 
     override fun onDestroy() {
@@ -86,7 +90,7 @@ class BookingActivity : BaseActivity() {
 
     private fun displayMovieInfo() {
         val poster = findViewById<ImageView>(R.id.imageview_poster)
-        poster.setImageResource(movie.posterRes)
+        poster.setImageResource(PosterMapper.convertTitleToResId(movie.title))
 
         val title = findViewById<TextView>(R.id.textview_title)
         title.text = movie.title
@@ -122,18 +126,13 @@ class BookingActivity : BaseActivity() {
 
     private fun setupDateSpinner() {
         val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
-        val dateSpinner = findViewById<Spinner>(R.id.spinner_date)
         val dates = movieScheduler.getBookableDates()
-
         dateSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             dates
         )
-
-        val index = if (::selectedDate.isInitialized) dates.indexOf(selectedDate) else 0
-        dateSpinner.setSelection(index)
-
+        dateSpinner.setSelection(dateItemPosition)
         dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -141,7 +140,8 @@ class BookingActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                selectedDate = dateSpinner.getItemAtPosition(position) as LocalDate
+                val selectedDate = dateSpinner.getItemAtPosition(position) as LocalDate
+                dateItemPosition = position
                 setupTimeSpinner(movieScheduler, selectedDate)
             }
 
@@ -150,18 +150,13 @@ class BookingActivity : BaseActivity() {
     }
 
     private fun setupTimeSpinner(movieScheduler: MovieScheduler, selectedDate: LocalDate) {
-        val timeSpinner = findViewById<Spinner>(R.id.spinner_time)
         val times = movieScheduler.getBookableTimes(selectedDate)
-
         timeSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
             times
         )
-
-        val index = if (::selectedTime.isInitialized) times.indexOf(selectedTime) else 0
-        timeSpinner.setSelection(index)
-
+        timeSpinner.setSelection(timeItemPosition)
         timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -169,7 +164,7 @@ class BookingActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
+                timeItemPosition = position
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -194,6 +189,9 @@ class BookingActivity : BaseActivity() {
     }
 
     private fun onConfirm() {
+        val selectedDate = dateSpinner.selectedItem as LocalDate
+        val selectedTime = timeSpinner.selectedItem as LocalTime
+
         val movieTicket = MovieTicket(
             title = movie.title,
             screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
@@ -212,9 +210,10 @@ class BookingActivity : BaseActivity() {
     }
 
     companion object {
+        private const val DEFAULT_POSITION = 0
         private const val HEADCOUNT_KEY = "HeadCount"
-        private const val DATE_KEY = "Date"
-        private const val TIME_KEY = "Time"
+        private const val DATE_POSITION_KEY = "Date"
+        private const val TIME_POSITION_KEY = "Time"
         private const val INTEGER_FORMAT = "%d"
         private const val MOVIE_INTENT_ERROR = "[ERROR] 영화 정보에 대한 키 값이 올바르지 않습니다."
     }
