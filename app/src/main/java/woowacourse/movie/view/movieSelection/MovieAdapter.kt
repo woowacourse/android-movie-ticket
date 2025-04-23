@@ -13,7 +13,6 @@ import woowacourse.movie.view.model.MovieUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    private val context: Context,
     private val movies: List<MovieUiModel>,
     private val onReservationClick: (MovieUiModel) -> Unit,
 ) : BaseAdapter() {
@@ -26,8 +25,9 @@ class MovieAdapter(
     override fun getView(
         position: Int,
         convertView: View?,
-        container: ViewGroup?,
+        container: ViewGroup,
     ): View {
+        val context: Context = container.context
         val view: View
         val viewHolder: ViewHolder
         if (convertView == null) {

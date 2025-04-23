@@ -30,7 +30,7 @@ class MovieSelectionActivity : AppCompatActivity() {
             }
 
         val movieListView = findViewById<ListView>(R.id.movie_list)
-        val movieAdapter = MovieAdapter(this, movies) { movie -> reserveMovie(movie) }
+        val movieAdapter = MovieAdapter(movies) { movie -> reserveMovie(movie) }
         movieListView.adapter = movieAdapter
     }
 
