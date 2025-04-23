@@ -7,10 +7,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.activity.movielist.MovieListActivity
 
-class MainActivityTest {
+class MovieListActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieListActivity::class.java)
 
     @Test
     fun `화면에_해리포터_영화의_제목이_표시된다`() {
