@@ -31,6 +31,7 @@ class DetailBookingActivity : AppCompatActivity() {
     private var count = 1
     private var selectedDatePosition = 0
     private var selectedTimePosition = 0
+    private val counterTextView: TextView by lazy { findViewById(R.id.detail_personnel) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,26 +66,16 @@ class DetailBookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        outState.putInt(KEY_PERSONNEL_COUNT, count)
         outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
         outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-
         restoreInstanceState(savedInstanceState)
     }
 
     private fun restoreInstanceState(savedInstanceState: Bundle) {
-        count =
-            if (!savedInstanceState.containsKey(KEY_PERSONNEL_COUNT)) {
-                1
-            } else {
-                savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
-            }
-
         selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, selectedDatePosition)
         selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, selectedTimePosition)
     }
@@ -139,12 +130,14 @@ class DetailBookingActivity : AppCompatActivity() {
                 Toast.makeText(this, MESSAGE_NOT_ALLOWED_TIME, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val ticket =
-                createTicket(
-                    movie.title,
-                    spinnerDate.selectedItem as LocalDate,
-                    spinnerTime.selectedItem as LocalTime,
-                )
+            val selectedDate = spinnerDate.selectedItem as LocalDate
+            val selectedTime = spinnerTime.selectedItem as LocalTime
+            val selectedDateTIme = LocalDateTime.of(selectedDate, selectedTime)
+            val ticket = Ticket(
+                movie.title,
+                selectedDateTIme,
+                counterTextView.text.toString().toInt(),
+            )
             ReservationDialog(this).popUp(
                 onPositiveClick = {
                     startActivity(CompletedBookingActivity.newIntent(this, ticket))
@@ -216,21 +209,8 @@ class DetailBookingActivity : AppCompatActivity() {
             }
     }
 
-    private fun createTicket(
-        movieTitle: String,
-        localDate: LocalDate,
-        localTime: LocalTime,
-    ): Ticket {
-        return Ticket(
-            movieTitle,
-            LocalDateTime.of(localDate.year, localDate.month, localDate.dayOfMonth, localTime.hour, localTime.minute),
-            count,
-        )
-    }
-
     companion object {
         private const val KEY_MOVIE = "movie"
-        private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
         private const val MESSAGE_NOT_ALLOWED_TIME = "다른 날짜를 선택해 주세요"
