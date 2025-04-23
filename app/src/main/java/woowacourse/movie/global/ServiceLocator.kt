@@ -7,17 +7,17 @@ import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
 
 object ServiceLocator {
-    var movies: List<Movie> =
+    val movies: List<Movie> =
         listOf<Movie>(
             Movie(
                 "해리포터와 마법사의 돌",
                 "images/movie_poster.jpg",
-                LocalDateTime.of(2025, 4, 1, 0, 0, 0),
-                LocalDateTime.of(2025, 4, 25, 23, 59, 59),
+                LocalDateTime.of(2025, 4, 3, 0, 0, 0),
+                LocalDateTime.of(2025, 4, 5, 23, 59, 59),
                 125.minutes,
             ),
         )
-    var today: LocalDate = LocalDate.now()
-    var now: LocalDateTime = LocalDateTime.now()
-    var runningTimeRule = RunningTimeRuleImpl()
+    val today: LocalDate = LocalDate.of(2025, 4, 3)
+    val now: LocalDateTime = LocalDateTime.of(2025, 4, 3, 14, 0, 0)
+    val runningTimeRule = RunningTimeRuleImpl()
 }

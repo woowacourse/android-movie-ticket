@@ -16,16 +16,15 @@ import woowacourse.movie.activity.ReservationCompleteActivity
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.dto.ReservationDto
-import woowacourse.movie.fixture.AndroidTestFixture
+import woowacourse.movie.global.ServiceLocator
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
 class ReservationCompleteActivityTest {
-    val movie = AndroidTestFixture.movie1
     val bookingStatus =
         BookingStatus(
-            movie,
+            ServiceLocator.movies[0],
             true,
             MemberCount(2),
             LocalDateTime.of(2025, 4, 3, 11, 0, 0),

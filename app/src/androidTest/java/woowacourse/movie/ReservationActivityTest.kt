@@ -14,30 +14,20 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.hamcrest.Matchers.anything
-import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.ReservationActivity
 import woowacourse.movie.dto.MovieDto
-import woowacourse.movie.fixture.AndroidTestFixture
 import woowacourse.movie.global.ServiceLocator
-import java.time.LocalDate
-import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
 class ReservationActivityTest {
-    init {
-        ServiceLocator.today = LocalDate.of(2025, 4, 3)
-        ServiceLocator.now = LocalDateTime.of(2025, 4, 3, 14, 0, 0)
-    }
-
-    val movie = AndroidTestFixture.movie1
     val intent =
         ReservationActivity.newIntent(
             ApplicationProvider.getApplicationContext<Context>(),
-            MovieDto.fromMovie(movie),
+            MovieDto.fromMovie(ServiceLocator.movies[0]),
         )
 
     @get:Rule
@@ -138,7 +128,6 @@ class ReservationActivityTest {
 
     @Test
     fun 날짜와_시간은_현재_시간으로부터_가장_가까운_시간을_기본값으로_한다() {
-        // 실제론 문자열이 일치하는데 에스프레소가 스피너 텍스트를 못찾음..????
         onView(withText("04.03"))
             .check(matches(isDisplayed()))
         onView(withText("16:00"))
@@ -215,7 +204,6 @@ class ReservationActivityTest {
 
     @Test
     fun 화면을_회전시켜도_정보가_유지된다() {
-        // 실제론 문자열이 일치하는데 에스프레소가 스피너 텍스트를 못찾음..????
         // given
         onView(withId(R.id.plus_button))
             .perform(click())

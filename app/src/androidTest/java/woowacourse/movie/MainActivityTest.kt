@@ -14,16 +14,10 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.MainActivity
-import woowacourse.movie.fixture.AndroidTestFixture
-import woowacourse.movie.global.ServiceLocator
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
 class MainActivityTest {
-    init {
-        ServiceLocator.movies = AndroidTestFixture.movies1
-    }
-
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
 
@@ -38,7 +32,7 @@ class MainActivityTest {
                 .atPosition(0)
         listOf(
             withText("해리포터와 마법사의 돌"),
-            withText("상영일: 2025.04.01 ~ 2025.04.25"),
+            withText("상영일: 2025.04.03 ~ 2025.04.05"),
             withText("러닝타임: 125분"),
             withText("지금 예매"),
             withId(R.id.movie_poster),
