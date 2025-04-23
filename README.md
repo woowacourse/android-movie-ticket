@@ -68,8 +68,8 @@
 
 ## 3단계 개요
 - [ ] 필요없는 companion 메서드 제거
-- [ ] 패키지 구조 분리
+- [x] 패키지 구조 분리
 - [ ] dialog 인스턴스 전역으로 따로 생성
-- [ ] MainActivity | MVP구조로 분리
+- [x] MainActivity | MVP구조로 분리
 - [ ] ReservationActivity | MVP구조로 분리
 - [ ] ReservationCompleteActivity | MVP구조로 분리

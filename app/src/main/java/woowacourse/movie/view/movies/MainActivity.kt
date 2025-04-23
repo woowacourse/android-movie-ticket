@@ -14,7 +14,9 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.movies.adapter.MovieAdapter
 import woowacourse.movie.view.reservation.detail.ReservationActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainContract.View {
+    private val presenter = MainPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,8 +26,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        presenter.fetchData()
+    }
 
-        val movies: List<Movie> = Movie.dummy
+    override fun showMoviesScreen(movies: List<Movie>) {
         val listView: ListView = findViewById(R.id.list_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(
@@ -36,12 +40,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 },
             )
-
         listView.adapter = movieAdapter
     }
 
     private fun navigateToReservation(movie: Movie) {
-        val intent = ReservationActivity.newIntent(this@MainActivity, movie)
+        val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
     }
 
