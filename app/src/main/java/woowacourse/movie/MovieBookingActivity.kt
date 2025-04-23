@@ -101,8 +101,6 @@ class MovieBookingActivity : AppCompatActivity() {
             ) {
                 val selectedTime = (parent.adapter as BookedTimeSpinnerAdapter).getItem(position)
                 bookedTime1 = selectedTime
-                Log.d("date", selectedTime.toString())
-                Log.d("date", bookedTime1.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {

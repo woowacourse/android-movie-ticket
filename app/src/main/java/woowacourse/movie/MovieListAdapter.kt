@@ -7,6 +7,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import woowacourse.movie.CustomClickListener.setOnSingleClickListener
 import woowacourse.movie.LocalDateHelper.toDotFormat
 import woowacourse.movie.domain.Movie
 
@@ -71,18 +72,7 @@ class MovieListAdapter(
     }
 
     private fun clickMovieItem(viewHolder: ViewHolder, position: Int) {
-        viewHolder.movieItem.setOnClickListener {
-            if (viewHolder.movieItem.isClickable) {
-                movieListClick.navigateToBook(value[position])
-                viewHolder.movieItem.isClickable = false
-            }
-
-            viewHolder.movieItem.postDelayed({
-                viewHolder.movieItem.isClickable = true
-            }, 2000)
-
-            return@setOnClickListener
-        }
+        viewHolder.movieItem.setOnSingleClickListener { movieListClick.navigateToBook(value[position]) }
     }
 }
 
