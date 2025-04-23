@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.domain.getOrDefault
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDateTime
@@ -25,7 +26,7 @@ class TicketActivity : AppCompatActivity() {
         val showtime: LocalDateTime = ticketData.showtime
         Ticket(
             screening = screening,
-            ticketCount = TicketCount.create(ticketCount),
+            ticketCount = TicketCount.create(ticketCount).getOrDefault(),
             showtime = showtime,
         )
     }

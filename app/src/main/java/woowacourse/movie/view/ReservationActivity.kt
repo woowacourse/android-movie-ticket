@@ -18,6 +18,9 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Screening
 import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.domain.TicketCountResult
+import woowacourse.movie.domain.getOrDefault
+import woowacourse.movie.domain.getOrThrow
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
@@ -35,7 +38,7 @@ class ReservationActivity : AppCompatActivity() {
     }
     private val screening: Screening by lazy { screeningData.toScreening() }
 
-    private var ticketCount = TicketCount.create()
+    private var ticketCount = TicketCount.create().getOrThrow()
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -66,7 +69,7 @@ class ReservationActivity : AppCompatActivity() {
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        ticketCount = TicketCount.create(savedTicketCount)
+        ticketCount = TicketCount.create(savedTicketCount).getOrDefault()
         timeItemPosition = savedTimeItemPosition
     }
 
@@ -196,13 +199,17 @@ class ReservationActivity : AppCompatActivity() {
 
         val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
         ticketCountPlusButton.setOnClickListener {
-            ticketCount = ticketCount.increase()
+            ticketCount = ticketCount.increase().getOrThrow()
             ticketCountView.text = ticketCount.toString()
         }
 
         val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
         ticketCountMinusButton.setOnClickListener {
-            ticketCount = ticketCount.decrease()
+            ticketCount =
+                when (val result = ticketCount.decrease()) {
+                    is TicketCountResult.Success -> result.ticketCount
+                    is TicketCountResult.Error -> ticketCount
+                }
             ticketCountView.text = ticketCount.toString()
         }
     }
