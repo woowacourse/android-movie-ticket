@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
 import woowacourse.movie.R
+import woowacourse.movie.presenter.reservation.ReservationPresenter
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
@@ -209,7 +210,6 @@ class ReservationActivity :
 
     private fun movieTicketIntent(): Intent {
         val ticket = presenter.createTicket()
-
         return Intent(this, ReservationCompleteActivity::class.java).apply {
             putExtra(Extras.TicketData.TICKET_KEY, ticket)
         }

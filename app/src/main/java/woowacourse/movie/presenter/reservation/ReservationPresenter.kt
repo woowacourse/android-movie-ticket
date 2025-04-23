@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.presenter.reservation
 
 import android.content.Intent
 import woowacourse.movie.model.Movie
@@ -9,6 +9,7 @@ import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
+import woowacourse.movie.view.reservation.ReservationContract
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -72,11 +73,8 @@ class ReservationPresenter(val view: ReservationContract.View) : ReservationCont
     override fun createTicket(): MovieTicket =
         MovieTicket(
             title = movie.title,
-            timeStamp = "${formatter.localDateToUI(movieDate.value)} ${
-                formatter.movieTimeToUI(
-                    movieTime.value,
-                )
-            }",
+            timeStamp =
+                "${formatter.localDateToUI(movieDate.value)} ${formatter.movieTimeToUI(movieTime.value)}",
             count = ticketCount.value,
         )
 
