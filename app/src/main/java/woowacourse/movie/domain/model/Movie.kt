@@ -7,5 +7,4 @@ data class Movie(
     val startScreeningDate: LocalDate,
     val endScreeningDate: LocalDate,
     val runningTime: Int,
-    val poster: String,
 )
