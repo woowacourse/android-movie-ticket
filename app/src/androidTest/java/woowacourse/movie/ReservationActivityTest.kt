@@ -139,10 +139,10 @@ class ReservationActivityTest {
     @Test
     fun 날짜와_시간은_현재_시간으로부터_가장_가까운_시간을_기본값으로_한다() {
         // 실제론 문자열이 일치하는데 에스프레소가 스피너 텍스트를 못찾음..????
-        onView(withId(R.id.date_picker_actions))
-            .check(matches(withText("04.03")))
-        onView(withId(R.id.time_picker_actions))
-            .check(matches(withText("16:00")))
+        onView(withText("04.03"))
+            .check(matches(isDisplayed()))
+        onView(withText("16:00"))
+            .check(matches(isDisplayed()))
     }
 
     @Test
@@ -237,9 +237,9 @@ class ReservationActivityTest {
         // then
         onView(withId(R.id.count))
             .check(matches(withText("2")))
-        onView(withId(R.id.date_picker_actions))
-            .check(matches(withText("04.05")))
-        onView(withId(R.id.time_picker_actions))
-            .check(matches(withText("15:00")))
+        onView(withText("04.05"))
+            .check(matches(isDisplayed()))
+        onView(withText("15:00"))
+            .check(matches(isDisplayed()))
     }
 }

@@ -41,6 +41,11 @@ class ReservationActivity : AppCompatActivity() {
     private val today by lazy {
         ServiceLocator.today
     }
+
+    private val now by lazy {
+        ServiceLocator.now
+    }
+
     private val binding: ActivityReservationBinding by lazy {
         ActivityReservationBinding.inflate(layoutInflater)
     }
@@ -148,7 +153,7 @@ class ReservationActivity : AppCompatActivity() {
                 ) {
                     reservationDay = parent?.getItemAtPosition(position) as LocalDate
                     screeningTimeAdapter.apply {
-                        items = runningTimeRule.whenTargetDay(reservationDay)
+                        items = runningTimeRule.whenTargetDay(reservationDay, now)
                         notifyDataSetChanged()
                     }
                     runningTimePosition = DEFAULT_POSITION
@@ -162,7 +167,7 @@ class ReservationActivity : AppCompatActivity() {
     private fun setScreeningTime() {
         screeningTimeAdapter =
             RunningTimeSpinnerAdapter(
-                runningTimeRule.whenTargetDay(reservationDay),
+                runningTimeRule.whenTargetDay(reservationDay, now),
             )
         binding.timePickerActions.adapter = screeningTimeAdapter
         runningDateTime = binding.timePickerActions.selectedItem as LocalTime
