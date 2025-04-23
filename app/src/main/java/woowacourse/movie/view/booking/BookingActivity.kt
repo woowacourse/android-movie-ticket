@@ -152,18 +152,18 @@ class BookingActivity : AppCompatActivity() {
         val now = LocalDateTime.now()
         val screeningTime = ScreeningTime(now, selectedDate)
 
-        if (!screeningTime.hasAvailableScreeningTime()) {
+        val availableTimes = screeningTime.getAvailableScreeningTimes()
+        if (availableTimes.isEmpty()) {
             showToast(R.string.text_no_booking_time)
             return
         }
 
-        val screeningTimes = screeningTime.getAvailableScreeningTimes()
         with(timeSpinner) {
             adapter =
                 ArrayAdapter(
                     this@BookingActivity,
                     android.R.layout.simple_spinner_item,
-                    screeningTimes,
+                    availableTimes,
                 )
             setSelection(savedPosition ?: 0)
         }
