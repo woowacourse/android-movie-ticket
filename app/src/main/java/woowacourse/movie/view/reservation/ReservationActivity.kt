@@ -26,9 +26,8 @@ class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
     private lateinit var ticketCountTextView: TextView
-    private var ticketCount: TicketCount = TicketCount()
     private val reservationDialog by lazy { ReservationDialog() }
-    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this, ticketCount) }
+    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -219,13 +218,13 @@ class ReservationActivity :
 
     private fun setupSavedData(savedInstanceState: Bundle?) {
         val savedCount = savedInstanceState?.getInt(Extras.ReservationData.TICKET_COUNT_KEY) ?: 1
-        ticketCount = TicketCount(savedCount)
-        findViewById<TextView>(R.id.tv_reservation_ticket_count).text = ticketCount.value.toString()
+        presenter.restoreTicketCount(savedCount)
+        setTicketCount(savedCount)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(Extras.ReservationData.TICKET_COUNT_KEY, ticketCount.value)
+        outState.putInt(Extras.ReservationData.TICKET_COUNT_KEY, presenter.currentTicketCount())
         outState.putInt(Extras.ReservationData.DATE_POSITION_KEY, presenter.currentDatePosition())
     }
 

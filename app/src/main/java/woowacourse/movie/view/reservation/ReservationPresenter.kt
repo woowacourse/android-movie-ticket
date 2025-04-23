@@ -12,14 +12,12 @@ import woowacourse.movie.view.getParcelableExtraCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ReservationPresenter(
-    val view: ReservationContract.View,
-    private var ticketCount: TicketCount,
-) : ReservationContract.Presenter {
+class ReservationPresenter(val view: ReservationContract.View) : ReservationContract.Presenter {
     private lateinit var movie: Movie
     private lateinit var movieDate: MovieDate
     private val movieTime = MovieTime()
     private val formatter = ReservationUiFormatter()
+    private var ticketCount = TicketCount()
     private var selectedDatePosition: Int = 0
 
     override fun fetchData(intent: Intent) {
@@ -50,16 +48,6 @@ class ReservationPresenter(
         onDateSelected(duration[0], selectedDatePosition)
     }
 
-    override fun plusTicketCount() {
-        ticketCount = ticketCount.plus(1)
-        view.setTicketCount(ticketCount.value)
-    }
-
-    override fun minusTicketCount() {
-        ticketCount = ticketCount.minus(1)
-        view.setTicketCount(ticketCount.value)
-    }
-
     override fun onDateSelected(date: LocalDate, position: Int) {
         movieDate.updateDate(date)
         val timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
@@ -81,6 +69,16 @@ class ReservationPresenter(
         )
     }
 
+    override fun plusTicketCount() {
+        ticketCount = ticketCount.plus(1)
+        view.setTicketCount(ticketCount.value)
+    }
+
+    override fun minusTicketCount() {
+        ticketCount = ticketCount.minus(1)
+        view.setTicketCount(ticketCount.value)
+    }
+
     override fun createTicket(): MovieTicket =
         MovieTicket(
             title = movie.title,
@@ -93,6 +91,12 @@ class ReservationPresenter(
         )
 
     fun currentDatePosition(): Int = selectedDatePosition
+
+    fun restoreTicketCount(saved: Int) {
+        ticketCount = TicketCount(saved)
+    }
+
+    fun currentTicketCount(): Int = ticketCount.value
 
     private fun getMovieFromIntent(intent: Intent): Movie? = intent.getParcelableExtraCompat<Movie>(Extras.MovieData.MOVIE_KEY)
 }
