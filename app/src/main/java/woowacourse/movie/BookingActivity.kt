@@ -82,6 +82,16 @@ class BookingActivity : AppCompatActivity() {
         return movieData
     }
 
+    private fun requireMovieOrFinish(): Movie? {
+        val movieData = movieOrNull()
+        if (movieOrNull() == null) {
+            Log.e("BookingActivity", "movieData가 null입니다. 인텐트에 영화 데이터가 포함되지 않았습니다.")
+            Toast.makeText(this, "영화 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            finish()
+        }
+        return movieData
+    }
+
     private fun setUpMovieInfo(movieData: Movie) {
         val moviePoster = findViewById<ImageView>(R.id.img_booking_poster)
         val bookingTitle = findViewById<TextView>(R.id.tv_booking_title)
