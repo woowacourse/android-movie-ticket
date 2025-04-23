@@ -1,7 +1,6 @@
 package woowacourse.movie.view
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
@@ -29,12 +29,11 @@ class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private val screeningData: ScreeningData by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33
-            intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA, ScreeningData::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra(MainActivity.EXTRA_SCREENING_DATA)
-        } ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
+        IntentCompat.getParcelableExtra(
+            intent,
+            MainActivity.EXTRA_SCREENING_DATA,
+            ScreeningData::class.java,
+        ) ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
     }
     private val screening: Screening by lazy { screeningData.toScreening() }
 

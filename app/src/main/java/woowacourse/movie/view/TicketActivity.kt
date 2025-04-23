@@ -1,10 +1,10 @@
 package woowacourse.movie.view
 
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
@@ -15,12 +15,11 @@ import java.time.LocalDateTime
 
 class TicketActivity : AppCompatActivity() {
     private val ticketData: TicketData by lazy {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) { // API 33
-            intent.getParcelableExtra(ReservationActivity.EXTRA_TICKET_DATA, TicketData::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            intent.getParcelableExtra(ReservationActivity.EXTRA_TICKET_DATA)
-        } ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
+        IntentCompat.getParcelableExtra(
+            intent,
+            ReservationActivity.EXTRA_TICKET_DATA,
+            TicketData::class.java,
+        ) ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
     }
 
     private val ticket: Ticket by lazy {
