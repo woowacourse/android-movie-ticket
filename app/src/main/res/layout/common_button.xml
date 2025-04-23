@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Button xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/common_button"
+    style="@style/MovieItemBtnTextStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/purple_500"
+    android:paddingHorizontal="16dp"
+    android:paddingVertical="8dp"
+    android:layout_margin="4dp"
+    android:background="@drawable/button_rounded_bg" />

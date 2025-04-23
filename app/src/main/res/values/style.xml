@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- 공통 스타일 -->
+    <style name="BaseTextStyle">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:lineSpacingMultiplier">1.29</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- 영화 메인 화면용 영화 제목 -->
+    <style name="MovieItemTitleTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/font_size_normal</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 영화 메인 화면용 영화 상영 날짜, 러닝타임 -->
+    <style name="MovieItemInfoTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- 영화 메인 화면용 버튼 -->
+    <style name="MovieItemBtnTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- 예약 완료 화면용 안내 글자 -->
+    <style name="NoticeTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:textSize">@dimen/font_size_small</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- 제목 스타일 -->
+    <style name="TitleTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_xlarge</item> <!-- 25sp 대신 -->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 부제목 스타일 -->
+    <style name="SubTitleTextStyle" parent="BaseTextStyle">
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_large</item> <!-- 20sp -->
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!-- 영화 예약 화면용 제목 -->
+    <style name="MovieBookingTitleTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/font_size_xlarge</item> <!-- 24sp -->
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <!-- 영화 예약 화면용 부제목 -->
+    <style name="MovieBookingSubTitleTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/font_size_normal</item> <!-- 16sp -->
+        <item name="android:textStyle">normal</item>
+    </style>
+
+</resources>
+

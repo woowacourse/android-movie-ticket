@@ -1,1 +1,84 @@
 # android-movie-ticket
+
+- [X] 영화 정보에는 영화 제목, 영화 포스터 url, 상영일, 러닝타임이 있다.
+- [X] 영화 예매 정보에는 예매 여부가 있다.
+- [X] 예매를 할 수 있다.
+- [x] 예매를 취소할 수 있다.
+- [x] movie_ticket, booking_status 데이터 생성
+- [x] movie_ticket의 데이터를 불러올 수 있다
+- [x] booking_status의 데이터를 불러올 수 있다
+- [x] 예약할 인원을 선택할 수 있다.
+- [x] + 버튼을 누르면 인원이 증가한다
+- [x] - 버튼을 누르면 인원이 감소한다
+- [X] 1명의 인원이면 - 버튼을 누를 수 없다
+- [X] 날짜와 시간을 정할 수 있다.
+  - 각 영화의 상영일은 각자의 범위를 갖는다(예: 2025.4.1 ~ 2025.4.25).
+  - 영화 상영 시간 범위는 오전 9시부터 자정까지다.
+  - 주말에는 오전 9시부터 두 시간 간격으로 상영한다.
+  - 평일에는 오전 10시부터 두 시간 간격으로 상영한다.
+- [X] 날짜와 시간은 현재 시간으로부터 가장 가까운 시간을 기본값으로 한다
+- [ ] 화면이 회전되어도 입력한 정보는 유지되어야 한다.
+- [X] 예매 완료를 확인하는 다이얼로그가 표시되고 배경을 터치해도 사라지지 않아야 한다.
+- [X] 다이얼로그에서 예매 완료를 선택하면 예매 내역 화면으로 이동한다.
+- [x] 예매 완료 화면에 예매한 가격 정보와 인원이 나온다
+  - 영화 티켓 한 장은 13,000원이다.
+
+## 1, 2 단계 두루 review 1차 반영
+- [X] 하드코딩된 내용을 더미데이터로 만듬 ex) movie
+- [X] MainActivity -> 미션 주제가 들어나도록 네이밍 변경
+- [X] MainActivity onCreate 함수 기능별로 분리
+- [X] MainActivity의 Intent Extra 따로 관리
+- [X] MovieListAdapter의 onBookClick CallBack 선언 -> adapter 클릭이 많아지면 어떨지 생각 -> 화면이 여러겹 쌓임
+- [X] MovieListAdapter의 onBookClick CallBack -> interface구현
+- [X] MovieListAdapter 기능별로 함수 분리
+- [X] MovieListAdapterExt 정렬하기
+- [X] MovieBookingActivity Intent Extra 따로 관리
+- [X] MovieBookingActivity 하드 코딩된 값 string.xml을 활용해 재사용
+- [X] MovieBookingActivity 버전별 분기 함수로 재사용하도록 만들기
+- [X] MovieBookingActivity 기능별로 분리
+- [X] 생명주기 공부하기
+- [X] ReservationDayadaptinnerAdapter DateTimeFormatter 부분 extension 재사용
+- [X] ReservationCompleteActivity의 Intent Extra 따로 관리
+- [X] dao, data 부분 삭제
+- [X] booking xml fontFamily, lineSpacing등 공통으로 들어가는 부분 -> style.xml로 선언하기 / style.xml 역할 살펴보기
+
+## 1, 2 단계 두루 review 2차 반영
+- [ ] configurationChange 키워드 살펴보기
+- [ ] MovieDateTime 한국어 에러 -> 확장성을 생각하여, 외국에서 사용할 수 있는 경우 생각해보기
+- [ ] 화면 test code 작성하기
+- [X] 기능별 / 담당하는 내용별로 패키지를 분리
+- [X] BuildVersion IllegalStateException 상황 적어주기
+- [X] 확장함수 관리하는 방법 생각 - 두루 object 추천
+- [X] adaptBookingStatus -> init, setUp으로 수정
+- [X] 연속 방지 클릭에 대해서 utils 선언
+- [X] dimens.xml - 마진 / 패딩등 dp
+- [X] dp / sp 공부해보기
+- [ ] MovieListAdapter Extension로 만드는 것
+- [ ] savedStateHandle: SavedStateHandle
+
+## 개인적으로 해 보고 싶은 부분
+- [ ] 확장함수 class로 만들기
+- [ ] intent 공부하기
+- [ ] view holder 객체 만들어서 convert에 저장
+- [ ] findViewBy 저장하는 것
+- [ ] convertView
+- [ ] 전달되는 행위, 전달된 데이터가 띄는 지 테스트의 차이 -> 테스트의 목적
+- [ ] appBar에는 "Movie"라고 적혀있다.
+- [X] 기본 정보가 담은 화면이 있다.
+- [X] 하나의 영화가 목록에서 보인다.
+- [X] 영화에는 포스터, 제목, 상영일, 러닝타임이 있다.
+- [X] 지금 예매 버튼이 있다.
+- [X] 지금 예매를 누를 수 있다.
+- [X] 지금 예매를 누르면 기본 정보가 담은 화면으로 넘어간다.
+- [ ] 뒤로가기 버튼이 있다.
+- [ ] 뒤로가기 버튼을 누르면 뒤로 갈 수 있다.
+- [ ] 예약 완료 페이지가 있다.
+- [ ] 예약 완료 페이지에는 "영화 상영 시작 시간 15분 전까지 취소가 가능합니다."라고 적혀있다.
+- [ ] 예약 완료 페이지에는 영화 제목이 있다.
+- [ ] 예약 완료 페이지에는 영화 상영일이 있다.
+- [X] movie 개선, test 코드 작성
+- [X] movies 개선, test 코드 작성
+- [ ] runningTimes 개선, test 코드 작성
+- [ ] 영화 예약 완료 화면에서 뒤로가기 버튼에 대해서 생각해보기
+- [ ] 에러 발생시, 최상단에 에러 토스트로 띄우기
+- [ ] booking.xml 비율로 만든 부분 수정하기
