@@ -34,7 +34,7 @@ class ReservationActivity : AppCompatActivity() {
     private var ticketCount: TicketCount = TicketCount()
     private var selectedDatePosition: Int = 0
     private val movie by lazy {
-        intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY) ?: Movie.value
+        intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY)
     }
     private val movieTime by lazy { MovieTime() }
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }

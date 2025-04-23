@@ -15,8 +15,6 @@ import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.mapper.Formatter.priceToUI
 import woowacourse.movie.view.reservation.ReservationActivity
-import java.time.LocalDate
-import java.time.LocalTime
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY) }
@@ -41,19 +39,19 @@ class ReservationCompleteActivity : AppCompatActivity() {
     }
 
     private fun setupMovieTicketInfo() {
-        movieTitleTextView.text = movieTicket?.title
+        movieTitleTextView.text = movieTicket.title
         screeningDateTextView.text =
             getString(
                 R.string.reservation_ticket_timestamp,
-                localDateToUI(movieTicket?.movieDate ?: LocalDate.now()),
-                movieTimeToUI(movieTicket?.movieTime?.value ?: LocalTime.now().hour),
+                localDateToUI(movieTicket.movieDate),
+                movieTimeToUI(movieTicket.movieTime.value),
             )
         ticketCountTextView.text =
-            resources.getString(R.string.reservation_complete_ticket_count, movieTicket?.count)
+            resources.getString(R.string.reservation_complete_ticket_count, movieTicket.count)
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                priceToUI(movieTicket?.price() ?: 13000),
+                priceToUI(movieTicket.price()),
             )
     }
 

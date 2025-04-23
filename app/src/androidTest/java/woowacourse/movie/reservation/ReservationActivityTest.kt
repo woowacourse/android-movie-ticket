@@ -6,14 +6,10 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.MOVIE
 import woowacourse.movie.R
@@ -21,14 +17,19 @@ import woowacourse.movie.fakeContext
 import woowacourse.movie.view.reservation.ReservationActivity
 
 class ReservationActivityTest {
+    private lateinit var intent: Intent
     private lateinit var scenario: ActivityScenario<ReservationActivity>
-
-    @get:Rule
-    val activityRule = ActivityScenarioRule(ReservationActivity::class.java)
 
     @Before
     fun setup() {
-        Intents.init()
+        intent =
+            Intent(
+                fakeContext,
+                ReservationActivity::class.java,
+            ).apply {
+                putExtra("data", MOVIE)
+            }
+        ActivityScenario.launch<ReservationActivity>(intent)
     }
 
     @Test
@@ -127,10 +128,5 @@ class ReservationActivityTest {
         // then: 티켓 개수 2가 유지 된다
         onView(withId(R.id.tv_reservation_ticket_count))
             .check(matches(withText("2")))
-    }
-
-    @After
-    fun finish() {
-        Intents.release()
     }
 }
