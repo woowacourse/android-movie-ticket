@@ -1,7 +1,6 @@
 package woowacourse.movie.domain.model.booking
 
 import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.util.DateTimeUtil
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.LocalTime
@@ -16,18 +15,17 @@ class Booking(
     private val weekendScreeningTimes =
         List(SCREENING_TIMES) { idx -> LocalTime.of(WEEKEND_START_TIME, 0).plusHours(idx * 2L) }
 
-    fun screeningPeriods(): List<String> {
+    fun screeningPeriods(): List<LocalDate> {
         val startDate =
             if (movie.screeningStartDate.isBefore(today)) today else movie.screeningStartDate
 
         return generateSequence(startDate) { currentDate ->
             val next = currentDate.plusDays(1)
             if (next.isAfter(movie.screeningEndDate)) null else next
-        }.map { date -> DateTimeUtil.toFormattedString(date, DATE_FORMAT) }.toList()
+        }.toList()
     }
 
-    fun screeningTimes(date: String): List<String> {
-        val selectedDate: LocalDate = DateTimeUtil.toLocalDate(date, delimiter = "-")
+    fun screeningTimes(selectedDate: LocalDate): List<LocalTime> {
         if (today.isEqual(selectedDate)) return screeningTimesType(today, currentTime)
         return screeningTimesType(selectedDate)
     }
@@ -35,15 +33,14 @@ class Booking(
     private fun screeningTimesType(
         date: LocalDate,
         baseTime: LocalTime = LocalTime.of(BEFORE_FIRST_MOVIE_START, 0),
-    ): List<String> {
+    ): List<LocalTime> {
         if (isWeekend(date)) {
             return weekendScreeningTimes.filter { time ->
                 time == LocalTime.MIDNIGHT || time.isAfter(baseTime)
-            }.map { time -> DateTimeUtil.toFormattedString(time, TIME_FORMAT) }
+            }
         }
 
         return weekdayScreeningTimes.filter { time -> time.isAfter(baseTime) }
-            .map { time -> DateTimeUtil.toFormattedString(time, TIME_FORMAT) }
     }
 
     private fun isWeekend(date: LocalDate): Boolean {
@@ -58,7 +55,5 @@ class Booking(
         private const val SCREENING_TIMES = 8
         private const val WEEKDAY_START_TIME = 9
         private const val WEEKEND_START_TIME = 10
-        private const val DATE_FORMAT = "yyyy-MM-dd"
-        private const val TIME_FORMAT = "kk:mm"
     }
 }

@@ -30,4 +30,20 @@ object DateTimeUtil {
         val (year, month, day) = date.split(delimiter).map { it.toInt() }
         return LocalDate.of(year, month, day)
     }
+
+    fun toLocalTime(
+        time: String,
+        delimiter: String,
+    ): LocalTime {
+        val (hour, minute) = time.split(delimiter).map { it.toInt() }
+        return LocalTime.of(hour, minute)
+    }
+
+    fun toSpinnerDates(dates: List<LocalDate>): List<String> {
+        return dates.map { date -> toFormattedString(date, SPINNER_DATE_FORMAT) }
+    }
+
+    fun toSpinnerTimes(times: List<LocalTime>): List<String> {
+        return times.map { time -> toFormattedString(time, MOVIE_TIME_FORMAT) }
+    }
 }

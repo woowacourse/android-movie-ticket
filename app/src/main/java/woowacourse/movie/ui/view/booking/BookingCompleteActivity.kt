@@ -10,7 +10,9 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.BookingResult
+import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.Keys
+import woowacourse.movie.util.mapper.BookingResultModelMapper
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +21,8 @@ class BookingCompleteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking_complete)
         applySystemBarInsets()
 
-        val bookingResult = bookingResultOrNull() ?: return
-        setUpBookingResult(bookingResult)
+        val bookingResultUi = bookingResultUiOrNull() ?: return
+        setUpBookingResult(bookingResultUi)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -33,14 +35,14 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
     }
 
-    private fun bookingResultOrNull() =
+    private fun bookingResultUiOrNull() =
         IntentCompat.getParcelableExtra(
             intent,
             Keys.Extra.BOOKING_RESULT,
-            BookingResult::class.java,
+            BookingResultUiModel::class.java,
         )
 
-    private fun setUpBookingResult(bookingResult: BookingResult) {
+    private fun setUpBookingResult(bookingResultUiModel: BookingResultUiModel) {
         val cancellationMessage = findViewById<TextView>(R.id.tv_cancellation_guide)
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)
         val completeScreenDate = findViewById<TextView>(R.id.tv_complete_screening_date)
@@ -50,12 +52,14 @@ class BookingCompleteActivity : AppCompatActivity() {
 
         cancellationMessage.text =
             getString(R.string.screening_info, BookingResult.CANCELLATION_LIMIT_MINUTES)
-        completeTitle.text = bookingResult.title
-        completeScreenDate.text = bookingResult.selectedDate.replace(oldValue = "-", newValue = ".")
-        completeScreenTime.text = bookingResult.selectedTime
+        completeTitle.text = bookingResultUiModel.title
+        completeScreenDate.text = bookingResultUiModel.selectedDate
+        completeScreenTime.text = bookingResultUiModel.selectedTime
         completeHeadCount.text =
-            getString(R.string.screening_complete_headCount, bookingResult.headCount)
-        val bookingAmount: String = DecimalFormat("#,###").format(bookingResult.calculateAmount())
+            getString(R.string.screening_complete_headCount, bookingResultUiModel.headCount)
+
+        val money = BookingResultModelMapper.toDomain(bookingResultUiModel).calculateAmount()
+        val bookingAmount: String = DecimalFormat("#,###").format(money)
         completeBookingAmount.text =
             getString(R.string.screening_complete_booking_amount, bookingAmount)
     }

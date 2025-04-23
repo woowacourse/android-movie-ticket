@@ -20,6 +20,10 @@ data class Movie(
             screeningStartDate.isEqual(screeningEndDate)
     }
 
+    fun isScreeningEnd(date: LocalDate): Boolean {
+        return date.isAfter(screeningEndDate)
+    }
+
     companion object {
         private const val ERROR_TITLE_BLACK_MESSAGE = "영화 제목은 비어있을 수 없다"
         private const val ERROR_RUNNING_TIME_MESSAGE = "영화 상영시간은 0보다 커야한다"

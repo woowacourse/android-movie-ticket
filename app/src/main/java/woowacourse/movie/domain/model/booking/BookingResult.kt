@@ -1,15 +1,14 @@
 package woowacourse.movie.domain.model.booking
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import java.time.LocalDate
+import java.time.LocalTime
 
-@Parcelize
 data class BookingResult(
     val title: String,
     val headCount: Int,
-    val selectedDate: String,
-    val selectedTime: String,
-) : Parcelable {
+    val selectedDate: LocalDate,
+    val selectedTime: LocalTime,
+) {
     init {
         require(title.isNotBlank()) { ERROR_TITLE_BLANK_MESSAGE }
     }
@@ -26,11 +25,11 @@ data class BookingResult(
         return this.copy(headCount = headCount - 1)
     }
 
-    fun updateDate(date: String): BookingResult {
+    fun updateDate(date: LocalDate): BookingResult {
         return this.copy(selectedDate = date)
     }
 
-    fun updateTime(time: String): BookingResult {
+    fun updateTime(time: LocalTime): BookingResult {
         return this.copy(selectedTime = time)
     }
 
