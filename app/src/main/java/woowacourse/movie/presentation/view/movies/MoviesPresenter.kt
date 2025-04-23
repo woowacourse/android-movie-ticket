@@ -7,8 +7,6 @@ class MoviesPresenter(
 ) : MoviesContract.Presenter {
     override fun fetchData() {
         val movies = listOf(dummyMovie)
-        view.setScreen(movies) { movie ->
-            view.navigateToReservationScreen(movie)
-        }
+        view.setScreen(movies)
     }
 }

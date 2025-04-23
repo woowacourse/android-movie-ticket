@@ -17,10 +17,7 @@ class MoviesActivity :
         presenter.fetchData()
     }
 
-    override fun setScreen(
-        movies: List<Movie>,
-        navigateToReservationScreen: (Movie) -> Unit,
-    ) {
+    override fun setScreen(movies: List<Movie>) {
         val lvMovie = findViewById<ListView>(R.id.lv_movie)
         lvMovie.adapter =
             MovieListAdapter(
@@ -33,7 +30,7 @@ class MoviesActivity :
             )
     }
 
-    override fun navigateToReservationScreen(movie: Movie) {
+    private fun navigateToReservationScreen(movie: Movie) {
         val intent = ReservationDetailActivity.newIntent(this, movie)
         startActivity(intent)
     }

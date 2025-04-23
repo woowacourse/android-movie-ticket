@@ -8,11 +8,6 @@ interface MoviesContract {
     }
 
     interface View {
-        fun setScreen(
-            movies: List<Movie>,
-            navigateToReservationScreen: (Movie) -> Unit,
-        )
-
-        fun navigateToReservationScreen(movie: Movie)
+        fun setScreen(movies: List<Movie>)
     }
 }
