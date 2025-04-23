@@ -1,4 +1,4 @@
-package woowacourse.movie.view.movie.adapter
+package woowacourse.movie.view.movies.adapter
 
 import android.view.View
 import android.view.ViewGroup

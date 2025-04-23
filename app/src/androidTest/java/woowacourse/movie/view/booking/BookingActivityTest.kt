@@ -17,7 +17,7 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
+import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>

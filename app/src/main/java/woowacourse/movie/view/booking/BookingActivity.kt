@@ -25,7 +25,7 @@ import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
+import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
 import java.time.LocalDateTime
 

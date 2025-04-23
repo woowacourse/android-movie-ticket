@@ -1,4 +1,4 @@
-package woowacourse.movie.view.movie
+package woowacourse.movie.view.movies
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,7 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movies.DUMMY
 import woowacourse.movie.view.booking.BookingActivity
-import woowacourse.movie.view.movie.adapter.MovieAdapter
+import woowacourse.movie.view.movies.adapter.MovieAdapter
 
 class MovieListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

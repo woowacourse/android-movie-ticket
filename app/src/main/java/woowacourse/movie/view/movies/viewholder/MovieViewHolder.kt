@@ -1,4 +1,4 @@
-package woowacourse.movie.view.movie.viewholder
+package woowacourse.movie.view.movies.viewholder
 
 import android.view.View
 import android.widget.Button
@@ -7,7 +7,7 @@ import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.movie.adapter.AbstractListViewAdapter.ViewHolder
+import woowacourse.movie.view.movies.adapter.AbstractListViewAdapter.ViewHolder
 
 class MovieViewHolder(
     itemView: View,

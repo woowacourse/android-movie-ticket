@@ -1,10 +1,10 @@
-package woowacourse.movie.view.movie.adapter
+package woowacourse.movie.view.movies.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.movie.viewholder.MovieViewHolder
+import woowacourse.movie.view.movies.viewholder.MovieViewHolder
 
 class MovieAdapter(
     private val onClickBooking: (Int) -> Unit,
