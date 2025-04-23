@@ -27,35 +27,37 @@ class MoviesAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val (view, viewHolder) = reuseOrCreateView(convertView, parent)
         val item: Movie = movies[position]
-        viewHolder.bind(item)
-        initReserveButton(view, item)
-        return view
+        return reuseOrCreateView(convertView, parent, item)
     }
 
     private fun reuseOrCreateView(
         convertView: View?,
         parent: ViewGroup?,
-    ): Pair<View, ViewHolder> {
-        return if (convertView == null) {
-            val view =
+        item: Movie,
+    ): View {
+        val view: View
+        val viewHolder: ViewHolder
+        if (convertView == null) {
+            view =
                 LayoutInflater.from(parent?.context)
                     .inflate(R.layout.movie_item, parent, false)
-            val viewHolder = ViewHolder(view)
+            viewHolder = ViewHolder(view, onClick)
             view.tag = viewHolder
-            Pair(view, viewHolder)
         } else {
-            val viewHolder = convertView.tag as ViewHolder
-            Pair(convertView, viewHolder)
+            view = convertView
+            viewHolder = convertView.tag as ViewHolder
         }
+        viewHolder.bind(item)
+        return view
     }
 
-    private class ViewHolder(private val view: View) {
+    private class ViewHolder(private val view: View, private val onClick: (Movie) -> Unit) {
         private val posterView: ImageView = view.findViewById(R.id.iv_poster)
         private val titleView: TextView = view.findViewById(R.id.tv_title)
         private val screeningDateView: TextView = view.findViewById(R.id.tv_screening_date)
         private val runningTimeView: TextView = view.findViewById(R.id.tv_running_time)
+        private val reserveBtn = view.findViewById<Button>(R.id.btn_reserve)
 
         fun bind(movie: Movie) {
             with(movie) {
@@ -65,6 +67,9 @@ class MoviesAdapter(
                 screeningDateView.text = formattedScreeningDate
                 runningTimeView.text =
                     view.context.getString(R.string.formatted_minute, runningTime.time)
+                reserveBtn.setOnClickListener {
+                    onClick(movie)
+                }
             }
         }
 
@@ -77,16 +82,6 @@ class MoviesAdapter(
             val start = screeningDate.startDate.format(formatter)
             val end = screeningDate.endDate.format(formatter)
             return view.context.getString(R.string.formatted_screening_date, start, end)
-        }
-    }
-
-    private fun initReserveButton(
-        itemView: View,
-        item: Movie,
-    ) {
-        val reserveBtn = itemView.findViewById<Button>(R.id.btn_reserve)
-        reserveBtn.setOnClickListener {
-            onClick(item)
         }
     }
 }
