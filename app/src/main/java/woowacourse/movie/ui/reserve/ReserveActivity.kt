@@ -60,7 +60,7 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onSaveInstanceState(savedInstanceState)
+        super.onRestoreInstanceState(savedInstanceState)
         val datePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
         val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
         val selectedDate =
@@ -122,7 +122,10 @@ class ReserveActivity : AppCompatActivity() {
         initDateSpinner(movie.screeningDate)
         initTimeSpinner(movie.screeningDate.startDate)
         this.reservation =
-            savedInstanceState?.serializableData(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, Reservation::class.java)
+            savedInstanceState?.serializableData(
+                KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION,
+                Reservation::class.java,
+            )
                 ?: Reservation(
                     movie.title, getSelectedDateTime(),
                     Tickets(listOf(Ticket(TicketType.DEFAULT))),

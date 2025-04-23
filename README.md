@@ -61,7 +61,7 @@
 ### 2차 피드백 반영
 
 - [x] dialog 정보를 통해서 dialog를 관리하고 보여주는 기능으로 수정
-- [ ] onRestoreInstanceState에서 onSaveInstanceState를 호출해도 실행되는 이유 분석
+- [x] onRestoreInstanceState에서 onSaveInstanceState를 호출해도 실행되는 이유 분석
 - [x] view를 초기화해서 반환하는 기능으로 변환
 - [x] ViewHolder 접근 제어자 추가
 - [x] 싱글톤과 확장함수 테스트 구현 전략에 따른 구별 학습
