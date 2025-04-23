@@ -9,6 +9,7 @@ class Screening(
     movie: Movie,
     start: LocalDate,
     end: LocalDate,
+    private val current: LocalDateTime = LocalDateTime.now(),
 ) : Serializable {
     val id: Int = movie.id
     val title: String = movie.title
@@ -22,11 +23,10 @@ class Screening(
     val endMonth: Int = end.monthValue
     val endDay: Int = end.dayOfMonth
 
-    fun availableDates(now: LocalDate? = LocalDate.now()): List<LocalDate> = dates.filterNot { date -> date.isBefore(now) }
+    fun availableDates(now: LocalDate? = current.toLocalDate()): List<LocalDate> = dates.filterNot { date -> date.isBefore(now) }
 
     fun showtimes(
         date: LocalDate,
-        current: LocalDateTime = LocalDateTime.now(),
         showTimePolicy: ShowtimePolicy = DefaultShowtimePolicy(),
     ): List<LocalTime> = showTimePolicy.showtimes(date, current)
 

@@ -1,6 +1,5 @@
 package woowacourse.movie
 
-import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
@@ -17,40 +16,31 @@ import org.hamcrest.core.Is.`is`
 import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.domain.screening.Movie
+import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.view.screening.ReservationActivity
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_DAY
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_MONTH
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_END_YEAR
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_POSTER_ID
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_RUNNING_TIME
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_START_DAY
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_START_MONTH
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_START_YEAR
-import woowacourse.movie.view.screening.ScreeningActivity.Companion.EXTRA_TITLE
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationActivityTest {
     @get:Rule
     val activityRule =
         ActivityScenarioRule<ReservationActivity>(
-            Intent(
+            ReservationActivity.newIntent(
                 ApplicationProvider.getApplicationContext(),
-                ReservationActivity::class.java,
-            ).apply {
-                putExtra(EXTRA_TITLE, "영화 제목")
-                putExtra(EXTRA_START_YEAR, 2025)
-                putExtra(EXTRA_START_MONTH, 4)
-                putExtra(EXTRA_START_DAY, 16)
-                putExtra(EXTRA_END_YEAR, 2025)
-                putExtra(EXTRA_END_MONTH, 4)
-                putExtra(EXTRA_END_DAY, 21)
-                putExtra(
-                    EXTRA_POSTER_ID,
-                    R.drawable.poster_harry_potter_and_the_philosophers_stone,
-                )
-                putExtra(EXTRA_RUNNING_TIME, 152)
-            },
+                Screening(
+                    movie =
+                        Movie(
+                            0,
+                            "해리 포터와 마법사의 돌",
+                            runningTime = 152,
+                        ),
+                    start = LocalDate.of(2025, 4, 18),
+                    end = LocalDate.of(2025, 4, 21),
+                    current = LocalDateTime.of(2025, 4, 19, 8, 0),
+                ),
+            ),
         )
 
     @Test
