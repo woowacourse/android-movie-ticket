@@ -22,14 +22,5 @@ data class Movie(
                     120,
                 ),
             )
-
-        val value: Movie =
-            Movie(
-                "라라랜드",
-                R.drawable.lalaland,
-                LocalDate.of(2025, 4, 1),
-                LocalDate.of(2025, 4, 20),
-                120,
-            )
     }
 }
