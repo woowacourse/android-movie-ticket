@@ -140,8 +140,7 @@ class ReservationActivity : AppCompatActivity() {
                         movieTime.updateTime(timeTable[position])
                     }
 
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
+                    override fun onNothingSelected(parent: AdapterView<*>?) = Unit
                 }
         }
     }
