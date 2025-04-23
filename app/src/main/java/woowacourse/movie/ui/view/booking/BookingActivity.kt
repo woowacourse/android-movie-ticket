@@ -38,12 +38,12 @@ class BookingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking)
         applySystemBarInsets()
 
-        val movieData = movieOrNull() ?: return
-        restoreData(movieData, savedInstanceState)
+        val movieUiData : MovieUiModel = movieOrNull() ?: return
+        restoreData(movieUiData, savedInstanceState)
 
-        setUpMovieInfo(movieData)
+        setUpMovieInfo(movieUiData)
 
-        val booking = Booking(MovieModelMapper.toDomain(movieData))
+        val booking = Booking(MovieModelMapper.toDomain(movieUiData))
         setUpScreeningDateSpinner(booking)
         setUpScreeningTimeSpinner(booking)
         setUpHeadCount()
