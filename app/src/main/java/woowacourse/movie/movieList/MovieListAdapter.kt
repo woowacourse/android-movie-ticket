@@ -1,4 +1,4 @@
-package woowacourse.movie.MovieList
+package woowacourse.movie.movieList
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,11 +10,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.util.ErrorUtils
 
 class MovieListAdapter(
     context: Context,
     items: MutableList<MovieInfo>,
-    val function: (MovieInfo) -> Unit,
+    val changeActivity: (MovieInfo) -> Unit,
+    val onError: () -> Unit,
 ) : ArrayAdapter<MovieInfo>(context, 0, items) {
     override fun getView(
         position: Int,
@@ -27,35 +29,37 @@ class MovieListAdapter(
                 .inflate(R.layout.movie_list_item, parent, false)
 
         val item =
-            getItem(position) ?: MovieInfo(
-                R.drawable.sample_poster,
-                "샘플입니다",
-                "2024-1-1",
-                "2025-1-1",
-                99,
-            )
+            getMovieInfoOrFinish(position) ?: run {
+                onError()
+                return view
+            }
         val image = view.findViewById<ImageView>(R.id.movie_image)
         val title = view.findViewById<TextView>(R.id.title)
         val movieDate = view.findViewById<TextView>(R.id.movie_date)
         val runningTime = view.findViewById<TextView>(R.id.running_time)
 
-        item.let {
-            image.setImageResource(it.poster)
-            title.text = it.title
-            movieDate.text =
-                context.resources.getString(
-                    R.string.movie_date,
-                    it.startDate,
-                    it.endDate,
-                )
-            runningTime.text =
-                String.format(context.resources.getString(R.string.running_time), it.runningTime)
-        }
+        image.setImageResource(item.poster)
+        title.text = item.title
+        movieDate.text =
+            context.resources.getString(
+                R.string.movie_date,
+                item.startDate,
+                item.endDate,
+            )
+        runningTime.text =
+            String.format(context.resources.getString(R.string.running_time), item.runningTime)
 
         val button = view.findViewById<Button>(R.id.reservation_button)
         button.setOnClickListener {
-            function(item)
+            changeActivity(item)
         }
         return view
+    }
+
+    private fun getMovieInfoOrFinish(position: Int): MovieInfo? {
+        return getItem(position) ?: run {
+            ErrorUtils.printError(context)
+            return null
+        }
     }
 }

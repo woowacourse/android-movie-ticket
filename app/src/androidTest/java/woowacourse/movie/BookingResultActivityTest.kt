@@ -9,8 +9,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.BookingResult.BookingResultActivity
 import woowacourse.movie.booking.BookingActivity
+import woowacourse.movie.bookingResult.BookingResultActivity
 import woowacourse.movie.dto.Ticket
 
 class BookingResultActivityTest {

@@ -1,4 +1,4 @@
-package woowacourse.movie.MovieList
+package woowacourse.movie.movieList
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.util.ErrorUtils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var allItems: MutableList<MovieInfo>
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
             )
 
         val listView = findViewById<ListView>(R.id.movie_list)
-        adapter = MovieListAdapter(this, allItems, ::changeActivity)
+        adapter = MovieListAdapter(this, allItems, ::changeActivity, ::onError)
         listView.adapter = adapter
     }
 
@@ -38,5 +39,10 @@ class MainActivity : AppCompatActivity() {
                 putExtra("MOVIE_INFO", item)
             }
         startActivity(intent)
+    }
+
+    private fun onError() {
+        ErrorUtils.printError(this)
+        finish()
     }
 }

@@ -9,10 +9,11 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import woowacourse.movie.BookingResult.BookingResultActivity
 import woowacourse.movie.R
+import woowacourse.movie.bookingResult.BookingResultActivity
 import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.dto.Ticket
+import woowacourse.movie.util.DataUtils
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var movieInfo: MovieInfo
@@ -63,28 +64,24 @@ class BookingActivity : AppCompatActivity() {
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
 
-        movieInfo = intent.getParcelableExtra(KEY_MOVIE_INFO) ?: MovieInfo(
-            R.drawable.sample_poster,
-            "샘플입니다",
-            "2024-1-1",
-            "2025-1-1",
-            99,
+        movieInfo = DataUtils.getExtraOrFinish<MovieInfo>(intent, this, KEY_MOVIE_INFO) ?: return
+
+        poster.setImageResource(movieInfo.poster)
+        title.text = movieInfo.title
+        movieDate.text =
+            resources.getString(
+                R.string.movie_date,
+                movieInfo.startDate,
+                movieInfo.endDate,
+            )
+        runningTime.text = resources.getString(R.string.running_time, movieInfo.runningTime)
+
+        SpinnerAdapter.bind(
+            this,
+            selectedDate,
+            MovieInfoGetter.getDates(movieInfo.startDate, movieInfo.endDate),
         )
-
-        movieInfo.let { info ->
-            poster.setImageResource(info.poster)
-            title.text = info.title
-            movieDate.text =
-                resources.getString(
-                    R.string.movie_date,
-                    info.startDate,
-                    info.endDate,
-                )
-            runningTime.text = resources.getString(R.string.running_time, info.runningTime)
-
-            SpinnerAdapter.bind(this, selectedDate, MovieInfoGetter.getDates(info.startDate, info.endDate))
-            SpinnerAdapter.bind(this, movieTime, MovieInfoGetter.getTimes(info.startDate))
-        }
+        SpinnerAdapter.bind(this, movieTime, MovieInfoGetter.getTimes(movieInfo.startDate))
     }
 
     private fun setupDateChangeListener() {
@@ -96,12 +93,13 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    movieInfo.let { info ->
-                        val selectedDate = MovieInfoGetter.getDates(info.startDate, info.endDate).getOrNull(position)
-                        selectedDate?.let {
-                            val selectedTimes = MovieInfoGetter.getTimes(it)
-                            SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
-                        }
+                    val selectedDate =
+                        MovieInfoGetter
+                            .getDates(movieInfo.startDate, movieInfo.endDate)
+                            .getOrNull(position)
+                    selectedDate?.let {
+                        val selectedTimes = MovieInfoGetter.getTimes(it)
+                        SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
                     }
                 }
 

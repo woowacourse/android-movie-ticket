@@ -18,10 +18,10 @@
             android:name=".booking.BookingActivity"
             android:exported="false"/>
         <activity
-            android:name=".BookingResult.BookingResultActivity"
+            android:name=".bookingResult.BookingResultActivity"
             android:exported="false" />
         <activity
-            android:name=".MovieList.MainActivity"
+            android:name=".movieList.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

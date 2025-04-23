@@ -7,7 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.MovieList.MainActivity
+import woowacourse.movie.movieList.MainActivity
 
 class MainActivityTest {
     @get:Rule
