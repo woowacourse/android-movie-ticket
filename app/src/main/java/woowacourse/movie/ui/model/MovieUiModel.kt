@@ -20,7 +20,7 @@ fun Movie.toUiModel(): MovieUiModel {
         startScreeningDate = startScreeningDate.toString(),
         endScreeningDate = endScreeningDate.toString(),
         runningTime = runningTime.toString(),
-        posterResId = PosterMapper.mapNamesToRes(poster)
+        posterResId = PosterMapper.convertTitleToResId(title)
     )
 }
 
@@ -30,6 +30,5 @@ fun MovieUiModel.toModel(): Movie {
         startScreeningDate = LocalDate.parse(startScreeningDate),
         endScreeningDate = LocalDate.parse(endScreeningDate),
         runningTime = runningTime.toIntOrNull() ?: -1,
-        poster = PosterMapper.mapResToString(posterResId)
     )
 }
