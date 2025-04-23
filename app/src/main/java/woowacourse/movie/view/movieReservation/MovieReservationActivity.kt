@@ -19,12 +19,12 @@ import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.toDomain
+import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.movieSelection.MovieSelectionActivity
 import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat
-import woowacourse.movie.view.utils.toDomain
-import woowacourse.movie.view.utils.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

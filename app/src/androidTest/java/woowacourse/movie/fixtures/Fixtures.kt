@@ -4,8 +4,8 @@ import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.utils.toDomain
-import woowacourse.movie.view.utils.toUiModel
+import woowacourse.movie.view.model.toDomain
+import woowacourse.movie.view.model.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 

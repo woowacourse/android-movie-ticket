@@ -10,8 +10,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
-import woowacourse.movie.view.utils.toUiModel
 import java.time.LocalDate
 
 class MovieSelectionActivity : AppCompatActivity() {

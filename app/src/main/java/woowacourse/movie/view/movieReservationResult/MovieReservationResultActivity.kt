@@ -8,9 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
 import woowacourse.movie.view.utils.getParcelableCompat
-import woowacourse.movie.view.utils.toDomain
 import java.time.format.DateTimeFormatter
 
 class MovieReservationResultActivity : AppCompatActivity() {
