@@ -20,14 +20,14 @@ class MovieAdapter(
     override fun getView(
         position: Int,
         convertView: View?,
-        container: ViewGroup,
+        parent: ViewGroup,
     ): View {
         val view: View
         val viewHolder: MovieViewHolder
         if (convertView == null) {
             view =
-                LayoutInflater.from(container.context)
-                    .inflate(R.layout.item_movie, container, false)
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_movie, parent, false)
             viewHolder = MovieViewHolder(view)
             view.tag = viewHolder
         } else {
