@@ -4,22 +4,19 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDateTime
 
 class TicketActivity : AppCompatActivity() {
     private val ticketData: TicketData by lazy {
-        IntentCompat.getParcelableExtra(
-            intent,
-            ReservationActivity.EXTRA_TICKET_DATA,
-            TicketData::class.java,
-        ) ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
+        intent.getParcelableExtraCompat<TicketData>(ReservationActivity.EXTRA_TICKET_DATA)
+            ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
     }
 
     private val ticket: Ticket by lazy {

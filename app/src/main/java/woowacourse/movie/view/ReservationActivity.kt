@@ -13,12 +13,12 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.IntentCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Screening
 import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDate
@@ -29,11 +29,8 @@ class ReservationActivity : AppCompatActivity() {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private val screeningData: ScreeningData by lazy {
-        IntentCompat.getParcelableExtra(
-            intent,
-            MainActivity.EXTRA_SCREENING_DATA,
-            ScreeningData::class.java,
-        ) ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
+        intent.getParcelableExtraCompat<ScreeningData>(MainActivity.EXTRA_SCREENING_DATA)
+            ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
     }
     private val screening: Screening by lazy { screeningData.toScreening() }
 
