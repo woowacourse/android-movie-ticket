@@ -10,10 +10,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.view.Formatter.localDateToUI
-import woowacourse.movie.view.Formatter.movieTimeToUI
-import woowacourse.movie.view.Formatter.priceToUI
-import woowacourse.movie.view.getSerializableExtraData
+import woowacourse.movie.view.extension.getSerializableExtraData
+import woowacourse.movie.view.mapper.Formatter.localDateToUI
+import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
+import woowacourse.movie.view.mapper.Formatter.priceToUI
 import woowacourse.movie.view.reservation.ReservationActivity
 import java.time.LocalDate
 import java.time.LocalTime

@@ -22,11 +22,11 @@ import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
-import woowacourse.movie.view.Formatter.localDateToUI
-import woowacourse.movie.view.Formatter.movieTimeToUI
-import woowacourse.movie.view.getSerializableExtraData
+import woowacourse.movie.view.extension.getSerializableExtraData
+import woowacourse.movie.view.extension.showShortToast
+import woowacourse.movie.view.mapper.Formatter.localDateToUI
+import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
-import woowacourse.movie.view.showShortToast
 import java.time.LocalDate
 import java.time.LocalDateTime
 

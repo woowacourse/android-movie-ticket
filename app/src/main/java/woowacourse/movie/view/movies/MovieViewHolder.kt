@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.Formatter.localDateToUI
+import woowacourse.movie.view.mapper.Formatter.localDateToUI
 
 class MovieViewHolder(
     view: View,

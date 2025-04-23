@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.mapper
 
 import android.icu.text.DecimalFormat
 import java.time.LocalDate
