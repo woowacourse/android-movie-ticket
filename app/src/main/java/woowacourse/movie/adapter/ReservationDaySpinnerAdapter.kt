@@ -7,14 +7,16 @@ import android.widget.TextView
 import woowacourse.movie.global.toFormattedString
 import java.time.LocalDate
 
-class ReservationDaySpinnerAdapter(var items: List<LocalDate>) : BaseAdapter() {
+class ReservationDaySpinnerAdapter(items: List<LocalDate>) : BaseAdapter() {
+    private var mItems = items.toList()
+
     override fun getCount(): Int {
-        return items.size
+        return mItems.size
     }
 
     // 특정 위치의 데이터를 반환
     override fun getItem(position: Int): LocalDate {
-        return items[position]
+        return mItems[position]
     }
 
     // 특정 위치의 아이템 ID를 반환 (일반적으로 position을 사용)

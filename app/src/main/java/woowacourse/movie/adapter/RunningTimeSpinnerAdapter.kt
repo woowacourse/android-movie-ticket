@@ -7,16 +7,16 @@ import android.widget.TextView
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class RunningTimeSpinnerAdapter(val _items: List<LocalTime>) : BaseAdapter() {
-    private var items = _items.toList()
+class RunningTimeSpinnerAdapter(items: List<LocalTime>) : BaseAdapter() {
+    private var mItems = items.toList()
 
     override fun getCount(): Int {
-        return items.size
+        return mItems.size
     }
 
     // 특정 위치의 데이터를 반환
     override fun getItem(position: Int): Any {
-        return items[position]
+        return mItems[position]
     }
 
     // 특정 위치의 아이템 ID를 반환 (일반적으로 position을 사용)
@@ -30,7 +30,12 @@ class RunningTimeSpinnerAdapter(val _items: List<LocalTime>) : BaseAdapter() {
         parent: ViewGroup,
     ): View {
         val view: TextView = convertView as? TextView ?: TextView(parent.context)
-        view.text = DateTimeFormatter.ofPattern("HH:mm").format(items[position])
+        view.text = DateTimeFormatter.ofPattern("HH:mm").format(mItems[position])
         return view
+    }
+
+    fun changeItems(items: List<LocalTime>) {
+        mItems = items.toList()
+        notifyDataSetChanged()
     }
 }
