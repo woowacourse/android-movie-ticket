@@ -1,15 +1,15 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/booking"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/movie_poster"
@@ -18,17 +18,17 @@
             android:layout_marginEnd="430dp"
             android:scaleType="centerCrop"
             android:src="@drawable/sample_poster"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <RelativeLayout
             android:id="@+id/right_layout"
             android:layout_width="400dp"
             android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ScrollView
                 android:id="@+id/text_scroll"
@@ -47,7 +47,7 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="엄청나게 기이이이ㅣ이이이이이이ㅣ잉이이이이이이ㅣ이이이ㅣㄴ이ㅣㅣ이이이이이이이이인 텍스트입니다"
+                        android:text="영화 제목"
                         android:textColor="@color/black"
                         android:textSize="35sp"
                         android:textStyle="bold" />
@@ -60,8 +60,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:orientation="vertical"
-                android:background="@color/white">
+                android:background="@color/white"
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/movie_date"
@@ -87,27 +87,27 @@
                     <Spinner
                         android:id="@+id/selected_date"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="50dp" />
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
 
                     <Spinner
                         android:id="@+id/movie_time"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
-                        android:layout_height="50dp" />
+                        android:layout_height="50dp"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <Button
                         android:id="@+id/minus_button"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="-"
                         android:textSize="25sp" />
 
@@ -123,8 +123,8 @@
                     <Button
                         android:id="@+id/plus_button"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="+"
                         android:textSize="25sp" />
                 </LinearLayout>
@@ -141,4 +141,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</RelativeLayout>
