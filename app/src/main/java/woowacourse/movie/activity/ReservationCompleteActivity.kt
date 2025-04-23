@@ -48,7 +48,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val BOOKING_STATUS_KEY = "bookingStatus"
+        private const val BOOKING_STATUS_KEY = "bookingStatus"
 
         fun newIntent(
             from: Context,

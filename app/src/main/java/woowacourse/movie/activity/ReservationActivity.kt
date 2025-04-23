@@ -199,13 +199,13 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MOVIE_KEY = "movie"
-        const val MEMBER_COUNT_KEY = "memberCount"
-        const val RUNNING_TIME_KEY = "runningTime"
-        const val RESERVATION_DAY_KEY = "reservationDay"
-        const val MEMBER_COUNT_DEFAULT = 1
-        const val MINIMUM_MEMBER_COUNT = 1
-        const val DEFAULT_POSITION = 0
+        private const val MOVIE_KEY = "movie"
+        private const val MEMBER_COUNT_KEY = "memberCount"
+        private const val RUNNING_TIME_KEY = "runningTime"
+        private const val RESERVATION_DAY_KEY = "reservationDay"
+        private const val MEMBER_COUNT_DEFAULT = 1
+        private const val MINIMUM_MEMBER_COUNT = 1
+        private const val DEFAULT_POSITION = 0
 
         fun newIntent(
             from: Context,
