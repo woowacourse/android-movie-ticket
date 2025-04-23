@@ -4,10 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.getParcelableCompat
@@ -16,30 +14,18 @@ import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.toModel
 import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
-import woowacourse.movie.view.util.CustomAlertDialog
 import woowacourse.movie.view.util.DialogInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
+class ReservationActivity :
+    BaseActivity(R.layout.activity_reservation),
+    ReservationContract.View {
+    private val presenter: ReservationPresenter by lazy { ReservationPresenter(this) }
     private val views: ReservationViews by lazy { ReservationViews(this) }
-    private val dialog: CustomAlertDialog by lazy { CustomAlertDialog(this) }
-    private var reservationCount = ReservationCount()
+
     private var shouldIgnoreNextSelection = false
-    private var movie: Movie? = null
-
-    private val dateSpinnerAdapter: ArrayAdapter<LocalDate> by lazy {
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalDate>()).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
-    }
-
-    private val timeSpinnerAdapter: ArrayAdapter<LocalTime> by lazy {
-        ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalTime>()).apply {
-            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        }
-    }
 
     private val noAvailableTimesDialogInfo: DialogInfo by lazy {
         DialogInfo(
@@ -58,9 +44,7 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             message = getString(R.string.reservation_dialog_message),
             positiveButtonText = getString(R.string.reservation_dialog_positive),
             negativeButtonText = getString(R.string.reservation_dialog_negative),
-            onClickPositiveButton = {
-                navigateToResult()
-            },
+            onClickPositiveButton = { submitReservation() },
             onClickNegativeButton = { it.dismiss() },
         )
     }
@@ -68,147 +52,19 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()
-        setupData()
-        movie?.let { views.bindMovieInfo(it) }
-        setupUI()
-    }
 
-    private fun setupUI() {
-        setupReservationCountControls()
-        setupFinishButton()
-        setupDateSpinner()
-        setupAvailableDates()
-    }
+        shouldIgnoreNextSelection = savedInstanceState != null
+        val (count, dateTime) = restoreReservationData(savedInstanceState)
 
-    private fun setupReservationCountControls() {
-        views.setOnReservationCountChanged(
-            onCountDecreased = { updateReservationCount { reservationCount -= 1 } },
-            onCountIncreased = { updateReservationCount { reservationCount += 1 } },
-        )
-        views.tvReservationCount.text = reservationCount.value.toString()
-        views.updateReservationCountMinusButton(reservationCount)
-    }
-
-    private fun setupFinishButton() {
-        views.setOnFinishClickListener {
-            if (reservationCount.value >= ReservationCount.RESERVATION_MIN_COUNT) {
-                dialog.show(reservationConfirmationDialogInfo)
-            }
+        presenter.fetchData(count, dateTime) {
+            intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)?.toModel()
         }
-    }
-
-    private fun setupDateSpinner() {
-        views.setDateSpinner(
-            adapter = dateSpinnerAdapter,
-            onDateSelected = { selectedDate ->
-                movie?.let { updateTimeSpinner(it, selectedDate) }
-            },
-            shouldIgnoreNext = { shouldIgnoreNextSelection },
-            clearIgnoreNext = { shouldIgnoreNextSelection = false },
-        )
-    }
-
-    private fun setupAvailableDates() {
-        val availableDates = movie?.screeningPeriod?.getAvailableDates(LocalDate.now()) ?: emptyList()
-        if (availableDates.isEmpty()) {
-            dialog.show(noAvailableTimesDialogInfo)
-            return
-        }
-
-        movie?.let {
-            views.setSpinnerItems(views.spinnerDate, dateSpinnerAdapter, availableDates)
-        }
-    }
-
-    private fun updateReservationCount(updateCount: () -> Unit) {
-        updateCount()
-        views.tvReservationCount.text = reservationCount.value.toString()
-        views.updateReservationCountMinusButton(reservationCount)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val date = views.spinnerDate.selectedItem as? LocalDate
-        val time = views.spinnerTime.selectedItem as? LocalTime
-        val reservationDateTime =
-            if (date != null && time != null) LocalDateTime.of(date, time).toString() else ""
-        outState.putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime)
-        outState.putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount.value)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        updateReservationCount {
-            reservationCount =
-                ReservationCount(savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER))
-        }
-
-        movie?.let {
-            val availableDates = it.screeningPeriod.getAvailableDates(LocalDate.now())
-            views.setSpinnerItems(views.spinnerDate, dateSpinnerAdapter, availableDates)
-
-            val formatter = SPINNER_DATETIME_FORMAT.toDateTimeFormatter()
-            val dateTime =
-                LocalDateTime.parse(
-                    savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME),
-                    formatter,
-                )
-
-            shouldIgnoreNextSelection = true
-            views.setSpinnerItems(
-                views.spinnerDate,
-                dateSpinnerAdapter,
-                availableDates,
-                dateTime.toLocalDate(),
-            )
-            updateTimeSpinner(it, dateTime.toLocalDate(), dateTime.toLocalTime())
-        }
-    }
-
-    private fun setupActionBar() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun setupData() {
-        movie = intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)?.toModel()
-    }
-
-    private fun updateTimeSpinner(
-        movie: Movie,
-        date: LocalDate,
-        selectedTime: LocalTime? = null,
-    ) {
-        val times = movie.screeningPeriod.getAvailableTimesFor(LocalDateTime.now(), date)
-        views.setSpinnerItems(views.spinnerTime, timeSpinnerAdapter, times, selectedTime)
-
-        if (times.isEmpty()) {
-            val currentItemPos = views.spinnerDate.selectedItemPosition
-            runCatching {
-                views.spinnerDate.setSelection(currentItemPos + 1)
-            }.onFailure {
-                dialog.show(noAvailableTimesDialogInfo)
-            }
-        }
-    }
-
-    private fun navigateToResult() {
-        val date = views.spinnerDate.selectedItem as? LocalDate
-        val time = views.spinnerTime.selectedItem as? LocalTime
-
-        if (date == null || time == null) {
-            showToast(getString(R.string.invalid_reservation_datetime_message))
-            return
-        }
-
-        val reservationInfo =
-            ReservationInfo(
-                title = views.tvTitle.text.toString(),
-                reservationDateTime = LocalDateTime.of(date, time),
-                reservationCount = reservationCount,
-            )
-
-        val intent = ReservationResultActivity.newIntent(this, reservationInfo)
-        startActivity(intent)
+        saveSpinnersData(outState)
+        saveReservationCount(outState)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -217,6 +73,111 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             return true
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun updateReservationCount(count: Int) {
+        views.updateReservationCount(count)
+    }
+
+    override fun setScreen(movie: Movie) {
+        views.bindMovieInfo(movie)
+        setupDateSpinner()
+        setupReservationCountControls()
+        setupFinishButton()
+    }
+
+    override fun navigateToResult(reservationInfo: ReservationInfo) {
+        val intent = ReservationResultActivity.newIntent(this, reservationInfo)
+        startActivity(intent)
+    }
+
+    override fun showNoAvailableTimesDialog() {
+        views.dialog.show(noAvailableTimesDialogInfo)
+    }
+
+    override fun showReservationConfirmationDialog() {
+        views.dialog.show(reservationConfirmationDialogInfo)
+    }
+
+    override fun updateDateSpinner(
+        dates: List<LocalDate>,
+        times: List<LocalTime>,
+        selectedDateTime: LocalDateTime?,
+    ) {
+        val selectedDate = selectedDateTime?.toLocalDate()
+        val selectedTime = selectedDateTime?.toLocalTime()
+        views.updateDateSpinnerItems(dates, selectedDate)
+        updateTimeSpinner(times, selectedTime)
+    }
+
+    override fun updateTimeSpinner(
+        times: List<LocalTime>,
+        selectedTime: LocalTime?,
+    ) {
+        views.updateTimeSpinnerItems(times, selectedTime)
+    }
+
+    private fun setupActionBar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    private fun setupReservationCountControls() {
+        views.setOnReservationCountChanged(
+            onDecrease = { presenter.updateReservationCount(-1) },
+            onIncrease = { presenter.updateReservationCount(1) },
+        )
+    }
+
+    private fun setupFinishButton() {
+        views.setOnFinishClickListener {
+            views.dialog.show(reservationConfirmationDialogInfo)
+        }
+    }
+
+    private fun setupDateSpinner() {
+        views.setSpinners(
+            onDateSelected = { selectedDate -> presenter.onSelectDate(selectedDate) },
+            shouldIgnoreNext = { shouldIgnoreNextSelection },
+            clearIgnoreNext = {
+                shouldIgnoreNextSelection = false
+            },
+        )
+    }
+
+    private fun submitReservation() {
+        val (date, time) = views.selectedSpinnerDateAndTime()
+        if (date == null || time == null) {
+            showToast(getString(R.string.invalid_reservation_datetime_message))
+            return
+        }
+
+        presenter.onReserve(LocalDateTime.of(date, time))
+    }
+
+    private fun saveSpinnersData(outState: Bundle) {
+        val (date, time) = views.selectedSpinnerDateAndTime()
+        val reservationDateTime = if (date != null && time != null) LocalDateTime.of(date, time) else null
+
+        reservationDateTime?.let { dateTime ->
+            outState.putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, dateTime.toString())
+        }
+    }
+
+    private fun saveReservationCount(outState: Bundle) {
+        views.reservationCount()?.let { count ->
+            outState.putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, count)
+        }
+    }
+
+    private fun restoreReservationData(savedInstanceState: Bundle?): Pair<Int?, LocalDateTime?> {
+        if (savedInstanceState == null) return null to null
+        val count = savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
+
+        val restoredDateTime = savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
+        val formatter = SPINNER_DATETIME_FORMAT.toDateTimeFormatter()
+        val dateTime = restoredDateTime?.let { LocalDateTime.parse(it, formatter) }
+
+        return count to dateTime
     }
 
     companion object {

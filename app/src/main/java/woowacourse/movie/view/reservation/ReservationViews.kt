@@ -9,60 +9,69 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Poster
 import woowacourse.movie.domain.model.ReservationCount
+import woowacourse.movie.view.extension.setImage
 import woowacourse.movie.view.extension.toDateTimeFormatter
+import woowacourse.movie.view.util.CustomAlertDialog
 import java.time.LocalDate
+import java.time.LocalTime
 
 class ReservationViews(
     private val activity: ReservationActivity,
 ) {
-    val tvTitle: TextView = activity.findViewById(R.id.tv_reservation_title)
-    val tvReservationCount: TextView = activity.findViewById(R.id.tv_reservation_count)
-    val spinnerDate: Spinner = activity.findViewById(R.id.spinner_reservation_date)
-    val spinnerTime: Spinner = activity.findViewById(R.id.spinner_reservation_time)
+    private val tvReservationCount: TextView = activity.findViewById(R.id.tv_reservation_count)
+    private val spinnerDate: Spinner = activity.findViewById(R.id.spinner_reservation_date)
+    private val spinnerTime: Spinner = activity.findViewById(R.id.spinner_reservation_time)
+    private val tvTitle: TextView = activity.findViewById(R.id.tv_reservation_title)
     private val ivPoster: ImageView = activity.findViewById(R.id.iv_reservation_poster)
     private val tvScreeningPeriod: TextView = activity.findViewById(R.id.tv_screening_period)
     private val tvRunningTime: TextView = activity.findViewById(R.id.tv_reservation_running_time)
     private val btnReservationFinish: Button = activity.findViewById(R.id.btn_reservation_finish)
     private val btnCountMinus: Button = activity.findViewById(R.id.btn_reservation_count_minus)
     private val btnCountPlus: Button = activity.findViewById(R.id.btn_reservation_count_plus)
+    private val dateAdapter = createSpinnerAdapter<LocalDate>()
+    private val timeAdapter = createSpinnerAdapter<LocalTime>()
+
+    val dialog: CustomAlertDialog by lazy { CustomAlertDialog(activity) }
 
     fun bindMovieInfo(movie: Movie) {
-        setPoster(movie)
         tvTitle.text = movie.title
-        val formatter = activity.getString(R.string.movie_screening_period_format).toDateTimeFormatter()
-        val start = movie.screeningPeriod.startDate.format(formatter)
-        val end = movie.screeningPeriod.endDate.format(formatter)
-        tvScreeningPeriod.text = activity.getString(R.string.movie_date, start, end)
+        tvScreeningPeriod.text = formatPeriod(movie)
         tvRunningTime.text =
             activity.getString(R.string.running_time, movie.runningTime.minute.toString())
+        movie.poster.setImage(ivPoster)
     }
 
     fun setOnReservationCountChanged(
-        onCountDecreased: () -> Unit,
-        onCountIncreased: () -> Unit,
+        onDecrease: () -> Unit,
+        onIncrease: () -> Unit,
     ) {
-        btnCountMinus.setOnClickListener {
-            onCountDecreased()
-        }
-
-        btnCountPlus.setOnClickListener {
-            onCountIncreased()
-        }
+        btnCountMinus.setOnClickListener { onDecrease() }
+        btnCountPlus.setOnClickListener { onIncrease() }
     }
 
     fun setOnFinishClickListener(action: () -> Unit) {
         btnReservationFinish.setOnClickListener { action() }
     }
 
-    fun setDateSpinner(
-        adapter: ArrayAdapter<LocalDate>,
+    fun selectedSpinnerDateAndTime(): Pair<LocalDate?, LocalTime?> =
+        spinnerDate.selectedItem as? LocalDate to spinnerTime.selectedItem as? LocalTime
+
+    fun reservationCount(): Int? = tvReservationCount.toString().toIntOrNull()
+
+    fun updateReservationCount(newCount: Int) {
+        tvReservationCount.text = newCount.toString()
+        updateReservationCountMinusButton(newCount)
+    }
+
+    fun setSpinners(
         onDateSelected: (LocalDate) -> Unit,
         shouldIgnoreNext: () -> Boolean,
         clearIgnoreNext: () -> Unit,
     ) {
-        spinnerDate.adapter = adapter
+        spinnerDate.adapter = dateAdapter
+        spinnerTime.adapter = timeAdapter
+
         spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -75,46 +84,59 @@ class ReservationViews(
                         clearIgnoreNext()
                         return
                     }
-                    val selectedDate = parent.getItemAtPosition(position) as LocalDate
-                    onDateSelected(selectedDate)
+                    val selected = parent.getItemAtPosition(position) as LocalDate
+                    onDateSelected(selected)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
     }
 
-    fun <T> setSpinnerItems(
+    fun updateDateSpinnerItems(
+        items: List<LocalDate>,
+        selected: LocalDate? = null,
+    ) {
+        updateSpinnerItems(spinnerDate, dateAdapter, items, selected)
+    }
+
+    fun updateTimeSpinnerItems(
+        items: List<LocalTime>,
+        selected: LocalTime? = null,
+    ) {
+        updateSpinnerItems(spinnerTime, timeAdapter, items, selected)
+    }
+
+    private fun updateReservationCountMinusButton(count: Int) {
+        btnCountMinus.apply {
+            isClickable = count > ReservationCount.RESERVATION_MIN_COUNT
+            alpha = if (isClickable) 1f else 0.4f
+        }
+    }
+
+    private fun formatPeriod(movie: Movie): String {
+        val formatter =
+            activity.getString(R.string.movie_screening_period_format).toDateTimeFormatter()
+        val start = movie.screeningPeriod.startDate.format(formatter)
+        val end = movie.screeningPeriod.endDate.format(formatter)
+        return activity.getString(R.string.movie_date, start, end)
+    }
+
+    private fun <T> createSpinnerAdapter(): ArrayAdapter<T> =
+        ArrayAdapter(activity, android.R.layout.simple_spinner_item, mutableListOf<T>()).apply {
+            setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        }
+
+    private fun <T> updateSpinnerItems(
         spinner: Spinner,
         adapter: ArrayAdapter<T>,
         items: List<T>,
-        selectedItem: T? = null,
+        selectedItem: T?,
     ) {
         adapter.clear()
         adapter.addAll(items)
         adapter.notifyDataSetChanged()
-        spinner.adapter = adapter
 
-        selectedItem?.let {
-            val position = adapter.getPosition(it)
-            if (position >= 0) spinner.setSelection(position)
-        }
-    }
-
-    fun updateReservationCountMinusButton(reservationCount: ReservationCount) {
-        if (reservationCount.value == ReservationCount.RESERVATION_MIN_COUNT) {
-            btnCountMinus.alpha = 0.4f
-            btnCountMinus.isClickable = false
-            return
-        }
-
-        btnCountMinus.alpha = 1f
-        btnCountMinus.isClickable = true
-    }
-
-    private fun setPoster(movie: Movie) {
-        when (val poster = movie.poster) {
-            is Poster.Resource -> ivPoster.setImageResource(poster.resId)
-            is Poster.Url -> { /* 이미지 로드 */ }
-        }
+        val position = selectedItem?.let { adapter.getPosition(it) } ?: 0
+        spinner.setSelection(position)
     }
 }
