@@ -23,36 +23,43 @@ class MovieListAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(context)
-                .inflate(R.layout.movie_list_item, parent, false)
+        lateinit var view: View
+
+        if (convertView == null) {
+            view =
+                LayoutInflater
+                    .from(context)
+                    .inflate(R.layout.movie_list_item, parent, false)
+            view.tag = ViewHolder.of(view)
+        } else {
+            view = convertView
+        }
+
+        val viewHolder = view.tag as ViewHolder
 
         val item =
             getMovieInfoOrPrintError(position) ?: run {
                 onError()
                 return view
             }
-        val image = view.findViewById<ImageView>(R.id.movie_image)
-        val title = view.findViewById<TextView>(R.id.title)
-        val movieDate = view.findViewById<TextView>(R.id.movie_date)
-        val runningTime = view.findViewById<TextView>(R.id.running_time)
 
-        image.setImageResource(item.poster)
-        title.text = item.title
-        movieDate.text =
-            context.resources.getString(
-                R.string.movie_date,
-                item.startDate,
-                item.endDate,
-            )
-        runningTime.text =
-            String.format(context.resources.getString(R.string.running_time), item.runningTime)
+        with(viewHolder) {
+            image.setImageResource(item.poster)
+            title.text = item.title
+            movieDate.text =
+                context.resources.getString(
+                    R.string.movie_date,
+                    item.startDate,
+                    item.endDate,
+                )
+            runningTime.text =
+                String.format(context.resources.getString(R.string.running_time), item.runningTime)
 
-        val button = view.findViewById<Button>(R.id.reservation_button)
-        button.setOnClickListener {
-            changeActivity(item)
+            button.setOnClickListener {
+                changeActivity(item)
+            }
         }
+
         return view
     }
 
@@ -60,6 +67,25 @@ class MovieListAdapter(
         return getItem(position) ?: run {
             ErrorUtils.printError(context)
             return null
+        }
+    }
+
+    private class ViewHolder(
+        val image: ImageView,
+        val title: TextView,
+        val movieDate: TextView,
+        val runningTime: TextView,
+        val button: Button,
+    ) {
+        companion object {
+            fun of(view: View): ViewHolder =
+                ViewHolder(
+                    view.findViewById(R.id.movie_image),
+                    view.findViewById(R.id.title),
+                    view.findViewById(R.id.movie_date),
+                    view.findViewById(R.id.running_time),
+                    view.findViewById(R.id.reservation_button),
+                )
         }
     }
 }
