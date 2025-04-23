@@ -62,7 +62,8 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
             }
     }
 
-    override fun setupViews(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         setupData()
         setMovieInfo()
