@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-object Utils {
+object LocalDateHelper {
     @JvmStatic
     fun LocalDate.toDotFormat(): String {
         return this.format(DateTimeFormatter.ofPattern("yyyy.MM.dd"))

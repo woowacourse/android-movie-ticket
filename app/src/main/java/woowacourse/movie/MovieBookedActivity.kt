@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.MovieBookingActivity.Companion.KEY_BOOKING_STATUS
-import woowacourse.movie.Utils.toDotFormat
+import woowacourse.movie.LocalDateHelper.toDotFormat
 import woowacourse.movie.domain.BookingStatus
 
 class MovieBookedActivity : AppCompatActivity() {

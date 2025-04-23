@@ -4,7 +4,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
-import woowacourse.movie.Utils.toDotFormat
+import woowacourse.movie.LocalDateHelper.toDotFormat
 import java.time.LocalDate
 
 class BookedDateSpinnerAdapter(val value: List<LocalDate>) : BaseAdapter() {

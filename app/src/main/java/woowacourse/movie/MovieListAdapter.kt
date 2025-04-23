@@ -7,7 +7,7 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.Utils.toDotFormat
+import woowacourse.movie.LocalDateHelper.toDotFormat
 import woowacourse.movie.domain.Movie
 
 

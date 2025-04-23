@@ -2,8 +2,8 @@ package woowacourse.movie.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.Utils.toLocalDateFromDash
-import woowacourse.movie.Utils.toLocalDateFromDot
+import woowacourse.movie.LocalDateHelper.toLocalDateFromDash
+import woowacourse.movie.LocalDateHelper.toLocalDateFromDot
 import java.time.LocalDate
 
 @Parcelize
