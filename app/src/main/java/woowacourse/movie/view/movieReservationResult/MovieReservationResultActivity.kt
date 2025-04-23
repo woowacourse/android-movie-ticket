@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
-import woowacourse.movie.view.movieReservation.MovieReservationActivity
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.format.DateTimeFormatter
 
@@ -52,7 +51,7 @@ class MovieReservationResultActivity : AppCompatActivity() {
             context: Context,
             ticket: TicketUiModel,
         ): Intent {
-            val intent = Intent(context, MovieReservationActivity::class.java)
+            val intent = Intent(context, MovieReservationResultActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)
             return intent
         }
