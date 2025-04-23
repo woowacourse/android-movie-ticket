@@ -17,13 +17,24 @@ class MovieAdapter(
 ) : BaseAdapter() {
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
-    override fun getCount(): Int = movies.size
+    override fun getCount(): Int {
+        val adCount = movies.size / 3
+        return movies.size + adCount
+    }
 
-    override fun getItem(position: Int): Any = movies[position]
+    override fun getItem(position: Int): Any = movies[getMovieIndex(position)]
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    private class ViewHolder(
+    override fun getItemViewType(position: Int): Int {
+        return if (position % 4 == 3) {
+            VIEW_TYPE_AD
+        } else {
+            VIEW_TYPE_MOVIE
+        }
+    }
+
+    private class MovieViewHolder(
         val view: View,
         val clickListener: MovieClickListener,
         private val reservationUiFormatter: ReservationUiFormatter,
@@ -49,27 +60,63 @@ class MovieAdapter(
         }
     }
 
+    private class AdViewHolder(view: View) {
+        val adImageVIew: ImageView = view.findViewById(R.id.iv_advertisement)
+
+        fun bind() {
+            adImageVIew.setImageResource(R.drawable.advertisement)
+        }
+    }
+
     override fun getView(
         position: Int,
         convertView: View?,
         parent: ViewGroup?,
     ): View {
         val view: View
-        val viewHolder: ViewHolder
 
-        if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
-            viewHolder =
-                ViewHolder(view, clickListener, reservationUiFormatter)
-            view.tag = viewHolder
+        val viewType = getItemViewType(position)
+
+        return if (viewType == VIEW_TYPE_MOVIE) {
+            val viewHolder: MovieViewHolder
+            if (convertView == null) {
+                view =
+                    LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
+                viewHolder =
+                    MovieViewHolder(view, clickListener, reservationUiFormatter)
+                view.tag = viewHolder
+            } else {
+                view = convertView
+                viewHolder = view.tag as MovieViewHolder
+            }
+
+            val movie = movies[getMovieIndex(position)]
+            viewHolder.bind(movie)
+            view
         } else {
-            view = convertView
-            viewHolder = view.tag as ViewHolder
+            val viewHolder: AdViewHolder
+            if (convertView == null) {
+                view =
+                    LayoutInflater.from(parent?.context).inflate(R.layout.item_advertisement, parent, false)
+                viewHolder = AdViewHolder(view)
+                view.tag = viewHolder
+            } else {
+                view = convertView
+                viewHolder = view.tag as AdViewHolder
+            }
+
+            viewHolder.bind()
+            view
         }
 
-        val movie = movies[position]
-        viewHolder.bind(movie)
+    }
 
-        return view
+    private fun getMovieIndex(position: Int): Int {
+        return position - (position / 4)
+    }
+
+    companion object {
+        private const val VIEW_TYPE_MOVIE = 0
+        private const val VIEW_TYPE_AD = 1
     }
 }
