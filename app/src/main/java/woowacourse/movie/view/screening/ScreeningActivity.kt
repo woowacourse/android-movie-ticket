@@ -1,5 +1,8 @@
 package woowacourse.movie.view.screening
 
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -25,8 +28,18 @@ class ScreeningActivity : AppCompatActivity() {
         initListView()
     }
 
+    @Suppress("DEPRECATION")
+    private fun Intent.getScreeningsExtra(): Array<Screening>? =
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+                getSerializableExtra(EXTRA_SCREENINGS, Array<Screening>::class.java)
+
+            else -> getSerializableExtra(EXTRA_SCREENINGS) as? Array<Screening>
+        }
+
     private fun initListView() {
-        val screenings: List<Screening> = Screenings().value
+        val screenings: List<Screening> =
+            intent?.getScreeningsExtra()?.toList() ?: Screenings().value
         val movieListView = findViewById<ListView>(R.id.lv_screening_movies)
         val movieAdapter = ScreeningAdapter(screenings, ::navigateToReservationActivity)
         movieListView.adapter = movieAdapter
@@ -35,5 +48,18 @@ class ScreeningActivity : AppCompatActivity() {
     private fun navigateToReservationActivity(screening: Screening) {
         val intent = ReservationActivity.newIntent(this, screening)
         startActivity(intent)
+    }
+
+    companion object {
+        private const val EXTRA_SCREENINGS = "woowacourse.movie.EXTRA_SCREENINGS"
+
+        fun testIntent(
+            context: Context,
+            screenings: Array<Screening>,
+        ): Intent =
+            Intent(context, ScreeningActivity::class.java).putExtra(
+                EXTRA_SCREENINGS,
+                screenings,
+            )
     }
 }

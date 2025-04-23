@@ -2,7 +2,7 @@ package woowacourse.movie.domain.screening
 
 import java.io.Serializable
 
-class Movie(
+data class Movie(
     val id: Int,
     val title: String,
     val runningTime: Int,
