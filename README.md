@@ -60,7 +60,7 @@
 
 ### 2차 피드백 반영
 
-- [ ] 팩토리에서 필요할때 생성하고 사용하도록 구현?
+- [x] dialog 정보를 통해서 dialog를 관리하고 보여주는 기능으로 수정
 - [ ] onRestoreInstanceState에서 onSaveInstanceState를 호출해도 실행되는 이유 분석
 - [ ] view, viewHolder를 묶는 데이터 클래스 구현
 - [x] ViewHolder 접근 제어자 추가

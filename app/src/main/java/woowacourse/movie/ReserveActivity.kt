@@ -23,7 +23,8 @@ import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.domain.TicketType
 import woowacourse.movie.domain.Tickets
 import woowacourse.movie.extensions.serializableData
-import woowacourse.movie.factory.CustomDialogFactory
+import woowacourse.movie.factory.CustomAlertDialog
+import woowacourse.movie.factory.DialogInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -35,7 +36,7 @@ class ReserveActivity : AppCompatActivity() {
     private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_ticket_count) }
     private val reservationScheduler =
         ReservationScheduler(CurrentDateScheduler(), CurrentTimeScheduler())
-    private val customDialogFactory = CustomDialogFactory()
+    private val customAlertDialog = CustomAlertDialog(this)
     private lateinit var reservation: Reservation
     private var isDateInit = false
 
@@ -87,12 +88,16 @@ class ReserveActivity : AppCompatActivity() {
     private fun movie(): Movie? = intent.serializableData(KEY_MOVIE, Movie::class.java)
 
     private fun showMissingMovieDialog() {
-        customDialogFactory.emptyValueDialog(
-            this,
-            getString(R.string.empty_movie_title),
-            getString(R.string.empty_movie_message),
-            ::finish,
-        ).show()
+        val dialogInfo =
+            DialogInfo(
+                getString(R.string.empty_movie_title),
+                getString(R.string.empty_movie_message),
+                getString(R.string.confirm),
+                null,
+                { },
+                ::finish,
+            )
+        customAlertDialog.show(dialogInfo)
     }
 
     private fun initMovieContent(movie: Movie) {
@@ -151,6 +156,12 @@ class ReserveActivity : AppCompatActivity() {
         )
 
     private fun initButtonListeners() {
+        minusButtonInit()
+        plusButtonInit()
+        reserveButtonInit()
+    }
+
+    private fun minusButtonInit() {
         findViewById<Button>(R.id.btn_minus).setOnClickListener {
             if (reservation.canMinus()) {
                 reservation = reservation.minusCount()
@@ -159,35 +170,47 @@ class ReserveActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.validate_min_movie_ticket, Toast.LENGTH_SHORT).show()
             }
         }
+    }
 
+    private fun plusButtonInit() {
         findViewById<Button>(R.id.btn_plus).setOnClickListener {
             reservation = reservation.plusCount()
             updateTicketCount()
         }
-        val dialog =
-            customDialogFactory.selectDialog(
-                this,
+    }
+
+    private fun reserveButtonInit() {
+        val dialogInfo =
+            DialogInfo(
                 getString(R.string.reserve_dialog_title),
                 getString(R.string.reserve_dialog_message),
-            ) {
-                if (::reservation.isInitialized) {
-                    startActivity(
-                        Intent(this, ReservationResultActivity::class.java).apply {
-                            putExtra(KEY_RESERVATION, reservation)
-                        },
-                    )
-                } else {
-                    customDialogFactory.emptyValueDialog(
-                        this,
-                        getString(R.string.error_reservation_title),
-                        getString(R.string.error_reservation_message),
-                        ::finish,
-                    ).show()
-                }
-            }
+                getString(R.string.reserve_dialog_positive_button),
+                getString(R.string.cancel),
+                ::moveToReservationResult,
+            )
 
-        findViewById<Button>(R.id.btn_select).setOnClickListener {
-            dialog.show()
+        findViewById<Button>(R.id.btn_reserve).setOnClickListener {
+            customAlertDialog.show(dialogInfo)
+        }
+    }
+
+    private fun moveToReservationResult() {
+        if (::reservation.isInitialized) {
+            startActivity(
+                Intent(this, ReservationResultActivity::class.java).apply {
+                    putExtra(KEY_RESERVATION, reservation)
+                },
+            )
+        } else {
+            val dialogInfo =
+                DialogInfo(
+                    getString(R.string.error_reservation_title),
+                    getString(R.string.error_reservation_message),
+                    getString(R.string.confirm),
+                    null,
+                    ::finish,
+                )
+            customAlertDialog.show(dialogInfo)
         }
     }
 

@@ -11,13 +11,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.extensions.serializableData
-import woowacourse.movie.factory.CustomDialogFactory
+import woowacourse.movie.factory.CustomAlertDialog
+import woowacourse.movie.factory.DialogInfo
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity : AppCompatActivity() {
-    private val customDialogFactory = CustomDialogFactory()
+    private val customAlertDialog = CustomAlertDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,12 +49,16 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun showReservationError() {
-        customDialogFactory.emptyValueDialog(
-            this,
-            getString(R.string.error_reservation_title),
-            getString(R.string.error_reservation_message),
-            ::finish,
-        ).show()
+        val dialogInfo =
+            DialogInfo(
+                getString(R.string.error_reservation_title),
+                getString(R.string.error_reservation_message),
+                getString(R.string.confirm),
+                null,
+                { },
+                ::finish,
+            )
+        customAlertDialog.show(dialogInfo)
     }
 
     private fun initReservation(reservation: Reservation) {
