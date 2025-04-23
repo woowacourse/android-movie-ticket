@@ -29,7 +29,7 @@ class MovieListAdapter(
                 .inflate(R.layout.movie_list_item, parent, false)
 
         val item =
-            getMovieInfoOrFinish(position) ?: run {
+            getMovieInfoOrPrintError(position) ?: run {
                 onError()
                 return view
             }
@@ -56,7 +56,7 @@ class MovieListAdapter(
         return view
     }
 
-    private fun getMovieInfoOrFinish(position: Int): MovieInfo? {
+    private fun getMovieInfoOrPrintError(position: Int): MovieInfo? {
         return getItem(position) ?: run {
             ErrorUtils.printError(context)
             return null
