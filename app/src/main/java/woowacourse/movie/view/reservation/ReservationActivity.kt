@@ -63,12 +63,8 @@ class ReservationActivity : AppCompatActivity() {
         setupMovieReservationInfo()
         setupDateAdapter()
         setupTimeAdapter()
-
+        setupClickListener()
         setupSavedData(savedInstanceState)
-        setupMinusButtonClick(ticketCountTextView)
-        setupPlusButtonClick(ticketCountTextView)
-        setupCompleteButtonClick()
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -158,14 +154,7 @@ class ReservationActivity : AppCompatActivity() {
         selectedDatePosition = savedInstanceState?.getInt(TICKET_DATE_POSITION_DATA_KEY) ?: 0
     }
 
-    private fun setupPlusButtonClick(peopleCountTextView: TextView) {
-        plusButton.setOnClickListener {
-            ticketCount += 1
-            peopleCountTextView.text = ticketCount.value.toString()
-        }
-    }
-
-    private fun setupMinusButtonClick(peopleCountTextView: TextView) {
+    private fun setupClickListener() {
         minusButton.setOnClickListener {
             runCatching {
                 ticketCount - 1
@@ -174,11 +163,14 @@ class ReservationActivity : AppCompatActivity() {
             }.onFailure { error ->
                 showShortToast(error.message.toString())
             }
-            peopleCountTextView.text = ticketCount.value.toString()
+            ticketCountTextView.text = ticketCount.value.toString()
         }
-    }
 
-    private fun setupCompleteButtonClick() {
+        plusButton.setOnClickListener {
+            ticketCount += 1
+            ticketCountTextView.text = ticketCount.value.toString()
+        }
+
         completeButton.setOnClickListener {
             showReservationDialog()
         }
