@@ -1,12 +1,14 @@
 package woowacourse.movie
 
-import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.BookingResult
 
@@ -17,7 +19,7 @@ class BookingCompleteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking_complete)
         setUpUi()
 
-        val bookingResult = bookingResultOrNull() ?: return
+        val bookingResult = requireResultOrFinish() ?: return
         setUpBookingResult(bookingResult)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -31,12 +33,20 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
     }
 
-    private fun bookingResultOrNull() =
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(KEY_BOOKING_RESULT, BookingResult::class.java)
-        } else {
-            intent.getParcelableExtra(KEY_BOOKING_RESULT)
+    private fun requireResultOrFinish(): BookingResult? {
+        val bookingResultData =
+            IntentCompat.getParcelableExtra(intent, KEY_BOOKING_RESULT, BookingResult::class.java)
+        if (bookingResultData == null) {
+            Log.e(
+                "BookingCompleteActivity",
+                "bookingResultData가 null입니다. 인텐트에 영화 예매 정보가 포함되지 않았습니다.",
+            )
+            Toast.makeText(this, getString(R.string.booking_toast_message), Toast.LENGTH_SHORT)
+                .show()
+            finish()
         }
+        return bookingResultData
+    }
 
     private fun setUpBookingResult(bookingResult: BookingResult) {
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)

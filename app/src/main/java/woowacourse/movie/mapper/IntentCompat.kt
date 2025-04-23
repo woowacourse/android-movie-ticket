@@ -6,7 +6,11 @@ import android.os.Parcelable
 
 object IntentCompat {
     @Suppress("DEPRECATION")
-    fun <T : Parcelable> getParcelableExtra(intent: Intent, key: String, clazz: Class<T>): T? {
+    fun <T : Parcelable> getParcelableExtra(
+        intent: Intent,
+        key: String,
+        clazz: Class<T>,
+    ): T? {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(key, clazz)
         } else {

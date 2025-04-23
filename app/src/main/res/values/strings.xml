@@ -17,4 +17,5 @@
     <string name="dig_message">정말 예매하시겠습니까?</string>
     <string name="dig_btn_positive_message">예매 완료</string>
     <string name="dig_btn_negative_message">취소</string>
+    <string name="booking_toast_message">영화 정보를 불러올 수 없습니다</string>
 </resources>

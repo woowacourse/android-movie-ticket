@@ -75,7 +75,8 @@ class BookingActivity : AppCompatActivity() {
         val movieData = IntentCompat.getParcelableExtra(intent, KEY_MOVIE_DATA, Movie::class.java)
         if (movieData == null) {
             Log.e("BookingActivity", "movieData가 null입니다. 인텐트에 영화 데이터가 포함되지 않았습니다.")
-            Toast.makeText(this, getString(R.string.booking_toast_message), Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.booking_toast_message), Toast.LENGTH_SHORT)
+                .show()
             finish()
         }
         return movieData
