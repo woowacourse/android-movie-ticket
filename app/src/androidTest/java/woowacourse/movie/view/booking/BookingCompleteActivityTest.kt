@@ -13,6 +13,8 @@ import woowacourse.movie.domain.model.PeopleCount
 import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
+import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingCompleteActivityTest {
     private lateinit var intent: Intent
@@ -27,8 +29,8 @@ class BookingCompleteActivityTest {
                 val booking =
                     Booking(
                         title = "해리 포터와 마법사의 돌",
-                        bookingDate = "2025.4.1",
-                        bookingTime = "12:00",
+                        bookingDate = LocalDate.parse("2025-04-01"),
+                        bookingTime = LocalTime.parse("12:00"),
                         count = PeopleCount(2),
                         ticketType = TicketType.GENERAL,
                     )

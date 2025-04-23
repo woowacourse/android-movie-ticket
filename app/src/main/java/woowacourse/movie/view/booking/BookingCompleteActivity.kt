@@ -12,6 +12,8 @@ import woowacourse.movie.domain.model.Booking
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import woowacourse.movie.view.ext.getSerializable
+import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingCompleteActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +46,12 @@ class BookingCompleteActivity : AppCompatActivity() {
     }
 
     private fun initBookingScheduleView(
-        bookingDate: String,
-        bookingTime: String,
+        bookingDate: LocalDate,
+        bookingTime: LocalTime,
     ) {
+        val formattedBookingDate = StringFormatter.dotDateFormat(bookingDate)
         val scheduleFormat =
-            getString(R.string.text_booking_schedule).format(bookingDate, bookingTime)
+            getString(R.string.text_booking_schedule).format(formattedBookingDate, bookingTime)
 
         findViewById<TextView>(R.id.tv_schedule).text = scheduleFormat
     }

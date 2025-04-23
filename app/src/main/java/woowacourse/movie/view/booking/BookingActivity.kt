@@ -139,7 +139,6 @@ class BookingActivity : AppCompatActivity() {
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-
                     setTimeSpinner(screeningBookingDates[pos], savedTimePosition)
                 }
         }
@@ -217,20 +216,18 @@ class BookingActivity : AppCompatActivity() {
     private fun moveToBookingCompleteActivity() {
         val intent =
             Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra(KEY_BOOKING, getBooking())
+                putExtra(
+                    KEY_BOOKING,
+                    Booking(
+                        title = findViewById<TextView>(R.id.tv_title).text.toString(),
+                        bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
+                        bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
+                        peopleCount = bookingPeopleCount,
+                        ticketType = TicketType.GENERAL,
+                    ),
+                )
             }
-
         startActivity(intent)
-    }
-
-    private fun getBooking(): Booking {
-        return Booking(
-            title = findViewById<TextView>(R.id.tv_title).text.toString(),
-            bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
-            bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
-            count = bookingPeopleCount,
-            ticketType = TicketType.GENERAL,
-        )
     }
 
     private fun showToast(
