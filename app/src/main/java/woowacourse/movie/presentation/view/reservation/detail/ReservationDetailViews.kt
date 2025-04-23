@@ -57,7 +57,7 @@ class ReservationDetailViews(
     fun selectedSpinnerDateAndTime(): Pair<LocalDate?, LocalTime?> =
         spinnerDate.selectedItem as? LocalDate to spinnerTime.selectedItem as? LocalTime
 
-    fun reservationCount(): Int? = tvReservationCount.toString().toIntOrNull()
+    fun reservationCount(): Int? = tvReservationCount.text.toString().toIntOrNull()
 
     fun updateReservationCount(newCount: Int) {
         tvReservationCount.text = newCount.toString()
