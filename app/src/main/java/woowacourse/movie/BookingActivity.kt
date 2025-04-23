@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.BookingCompleteActivity.Companion.KEY_BOOKING_RESULT
+import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Booking
 import woowacourse.movie.model.BookingResult
@@ -71,19 +71,11 @@ class BookingActivity : AppCompatActivity() {
         return BookingResult(movie.title, headCount, date, time)
     }
 
-    private fun movieOrNull(): Movie? {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra(KEY_MOVIE_DATA, Movie::class.java)
-        } else {
-            intent.getParcelableExtra(KEY_MOVIE_DATA)
-        }
-    }
-
     private fun requireMovieOrFinish(): Movie? {
-        val movieData = movieOrNull()
-        if (movieOrNull() == null) {
+        val movieData = IntentCompat.getParcelableExtra(intent, KEY_MOVIE_DATA, Movie::class.java)
+        if (movieData == null) {
             Log.e("BookingActivity", "movieData가 null입니다. 인텐트에 영화 데이터가 포함되지 않았습니다.")
-            Toast.makeText(this, "영화 정보를 불러올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.booking_toast_message), Toast.LENGTH_SHORT).show()
             finish()
         }
         return movieData
