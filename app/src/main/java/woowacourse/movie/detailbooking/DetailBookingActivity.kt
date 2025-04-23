@@ -22,7 +22,7 @@ import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.DateFormatter
-import woowacourse.movie.utils.version
+import woowacourse.movie.utils.parcelableCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -43,7 +43,7 @@ class DetailBookingActivity : AppCompatActivity() {
             insets
         }
 
-        val movie: Movie = intent.version(KEY_MOVIE, Movie::class.java)
+        val movie: Movie = intent.parcelableCompat(KEY_MOVIE, Movie::class.java)
 
         val spinnerDate = findViewById<Spinner>(R.id.detail_spinner_date)
         val spinnerTime = findViewById<Spinner>(R.id.detail_spinner_time)

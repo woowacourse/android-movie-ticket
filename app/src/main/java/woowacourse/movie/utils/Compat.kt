@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Parcelable
 
-fun <T : Parcelable> Intent.version(
+fun <T : Parcelable> Intent.parcelableCompat(
     key: String,
     type: Class<T>,
 ): T {

@@ -12,7 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.utils.PriceFormatter
-import woowacourse.movie.utils.version
+import woowacourse.movie.utils.parcelableCompat
 
 class CompletedBookingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class CompletedBookingActivity : AppCompatActivity() {
             insets
         }
 
-        val ticket: Ticket = intent.version(KEY_TICKET, Ticket::class.java)
+        val ticket: Ticket = intent.parcelableCompat(KEY_TICKET, Ticket::class.java)
 
         setTicketInfo(ticket)
     }

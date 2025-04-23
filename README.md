@@ -79,3 +79,4 @@
 - [x] 화면 회전 테스트 코드 추가
 - [ ] createTicket()이 activity에 있는 것이 적절한지 고민하기
 - [x] TextView의 freezesText 속성을 활용하여 회전 시 데이터 저장하도록 변경
+- [x] Parcelable 버전별 처리 네이밍 변경
