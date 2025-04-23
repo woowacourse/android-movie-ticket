@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Movie</string>
+    <string name="text_release_date">상영일: </string>
+    <string name="text_running_time">러닝타임: </string>
+    <string name="text_booking">지금 예매</string>
+    <string name="text_cancel_guide">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
+    <string name="text_decrease">-</string>
+    <string name="text_increase">+</string>
+    <string name="text_booking_complete">선택 완료</string>
+    <string name="text_booking_dialog_title">예매 확인</string>
+    <string name="text_booking_dialog_positive_button">예매 완료</string>
+    <string name="text_booking_dialog_negative_button">취소</string>
+    <string name="text_date_period">%s ~ %s</string>
+    <string name="text_booking_dialog_description">정말 예매하시겠습니까?</string>
+    <string name="text_general_people_count">일반 %d명</string>
+    <string name="text_on_site_payment">%s원 (현장 결제)</string>
+    <string name="text_minute">%d분</string>
 </resources>
