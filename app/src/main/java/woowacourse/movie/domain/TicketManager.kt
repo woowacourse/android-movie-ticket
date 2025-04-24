@@ -4,7 +4,9 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class TicketManager(private val movie: Movie) {
+class TicketManager(
+    private val movie: Movie,
+) {
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
     private var ticketCountValue = 0
     private var selectedDatePosition = 0
@@ -18,9 +20,7 @@ class TicketManager(private val movie: Movie) {
         ticketCountValue = (ticketCountValue - 1).coerceAtLeast(0)
     }
 
-    fun getTicketCount(): Int {
-        return ticketCountValue
-    }
+    fun getTicketCount(): Int = ticketCountValue
 
     fun setTicketCount(ticketCount: Int) {
         ticketCountValue = ticketCount
@@ -33,6 +33,10 @@ class TicketManager(private val movie: Movie) {
     fun setTimePosition(position: Int) {
         selectedTimePosition = position
     }
+
+    fun getDatePosition(): Int = selectedDatePosition
+
+    fun getTimePosition(): Int = selectedTimePosition
 
     fun getDates(): List<String> {
         val dates = mutableListOf<String>()
@@ -68,7 +72,7 @@ class TicketManager(private val movie: Movie) {
             date = date,
             time = time,
             count = ticketCountValue.toString(),
-            money = (ticketCountValue * TICKET_PRICE).toString()
+            money = (ticketCountValue * TICKET_PRICE).toString(),
         )
     }
 
