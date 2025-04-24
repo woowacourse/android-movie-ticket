@@ -9,11 +9,6 @@ value class MovieTime(
     constructor(hour: Int, minute: Int) : this(LocalTime.of(hour, minute))
 
     companion object {
-        fun from(
-            hour: Int,
-            minute: Int,
-        ): MovieTime = MovieTime(LocalTime.of(hour, minute))
-
         fun getMovieTimes(dateType: DateType): List<MovieTime> =
             when (dateType) {
                 DateType.WEEKDAY -> weekdaysMovieTimes
