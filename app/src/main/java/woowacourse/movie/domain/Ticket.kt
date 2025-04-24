@@ -2,12 +2,13 @@ package woowacourse.movie.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.view.movie.model.MovieUiModel
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 @Parcelize
 data class Ticket(
-    val movie: Movie,
+    val movie: MovieUiModel,
     val showtime: LocalDateTime = LocalDateTime.of(movie.startDate, LocalTime.MIDNIGHT),
     val count: Int = MINIMUM_TICKET_COUNT,
 ) : Parcelable {

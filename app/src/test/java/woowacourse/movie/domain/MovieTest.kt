@@ -4,7 +4,6 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import woowacourse.movie.R
 import java.time.LocalDate
 
 class MovieTest {
@@ -19,7 +18,6 @@ class MovieTest {
                 startDate = startDate,
                 endDate = endDate,
                 runningTime = 152,
-                poster = R.drawable.harry_potter_poster,
             )
         }
     }
@@ -35,7 +33,6 @@ class MovieTest {
                 startDate = startDate,
                 endDate = endDate,
                 runningTime = 152,
-                poster = R.drawable.harry_potter_poster,
             )
         }
     }

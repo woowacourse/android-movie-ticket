@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.movie.model.MovieUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
@@ -18,10 +18,10 @@ class MovieViewHolder(
     private val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
     fun bind(
-        item: Movie,
-        onButtonClick: (Movie) -> Unit,
+        item: MovieUiModel,
+        onButtonClick: (MovieUiModel) -> Unit,
     ) {
-        poster.setImageResource(item.poster)
+        poster.setImageResource(item.posterResId)
         title.text = item.title
         screeningDate.text =
             view.context.getString(

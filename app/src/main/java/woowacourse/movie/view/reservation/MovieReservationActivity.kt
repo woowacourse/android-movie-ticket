@@ -19,8 +19,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.movie.model.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -43,9 +43,11 @@ class MovieReservationActivity :
         initUi()
 
         val movie =
-            intent.parcelableExtraCompat(EXTRA_MOVIE, Movie::class.java) ?: finish().run { return }
+            intent.parcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
+                ?: finish().run { return }
         val ticket =
-            savedInstanceState?.parcelableCompat(EXTRA_TICKET, Ticket::class.java) ?: Ticket(movie)
+            savedInstanceState?.parcelableCompat(EXTRA_TICKET, Ticket::class.java)
+                ?: Ticket(movie)
         presenter = MovieReservationPresenter(this, ticket)
 
         initView()
@@ -60,13 +62,13 @@ class MovieReservationActivity :
         }
     }
 
-    override fun showMovieInfo(movie: Movie) {
+    override fun showMovieInfo(movie: MovieUiModel) {
         val poster: ImageView = findViewById(R.id.poster)
         val title: TextView = findViewById(R.id.movie_title)
         val screeningDate: TextView = findViewById(R.id.screening_date)
         val runningTime: TextView = findViewById(R.id.running_time)
 
-        poster.setImageResource(movie.poster)
+        poster.setImageResource(movie.posterResId)
         title.text = movie.title
         val startDate = movie.startDate.format(DATE_FORMAT)
         val endDate = movie.endDate.format(DATE_FORMAT)
@@ -187,7 +189,7 @@ class MovieReservationActivity :
     companion object {
         fun newIntent(
             context: Context,
-            movie: Movie,
+            movie: MovieUiModel,
         ): Intent =
             Intent(context, MovieReservationActivity::class.java).apply {
                 putExtra(EXTRA_MOVIE, movie)

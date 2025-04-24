@@ -20,6 +20,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.movie
+import woowacourse.movie.view.movie.model.toUiModel
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import java.time.LocalDate
 
@@ -34,7 +35,7 @@ class MovieReservationActivityTest {
     fun setUp() {
         intent =
             Intent(fakeContext, MovieReservationActivity::class.java).apply {
-                putExtra("extra_movie", movie)
+                putExtra("extra_movie", movie.toUiModel())
             }
         scenario = ActivityScenario.launch(intent)
     }

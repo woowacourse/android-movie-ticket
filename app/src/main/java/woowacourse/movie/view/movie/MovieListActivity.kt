@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.MovieReservationActivity
 
 class MovieListActivity :
@@ -31,7 +31,7 @@ class MovieListActivity :
         presenter.loadMovieListScreen()
     }
 
-    override fun showMovieList(movies: List<Movie>) {
+    override fun showMovieList(movies: List<MovieUiModel>) {
         val movieListView: ListView = findViewById(R.id.movie_list)
         val movieAdapter =
             MovieAdapter(movies) { movie ->
