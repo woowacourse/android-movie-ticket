@@ -32,7 +32,7 @@ class MainActivityTest {
         Intents.init()
 
         val intent =
-            Intent(ApplicationProvider.getApplicationContext(), MainActivity::class.java).apply {
+            Intent(ApplicationProvider.getApplicationContext(), MovieActivity::class.java).apply {
                 putExtra("movieData", movie)
             }
 
