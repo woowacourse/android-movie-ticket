@@ -21,7 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/harry_potter_poster" />
+            tools:src="@drawable/harry_potter_01" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/movie_info"

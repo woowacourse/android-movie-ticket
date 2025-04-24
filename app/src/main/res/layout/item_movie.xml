@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/harry_potter_poster" />
+        tools:src="@drawable/harry_potter_01" />
 
     <TextView
         android:id="@+id/movie_title"
