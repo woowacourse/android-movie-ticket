@@ -4,29 +4,21 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.ScreeningDate
 import java.time.format.DateTimeFormatter
 
 class MoviesViewHolder(
-    private val itemView: View,
-    private var item: Movie,
-    val onClick: (Movie) -> Unit,
-) {
+    itemView: View,
+) : RecyclerView.ViewHolder(itemView) {
     private val poster: ImageView = itemView.findViewById(R.id.iv_poster)
     private val title: TextView = itemView.findViewById(R.id.tv_title)
     private val screeningDate: TextView = itemView.findViewById(R.id.tv_screening_date)
     private val runningTime: TextView = itemView.findViewById(R.id.tv_running_time)
-    private val reserveBtn: Button = itemView.findViewById(R.id.btn_reserve)
+    val reserveBtn: Button = itemView.findViewById(R.id.btn_reserve)
 
-    init {
-        reserveBtn.setOnClickListener {
-            onClick(item)
-        }
-    }
-
-    fun bind(item: Movie) {
-        this.item = item
+    fun binding(item: Movie) {
         poster.setImageResource(item.imageUrl)
         title.text = item.title
         screeningDate.text =

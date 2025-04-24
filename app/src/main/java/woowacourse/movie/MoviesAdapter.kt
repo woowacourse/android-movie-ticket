@@ -1,41 +1,37 @@
 package woowacourse.movie
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.domain.Movie
 
 class MoviesAdapter(
     private val movies: List<Movie>,
     private val onClick: (Movie) -> Unit,
-) : BaseAdapter() {
-    override fun getCount(): Int = movies.count()
+) : RecyclerView.Adapter<MoviesViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): MoviesViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+        val holder = MoviesViewHolder(view)
 
-    override fun getItem(position: Int): Movie = movies[position]
-
-    override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val item: Movie = getItem(position)
-        val viewHolder: MoviesViewHolder
-        val itemView: View
-
-        if (convertView == null) {
-            itemView =
-                LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
-            viewHolder = MoviesViewHolder(itemView, item, onClick)
-            itemView.tag = viewHolder
-        } else {
-            itemView = convertView
-            viewHolder = convertView.tag as MoviesViewHolder
+        holder.reserveBtn.setOnClickListener {
+            val position = holder.getAdapterPosition()
+            onClick(movies[position])
         }
-        viewHolder.bind(item)
 
-        return itemView
+        return holder
     }
+
+    override fun onBindViewHolder(
+        holder: MoviesViewHolder,
+        position: Int,
+    ) {
+        val item = movies[position]
+
+        holder.binding(item)
+    }
+
+    override fun getItemCount(): Int = movies.count()
 }
