@@ -1,4 +1,4 @@
-package woowacourse.movie.contract
+package woowacourse.movie.contract.screening
 
 import woowacourse.movie.domain.screening.Screening
 

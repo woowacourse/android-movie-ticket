@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.screening
 
-import woowacourse.movie.contract.ScreeningContract
+import woowacourse.movie.contract.screening.ScreeningContract
 import woowacourse.movie.data.screening.LocalScreenings
 import woowacourse.movie.data.screening.Screenings
 import woowacourse.movie.domain.screening.Screening

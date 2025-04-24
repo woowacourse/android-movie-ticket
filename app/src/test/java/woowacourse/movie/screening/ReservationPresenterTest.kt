@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.screening
 
 import io.mockk.Runs
 import io.mockk.every
@@ -7,7 +7,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.contract.screening.ReservationContract
 import woowacourse.movie.domain.screening.Movie
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.presenter.screening.ReservationPresenter

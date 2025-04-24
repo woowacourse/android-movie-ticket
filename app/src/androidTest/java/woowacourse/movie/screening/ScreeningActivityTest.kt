@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.screening
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
@@ -13,6 +13,7 @@ import org.hamcrest.core.Is.`is`
 import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.R
 import woowacourse.movie.data.screening.Movies
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.view.screening.ScreeningActivity

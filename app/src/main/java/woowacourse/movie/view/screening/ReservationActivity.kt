@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.contract.screening.ReservationContract
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.presenter.screening.ReservationPresenter
 import woowacourse.movie.view.screening.Poster.posterId

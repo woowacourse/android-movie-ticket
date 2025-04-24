@@ -1,4 +1,4 @@
-package woowacourse.movie.contract
+package woowacourse.movie.contract.screening
 
 import java.time.LocalDate
 import java.time.LocalTime

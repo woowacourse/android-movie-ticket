@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.contract.ScreeningContract
+import woowacourse.movie.contract.screening.ScreeningContract
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.presenter.screening.ScreeningPresenter
 import woowacourse.movie.view.screening.adapter.ScreeningAdapter

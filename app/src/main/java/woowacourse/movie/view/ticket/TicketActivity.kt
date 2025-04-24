@@ -10,12 +10,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.contract.ticket.TicketContract
 import woowacourse.movie.domain.ticket.CancelTimePolicy
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDateTime
 
-class TicketActivity : AppCompatActivity() {
+class TicketActivity :
+    AppCompatActivity(),
+    TicketContract.View {
     private var ticket: Ticket? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.screening
 
-import woowacourse.movie.contract.ReservationContract
+import woowacourse.movie.contract.screening.ReservationContract
 import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 
