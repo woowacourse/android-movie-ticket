@@ -1,6 +1,7 @@
 package woowacourse.movie.activity.seatselection
 
 import android.widget.TextView
+import woowacourse.movie.domain.Ticket
 
 class SeatSelectionPresenter : SeatSelectionContract.Presenter {
     private var view: SeatSelectionContract.View? = null
@@ -9,7 +10,11 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
         this.view = view
     }
 
+    override fun loadMovie(ticket: Ticket) {
+        view?.showMovieInfo(ticket)
+    }
+
     override fun onSeatClicked(seat: TextView) {
-        view?.showSelectedSeat(seat)
+        seat.isSelected = !seat.isSelected
     }
 }

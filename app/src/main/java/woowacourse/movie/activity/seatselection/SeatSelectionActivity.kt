@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.activity.booking.BookingActivity.Companion.KEY_TICKET
+import woowacourse.movie.domain.Ticket
 
 class SeatSelectionActivity :
     AppCompatActivity(),
@@ -21,6 +23,18 @@ class SeatSelectionActivity :
 
         presenter = SeatSelectionPresenter()
         presenter.attachView(this)
+
+        val ticket: Ticket =
+            intent.getParcelableExtra(KEY_TICKET)
+                ?: run {
+                    Toast
+                        .makeText(this, R.string.no_movie_data_error_message, Toast.LENGTH_SHORT)
+                        .show()
+                    finish()
+                    return
+                }
+
+        showMovieInfo(ticket)
 
         val seatTable = findViewById<TableLayout>(R.id.seat_table_layout)
         setupSeats(seatTable)
@@ -42,7 +56,7 @@ class SeatSelectionActivity :
                 .map { row -> row.children.filterIsInstance<TextView>() }
     }
 
-    override fun showSelectedSeat(seat: TextView) {
-        seat.setBackgroundColor(ContextCompat.getColor(this, R.color.yellow_400))
+    override fun showMovieInfo(ticket: Ticket) {
+        findViewById<TextView>(R.id.title).text = ticket.title
     }
 }
