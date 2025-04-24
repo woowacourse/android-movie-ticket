@@ -75,7 +75,7 @@ class TicketActivity :
         }
 
     private fun initViews() {
-        (presenter ?: error("")).run {
+        (presenter ?: error(ErrorMessage(CAUSE_TICKET).notProvided())).run {
             presentCancelDescription()
             presentTitle()
             presentShowtime()

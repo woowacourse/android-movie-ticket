@@ -161,19 +161,21 @@ class ReservationActivity :
 
     private fun initTicketCountPlusButtonClickEvent() {
         ticketCountPlusButton.setOnClickListener {
-            presenter?.plusTicketCount(ticketCount) ?: error("")
+            presenter?.plusTicketCount(ticketCount)
+                ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
 
     private fun initTicketCountMinusButtonClickEvent() {
         ticketCountMinusButton.setOnClickListener {
-            presenter?.minusTicketCount(ticketCount) ?: error("")
+            presenter?.minusTicketCount(ticketCount)
+                ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
 
     private fun initCompleteButtonClickEvent() {
         completeButton.setOnClickListener {
-            presenter?.tryReservation() ?: error("")
+            presenter?.tryReservation() ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
 
@@ -248,7 +250,13 @@ class ReservationActivity :
             title = getString(R.string.ticket_dialog_title),
             message = getString(R.string.ticket_dialog_message),
             positiveButtonText = getString(R.string.ticket_dialog_positive_button),
-            positiveButtonAction = { _, _ -> presenter?.confirmReservation() ?: error("") },
+            positiveButtonAction = { _, _ ->
+                presenter?.confirmReservation() ?: error(
+                    ErrorMessage(
+                        CAUSE_SCREENING,
+                    ).notProvided(),
+                )
+            },
             negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
             negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
         )
