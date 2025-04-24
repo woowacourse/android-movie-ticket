@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SeatTextStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SeatSGradeTextStyle" parent="SeatTextStyle">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="SeatAGradeTextStyle" parent="SeatTextStyle">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <style name="SeatBGradeTextStyle" parent="SeatTextStyle">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+</resources>

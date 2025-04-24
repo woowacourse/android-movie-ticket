@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    tools:context=".view.seat.SeatSelectActivity">
+
+    <TextView
+        android:id="@+id/screen"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="30dp"
+        android:background="@color/dark_gray"
+        android:gravity="center"
+        android:paddingVertical="8dp"
+        android:text="@string/screen"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="50dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toTopOf="@id/select_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/screen">
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                android:layout_column="1"
+                tools:text="A1" />
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                tools:text="A2" />
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                tools:text="A3" />
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                tools:text="A4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                android:layout_column="1"
+                tools:text="B1" />
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                tools:text="B2" />
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                tools:text="B3" />
+
+            <TextView
+                style="@style/SeatBGradeTextStyle"
+                tools:text="B4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                android:layout_column="1"
+                tools:text="C1" />
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                tools:text="C2" />
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                tools:text="C3" />
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                tools:text="C4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                android:layout_column="1"
+                tools:text="D1" />
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                tools:text="D2" />
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                tools:text="D3" />
+
+            <TextView
+                style="@style/SeatSGradeTextStyle"
+                tools:text="D4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                style="@style/SeatAGradeTextStyle"
+                android:layout_column="1"
+                tools:text="E1" />
+
+            <TextView
+                style="@style/SeatAGradeTextStyle"
+                tools:text="E2" />
+
+            <TextView
+                style="@style/SeatAGradeTextStyle"
+                tools:text="E3" />
+
+            <TextView
+                style="@style/SeatAGradeTextStyle"
+                tools:text="E4" />
+        </TableRow>
+
+    </TableLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/select_info"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingHorizontal="20dp">
+
+            <TextView
+                android:id="@+id/movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="해리 포터와 마법사의 돌" />
+
+            <TextView
+                android:id="@+id/total_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                tools:text="25,000원" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <Button
+            android:id="@+id/confirm_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/purple_200"
+            android:text="@string/confirm"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
