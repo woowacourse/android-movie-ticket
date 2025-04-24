@@ -15,6 +15,7 @@ import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.ticket
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
+import woowacourse.movie.view.reservation.ticket.toUiModel
 
 class MovieReservationCompleteActivityTest {
     private lateinit var intent: Intent
@@ -26,7 +27,7 @@ class MovieReservationCompleteActivityTest {
     fun setUp() {
         intent =
             Intent(fakeContext, MovieReservationCompleteActivity::class.java).apply {
-                putExtra("extra_ticket", ticket)
+                putExtra("extra_ticket", ticket.toUiModel())
             }
         ActivityScenario.launch<MovieReservationCompleteActivity>(intent)
     }

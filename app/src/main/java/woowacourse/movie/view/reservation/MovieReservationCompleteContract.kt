@@ -1,10 +1,12 @@
 package woowacourse.movie.view.reservation
 
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.reservation.ticket.TicketUiModel
 
 interface MovieReservationCompleteContract {
     interface View {
-        fun showMovieInfo(ticket: Ticket)
+        fun showTicketInfo(ticket: TicketUiModel)
+
+        fun showTotalPrice(totalPrice: Int)
     }
 
     interface Presenter {

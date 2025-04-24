@@ -1,7 +1,7 @@
 package woowacourse.movie.view.reservation
 
-import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.movie.model.MovieUiModel
+import woowacourse.movie.view.reservation.ticket.TicketUiModel
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -21,7 +21,7 @@ interface MovieReservationContract {
             selectedTime: LocalTime,
         )
 
-        fun navigateToCompleteScreen(ticket: Ticket)
+        fun navigateToCompleteScreen(ticket: TicketUiModel)
     }
 
     interface Presenter {

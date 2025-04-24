@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.reservation.ticket.TicketUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
@@ -29,24 +29,27 @@ class MovieReservationCompleteActivity :
         }
 
         val ticket =
-            intent.parcelableExtraCompat(EXTRA_TICKET, Ticket::class.java) ?: finish().run { return }
+            intent.parcelableExtraCompat(EXTRA_TICKET, TicketUiModel::class.java)
+                ?: finish().run { return }
         presenter = MovieReservationCompletePresenter(this, ticket)
         presenter.loadMovieReservationCompleteScreen()
     }
 
-    override fun showMovieInfo(ticket: Ticket) {
+    override fun showTicketInfo(ticket: TicketUiModel) {
         findViewById<TextView>(R.id.movie_title).text = ticket.movie.title
         findViewById<TextView>(R.id.showtime).text = ticket.showtime.format(DATE_FORMAT)
         findViewById<TextView>(R.id.ticket_count).text =
             getString(R.string.ticket_count, ticket.count)
-        findViewById<TextView>(R.id.total_price).text =
-            getString(R.string.total_price, ticket.totalPrice())
+    }
+
+    override fun showTotalPrice(totalPrice: Int) {
+        findViewById<TextView>(R.id.total_price).text = getString(R.string.total_price, totalPrice)
     }
 
     companion object {
         fun newIntent(
             context: Context,
-            ticket: Ticket,
+            ticket: TicketUiModel,
         ): Intent =
             Intent(context, MovieReservationCompleteActivity::class.java).apply {
                 putExtra(EXTRA_TICKET, ticket)

@@ -49,7 +49,7 @@ class MovieReservationActivityTest {
     @Test
     @DisplayName("선택한 영화의 상영일이 표시된다")
     fun displaySelectedMovieScreeningDateTest() {
-        onView(withId(R.id.screening_date)).check(matches(withText("상영일: 2025.04.01 ~ 2025.04.25")))
+        onView(withId(R.id.screening_date)).check(matches(withText("상영일: 2025.04.01 ~ 2025.04.30")))
     }
 
     @Test

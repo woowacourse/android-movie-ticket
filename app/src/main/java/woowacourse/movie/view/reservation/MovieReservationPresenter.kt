@@ -1,17 +1,17 @@
 package woowacourse.movie.view.reservation
 
 import woowacourse.movie.domain.Scheduler
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.reservation.ticket.TicketUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
-    private var _ticket: Ticket,
+    private var _ticket: TicketUiModel,
     private val scheduler: Scheduler = Scheduler(),
 ) : MovieReservationContract.Presenter {
-    val ticket: Ticket
+    val ticket: TicketUiModel
         get() = _ticket
 
     override fun loadMovieReservationScreen() {

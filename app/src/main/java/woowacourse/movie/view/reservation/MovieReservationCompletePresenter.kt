@@ -1,12 +1,14 @@
 package woowacourse.movie.view.reservation
 
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.reservation.ticket.TicketUiModel
+import woowacourse.movie.view.reservation.ticket.toDomain
 
 class MovieReservationCompletePresenter(
     private val view: MovieReservationCompleteContract.View,
-    private val ticket: Ticket,
+    private val ticket: TicketUiModel,
 ) : MovieReservationCompleteContract.Presenter {
     override fun loadMovieReservationCompleteScreen() {
-        view.showMovieInfo(ticket)
+        view.showTicketInfo(ticket)
+        view.showTotalPrice(ticket.toDomain().totalPrice())
     }
 }

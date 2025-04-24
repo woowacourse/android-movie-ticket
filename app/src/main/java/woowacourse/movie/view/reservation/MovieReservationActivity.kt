@@ -19,8 +19,9 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
-import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.movie.model.MovieUiModel
+import woowacourse.movie.view.reservation.ticket.TicketUiModel
+import woowacourse.movie.view.reservation.ticket.toDomain
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -46,8 +47,8 @@ class MovieReservationActivity :
             intent.parcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
                 ?: finish().run { return }
         val ticket =
-            savedInstanceState?.parcelableCompat(EXTRA_TICKET, Ticket::class.java)
-                ?: Ticket(movie)
+            savedInstanceState?.parcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
+                ?: TicketUiModel.from(movie)
         presenter = MovieReservationPresenter(this, ticket)
 
         initView()
@@ -78,7 +79,7 @@ class MovieReservationActivity :
 
     override fun showHeadCount(count: Int) {
         ticketCountTextView.text = count.toString()
-        decrementButton.isEnabled = !presenter.ticket.isMinimumCount()
+        decrementButton.isEnabled = !presenter.ticket.toDomain().isMinimumCount()
     }
 
     override fun updateDateSpinner(
@@ -127,7 +128,7 @@ class MovieReservationActivity :
             }
     }
 
-    override fun navigateToCompleteScreen(ticket: Ticket) {
+    override fun navigateToCompleteScreen(ticket: TicketUiModel) {
         val intent = MovieReservationCompleteActivity.newIntent(this, ticket)
         startActivity(intent)
     }
