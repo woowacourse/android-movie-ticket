@@ -22,11 +22,14 @@ class MainActivity : AppCompatActivity() {
         }
         val movies: List<Movie> = DefaultMovies.movies
 
-        val adapter =
+        initAdapter(movies)
+    }
+
+    private fun initAdapter(movies: List<Movie>) {
+        moviesView.adapter =
             MoviesAdapter(movies) { movie ->
                 val intent = ReserveActivity.newIntent(this, movie)
                 startActivity(intent)
             }
-        moviesView.adapter = adapter
     }
 }
