@@ -5,14 +5,17 @@ import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
+import woowacourse.movie.util.DateTimeUtil.toFormattedString
+import woowacourse.movie.util.DateTimeUtil.toLocalDate
+import woowacourse.movie.util.DateTimeUtil.toLocalTime
 
 object BookingResultModelMapper {
     fun toDomain(bookingResultUiModel: BookingResultUiModel): BookingResult {
         return BookingResult(
             title = bookingResultUiModel.title,
             headCount = bookingResultUiModel.headCount.toInt(),
-            selectedDate = DateTimeUtil.toLocalDate(bookingResultUiModel.selectedDate, MOVIE_DATE_DELIMITER),
-            selectedTime = DateTimeUtil.toLocalTime(bookingResultUiModel.selectedTime, MOVIE_TIME_DELIMITER),
+            selectedDate = bookingResultUiModel.selectedDate.toLocalDate(MOVIE_DATE_DELIMITER),
+            selectedTime = bookingResultUiModel.selectedTime.toLocalTime(MOVIE_TIME_DELIMITER),
         )
     }
 
@@ -21,15 +24,9 @@ object BookingResultModelMapper {
             title = bookingResult.title,
             headCount = bookingResult.headCount.toString(),
             selectedDate =
-                DateTimeUtil.toFormattedString(
-                    bookingResult.selectedDate,
-                    DateTimeUtil.MOVIE_DATE_FORMAT,
-                ),
+                bookingResult.selectedDate.toFormattedString(DateTimeUtil.MOVIE_DATE_FORMAT),
             selectedTime =
-                DateTimeUtil.toFormattedString(
-                    bookingResult.selectedTime,
-                    DateTimeUtil.MOVIE_TIME_FORMAT,
-                ),
+                bookingResult.selectedTime.toFormattedString(DateTimeUtil.MOVIE_TIME_FORMAT),
         )
     }
 }

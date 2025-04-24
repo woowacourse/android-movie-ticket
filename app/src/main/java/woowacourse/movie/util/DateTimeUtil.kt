@@ -12,41 +12,37 @@ object DateTimeUtil {
     const val MOVIE_TIME_FORMAT = "kk:mm"
     private const val SPINNER_DATE_FORMAT = "yyyy-MM-dd"
 
-    fun toFormattedString(
-        date: LocalDate,
+    fun LocalDate.toFormattedString(
         pattern: String,
     ): String {
-        return date.format(DateTimeFormatter.ofPattern(pattern))
+        return this.format(DateTimeFormatter.ofPattern(pattern))
     }
 
-    fun toFormattedString(
-        time: LocalTime,
+    fun LocalTime.toFormattedString(
         pattern: String,
     ): String {
-        return time.format(DateTimeFormatter.ofPattern(pattern))
+        return this.format(DateTimeFormatter.ofPattern(pattern))
     }
 
-    fun toLocalDate(
-        date: String,
+    fun String.toLocalDate(
         delimiter: String,
     ): LocalDate {
-        val (year, month, day) = date.split(delimiter).map { it.toInt() }
+        val (year, month, day) = this.split(delimiter).map { it.toInt() }
         return LocalDate.of(year, month, day)
     }
 
-    fun toLocalTime(
-        time: String,
+    fun String.toLocalTime(
         delimiter: String,
     ): LocalTime {
-        val (hour, minute) = time.split(delimiter).map { it.toInt() }
+        val (hour, minute) = this.split(delimiter).map { it.toInt() }
         return LocalTime.of(hour, minute)
     }
 
     fun toSpinnerDates(dates: List<LocalDate>): List<String> {
-        return dates.map { date -> toFormattedString(date, SPINNER_DATE_FORMAT) }
+        return dates.map { date -> date.toFormattedString(SPINNER_DATE_FORMAT) }
     }
 
     fun toSpinnerTimes(times: List<LocalTime>): List<String> {
-        return times.map { time -> toFormattedString(time, MOVIE_TIME_FORMAT) }
+        return times.map { time -> time.toFormattedString(MOVIE_TIME_FORMAT) }
     }
 }
