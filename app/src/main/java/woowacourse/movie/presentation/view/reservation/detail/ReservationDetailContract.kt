@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.view.reservation.detail
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationInfo
+import woowacourse.movie.presentation.model.MovieUiModel
+import woowacourse.movie.presentation.model.ReservationInfoUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -11,7 +11,7 @@ interface ReservationDetailContract {
         fun fetchData(
             initCount: Int? = null,
             dateTime: LocalDateTime? = null,
-            getMovie: () -> Movie?,
+            getMovie: () -> MovieUiModel?,
         )
 
         fun updateReservationCount(updateCount: Int)
@@ -25,7 +25,7 @@ interface ReservationDetailContract {
     }
 
     interface View {
-        fun setScreen(movie: Movie)
+        fun setScreen(movie: MovieUiModel)
 
         fun updateDateSpinner(
             dates: List<LocalDate>,
@@ -38,12 +38,15 @@ interface ReservationDetailContract {
             selectedTime: LocalTime? = null,
         )
 
-        fun updateReservationCount(count: Int)
+        fun updateReservationCount(
+            count: Int,
+            isClickable: Boolean,
+        )
 
         fun showNoAvailableTimesDialog()
 
         fun showReservationConfirmationDialog()
 
-        fun navigateToResult(reservationInfo: ReservationInfo)
+        fun navigateToResult(reservationInfo: ReservationInfoUiModel)
     }
 }

@@ -11,6 +11,7 @@ class ReservationInfoUiModel(
     val title: String,
     val reservationDateTime: LocalDateTime,
     val reservationCount: Int,
+    val totalPrice: Int,
 ) : Parcelable
 
 fun ReservationInfo.toUiModel(): ReservationInfoUiModel =
@@ -18,6 +19,7 @@ fun ReservationInfo.toUiModel(): ReservationInfoUiModel =
         title,
         reservationDateTime,
         reservationCount.value,
+        totalPrice(),
     )
 
 fun ReservationInfoUiModel.toModel(): ReservationInfo =

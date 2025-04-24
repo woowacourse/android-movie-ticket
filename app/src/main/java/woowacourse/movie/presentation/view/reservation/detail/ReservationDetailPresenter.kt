@@ -3,6 +3,9 @@ package woowacourse.movie.presentation.view.reservation.detail
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
+import woowacourse.movie.presentation.model.MovieUiModel
+import woowacourse.movie.presentation.model.toModel
+import woowacourse.movie.presentation.model.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -16,9 +19,9 @@ class ReservationDetailPresenter(
     override fun fetchData(
         initCount: Int?,
         dateTime: LocalDateTime?,
-        getMovie: () -> Movie?,
+        getMovie: () -> MovieUiModel?,
     ) {
-        movie = getMovie()
+        movie = getMovie()?.toModel()
         initCount?.let { reservationCount = ReservationCount(it) }
 
         if (movie == null) {
@@ -31,7 +34,7 @@ class ReservationDetailPresenter(
 
     override fun updateReservationCount(updateCount: Int) {
         reservationCount += updateCount
-        view.updateReservationCount(reservationCount.value)
+        view.updateReservationCount(reservationCount.value, reservationCount.isClickable())
     }
 
     override fun onSelectDate(
@@ -51,7 +54,7 @@ class ReservationDetailPresenter(
                 title = movie!!.title,
                 reservationDateTime = reservationDateTime,
                 reservationCount = reservationCount,
-            )
+            ).toUiModel()
         view.navigateToResult(reservationInfo)
     }
 
@@ -62,14 +65,16 @@ class ReservationDetailPresenter(
             return
         }
 
-        view.setScreen(movie!!)
+        view.setScreen(movie!!.toUiModel())
         view.updateDateSpinner(
             availableDates,
             getAvailableTimesForDate(dateTime?.toLocalDate()),
             dateTime,
         )
-        view.updateReservationCount(reservationCount.value)
+        view.updateReservationCount(reservationCount.value, reservationCount.isClickable())
     }
+
+    private fun ReservationCount.isClickable(): Boolean = this.value > ReservationCount.RESERVATION_MIN_COUNT
 
     private fun getAvailableDates(): List<LocalDate> {
         val now = LocalDate.now()

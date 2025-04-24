@@ -5,14 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
 import woowacourse.movie.presentation.model.MovieUiModel
-import woowacourse.movie.presentation.model.toModel
-import woowacourse.movie.presentation.model.toUiModel
+import woowacourse.movie.presentation.model.ReservationInfoUiModel
 import woowacourse.movie.presentation.util.DialogInfo
 import woowacourse.movie.presentation.view.reservation.result.ReservationResultActivity
 import java.time.LocalDate
@@ -57,7 +54,7 @@ class ReservationDetailActivity :
         val (count, dateTime) = restoreReservationData(savedInstanceState)
 
         presenter.fetchData(count, dateTime) {
-            intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)?.toModel()
+            intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)
         }
     }
 
@@ -75,18 +72,21 @@ class ReservationDetailActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun updateReservationCount(count: Int) {
-        views.updateReservationCount(count)
+    override fun updateReservationCount(
+        count: Int,
+        isClickable: Boolean,
+    ) {
+        views.updateReservationCount(count, isClickable)
     }
 
-    override fun setScreen(movie: Movie) {
+    override fun setScreen(movie: MovieUiModel) {
         views.bindMovieInfo(movie)
         setupDateSpinner()
         setupReservationCountControls()
         setupFinishButton()
     }
 
-    override fun navigateToResult(reservationInfo: ReservationInfo) {
+    override fun navigateToResult(reservationInfo: ReservationInfoUiModel) {
         val intent = ReservationResultActivity.newIntent(this, reservationInfo)
         startActivity(intent)
     }
@@ -188,11 +188,11 @@ class ReservationDetailActivity :
 
         fun newIntent(
             context: Context,
-            movie: Movie,
+            movie: MovieUiModel,
         ): Intent =
             Intent(context, ReservationDetailActivity::class.java).putExtra(
                 BUNDLE_KEY_MOVIE,
-                movie.toUiModel(),
+                movie,
             )
     }
 }

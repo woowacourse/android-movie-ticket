@@ -8,10 +8,9 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.presentation.extension.setImage
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
+import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.util.CustomAlertDialog
 import java.time.LocalDate
 import java.time.LocalTime
@@ -34,11 +33,11 @@ class ReservationDetailViews(
 
     val dialog: CustomAlertDialog by lazy { CustomAlertDialog(activity) }
 
-    fun bindMovieInfo(movie: Movie) {
+    fun bindMovieInfo(movie: MovieUiModel) {
         tvTitle.text = movie.title
         tvScreeningPeriod.text = formatPeriod(movie)
         tvRunningTime.text =
-            activity.getString(R.string.running_time, movie.runningTime.minute.toString())
+            activity.getString(R.string.running_time, movie.runningTime.toString())
         movie.poster.setImage(ivPoster)
     }
 
@@ -59,9 +58,12 @@ class ReservationDetailViews(
 
     fun reservationCount(): Int? = tvReservationCount.text.toString().toIntOrNull()
 
-    fun updateReservationCount(newCount: Int) {
+    fun updateReservationCount(
+        newCount: Int,
+        isClickable: Boolean,
+    ) {
         tvReservationCount.text = newCount.toString()
-        updateReservationCountMinusButton(newCount)
+        updateReservationCountMinusButton(isClickable)
     }
 
     fun setSpinners(
@@ -106,14 +108,14 @@ class ReservationDetailViews(
         updateSpinnerItems(spinnerTime, timeAdapter, items, selected)
     }
 
-    private fun updateReservationCountMinusButton(count: Int) {
+    private fun updateReservationCountMinusButton(isClickable: Boolean) {
         btnCountMinus.apply {
-            isClickable = count > ReservationCount.RESERVATION_MIN_COUNT
             alpha = if (isClickable) 1f else 0.4f
+            this.isClickable = isClickable
         }
     }
 
-    private fun formatPeriod(movie: Movie): String {
+    private fun formatPeriod(movie: MovieUiModel): String {
         val formatter =
             activity.getString(R.string.movie_screening_period_format).toDateTimeFormatter()
         val start = movie.screeningPeriod.startDate.format(formatter)
