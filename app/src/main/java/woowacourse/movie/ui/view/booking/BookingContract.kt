@@ -29,14 +29,19 @@ interface BookingContract {
     }
 
     interface Presenter {
+        fun getHeadCount(): Int
+
+        fun loadInitialHeadCount()
+
         fun increaseHeadCount()
 
         fun decreaseHeadCount()
 
+        fun restoreHeadCount(restoredCount: Int)
+
         fun onConfirm(
             id: Int,
             screeningDateTime: LocalDateTime,
-            headCount: Int,
         )
 
         fun loadAvailableDates(

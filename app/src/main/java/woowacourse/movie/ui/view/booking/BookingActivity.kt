@@ -11,7 +11,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.repository.MovieRepository
@@ -32,20 +31,16 @@ class BookingActivity :
     private lateinit var presenter: BookingPresenter
     private var date: LocalDate = LocalDate.now()
     private var time: LocalTime = LocalTime.now()
-    private var headCount = HeadCount()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         if (!canLoadMovie()) return
-
         presenter =
             BookingPresenter(
                 this,
-                headCount,
                 MovieScheduler(movie.startScreeningDate, movie.endScreeningDate),
             )
-
+        if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         setupScreen(R.layout.activity_booking)
         showSelectedMovie()
         setupTicketQuantityButtonListeners()
@@ -79,7 +74,7 @@ class BookingActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_HEAD_COUNT, headCount.getCount())
+        outState.putInt(KEY_HEAD_COUNT, presenter.getHeadCount())
         outState.putString(KEY_DATE, date.toString())
         outState.putString(KEY_TIME, time.toString())
     }
@@ -99,7 +94,7 @@ class BookingActivity :
             .setTitle(getString(R.string.dialog_title))
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.complete)) { _, _ ->
-                presenter.onConfirm(movie.id, LocalDateTime.of(date, time), headCount.getCount())
+                presenter.onConfirm(movie.id, LocalDateTime.of(date, time))
             }.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
@@ -185,7 +180,7 @@ class BookingActivity :
 
     private fun setupTicketQuantityButtonListeners() {
         headCountView = findViewById(R.id.headCount)
-        updateHeadCount(headCount.getCount())
+        presenter.loadInitialHeadCount()
         val increaseBtn = findViewById<Button>(R.id.increase)
         increaseBtn.setOnClickListener {
             presenter.increaseHeadCount()
@@ -204,8 +199,8 @@ class BookingActivity :
     }
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
-        val restoredCount = savedInstance.getInt(KEY_HEAD_COUNT, headCount.getCount())
-        headCount = HeadCount(restoredCount)
+        val restoredCount = savedInstance.getInt(KEY_HEAD_COUNT, presenter.getHeadCount())
+        presenter.restoreHeadCount(restoredCount)
         date = LocalDate.parse(savedInstance.getString(KEY_DATE))
         time = LocalTime.parse(savedInstance.getString(KEY_TIME))
     }

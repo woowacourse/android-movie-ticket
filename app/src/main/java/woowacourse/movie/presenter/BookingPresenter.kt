@@ -10,10 +10,15 @@ import java.time.LocalTime
 
 class BookingPresenter(
     private val view: BookingContract.View,
-    private val headCount: HeadCount,
     private val movieScheduler: MovieScheduler,
+    private var headCount: HeadCount = HeadCount(),
+    private val movieTicketService: MovieTicketService = MovieTicketService(),
 ) : BookingContract.Presenter {
-    private val movieTicketService = MovieTicketService()
+    override fun getHeadCount(): Int = headCount.getCount()
+
+    override fun loadInitialHeadCount() {
+        view.updateHeadCount(headCount.getCount())
+    }
 
     override fun increaseHeadCount() {
         headCount.increase()
@@ -25,12 +30,16 @@ class BookingPresenter(
         view.updateHeadCount(headCount.getCount())
     }
 
+    override fun restoreHeadCount(restoredCount: Int) {
+        headCount = HeadCount(restoredCount)
+    }
+
     override fun onConfirm(
         id: Int,
         screeningDateTime: LocalDateTime,
-        headCount: Int,
     ) {
-        val movieTicket = movieTicketService.createMovieTicket(id, screeningDateTime, headCount)
+        val movieTicket =
+            movieTicketService.createMovieTicket(id, screeningDateTime, headCount.getCount())
         view.navigateToSummary(movieTicket)
     }
 
