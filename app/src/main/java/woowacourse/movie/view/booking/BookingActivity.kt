@@ -21,9 +21,6 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.booking.ScreeningTime
 import woowacourse.movie.domain.model.booking.TicketType
-import woowacourse.movie.domain.model.movies.Movie
-import woowacourse.movie.domain.model.movies.Poster
-import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
@@ -56,15 +53,18 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         initButtonListener()
     }
 
-    override fun showMovieDetail(movie: Movie) {
-        with(movie) {
-            val (startDate, endDate) = releaseDate
-            initTitleView(title)
-            initPosterView(posterResource)
-            initReleaseDateView(startDate, endDate)
-            initRunningTimeView(runningTime)
-            initDateSpinner(startDate, endDate)
-        }
+    override fun showMovieDetail(
+        title: String,
+        posterResId: Int?,
+        releaseStartDate: String,
+        releaseEndDate: String,
+        runningTime: Int,
+    ) {
+        initTitleView(title)
+        initPosterView(posterResId)
+        initReleaseDateView(releaseStartDate, releaseEndDate)
+        initRunningTimeView(runningTime)
+        // initDateSpinner(startDate, endDate)
     }
 
     override fun showPeopleCount(count: Int) {
@@ -102,21 +102,17 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         movieTitleView.text = title
     }
 
-    private fun initPosterView(poster: Poster) {
+    private fun initPosterView(posterId: Int?) {
         val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        poster.posterId?.let { moviePosterView.setImageResource(it) }
+        posterId?.let { moviePosterView.setImageResource(it) }
     }
 
     private fun initReleaseDateView(
-        startDate: LocalDate,
-        endDate: LocalDate,
+        startDate: String,
+        endDate: String,
     ) {
         val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
-        movieReleaseDateView.text =
-            getString(R.string.text_date_period).format(
-                StringFormatter.dotDateFormat(startDate),
-                StringFormatter.dotDateFormat(endDate),
-            )
+        movieReleaseDateView.text = getString(R.string.text_date_period).format(startDate, endDate)
     }
 
     private fun initRunningTimeView(runningTime: Int) {

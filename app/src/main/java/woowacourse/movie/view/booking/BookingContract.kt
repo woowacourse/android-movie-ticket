@@ -4,11 +4,16 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.domain.model.movies.DefaultMovieModel
-import woowacourse.movie.domain.model.movies.Movie
 
 interface BookingContract {
     interface View {
-        fun showMovieDetail(movie: Movie)
+        fun showMovieDetail(
+            title: String,
+            posterResId: Int?,
+            releaseStartDate: String,
+            releaseEndDate: String,
+            runningTime: Int,
+        )
 
         fun showPeopleCount(count: Int)
 

@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.fakeMoviesModel
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.TicketType
+import woowacourse.movie.view.StringFormatter.dotDateFormat
 import woowacourse.movie.view.booking.BookingContract
 import woowacourse.movie.view.booking.BookingPresenter
 import java.time.LocalDate
@@ -23,6 +24,27 @@ class BookingPresenterTest {
     fun setUp() {
         view = mockk<BookingContract.View>(relaxed = true)
         presenter = BookingPresenter(view, fakeMoviesModel, PeopleCount(1))
+    }
+
+    @Test
+    fun `영화 정보를 UI에 표시한다`() {
+        // given
+        val movieIndex = 0
+        val movie = fakeMoviesModel[movieIndex]
+
+        // when
+        presenter.loadMovieDetail(movieIndex)
+
+        // then
+        verify {
+            view.showMovieDetail(
+                title = movie.title,
+                posterResId = movie.posterResource.posterId,
+                releaseStartDate = dotDateFormat(movie.releaseDate.startDate),
+                releaseEndDate = dotDateFormat(movie.releaseDate.endDate),
+                runningTime = movie.runningTime,
+            )
+        }
     }
 
     @Test
