@@ -30,6 +30,8 @@ interface BookingContract {
 
         fun onClickBooking()
 
+        fun onSelectDate(selectedDate: String)
+
         fun moveToBookingComplete(booking: Booking)
     }
 

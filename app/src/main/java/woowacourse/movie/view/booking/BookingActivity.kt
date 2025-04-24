@@ -81,7 +81,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-                    // initTimeSpinner(screeningBookingDates[pos])
+                    onSelectDate(screeningBookingDates[pos])
                 }
         }
     }
@@ -96,7 +96,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
                     android.R.layout.simple_spinner_item,
                     screeningBookingTimes,
                 )
-            // setSelection(savedPosition ?: 0)
         }
     }
 
@@ -120,6 +119,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             peopleCount = findViewById<TextView>(R.id.tv_people_count).text.toString(),
             ticketType = TicketType.GENERAL,
         )
+    }
+
+    override fun onSelectDate(selectedDate: String) {
+        presenter.loadScreeningTime(selectedDate, LocalDateTime.now())
     }
 
     override fun moveToBookingComplete(booking: Booking) {
