@@ -7,8 +7,6 @@ import java.time.LocalTime
 
 interface ReservationContract {
     interface Presenter {
-        fun price(memberCount: Int): Int
-
         fun addMember()
 
         fun removeMember()

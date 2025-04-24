@@ -3,6 +3,7 @@ package woowacourse.movie.dto
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.PriceRule
 import java.time.LocalDateTime
 import kotlin.time.Duration
 
@@ -13,6 +14,7 @@ data class MovieDto(
     val startDateTime: LocalDateTime,
     val endDateTime: LocalDateTime,
     val runningTime: Duration,
+    val priceRuleDto: List<PriceRuleDto>,
 ) : Parcelable {
     fun toMovie(): Movie {
         return Movie(
@@ -32,6 +34,7 @@ data class MovieDto(
                 startDateTime = movie.startDateTime,
                 endDateTime = movie.endDateTime,
                 runningTime = movie.runningTime,
+                priceRuleDto = PriceRule.entries.map { PriceRuleDto.fromPriceRule(it) },
             )
         }
     }

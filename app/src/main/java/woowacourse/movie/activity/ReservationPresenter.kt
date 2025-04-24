@@ -1,7 +1,6 @@
 package woowacourse.movie.activity
 
 import woowacourse.movie.domain.MemberCount
-import woowacourse.movie.domain.PriceRule
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.global.ServiceLocator.runningTimeRule
 import java.time.LocalDate
@@ -9,10 +8,6 @@ import java.time.LocalDateTime
 
 class ReservationPresenter(private val reservationView: ReservationContract.View) : ReservationContract.Presenter {
     private var memberCount = MemberCount()
-
-    override fun price(memberCount: Int): Int {
-        return MemberCount(memberCount) * PriceRule.NORMAL.price
-    }
 
     override fun addMember() {
         memberCount.increase().onSuccess {

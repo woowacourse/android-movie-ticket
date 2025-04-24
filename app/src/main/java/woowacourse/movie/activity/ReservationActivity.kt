@@ -133,7 +133,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 isBooked = true,
                 memberCount = memberCount,
                 bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
-                totalPrice = reservationPresenter.price(memberCount),
+                totalPrice = movie.priceRuleDto[0].price * memberCount,
             )
         val intent =
             ReservationCompleteActivity
