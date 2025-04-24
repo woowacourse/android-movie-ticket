@@ -18,13 +18,13 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.DateType
-import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingdetail.adapter.DateAdapter
 import woowacourse.movie.presentation.bookingdetail.adapter.TimeAdapter
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toUi
 import woowacourse.movie.presentation.model.BookingInfoUiModel
+import woowacourse.movie.presentation.model.MovieTimeUiModel
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.util.getExtra
 import java.time.LocalDate
@@ -145,7 +145,7 @@ class BookingDetailActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedTime = parent?.getItemAtPosition(position) as String
-                    bookingInfo.updateMovieTime(MovieTime.from(selectedTime))
+                    bookingInfo.updateMovieTime(MovieTimeUiModel(selectedTime).toDomain())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
