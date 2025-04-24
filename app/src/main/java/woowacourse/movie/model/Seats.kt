@@ -1,11 +1,31 @@
 package woowacourse.movie.model
 
 @JvmInline
-value class Seats(
-    private val seats: List<Seat>,
+value class Seats private constructor(
+    private val _seats: MutableList<Seat>,
 ) {
-    val totalPrice: Int
-        get() = seats.sumOf { it.price }
+    val value: List<Seat>
+        get() = _seats.toList()
 
-    fun labels(): List<String> = seats.map { it.label }
+    val size: Int
+        get() = _seats.size
+
+    val totalPrice: Int
+        get() = _seats.sumOf { it.price }
+
+    fun labels(): List<String> = _seats.map { it.label }
+
+    fun contains(label: String): Boolean = _seats.any { it.label == label }
+
+    fun add(label: String): Boolean {
+        if (contains(label)) return false
+        _seats.add(Seat(label))
+        return true
+    }
+
+    fun remove(label: String): Boolean = _seats.removeIf { it.label == label }
+
+    companion object {
+        fun create(): Seats = Seats(mutableListOf())
+    }
 }

@@ -12,16 +12,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.model.Seat
+import woowacourse.movie.model.Seats
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.getParcelableExtraCompat
 
 class SeatSelectActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }
-    private val selectedSeats = mutableSetOf<String>()
     private lateinit var priceTextView: TextView
     private lateinit var confirmButton: Button
-    private var price: Int = 0
+    private var selectedSeats = Seats.create()
+    private var totalPrice: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +38,13 @@ class SeatSelectActivity : AppCompatActivity() {
         setupSeatSelection(tl)
 
         priceTextView = findViewById(R.id.tv_seat_select_total_price)
-        priceTextView.text = getString(R.string.seat_select_ticket_price).format(price)
-        confirmButton = findViewById<Button>(R.id.tv_confirm)
+        priceTextView.text = getString(R.string.seat_select_ticket_price).format(totalPrice)
+        confirmButton = findViewById(R.id.tv_confirm)
         confirmButton.isClickable = false
         confirmButton.alpha = 0.1f
     }
 
-    private fun getMovieTicketData(): MovieTicket? =
-        intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
+    private fun getMovieTicketData(): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
 
     private fun setupSeatSelection(tableLayout: TableLayout) {
         for (i in 0 until tableLayout.childCount) {
@@ -67,30 +66,29 @@ class SeatSelectActivity : AppCompatActivity() {
 
     private fun handleSeatClick(seatView: TextView) {
         val seatId = seatView.text.toString()
-        val grade = Seat.fromSeatId(seatId)
         if (selectedSeats.contains(seatId)) {
             selectedSeats.remove(seatId)
-            price -= grade.price
             seatView.setBackgroundResource(R.color.white)
             findViewById<Button>(R.id.tv_confirm).alpha = 0.1f
             confirmButton.isClickable = false
         } else {
             if (selectedSeats.size >= movieTicket!!.count) {
-                Toast.makeText(
-                    this,
-                    "최대 ${movieTicket!!.count}개의 좌석만 선택할 수 있어요.",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast
+                    .makeText(
+                        this,
+                        "최대 ${movieTicket!!.count}개의 좌석만 선택할 수 있어요.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
                 return
             }
             selectedSeats.add(seatId)
-            price += grade.price
             seatView.setBackgroundResource(R.color.yellow)
             if (selectedSeats.size == movieTicket!!.count) {
-                findViewById<Button>(R.id.tv_confirm).alpha = 1f
+                confirmButton.alpha = 1f
                 confirmButton.isClickable = true
             }
         }
-        priceTextView.text = getString(R.string.seat_select_ticket_price).format(price)
+        priceTextView.text =
+            getString(R.string.seat_select_ticket_price).format(selectedSeats.totalPrice)
     }
 }
