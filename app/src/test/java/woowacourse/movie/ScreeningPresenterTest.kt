@@ -17,8 +17,88 @@ import java.time.LocalDate
 class ScreeningPresenterTest {
     private lateinit var presenter: ScreeningContract.Presenter
     private lateinit var view: ScreeningContract.View
-    private val fakeScreenings: List<Screening> =
-        listOf(
+
+    @BeforeEach
+    fun setUp() {
+        view = mockk()
+        presenter =
+            ScreeningPresenter(
+                view,
+                FakeScreenings(
+                    listOf(
+                        Screening(
+                            Movie(
+                                0,
+                                "해리 포터와 마법사의 돌",
+                                152,
+                            ),
+                            LocalDate.of(2025, 4, 1),
+                            LocalDate.of(2025, 4, 25),
+                        ),
+                    ),
+                ),
+            )
+    }
+
+    @Test
+    fun `영화 목록을 보여줄 수 있다`() {
+        // given
+        every {
+            view.setScreenings(
+                listOf(
+                    Screening(
+                        Movie(
+                            0,
+                            "해리 포터와 마법사의 돌",
+                            152,
+                        ),
+                        LocalDate.of(2025, 4, 1),
+                        LocalDate.of(2025, 4, 25),
+                    ),
+                ),
+            )
+        } just Runs
+
+        // when
+        presenter.presentScreenings()
+
+        // then
+        verify {
+            view.setScreenings(
+                listOf(
+                    Screening(
+                        Movie(
+                            0,
+                            "해리 포터와 마법사의 돌",
+                            152,
+                        ),
+                        LocalDate.of(2025, 4, 1),
+                        LocalDate.of(2025, 4, 25),
+                    ),
+                ),
+            )
+        }
+    }
+
+    @Test
+    fun `예매할 영화를 선택할 수 있다`() {
+        // given
+        every {
+            view.navigateToReservationScreen(
+                Screening(
+                    Movie(
+                        0,
+                        "해리 포터와 마법사의 돌",
+                        152,
+                    ),
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ),
+            )
+        } just Runs
+
+        // when
+        presenter.selectScreening(
             Screening(
                 Movie(
                     0,
@@ -30,25 +110,19 @@ class ScreeningPresenterTest {
             ),
         )
 
-    @BeforeEach
-    fun setUp() {
-        view = mockk()
-        presenter =
-            ScreeningPresenter(
-                view,
-                FakeScreenings(fakeScreenings),
-            )
-    }
-
-    @Test
-    fun `영화 목록을 보여줄 수 있다`() {
-        // given
-        every { view.setScreenings(fakeScreenings) } just Runs
-
-        // when
-        presenter.presentScreenings()
-
         // then
-        verify { view.setScreenings(fakeScreenings) }
+        verify {
+            view.navigateToReservationScreen(
+                Screening(
+                    Movie(
+                        0,
+                        "해리 포터와 마법사의 돌",
+                        152,
+                    ),
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ),
+            )
+        }
     }
 }

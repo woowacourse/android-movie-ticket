@@ -3,6 +3,7 @@ package woowacourse.movie.presenter.screening
 import woowacourse.movie.contract.ScreeningContract
 import woowacourse.movie.data.screening.LocalScreenings
 import woowacourse.movie.data.screening.Screenings
+import woowacourse.movie.domain.screening.Screening
 
 class ScreeningPresenter(
     private val view: ScreeningContract.View,
@@ -10,5 +11,9 @@ class ScreeningPresenter(
 ) : ScreeningContract.Presenter {
     override fun presentScreenings() {
         view.setScreenings(screenings.value)
+    }
+
+    override fun selectScreening(screening: Screening) {
+        view.navigateToReservationScreen(screening)
     }
 }

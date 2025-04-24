@@ -9,9 +9,7 @@ import woowacourse.movie.domain.screening.Screening
 
 class ScreeningAdapter(
     screenings: List<Screening>,
-    private val onClickReserveButton: (
-        Screening,
-    ) -> Unit,
+    private val onClickReserveButton: (Screening) -> Unit,
 ) : BaseAdapter() {
     private val screenings: List<Screening> = screenings.toList()
     private val viewHolderCache: MutableMap<Screening, ScreeningItemViewHolder> = mutableMapOf()

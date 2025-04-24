@@ -37,11 +37,16 @@ class ScreeningActivity :
         initListView(screenings)
     }
 
+    override fun navigateToReservationScreen(screening: Screening) {
+        val intent = ReservationActivity.newIntent(this, screening)
+        startActivity(intent)
+    }
+
     private fun initListView(screenings: List<Screening>) {
         val screenings: List<Screening> =
             intent?.getScreeningsExtra()?.toList() ?: screenings
         val movieListView = findViewById<ListView>(R.id.lv_screening_movies)
-        val movieAdapter = ScreeningAdapter(screenings, ::navigateToReservationActivity)
+        val movieAdapter = ScreeningAdapter(screenings, presenter::selectScreening)
         movieListView.adapter = movieAdapter
     }
 
@@ -53,11 +58,6 @@ class ScreeningActivity :
 
             else -> getSerializableExtra(EXTRA_SCREENINGS) as? Array<Screening>
         }
-
-    private fun navigateToReservationActivity(screening: Screening) {
-        val intent = ReservationActivity.newIntent(this, screening)
-        startActivity(intent)
-    }
 
     companion object {
         private const val EXTRA_SCREENINGS = "woowacourse.movie.EXTRA_SCREENINGS"
