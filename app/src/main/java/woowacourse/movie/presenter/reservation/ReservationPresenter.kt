@@ -79,8 +79,10 @@ class ReservationPresenter(
     override fun createTicket(): MovieTicket =
         MovieTicket(
             title = movie.title,
-            timeStamp =
-                "${formatter.localDateToUI(movieDate.value)} ${formatter.movieTimeToUI(movieTime.value)}",
+            date = movieDate.value,
+            time = formatter.movieTimeToUI(movieTime.value),
+//            timeStamp =
+//                "${formatter.localDateToUI(movieDate.value)} ${formatter.movieTimeToUI(movieTime.value)}",
             count = ticketCount.value,
         )
 

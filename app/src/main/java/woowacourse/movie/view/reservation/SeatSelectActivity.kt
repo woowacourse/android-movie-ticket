@@ -104,13 +104,12 @@ class SeatSelectActivity : AppCompatActivity() {
         val reservationInfo =
             ReservationInfo(
                 title = movieTicket!!.title,
-                date = "",
-                time = "",
+                date = movieTicket!!.date,
+                time = movieTicket!!.time,
                 seats = selectedSeats.labels(),
                 price = selectedSeats.totalPrice,
             )
 
-//        val ticket = presenter.createTicket()
         return Intent(this, ReservationCompleteActivity::class.java).apply {
             putExtra(Extras.ReservationInfoData.RESERVATION_KEY, reservationInfo)
         }

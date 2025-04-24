@@ -199,7 +199,7 @@
     <Button
         android:id="@+id/tv_seat_select_confirm"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="88dp"
         android:background="@color/purple_500"
         android:text="확인"
         android:textSize="18sp"

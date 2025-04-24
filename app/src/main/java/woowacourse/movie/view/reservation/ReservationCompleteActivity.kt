@@ -38,7 +38,12 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
         val screeningDateTextView =
             findViewById<TextView>(R.id.tv_reservation_complete_timestamp)
-        screeningDateTextView.text = reservationInfo?.date
+        screeningDateTextView.text =
+            resources.getString(
+                R.string.reservation_complete_date_time,
+                reservationUiFormatter.localDateToUI(reservationInfo?.date!!),
+                reservationInfo?.time,
+            )
 
         val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_count)
         ticketCountTextView.text =
