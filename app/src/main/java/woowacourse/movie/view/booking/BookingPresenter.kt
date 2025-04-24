@@ -3,10 +3,12 @@ package woowacourse.movie.view.booking
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.ScreeningDate
+import woowacourse.movie.domain.model.booking.ScreeningTime
 import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.movies.MovieListContract
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -34,7 +36,7 @@ class BookingPresenter(
     override fun loadScreeningDate(
         startDate: String,
         endDate: String,
-        now: LocalDate,
+        now: LocalDateTime,
     ) {
         val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
 
@@ -43,10 +45,25 @@ class BookingPresenter(
                 LocalDate.parse(startDate, formatter),
                 LocalDate.parse(endDate, formatter),
             )
-                .bookingDates(LocalDate.now())
+                .bookingDates(now.toLocalDate())
                 .map { it.toString() }
 
+        loadScreeningTime(screeningBookingDates[0], now)
         view.showScreeningDate(screeningBookingDates)
+    }
+
+    override fun loadScreeningTime(
+        selectedDate: String,
+        now: LocalDateTime,
+    ) {
+        val screeningTime = ScreeningTime(now, LocalDate.parse(selectedDate))
+        val availableTimes = screeningTime.getAvailableScreeningTimes().map { it.toString() }
+
+        if (availableTimes.isEmpty()) {
+            view.showToast()
+            return
+        }
+        view.showScreeningTime(availableTimes)
     }
 
     override fun decreasePeopleCount() {

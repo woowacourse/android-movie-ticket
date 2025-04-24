@@ -12,7 +12,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,6 +21,7 @@ import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
     private val presenter by lazy { PresenterFactory.providePresenter(this) }
@@ -61,7 +61,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         initPosterView(posterResId)
         initReleaseDateView(releaseStartDate, releaseEndDate)
         initRunningTimeView(runningTime)
-        presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDate.now())
+        presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDateTime.now())
     }
 
     override fun showPeopleCount(count: Int) {
@@ -81,9 +81,27 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-                    initTimeSpinner(screeningBookingDates[pos])
+                    // initTimeSpinner(screeningBookingDates[pos])
                 }
         }
+    }
+
+    override fun showScreeningTime(screeningBookingTimes: List<String>) {
+        val timeSpinner: Spinner = findViewById(R.id.sp_time)
+
+        with(timeSpinner) {
+            adapter =
+                ArrayAdapter(
+                    this@BookingActivity,
+                    android.R.layout.simple_spinner_item,
+                    screeningBookingTimes,
+                )
+            // setSelection(savedPosition ?: 0)
+        }
+    }
+
+    override fun showToast() {
+        Toast.makeText(this, R.string.text_no_booking_time, Toast.LENGTH_LONG).show()
     }
 
     override fun onClickIncrease() {
@@ -154,28 +172,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         // initDateSpinner(startDate, endDate, savedDatePosition, savedTimePosition)
     }
 
-    private fun initTimeSpinner(selectedDate: String) {
-//        val timeSpinner: Spinner = findViewById(R.id.sp_time)
-//        val now = LocalDateTime.now()
-//        val screeningTime = ScreeningTime(now, selectedDate)
-//
-//        val availableTimes = screeningTime.getAvailableScreeningTimes()
-//        if (availableTimes.isEmpty()) {
-//            showToast(R.string.text_no_booking_time)
-//            return
-//        }
-//
-//        with(timeSpinner) {
-//            adapter =
-//                ArrayAdapter(
-//                    this@BookingActivity,
-//                    android.R.layout.simple_spinner_item,
-//                    availableTimes,
-//                )
-//            // setSelection(savedPosition ?: 0)
-//        }
-    }
-
     private fun initButtonListener() {
         val increaseBtn = findViewById<Button>(R.id.btn_increase)
         val decreaseBtn = findViewById<Button>(R.id.btn_decrease)
@@ -207,12 +203,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             }
             .setCancelable(false)
             .show()
-    }
-
-    private fun showToast(
-        @StringRes res: Int,
-    ) {
-        Toast.makeText(this, res, Toast.LENGTH_LONG).show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

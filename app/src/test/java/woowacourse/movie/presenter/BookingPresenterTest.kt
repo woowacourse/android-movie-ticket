@@ -14,6 +14,7 @@ import woowacourse.movie.view.StringFormatter.dotDateFormat
 import woowacourse.movie.view.booking.BookingContract
 import woowacourse.movie.view.booking.BookingPresenter
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingPresenterTest {
@@ -128,7 +129,7 @@ class BookingPresenterTest {
         // given
         val start = "2025.4.26"
         val end = "2025.4.28"
-        val now = LocalDate.of(2025, 4, 25)
+        val now = LocalDateTime.of(2025, 4, 25, 12, 0, 0)
 
         // when
         presenter.loadScreeningDate(start, end, now)
@@ -143,7 +144,7 @@ class BookingPresenterTest {
         // given
         val start = "2025.4.24"
         val end = "2025.4.28"
-        val now = LocalDate.of(2025, 4, 25)
+        val now = LocalDateTime.of(2025, 4, 25, 12, 0, 0)
 
         // when
         presenter.loadScreeningDate(start, end, now)
@@ -151,5 +152,19 @@ class BookingPresenterTest {
         // then
         val excepted = listOf("2025-04-25", "2025-04-26", "2025-04-27", "2025-04-28")
         verify { view.showScreeningDate(excepted) }
+    }
+
+    @Test
+    fun `현재 시간 이후의 상영 시간을 출력한다`() {
+        // given
+        val date = "2025-04-25"
+        val now = LocalDateTime.of(2025, 4, 25, 20, 0, 0)
+
+        // when
+        presenter.loadScreeningTime(date, now)
+
+        // then
+        val expected = listOf("22:00")
+        verify { view.showScreeningTime(expected) }
     }
 }
