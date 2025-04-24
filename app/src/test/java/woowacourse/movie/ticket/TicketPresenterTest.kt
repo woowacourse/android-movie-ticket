@@ -67,4 +67,16 @@ class TicketPresenterTest {
         // then
         verify { view.setShowtime(LocalDateTime.of(2025, 4, 15, 11, 0)) }
     }
+
+    @Test
+    fun `예약 인원을 표시한다`() {
+        // given
+        every { view.setCount(2) } just Runs
+
+        // when
+        presenter.presentCount()
+
+        // then
+        verify { view.setCount(2) }
+    }
 }

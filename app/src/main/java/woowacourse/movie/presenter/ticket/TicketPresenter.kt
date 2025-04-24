@@ -21,4 +21,8 @@ class TicketPresenter(
     override fun presentCancelDescription() {
         view.setCancelDescription(cancelTimePolicy.cancelableMinutes)
     }
+
+    override fun presentCount() {
+        view.setCount(ticket.count)
+    }
 }

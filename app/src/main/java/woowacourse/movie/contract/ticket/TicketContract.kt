@@ -9,6 +9,8 @@ interface TicketContract {
         fun presentShowtime()
 
         fun presentCancelDescription()
+
+        fun presentCount()
     }
 
     interface View {
@@ -17,5 +19,7 @@ interface TicketContract {
         fun setShowtime(showtime: LocalDateTime)
 
         fun setCancelDescription(minutes: Int)
+
+        fun setCount(count: Int)
     }
 }
