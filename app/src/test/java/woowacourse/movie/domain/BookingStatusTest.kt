@@ -10,9 +10,9 @@ class BookingStatusTest {
     @Test
     fun `영화가_예매가_안된_상태이면_예매할_수_있다`() {
         val movie = MovieFixture.movie
-        val memberCount = MemberCount(1)
+        val ticketCount = TicketCount(1)
         val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
-        val bookingStatus = BookingStatus(movie, false, memberCount, bookedTime)
+        val bookingStatus = BookingStatus(movie, false, ticketCount, bookedTime)
 
         val newBookingStatus = bookingStatus.book()
 
@@ -24,9 +24,9 @@ class BookingStatusTest {
     @Test
     fun `영화가_예매가_된_상태이면_예매할_수_없다`() {
         val movie = MovieFixture.movie
-        val memberCount = MemberCount(1)
+        val ticketCount = TicketCount(1)
         val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
-        val bookingStatus = BookingStatus(movie, true, memberCount, bookedTime)
+        val bookingStatus = BookingStatus(movie, true, ticketCount, bookedTime)
 
         assertThrows<IllegalStateException> {
             bookingStatus.book()
@@ -36,9 +36,9 @@ class BookingStatusTest {
     @Test
     fun `영화가_예매가_된_상태이면_취소할_수_있다`() {
         val movie = MovieFixture.movie
-        val memberCount = MemberCount(1)
+        val ticketCount = TicketCount(1)
         val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
-        val bookingStatus = BookingStatus(movie, true, memberCount, bookedTime)
+        val bookingStatus = BookingStatus(movie, true, ticketCount, bookedTime)
 
         val actual = bookingStatus.cancel()
 
@@ -48,9 +48,9 @@ class BookingStatusTest {
     @Test
     fun `영화가_예매가_안된_상태이면_취소할_수_없다`() {
         val movie = MovieFixture.movie
-        val memberCount = MemberCount(1)
+        val ticketCount = TicketCount(1)
         val bookedTime = LocalDateTime.of(2025, 4, 1, 9, 0, 0)
-        val bookingStatus = BookingStatus(movie, false, memberCount, bookedTime)
+        val bookingStatus = BookingStatus(movie, false, ticketCount, bookedTime)
 
         assertThrows<IllegalStateException> {
             bookingStatus.cancel()

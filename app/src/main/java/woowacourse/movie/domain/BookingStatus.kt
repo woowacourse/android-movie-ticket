@@ -10,14 +10,14 @@ import java.time.LocalTime
 data class BookingStatus(
     val movie: Movie,
     val isBooked: Boolean = true,
-    private val _memberCount: MemberCount,
+    private val _ticketCount: TicketCount,
     val bookedTime: LocalDateTime,
 ) : Parcelable {
     val memberCount: Int
-        get() = _memberCount.value
+        get() = _ticketCount.value
 
     fun calculateTicketPrices(): Int {
-        return _memberCount.calculateTicketPrices()
+        return _ticketCount.calculateTicketPrices()
     }
 
     fun book(): BookingStatus {
@@ -43,7 +43,7 @@ data class BookingStatus(
             val bookedDateTime = LocalDateTime.of(bookedDate, bookedTime)
             return BookingStatus(
                 movie = movie,
-                _memberCount = MemberCount(count),
+                _ticketCount = TicketCount(count),
                 bookedTime = bookedDateTime
             )
         }

@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 @JvmInline
-value class MemberCount(
+value class TicketCount(
     val value: Int
 ) : Parcelable {
     init {

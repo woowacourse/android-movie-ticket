@@ -85,4 +85,4 @@
 
 # 3차
 - [ ] view와 model의 의존성을 최소화
-- [ ] MemberCount -> TicketCount
+- [X] MemberCount -> TicketCount
