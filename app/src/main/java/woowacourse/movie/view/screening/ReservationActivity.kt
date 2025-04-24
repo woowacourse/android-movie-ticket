@@ -115,12 +115,8 @@ class ReservationActivity :
             presentPeriod()
             presentRunningTime()
             presentDates()
+            setTicketCount(ticketCount)
         }
-        initTicketCountLayout()
-    }
-
-    private fun initTicketCountLayout() {
-        ticketCountView.text = ticketCount.toString()
     }
 
     private fun initEventListeners() {
@@ -167,15 +163,13 @@ class ReservationActivity :
 
     private fun initTicketCountPlusButtonClickEvent() {
         ticketCountPlusButton.setOnClickListener {
-            ticketCount++
-            ticketCountView.text = ticketCount.toString()
+            presenter?.plusTicketCount(ticketCount) ?: error("")
         }
     }
 
     private fun initTicketCountMinusButtonClickEvent() {
         ticketCountMinusButton.setOnClickListener {
-            if (ticketCount > 1) ticketCount--
-            ticketCountView.text = ticketCount.toString()
+            presenter?.minusTicketCount(ticketCount) ?: error("")
         }
     }
 
@@ -267,6 +261,11 @@ class ReservationActivity :
         } else {
             timeSpinner.setSelection(timeItemPosition)
         }
+    }
+
+    override fun setTicketCount(count: Int) {
+        ticketCount = count
+        ticketCountView.text = ticketCount.toString()
     }
 
     companion object {

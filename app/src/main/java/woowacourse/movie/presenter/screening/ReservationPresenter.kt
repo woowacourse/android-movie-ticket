@@ -40,4 +40,12 @@ class ReservationPresenter(
     override fun presentTimes(date: LocalDate) {
         view.setTimes(screening.showtimes(date))
     }
+
+    override fun plusTicketCount(currentCount: Int) {
+        view.setTicketCount(currentCount.plus(1))
+    }
+
+    override fun minusTicketCount(currentCount: Int) {
+        view.setTicketCount(currentCount.minus(1).coerceAtLeast(1))
+    }
 }

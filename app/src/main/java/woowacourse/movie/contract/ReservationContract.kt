@@ -16,6 +16,10 @@ interface ReservationContract {
         fun presentDates()
 
         fun presentTimes(date: LocalDate)
+
+        fun plusTicketCount(currentCount: Int)
+
+        fun minusTicketCount(currentCount: Int)
     }
 
     interface View {
@@ -37,5 +41,7 @@ interface ReservationContract {
         fun setDates(dates: List<LocalDate>)
 
         fun setTimes(times: List<LocalTime>)
+
+        fun setTicketCount(count: Int)
     }
 }

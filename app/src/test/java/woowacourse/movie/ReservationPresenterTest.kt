@@ -155,4 +155,28 @@ class ReservationPresenterTest {
             )
         }
     }
+
+    @Test
+    fun `티켓 수를 늘릴 수 있다`() {
+        // given
+        every { view.setTicketCount(2) } just Runs
+
+        // when
+        presenter.plusTicketCount(1)
+
+        // then
+        verify { view.setTicketCount(2) }
+    }
+
+    @Test
+    fun `티켓 수를 줄일 수 있다`() {
+        // given
+        every { view.setTicketCount(1) } just Runs
+
+        // when
+        presenter.minusTicketCount(2)
+
+        // then
+        verify { view.setTicketCount(1) }
+    }
 }
