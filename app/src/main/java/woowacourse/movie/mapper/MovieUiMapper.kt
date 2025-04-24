@@ -30,4 +30,5 @@ private fun getImageResIdFromUrl(imageUrl: String): Int {
 private val imageNameToResIdMap =
     mapOf(
         "harry_potter" to R.drawable.harry_potter,
+        "star_is_born" to R.drawable.star_is_born,
     )
