@@ -40,13 +40,10 @@ fun BookingInfo.toUi(): BookingInfoUiModel =
 
 fun MovieTime.toUi(): MovieTimeUiModel {
     val hour = if (value.hour == 0) 24 else value.hour
-    return MovieTimeUiModel("%02d:%02d".format(hour, value.minute))
+    return MovieTimeUiModel(hour, value.minute)
 }
 
-fun MovieTimeUiModel.toDomain(): MovieTime =
-    value
-        .split(":")
-        .let { time -> MovieTime(time[0].toInt(), time[1].toInt()) }
+fun MovieTimeUiModel.toDomain(): MovieTime = MovieTime(hour, minute)
 
 fun MovieDate.toUi(): MovieDateUiModel =
     MovieDateUiModel(

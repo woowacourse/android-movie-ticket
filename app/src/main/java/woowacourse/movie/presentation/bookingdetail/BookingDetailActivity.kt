@@ -145,8 +145,8 @@ class BookingDetailActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedTime = parent?.getItemAtPosition(position) as String
-                    bookingInfo.updateMovieTime(MovieTimeUiModel(selectedTime).toDomain())
+                    val selectedTime = MovieTimeUiModel.from(parent?.getItemAtPosition(position) as String)
+                    bookingInfo.updateMovieTime(selectedTime.toDomain())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit

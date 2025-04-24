@@ -26,7 +26,11 @@ class BookingCompleteActivity : AppCompatActivity() {
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfoUiModel.movie.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
-            getString(R.string.booking_complete_movie_date_time, bookingInfoUiModel.date, bookingInfoUiModel.movieTime.value)
+            getString(
+                R.string.booking_complete_movie_date_time,
+                bookingInfoUiModel.date.toString(),
+                bookingInfoUiModel.movieTime.toString(),
+            )
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
             getString(R.string.booking_complete_ticket_count, bookingInfoUiModel.ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =

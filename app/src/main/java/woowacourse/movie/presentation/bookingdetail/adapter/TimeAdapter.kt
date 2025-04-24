@@ -22,7 +22,7 @@ class TimeAdapter(
         clear()
 
         val movieTimes: List<MovieTime> = getMovieTimes(dateType)
-        addAll(movieTimes.map { it.toUi().value })
+        addAll(movieTimes.map { it.toUi().toString() })
 
         notifyDataSetChanged()
     }
