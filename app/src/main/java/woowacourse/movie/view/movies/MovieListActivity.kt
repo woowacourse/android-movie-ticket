@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movies.DUMMY
 import woowacourse.movie.view.booking.BookingActivity
+import woowacourse.movie.view.movies.MovieListContract.PresenterFactory
 import woowacourse.movie.view.movies.adapter.MovieAdapter
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+    private val presenter: MovieListContract.Presenter by lazy {
+        PresenterFactory.providePresenter(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,24 +30,21 @@ class MovieListActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        setListView()
+        presenter.setMovies()
     }
 
-    private fun setListView() {
+    override fun showMovieList(movieList: MovieListContract.MovieModel) {
         val listView = findViewById<ListView>(R.id.list_view)
-        val items = DUMMY.getAll()
         val adapter =
             MovieAdapter(
-                items = items,
-                onClickBooking = {
-                    moveToBookingComplete(it)
-                },
+                itemsList = movieList,
+                onClickBooking = ::moveToBookingComplete,
             )
 
         listView.adapter = adapter
     }
 
-    private fun moveToBookingComplete(movieIdx: Int) {
+    override fun moveToBookingComplete(movieIdx: Int) {
         val intent =
             Intent(this, BookingActivity::class.java).apply {
                 putExtra(KEY_MOVIE, movieIdx)
@@ -52,6 +53,6 @@ class MovieListActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val KEY_MOVIE = "movie"
+        const val KEY_MOVIE = "MOVIE"
     }
 }
