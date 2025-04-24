@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.parcelableExtra
+import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
@@ -29,7 +29,7 @@ class MovieReservationCompleteActivity :
         }
 
         val ticket =
-            intent.parcelableExtra(EXTRA_TICKET, Ticket::class.java) ?: finish().run { return }
+            intent.parcelableExtraCompat(EXTRA_TICKET, Ticket::class.java) ?: finish().run { return }
         presenter = MovieReservationCompletePresenter(this, ticket)
         presenter.loadMovieReservationCompleteScreen()
     }

@@ -17,8 +17,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.parcelable
-import woowacourse.movie.common.parcelableExtra
+import woowacourse.movie.common.parcelableCompat
+import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
 import java.time.LocalDate
@@ -43,9 +43,9 @@ class MovieReservationActivity :
         initUi()
 
         val movie =
-            intent.parcelableExtra(EXTRA_MOVIE, Movie::class.java) ?: finish().run { return }
+            intent.parcelableExtraCompat(EXTRA_MOVIE, Movie::class.java) ?: finish().run { return }
         val ticket =
-            savedInstanceState?.parcelable(EXTRA_TICKET, Ticket::class.java) ?: Ticket(movie)
+            savedInstanceState?.parcelableCompat(EXTRA_TICKET, Ticket::class.java) ?: Ticket(movie)
         presenter = MovieReservationPresenter(this, ticket)
 
         initView()
