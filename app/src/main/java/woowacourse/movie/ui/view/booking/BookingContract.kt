@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.view.booking
 
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTicket
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -39,16 +40,11 @@ interface BookingContract {
 
         fun restoreHeadCount(restoredCount: Int)
 
-        fun onConfirm(
-            id: Int,
-            screeningDateTime: LocalDateTime,
-        )
+        fun getMovie(): Movie
 
-        fun loadAvailableDates(
-            startDate: LocalDate,
-            endDate: LocalDate,
-            selectedDate: LocalDate,
-        )
+        fun onConfirm(screeningDateTime: LocalDateTime)
+
+        fun loadAvailableDates(selectedDate: LocalDate)
 
         fun loadAvailableTimes(
             selectedDate: LocalDate,

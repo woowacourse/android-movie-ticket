@@ -11,10 +11,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTicket
-import woowacourse.movie.domain.repository.MovieRepository
-import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.presenter.BookingPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.BaseActivity
@@ -26,7 +23,6 @@ import java.time.LocalTime
 class BookingActivity :
     BaseActivity(),
     BookingContract.View {
-    private lateinit var movie: Movie
     private lateinit var headCountView: TextView
     private lateinit var presenter: BookingPresenter
     private var date: LocalDate = LocalDate.now()
@@ -35,24 +31,16 @@ class BookingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!canLoadMovie()) return
-        presenter =
-            BookingPresenter(
-                this,
-                MovieScheduler(movie.startScreeningDate, movie.endScreeningDate),
-            )
         if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         setupScreen(R.layout.activity_booking)
         showSelectedMovie()
         setupTicketQuantityButtonListeners()
         setupSelectButtonListener()
-        presenter.loadAvailableDates(
-            movie.startScreeningDate,
-            movie.endScreeningDate,
-            date,
-        )
+        presenter.loadAvailableDates(date)
     }
 
     override fun showSelectedMovie() {
+        val movie = presenter.getMovie()
         val imagePoster = findViewById<ImageView>(R.id.poster)
         val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
         imagePoster.setImage(posterRes)
@@ -94,7 +82,7 @@ class BookingActivity :
             .setTitle(getString(R.string.dialog_title))
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.complete)) { _, _ ->
-                presenter.onConfirm(movie.id, LocalDateTime.of(date, time))
+                presenter.onConfirm(LocalDateTime.of(date, time))
             }.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
@@ -167,13 +155,13 @@ class BookingActivity :
 
     private fun canLoadMovie(): Boolean {
         val movieId = intent.getIntExtra(getString(R.string.movie_info_key), -1)
+        presenter = BookingPresenter(this, movieId)
 
         return if (movieId == -1) {
             showErrorDialog()
             false
         } else {
-            val foundMovie = MovieRepository().getMovieById(movieId)
-            movie = foundMovie
+            presenter.getMovie()
             true
         }
     }
