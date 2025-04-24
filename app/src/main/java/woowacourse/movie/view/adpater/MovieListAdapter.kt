@@ -7,7 +7,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.MovieListClick
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.helper.CustomClickListenerHelper.setOnSingleClickListener
@@ -15,7 +14,7 @@ import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 
 class MovieListAdapter(
     private val value: List<Movie>,
-    private val movieListClick: MovieListClick,
+    private val navigateToBook: (Movie) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return value.size
@@ -73,7 +72,7 @@ class MovieListAdapter(
     }
 
     private fun clickMovieItem(viewHolder: ViewHolder, position: Int) {
-        viewHolder.movieItem.setOnSingleClickListener { movieListClick.navigateToBook(value[position]) }
+        viewHolder.movieItem.setOnSingleClickListener { navigateToBook(value[position]) }
     }
 }
 
