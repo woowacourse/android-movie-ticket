@@ -12,9 +12,10 @@ import woowacourse.movie.view.getParcelableExtraCompat
 import woowacourse.movie.view.reservation.ReservationContract
 import java.time.LocalDate
 import java.time.LocalDateTime
-import java.time.LocalTime
 
-class ReservationPresenter(val view: ReservationContract.View) : ReservationContract.Presenter {
+class ReservationPresenter(
+    val view: ReservationContract.View,
+) : ReservationContract.Presenter {
     private lateinit var movie: Movie
     private lateinit var movieDate: MovieDate
     private var timeTable: List<Int> = emptyList()
@@ -51,7 +52,10 @@ class ReservationPresenter(val view: ReservationContract.View) : ReservationCont
         onDateSelected(duration[0], selectedDatePosition)
     }
 
-    override fun onDateSelected(date: LocalDate, position: Int) {
+    override fun onDateSelected(
+        date: LocalDate,
+        position: Int,
+    ) {
         movieDate.updateDate(date)
         timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
         selectedDatePosition = position

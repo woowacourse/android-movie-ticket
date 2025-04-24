@@ -26,13 +26,12 @@ class MovieAdapter(
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getItemViewType(position: Int): Int {
-        return if (position % 4 == 3) {
+    override fun getItemViewType(position: Int): Int =
+        if (position % 4 == 3) {
             VIEW_TYPE_AD
         } else {
             VIEW_TYPE_MOVIE
         }
-    }
 
     private class MovieViewHolder(
         val view: View,
@@ -60,7 +59,9 @@ class MovieAdapter(
         }
     }
 
-    private class AdViewHolder(view: View) {
+    private class AdViewHolder(
+        view: View,
+    ) {
         val adImageVIew: ImageView = view.findViewById(R.id.iv_advertisement)
 
         fun bind() {
@@ -97,7 +98,9 @@ class MovieAdapter(
             val viewHolder: AdViewHolder
             if (convertView == null) {
                 view =
-                    LayoutInflater.from(parent?.context).inflate(R.layout.item_advertisement, parent, false)
+                    LayoutInflater
+                        .from(parent?.context)
+                        .inflate(R.layout.item_advertisement, parent, false)
                 viewHolder = AdViewHolder(view)
                 view.tag = viewHolder
             } else {
@@ -108,12 +111,9 @@ class MovieAdapter(
             viewHolder.bind()
             view
         }
-
     }
 
-    private fun getMovieIndex(position: Int): Int {
-        return position - (position / 4)
-    }
+    private fun getMovieIndex(position: Int): Int = position - (position / 4)
 
     companion object {
         private const val VIEW_TYPE_MOVIE = 0
