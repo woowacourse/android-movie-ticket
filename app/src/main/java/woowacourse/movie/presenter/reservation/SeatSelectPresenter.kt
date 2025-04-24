@@ -1,0 +1,71 @@
+package woowacourse.movie.presenter.reservation
+
+import android.content.Intent
+import android.widget.TextView
+import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.ReservationInfo
+import woowacourse.movie.model.Seats
+import woowacourse.movie.view.Extras
+import woowacourse.movie.view.getParcelableExtraCompat
+import woowacourse.movie.view.reservation.SeatSelectContract
+
+class SeatSelectPresenter(
+    val view: SeatSelectContract.View,
+) : SeatSelectContract.Presenter {
+    private lateinit var movieTicket: MovieTicket
+    private var selectedSeats = Seats.create()
+
+    override fun fetchData(intent: Intent) {
+        val result = getMovieTicketData(intent)
+        if (result == null) {
+            view.showErrorDialog()
+            return
+        }
+
+        movieTicket = result
+        view.initReservationInfo(
+            movieTicket.title,
+            DEFAULT_PRICE,
+        )
+    }
+
+    override fun onSeatClicked(seatView: TextView) {
+        val seatId = seatView.text.toString()
+        if (selectedSeats.contains(seatId)) {
+            selectedSeats.remove(seatId)
+            view.updateSeatDeselected(seatView)
+        } else {
+            if (selectedSeats.size >= movieTicket.count) {
+                view.showSeatCountError(movieTicket.count)
+                return
+            }
+            selectedSeats.add(seatId)
+            view.updateSeatSelected(seatView)
+        }
+
+        view.updateTotalPrice(selectedSeats.totalPrice)
+        view.updateConfirmButtonState(selectedSeats.size == movieTicket.count)
+    }
+
+    override fun createReservationInfo(): ReservationInfo =
+        ReservationInfo(
+            title = movieTicket.title,
+            date = movieTicket.date,
+            time = movieTicket.time,
+            seats = selectedSeats.labels(),
+            price = selectedSeats.totalPrice,
+        )
+
+    override fun onConfirmClicked(
+        title: String,
+        message: String,
+    ) {
+        view.showReservationDialog(title, message)
+    }
+
+    private fun getMovieTicketData(intent: Intent): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
+
+    companion object {
+        private const val DEFAULT_PRICE = 0
+    }
+}

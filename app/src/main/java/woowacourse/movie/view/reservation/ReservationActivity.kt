@@ -184,10 +184,6 @@ class ReservationActivity :
 
     private fun setupCompleteButtonClick() {
         findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
-//            presenter.onReservationCompleted(
-//                getString(R.string.reservation_dialog_title),
-//                getString(R.string.reservation_dialog_message),
-//            )
             val intent = movieTicketIntent()
             startActivity(intent)
         }
