@@ -3,9 +3,13 @@ package woowacourse.movie.data.screening
 import woowacourse.movie.domain.screening.Screening
 import java.time.LocalDate
 
-class Screenings {
+interface Screenings {
+    val value: List<Screening>
+}
+
+class LocalScreenings : Screenings {
     private val movies = Movies()
-    val value: List<Screening> =
+    override val value: List<Screening> =
         listOf(
             Screening(
                 movies.harryPotter,
