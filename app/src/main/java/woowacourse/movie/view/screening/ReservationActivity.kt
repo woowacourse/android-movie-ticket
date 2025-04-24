@@ -30,7 +30,6 @@ import java.time.LocalTime
 class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
-    private var screening: Screening? = null
     private var presenter: ReservationContract.Presenter? = null
     private val showConfirmDialog by lazy { ShowReservationConfirmDialog(this) }
 
@@ -70,7 +69,8 @@ class ReservationActivity :
         presenter =
             ReservationPresenter(
                 this,
-                screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided()),
+                intent.getScreeningExtra(EXTRA_SCREENING)
+                    ?: error(ErrorMessage(CAUSE_SCREENING).notProvided()),
             )
         initViews()
         initEventListeners()
@@ -93,8 +93,6 @@ class ReservationActivity :
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
         val savedTimeItemPosition =
             savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: DEFAULT_TIME_ITEM_POSITION
-        screening = intent.getScreeningExtra(EXTRA_SCREENING)
-            ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         ticketCount = savedTicketCount
         timeItemPosition = savedTimeItemPosition
     }
