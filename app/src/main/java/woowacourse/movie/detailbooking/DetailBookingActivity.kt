@@ -175,7 +175,7 @@ class DetailBookingActivity : AppCompatActivity() {
                     setTimeSpinner(spinnerTime, selectedDate)
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
     }
 
