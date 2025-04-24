@@ -13,7 +13,11 @@ import woowacourse.movie.common.parcelableExtra
 import woowacourse.movie.domain.Ticket
 import java.time.format.DateTimeFormatter
 
-class MovieReservationCompleteActivity : AppCompatActivity() {
+class MovieReservationCompleteActivity :
+    AppCompatActivity(),
+    MovieReservationCompleteContract.View {
+    private lateinit var presenter: MovieReservationCompletePresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -26,10 +30,11 @@ class MovieReservationCompleteActivity : AppCompatActivity() {
 
         val ticket =
             intent.parcelableExtra(EXTRA_TICKET, Ticket::class.java) ?: finish().run { return }
-        bindTicketInfo(ticket)
+        presenter = MovieReservationCompletePresenter(this, ticket)
+        presenter.loadMovieReservationCompleteScreen()
     }
 
-    private fun bindTicketInfo(ticket: Ticket) {
+    override fun showMovieInfo(ticket: Ticket) {
         findViewById<TextView>(R.id.movie_title).text = ticket.movie.title
         findViewById<TextView>(R.id.showtime).text = ticket.showtime.format(DATE_FORMAT)
         findViewById<TextView>(R.id.ticket_count).text =
