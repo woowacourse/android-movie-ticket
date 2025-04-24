@@ -41,6 +41,15 @@ class BookingPresenter(
 
     override fun getMovie(): Movie = MovieRepository().getMovieById(movieId)
 
+    override fun tryLoadMovie(movieId: Int): Boolean =
+        if (movieId == -1) {
+            view.showErrorDialog()
+            false
+        } else {
+            getMovie()
+            true
+        }
+
     override fun onConfirm(screeningDateTime: LocalDateTime) {
         val movieTicket =
             movieTicketService.createMovieTicket(movieId, screeningDateTime, getHeadCount())

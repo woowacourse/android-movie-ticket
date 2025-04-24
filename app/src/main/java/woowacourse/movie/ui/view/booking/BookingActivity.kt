@@ -157,13 +157,7 @@ class BookingActivity :
         val movieId = intent.getIntExtra(getString(R.string.movie_info_key), -1)
         presenter = BookingPresenter(this, movieId)
 
-        return if (movieId == -1) {
-            showErrorDialog()
-            false
-        } else {
-            presenter.getMovie()
-            true
-        }
+        return presenter.tryLoadMovie(movieId)
     }
 
     private fun setupTicketQuantityButtonListeners() {

@@ -42,6 +42,8 @@ interface BookingContract {
 
         fun getMovie(): Movie
 
+        fun tryLoadMovie(movieId: Int): Boolean
+
         fun onConfirm(screeningDateTime: LocalDateTime)
 
         fun loadAvailableDates(selectedDate: LocalDate)
