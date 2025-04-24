@@ -1,6 +1,7 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.movies
 
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.ScreeningDate
 import java.time.LocalDate
 
 class Movies(
@@ -18,12 +19,14 @@ class Movies(
 
                     Movie(
                         "해리 포터와 마법사의 돌 $it",
-                        R.drawable.harry_potter_one.toString(),
+                        Poster(R.drawable.harry_potter_one.toString()),
                         screeningDate,
                         152,
                     )
                 },
             )
+
+        fun size() = movies.items.size
 
         fun get(idx: Int) = movies.items[idx]
 
