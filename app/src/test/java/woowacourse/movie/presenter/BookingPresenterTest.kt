@@ -9,8 +9,11 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.fakeMoviesModel
 import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.booking.BookingContract
 import woowacourse.movie.view.booking.BookingPresenter
+import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingPresenterTest {
     private lateinit var view: BookingContract.View
@@ -68,5 +71,33 @@ class BookingPresenterTest {
 
         // then
         verify { view.showPeopleCount(4) }
+    }
+
+    @Test
+    fun `예약 버튼을 누르면 예얀 완료 화면으로 이동하며 예약 정보 Booking 객체를 전달한다`() {
+        // given
+        every { view.onClickBooking() } just Runs
+
+        // when
+        presenter.loadBooking(
+            title = "테스트 영화 1",
+            bookingDate = "2025-04-24",
+            bookingTime = "12:00",
+            count = "3",
+            ticketType = TicketType.GENERAL,
+        )
+
+        // then
+        verify {
+            view.moveToBookingComplete(
+                match {
+                    it.title == "테스트 영화 1" &&
+                        it.bookingDate == LocalDate.of(2025, 4, 24) &&
+                        it.bookingTime == LocalTime.of(12, 0) &&
+                        it.count == PeopleCount(3) &&
+                        it.ticketType == TicketType.GENERAL
+                },
+            )
+        }
     }
 }

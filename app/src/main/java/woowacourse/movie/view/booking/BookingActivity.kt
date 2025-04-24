@@ -18,7 +18,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.booking.ScreeningTime
 import woowacourse.movie.domain.model.booking.TicketType
@@ -78,6 +77,24 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
     override fun onClickDecrease() {
         presenter.decreasePeopleCount()
+    }
+
+    override fun onClickBooking() {
+        presenter.loadBooking(
+            title = findViewById<TextView>(R.id.tv_title).text.toString(),
+            bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
+            bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
+            peopleCount = findViewById<TextView>(R.id.tv_people_count).text.toString(),
+            ticketType = TicketType.GENERAL,
+        )
+    }
+
+    override fun moveToBookingComplete(booking: Booking) {
+        val intent =
+            Intent(this, BookingCompleteActivity::class.java).apply {
+                putExtra(KEY_BOOKING, booking)
+            }
+        startActivity(intent)
     }
 
     private fun initTitleView(title: String) {
@@ -195,30 +212,13 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             .setTitle(title)
             .setMessage(description)
             .setPositiveButton(R.string.text_booking_dialog_positive_button) { _, _ ->
-                moveToBookingCompleteActivity()
+                onClickBooking()
             }
             .setNegativeButton(R.string.text_booking_dialog_negative_button) { dialog, _ ->
                 dialog.dismiss()
             }
             .setCancelable(false)
             .show()
-    }
-
-    private fun moveToBookingCompleteActivity() {
-        val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra(
-                    KEY_BOOKING,
-                    Booking(
-                        title = findViewById<TextView>(R.id.tv_title).text.toString(),
-                        bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
-                        bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
-                        peopleCount = PeopleCount(0),
-                        ticketType = TicketType.GENERAL,
-                    ),
-                )
-            }
-        startActivity(intent)
     }
 
     private fun showToast(

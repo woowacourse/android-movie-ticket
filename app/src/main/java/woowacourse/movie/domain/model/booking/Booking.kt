@@ -12,18 +12,4 @@ class Booking(
     val ticketType: TicketType,
 ) : Serializable {
     val ticketPrice: Int get() = ticketType.price * count.value
-
-    constructor(
-        title: String,
-        bookingDate: String,
-        bookingTime: String,
-        peopleCount: PeopleCount,
-        ticketType: TicketType,
-    ) : this(
-        title = title,
-        bookingDate = LocalDate.parse(bookingDate),
-        bookingTime = LocalTime.parse(bookingTime),
-        count = peopleCount,
-        ticketType = ticketType,
-    )
 }

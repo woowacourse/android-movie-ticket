@@ -1,6 +1,8 @@
 package woowacourse.movie.view.booking
 
+import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.domain.model.movies.DefaultMovieModel
 import woowacourse.movie.domain.model.movies.Movie
 
@@ -13,6 +15,10 @@ interface BookingContract {
         fun onClickIncrease()
 
         fun onClickDecrease()
+
+        fun onClickBooking()
+
+        fun moveToBookingComplete(booking: Booking)
     }
 
     interface Presenter {
@@ -23,6 +29,14 @@ interface BookingContract {
         fun decreasePeopleCount()
 
         fun increasePeopleCount()
+
+        fun loadBooking(
+            title: String,
+            bookingDate: String,
+            bookingTime: String,
+            peopleCount: String,
+            ticketType: TicketType,
+        )
     }
 
     companion object PresenterFactory {
