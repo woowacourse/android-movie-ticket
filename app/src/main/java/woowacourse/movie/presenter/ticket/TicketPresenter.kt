@@ -1,5 +1,13 @@
 package woowacourse.movie.presenter.ticket
 
 import woowacourse.movie.contract.ticket.TicketContract
+import woowacourse.movie.domain.ticket.Ticket
 
-class TicketPresenter : TicketContract.Presenter
+class TicketPresenter(
+    private val view: TicketContract.View,
+    private val ticket: Ticket,
+) : TicketContract.Presenter {
+    override fun presentTitle() {
+        view.setMovieTitle(ticket.title)
+    }
+}

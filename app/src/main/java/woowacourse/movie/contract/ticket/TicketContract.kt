@@ -1,7 +1,11 @@
 package woowacourse.movie.contract.ticket
 
 interface TicketContract {
-    interface Presenter
+    interface Presenter {
+        fun presentTitle()
+    }
 
-    interface View
+    interface View {
+        fun setMovieTitle(movieTitle: String)
+    }
 }

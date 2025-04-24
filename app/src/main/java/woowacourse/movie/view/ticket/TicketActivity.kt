@@ -13,6 +13,7 @@ import woowacourse.movie.R
 import woowacourse.movie.contract.ticket.TicketContract
 import woowacourse.movie.domain.ticket.CancelTimePolicy
 import woowacourse.movie.domain.ticket.Ticket
+import woowacourse.movie.presenter.ticket.TicketPresenter
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDateTime
 
@@ -20,6 +21,13 @@ class TicketActivity :
     AppCompatActivity(),
     TicketContract.View {
     private var ticket: Ticket? = null
+    private var presenter: TicketContract.Presenter? = null
+
+    private lateinit var cancelDescriptionView: TextView
+    private lateinit var priceView: TextView
+    private lateinit var countView: TextView
+    private lateinit var showtimeView: TextView
+    private lateinit var titleView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +39,22 @@ class TicketActivity :
             insets
         }
 
+        findViews()
         initModel()
+        val ticket =
+            intent.getTicketExtra(EXTRA_TICKET) ?: error(
+                ErrorMessage(CAUSE_TICKET).notProvided(),
+            )
+        presenter = TicketPresenter(this, ticket)
         initViews()
+    }
+
+    private fun findViews() {
+        cancelDescriptionView = findViewById<TextView>(R.id.tv_ticket_cancel_description)
+        priceView = findViewById<TextView>(R.id.tv_ticket_price)
+        countView = findViewById<TextView>(R.id.tv_ticket_count)
+        showtimeView = findViewById<TextView>(R.id.tv_ticket_showtime)
+        titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
     }
 
     private fun initModel() {
@@ -54,8 +76,10 @@ class TicketActivity :
         }
 
     private fun initViews() {
+        (presenter ?: error("")).run {
+            presentTitle()
+        }
         initCancelDescriptionView()
-        initTitleView()
         initShowtimeView()
         initCountView()
         initPriceView()
@@ -91,10 +115,8 @@ class TicketActivity :
             }
     }
 
-    private fun initTitleView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
-        val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
-        titleView.text = ticket.title
+    override fun setMovieTitle(movieTitle: String) {
+        titleView.text = movieTitle
     }
 
     companion object {
