@@ -41,4 +41,16 @@ class TicketPresenterTest {
         // then
         verify { view.setMovieTitle("해리 포터와 마법사의 돌") }
     }
+
+    @Test
+    fun `영화_상영_시간을_표시한다`() {
+        // given
+        every { view.setShowtime(LocalDateTime.of(2025, 4, 15, 11, 0)) } just Runs
+
+        // when
+        presenter.presentShowtime()
+
+        // then
+        verify { view.setShowtime(LocalDateTime.of(2025, 4, 15, 11, 0)) }
+    }
 }

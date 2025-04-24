@@ -10,4 +10,8 @@ class TicketPresenter(
     override fun presentTitle() {
         view.setMovieTitle(ticket.title)
     }
+
+    override fun presentShowtime() {
+        view.setShowtime(ticket.showtime)
+    }
 }

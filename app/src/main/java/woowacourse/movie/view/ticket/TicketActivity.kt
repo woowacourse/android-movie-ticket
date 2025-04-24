@@ -78,9 +78,9 @@ class TicketActivity :
     private fun initViews() {
         (presenter ?: error("")).run {
             presentTitle()
+            presentShowtime()
         }
         initCancelDescriptionView()
-        initShowtimeView()
         initCountView()
         initPriceView()
     }
@@ -106,17 +106,15 @@ class TicketActivity :
         countView.text = getString(R.string.ticket_count, ticket.count)
     }
 
-    private fun initShowtimeView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
-        val showtimeView = findViewById<TextView>(R.id.tv_ticket_showtime)
-        showtimeView.text =
-            ticket.showtime.run {
-                getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
-            }
-    }
-
     override fun setMovieTitle(movieTitle: String) {
         titleView.text = movieTitle
+    }
+
+    override fun setShowtime(showtime: LocalDateTime) {
+        showtimeView.text =
+            showtime.run {
+                getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
+            }
     }
 
     companion object {
