@@ -80,3 +80,17 @@
 - [ ] createTicket()이 activity에 있는 것이 적절한지 고민하기
 - [x] TextView의 freezesText 속성을 활용하여 회전 시 데이터 저장하도록 변경
 - [x] Parcelable 버전별 처리 네이밍 변경
+
+## 3차 피드백 반영
+- [ ] 빈 함수 반환 값 Unit 지정
+- [ ] onRestoreInstanceState() 제거
+- [ ] spinner 필드에서 by lazy로 변경
+- [ ] 다이얼로그에서 context 제거하도록 개선
+
+
+## 📚️ 개요
+
+View와 Model의 의존성을 최소화한다.
+Activity에 존재하는 View와 Controller의 역할을 분리하는 것부터 시작해보자.
+
+## 🛠️ 구현할 기능
