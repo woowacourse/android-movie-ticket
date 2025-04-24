@@ -70,3 +70,9 @@
 - [x] deprecated된 코드 수정
 - [x] key 동반 객체의 중복 방지 고민
 - [x] 불변 객체에 getter 수정
+
+### 3차 피드백 반영
+- [ ] TicketType은 상태만 명시하도록 수정하고 계산은 다른 로직
+- [ ] key 값 컨벤션 통일
+- [ ] selectedItem nullable 확인
+- [ ] isDateInit boolean flag 제외하고 처리 및 Martin Fowler - Refactoring에서 boolean flag 단점 학습
