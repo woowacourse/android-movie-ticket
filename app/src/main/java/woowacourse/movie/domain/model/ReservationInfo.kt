@@ -11,5 +11,6 @@ class ReservationInfo(
 
     companion object {
         private const val TICKET_PRICE = 13_000
+        const val CANCELLATION_TIME = 15
     }
 }

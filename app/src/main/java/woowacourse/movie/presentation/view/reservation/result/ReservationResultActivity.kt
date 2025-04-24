@@ -6,54 +6,73 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
-import woowacourse.movie.presentation.model.toModel
-import woowacourse.movie.presentation.model.toUiModel
+import woowacourse.movie.presentation.util.DialogInfo
 import woowacourse.movie.presentation.view.movies.MoviesActivity
 
-class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
-    private lateinit var views: ReservationResultViews
+class ReservationResultActivity :
+    BaseActivity(R.layout.activity_reservation_result),
+    ReservationResultContract.View {
+    private val views: ReservationResultViews by lazy { ReservationResultViews(this) }
+    private val presenter: ReservationResultPresenter by lazy { ReservationResultPresenter(this) }
+
+    private val invalidReservationDialogInfo: DialogInfo by lazy {
+        DialogInfo(
+            title = getString(R.string.invalid_reservation_dialog_title),
+            message = getString(R.string.invalid_reservation_datetime_message),
+            positiveButtonText = getString(R.string.invalid_reservation_dialog_positive),
+            onClickPositiveButton = {
+                onBackPressedDispatcher.onBackPressed()
+            },
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()
+        setBackPressedDispatcher()
 
-        views = ReservationResultViews(this)
-        val reservationInfo =
-            intent
-                ?.getParcelableCompat<ReservationInfoUiModel>(
-                    BUNDLE_KEY_RESERVATION_INFO,
-                )?.toModel()
-        reservationInfo?.let { info -> views.bindReservationResult(info) }
-
-        onBackPressedDispatcher.addCallback(
-            this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    navigateToMovies()
-                }
-            },
-        )
+        presenter.fetchDate {
+            intent?.getParcelableCompat<ReservationInfoUiModel>(BUNDLE_KEY_RESERVATION_INFO)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
-                navigateToMovies()
+                navigateToMoviesScreen()
             }
         }
 
         return super.onOptionsItemSelected(item)
     }
 
+    override fun setScreen(info: ReservationInfoUiModel) {
+        views.bindReservationResult(info, presenter.cancellationTime)
+    }
+
+    override fun showInvalidReservationInfoDialog() {
+        views.dialog.show(invalidReservationDialogInfo)
+    }
+
     private fun setupActionBar() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun navigateToMovies() {
+    private fun setBackPressedDispatcher() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    navigateToMoviesScreen()
+                }
+            },
+        )
+    }
+
+    private fun navigateToMoviesScreen() {
         val intent = Intent(this@ReservationResultActivity, MoviesActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(intent)
@@ -64,11 +83,11 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
 
         fun newIntent(
             context: Context,
-            reservationInfo: ReservationInfo,
+            reservationInfo: ReservationInfoUiModel,
         ): Intent =
             Intent(context, ReservationResultActivity::class.java).putExtra(
                 BUNDLE_KEY_RESERVATION_INFO,
-                reservationInfo.toUiModel(),
+                reservationInfo,
             )
     }
 }

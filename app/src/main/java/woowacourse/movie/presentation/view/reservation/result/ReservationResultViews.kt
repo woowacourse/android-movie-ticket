@@ -2,8 +2,9 @@ package woowacourse.movie.presentation.view.reservation.result
 
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
+import woowacourse.movie.presentation.model.ReservationInfoUiModel
+import woowacourse.movie.presentation.util.CustomAlertDialog
 
 class ReservationResultViews(
     private val activity: ReservationResultActivity,
@@ -15,7 +16,12 @@ class ReservationResultViews(
         activity.findViewById(R.id.tv_reservation_count_info)
     private val tvTotalPrice: TextView = activity.findViewById(R.id.tv_reservation_total_price)
 
-    fun bindReservationResult(info: ReservationInfo) {
+    val dialog: CustomAlertDialog by lazy { CustomAlertDialog(activity) }
+
+    fun bindReservationResult(
+        info: ReservationInfoUiModel,
+        cancellationTime: Int,
+    ) {
         tvMovieTitle.text = info.title
         activity
             .getString(R.string.reservation_datetime_format)
@@ -24,17 +30,13 @@ class ReservationResultViews(
                 tvMovieDate.text = info.reservationDateTime.format(formatter)
             }
         tvReservationCountInfo.text =
-            activity.getString(R.string.reservation_count_info).format(info.reservationCount.value)
+            activity.getString(R.string.reservation_count_info).format(info.reservationCount)
         tvTotalPrice.text =
-            activity.getString(R.string.reservation_total_price).format(info.totalPrice())
+            activity.getString(R.string.reservation_total_price).format(info.totalPrice)
         tvCancelDescription.text =
             activity.getString(
                 R.string.reservation_result_cancel_time_description,
-                CANCELLATION_TIME,
+                cancellationTime,
             )
-    }
-
-    companion object {
-        private const val CANCELLATION_TIME = 15
     }
 }
