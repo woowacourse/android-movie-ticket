@@ -16,6 +16,7 @@ import woowacourse.movie.fixture.SCREENING_DATE
 import woowacourse.movie.fixture.TICKET_COUNT
 import woowacourse.movie.fixture.TOTAL_COUNT
 import woowacourse.movie.fixture.createReservation
+import woowacourse.movie.result.ReservationResultActivity
 
 class ReservationResultActivityTest {
     private lateinit var intent: Intent

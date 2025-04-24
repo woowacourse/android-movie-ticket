@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.result
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.KeyIdentifiers
+import woowacourse.movie.R
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.ext.getSerializableCompat
 import woowacourse.movie.main.MainActivity
@@ -16,7 +18,9 @@ import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ReservationResultActivity : AppCompatActivity() {
+class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
+    private val presenter = ReservationResultPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,16 +31,15 @@ class ReservationResultActivity : AppCompatActivity() {
             insets
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        val reservation = extractReservation()
-        bindReservation(reservation)
+        presenter.setUpReservation(extractReservation())
+        presenter.showReservation()
     }
 
     private fun extractReservation(): Reservation {
         return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
     }
 
-    private fun bindReservation(reservation: Reservation) {
+    override fun bindReservation(reservation: Reservation) {
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
         val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)

@@ -18,11 +18,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
-import woowacourse.movie.ReservationResultActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.ext.getSerializableCompat
+import woowacourse.movie.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
