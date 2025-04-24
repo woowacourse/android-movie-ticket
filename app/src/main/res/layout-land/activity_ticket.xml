@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.TicketActivity">
+    tools:context=".view.ticket.TicketActivity">
 
     <TextView
         android:id="@+id/tv_ticket_cancel_time_info"

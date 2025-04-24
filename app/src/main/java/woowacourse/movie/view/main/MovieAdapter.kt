@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.view.model.ResourceMapper
 
 class MovieAdapter(
     screenings: List<Screening>,

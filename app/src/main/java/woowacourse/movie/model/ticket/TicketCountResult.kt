@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model.ticket
 
 sealed class TicketCountResult {
     data class Success(

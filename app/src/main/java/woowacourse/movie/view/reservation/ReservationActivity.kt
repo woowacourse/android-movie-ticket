@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -17,14 +17,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening
-import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.domain.TicketCountResult
-import woowacourse.movie.domain.getOrDefault
-import woowacourse.movie.domain.getOrThrow
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.model.ticket.TicketCount
+import woowacourse.movie.model.ticket.TicketCountResult
+import woowacourse.movie.model.ticket.getOrDefault
+import woowacourse.movie.model.ticket.getOrThrow
+import woowacourse.movie.view.model.ResourceMapper
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
+import woowacourse.movie.view.ticket.TicketActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

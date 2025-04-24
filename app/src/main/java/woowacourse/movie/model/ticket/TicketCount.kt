@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model.ticket
 
 @JvmInline
 value class TicketCount private constructor(

@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.ticket
 
 import android.content.Context
 import android.content.Intent
@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.domain.getOrDefault
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.model.ticket.Ticket
+import woowacourse.movie.model.ticket.TicketCount
+import woowacourse.movie.model.ticket.getOrDefault
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDateTime
 

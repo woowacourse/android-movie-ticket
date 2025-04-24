@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model.movie
 
 class Movie(
     val title: String,

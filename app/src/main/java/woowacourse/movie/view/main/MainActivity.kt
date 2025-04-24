@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.main
 
 import android.os.Bundle
 import android.widget.ListView
@@ -7,8 +7,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.model.ScreeningData
+import woowacourse.movie.view.reservation.ReservationActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

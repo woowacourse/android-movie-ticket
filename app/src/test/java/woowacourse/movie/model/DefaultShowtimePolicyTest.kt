@@ -1,6 +1,7 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model
 
 import org.assertj.core.api.Assertions.assertThat
+import woowacourse.movie.model.movie.screening.DefaultShowtimePolicy
 import java.time.LocalDate
 import java.time.LocalTime
 import kotlin.test.Test

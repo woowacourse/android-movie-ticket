@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context=".view.ReservationActivity">
+    tools:context=".view.reservation.ReservationActivity">
 
     <ImageView
         android:id="@+id/iv_reservation_poster"
@@ -22,11 +22,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1.2"
         android:fillViewport="true">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center_vertical"
+            android:orientation="vertical"
             android:paddingStart="20dp"
             android:paddingEnd="20dp">
 

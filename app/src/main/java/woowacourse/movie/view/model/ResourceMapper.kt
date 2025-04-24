@@ -1,8 +1,8 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.model
 
 import androidx.annotation.DrawableRes
 import woowacourse.movie.R
-import woowacourse.movie.domain.Screening.Companion.HARRY_POTTER_1_MOVIE_ID
+import woowacourse.movie.model.movie.screening.Screening.Companion.HARRY_POTTER_1_MOVIE_ID
 
 object ResourceMapper {
     @DrawableRes

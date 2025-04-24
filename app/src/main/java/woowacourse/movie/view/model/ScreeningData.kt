@@ -2,8 +2,8 @@ package woowacourse.movie.view.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Screening
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.screening.Screening
 import java.time.LocalDate
 
 @Parcelize

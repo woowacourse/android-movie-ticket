@@ -1,30 +1,29 @@
-package woowacourse.movie
+package woowacourse.movie.view.reservation
 
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.core.AllOf.allOf
 import org.hamcrest.core.Is.`is`
 import org.hamcrest.core.IsInstanceOf.instanceOf
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.view.ReservationActivity
+import woowacourse.movie.R
 import woowacourse.movie.view.model.ScreeningData
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservationActivityLandscapeTest {
+class ReservationActivityTest {
     val screeningData =
         ScreeningData(
             title = "영화 제목",
@@ -37,15 +36,17 @@ class ReservationActivityLandscapeTest {
     @get:Rule
     val activityRule =
         ActivityScenarioRule<ReservationActivity>(
-            ReservationActivity.newIntent(ApplicationProvider.getApplicationContext(), screeningData),
+            ReservationActivity.newIntent(
+                ApplicationProvider.getApplicationContext(),
+                screeningData,
+            ),
         )
 
-    @Before
-    fun setLandscapeOrientation() {
+    private fun rotateToLandscape() {
         activityRule.scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
         }
-        Thread.sleep(1000)
+        Thread.sleep(1500)
     }
 
     @Test
@@ -118,8 +119,6 @@ class ReservationActivityLandscapeTest {
 
     @Test
     fun `선택_완료를_클릭하면_다이얼로그가_표시된다`() {
-        onView(withId(R.id.sv_reservation)).perform(ViewActions.swipeUp())
-        Thread.sleep(300)
         onView(withId(R.id.btn_reservation_select_complete))
             .perform(click())
         onView(withText(R.string.ticket_dialog_title))
@@ -152,8 +151,6 @@ class ReservationActivityLandscapeTest {
 
     @Test
     fun `예매_완료를_확인하는_다이얼로그가_표시되고_배경을_터치해도_사라지지_않아야_한다`() {
-        onView(withId(R.id.sv_reservation)).perform(ViewActions.swipeUp())
-        Thread.sleep(300)
         onView(withId(R.id.btn_reservation_select_complete))
             .perform(click())
 
@@ -162,5 +159,73 @@ class ReservationActivityLandscapeTest {
 
         onView(withText(R.string.ticket_dialog_title))
             .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `인원수_증가_후_화면_회전시_데이터가_유지된다`() {
+        // 인원수 증가
+        onView(withId(R.id.btn_reservation_plus))
+            .perform(click())
+
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("2")))
+
+        // 화면 회전
+        rotateToLandscape()
+
+        // 인원수 유지 확인
+        onView(withId(R.id.tv_reservation_audience_count))
+            .check(matches(withText("2")))
+    }
+
+    @Test
+    fun `날짜_선택_후_화면_회전시_데이터가_유지된다`() {
+        // 4월 20일(일요일) 선택
+        onView(withId(R.id.spinner_reservation_screening_date))
+            .perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(LocalDate::class.java)),
+                `is`(LocalDate.of(2025, 4, 20)),
+            ),
+        ).perform(click())
+
+        // 화면 회전
+        rotateToLandscape()
+
+        // 4월 20일(일요일) 유지 확인
+        onView(withId(R.id.spinner_reservation_screening_date))
+            .check(matches(withSpinnerText(LocalDate.of(2025, 4, 20).toString())))
+    }
+
+    @Test
+    fun `시간_선택_후_화면_회전시_데이터가_유지된다`() {
+        // 4월 20일(일요일) 13시 선택
+        onView(withId(R.id.spinner_reservation_screening_date))
+            .perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(LocalDate::class.java)),
+                `is`(LocalDate.of(2025, 4, 20)),
+            ),
+        ).perform(click())
+
+        onView(withId(R.id.spinner_reservation_screening_time))
+            .perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(LocalTime::class.java)),
+                `is`(LocalTime.of(13, 0)),
+            ),
+        ).perform(click())
+
+        // 화면 회전
+        rotateToLandscape()
+
+        // 4월 20일(일요일) 13시 유지 확인
+        onView(withId(R.id.spinner_reservation_screening_date))
+            .check(matches(withSpinnerText(LocalDate.of(2025, 4, 20).toString())))
+        onView(withId(R.id.spinner_reservation_screening_time))
+            .check(matches(withSpinnerText(LocalTime.of(13, 0).toString())))
     }
 }
