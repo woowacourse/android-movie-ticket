@@ -69,14 +69,25 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun updateMemberCount(value: Result<Int>) {
         value
-            .onSuccess { binding.count.text = it.toString() }
+            .onSuccess {
+                memberCount = it
+                binding.count.text = it.toString()
+            }
             .onFailure {
                 Toast.makeText(this, getString(R.string.request_least_one_person), Toast.LENGTH_SHORT)
                     .show()
             }
     }
 
-    private fun navigate(reservationDto: ReservationDto) {
+    private fun navigate(movie: MovieDto) {
+        val reservationDto =
+            ReservationDto(
+                movie = movie,
+                isBooked = true,
+                memberCount = memberCount,
+                bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
+                totalPrice = reservationPresenter.price(memberCount),
+            )
         val intent =
             ReservationCompleteActivity
                 .newIntent(this, reservationDto)
@@ -123,15 +134,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         binding.commonButton.setOnClickListener {
             dialog {
                 onPositiveButtonClicked {
-                    navigate(
-                        ReservationDto(
-                            movie = movie,
-                            isBooked = true,
-                            memberCount = memberCount,
-                            bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
-                            totalPrice = reservationPresenter.price(memberCount),
-                        ),
-                    )
+                    navigate(movie)
                 }
             }.show()
         }
