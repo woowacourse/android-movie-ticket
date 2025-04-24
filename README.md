@@ -72,7 +72,7 @@
 - [x] 불변 객체에 getter 수정
 
 ### 3차 피드백 반영
-- [ ] TicketType은 상태만 명시하도록 수정하고 계산은 다른 로직
-- [ ] key 값 컨벤션 통일
-- [ ] selectedItem nullable 확인
-- [ ] isDateInit boolean flag 제외하고 처리 및 Martin Fowler - Refactoring에서 boolean flag 단점 학습
+- [x] TicketType은 상태만 명시하도록 수정하고 계산은 다른 로직
+- [x] key 값 컨벤션 통일
+- [x] selectedItem nullable 확인
+- [x] isDateInit boolean flag 제외하고 처리 및 Martin Fowler - Refactoring에서 boolean flag 단점 학습

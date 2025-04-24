@@ -237,11 +237,23 @@ class ReserveActivity : AppCompatActivity() {
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimes(selectedDate))
     }
 
-    private fun getSelectedDateTime(): LocalDateTime =
-        LocalDateTime.of(
-            dateSpinner.selectedItem as LocalDate,
-            timeSpinner.selectedItem as LocalTime,
+    private fun getSelectedDateTime(): LocalDateTime {
+        val selectedDate = dateSpinner.selectedItem as? LocalDate
+        val selectedTime = timeSpinner.selectedItem as? LocalTime
+        val dialogInfo =
+            DialogInfo(
+                getString(R.string.error_reservation_title),
+                getString(R.string.error_reservation_message),
+                getString(R.string.confirm),
+                null,
+                ::finish,
+            )
+        if (selectedDate == null || selectedTime == null) customAlertDialog.show(dialogInfo)
+        return LocalDateTime.of(
+            selectedDate,
+            selectedTime,
         )
+    }
 
     private fun updateTicketCount() {
         ticketCountTextView.text = purchaseCount.value.toString()
