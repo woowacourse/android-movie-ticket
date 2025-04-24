@@ -1,4 +1,4 @@
-package woowacourse.movie.booking
+package woowacourse.movie.domain
 
 class TicketCount(
     startCount: Int = 0,

@@ -8,7 +8,7 @@ import woowacourse.movie.dto.Ticket
 object ConfirmDialog {
     fun show(
         context: Context,
-        ticket: Ticket,
+        ticketDTO: Ticket,
         onConfirmed: () -> Unit,
     ) {
         AlertDialog

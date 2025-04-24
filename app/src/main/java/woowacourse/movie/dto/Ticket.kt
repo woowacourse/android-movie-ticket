@@ -8,6 +8,6 @@ data class Ticket(
     val title: String,
     val date: String,
     val time: String,
-    val count: String,
-    val money: String,
+    val count: Int,
+    val money: Int,
 ) : Parcelable

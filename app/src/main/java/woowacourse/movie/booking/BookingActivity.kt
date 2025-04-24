@@ -11,8 +11,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.bookingResult.BookingResultActivity
+import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.domain.TicketMaker
 import woowacourse.movie.dto.MovieInfo
-import woowacourse.movie.dto.Ticket
 import woowacourse.movie.util.DataUtils
 
 class BookingActivity : AppCompatActivity() {
@@ -132,19 +133,18 @@ class BookingActivity : AppCompatActivity() {
     }
 
     private fun askToConfirmBook() {
-        val ticket =
-            Ticket(
+        val ticketDTO =
+            TicketMaker.generator(
                 title = findViewById<TextView>(R.id.title).text.toString(),
                 date = selectedDate.selectedItem.toString(),
                 time = movieTime.selectedItem.toString(),
-                count = ticketCount.text.toString(),
-                money = (ticketCount.text.toString().toInt() * TICKET_PRICE).toString(),
+                count = ticketCountValue.count,
             )
 
-        ConfirmDialog.show(this, ticket) {
+        ConfirmDialog.show(this, ticketDTO) {
             val intent =
                 Intent(this, BookingResultActivity::class.java).apply {
-                    putExtra(KEY_TICKET, ticket)
+                    putExtra(KEY_TICKET, ticketDTO)
                 }
             startActivity(intent)
         }
@@ -156,7 +156,5 @@ class BookingActivity : AppCompatActivity() {
         private const val KEY_MOVIE_TIME_POSITION = "MOVIE_TIME_POSITION"
         private const val KEY_MOVIE_INFO = "MOVIE_INFO"
         private const val KEY_TICKET = "TICKET"
-
-        private const val TICKET_PRICE = 13000
     }
 }

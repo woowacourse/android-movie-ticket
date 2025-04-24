@@ -18,11 +18,11 @@ class BookingResultActivityTest {
 
     @Before
     fun setupIntent() {
-        val ticket = Ticket("해리 포터와 마법사의 돌", "2025.4.17", "10:00", "2", "26000")
+        val ticketDTO = Ticket("해리 포터와 마법사의 돌", "2025.4.17", "10:00", 2, 26000)
 
         intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingResultActivity::class.java).apply {
-                putExtra("TICKET", ticket)
+                putExtra("TICKET", ticketDTO)
             }
     }
 
