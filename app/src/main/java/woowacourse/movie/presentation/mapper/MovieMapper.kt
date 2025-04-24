@@ -29,7 +29,7 @@ fun BookingInfo.toUi(): BookingInfoUiModel =
         movie = movie.toUi(),
         date = date,
         movieTime = movieTime,
-        ticketCount = ticketCount,
+        ticketCount = ticketCount.value,
         eachPrice = eachPrice,
         totalPrice = totalPrice,
     )

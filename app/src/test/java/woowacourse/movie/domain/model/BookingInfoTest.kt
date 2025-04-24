@@ -51,39 +51,6 @@ class BookingInfoTest {
     }
 
     @Test
-    fun `increaseTicketCount 호출 시 티켓 수량을 증가시킨다`() {
-        // given & when
-        bookingInfo.increaseTicketCount()
-
-        // then
-        assertThat(bookingInfo.ticketCount).isEqualTo(1)
-    }
-
-    @Test
-    fun `decreaseTicketCount 호출 시 티켓 수량을 감소시킨다`() {
-        // given
-        bookingInfo.increaseTicketCount(2)
-
-        // when
-        bookingInfo.decreaseTicketCount()
-
-        // then
-        assertThat(bookingInfo.ticketCount).isEqualTo(1)
-    }
-
-    @Test
-    fun `티켓 수량이 0보다 작아질 수는 없다`() {
-        // given
-        bookingInfo.increaseTicketCount(1)
-
-        // when
-        bookingInfo.decreaseTicketCount(10)
-
-        // then
-        assertThat(bookingInfo.ticketCount).isEqualTo(0)
-    }
-
-    @Test
     fun `3장의 티켓을 구매하면 39,000원이 된다`() {
         // given & when
         bookingInfo.increaseTicketCount(3)

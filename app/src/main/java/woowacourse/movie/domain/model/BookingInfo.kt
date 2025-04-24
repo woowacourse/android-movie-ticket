@@ -12,8 +12,7 @@ data class BookingInfo(
     private var _movieTime: MovieTime = getMovieTimes(DateType.from(date)).first()
     val movieTime: MovieTime get() = _movieTime
 
-    private var _ticketCount: Int = 0
-    val ticketCount: Int get() = _ticketCount
+    val ticketCount: TicketCount = TicketCount()
 
     val eachPrice: Int = DEFAULT_TICKET_PRICE
     val totalPrice: Int get() = ticketCount * eachPrice
@@ -28,15 +27,11 @@ data class BookingInfo(
     }
 
     fun increaseTicketCount(count: Int = 1) {
-        _ticketCount += count
+        ticketCount.increase(count)
     }
 
     fun decreaseTicketCount(count: Int = 1) {
-        if (ticketCount - count < 0) {
-            _ticketCount = 0
-        } else {
-            _ticketCount -= count
-        }
+        ticketCount.decrease(count)
     }
 
     companion object {
