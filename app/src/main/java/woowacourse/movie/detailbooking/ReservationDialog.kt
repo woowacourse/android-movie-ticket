@@ -5,12 +5,12 @@ import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
 
 class ReservationDialog {
-    fun popUp(context: Context, onPositiveClick: () -> Unit): AlertDialog {
+    fun popUp(context: Context, onPositiveClick: () -> Unit) {
         val title = context.getString(R.string.dialog_reservation_title)
         val message = context.getString(R.string.dialog_reservation_message)
         val positiveText = context.getString(R.string.dialog_reservation_positive_text)
         val negativeText = context.getString(R.string.dialog_reservation_negative_text)
-        return AlertDialog.Builder(context)
+        AlertDialog.Builder(context)
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(positiveText) { _, _ ->
@@ -20,6 +20,6 @@ class ReservationDialog {
                 dialog.dismiss()
             }
             .setCancelable(false)
-            .create()
+            .show()
     }
 }
