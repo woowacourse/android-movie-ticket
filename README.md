@@ -84,7 +84,7 @@
 ## 3차 피드백 반영
 - [x] 빈 함수 반환 값 Unit으로 변경
 - [ ] onRestoreInstanceState() 제거
-- [ ] spinner 필드에서 by lazy로 변경
+- [x] 클래스 필드에서 spinner by lazy로 변경하여 spinner를 함수 파라미터로 넘기지 않도록 변경
 - [ ] 다이얼로그에서 context 제거하도록 개선
 
 

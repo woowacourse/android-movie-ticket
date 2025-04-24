@@ -32,6 +32,8 @@ class DetailBookingActivity : AppCompatActivity() {
     private var selectedDatePosition = 0
     private var selectedTimePosition = 0
     private val counterTextView: TextView by lazy { findViewById(R.id.detail_personnel) }
+    private val spinnerDate: Spinner by lazy { findViewById(R.id.detail_spinner_date) }
+    private val spinnerTime: Spinner by lazy { findViewById(R.id.detail_spinner_time) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,9 +52,9 @@ class DetailBookingActivity : AppCompatActivity() {
 
         setMovieInfo(movie)
         setCountButtons()
-        setReservationButton(movie, spinnerDate, spinnerTime)
+        setReservationButton(movie)
 
-        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
+        setDateSpinner(movie, LocalDate.now())
 
         if (savedInstanceState != null) {
             restoreInstanceState(savedInstanceState)
@@ -118,11 +120,7 @@ class DetailBookingActivity : AppCompatActivity() {
         updateCounterText()
     }
 
-    private fun setReservationButton(
-        movie: Movie,
-        spinnerDate: Spinner,
-        spinnerTime: Spinner,
-    ) {
+    private fun setReservationButton(movie: Movie) {
         val reservationButton = findViewById<Button>(R.id.detail_reservation_button)
 
         reservationButton.setOnClickListener {
@@ -150,19 +148,17 @@ class DetailBookingActivity : AppCompatActivity() {
     private fun setDateSpinner(
         movie: Movie,
         localDate: LocalDate,
-        spinner: Spinner,
-        spinnerTime: Spinner,
     ) {
         val movieSchedule = MovieSchedule(movie.date)
         val currentDateSpinner = movieSchedule.selectableDates(localDate)
 
-        spinner.adapter =
+        spinnerDate.adapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
                 currentDateSpinner,
             )
-        spinner.onItemSelectedListener =
+        spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -172,19 +168,16 @@ class DetailBookingActivity : AppCompatActivity() {
                 ) {
                     selectedDatePosition = position
                     val selectedDate = currentDateSpinner[selectedDatePosition]
-                    setTimeSpinner(spinnerTime, selectedDate)
+                    setTimeSpinner(selectedDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
     }
 
-    private fun setTimeSpinner(
-        spinner: Spinner,
-        localDate: LocalDate,
-    ) {
+    private fun setTimeSpinner(localDate: LocalDate) {
         val currentTimeTable = ScreeningTime(localDate.atStartOfDay()).selectableTimes()
-        spinner.adapter =
+        spinnerTime.adapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
@@ -193,9 +186,9 @@ class DetailBookingActivity : AppCompatActivity() {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
 
-        spinner.setSelection(selectedTimePosition)
+        spinnerTime.setSelection(selectedTimePosition)
 
-        spinner.onItemSelectedListener =
+        spinnerTime.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
