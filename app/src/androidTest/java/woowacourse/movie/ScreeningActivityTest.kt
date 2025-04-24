@@ -47,49 +47,13 @@ class ScreeningActivityTest {
         )
 
     @Test
-    fun `앱을_실행하면_영화_제목이_표시된다`() {
-        onView(withId(R.id.tv_item_screening_title))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `상영일이_표시된다`() {
-        onView(withId(R.id.tv_item_screening_date))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `포스터가_표시된다`() {
-        onView(withId(R.id.iv_item_screening_poster))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `러닝타임이_표시된다`() {
-        onView(withId(R.id.tv_item_screening_running_time))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `목록에_영화_정보를_표시한다`() {
+    fun `상영_리스트가_표시된다`() {
         onView(withId(R.id.lv_screening_movies))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun `지금_예매를_클릭하면_영화_예매_완료_화면이_보여진다`() {
-        onView(withId(R.id.btn_item_screening_reserve))
-            .perform(click())
-
-        onView(withId(R.id.layout_reservation))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `영화_리스트가_표시된다`() {
-        onView(withId(R.id.lv_screening_movies))
-            .check(matches(isDisplayed()))
-
+    fun `상영_리스트에는_각각의_상영_정보가_표시된디`() {
         onData(
             allOf(
                 `is`(instanceOf(Screening::class.java)),
@@ -102,5 +66,93 @@ class ScreeningActivityTest {
                 ),
             ),
         ).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `상영_정보에는_영화_제목이_표시된다`() {
+        onData(
+            allOf(
+                `is`(instanceOf(Screening::class.java)),
+                `is`(
+                    Screening(
+                        harryPotter,
+                        LocalDate.of(2025, 5, 1),
+                        LocalDate.of(2025, 5, 25),
+                    ),
+                ),
+            ),
+        ).onChildView(withId(R.id.tv_item_screening_title))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `상영_정보에는_상영일이_표시된다`() {
+        onData(
+            allOf(
+                `is`(instanceOf(Screening::class.java)),
+                `is`(
+                    Screening(
+                        harryPotter,
+                        LocalDate.of(2025, 5, 1),
+                        LocalDate.of(2025, 5, 25),
+                    ),
+                ),
+            ),
+        ).onChildView(withId(R.id.tv_item_screening_date))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `상영_정보에는_포스터가_표시된다`() {
+        onData(
+            allOf(
+                `is`(instanceOf(Screening::class.java)),
+                `is`(
+                    Screening(
+                        harryPotter,
+                        LocalDate.of(2025, 5, 1),
+                        LocalDate.of(2025, 5, 25),
+                    ),
+                ),
+            ),
+        ).onChildView(withId(R.id.iv_item_screening_poster))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `상영_정보에는_러닝타임이_표시된다`() {
+        onData(
+            allOf(
+                `is`(instanceOf(Screening::class.java)),
+                `is`(
+                    Screening(
+                        harryPotter,
+                        LocalDate.of(2025, 5, 1),
+                        LocalDate.of(2025, 5, 25),
+                    ),
+                ),
+            ),
+        ).onChildView(withId(R.id.tv_item_screening_running_time))
+            .check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun `지금_예매를_클릭하면_영화_예매_완료_화면이_보여진다`() {
+        onData(
+            allOf(
+                `is`(instanceOf(Screening::class.java)),
+                `is`(
+                    Screening(
+                        harryPotter,
+                        LocalDate.of(2025, 5, 1),
+                        LocalDate.of(2025, 5, 25),
+                    ),
+                ),
+            ),
+        ).onChildView(withId(R.id.btn_item_screening_reserve))
+            .perform(click())
+
+        onView(withId(R.id.layout_reservation))
+            .check(matches(isDisplayed()))
     }
 }
