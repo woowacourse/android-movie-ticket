@@ -32,7 +32,7 @@ class ReservationActivity :
     ReservationContract.View {
     private var screening: Screening? = null
     private var presenter: ReservationContract.Presenter? = null
-    private val showReservationDialog by lazy { ShowReservationDialog(this) }
+    private val showConfirmDialog by lazy { ShowReservationConfirmDialog(this) }
 
     private var ticketCount = DEFAULT_TICKET_COUNT
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
@@ -175,31 +175,8 @@ class ReservationActivity :
 
     private fun initCompleteButtonClickEvent() {
         completeButton.setOnClickListener {
-            showReservationDialog(
-                title = getString(R.string.ticket_dialog_title),
-                message = getString(R.string.ticket_dialog_message),
-                positiveButtonText = getString(R.string.ticket_dialog_positive_button),
-                positiveButtonAction = { _, _ -> navigateToTicketActivity() },
-                negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
-                negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
-            )
+            presenter?.tryReservation() ?: error("")
         }
-    }
-
-    private fun navigateToTicketActivity() {
-        val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
-        val intent =
-            TicketActivity.newIntent(
-                this,
-                screening.title,
-                ticketCount,
-                LocalDateTime.of(
-                    dateSpinner.selectedItem as LocalDate,
-                    timeSpinner.selectedItem as LocalTime,
-                ),
-            )
-        startActivity(intent)
-        finish()
     }
 
     override fun setPoster(movieId: Int) {
@@ -266,6 +243,33 @@ class ReservationActivity :
     override fun setTicketCount(count: Int) {
         ticketCount = count
         ticketCountView.text = ticketCount.toString()
+    }
+
+    override fun showConfirmDialog() {
+        showConfirmDialog(
+            title = getString(R.string.ticket_dialog_title),
+            message = getString(R.string.ticket_dialog_message),
+            positiveButtonText = getString(R.string.ticket_dialog_positive_button),
+            positiveButtonAction = { _, _ -> navigateToTicketActivity() },
+            negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
+            negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
+        )
+    }
+
+    private fun navigateToTicketActivity() {
+        val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
+        val intent =
+            TicketActivity.newIntent(
+                this,
+                screening.title,
+                ticketCount,
+                LocalDateTime.of(
+                    dateSpinner.selectedItem as LocalDate,
+                    timeSpinner.selectedItem as LocalTime,
+                ),
+            )
+        startActivity(intent)
+        finish()
     }
 
     companion object {

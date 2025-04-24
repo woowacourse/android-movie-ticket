@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.DialogInterface
 import androidx.appcompat.app.AlertDialog
 
-class ShowReservationDialog(
+class ShowReservationConfirmDialog(
     context: Context,
 ) {
     private val builder = AlertDialog.Builder(context)

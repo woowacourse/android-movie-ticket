@@ -48,4 +48,8 @@ class ReservationPresenter(
     override fun minusTicketCount(currentCount: Int) {
         view.setTicketCount(currentCount.minus(1).coerceAtLeast(1))
     }
+
+    override fun tryReservation() {
+        view.showConfirmDialog()
+    }
 }

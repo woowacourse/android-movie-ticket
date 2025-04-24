@@ -20,6 +20,8 @@ interface ReservationContract {
         fun plusTicketCount(currentCount: Int)
 
         fun minusTicketCount(currentCount: Int)
+
+        fun tryReservation()
     }
 
     interface View {
@@ -43,5 +45,7 @@ interface ReservationContract {
         fun setTimes(times: List<LocalTime>)
 
         fun setTicketCount(count: Int)
+
+        fun showConfirmDialog()
     }
 }

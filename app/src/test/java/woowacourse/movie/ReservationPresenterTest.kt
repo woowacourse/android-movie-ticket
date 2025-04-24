@@ -179,4 +179,16 @@ class ReservationPresenterTest {
         // then
         verify { view.setTicketCount(1) }
     }
+
+    @Test
+    fun `예매 확인 다이얼로그를 띄울 수 있다`() {
+        // given
+        every { view.showConfirmDialog() } just Runs
+
+        // when
+        presenter.tryReservation()
+
+        // then
+        verify { view.showConfirmDialog() }
+    }
 }
