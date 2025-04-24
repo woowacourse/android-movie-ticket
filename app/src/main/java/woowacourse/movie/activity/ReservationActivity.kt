@@ -32,7 +32,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
-    private val runningTimeRule = ServiceLocator.runningTimeRule
     private val today = ServiceLocator.today
     private val now = ServiceLocator.now
     private val reservationPresenter = ServiceLocator.reservationPresenter(this)
@@ -79,6 +78,54 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
             }
     }
 
+    override fun initRunningTimes(runningTimes: List<LocalTime>) {
+        screeningTimeAdapter =
+            RunningTimeSpinnerAdapter(runningTimes)
+        binding.timePickerActions.adapter = screeningTimeAdapter
+        runningDateTime = binding.timePickerActions.selectedItem as LocalTime
+        binding.timePickerActions.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    runningDateTime = parent?.getItemAtPosition(position) as LocalTime
+                    runningTimePosition = position
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    override fun initRunningDates(runningDates: List<LocalDate>) {
+        binding.datePickerActions.adapter =
+            ReservationDaySpinnerAdapter(runningDates)
+        reservationDay = binding.datePickerActions.selectedItem as LocalDate
+
+        binding.datePickerActions.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    reservationDay = parent?.getItemAtPosition(position) as LocalDate
+                    reservationPresenter.changeRunningTimes(now, reservationDay)
+                    datePosition = position
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    override fun changeRunningTimes(runningTimes: List<LocalTime>) {
+        screeningTimeAdapter.changeItems(runningTimes)
+        runningTimePosition = DEFAULT_POSITION
+    }
+
     private fun navigate(movie: MovieDto) {
         val reservationDto =
             ReservationDto(
@@ -97,8 +144,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private fun init() {
         val movie = intent.getObjectFromIntent<MovieDto>(MOVIE_KEY)
         setBindingText(movie)
-        setScreeningDate(movie)
-        setScreeningTime()
+        reservationPresenter.initRunningDates(today, movie)
+        reservationPresenter.initRunningTimes(now, reservationDay)
         setCounterEventListener()
         setCompleteButtonEventListener(movie)
     }
@@ -138,54 +185,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 }
             }.show()
         }
-    }
-
-    private fun setScreeningDate(movie: MovieDto) {
-        binding.datePickerActions.adapter =
-            ReservationDaySpinnerAdapter(
-                reservationPresenter.betweenDates(today, movie),
-            )
-        reservationDay = binding.datePickerActions.selectedItem as LocalDate
-
-        binding.datePickerActions.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    reservationDay = parent?.getItemAtPosition(position) as LocalDate
-                    screeningTimeAdapter.changeItems(runningTimeRule.whenTargetDay(reservationDay, now))
-                    runningTimePosition = DEFAULT_POSITION
-                    datePosition = position
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-            }
-    }
-
-    private fun setScreeningTime() {
-        screeningTimeAdapter =
-            RunningTimeSpinnerAdapter(
-                runningTimeRule.whenTargetDay(reservationDay, now),
-            )
-        binding.timePickerActions.adapter = screeningTimeAdapter
-        runningDateTime = binding.timePickerActions.selectedItem as LocalTime
-        binding.timePickerActions.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    runningDateTime = parent?.getItemAtPosition(position) as LocalTime
-                    runningTimePosition = position
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-            }
     }
 
     private fun dialog(block: DialogBuilder.() -> Unit): AlertDialog {

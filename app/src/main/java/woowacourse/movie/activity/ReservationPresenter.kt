@@ -3,17 +3,12 @@ package woowacourse.movie.activity
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.domain.PriceRule
 import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.global.ServiceLocator.runningTimeRule
 import java.time.LocalDate
+import java.time.LocalDateTime
 
 class ReservationPresenter(private val reservationView: ReservationContract.View) : ReservationContract.Presenter {
     private var memberCount = MemberCount()
-
-    override fun betweenDates(
-        today: LocalDate,
-        movieDto: MovieDto,
-    ): List<LocalDate> {
-        return movieDto.toMovie().betweenDates(today)
-    }
 
     override fun price(memberCount: Int): Int {
         return MemberCount(memberCount) * PriceRule.NORMAL.price
@@ -33,5 +28,28 @@ class ReservationPresenter(private val reservationView: ReservationContract.View
         }.onFailure {
             reservationView.updateMemberCount(Result.failure(it))
         }
+    }
+
+    override fun initRunningTimes(
+        now: LocalDateTime,
+        reservationDay: LocalDate,
+    ) {
+        val runningTimes = runningTimeRule.whenTargetDay(reservationDay, now)
+        reservationView.initRunningTimes(runningTimes)
+    }
+
+    override fun initRunningDates(
+        today: LocalDate,
+        movieDto: MovieDto,
+    ) {
+        val runningDates = movieDto.toMovie().betweenDates(today)
+        reservationView.initRunningDates(runningDates)
+    }
+
+    override fun changeRunningTimes(
+        now: LocalDateTime,
+        reservationDay: LocalDate,
+    ) {
+        reservationView.changeRunningTimes(runningTimeRule.whenTargetDay(reservationDay, now))
     }
 }
