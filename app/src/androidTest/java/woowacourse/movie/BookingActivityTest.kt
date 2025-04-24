@@ -28,7 +28,7 @@ import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 class BookingActivityTest {
-    private lateinit var scenario: ActivityScenario<BookingActivity>
+    private lateinit var scenario: ActivityScenario<BookingDetailActivity>
 
 //    @get:Rule
 //    val activityRule = ActivityScenarioRule(BookingActivity::class.java)
@@ -39,7 +39,7 @@ class BookingActivityTest {
 
         val movie = mockMovie()
         val intent =
-            Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
+            Intent(ApplicationProvider.getApplicationContext(), BookingDetailActivity::class.java).apply {
                 putExtra("movieData", movie)
             }
 

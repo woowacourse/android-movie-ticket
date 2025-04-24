@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.listener
+package woowacourse.movie.booking.detail.listener
 
 import android.view.View
 import android.widget.AdapterView

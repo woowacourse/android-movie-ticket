@@ -16,19 +16,19 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.BookingCompleteActivity.Companion.KEY_BOOKING_RESULT
 import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.mapper.toUiModel
-import woowacourse.movie.model.BookingContract
+import woowacourse.movie.booking.detail.BookingDetailContract
 import woowacourse.movie.model.BookingResult
 import woowacourse.movie.model.Movie
-import woowacourse.movie.presenter.BookingPresenter
-import woowacourse.movie.ui.adapter.ScreeningDateSpinnerAdapter
-import woowacourse.movie.ui.adapter.ScreeningTimeSpinnerAdapter
-import woowacourse.movie.ui.listener.ScreeningDateSelectedListener
-import woowacourse.movie.ui.listener.ScreeningTimeSelectedListener
+import woowacourse.movie.booking.detail.BookingDetailPresenter
+import woowacourse.movie.booking.detail.adapter.ScreeningDateSpinnerAdapter
+import woowacourse.movie.booking.detail.adapter.ScreeningTimeSpinnerAdapter
+import woowacourse.movie.booking.detail.listener.ScreeningDateSelectedListener
+import woowacourse.movie.booking.detail.listener.ScreeningTimeSelectedListener
 import java.time.LocalDate
 import java.time.LocalTime
 
-class BookingActivity : AppCompatActivity(), BookingContract.View {
-    private lateinit var presenter: BookingContract.Presenter
+class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
+    private lateinit var presenter: BookingDetailContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +37,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         setUpUi()
 
         val movieData = requireMovieOrFinish()
-        presenter = BookingPresenter(this, movieData)
+        presenter = BookingDetailPresenter(this, movieData)
         presenter.initializeData(savedInstanceState)
         initReserveConfirm()
 

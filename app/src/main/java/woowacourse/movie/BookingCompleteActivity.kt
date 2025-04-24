@@ -10,9 +10,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.mapper.toUiModel
-import woowacourse.movie.model.BookingCompleteContract
+import woowacourse.movie.booking.complete.BookingCompleteContract
 import woowacourse.movie.model.BookingResult
-import woowacourse.movie.presenter.BookingCompletePresenter
+import woowacourse.movie.booking.complete.BookingCompletePresenter
 
 class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
     private lateinit var presenter: BookingCompleteContract.Presenter

@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.adapter
+package woowacourse.movie.booking.detail.adapter
 
 import android.R
 import android.content.Context

@@ -1,6 +1,7 @@
-package woowacourse.movie.model
+package woowacourse.movie.movie
 
 import android.content.Intent
+import woowacourse.movie.model.Movie
 
 interface MovieContract {
     interface View {

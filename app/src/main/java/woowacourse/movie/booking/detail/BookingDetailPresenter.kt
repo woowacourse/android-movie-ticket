@@ -1,17 +1,16 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.booking.detail
 
 import android.os.Bundle
-import woowacourse.movie.model.Booking
-import woowacourse.movie.model.BookingContract
 import woowacourse.movie.model.BookingResult
+import woowacourse.movie.model.Booking
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 
-class BookingPresenter(
-    private val view: BookingContract.View,
+class BookingDetailPresenter(
+    private val view: BookingDetailContract.View,
     private val movie: Movie?,
-) : BookingContract.Presenter {
+) : BookingDetailContract.Presenter {
     private lateinit var bookingResult: BookingResult
     private lateinit var booking: Booking
 

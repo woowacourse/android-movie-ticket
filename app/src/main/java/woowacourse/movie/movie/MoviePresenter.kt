@@ -1,10 +1,9 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.movie
 
 import android.content.Intent
-import woowacourse.movie.BookingActivity
+import woowacourse.movie.BookingDetailActivity
 import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieContract
 import java.time.LocalDate
 
 class MoviePresenter(
@@ -14,7 +13,7 @@ class MoviePresenter(
         val movie =
             IntentCompat.getParcelableExtra(
                 intent,
-                BookingActivity.KEY_MOVIE_DATA,
+                BookingDetailActivity.Companion.KEY_MOVIE_DATA,
                 Movie::class.java,
             )
 

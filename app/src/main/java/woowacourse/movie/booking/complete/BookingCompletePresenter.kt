@@ -1,7 +1,6 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.booking.complete
 
 import android.os.Bundle
-import woowacourse.movie.model.BookingCompleteContract
 import woowacourse.movie.model.BookingResult
 
 class BookingCompletePresenter(

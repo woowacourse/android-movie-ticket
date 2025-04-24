@@ -1,4 +1,4 @@
-package woowacourse.movie.ui
+package woowacourse.movie.booking.detail
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

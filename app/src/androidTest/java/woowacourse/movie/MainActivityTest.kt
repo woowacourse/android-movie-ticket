@@ -24,7 +24,7 @@ import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
 class MainActivityTest {
-    private lateinit var scenario: ActivityScenario<BookingActivity>
+    private lateinit var scenario: ActivityScenario<BookingDetailActivity>
     private val movie = mockMovie()
 
     @Before
@@ -118,7 +118,7 @@ class MainActivityTest {
 
         intended(
             allOf(
-                hasComponent(BookingActivity::class.java.name),
+                hasComponent(BookingDetailActivity::class.java.name),
                 hasExtra("movieData", movie),
             ),
         )
@@ -130,7 +130,7 @@ class MainActivityTest {
 
         intended(
             allOf(
-                hasComponent(BookingActivity::class.java.name),
+                hasComponent(BookingDetailActivity::class.java.name),
                 hasExtraWithKey("movieData"),
             ),
         )
@@ -144,7 +144,7 @@ class MainActivityTest {
             .onChildView(withId(R.id.btn_reserve))
             .perform(click())
 
-        intended(hasComponent(BookingActivity::class.java.name))
+        intended(hasComponent(BookingDetailActivity::class.java.name))
 
         onView(withId(R.id.tv_booking_title))
             .check(

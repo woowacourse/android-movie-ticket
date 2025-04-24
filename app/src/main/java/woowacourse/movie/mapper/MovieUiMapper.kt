@@ -3,7 +3,7 @@ package woowacourse.movie.mapper
 import android.content.res.Resources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.ui.MovieUiModel
+import woowacourse.movie.movie.MovieUiModel
 import woowacourse.movie.util.Formatter.formatDateDotSeparated
 
 fun Movie.toUiModel(resources: Resources): MovieUiModel {

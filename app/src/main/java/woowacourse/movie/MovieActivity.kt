@@ -8,11 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.BookingActivity.Companion.KEY_MOVIE_DATA
+import woowacourse.movie.BookingDetailActivity.Companion.KEY_MOVIE_DATA
 import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieContract
-import woowacourse.movie.model.adapter.MovieAdapter
-import woowacourse.movie.presenter.MoviePresenter
+import woowacourse.movie.movie.MovieContract
+import woowacourse.movie.movie.adapter.MovieAdapter
+import woowacourse.movie.movie.MoviePresenter
 
 class MovieActivity : AppCompatActivity(), MovieContract.View {
     private lateinit var presenter: MovieContract.Presenter
@@ -49,7 +49,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     override fun startBookingActivity(movie: Movie) {
         val intent =
-            Intent(this, BookingActivity::class.java).apply {
+            Intent(this, BookingDetailActivity::class.java).apply {
                 putExtra(KEY_MOVIE_DATA, movie)
             }
         startActivity(intent)

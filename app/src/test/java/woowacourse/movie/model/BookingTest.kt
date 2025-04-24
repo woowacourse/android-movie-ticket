@@ -3,6 +3,7 @@ package woowacourse.movie.model
 import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.Booking
 import java.time.LocalDate
 import java.time.LocalTime
 

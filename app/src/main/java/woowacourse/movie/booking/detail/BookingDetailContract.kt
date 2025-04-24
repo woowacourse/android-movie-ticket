@@ -1,10 +1,12 @@
-package woowacourse.movie.model
+package woowacourse.movie.booking.detail
 
 import android.os.Bundle
+import woowacourse.movie.model.BookingResult
+import woowacourse.movie.model.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 
-interface BookingContract {
+interface BookingDetailContract {
     interface View {
         fun showMovieInfo(movie: Movie)
 

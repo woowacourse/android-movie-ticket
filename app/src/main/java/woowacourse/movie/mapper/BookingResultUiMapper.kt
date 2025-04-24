@@ -3,7 +3,7 @@ package woowacourse.movie.mapper
 import android.content.res.Resources
 import woowacourse.movie.R
 import woowacourse.movie.model.BookingResult
-import woowacourse.movie.ui.BookingResultUiModel
+import woowacourse.movie.booking.detail.BookingResultUiModel
 import woowacourse.movie.util.Formatter.formatDateDotSeparated
 import woowacourse.movie.util.Formatter.formatMoney
 import woowacourse.movie.util.Formatter.formatTimeWithMidnight24
