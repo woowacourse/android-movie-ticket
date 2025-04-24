@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.view.movie
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,14 +37,12 @@ class MovieAdapter(
                 )
             runningTime.text = context?.getString(R.string.minute_text, movieUiModel.runningTime)
 
-            registerReserveOnClickListener(movieUiModel)
+            registerReserveOnClickListener(BookingActivity.newIntent(view.context, movieUiModel))
         }
 
-        private fun registerReserveOnClickListener(movieUiModel: MovieUiModel) {
+        private fun registerReserveOnClickListener(intent: Intent) {
             reserveButton.setOnClickListener {
-                val context = view.context
-                val intent = BookingActivity.newIntent(context, movieUiModel)
-                context.startActivity(intent)
+                view.context.startActivity(intent)
             }
         }
     }
