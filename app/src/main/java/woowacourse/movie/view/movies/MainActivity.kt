@@ -29,21 +29,24 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.fetchData()
     }
 
-    override fun showMoviesScreen(movies: List<Movie>) {
+    override fun showMoviesScreen(
+        movies: List<Movie>,
+        navigate: (Movie) -> Unit,
+    ) {
         val listView: ListView = findViewById(R.id.list_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(
                 movies,
                 object : OnMovieEventListener {
                     override fun onClickReservation(movie: Movie) {
-                        navigateToReservation(movie)
+                        navigate(movie)
                     }
                 },
             )
         listView.adapter = movieAdapter
     }
 
-    private fun navigateToReservation(movie: Movie) {
+    override fun navigateToReservation(movie: Movie) {
         val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
     }

@@ -7,6 +7,8 @@ class MainPresenter(
 ) : MainContract.Presenter {
     override fun fetchData() {
         val movies: List<Movie> = Movie.dummy
-        view.showMoviesScreen(movies)
+        view.showMoviesScreen(movies) { movie ->
+            view.navigateToReservation(movie)
+        }
     }
 }

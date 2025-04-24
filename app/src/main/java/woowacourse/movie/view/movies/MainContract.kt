@@ -8,6 +8,11 @@ interface MainContract {
     }
 
     interface View {
-        fun showMoviesScreen(movies: List<Movie>)
+        fun showMoviesScreen(
+            movies: List<Movie>,
+            navigate: (Movie) -> Unit,
+        )
+
+        fun navigateToReservation(movie: Movie)
     }
 }
