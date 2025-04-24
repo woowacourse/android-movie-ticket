@@ -23,7 +23,7 @@
         <activity
             android:name=".view.reservation.MovieReservationCompleteActivity"
             android:exported="false"
-            android:parentActivityName=".view.reservation.MovieReservationActivity" />
+            android:parentActivityName=".view.seat.SeatSelectActivity" />
         <activity
             android:name=".view.movie.MovieListActivity"
             android:exported="false" />

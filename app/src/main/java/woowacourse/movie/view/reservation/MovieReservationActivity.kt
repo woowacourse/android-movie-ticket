@@ -12,7 +12,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,6 +21,7 @@ import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.ticket.TicketUiModel
 import woowacourse.movie.view.reservation.ticket.toDomain
+import woowacourse.movie.view.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -41,7 +41,7 @@ class MovieReservationActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initUi()
+        setView()
 
         val movie =
             intent.parcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
@@ -129,11 +129,11 @@ class MovieReservationActivity :
     }
 
     override fun navigateToCompleteScreen(ticket: TicketUiModel) {
-        val intent = MovieReservationCompleteActivity.newIntent(this, ticket)
+        val intent = SeatSelectActivity.newIntent(this, ticket)
         startActivity(intent)
     }
 
-    private fun initUi() {
+    private fun setView() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie_reservation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -168,19 +168,10 @@ class MovieReservationActivity :
     }
 
     private fun initSelectButton() {
-        val alertDialog =
-            AlertDialog
-                .Builder(this)
-                .setTitle(R.string.confirm_reservation)
-                .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.complete_reservation) { _, _ -> presenter.completeReservation() }
-                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-                .setCancelable(false)
-
         val selectButton: Button = findViewById(R.id.select_button)
         selectButton.setOnClickListener {
             if (!dateSpinner.adapter.isEmpty && !timeSpinner.adapter.isEmpty) {
-                alertDialog.show()
+                presenter.completeReservation()
             } else {
                 Toast.makeText(this, R.string.select_date_and_time, Toast.LENGTH_SHORT).show()
             }
