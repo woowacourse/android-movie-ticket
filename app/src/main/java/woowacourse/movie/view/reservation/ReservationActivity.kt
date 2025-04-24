@@ -135,23 +135,6 @@ class ReservationActivity :
         }
     }
 
-    override fun showReservationDialog(
-        title: String,
-        message: String,
-    ) {
-        reservationDialog.show(
-            this,
-            title,
-            message,
-            { dialog -> dialog.dismiss() },
-            { _ ->
-                val intent = movieTicketIntent()
-                startActivity(intent)
-                finish()
-            },
-        )
-    }
-
     private fun setupPlusButtonClick() {
         findViewById<Button>(R.id.btn_reservation_plus_ticket_count).setOnClickListener {
             presenter.plusTicketCount()

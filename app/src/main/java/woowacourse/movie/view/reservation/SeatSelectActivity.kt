@@ -19,8 +19,11 @@ import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
 
-class SeatSelectActivity : AppCompatActivity() {
+class SeatSelectActivity :
+    AppCompatActivity(),
+    SeatSelectContract.View {
     private val movieTicket by lazy { getMovieTicketData() }
+    private val reservationDialog by lazy { ReservationDialog() }
     private lateinit var priceTextView: TextView
     private lateinit var confirmButton: TextView
     private var selectedSeats = Seats.create()
@@ -48,8 +51,10 @@ class SeatSelectActivity : AppCompatActivity() {
                 alpha = 0.1f
             }
         confirmButton.setOnClickListener {
-            val intent = reservationInfoIntent()
-            startActivity(intent)
+            showReservationDialog(
+                getString(R.string.reservation_dialog_title),
+                getString(R.string.reservation_dialog_message),
+            )
         }
     }
 
@@ -103,6 +108,23 @@ class SeatSelectActivity : AppCompatActivity() {
                     selectedSeats.totalPrice,
                 ),
             )
+    }
+
+    override fun showReservationDialog(
+        title: String,
+        message: String,
+    ) {
+        reservationDialog.show(
+            this,
+            title,
+            message,
+            { dialog -> dialog.dismiss() },
+            { _ ->
+                val intent = reservationInfoIntent()
+                startActivity(intent)
+                finish()
+            },
+        )
     }
 
     private fun reservationInfoIntent(): Intent {

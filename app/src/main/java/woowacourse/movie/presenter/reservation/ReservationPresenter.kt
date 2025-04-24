@@ -81,20 +81,8 @@ class ReservationPresenter(
             title = movie.title,
             date = movieDate.value,
             time = formatter.movieTimeToUI(movieTime.value),
-//            timeStamp =
-//                "${formatter.localDateToUI(movieDate.value)} ${formatter.movieTimeToUI(movieTime.value)}",
             count = ticketCount.value,
         )
-
-    override fun onReservationCompleted(
-        title: String,
-        message: String,
-    ) {
-        view.showReservationDialog(
-            title,
-            message,
-        )
-    }
 
     fun currentDatePosition(): Int = selectedDatePosition
 
