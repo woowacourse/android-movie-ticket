@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.reservation.reservation
+package woowacourse.movie.presentation.reservation.detail
 
 import io.mockk.Runs
 import io.mockk.every
@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.presentation.fixture.dummyMovie
+import woowacourse.movie.presentation.model.toUiModel
 import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailContract
 import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailPresenter
 import java.time.LocalDate
@@ -29,20 +30,20 @@ class ReservationDetailPresenterTest {
     fun `영화 데이터를 불러온다`() {
         every { view.setScreen(any()) } just Runs
         every { view.updateDateSpinner(any(), any()) } just Runs
-        every { view.updateReservationCount(any()) } just Runs
+        every { view.updateReservationCount(any(), any()) } just Runs
 
-        presenter.fetchData { dummyMovie }
+        presenter.fetchData { dummyMovie.toUiModel() }
 
-        verify { view.setScreen(dummyMovie) }
+        verify { view.setScreen(dummyMovie.toUiModel()) }
     }
 
     @Test
     fun `예약 수를 업데이트하면 뷰에 반영된다`() {
-        every { view.updateReservationCount(any()) } just Runs
+        every { view.updateReservationCount(any(), any()) } just Runs
 
         presenter.updateReservationCount(3)
 
-        verify { view.updateReservationCount(4) }
+        verify { view.updateReservationCount(4, any()) }
     }
 
     @Test
@@ -51,17 +52,17 @@ class ReservationDetailPresenterTest {
         val times = dummyMovie.screeningPeriod.getAvailableTimesFor(now, now.toLocalDate())
 
         every { view.updateTimeSpinner(times) } just Runs
-        every { view.setScreen(dummyMovie) } just Runs
+        every { view.setScreen(dummyMovie.toUiModel()) } just Runs
         every { view.updateDateSpinner(any(), any()) } just Runs
-        every { view.updateReservationCount(any()) } just Runs
+        every { view.updateReservationCount(any(), any()) } just Runs
 
-        presenter.fetchData { dummyMovie }
+        presenter.fetchData { dummyMovie.toUiModel() }
         presenter.onSelectDate(now.toLocalDate())
 
         verifySequence {
-            view.setScreen(dummyMovie)
+            view.setScreen(dummyMovie.toUiModel())
             view.updateDateSpinner(any(), any(), any())
-            view.updateReservationCount(any())
+            view.updateReservationCount(any(), any())
             view.updateTimeSpinner(times)
         }
     }
@@ -71,10 +72,10 @@ class ReservationDetailPresenterTest {
         val now = LocalDateTime.of(2025, 4, 1, 12, 0)
         every { view.setScreen(any()) } just Runs
         every { view.updateDateSpinner(any(), any()) } just Runs
-        every { view.updateReservationCount(any()) } just Runs
+        every { view.updateReservationCount(any(), any()) } just Runs
         every { view.navigateToResult(any()) } just Runs
 
-        presenter.fetchData(3) { dummyMovie }
+        presenter.fetchData(3) { dummyMovie.toUiModel() }
         presenter.onReserve(now)
 
         verify {
@@ -82,7 +83,7 @@ class ReservationDetailPresenterTest {
                 withArg {
                     assert(it.title == dummyMovie.title)
                     assert(it.reservationDateTime == now)
-                    assert(it.reservationCount.value == 3)
+                    assert(it.reservationCount == 3)
                 },
             )
         }
@@ -98,7 +99,7 @@ class ReservationDetailPresenterTest {
             )
         every { view.showNoAvailableTimesDialog() } just Runs
 
-        presenter.fetchData { dummyItem }
+        presenter.fetchData { dummyItem.toUiModel() }
 
         verify { view.showNoAvailableTimesDialog() }
     }
