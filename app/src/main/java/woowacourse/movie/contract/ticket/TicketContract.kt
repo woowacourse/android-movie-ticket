@@ -4,22 +4,26 @@ import java.time.LocalDateTime
 
 interface TicketContract {
     interface Presenter {
+        fun presentCancelDescription()
+
         fun presentTitle()
 
         fun presentShowtime()
 
-        fun presentCancelDescription()
-
         fun presentCount()
+
+        fun presentPrice()
     }
 
     interface View {
+        fun setCancelDescription(minutes: Int)
+
         fun setMovieTitle(movieTitle: String)
 
         fun setShowtime(showtime: LocalDateTime)
 
-        fun setCancelDescription(minutes: Int)
-
         fun setCount(count: Int)
+
+        fun setPrice(price: Int)
     }
 }

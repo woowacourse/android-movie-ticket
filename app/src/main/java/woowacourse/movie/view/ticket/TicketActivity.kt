@@ -80,14 +80,16 @@ class TicketActivity :
             presentTitle()
             presentShowtime()
             presentCount()
+            presentPrice()
         }
-        initPriceView()
     }
 
-    private fun initPriceView() {
-        val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
-        val priceView = findViewById<TextView>(R.id.tv_ticket_price)
-        priceView.text = getString(R.string.ticket_price, ticket.price)
+    override fun setCancelDescription(minutes: Int) {
+        cancelDescriptionView.text =
+            getString(
+                R.string.ticket_cancel_time_description,
+                minutes,
+            )
     }
 
     override fun setMovieTitle(movieTitle: String) {
@@ -101,16 +103,12 @@ class TicketActivity :
             }
     }
 
-    override fun setCancelDescription(minutes: Int) {
-        cancelDescriptionView.text =
-            getString(
-                R.string.ticket_cancel_time_description,
-                minutes,
-            )
-    }
-
     override fun setCount(count: Int) {
         countView.text = getString(R.string.ticket_count, count)
+    }
+
+    override fun setPrice(price: Int) {
+        priceView.text = getString(R.string.ticket_price, price)
     }
 
     companion object {

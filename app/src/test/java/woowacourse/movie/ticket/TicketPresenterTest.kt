@@ -79,4 +79,16 @@ class TicketPresenterTest {
         // then
         verify { view.setCount(2) }
     }
+
+    @Test
+    fun `금액을 표시한다`() {
+        // given
+        every { view.setPrice(26_000) } just Runs
+
+        // when
+        presenter.presentPrice()
+
+        // then
+        verify { view.setPrice(26_000) }
+    }
 }

@@ -25,4 +25,8 @@ class TicketPresenter(
     override fun presentCount() {
         view.setCount(ticket.count)
     }
+
+    override fun presentPrice() {
+        view.setPrice(ticket.price)
+    }
 }
