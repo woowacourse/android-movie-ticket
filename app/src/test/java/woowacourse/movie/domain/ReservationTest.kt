@@ -13,7 +13,7 @@ class ReservationTest {
     fun setUp() {
         reservation =
             Reservation(
-                "해리포터",
+                HARRY_POTTER_MOVIE,
                 LocalDateTime.of(
                     APRIL_THIRTIETH,
                     LocalTime.of(12, 0),

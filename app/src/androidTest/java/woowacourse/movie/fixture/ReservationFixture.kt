@@ -10,7 +10,7 @@ val APRIL_THIRTIETH: LocalDate = LocalDate.of(2025, 4, 30)
 
 fun createReservation(movieName: String): Reservation =
     Reservation(
-        title = movieName,
+        movie = createMovie(movieName),
         _count = TicketCount(2),
         reservedTime =
             LocalDateTime.of(

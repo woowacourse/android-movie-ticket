@@ -44,7 +44,7 @@ class ReservationResultActivity : AppCompatActivity() {
 
         val formattedScreeningDate = formatting(reservation.reservedTime)
 
-        title.text = reservation.title
+        title.text = reservation.movie.title
         screeningDate.text = formattedScreeningDate
         ticketCount.text = getString(R.string.formatted_ticket_count).format(reservation.count)
         totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(reservation.totalPrice()))

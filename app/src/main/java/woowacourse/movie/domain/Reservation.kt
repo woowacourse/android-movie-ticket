@@ -4,7 +4,7 @@ import java.io.Serializable
 import java.time.LocalDateTime
 
 class Reservation(
-    val title: String,
+    val movie: Movie,
     val reservedTime: LocalDateTime,
     private val _count: TicketCount,
 ) : Serializable {
@@ -12,13 +12,13 @@ class Reservation(
 
     fun totalPrice(): Int = TICKET_PRICE * count
 
-    fun plusCount() = Reservation(title, reservedTime, _count + 1)
+    fun plusCount() = Reservation(movie, reservedTime, _count + 1)
 
     fun canMinus(): Boolean = _count.canMinus()
 
-    fun minusCount() = Reservation(title, reservedTime, _count - 1)
+    fun minusCount() = Reservation(movie, reservedTime, _count - 1)
 
-    fun updateReservedTime(time: LocalDateTime) = Reservation(title, time, _count)
+    fun updateReservedTime(time: LocalDateTime) = Reservation(movie, time, _count)
 
     companion object {
         private const val TICKET_PRICE = 13000

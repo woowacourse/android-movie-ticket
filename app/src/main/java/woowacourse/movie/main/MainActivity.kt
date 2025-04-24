@@ -8,8 +8,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.MoviesAdapter
 import woowacourse.movie.R
-import woowacourse.movie.ReserveActivity
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.reserve.ReserveActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private val moviesView: ListView by lazy { findViewById(R.id.lv_movies) }

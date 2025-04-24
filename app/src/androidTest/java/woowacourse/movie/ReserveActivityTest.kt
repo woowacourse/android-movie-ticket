@@ -22,6 +22,7 @@ import woowacourse.movie.fixture.MOVIE_NAME
 import woowacourse.movie.fixture.RUNNING_TIME
 import woowacourse.movie.fixture.SCREENING_PERIOD
 import woowacourse.movie.fixture.createMovie
+import woowacourse.movie.reserve.ReserveActivity
 
 class ReserveActivityTest {
     private lateinit var intent: Intent
