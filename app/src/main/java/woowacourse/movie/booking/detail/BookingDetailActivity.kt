@@ -34,6 +34,9 @@ class BookingDetailActivity :
     private lateinit var dateAdapter: DateAdapter
     private lateinit var movie: MovieUiModel
 
+    private var selectedDatePosition: Int = 0
+    private var selectedTimePosition: Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -50,14 +53,6 @@ class BookingDetailActivity :
 
         setupTicketCountClickListeners()
         setupSelectCompleteClickListener()
-
-//        setupDateSpinner(movie)
-//        setupTimeSpinner(movie)
-//
-//        setupDateSpinnerItemClickListener()
-//        setupTicketCountClickListeners()
-
-//        setupSelectCompleteClickListener(movie)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -67,32 +62,22 @@ class BookingDetailActivity :
         return super.onOptionsItemSelected(item)
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(TICKET_COUNT_KEY, presenter.getTicketCount())
+        outState.putInt(TICKET_DATE_POSITION_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(TICKET_TIME_POSITION_KEY, timeSpinner.selectedItemPosition)
+    }
 
-//        dateSpinner.setSelection(ticketDate)
-//
-//        ticketQuantity = TicketQuantity(savedInstanceState.getInt(TICKET_COUNT_KEY))
-//        val ticketTime = savedInstanceState.getInt(TICKET_TIME_KEY)
-//        val ticketDate = savedInstanceState.getInt(TICKET_DATE_KEY)
-//
-//        super.onRestoreInstanceState(savedInstanceState)
-//    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-//
-//    }
-//        outState.putInt(TICKET_COUNT_KEY, ticketQuantity.value)
-//        outState.putInt(TICKET_TIME_KEY, timeSpinner.selectedItemPosition)
-//        outState.putInt(TICKET_DATE_KEY, dateSpinner.selectedItemPosition)
-//
-//        super.onSaveInstanceState(outState)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
 
-//
-//        val selectedDate = DateType.from(LocalDate.parse(dateSpinner.selectedItem.toString()))
-//        timeAdapter.updateTimes(selectedDate)
-//
-//        timeSpinner.setSelection(ticketTime)
-//
-//        findViewById<TextView>(R.id.tv_booking_detail_count).text = ticketQuantity.value.toString()
-//    }
+        val count = savedInstanceState.getInt(TICKET_COUNT_KEY, 1)
+        presenter.setTicketCount(count)
+
+        selectedDatePosition = savedInstanceState.getInt(TICKET_DATE_POSITION_KEY, 0)
+        selectedTimePosition = savedInstanceState.getInt(TICKET_TIME_POSITION_KEY, 0)
+    }
 
     override fun showMovieInfo(movieUiModel: MovieUiModel) {
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = movieUiModel.title
@@ -122,6 +107,7 @@ class BookingDetailActivity :
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
+        dateSpinner.setSelection(selectedDatePosition, false)
     }
 
     override fun showTimeSpinnerItems(times: List<LocalTime>) {
@@ -143,6 +129,7 @@ class BookingDetailActivity :
 
                 override fun onNothingSelected(parent: AdapterView<*>) {}
             }
+        timeSpinner.setSelection(selectedTimePosition, false)
     }
 
     override fun showTicketCount(count: Int) {
@@ -197,6 +184,9 @@ class BookingDetailActivity :
 
     companion object {
         const val MOVIE_KEY = "movie"
+        private const val TICKET_COUNT_KEY = "ticket_count"
+        private const val TICKET_DATE_POSITION_KEY = "ticket_date_position"
+        private const val TICKET_TIME_POSITION_KEY = "ticket_time_position"
 
         fun newIntent(
             context: Context,

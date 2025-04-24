@@ -13,6 +13,8 @@ interface BookingDetailContract {
 
         fun loadDateList()
 
+        fun setTicketCount(count: Int)
+
         fun onDateSelected(date: LocalDate)
 
         fun loadTimeList()
@@ -24,6 +26,8 @@ interface BookingDetailContract {
         fun onDecreaseTicketCount()
 
         fun onSelectComplete()
+
+        fun getTicketCount(): Int
     }
 
     interface View {

@@ -13,7 +13,7 @@ class BookingDetailPresenter(
     private lateinit var movie: MovieUiModel
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
-    private var currentTicketCount: TicketQuantity = TicketQuantity(1)
+    private var ticketQuantity: TicketQuantity = TicketQuantity(1)
 
     override fun loadMovie(movieUiModel: MovieUiModel) {
         this.movie = movieUiModel
@@ -21,7 +21,12 @@ class BookingDetailPresenter(
     }
 
     override fun loadTicketCount() {
-        view.showTicketCount(currentTicketCount.value)
+        view.showTicketCount(ticketQuantity.value)
+    }
+
+    override fun setTicketCount(count: Int) {
+        ticketQuantity = TicketQuantity(count)
+        view.showTicketCount(ticketQuantity.value)
     }
 
     override fun loadDateList() {
@@ -51,13 +56,13 @@ class BookingDetailPresenter(
     }
 
     override fun onIncreaseTicketCount() {
-        currentTicketCount = currentTicketCount.increase()
-        view.showTicketCount(currentTicketCount.value)
+        ticketQuantity = ticketQuantity.increase()
+        view.showTicketCount(ticketQuantity.value)
     }
 
     override fun onDecreaseTicketCount() {
-        currentTicketCount = currentTicketCount.decrease()
-        view.showTicketCount(currentTicketCount.value)
+        ticketQuantity = ticketQuantity.decrease()
+        view.showTicketCount(ticketQuantity.value)
     }
 
     override fun onSelectComplete() {
@@ -71,12 +76,14 @@ class BookingDetailPresenter(
                 title = movie.title,
                 date = date.toString(),
                 time = time.toString(),
-                ticketQuantity = currentTicketCount.value,
-                ticketTotalPrice = currentTicketCount.totalPrice(),
+                ticketQuantity = ticketQuantity.value,
+                ticketTotalPrice = ticketQuantity.totalPrice(),
             )
 
         view.showConfirmationDialog(uiModel)
     }
+
+    override fun getTicketCount(): Int = ticketQuantity.value
 
     private fun createDateList(
         startDate: LocalDate,
