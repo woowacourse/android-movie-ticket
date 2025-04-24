@@ -53,3 +53,7 @@ class LocalScreenings : Screenings {
             ),
         )
 }
+
+class FakeScreenings(
+    override val value: List<Screening>,
+) : Screenings
