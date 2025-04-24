@@ -2,32 +2,17 @@ package woowacourse.movie.booking.detail
 
 import android.content.Context
 import android.widget.ArrayAdapter
-import woowacourse.movie.StringFormatter
-import woowacourse.movie.domain.DateType
-import woowacourse.movie.domain.Time
+import java.time.LocalTime
 
 class TimeAdapter(
     context: Context,
-) : ArrayAdapter<String>(
+    times: List<LocalTime>,
+) : ArrayAdapter<LocalTime>(
         context,
         android.R.layout.simple_spinner_item,
-        mutableListOf(),
+        times.toMutableList(),
     ) {
     init {
         setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-    }
-
-    fun updateTimes(dateType: DateType) {
-        clear()
-
-        val times: List<Time> =
-            when (dateType) {
-                DateType.WEEKDAY -> Time.weekdaysTimes
-                DateType.WEEKEND -> Time.weekendsTimes
-            }
-
-        addAll(times.map { StringFormatter.formatTime(it) })
-
-        notifyDataSetChanged()
     }
 }

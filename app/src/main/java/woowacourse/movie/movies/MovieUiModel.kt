@@ -9,23 +9,25 @@ import java.time.format.DateTimeFormatter
 @Parcelize
 data class MovieUiModel(
     val title: String,
-    val startDate: LocalDate,
-    val endDate: LocalDate,
+    val startDate: String,
+    val endDate: String,
     val runningTimeText: String,
     val posterResId: Int,
 ) : Parcelable
 
 fun MovieUiModel.periodText(): String {
     val formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd")
-    return "${startDate.format(formatter)} ~ ${endDate.format(formatter)}"
+    val parsedStart = LocalDate.parse(startDate)
+    val parsedEnd = LocalDate.parse(endDate)
+    return "${parsedStart.format(formatter)} ~ ${parsedEnd.format(formatter)}"
 }
 
 fun Movie.toMovieUiModel(): MovieUiModel {
     val movieUiModel =
         MovieUiModel(
             title = this.title,
-            startDate = this.startDate,
-            endDate = this.endDate,
+            startDate = this.startDate.toString(),
+            endDate = this.endDate.toString(),
             runningTimeText = "${runningTime}분",
             posterResId = this.poster,
         )
