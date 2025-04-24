@@ -1,7 +1,6 @@
 package woowacourse.movie.activity
 
 import woowacourse.movie.dto.MovieDto
-import woowacourse.movie.dto.ReservationDto
 import java.time.LocalDate
 
 interface ReservationContract {
@@ -12,9 +11,13 @@ interface ReservationContract {
         ): List<LocalDate>
 
         fun price(memberCount: Int): Int
+
+        fun addMember()
+
+        fun removeMember()
     }
 
     interface View {
-        fun navigate(reservationDto: ReservationDto)
+        fun updateMemberCount(result: Result<Int>)
     }
 }

@@ -35,7 +35,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val runningTimeRule = ServiceLocator.runningTimeRule
     private val today = ServiceLocator.today
     private val now = ServiceLocator.now
-    private val reservationPresenter = ServiceLocator.reservationPresenter
+    private val reservationPresenter = ServiceLocator.reservationPresenter(this)
     private val binding: ActivityReservationBinding by lazy {
         ActivityReservationBinding.inflate(layoutInflater)
     }
@@ -67,7 +67,16 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         binding.timePickerActions.setSelection(savedInstanceState.getInt(RUNNING_TIME_KEY))
     }
 
-    override fun navigate(reservationDto: ReservationDto) {
+    override fun updateMemberCount(value: Result<Int>) {
+        value
+            .onSuccess { binding.count.text = it.toString() }
+            .onFailure {
+                Toast.makeText(this, getString(R.string.request_least_one_person), Toast.LENGTH_SHORT)
+                    .show()
+            }
+    }
+
+    private fun navigate(reservationDto: ReservationDto) {
         val intent =
             ReservationCompleteActivity
                 .newIntent(this, reservationDto)
@@ -102,17 +111,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     private fun setCounterEventListener() {
         binding.plusButton.setOnClickListener {
-            memberCount++
-            binding.count.text = memberCount.toString()
+            reservationPresenter.addMember()
         }
 
         binding.minusButton.setOnClickListener {
-            if (memberCount <= MINIMUM_MEMBER_COUNT) {
-                Toast.makeText(this, getString(R.string.request_least_one_person), Toast.LENGTH_SHORT).show()
-                return@setOnClickListener
-            }
-            memberCount--
-            binding.count.text = memberCount.toString()
+            reservationPresenter.removeMember()
         }
     }
 
@@ -192,7 +195,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         private const val RUNNING_TIME_KEY = "runningTime"
         private const val RESERVATION_DAY_KEY = "reservationDay"
         private const val MEMBER_COUNT_DEFAULT = 1
-        private const val MINIMUM_MEMBER_COUNT = 1
         private const val DEFAULT_POSITION = 0
 
         fun newIntent(
