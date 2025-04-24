@@ -86,12 +86,11 @@ class ReservationActivity :
 
     private fun initViews() {
         (presenter ?: error(ErrorMessage("screening").notProvided())).run {
+            presentPoster()
             presentTitle()
             presentPeriod()
             presentRunningTime()
         }
-        initPosterView()
-        initRunningTimeView()
         initDateSpinner()
         initTimeSpinner()
         initTicketCountLayout()
@@ -129,28 +128,11 @@ class ReservationActivity :
         }
     }
 
-    private fun initRunningTimeView() {
-        val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
-        val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
-        runningTimeView.text =
-            getString(
-                R.string.running_time,
-                screening.runningTime,
-            )
-    }
-
     private fun initPosterView() {
         val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         val posterResourceId = screening.posterId()
         if (posterResourceId != null) posterImageView.setImageResource(posterResourceId)
-    }
-
-    private fun initPeriodView() {
-        val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
-    }
-
-    private fun initTitleView() {
     }
 
     private fun initDateSpinner() {
@@ -239,6 +221,12 @@ class ReservationActivity :
             )
         startActivity(intent)
         finish()
+    }
+
+    override fun setPoster(movieId: Int) {
+        val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
+        val posterResourceId = posterId(movieId)
+        if (posterResourceId != null) posterImageView.setImageResource(posterResourceId)
     }
 
     override fun setTitle(title: String) {

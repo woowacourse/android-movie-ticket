@@ -36,6 +36,18 @@ class ReservationPresenterTest {
     }
 
     @Test
+    fun `포스터를 표시한다`() {
+        // given
+        every { view.setPoster(0) } just Runs
+
+        // when
+        presenter.presentPoster()
+
+        // then
+        verify { view.setPoster(0) }
+    }
+
+    @Test
     fun `제목을 표시한다`() {
         // given
         every { view.setTitle("해리 포터와 마법사의 돌") } just Runs

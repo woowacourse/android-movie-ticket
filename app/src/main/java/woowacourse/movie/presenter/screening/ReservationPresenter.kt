@@ -7,6 +7,10 @@ class ReservationPresenter(
     private val view: ReservationContract.View,
     private val screening: Screening,
 ) : ReservationContract.Presenter {
+    override fun presentPoster() {
+        view.setPoster(screening.id)
+    }
+
     override fun presentTitle() {
         view.setTitle(screening.title)
     }

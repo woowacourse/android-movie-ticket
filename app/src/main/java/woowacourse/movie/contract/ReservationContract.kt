@@ -2,6 +2,8 @@ package woowacourse.movie.contract
 
 interface ReservationContract {
     interface Presenter {
+        fun presentPoster()
+
         fun presentTitle()
 
         fun presentPeriod()
@@ -10,6 +12,8 @@ interface ReservationContract {
     }
 
     interface View {
+        fun setPoster(movieId: Int) {}
+
         fun setTitle(title: String)
 
         fun setPeriod(
