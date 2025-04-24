@@ -11,8 +11,6 @@ class Tickets(private val tickets: List<Ticket>) : Serializable {
 
     fun totalPrice() = tickets.sumOf { it.price }
 
-    fun canMinus(): Boolean = count > MINIMUM_COUNT
-
     companion object {
         private const val INVALID_COUNT = "예약 개수는 1보다 같거나 커야 합니다."
         private const val MINIMUM_COUNT = 1

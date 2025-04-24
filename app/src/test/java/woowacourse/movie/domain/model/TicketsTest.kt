@@ -5,26 +5,14 @@ import org.junit.jupiter.api.Test
 
 class TicketsTest {
     @Test
-    fun `예매 개수가 최소 예매 개수와 같은 경우 감소할 수 없다`() {
+    fun `예매 개수가 총 가격을 계산한다`() {
         // given
-        val tickets = Tickets(listOf(Ticket(TicketType.DEFAULT)))
+        val tickets = Tickets(listOf(Ticket(Price(13000)), Ticket(Price(12000))))
 
         // when
-        val actual = tickets.canMinus()
+        val actual = tickets.totalPrice()
 
         // then
-        assertThat(actual).isFalse()
-    }
-
-    @Test
-    fun `예매 개수가 최소 예매 개수보다 많은 경우 감소할 수 있다`() {
-        // given
-        val tickets = Tickets(listOf(Ticket(TicketType.DEFAULT), Ticket(TicketType.DEFAULT)))
-
-        // when
-        val actual = tickets.canMinus()
-
-        // then
-        assertThat(actual).isTrue()
+        assertThat(actual).isEqualTo(25000)
     }
 }

@@ -114,7 +114,7 @@ class ReserveActivity : AppCompatActivity() {
 
     private fun minusButtonInit() {
         minusButton.setOnClickListener {
-            if (purchaseCount.canMinus()) {
+            if (purchaseCount.canDecrease()) {
                 purchaseCount = purchaseCount.decrease()
                 updateTicketCount()
             } else {

@@ -10,7 +10,7 @@ value class PurchaseCount(val value: Int) : Serializable {
 
     fun increase() = PurchaseCount(value + 1)
 
-    fun canMinus(): Boolean = value >= 2
+    fun canDecrease(): Boolean = value >= 2
 
     fun decrease() = PurchaseCount(value - 1)
 
