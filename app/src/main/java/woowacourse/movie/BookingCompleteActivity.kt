@@ -10,17 +10,22 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.mapper.IntentCompat
 import woowacourse.movie.mapper.toUiModel
+import woowacourse.movie.model.BookingCompleteContract
 import woowacourse.movie.model.BookingResult
+import woowacourse.movie.presenter.BookingCompletePresenter
 
-class BookingCompleteActivity : AppCompatActivity() {
+class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
+    private lateinit var presenter: BookingCompleteContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
         setUpUi()
 
-        val bookingResult = requireResultOrFinish() ?: return
-        setUpBookingResult(bookingResult)
+        val bookingResult = requireResultOrFinish()
+        presenter = BookingCompletePresenter(this, bookingResult)
+        presenter.initializeData(savedInstanceState)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -34,34 +39,37 @@ class BookingCompleteActivity : AppCompatActivity() {
     }
 
     private fun requireResultOrFinish(): BookingResult? {
-        val bookingResultData =
-            IntentCompat.getParcelableExtra(intent, KEY_BOOKING_RESULT, BookingResult::class.java)
-        if (bookingResultData == null) {
-            Log.e(
-                "BookingCompleteActivity",
-                "bookingResultData가 null입니다. 인텐트에 영화 예매 정보가 포함되지 않았습니다.",
-            )
-            Toast.makeText(this, getString(R.string.booking_toast_message), Toast.LENGTH_SHORT)
-                .show()
-            finish()
-        }
-        return bookingResultData
+        return IntentCompat.getParcelableExtra(
+            intent,
+            KEY_BOOKING_RESULT,
+            BookingResult::class.java,
+        )
+            ?: run {
+                showToastErrorAndFinish(getString(R.string.booking_toast_message))
+                throw IllegalStateException("인텐트에 영화 예매 정보가 포함되지 않았습니다")
+            }
     }
 
-    private fun setUpBookingResult(bookingResult: BookingResult) {
+    override fun showBookingCompleteResult(result: BookingResult) {
+        val bookingResultUiData = result.toUiModel(resources)
+
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)
         val completeScreenDate = findViewById<TextView>(R.id.tv_complete_screening_date)
         val completeScreenTime = findViewById<TextView>(R.id.tv_complete_screening_time)
         val completeHeadCount = findViewById<TextView>(R.id.tv_head_count)
         val completeBookingAmount = findViewById<TextView>(R.id.tv_booking_amount)
 
-        val bookingResultUiData = bookingResult.toUiModel(resources)
-
         completeTitle.text = bookingResultUiData.title
         completeScreenDate.text = bookingResultUiData.selectedDateText
         completeScreenTime.text = bookingResultUiData.selectedTimeText
         completeHeadCount.text = bookingResultUiData.headCount
         completeBookingAmount.text = bookingResultUiData.bookingAmountText
+    }
+
+    override fun showToastErrorAndFinish(message: String) {
+        Log.d("BookingCompleteActivity", message)
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        finish()
     }
 
     override fun onSupportNavigateUp(): Boolean {
