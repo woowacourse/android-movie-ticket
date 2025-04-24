@@ -31,7 +31,6 @@ class DetailBookingActivity : AppCompatActivity() {
     private var count = 1
     private var selectedDatePosition = 0
     private var selectedTimePosition = 0
-    private val counterTextView: TextView by lazy { findViewById(R.id.detail_personnel) }
     private val spinnerDate: Spinner by lazy { findViewById(R.id.detail_spinner_date) }
     private val spinnerTime: Spinner by lazy { findViewById(R.id.detail_spinner_time) }
 
@@ -52,7 +51,7 @@ class DetailBookingActivity : AppCompatActivity() {
 
         setMovieInfo(movie)
         setCountButtons()
-        setReservationButton(movie)
+        setReservationButton(movie, count)
 
         setDateSpinner(movie, LocalDate.now())
 
@@ -68,16 +67,13 @@ class DetailBookingActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putInt(KEY_PERSONNEL_COUNT, count)
         outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
         outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        restoreInstanceState(savedInstanceState)
-    }
-
     private fun restoreInstanceState(savedInstanceState: Bundle) {
+        count = savedInstanceState.getInt(KEY_PERSONNEL_COUNT, count)
         selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, selectedDatePosition)
         selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, selectedTimePosition)
     }
@@ -120,7 +116,7 @@ class DetailBookingActivity : AppCompatActivity() {
         updateCounterText()
     }
 
-    private fun setReservationButton(movie: Movie) {
+    private fun setReservationButton(movie: Movie, personnel: Int) {
         val reservationButton = findViewById<Button>(R.id.detail_reservation_button)
 
         reservationButton.setOnClickListener {
@@ -135,7 +131,7 @@ class DetailBookingActivity : AppCompatActivity() {
                 Ticket(
                     movie.title,
                     selectedDateTIme,
-                    counterTextView.text.toString().toInt(),
+                    personnel,
                 )
             ReservationDialog().popUp(
                 this,
@@ -206,6 +202,7 @@ class DetailBookingActivity : AppCompatActivity() {
 
     companion object {
         private const val KEY_MOVIE = "movie"
+        private const val KEY_PERSONNEL_COUNT = "personnel_count"
         private const val KEY_DATE_POSITION = "movieDate_position"
         private const val KEY_TIME_POSITION = "timeTable_position"
         private const val MESSAGE_NOT_ALLOWED_TIME = "다른 날짜를 선택해 주세요"
