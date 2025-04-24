@@ -14,7 +14,6 @@ import woowacourse.movie.view.extension.getSerializableExtraData
 import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.mapper.Formatter.priceToUI
-import woowacourse.movie.view.reservation.ReservationActivity
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val movieTicket by lazy { intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY) }
@@ -67,7 +66,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             context: Context,
             movieTicket: MovieTicket,
         ): Intent =
-            Intent(context, ReservationActivity::class.java).apply {
+            Intent(context, ReservationCompleteActivity::class.java).apply {
                 putExtra(TICKET_DATA_KEY, movieTicket)
             }
     }
