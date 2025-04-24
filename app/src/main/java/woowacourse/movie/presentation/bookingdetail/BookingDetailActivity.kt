@@ -18,16 +18,17 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.DateType
+import woowacourse.movie.domain.model.MovieDates
 import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
 import woowacourse.movie.presentation.bookingdetail.adapter.DateAdapter
 import woowacourse.movie.presentation.bookingdetail.adapter.TimeAdapter
 import woowacourse.movie.presentation.mapper.toDomain
 import woowacourse.movie.presentation.mapper.toUi
 import woowacourse.movie.presentation.model.BookingInfoUiModel
+import woowacourse.movie.presentation.model.MovieDateUiModel
 import woowacourse.movie.presentation.model.MovieTimeUiModel
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.util.getExtra
-import java.time.LocalDate
 
 class BookingDetailActivity : AppCompatActivity() {
     private lateinit var dateAdapter: DateAdapter
@@ -105,13 +106,13 @@ class BookingDetailActivity : AppCompatActivity() {
     }
 
     private fun setupDateSpinner() {
-        dateAdapter = DateAdapter(this, movieUiModel.startDate, movieUiModel.endDate)
+        dateAdapter = DateAdapter(this, MovieDates(movieUiModel.startDate.toDomain(), movieUiModel.endDate.toDomain()).toUi())
         dateSpinner.adapter = dateAdapter
     }
 
     private fun setupTimeSpinner() {
         timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(movieUiModel.startDate))
+        timeAdapter.updateTimes(DateType.from(movieUiModel.startDate.toDomain()))
         timeSpinner.adapter = timeAdapter
     }
 
@@ -124,7 +125,7 @@ class BookingDetailActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate = parent?.getItemAtPosition(position) as LocalDate
+                    val selectedDate = MovieDateUiModel.from(parent?.getItemAtPosition(position) as String).toDomain()
                     bookingInfo.updateDate(selectedDate)
 
                     val dateType = DateType.from(selectedDate)

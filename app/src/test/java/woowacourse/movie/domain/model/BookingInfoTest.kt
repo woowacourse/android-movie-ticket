@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.BOOKING_INFO_01
 import woowacourse.movie.MOVIE_01
-import java.time.LocalDate
 import java.time.LocalTime
 
 class BookingInfoTest {
@@ -27,7 +26,7 @@ class BookingInfoTest {
     @Test
     fun `updateDate 호출 시 날짜와 상영시간이 변경된다`() {
         // given
-        val expectedDate = LocalDate.of(2025, 4, 10)
+        val expectedDate = MovieDate(2025, 4, 10)
         val expectedTime = MovieTime.getMovieTimes(DateType.from(expectedDate)).first()
 
         // when

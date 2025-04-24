@@ -1,13 +1,12 @@
 package woowacourse.movie.domain.model
 
 import woowacourse.movie.domain.model.MovieTime.Companion.getMovieTimes
-import java.time.LocalDate
 
 data class BookingInfo(
     val movie: Movie,
 ) {
-    private var _date: LocalDate = movie.startDate
-    val date: LocalDate get() = _date
+    private var _date: MovieDate = movie.startDate
+    val date: MovieDate get() = _date
 
     private var _movieTime: MovieTime = getMovieTimes(DateType.from(date)).first()
     val movieTime: MovieTime get() = _movieTime
@@ -17,7 +16,7 @@ data class BookingInfo(
     val eachPrice: Int = DEFAULT_TICKET_PRICE
     val totalPrice: Int get() = ticketCount * eachPrice
 
-    fun updateDate(date: LocalDate) {
+    fun updateDate(date: MovieDate) {
         _date = date
         _movieTime = getMovieTimes(DateType.from(date)).first()
     }

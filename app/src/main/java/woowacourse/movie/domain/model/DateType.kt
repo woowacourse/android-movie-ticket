@@ -2,7 +2,6 @@ package woowacourse.movie.domain.model
 
 import java.time.DayOfWeek.SATURDAY
 import java.time.DayOfWeek.SUNDAY
-import java.time.LocalDate
 
 enum class DateType {
     WEEKDAY,
@@ -10,8 +9,8 @@ enum class DateType {
     ;
 
     companion object {
-        fun from(date: LocalDate): DateType =
-            when (date.dayOfWeek) {
+        fun from(date: MovieDate): DateType =
+            when (date.value.dayOfWeek) {
                 SATURDAY -> WEEKEND
                 SUNDAY -> WEEKEND
                 else -> WEEKDAY
