@@ -1,5 +1,7 @@
 package woowacourse.movie.global
 
+import woowacourse.movie.activity.MainContract
+import woowacourse.movie.activity.MainPresenter
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimeRuleImpl
 import java.time.LocalDate
@@ -20,4 +22,5 @@ object ServiceLocator {
     val today: LocalDate = LocalDate.of(2025, 4, 3)
     val now: LocalDateTime = LocalDateTime.of(2025, 4, 3, 14, 0, 0)
     val runningTimeRule = RunningTimeRuleImpl()
+    val mainPresenter: MainContract.Presenter = MainPresenter()
 }

@@ -8,13 +8,13 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
 
 class MovieListAdapter(
-    private val movies: List<Movie>,
-    private val onReservationClick: (selectedMovie: Movie) -> Unit,
+    private val movies: List<MovieDto>,
+    private val onReservationClick: (selectedMovie: MovieDto) -> Unit,
 ) : BaseAdapter() {
     override fun getCount(): Int {
         return movies.size
@@ -33,7 +33,7 @@ class MovieListAdapter(
         convertView: View?,
         parent: ViewGroup,
     ): View {
-        val currentItem = getItem(position) as? Movie ?: return View(parent.context)
+        val currentItem = getItem(position) as? MovieDto ?: return View(parent.context)
         val view =
             convertView ?: LayoutInflater.from(parent.context)
                 .inflate(R.layout.movie_item, parent, false)
@@ -52,8 +52,8 @@ class MovieListAdapter(
         val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
 
         fun setData(
-            movie: Movie,
-            onReservationClick: (selectedMovie: Movie) -> Unit,
+            movie: MovieDto,
+            onReservationClick: (selectedMovie: MovieDto) -> Unit,
         ) {
             titleTextView.text = movie.title
             runningTimeTextView.text =
@@ -67,7 +67,7 @@ class MovieListAdapter(
                     movie.startDateTime.toFormattedDate(),
                     movie.endDateTime.toFormattedDate(),
                 )
-            posterImageView.setImage(movie.posterUrl)
+            posterImageView.setImage(movie.drawable)
             buttonView.setOnClickListener {
                 onReservationClick(movie)
             }
