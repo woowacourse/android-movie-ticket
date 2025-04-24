@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.booking
 
 import java.io.Serializable
 import java.time.LocalDate
@@ -16,10 +16,6 @@ class ScreeningTime(
         } else {
             times
         }
-    }
-
-    fun hasAvailableScreeningTime(): Boolean {
-        return getAvailableScreeningTimes().isNotEmpty()
     }
 
     private fun getScreeningTimes(dayType: DayType): List<LocalTime> {

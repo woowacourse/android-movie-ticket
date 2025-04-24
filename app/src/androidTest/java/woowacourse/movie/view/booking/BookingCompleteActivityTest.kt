@@ -8,9 +8,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.domain.model.Booking
-import woowacourse.movie.domain.model.PeopleCount
-import woowacourse.movie.domain.model.TicketType
+import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import java.time.LocalDate

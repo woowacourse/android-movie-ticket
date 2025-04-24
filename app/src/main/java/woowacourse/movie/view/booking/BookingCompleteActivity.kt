@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Booking
+import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import woowacourse.movie.view.ext.getSerializable

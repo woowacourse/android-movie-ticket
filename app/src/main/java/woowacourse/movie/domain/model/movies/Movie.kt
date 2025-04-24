@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.movies
 
-import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.booking.ScreeningDate
 
 class Movie(
     val title: String,

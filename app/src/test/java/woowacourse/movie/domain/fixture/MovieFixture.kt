@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.fixture
 
-import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.domain.model.movies.Poster
 import java.time.LocalDate

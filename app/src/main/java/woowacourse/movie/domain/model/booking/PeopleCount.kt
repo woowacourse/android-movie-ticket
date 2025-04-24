@@ -1,10 +1,13 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.booking
 
 @JvmInline
 value class PeopleCount(val value: Int = MIN_PEOPLE_COUNT) {
     fun increase(): PeopleCount = PeopleCount(this.value + PEOPLE_COUNT_CHANGE_STANDARD)
 
-    fun decrease(): PeopleCount = PeopleCount((this.value - PEOPLE_COUNT_CHANGE_STANDARD).coerceAtLeast(MIN_PEOPLE_COUNT))
+    fun decrease(): PeopleCount {
+        val decreasedCount = this.value - PEOPLE_COUNT_CHANGE_STANDARD
+        return PeopleCount((decreasedCount).coerceAtLeast(MIN_PEOPLE_COUNT))
+    }
 
     companion object {
         private const val PEOPLE_COUNT_CHANGE_STANDARD = 1
