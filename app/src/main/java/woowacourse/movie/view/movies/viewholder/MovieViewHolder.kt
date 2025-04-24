@@ -5,7 +5,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.movies.adapter.AbstractListViewAdapter.ViewHolder
 
@@ -30,16 +30,18 @@ class MovieViewHolder(
         position: Int,
     ) {
         mPosition = position
-        moviePoster.setImageResource(item.poster.toInt())
-        movieTitle.text = item.title
-        movieReleaseDate.text =
-            itemView.context.getString(R.string.text_date_period).format(
-                StringFormatter.dotDateFormat(item.releaseDate.startDate),
-                StringFormatter.dotDateFormat(item.releaseDate.endDate),
-            )
-        movieRunningTime.text =
-            movieRunningTime.context.getString(R.string.text_running_time_ㅡminute_unit)
-                .format(item.runningTime)
+        with(item) {
+            posterResource.posterId?.let { moviePoster.setImageResource(it) }
+            movieTitle.text = title
+            movieReleaseDate.text =
+                itemView.context.getString(R.string.text_date_period).format(
+                    StringFormatter.dotDateFormat(releaseDate.startDate),
+                    StringFormatter.dotDateFormat(releaseDate.endDate),
+                )
+            movieRunningTime.text =
+                movieRunningTime.context.getString(R.string.text_running_time_ㅡminute_unit)
+                    .format(runningTime)
+        }
     }
 
     companion object {
