@@ -21,7 +21,7 @@ interface SeatSelectContract {
 
         fun updateTotalPrice(totalPrice: Int)
 
-        fun updateConfirmButtonState(isEnable: Boolean)
+        fun updateConfirmButtonState(isEnabled: Boolean)
 
         fun showReservationDialog(
             title: String,

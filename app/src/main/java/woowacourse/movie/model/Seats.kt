@@ -17,11 +17,7 @@ value class Seats private constructor(
 
     fun contains(label: String): Boolean = _seats.any { it.label == label }
 
-    fun add(label: String): Boolean {
-        if (contains(label)) return false
-        _seats.add(Seat(label))
-        return true
-    }
+    fun add(label: String): Boolean = _seats.add(Seat(label))
 
     fun remove(label: String): Boolean = _seats.removeIf { it.label == label }
 
