@@ -1,10 +1,10 @@
-package woowacourse.movie
+package woowacourse.movie.movies
 
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.R
 
 class MovieItemViewHolder(
     view: View,
@@ -16,22 +16,15 @@ class MovieItemViewHolder(
     private val bookingBtn: Button = view.findViewById(R.id.btn_movie_booking)
 
     fun bind(
-        movie: Movie,
-        onBookingClick: (Movie) -> Unit,
+        movie: MovieUiModel,
+        onBookingClick: (MovieUiModel) -> Unit,
     ) {
         title.text = movie.title
-        poster.setImageResource(movie.poster)
-        date.text =
-            date.context.getString(
-                R.string.movies_movie_date_with_tilde,
-                movie.startDate,
-                movie.endDate,
-            )
-        runningTime.text =
-            runningTime.context.getString(
-                R.string.movies_movie_running_time,
-                movie.runningTime,
-            )
-        bookingBtn.setOnClickListener { onBookingClick(movie) }
+        poster.setImageResource(movie.posterResId)
+        date.text = movie.periodText
+        runningTime.text = movie.runningTimeText
+        bookingBtn.setOnClickListener {
+            onBookingClick(movie)
+        }
     }
 }

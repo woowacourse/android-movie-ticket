@@ -1,14 +1,14 @@
-package woowacourse.movie
+package woowacourse.movie.movies
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.R
 
 class MoviesAdapter(
-    private val movies: List<Movie>,
-    private val onBookingClick: (Movie) -> Unit,
+    private val movies: List<MovieUiModel>,
+    private val onBookingClick: (MovieUiModel) -> Unit,
 ) : BaseAdapter() {
     override fun getView(
         position: Int,
@@ -34,7 +34,7 @@ class MoviesAdapter(
         return view
     }
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): MovieUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = 0
 

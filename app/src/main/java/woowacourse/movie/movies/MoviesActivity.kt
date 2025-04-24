@@ -1,20 +1,27 @@
-package woowacourse.movie
+package woowacourse.movie.movies
 
 import android.os.Bundle
+import android.util.Log
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.R
+import woowacourse.movie.booking.detail.BookingDetailActivity
 import woowacourse.movie.domain.movies
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity :
+    AppCompatActivity(),
+    MoviesContract.View {
+    private lateinit var presenter: MoviesContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        presenter = MoviesPresenter(this)
         setupView()
-        setupMovies()
+        presenter.loadMovies()
     }
 
     private fun setupView() {
@@ -27,20 +34,18 @@ class MoviesActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupMovies() {
+    override fun showMovies(uiModels: List<MovieUiModel>) {
         val moviesAdapter =
-            MoviesAdapter(movies) { movie ->
-                bookMovie(movie)
+            MoviesAdapter(uiModels) { movieUiModel ->
+                presenter.onMovieSelected(movieUiModel)
             }
         findViewById<ListView>(R.id.lv_movies).adapter = moviesAdapter
     }
 
-    private fun bookMovie(movie: Movie) {
-        val intent =
-            BookingDetailActivity.newIntent(
-                context = this,
-                movie = movie,
-            )
+    override fun navigateToBookingDetail(movieUiModel: MovieUiModel) {
+        val intent = BookingDetailActivity.newIntent(this, movieUiModel)
+        Log.d("MoviesActivity", "navigateToBookingDetail called with ${movieUiModel.title}")
+
         startActivity(intent)
     }
 }

@@ -10,6 +10,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
+import woowacourse.movie.movies.MoviesActivity
 
 @Suppress("ktlint:standard:function-naming")
 class MoviesActivityTest {
