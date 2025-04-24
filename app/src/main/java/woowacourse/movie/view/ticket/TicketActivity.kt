@@ -81,7 +81,7 @@ class TicketActivity : AppCompatActivity() {
 
     private fun initShowtimeView() {
         val ticket: Ticket = ticket ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
-        val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
+        val showtimeView = findViewById<TextView>(R.id.tv_ticket_showtime)
         showtimeView.text =
             ticket.showtime.run {
                 getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
