@@ -1,5 +1,8 @@
 package woowacourse.movie.contract
 
+import java.time.LocalDate
+import java.time.LocalTime
+
 interface ReservationContract {
     interface Presenter {
         fun presentPoster()
@@ -9,10 +12,14 @@ interface ReservationContract {
         fun presentPeriod()
 
         fun presentRunningTime()
+
+        fun presentDates()
+
+        fun presentTimes(date: LocalDate)
     }
 
     interface View {
-        fun setPoster(movieId: Int) {}
+        fun setPoster(movieId: Int)
 
         fun setTitle(title: String)
 
@@ -25,6 +32,10 @@ interface ReservationContract {
             endDay: Int,
         )
 
-        fun setRunningTime(runningTime: Int) {}
+        fun setRunningTime(runningTime: Int)
+
+        fun setDates(dates: List<LocalDate>)
+
+        fun setTimes(times: List<LocalTime>)
     }
 }

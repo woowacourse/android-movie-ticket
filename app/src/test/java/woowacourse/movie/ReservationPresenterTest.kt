@@ -12,6 +12,7 @@ import woowacourse.movie.domain.screening.Movie
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.presenter.screening.ReservationPresenter
 import java.time.LocalDate
+import java.time.LocalTime
 
 class ReservationPresenterTest {
     private lateinit var presenter: ReservationContract.Presenter
@@ -81,5 +82,77 @@ class ReservationPresenterTest {
 
         // then
         verify { view.setRunningTime(152) }
+    }
+
+    @Test
+    fun `선택 가능한 날짜들을 표시한다`() {
+        // given
+        every {
+            view.setDates(
+                Screening(
+                    Movie(
+                        0,
+                        "해리 포터와 마법사의 돌",
+                        152,
+                    ),
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ).availableDates(),
+            )
+        } just Runs
+
+        // when
+        presenter.presentDates()
+
+        // then
+        verify {
+            view.setDates(
+                Screening(
+                    Movie(
+                        0,
+                        "해리 포터와 마법사의 돌",
+                        152,
+                    ),
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ).availableDates(),
+            )
+        }
+    }
+
+    @Test
+    fun `선택 가능한 시간들을 표시한다`() {
+        // given
+        every {
+            view.setTimes(
+                listOf(
+                    LocalTime.of(10, 0),
+                    LocalTime.of(12, 0),
+                    LocalTime.of(14, 0),
+                    LocalTime.of(16, 0),
+                    LocalTime.of(18, 0),
+                    LocalTime.of(20, 0),
+                    LocalTime.of(22, 0),
+                ),
+            )
+        } just Runs
+
+        // when
+        presenter.presentTimes(LocalDate.of(2024, 4, 24))
+
+        // then
+        verify {
+            view.setTimes(
+                listOf(
+                    LocalTime.of(10, 0),
+                    LocalTime.of(12, 0),
+                    LocalTime.of(14, 0),
+                    LocalTime.of(16, 0),
+                    LocalTime.of(18, 0),
+                    LocalTime.of(20, 0),
+                    LocalTime.of(22, 0),
+                ),
+            )
+        }
     }
 }
