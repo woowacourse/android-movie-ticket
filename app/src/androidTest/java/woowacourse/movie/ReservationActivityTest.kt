@@ -15,10 +15,18 @@ import org.junit.Test
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.reservation.ReservationActivity
+import java.time.LocalDate
 
 class ReservationActivityTest {
     private lateinit var scenario: ActivityScenario<ReservationActivity>
-    private val fakeMovie = Movie.value
+    private val fakeMovie =
+        Movie(
+            "라라랜드",
+            R.drawable.lalaland,
+            LocalDate.of(2025, 4, 1),
+            LocalDate.of(2025, 4, 30),
+            123,
+        )
     private val fakeContext: Context = ApplicationProvider.getApplicationContext()
 
     @Test
