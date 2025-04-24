@@ -21,6 +21,6 @@ class TicketMachine {
     }
 
     companion object {
-        private const val DEFAULT_TICKET_PRICE = 13000
+        private const val DEFAULT_TICKET_PRICE = 1_3000
     }
 }
