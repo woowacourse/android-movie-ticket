@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.view.movie
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.MovieModelMapper
 
 class MovieAdapter(
@@ -44,10 +42,7 @@ class MovieAdapter(
         private fun registerReserveOnClickListener(movieUiModel: MovieUiModel) {
             reserveButton.setOnClickListener {
                 val context = view.context
-                val intent =
-                    Intent(context, BookingActivity::class.java).apply {
-                        this.putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModel)
-                    }
+                val intent = BookingActivity.newIntent(context, movieUiModel)
                 context.startActivity(intent)
             }
         }

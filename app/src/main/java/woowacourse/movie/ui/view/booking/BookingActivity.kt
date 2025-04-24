@@ -1,8 +1,8 @@
 package woowacourse.movie.ui.view.booking
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -29,7 +29,6 @@ import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
-import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.BookingResultModelMapper
 import woowacourse.movie.util.mapper.MovieModelMapper
 import java.time.LocalDate
@@ -83,7 +82,7 @@ class BookingActivity : AppCompatActivity() {
     private fun movieOrNull(): MovieUiModel? {
         return IntentCompat.getParcelableExtra(
             intent,
-            Keys.Extra.SELECTED_MOVIE_ITEM,
+            EXTRA_SELECTED_MOVIE_ITEM,
             MovieUiModel::class.java,
         )
     }
@@ -248,8 +247,7 @@ class BookingActivity : AppCompatActivity() {
             .setTitle(getString(R.string.dig_title))
             .setMessage(getString(R.string.dig_message))
             .setPositiveButton(getString(R.string.dig_btn_positive_message)) { _, _ ->
-                val intent = Intent(this, BookingCompleteActivity::class.java)
-                intent.putExtra(Keys.Extra.BOOKING_RESULT, bookingResultUiModel)
+                val intent = BookingCompleteActivity.newIntent(this, bookingResultUiModel)
                 startActivity(intent)
             }
             .setNegativeButton(getString(R.string.dig_btn_negative_message)) { dialog, _ ->
@@ -267,20 +265,20 @@ class BookingActivity : AppCompatActivity() {
         super.onSaveInstanceState(outState)
 
         with(outState) {
-            putInt(Keys.SavedState.BOOKING_HEAD_COUNT, bookingResult.headCount)
+            putInt(SAVED_BOOKING_HEAD_COUNT, bookingResult.headCount)
             val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
-            putString(Keys.SavedState.BOOKING_SCREENING_DATE, bookingResultUiModel.selectedDate)
-            putString(Keys.SavedState.BOOKING_SCREENING_TIME, bookingResultUiModel.selectedTime)
+            putString(SAVED_BOOKING_SCREENING_DATE, bookingResultUiModel.selectedDate)
+            putString(SAVED_BOOKING_SCREENING_TIME, bookingResultUiModel.selectedTime)
         }
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val savedCount = savedInstanceState.getInt(Keys.SavedState.BOOKING_HEAD_COUNT)
+        val savedCount = savedInstanceState.getInt(SAVED_BOOKING_HEAD_COUNT)
         val savedScreeningDate =
-            savedInstanceState.getString(Keys.SavedState.BOOKING_SCREENING_DATE)
+            savedInstanceState.getString(SAVED_BOOKING_SCREENING_DATE)
         val savedScreeningTime =
-            savedInstanceState.getString(Keys.SavedState.BOOKING_SCREENING_TIME)
+            savedInstanceState.getString(SAVED_BOOKING_SCREENING_TIME)
 
         val date =
             savedScreeningDate?.toLocalDate(MOVIE_DATE_DELIMITER) ?: LocalDate.now()
@@ -290,5 +288,22 @@ class BookingActivity : AppCompatActivity() {
         val headCountView: TextView = findViewById(R.id.tv_people_count)
         headCountView.text = savedCount.toString()
         bookingResult = BookingResult(bookingResult.title, savedCount, date, time)
+    }
+
+    companion object {
+        private const val EXTRA_SELECTED_MOVIE_ITEM = "extra_selected_movie_item"
+        private const val SAVED_BOOKING_HEAD_COUNT = "savedstate_booking_head_count"
+        private const val SAVED_BOOKING_SCREENING_DATE = "savedstate_booking_screening_date"
+        private const val SAVED_BOOKING_SCREENING_TIME = "savedstate_booking_screening_time"
+
+        fun newIntent(
+            context: Context,
+            movieUiModel: MovieUiModel,
+        ): Intent {
+            return Intent(
+                context,
+                BookingActivity::class.java,
+            ).apply { putExtra(EXTRA_SELECTED_MOVIE_ITEM, movieUiModel) }
+        }
     }
 }

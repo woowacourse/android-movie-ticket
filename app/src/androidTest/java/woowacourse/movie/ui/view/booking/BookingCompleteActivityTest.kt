@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.view.booking
 
-import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
@@ -15,7 +14,6 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
-import woowacourse.movie.util.Keys
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
@@ -26,12 +24,10 @@ class BookingCompleteActivityTest {
         Intents.init()
 
         val intent =
-            Intent(
+            BookingCompleteActivity.newIntent(
                 ApplicationProvider.getApplicationContext(),
-                BookingCompleteActivity::class.java,
-            ).apply {
-                putExtra(Keys.Extra.BOOKING_RESULT, bookingResultUiModel)
-            }
+                bookingResultUiModel,
+            )
 
         scenario = ActivityScenario.launch(intent)
     }

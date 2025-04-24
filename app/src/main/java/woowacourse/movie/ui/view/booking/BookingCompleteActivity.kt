@@ -1,5 +1,7 @@
 package woowacourse.movie.ui.view.booking
 
+import android.content.Context
+import android.content.Intent
 import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.widget.TextView
@@ -12,7 +14,6 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.domain.model.booking.TicketPrice
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
-import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.BookingResultModelMapper
 
 class BookingCompleteActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class BookingCompleteActivity : AppCompatActivity() {
     private fun bookingResultUiOrNull() =
         IntentCompat.getParcelableExtra(
             intent,
-            Keys.Extra.BOOKING_RESULT,
+            EXTRA_BOOKING_RESULT,
             BookingResultUiModel::class.java,
         )
 
@@ -70,5 +71,19 @@ class BookingCompleteActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    companion object {
+        private const val EXTRA_BOOKING_RESULT = "extra_booking_result"
+
+        fun newIntent(
+            context: Context,
+            bookingResultUiModel: BookingResultUiModel,
+        ): Intent {
+            return Intent(
+                context,
+                BookingCompleteActivity::class.java,
+            ).apply { putExtra(EXTRA_BOOKING_RESULT, bookingResultUiModel) }
+        }
     }
 }

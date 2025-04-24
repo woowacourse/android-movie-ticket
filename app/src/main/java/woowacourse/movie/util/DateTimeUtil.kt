@@ -12,28 +12,20 @@ object DateTimeUtil {
     const val MOVIE_TIME_FORMAT = "kk:mm"
     private const val SPINNER_DATE_FORMAT = "yyyy-MM-dd"
 
-    fun LocalDate.toFormattedString(
-        pattern: String,
-    ): String {
+    fun LocalDate.toFormattedString(pattern: String): String {
         return this.format(DateTimeFormatter.ofPattern(pattern))
     }
 
-    fun LocalTime.toFormattedString(
-        pattern: String,
-    ): String {
+    fun LocalTime.toFormattedString(pattern: String): String {
         return this.format(DateTimeFormatter.ofPattern(pattern))
     }
 
-    fun String.toLocalDate(
-        delimiter: String,
-    ): LocalDate {
+    fun String.toLocalDate(delimiter: String): LocalDate {
         val (year, month, day) = this.split(delimiter).map { it.toInt() }
         return LocalDate.of(year, month, day)
     }
 
-    fun String.toLocalTime(
-        delimiter: String,
-    ): LocalTime {
+    fun String.toLocalTime(delimiter: String): LocalTime {
         val (hour, minute) = this.split(delimiter).map { it.toInt() }
         return LocalTime.of(hour, minute)
     }

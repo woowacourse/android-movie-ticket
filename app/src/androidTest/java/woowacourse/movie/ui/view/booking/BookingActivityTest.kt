@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.view.booking
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -11,7 +10,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
 import androidx.test.espresso.matcher.RootMatchers.isDialog
 import androidx.test.espresso.matcher.RootMatchers.isPlatformPopup
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -28,7 +26,6 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
-import woowacourse.movie.util.Keys
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
@@ -38,10 +35,10 @@ class BookingActivityTest {
     fun setUp() {
         Intents.init()
 
-        val intent =
-            Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
-                putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModel)
-            }
+        val intent = BookingActivity.newIntent(ApplicationProvider.getApplicationContext(), movieUiModel)
+//            Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
+//                putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModel)
+//            }
 
         scenario = ActivityScenario.launch(intent)
     }
@@ -263,7 +260,6 @@ class BookingActivityTest {
         intended(
             allOf(
                 hasComponent(BookingCompleteActivity::class.java.name),
-                hasExtraWithKey(Keys.Extra.BOOKING_RESULT),
             ),
         )
 

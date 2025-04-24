@@ -1,5 +1,7 @@
 package woowacourse.movie.ui.view.movie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -11,7 +13,6 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
-import woowacourse.movie.util.Keys
 import woowacourse.movie.util.mapper.MovieModelMapper
 
 class MovieActivity : AppCompatActivity() {
@@ -40,7 +41,7 @@ class MovieActivity : AppCompatActivity() {
         val movieUiModels =
             IntentCompat.getParcelableArrayListExtra(
                 intent,
-                Keys.Extra.LOADED_MOVIE_ITEMS,
+                EXTRA_LOADED_MOVIE_ITEMS,
                 MovieUiModel::class.java,
             )?.toList()
         return movieUiModels
@@ -69,5 +70,19 @@ class MovieActivity : AppCompatActivity() {
 
     private fun validatedMovies(movieUiModels: List<MovieUiModel>): List<Movie> {
         return movieUiModels.map { uiModel -> MovieModelMapper.toDomain(uiModel) }
+    }
+
+    companion object {
+        private const val EXTRA_LOADED_MOVIE_ITEMS = "extra_loaded_movie_items"
+
+        fun newIntent(
+            context: Context,
+            movieUiModels: ArrayList<MovieUiModel>,
+        ): Intent {
+            return Intent(
+                context,
+                MovieActivity::class.java,
+            ).apply { putParcelableArrayListExtra(EXTRA_LOADED_MOVIE_ITEMS, movieUiModels) }
+        }
     }
 }

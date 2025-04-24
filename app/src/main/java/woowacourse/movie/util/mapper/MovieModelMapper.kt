@@ -4,7 +4,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
-import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
 import woowacourse.movie.util.DateTimeUtil.toFormattedString

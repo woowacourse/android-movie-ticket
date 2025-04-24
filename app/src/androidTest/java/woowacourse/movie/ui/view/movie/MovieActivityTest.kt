@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.view.movie
 
-import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
@@ -10,7 +9,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
-import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtra
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -23,7 +21,6 @@ import woowacourse.movie.R
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.util.Keys
 
 class MovieActivityTest {
     private lateinit var scenario: ActivityScenario<MovieActivity>
@@ -34,9 +31,7 @@ class MovieActivityTest {
         Intents.init()
 
         val intent =
-            Intent(ApplicationProvider.getApplicationContext(), MovieActivity::class.java).apply {
-                putParcelableArrayListExtra(Keys.Extra.LOADED_MOVIE_ITEMS, movieUiModels)
-            }
+            MovieActivity.newIntent(ApplicationProvider.getApplicationContext(), movieUiModels)
 
         scenario = ActivityScenario.launch(intent)
     }
@@ -111,7 +106,7 @@ class MovieActivityTest {
     }
 
     @Test
-    fun `리스트뷰_영화예매_클릭후_데이터를_확인한다`() {
+    fun `리스트뷰_영화예매_클릭_후_이동한다`() {
         // given && when
         onData(anything())
             .inAdapterView(withId(R.id.listview_layout))
@@ -119,21 +114,10 @@ class MovieActivityTest {
             .onChildView(withId(R.id.btn_reserve))
             .perform(click())
 
-        val expected =
-            MovieUiModel(
-                id = 1L,
-                poster = Poster.Resource(R.drawable.prepare_poster),
-                title = "테스트 데이터 제목",
-                runningTime = "151",
-                screeningStartDate = "2025.4.1",
-                screeningEndDate = "2025.4.25",
-            )
-
         // then
         intended(
             allOf(
                 hasComponent(BookingActivity::class.java.name),
-                hasExtra(Keys.Extra.SELECTED_MOVIE_ITEM, expected),
             ),
         )
     }
