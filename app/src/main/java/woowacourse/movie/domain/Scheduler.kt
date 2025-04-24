@@ -17,9 +17,9 @@ class Scheduler {
                 getShowtimes(today, now).isNotEmpty() -> today
                 else -> today.plusDays(1)
             }
-        return generateSequence(earliestDate) { date -> date.plusDays(1) }
-            .take(earliestDate.until(endDate).days + 1)
-            .toList()
+        return generateSequence(earliestDate) { date ->
+            if (date.isBefore(endDate)) date.plusDays(1) else null
+        }.toList()
     }
 
     fun getShowtimes(
@@ -35,9 +35,10 @@ class Scheduler {
             (openingHour until CLOSING_HOUR step SHOWTIME_INTERVAL_HOUR).map { hour ->
                 LocalTime.of(hour, 0)
             }
-        return when (selectedDate == now.toLocalDate()) {
-            true -> showtimes.filter { showtime -> showtime.hour > now.hour }
-            else -> showtimes
+        return if (selectedDate == now.toLocalDate()) {
+            showtimes.filter { showtime -> showtime.hour > now.hour }
+        } else {
+            showtimes
         }
     }
 

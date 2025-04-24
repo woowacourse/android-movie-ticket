@@ -23,7 +23,7 @@ class MovieSelectionActivity : AppCompatActivity() {
                 Movie(
                     "해리 포터 $n",
                     startDate = LocalDate.of(2025, 4, 1),
-                    endDate = LocalDate.of(2025, 4, 25),
+                    endDate = LocalDate.of(2025, 5, 31),
                     runningTime = 152,
                 ).toUiModel()
             }
