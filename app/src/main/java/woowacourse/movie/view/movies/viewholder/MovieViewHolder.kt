@@ -31,7 +31,9 @@ class MovieViewHolder(
     ) {
         mPosition = position
         with(item) {
-            posterResource.posterId?.let { moviePoster.setImageResource(it) }
+            val resource = posterResource.posterId ?: R.drawable.movie_place_holder
+            moviePoster.setImageResource(resource)
+
             movieTitle.text = title
             movieReleaseDate.text =
                 itemView.context.getString(R.string.text_date_period).format(

@@ -104,7 +104,8 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
     private fun initPosterView(posterId: Int?) {
         val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        posterId?.let { moviePosterView.setImageResource(it) }
+        val resource = posterId ?: R.drawable.movie_place_holder
+        moviePosterView.setImageResource(resource)
     }
 
     private fun initReleaseDateView(
