@@ -6,7 +6,7 @@ import java.time.LocalDateTime
 class BookedTicket(
     val movieName: String,
     val headcount: Headcount,
-    val time: LocalDateTime,
+    val dateTime: LocalDateTime,
 ) : Serializable {
     fun totalPrice(): Int = headcount.price()
 }
