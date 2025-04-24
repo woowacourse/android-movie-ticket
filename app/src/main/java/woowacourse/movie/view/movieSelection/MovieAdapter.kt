@@ -11,6 +11,8 @@ class MovieAdapter(
     private val movies: List<MovieUiModel>,
     private val onReservationClick: (MovieUiModel) -> Unit,
 ) : BaseAdapter() {
+    private val viewHolderCache = mutableMapOf<View, MovieViewHolder>()
+
     override fun getCount(): Int = movies.size
 
     override fun getItem(position: Int): MovieUiModel = movies[position]
@@ -24,19 +26,21 @@ class MovieAdapter(
     ): View {
         val view: View
         val viewHolder: MovieViewHolder
+
         if (convertView == null) {
             view =
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.item_movie, parent, false)
             viewHolder = MovieViewHolder(view)
-            view.tag = viewHolder
+            viewHolderCache[view] = viewHolder
         } else {
             view = convertView
-            viewHolder = view.tag as MovieViewHolder
+            viewHolder = viewHolderCache[view] ?: MovieViewHolder(view).also {
+                viewHolderCache[view] = it
+            }
         }
 
         viewHolder.bind(getItem(position), onReservationClick)
-
         return view
     }
 }
