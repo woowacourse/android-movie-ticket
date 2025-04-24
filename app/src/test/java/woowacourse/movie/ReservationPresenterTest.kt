@@ -46,4 +46,16 @@ class ReservationPresenterTest {
         // then
         verify { view.setTitle("해리 포터와 마법사의 돌") }
     }
+
+    @Test
+    fun `상영일을 표시한다`() {
+        // given
+        every { view.setPeriod(2025, 4, 1, 2025, 4, 25) } just Runs
+
+        // when
+        presenter.presentPeriod()
+
+        // then
+        verify { view.setPeriod(2025, 4, 1, 2025, 4, 25) }
+    }
 }

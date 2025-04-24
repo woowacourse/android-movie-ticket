@@ -10,4 +10,17 @@ class ReservationPresenter(
     override fun presentTitle() {
         view.setTitle(screening.title)
     }
+
+    override fun presentPeriod() {
+        screening.run {
+            view.setPeriod(
+                startYear,
+                startMonth,
+                startDay,
+                endYear,
+                endMonth,
+                endDay,
+            )
+        }
+    }
 }

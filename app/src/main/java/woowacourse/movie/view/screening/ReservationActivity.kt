@@ -85,8 +85,10 @@ class ReservationActivity :
         }
 
     private fun initViews() {
-        presenter?.presentTitle() ?: error(ErrorMessage("screening").notProvided())
-        initPeriodView()
+        (presenter ?: error(ErrorMessage("screening").notProvided())).run {
+            presentTitle()
+            presentPeriod()
+        }
         initPosterView()
         initRunningTimeView()
         initDateSpinner()
@@ -145,18 +147,6 @@ class ReservationActivity :
 
     private fun initPeriodView() {
         val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
-
-        val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
-        periodView.text =
-            getString(
-                R.string.screening_period,
-                screening.startYear,
-                screening.startMonth,
-                screening.startDay,
-                screening.endYear,
-                screening.endMonth,
-                screening.endDay,
-            )
     }
 
     private fun initTitleView() {
@@ -253,6 +243,27 @@ class ReservationActivity :
     override fun setTitle(title: String) {
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
         titleView.text = title
+    }
+
+    override fun setPeriod(
+        startYear: Int,
+        startMonth: Int,
+        startDay: Int,
+        endYear: Int,
+        endMonth: Int,
+        endDay: Int,
+    ) {
+        val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
+        periodView.text =
+            getString(
+                R.string.screening_period,
+                startYear,
+                startMonth,
+                startDay,
+                endYear,
+                endMonth,
+                endDay,
+            )
     }
 
     companion object {
