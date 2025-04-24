@@ -47,13 +47,13 @@ class MovieListAdapter(
             image.setImageResource(item.poster)
             title.text = item.title
             movieDate.text =
-                context.resources.getString(
+                context.getString(
                     R.string.movie_date,
                     item.startDate,
                     item.endDate,
                 )
             runningTime.text =
-                String.format(context.resources.getString(R.string.running_time), item.runningTime)
+                context.getString(R.string.running_time, item.runningTime)
 
             button.setOnClickListener {
                 changeActivity(item)
