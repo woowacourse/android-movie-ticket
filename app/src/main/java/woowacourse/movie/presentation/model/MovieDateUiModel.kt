@@ -9,7 +9,7 @@ data class MovieDateUiModel(
     val month: Int = 1,
     val day: Int = 1,
 ) : Parcelable {
-    override fun toString(): String = "$year.$month.$day"
+    override fun toString(): String = "%04d.%02d.%02d".format(year, month, day)
 
     companion object {
         fun from(date: String): MovieDateUiModel {

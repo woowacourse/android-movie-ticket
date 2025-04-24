@@ -142,7 +142,7 @@ class BookingDetailActivityTest {
         }
 
         onView(withId(R.id.sp_booking_detail_date))
-            .check(matches(withSpinnerText("2025-04-02")))
+            .check(matches(withSpinnerText("2025.04.02")))
 
         onView(withId(R.id.sp_booking_detail_time))
             .check(matches(withSpinnerText("12:00")))
