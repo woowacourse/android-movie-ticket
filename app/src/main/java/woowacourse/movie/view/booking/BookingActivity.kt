@@ -17,20 +17,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Booking
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Movies
-import woowacourse.movie.domain.model.PeopleCount
-import woowacourse.movie.domain.model.ScreeningDate
-import woowacourse.movie.domain.model.ScreeningTime
-import woowacourse.movie.domain.model.TicketType
+import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.booking.ScreeningDate
+import woowacourse.movie.domain.model.booking.ScreeningTime
+import woowacourse.movie.domain.model.booking.TicketType
+import woowacourse.movie.domain.model.movies.Movie
+import woowacourse.movie.domain.model.movies.Poster
 import woowacourse.movie.view.StringFormatter
+import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class BookingActivity : AppCompatActivity() {
-    private var bookingPeopleCount: PeopleCount = PeopleCount()
+class BookingActivity : AppCompatActivity(), BookingContract.View {
+    private val presenter by lazy { PresenterFactory.providePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +39,11 @@ class BookingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking)
 
         val movieIdx = intent.getIntExtra(KEY_MOVIE, NO_MOVIE)
-        val movie = Movies.get(movieIdx)
-        initView(movie, savedInstanceState)
+
+        initView(movieIdx)
     }
 
-    private fun initView(
-        movie: Movie,
-        savedInstanceState: Bundle?,
-    ) {
+    private fun initView(movieIdx: Int) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -53,17 +51,33 @@ class BookingActivity : AppCompatActivity() {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initTitleView(movie.title)
-        initPosterView(movie.poster)
+        presenter.loadMovieDetail(movieIdx)
+        presenter.loadPeopleCount()
 
-        val startDate = movie.releaseDate.startDate
-        val endDate = movie.releaseDate.endDate
-        initReleaseDateView(startDate, endDate)
-
-        initRunningTimeView(movie.runningTime)
         initButtonListener()
-        initPeopleCountView()
-        restoreSavedState(savedInstanceState, startDate, endDate)
+    }
+
+    override fun showMovieDetail(movie: Movie) {
+        with(movie) {
+            val (startDate, endDate) = releaseDate
+            initTitleView(title)
+            initPosterView(posterResource)
+            initReleaseDateView(startDate, endDate)
+            initRunningTimeView(runningTime)
+            initDateSpinner(startDate, endDate)
+        }
+    }
+
+    override fun showPeopleCount(count: Int) {
+        findViewById<TextView>(R.id.tv_people_count).text = count.toString()
+    }
+
+    override fun onClickIncrease() {
+        presenter.increasePeopleCount()
+    }
+
+    override fun onClickDecrease() {
+        presenter.decreasePeopleCount()
     }
 
     private fun initTitleView(title: String) {
@@ -71,10 +85,9 @@ class BookingActivity : AppCompatActivity() {
         movieTitleView.text = title
     }
 
-    private fun initPosterView(poster: String) {
+    private fun initPosterView(poster: Poster) {
         val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        val posterId = poster.toInt()
-        moviePosterView.setImageResource(posterId)
+        poster.posterId?.let { moviePosterView.setImageResource(it) }
     }
 
     private fun initReleaseDateView(
@@ -95,11 +108,6 @@ class BookingActivity : AppCompatActivity() {
             getString(R.string.text_running_time_ㅡminute_unit).format(runningTime)
     }
 
-    private fun initPeopleCountView() {
-        val peopleCountView = findViewById<TextView>(R.id.tv_people_count)
-        peopleCountView.text = bookingPeopleCount.value.toString()
-    }
-
     private fun restoreSavedState(
         savedInstanceState: Bundle?,
         startDate: LocalDate,
@@ -114,14 +122,12 @@ class BookingActivity : AppCompatActivity() {
             findViewById<TextView>(R.id.tv_people_count).text = count
         }
 
-        setDateSpinner(startDate, endDate, savedDatePosition, savedTimePosition)
+        // initDateSpinner(startDate, endDate, savedDatePosition, savedTimePosition)
     }
 
-    private fun setDateSpinner(
+    private fun initDateSpinner(
         startDate: LocalDate,
         endDate: LocalDate,
-        savedDatePosition: Int?,
-        savedTimePosition: Int?,
     ) {
         val dateSpinner = findViewById<Spinner>(R.id.sp_date)
 
@@ -136,19 +142,14 @@ class BookingActivity : AppCompatActivity() {
                     screeningBookingDates,
                 )
 
-            setSelection(savedDatePosition ?: 0)
-
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-                    setTimeSpinner(screeningBookingDates[pos], savedTimePosition)
+                    initTimeSpinner(screeningBookingDates[pos])
                 }
         }
     }
 
-    private fun setTimeSpinner(
-        selectedDate: LocalDate,
-        savedPosition: Int?,
-    ) {
+    private fun initTimeSpinner(selectedDate: LocalDate) {
         val timeSpinner: Spinner = findViewById(R.id.sp_time)
         val now = LocalDateTime.now()
         val screeningTime = ScreeningTime(now, selectedDate)
@@ -166,7 +167,7 @@ class BookingActivity : AppCompatActivity() {
                     android.R.layout.simple_spinner_item,
                     availableTimes,
                 )
-            setSelection(savedPosition ?: 0)
+            // setSelection(savedPosition ?: 0)
         }
     }
 
@@ -175,17 +176,8 @@ class BookingActivity : AppCompatActivity() {
         val decreaseBtn = findViewById<Button>(R.id.btn_decrease)
         val bookingBtn = findViewById<Button>(R.id.btn_booking_complete)
 
-        val peopleCount = findViewById<TextView>(R.id.tv_people_count)
-
-        increaseBtn.setOnClickListener {
-            bookingPeopleCount = bookingPeopleCount.increase()
-            peopleCount.text = bookingPeopleCount.value.toString()
-        }
-
-        decreaseBtn.setOnClickListener {
-            bookingPeopleCount = bookingPeopleCount.decrease()
-            peopleCount.text = bookingPeopleCount.value.toString()
-        }
+        increaseBtn.setOnClickListener { onClickIncrease() }
+        decreaseBtn.setOnClickListener { onClickDecrease() }
 
         bookingBtn.setOnClickListener {
             showDialog(
@@ -221,7 +213,7 @@ class BookingActivity : AppCompatActivity() {
                         title = findViewById<TextView>(R.id.tv_title).text.toString(),
                         bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
                         bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
-                        peopleCount = bookingPeopleCount,
+                        peopleCount = PeopleCount(0),
                         ticketType = TicketType.GENERAL,
                     ),
                 )
