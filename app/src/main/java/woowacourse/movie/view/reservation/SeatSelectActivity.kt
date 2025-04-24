@@ -56,6 +56,8 @@ class SeatSelectActivity :
                 getString(R.string.reservation_dialog_message),
             )
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun getMovieTicketData(): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
@@ -140,5 +142,10 @@ class SeatSelectActivity :
         return Intent(this, ReservationCompleteActivity::class.java).apply {
             putExtra(Extras.ReservationInfoData.RESERVATION_KEY, reservationInfo)
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 }

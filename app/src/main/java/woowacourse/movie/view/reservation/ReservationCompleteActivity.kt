@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,7 @@ import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
+import woowacourse.movie.view.movie.MoviesActivity
 
 class ReservationCompleteActivity : AppCompatActivity() {
     private val reservationInfo by lazy { getReservationInfoData() }
@@ -62,7 +64,11 @@ class ReservationCompleteActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return super.onSupportNavigateUp()
+        val intent =
+            Intent(this, MoviesActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            }
+        startActivity(intent)
+        return true
     }
 }
