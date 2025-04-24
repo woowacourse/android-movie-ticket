@@ -3,8 +3,8 @@ package woowacourse.movie.presentation.view.movies
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.base.BaseActivity
+import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailActivity
 
 class MoviesActivity :
@@ -17,20 +17,20 @@ class MoviesActivity :
         presenter.fetchData()
     }
 
-    override fun setScreen(movies: List<Movie>) {
+    override fun setScreen(movies: List<MovieUiModel>) {
         val lvMovie = findViewById<ListView>(R.id.lv_movie)
         lvMovie.adapter =
             MovieListAdapter(
                 movies,
                 object : OnMovieEventListener {
-                    override fun onClick(movie: Movie) {
+                    override fun onClick(movie: MovieUiModel) {
                         navigateToReservationScreen(movie)
                     }
                 },
             )
     }
 
-    private fun navigateToReservationScreen(movie: Movie) {
+    private fun navigateToReservationScreen(movie: MovieUiModel) {
         val intent = ReservationDetailActivity.newIntent(this, movie)
         startActivity(intent)
     }

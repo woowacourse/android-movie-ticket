@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.view.movies
 
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.model.MovieUiModel
 
 interface OnMovieEventListener {
-    fun onClick(movie: Movie)
+    fun onClick(movie: MovieUiModel)
 }

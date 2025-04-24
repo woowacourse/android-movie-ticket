@@ -5,15 +5,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.presentation.model.MovieUiModel
 
 class MovieListAdapter(
-    private val movies: List<Movie>,
+    private val movies: List<MovieUiModel>,
     private val eventListener: OnMovieEventListener,
 ) : BaseAdapter() {
     override fun getCount(): Int = movies.size
 
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun getItem(position: Int): MovieUiModel = movies[position]
 
     override fun getItemId(position: Int): Long = movies[position].id
 

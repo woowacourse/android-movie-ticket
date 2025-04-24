@@ -5,9 +5,9 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presentation.extension.setImage
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
+import woowacourse.movie.presentation.model.MovieUiModel
 
 class MovieViewHolder(
     private val parentView: View,
@@ -19,7 +19,7 @@ class MovieViewHolder(
     private val tvRunningTime: TextView = parentView.findViewById(R.id.tv_running_time)
     private val btnReservation: Button = parentView.findViewById(R.id.btn_reservation)
 
-    fun bind(movie: Movie) {
+    fun bind(movie: MovieUiModel) {
         movie.poster.setImage(ivPoster)
         tvTitle.text = movie.title
         tvDate.text = getDate(movie)
@@ -30,7 +30,7 @@ class MovieViewHolder(
         }
     }
 
-    private fun getDate(movie: Movie): String =
+    private fun getDate(movie: MovieUiModel): String =
         movie.screeningPeriod.run {
             val format = parentView.context.getString(R.string.movie_screening_period_format)
             parentView.context.getString(
@@ -44,6 +44,6 @@ class MovieViewHolder(
             )
         }
 
-    private fun getRunningTime(movie: Movie): String =
-        parentView.context.getString(R.string.running_time, movie.runningTime.minute.toString())
+    private fun getRunningTime(movie: MovieUiModel): String =
+        parentView.context.getString(R.string.running_time, movie.runningTime.toString())
 }
