@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.ext.getSerializableCompat
+import woowacourse.movie.main.MainActivity
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
