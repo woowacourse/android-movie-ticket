@@ -7,11 +7,15 @@ interface TicketContract {
         fun presentTitle()
 
         fun presentShowtime()
+
+        fun presentCancelDescription()
     }
 
     interface View {
         fun setMovieTitle(movieTitle: String)
 
         fun setShowtime(showtime: LocalDateTime)
+
+        fun setCancelDescription(minutes: Int)
     }
 }

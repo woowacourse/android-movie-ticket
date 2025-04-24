@@ -8,6 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.contract.ticket.TicketContract
+import woowacourse.movie.domain.ticket.FakeCancelTimePolicy
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.presenter.ticket.TicketPresenter
 import java.time.LocalDateTime
@@ -27,11 +28,24 @@ class TicketPresenterTest {
                     count = 2,
                     showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
                 ),
+                FakeCancelTimePolicy(15),
             )
     }
 
     @Test
-    fun `영화_제목을_표시한다`() {
+    fun `상영 취소 관련 안내를 표시한다`() {
+        // given
+        every { view.setCancelDescription(15) } just Runs
+
+        // when
+        presenter.presentCancelDescription()
+
+        // then
+        verify { view.setCancelDescription(15) }
+    }
+
+    @Test
+    fun `영화 제목을 표시한다`() {
         // given
         every { view.setMovieTitle("해리 포터와 마법사의 돌") } just Runs
 
@@ -43,7 +57,7 @@ class TicketPresenterTest {
     }
 
     @Test
-    fun `영화_상영_시간을_표시한다`() {
+    fun `영화 상영 시간을 표시한다`() {
         // given
         every { view.setShowtime(LocalDateTime.of(2025, 4, 15, 11, 0)) } just Runs
 
