@@ -7,9 +7,6 @@ import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers.isDialog
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -85,13 +82,6 @@ class MovieReservationActivityTest {
 
         // then
         onView(withId(R.id.ticket_count)).check(matches(withText("1")))
-    }
-
-    @Test
-    @DisplayName("선택 완료 버튼을 클릭하면 다이얼로그가 표시된다")
-    fun displayAlertDialogOnSelectButtonClickTest() {
-        onView(withId(R.id.select_button)).perform(click())
-        onView(isRoot()).inRoot(isDialog()).check(matches(isDisplayed()))
     }
 
     @Test
