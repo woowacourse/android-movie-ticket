@@ -1,6 +1,5 @@
 package woowacourse.movie.view
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
@@ -8,13 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.view.adpater.MovieListAdapter
-import woowacourse.movie.MovieListClick
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
 import woowacourse.movie.view.MovieBookingActivity.Companion.movieBookingIntent
+import woowacourse.movie.Movies.View
+import woowacourse.movie.MoviesPresenter
 
-class MovieActivity : AppCompatActivity() {
+class MovieActivity : AppCompatActivity(), View {
+    private lateinit var presenter: MoviesPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,18 +25,19 @@ class MovieActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val movieListView: ListView = findViewById(R.id.movies)
-        movieListAdapter(movieListView)
+        presenter = MoviesPresenter(this@MovieActivity)
+        presenter.loadMovies()
     }
 
-    private fun movieListAdapter(movieListView: ListView) {
-        val movies = Movies.Companion.value
-        val movieListAdapter = MovieListAdapter(movies, object : MovieListClick {
-            override fun navigateToBook(movie: Movie) {
-                val intent = movieBookingIntent(this@MovieActivity, movie)
-                startActivity(intent)
-            }
-        })
-        movieListView.adapter = movieListAdapter
+    override fun showMovies(movies: List<Movie>) {
+        val movieListView: ListView = findViewById(R.id.movies)
+        movieListView.adapter = MovieListAdapter(movies) { movie ->
+            presenter.selectedMovie(movie)
+        }
+    }
+
+    override fun navigateToBook(movie: Movie) {
+        val intent = movieBookingIntent(this@MovieActivity, movie)
+        startActivity(intent)
     }
 }
