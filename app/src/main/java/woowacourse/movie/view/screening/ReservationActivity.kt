@@ -17,7 +17,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.contract.ReservationContract
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.presenter.screening.ReservationPresenter
 import woowacourse.movie.view.screening.Poster.posterId
 import woowacourse.movie.view.ticket.TicketActivity
 import woowacourse.movie.view.util.ErrorMessage
@@ -25,7 +27,10 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity : AppCompatActivity() {
+class ReservationActivity :
+    AppCompatActivity(),
+    ReservationContract.View {
+    private var presenter: ReservationContract.Presenter? = null
     private val showReservationDialog by lazy { ShowReservationDialog(this) }
 
     private var screening: Screening? = null
@@ -55,6 +60,8 @@ class ReservationActivity : AppCompatActivity() {
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
         val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
         initModel(savedTicketCount, savedTimeItemPosition)
+        presenter =
+            ReservationPresenter(this, screening ?: error(ErrorMessage("screening").notProvided()))
         initViews()
     }
 
@@ -78,7 +85,7 @@ class ReservationActivity : AppCompatActivity() {
         }
 
     private fun initViews() {
-        initTitleView()
+        presenter?.presentTitle() ?: error(ErrorMessage("screening").notProvided())
         initPeriodView()
         initPosterView()
         initRunningTimeView()
@@ -153,9 +160,6 @@ class ReservationActivity : AppCompatActivity() {
     }
 
     private fun initTitleView() {
-        val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
-        val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
-        titleView.text = screening.title
     }
 
     private fun initDateSpinner() {
@@ -244,6 +248,11 @@ class ReservationActivity : AppCompatActivity() {
             )
         startActivity(intent)
         finish()
+    }
+
+    override fun setTitle(title: String) {
+        val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
+        titleView.text = title
     }
 
     companion object {
