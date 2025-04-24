@@ -289,10 +289,10 @@ class ReserveActivity : AppCompatActivity() {
         }
 
     companion object {
-        private const val KEY_DATE_POSITION = "datePosition"
-        private const val KEY_TIME_POSITION = "timePosition"
+        private const val KEY_DATE_POSITION = "date_position"
+        private const val KEY_TIME_POSITION = "time_position"
         private const val KEY_PURCHASE_COUNT = "purchase_count"
-        private const val KEY_SELECTED_DATE = "selectedDate"
+        private const val KEY_SELECTED_DATE = "selected_date"
         const val KEY_RESERVE_ACTIVITY_MOVIE = "key_reserve_activity_movie"
     }
 }
