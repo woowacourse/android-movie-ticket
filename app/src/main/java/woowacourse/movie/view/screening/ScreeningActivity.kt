@@ -10,11 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.data.screening.Screenings
+import woowacourse.movie.contract.ScreeningContract
 import woowacourse.movie.domain.screening.Screening
+import woowacourse.movie.presenter.screening.ScreeningPresenter
 import woowacourse.movie.view.screening.adapter.ScreeningAdapter
 
-class ScreeningActivity : AppCompatActivity() {
+class ScreeningActivity :
+    AppCompatActivity(),
+    ScreeningContract.View {
+    private val presenter: ScreeningContract.Presenter = ScreeningPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,7 +30,19 @@ class ScreeningActivity : AppCompatActivity() {
             insets
         }
 
-        initListView()
+        presenter.updateScreenings()
+    }
+
+    override fun setScreenings(screenings: List<Screening>) {
+        initListView(screenings)
+    }
+
+    private fun initListView(screenings: List<Screening>) {
+        val screenings: List<Screening> =
+            intent?.getScreeningsExtra()?.toList() ?: screenings
+        val movieListView = findViewById<ListView>(R.id.lv_screening_movies)
+        val movieAdapter = ScreeningAdapter(screenings, ::navigateToReservationActivity)
+        movieListView.adapter = movieAdapter
     }
 
     @Suppress("DEPRECATION")
@@ -36,14 +53,6 @@ class ScreeningActivity : AppCompatActivity() {
 
             else -> getSerializableExtra(EXTRA_SCREENINGS) as? Array<Screening>
         }
-
-    private fun initListView() {
-        val screenings: List<Screening> =
-            intent?.getScreeningsExtra()?.toList() ?: Screenings().value
-        val movieListView = findViewById<ListView>(R.id.lv_screening_movies)
-        val movieAdapter = ScreeningAdapter(screenings, ::navigateToReservationActivity)
-        movieListView.adapter = movieAdapter
-    }
 
     private fun navigateToReservationActivity(screening: Screening) {
         val intent = ReservationActivity.newIntent(this, screening)
