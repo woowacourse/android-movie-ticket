@@ -19,7 +19,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.containsString
-import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.CoreMatchers.`is`
 import org.junit.After
 import org.junit.Before
@@ -198,7 +197,7 @@ class BookingActivityTest {
     fun `특정_날짜를_선택했을_때_주말인_경우_시간이_정상적으로_표시되고_선택된다`() {
         onView(withId(R.id.spinner_screening_date)).perform(click())
 
-        val targetDate = LocalDate.of(2028,10,14)
+        val targetDate = LocalDate.of(2028, 10, 14)
         onData(`is`(targetDate))
             .inRoot(isPlatformPopup())
             .perform(click())
@@ -209,7 +208,7 @@ class BookingActivityTest {
         onView(withId(R.id.spinner_screening_time)).perform(click())
 
         // 주말 로직에 따라 10:00, 12:00이 떠야함
-        val targetTime = LocalTime.of(12,0)
+        val targetTime = LocalTime.of(12, 0)
         onData(`is`(targetTime))
             .inRoot(isPlatformPopup())
             .perform(click())
@@ -233,7 +232,7 @@ class BookingActivityTest {
         onView(withId(R.id.spinner_screening_time)).perform(click())
 
         // 평일일 경우 09:00이 포함되어야 함
-        val targetTime = LocalTime.of(9,0)
+        val targetTime = LocalTime.of(9, 0)
         onData(`is`(targetTime))
             .inRoot(isPlatformPopup())
             .perform(click())
@@ -254,7 +253,7 @@ class BookingActivityTest {
 
         onView(withId(R.id.spinner_screening_time)).perform(click())
 
-        val targetTime = LocalTime.of(11,0)
+        val targetTime = LocalTime.of(11, 0)
         onData(`is`(targetTime))
             .inRoot(isPlatformPopup())
             .perform(click())

@@ -25,6 +25,8 @@ class MoviePresenter(
         view.showMovies(movies)
     }
 
+    fun getMockMovieList(): List<Movie> = mockMovieList()
+
     override fun onReserveClicked(movie: Movie) {
         view.startBookingActivity(movie)
     }

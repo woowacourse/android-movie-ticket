@@ -11,8 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.BookingDetailActivity.Companion.KEY_MOVIE_DATA
 import woowacourse.movie.model.Movie
 import woowacourse.movie.movie.MovieContract
-import woowacourse.movie.movie.adapter.MovieAdapter
 import woowacourse.movie.movie.MoviePresenter
+import woowacourse.movie.movie.adapter.MovieAdapter
 
 class MovieActivity : AppCompatActivity(), MovieContract.View {
     private lateinit var presenter: MovieContract.Presenter

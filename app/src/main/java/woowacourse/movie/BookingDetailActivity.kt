@@ -14,16 +14,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.BookingCompleteActivity.Companion.KEY_BOOKING_RESULT
-import woowacourse.movie.mapper.IntentCompat
-import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.booking.detail.BookingDetailContract
-import woowacourse.movie.model.BookingResult
-import woowacourse.movie.model.Movie
 import woowacourse.movie.booking.detail.BookingDetailPresenter
 import woowacourse.movie.booking.detail.adapter.ScreeningDateSpinnerAdapter
 import woowacourse.movie.booking.detail.adapter.ScreeningTimeSpinnerAdapter
 import woowacourse.movie.booking.detail.listener.ScreeningDateSelectedListener
 import woowacourse.movie.booking.detail.listener.ScreeningTimeSelectedListener
+import woowacourse.movie.mapper.IntentCompat
+import woowacourse.movie.mapper.toUiModel
+import woowacourse.movie.model.BookingResult
+import woowacourse.movie.model.Movie
 import java.time.LocalDate
 import java.time.LocalTime
 

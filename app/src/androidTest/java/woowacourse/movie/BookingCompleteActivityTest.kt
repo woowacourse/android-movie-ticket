@@ -9,11 +9,9 @@ import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.model.BookingResult
 import java.time.LocalDate
@@ -26,9 +24,10 @@ class BookingCompleteActivityTest {
     fun setUp() {
         Intents.init()
 
-        val intent = Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
-            putExtra(BookingCompleteActivity.KEY_BOOKING_RESULT, mockBookingResult())
-        }
+        val intent =
+            Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
+                putExtra(BookingCompleteActivity.KEY_BOOKING_RESULT, mockBookingResult())
+            }
 
         scenario = ActivityScenario.launch(intent)
     }
