@@ -250,18 +250,17 @@ class ReservationActivity :
             title = getString(R.string.ticket_dialog_title),
             message = getString(R.string.ticket_dialog_message),
             positiveButtonText = getString(R.string.ticket_dialog_positive_button),
-            positiveButtonAction = { _, _ -> navigateToTicketActivity() },
+            positiveButtonAction = { _, _ -> presenter?.confirmReservation() ?: error("") },
             negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
             negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
         )
     }
 
-    private fun navigateToTicketActivity() {
-        val screening: Screening = screening ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
+    override fun navigateToTicketScreen(title: String) {
         val intent =
             TicketActivity.newIntent(
                 this,
-                screening.title,
+                title,
                 ticketCount,
                 LocalDateTime.of(
                     dateSpinner.selectedItem as LocalDate,

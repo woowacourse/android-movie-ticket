@@ -52,4 +52,8 @@ class ReservationPresenter(
     override fun tryReservation() {
         view.showConfirmDialog()
     }
+
+    override fun confirmReservation() {
+        view.navigateToTicketScreen(screening.title)
+    }
 }

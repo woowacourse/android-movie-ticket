@@ -191,4 +191,16 @@ class ReservationPresenterTest {
         // then
         verify { view.showConfirmDialog() }
     }
+
+    @Test
+    fun `예매를 완료할 수 있다`() {
+        // given
+        every { view.navigateToTicketScreen("해리 포터와 마법사의 돌") } just Runs
+
+        // when
+        presenter.confirmReservation()
+
+        // then
+        verify { view.navigateToTicketScreen("해리 포터와 마법사의 돌") }
+    }
 }
