@@ -1,10 +1,6 @@
 package woowacourse.movie.domain.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
-
-@Parcelize
-sealed class Poster : Parcelable {
+sealed class Poster {
     data class Resource(
         val resId: Int,
     ) : Poster()
