@@ -15,6 +15,7 @@ import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.TicketMaker
 import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.util.DataUtils
+import woowacourse.movie.util.MovieScheduleUtils
 
 class BookingActivity : AppCompatActivity() {
     private lateinit var movieInfo: MovieInfo
@@ -80,9 +81,9 @@ class BookingActivity : AppCompatActivity() {
         SpinnerAdapter.bind(
             this,
             selectedDate,
-            MovieInfoGetter.getDates(movieInfo.startDate, movieInfo.endDate),
+            MovieScheduleUtils.generateScreeningDates(movieInfo.startDate, movieInfo.endDate),
         )
-        SpinnerAdapter.bind(this, movieTime, MovieInfoGetter.getTimes(movieInfo.startDate))
+        SpinnerAdapter.bind(this, movieTime, MovieScheduleUtils.generateScreeningTimesFor(movieInfo.startDate))
     }
 
     private fun setupDateChangeListener() {
@@ -95,11 +96,11 @@ class BookingActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedDate =
-                        MovieInfoGetter
-                            .getDates(movieInfo.startDate, movieInfo.endDate)
+                        MovieScheduleUtils
+                            .generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
                             .getOrNull(position)
                     selectedDate?.let {
-                        val selectedTimes = MovieInfoGetter.getTimes(it)
+                        val selectedTimes = MovieScheduleUtils.generateScreeningTimesFor(it)
                         SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
                     }
                 }

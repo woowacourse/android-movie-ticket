@@ -1,10 +1,10 @@
-package woowacourse.movie.booking
+package woowacourse.movie.util
 
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-object MovieInfoGetter {
+object MovieScheduleUtils {
     private const val DATE_PATTERN = "yyyy.M.d"
 
     private const val WEEKEND_START_HOUR = 9
@@ -14,7 +14,7 @@ object MovieInfoGetter {
 
     private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
 
-    fun getDates(
+    fun generateScreeningDates(
         startDate: String,
         endDate: String,
     ): List<String> {
@@ -32,7 +32,7 @@ object MovieInfoGetter {
         return dates
     }
 
-    fun getTimes(date: String): List<String> {
+    fun generateScreeningTimesFor(date: String): List<String> {
         val parsedDate = LocalDate.parse(date, dateFormatter)
 
         val startHour =
