@@ -2,12 +2,10 @@ package woowacourse.movie.ui.listener
 
 import android.view.View
 import android.widget.AdapterView
-import woowacourse.movie.model.BookingResult
 import java.time.LocalTime
 
 class ScreeningTimeSelectedListener(
-    private var bookingResult: BookingResult,
-    private val onBookingResultChanged: (BookingResult) -> Unit,
+    private val onTimeSelected: (LocalTime) -> Unit,
 ) : AdapterView.OnItemSelectedListener {
     override fun onItemSelected(
         parent: AdapterView<*>?,
@@ -15,9 +13,8 @@ class ScreeningTimeSelectedListener(
         position: Int,
         id: Long,
     ) {
-        val selectedTime = parent?.getItemAtPosition(position) as LocalTime
-        bookingResult = bookingResult.updateTime(selectedTime)
-        onBookingResultChanged(bookingResult)
+        val selectedTime = parent?.getItemAtPosition(position) as? LocalTime ?: return
+        onTimeSelected(selectedTime)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
