@@ -122,4 +122,34 @@ class BookingPresenterTest {
             )
         }
     }
+
+    @Test
+    fun `영화 상열 시작일과 종료일, 현재 날짜를 전달하면 상영 시작일과 종료일 사이의 날짜를 출력한다 `() {
+        // given
+        val start = "2025.4.26"
+        val end = "2025.4.28"
+        val now = LocalDate.of(2025, 4, 25)
+
+        // when
+        presenter.loadScreeningDate(start, end, now)
+
+        // then
+        val expected = listOf("2025-04-26", "2025-04-27", "2025-04-28")
+        verify { view.showScreeningDate(expected) }
+    }
+
+    @Test
+    fun `오늘 날짜가 상영 시작을 지났다면 오늘 날짜부터 상영 종료일까지 출력한다`() {
+        // given
+        val start = "2025.4.24"
+        val end = "2025.4.28"
+        val now = LocalDate.of(2025, 4, 25)
+
+        // when
+        presenter.loadScreeningDate(start, end, now)
+
+        // then
+        val excepted = listOf("2025-04-25", "2025-04-26", "2025-04-27", "2025-04-28")
+        verify { view.showScreeningDate(excepted) }
+    }
 }

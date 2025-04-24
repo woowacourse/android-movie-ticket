@@ -18,13 +18,10 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.domain.model.booking.ScreeningDate
-import woowacourse.movie.domain.model.booking.ScreeningTime
 import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
     private val presenter by lazy { PresenterFactory.providePresenter(this) }
@@ -64,11 +61,29 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         initPosterView(posterResId)
         initReleaseDateView(releaseStartDate, releaseEndDate)
         initRunningTimeView(runningTime)
-        // initDateSpinner(startDate, endDate)
+        presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDate.now())
     }
 
     override fun showPeopleCount(count: Int) {
         findViewById<TextView>(R.id.tv_people_count).text = count.toString()
+    }
+
+    override fun showScreeningDate(screeningBookingDates: List<String>) {
+        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
+
+        with(dateSpinner) {
+            adapter =
+                ArrayAdapter(
+                    this@BookingActivity,
+                    android.R.layout.simple_spinner_item,
+                    screeningBookingDates,
+                )
+
+            onItemSelectedListener =
+                AdapterItemSelectedListener { pos ->
+                    initTimeSpinner(screeningBookingDates[pos])
+                }
+        }
     }
 
     override fun onClickIncrease() {
@@ -139,50 +154,26 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         // initDateSpinner(startDate, endDate, savedDatePosition, savedTimePosition)
     }
 
-    private fun initDateSpinner(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ) {
-        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
-
-        val screeningBookingDates: List<LocalDate> =
-            ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
-
-        with(dateSpinner) {
-            adapter =
-                ArrayAdapter(
-                    this@BookingActivity,
-                    android.R.layout.simple_spinner_item,
-                    screeningBookingDates,
-                )
-
-            onItemSelectedListener =
-                AdapterItemSelectedListener { pos ->
-                    initTimeSpinner(screeningBookingDates[pos])
-                }
-        }
-    }
-
-    private fun initTimeSpinner(selectedDate: LocalDate) {
-        val timeSpinner: Spinner = findViewById(R.id.sp_time)
-        val now = LocalDateTime.now()
-        val screeningTime = ScreeningTime(now, selectedDate)
-
-        val availableTimes = screeningTime.getAvailableScreeningTimes()
-        if (availableTimes.isEmpty()) {
-            showToast(R.string.text_no_booking_time)
-            return
-        }
-
-        with(timeSpinner) {
-            adapter =
-                ArrayAdapter(
-                    this@BookingActivity,
-                    android.R.layout.simple_spinner_item,
-                    availableTimes,
-                )
-            // setSelection(savedPosition ?: 0)
-        }
+    private fun initTimeSpinner(selectedDate: String) {
+//        val timeSpinner: Spinner = findViewById(R.id.sp_time)
+//        val now = LocalDateTime.now()
+//        val screeningTime = ScreeningTime(now, selectedDate)
+//
+//        val availableTimes = screeningTime.getAvailableScreeningTimes()
+//        if (availableTimes.isEmpty()) {
+//            showToast(R.string.text_no_booking_time)
+//            return
+//        }
+//
+//        with(timeSpinner) {
+//            adapter =
+//                ArrayAdapter(
+//                    this@BookingActivity,
+//                    android.R.layout.simple_spinner_item,
+//                    availableTimes,
+//                )
+//            // setSelection(savedPosition ?: 0)
+//        }
     }
 
     private fun initButtonListener() {

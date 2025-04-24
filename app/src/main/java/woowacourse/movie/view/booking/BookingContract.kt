@@ -4,6 +4,7 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.domain.model.movies.DefaultMovieModel
+import java.time.LocalDate
 
 interface BookingContract {
     interface View {
@@ -16,6 +17,8 @@ interface BookingContract {
         )
 
         fun showPeopleCount(count: Int)
+
+        fun showScreeningDate(screeningBookingDates: List<String>)
 
         fun onClickIncrease()
 
@@ -30,6 +33,12 @@ interface BookingContract {
         fun loadMovieDetail(index: Int)
 
         fun loadPeopleCount()
+
+        fun loadScreeningDate(
+            startDate: String,
+            endDate: String,
+            now: LocalDate,
+        )
 
         fun decreasePeopleCount()
 
