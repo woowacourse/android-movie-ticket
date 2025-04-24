@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TableLayout
@@ -12,6 +13,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.Seats
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.getParcelableExtraCompat
@@ -19,7 +21,7 @@ import woowacourse.movie.view.getParcelableExtraCompat
 class SeatSelectActivity : AppCompatActivity() {
     private val movieTicket by lazy { getMovieTicketData() }
     private lateinit var priceTextView: TextView
-    private lateinit var confirmButton: Button
+    private lateinit var confirmButton: TextView
     private var selectedSeats = Seats.create()
     private var totalPrice: Int = 0
 
@@ -39,9 +41,15 @@ class SeatSelectActivity : AppCompatActivity() {
 
         priceTextView = findViewById(R.id.tv_seat_select_total_price)
         priceTextView.text = getString(R.string.seat_select_ticket_price).format(totalPrice)
-        confirmButton = findViewById(R.id.tv_confirm)
-        confirmButton.isClickable = false
-        confirmButton.alpha = 0.1f
+        confirmButton =
+            findViewById<TextView?>(R.id.tv_seat_select_confirm).apply {
+                isClickable = false
+                alpha = 0.1f
+            }
+        confirmButton.setOnClickListener {
+            val intent = reservationInfoIntent()
+            startActivity(intent)
+        }
     }
 
     private fun getMovieTicketData(): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
@@ -69,7 +77,7 @@ class SeatSelectActivity : AppCompatActivity() {
         if (selectedSeats.contains(seatId)) {
             selectedSeats.remove(seatId)
             seatView.setBackgroundResource(R.color.white)
-            findViewById<Button>(R.id.tv_confirm).alpha = 0.1f
+            findViewById<Button>(R.id.tv_seat_select_confirm).alpha = 0.1f
             confirmButton.isClickable = false
         } else {
             if (selectedSeats.size >= movieTicket!!.count) {
@@ -90,5 +98,21 @@ class SeatSelectActivity : AppCompatActivity() {
         }
         priceTextView.text =
             getString(R.string.seat_select_ticket_price).format(selectedSeats.totalPrice)
+    }
+
+    private fun reservationInfoIntent(): Intent {
+        val reservationInfo =
+            ReservationInfo(
+                title = movieTicket!!.title,
+                date = "",
+                time = "",
+                seats = selectedSeats.labels(),
+                price = selectedSeats.totalPrice,
+            )
+
+//        val ticket = presenter.createTicket()
+        return Intent(this, ReservationCompleteActivity::class.java).apply {
+            putExtra(Extras.ReservationInfoData.RESERVATION_KEY, reservationInfo)
+        }
     }
 }

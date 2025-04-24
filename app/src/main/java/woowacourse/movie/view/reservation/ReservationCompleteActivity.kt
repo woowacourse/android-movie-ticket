@@ -7,13 +7,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
 
 class ReservationCompleteActivity : AppCompatActivity() {
-    private val movieTicket by lazy { getMovieTicketData() }
+    private val reservationInfo by lazy { getReservationInfoData() }
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,29 +26,33 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        setupMovieTicketInfo()
+        setupReservationInfo()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun getMovieTicketData(): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
+    private fun getReservationInfoData(): ReservationInfo? = intent.getParcelableExtraCompat(Extras.ReservationInfoData.RESERVATION_KEY)
 
-    private fun setupMovieTicketInfo() {
+    private fun setupReservationInfo() {
         val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
-        movieTitleTextView.text = movieTicket?.title
+        movieTitleTextView.text = reservationInfo?.title
 
         val screeningDateTextView =
             findViewById<TextView>(R.id.tv_reservation_complete_timestamp)
-        screeningDateTextView.text = movieTicket?.timeStamp
+        screeningDateTextView.text = reservationInfo?.date
 
         val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_count)
         ticketCountTextView.text =
-            resources.getString(R.string.reservation_complete_ticket_count, movieTicket?.count)
+            resources.getString(
+                R.string.reservation_complete_ticket_count,
+                reservationInfo?.seats?.size,
+                reservationInfo?.seats?.joinToString(", "),
+            )
 
         val ticketPriceTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_price)
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                reservationUiFormatter.priceToUI(movieTicket?.price() ?: 13000),
+                reservationUiFormatter.priceToUI(reservationInfo?.price!!),
             )
     }
 

@@ -207,7 +207,6 @@ class ReservationActivity :
 //            )
             val intent = movieTicketIntent()
             startActivity(intent)
-//            finish()
         }
     }
 

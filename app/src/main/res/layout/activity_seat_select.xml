@@ -161,10 +161,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_movie_info"
         android:layout_width="0dp"
-        android:layout_height="80dp"
+        android:layout_height="88dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/tv_confirm"
+        app:layout_constraintEnd_toStartOf="@id/tv_seat_select_confirm"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -177,7 +177,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:textColor="@color/black"
-        android:textSize="18sp"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@id/cl_movie_info"
         app:layout_constraintStart_toStartOf="@id/cl_movie_info"
@@ -190,13 +190,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@id/cl_movie_info"
         app:layout_constraintStart_toStartOf="@id/tv_seat_select_movie_title"
         app:layout_constraintTop_toBottomOf="@id/tv_seat_select_movie_title"
         tools:text="25,000원" />
 
     <Button
-        android:id="@+id/tv_confirm"
+        android:id="@+id/tv_seat_select_confirm"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:background="@color/purple_500"
