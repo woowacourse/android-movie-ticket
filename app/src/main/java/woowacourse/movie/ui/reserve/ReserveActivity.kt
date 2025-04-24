@@ -18,11 +18,11 @@ import woowacourse.movie.domain.date.scheduler.CurrentDateScheduler
 import woowacourse.movie.domain.date.scheduler.CurrentTimeScheduler
 import woowacourse.movie.domain.date.scheduler.ReservationScheduler
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.PurchaseCount
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.ScreeningDate
-import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.domain.model.TicketMachine
 import woowacourse.movie.domain.model.TicketType
-import woowacourse.movie.domain.model.Tickets
 import woowacourse.movie.ui.extensions.serializableData
 import woowacourse.movie.ui.factory.CustomAlertDialog
 import woowacourse.movie.ui.factory.DialogInfo
@@ -34,21 +34,31 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class ReserveActivity : AppCompatActivity() {
-    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
-    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
-    private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_ticket_count) }
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
+    private lateinit var ticketCountTextView: TextView
+    private lateinit var posterView: ImageView
+    private lateinit var titleView: TextView
+    private lateinit var screeningDateView: TextView
+    private lateinit var runningTimeView: TextView
     private val reservationScheduler =
         ReservationScheduler(CurrentDateScheduler(), CurrentTimeScheduler())
+    private lateinit var minusButton: Button
+    private lateinit var plusButton: Button
+    private lateinit var reserveButton: Button
     private val customAlertDialog = CustomAlertDialog(this)
     private lateinit var reservation: Reservation
-    private var isDateInit = false
+    private var purchaseCount = PurchaseCount(1)
+    private val ticketMachine = TicketMachine()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reserve)
         initSystemUI()
+        initViewId()
+        initButtonListeners()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initWithMovie(savedInstanceState)
+        initWithMovie()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -56,6 +66,7 @@ class ReserveActivity : AppCompatActivity() {
         outState.putSerializable(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
         outState.putInt(KEY_DATE_POSITION, dateSpinner.selectedItemPosition)
         outState.putInt(KEY_TIME_POSITION, timeSpinner.selectedItemPosition)
+        outState.putInt(KEY_PURCHASE_COUNT, purchaseCount.value)
         outState.putSerializable(KEY_SELECTED_DATE, dateSpinner.selectedItem as LocalDate)
     }
 
@@ -65,10 +76,12 @@ class ReserveActivity : AppCompatActivity() {
         val timePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
         val selectedDate =
             savedInstanceState.serializableData(KEY_SELECTED_DATE, LocalDate::class.java)
+        val purchaseCount = savedInstanceState.getInt(KEY_PURCHASE_COUNT)
+        this.purchaseCount = PurchaseCount(purchaseCount)
         dateSpinner.setSelection(datePosition)
         if (selectedDate != null) updateTimeSpinner(selectedDate)
+        ticketCountTextView.text = purchaseCount.toString()
         timeSpinner.setSelection(timePosition)
-        isDateInit = true
     }
 
     private fun initSystemUI() {
@@ -79,13 +92,87 @@ class ReserveActivity : AppCompatActivity() {
         }
     }
 
-    private fun initWithMovie(savedInstanceState: Bundle?) {
+    private fun initViewId() {
+        dateSpinner = findViewById(R.id.sp_date)
+        timeSpinner = findViewById(R.id.sp_time)
+        ticketCountTextView = findViewById(R.id.tv_ticket_count)
+        posterView = findViewById(R.id.iv_poster)
+        titleView = findViewById(R.id.tv_title)
+        screeningDateView = findViewById(R.id.tv_screening_date)
+        runningTimeView = findViewById(R.id.tv_running_time)
+        minusButton = findViewById(R.id.btn_minus)
+        plusButton = findViewById(R.id.btn_plus)
+        reserveButton = findViewById(R.id.btn_reserve)
+    }
+
+    private fun initButtonListeners() {
+        minusButtonInit()
+        plusButtonInit()
+        reserveButtonInit()
+    }
+
+    private fun minusButtonInit() {
+        minusButton.setOnClickListener {
+            if (purchaseCount.canMinus()) {
+                purchaseCount = purchaseCount.decrease()
+                updateTicketCount()
+            } else {
+                Toast.makeText(this, R.string.validate_min_movie_ticket, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun plusButtonInit() {
+        plusButton.setOnClickListener {
+            purchaseCount = purchaseCount.increase()
+            updateTicketCount()
+        }
+    }
+
+    private fun reserveButtonInit() {
+        val dialogInfo =
+            DialogInfo(
+                getString(R.string.reserve_dialog_title),
+                getString(R.string.reserve_dialog_message),
+                getString(R.string.reserve_dialog_positive_button),
+                getString(R.string.cancel),
+                ::moveToReservationResult,
+            )
+
+        reserveButton.setOnClickListener {
+            customAlertDialog.show(dialogInfo)
+        }
+    }
+
+    private fun moveToReservationResult() {
+        if (::reservation.isInitialized) {
+            val tickets = ticketMachine.tickets(List(purchaseCount.value) { TicketType.DEFAULT })
+            reservation.initTickets(tickets)
+            startActivity(
+                Intent(this, ReservationResultActivity::class.java).apply {
+                    putExtra(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
+                },
+            )
+        } else {
+            val dialogInfo =
+                DialogInfo(
+                    getString(R.string.error_reservation_title),
+                    getString(R.string.error_reservation_message),
+                    getString(R.string.confirm),
+                    null,
+                    ::finish,
+                )
+            customAlertDialog.show(dialogInfo)
+        }
+    }
+
+    private fun initWithMovie() {
         val movie = movie()
         if (movie == null) {
             showMissingMovieDialog()
         } else {
             initMovieContent(movie)
-            initReservation(savedInstanceState, movie)
+            initReservation(movie)
         }
     }
 
@@ -106,33 +193,23 @@ class ReserveActivity : AppCompatActivity() {
 
     private fun initMovieContent(movie: Movie) {
         with(movie) {
-            findViewById<ImageView>(R.id.iv_poster).setImageResource(imageUrl)
-            findViewById<TextView>(R.id.tv_title).text = title
-            findViewById<TextView>(R.id.tv_screening_date).text = formatScreeningDate(screeningDate)
-            findViewById<TextView>(R.id.tv_running_time).text =
-                getString(R.string.formatted_minute, runningTime.time)
+            posterView.setImageResource(imageUrl)
+            titleView.text = title
+            screeningDateView.text = formatScreeningDate(screeningDate)
+            runningTimeView.text = getString(R.string.formatted_minute, runningTime.time)
         }
     }
 
-    private fun initReservation(
-        savedInstanceState: Bundle?,
-        movie: Movie,
-    ) {
-        val timePosition = savedInstanceState?.getInt(KEY_TIME_POSITION) ?: 0
+    private fun initReservation(movie: Movie) {
         initDateSpinner(movie.screeningDate)
         initTimeSpinner(movie.screeningDate.startDate)
-        this.reservation =
-            savedInstanceState?.serializableData(
-                KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION,
-                Reservation::class.java,
-            )
-                ?: Reservation(
-                    movie.title, getSelectedDateTime(),
-                    Tickets(listOf(Ticket(TicketType.DEFAULT))),
-                )
+        initReservationData(movie)
         updateTicketCount()
         initButtonListeners()
-        timeSpinner.setSelection(timePosition)
+    }
+
+    private fun initReservationData(movie: Movie) {
+        this.reservation = Reservation(movie.title, getSelectedDateTime(), null)
     }
 
     private fun initDateSpinner(screeningDate: ScreeningDate) {
@@ -163,67 +240,8 @@ class ReserveActivity : AppCompatActivity() {
             timeSpinner.selectedItem as LocalTime,
         )
 
-    private fun initButtonListeners() {
-        minusButtonInit()
-        plusButtonInit()
-        reserveButtonInit()
-    }
-
-    private fun minusButtonInit() {
-        findViewById<Button>(R.id.btn_minus).setOnClickListener {
-            if (reservation.canMinus()) {
-                reservation = reservation.minusCount()
-                updateTicketCount()
-            } else {
-                Toast.makeText(this, R.string.validate_min_movie_ticket, Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-
-    private fun plusButtonInit() {
-        findViewById<Button>(R.id.btn_plus).setOnClickListener {
-            reservation = reservation.plusCount()
-            updateTicketCount()
-        }
-    }
-
-    private fun reserveButtonInit() {
-        val dialogInfo =
-            DialogInfo(
-                getString(R.string.reserve_dialog_title),
-                getString(R.string.reserve_dialog_message),
-                getString(R.string.reserve_dialog_positive_button),
-                getString(R.string.cancel),
-                ::moveToReservationResult,
-            )
-
-        findViewById<Button>(R.id.btn_reserve).setOnClickListener {
-            customAlertDialog.show(dialogInfo)
-        }
-    }
-
-    private fun moveToReservationResult() {
-        if (::reservation.isInitialized) {
-            startActivity(
-                Intent(this, ReservationResultActivity::class.java).apply {
-                    putExtra(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
-                },
-            )
-        } else {
-            val dialogInfo =
-                DialogInfo(
-                    getString(R.string.error_reservation_title),
-                    getString(R.string.error_reservation_message),
-                    getString(R.string.confirm),
-                    null,
-                    ::finish,
-                )
-            customAlertDialog.show(dialogInfo)
-        }
-    }
-
     private fun updateTicketCount() {
-        ticketCountTextView.text = reservation.ticketCount.toString()
+        ticketCountTextView.text = purchaseCount.value.toString()
     }
 
     private fun formatScreeningDate(screeningDate: ScreeningDate): String {
@@ -243,11 +261,6 @@ class ReserveActivity : AppCompatActivity() {
                 position: Int,
                 id: Long,
             ) {
-                if (isDateInit) {
-                    isDateInit = false
-                    return
-                }
-
                 val selectedDate = dates[position]
                 updateTimeSpinner(selectedDate)
                 reservation = reservation.updateReservedTime(getSelectedDateTime())
@@ -273,6 +286,7 @@ class ReserveActivity : AppCompatActivity() {
     companion object {
         private const val KEY_DATE_POSITION = "datePosition"
         private const val KEY_TIME_POSITION = "timePosition"
+        private const val KEY_PURCHASE_COUNT = "purchase_count"
         private const val KEY_SELECTED_DATE = "selectedDate"
         const val KEY_RESERVE_ACTIVITY_MOVIE = "key_reserve_activity_movie"
     }
