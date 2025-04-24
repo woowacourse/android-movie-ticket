@@ -137,7 +137,8 @@ class DetailBookingActivity : AppCompatActivity() {
                     selectedDateTIme,
                     counterTextView.text.toString().toInt(),
                 )
-            ReservationDialog(this).popUp(
+            ReservationDialog().popUp(
+                this,
                 onPositiveClick = {
                     startActivity(CompletedBookingActivity.newIntent(this, ticket))
                 },
