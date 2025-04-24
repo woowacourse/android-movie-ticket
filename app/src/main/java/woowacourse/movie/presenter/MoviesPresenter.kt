@@ -1,13 +1,13 @@
-package woowacourse.movie
+package woowacourse.movie.presenter
 
+import woowacourse.movie.Movies
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Movies
 
 class MoviesPresenter(
-    private val view: woowacourse.movie.Movies.View
-) : woowacourse.movie.Movies.Presenter {
+    private val view: Movies.View
+) : Movies.Presenter {
     override fun loadMovies() {
-        val movies = Movies.value
+        val movies = woowacourse.movie.domain.Movies.Companion.value
         view.showMovies(movies)
     }
 

@@ -13,8 +13,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.view.adpater.BookedDateSpinnerAdapter
-import woowacourse.movie.view.adpater.BookedTimeSpinnerAdapter
+import woowacourse.movie.adpater.BookedDateSpinnerAdapter
+import woowacourse.movie.adpater.BookedTimeSpinnerAdapter
 import woowacourse.movie.helper.BuildVersion
 import woowacourse.movie.R
 import woowacourse.movie.domain.BookingStatus

@@ -6,12 +6,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.view.adpater.MovieListAdapter
+import woowacourse.movie.adpater.MovieListAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.MovieBookingActivity.Companion.movieBookingIntent
 import woowacourse.movie.Movies.View
-import woowacourse.movie.MoviesPresenter
+import woowacourse.movie.presenter.MoviesPresenter
 
 class MovieActivity : AppCompatActivity(), View {
     private lateinit var presenter: MoviesPresenter

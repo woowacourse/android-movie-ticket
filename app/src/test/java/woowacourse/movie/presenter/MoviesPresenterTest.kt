@@ -8,7 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.Movies
-import woowacourse.movie.MoviesPresenter
+import woowacourse.movie.presenter.MoviesPresenter
 import woowacourse.movie.fixture.MovieFixture
 
 class MoviesPresenterTest {
