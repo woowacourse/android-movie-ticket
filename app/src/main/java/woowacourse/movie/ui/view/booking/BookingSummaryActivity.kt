@@ -4,20 +4,25 @@ import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.presenter.BookingSummaryPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.BaseActivity
 import woowacourse.movie.ui.view.utils.intentSerializable
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class BookingSummaryActivity : BaseActivity() {
+class BookingSummaryActivity :
+    BaseActivity(),
+    BookingSummaryContract.View {
+    private val presenter = BookingSummaryPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_bookingsummary)
-        displayBookingSummary()
+        presenter.loadBookingSummary()
     }
 
-    private fun displayBookingSummary() {
+    override fun showBookingSummary() {
         val movieTicket =
             intent.intentSerializable(getString(R.string.ticket_info_key), MovieTicket::class.java)
         val title = findViewById<TextView>(R.id.title)
