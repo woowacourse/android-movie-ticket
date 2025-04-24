@@ -48,7 +48,6 @@ class BookingPresenter(
                 .bookingDates(now.toLocalDate())
                 .map { it.toString() }
 
-        loadScreeningTime(screeningBookingDates[0], now)
         view.showScreeningDate(screeningBookingDates)
     }
 
@@ -73,6 +72,11 @@ class BookingPresenter(
 
     override fun increasePeopleCount() {
         count = count.increase()
+        view.showPeopleCount(count.value)
+    }
+
+    override fun restorePeopleCount(savedCount: Int) {
+        count = PeopleCount(savedCount)
         view.showPeopleCount(count.value)
     }
 

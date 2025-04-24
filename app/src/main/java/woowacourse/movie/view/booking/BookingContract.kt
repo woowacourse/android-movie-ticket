@@ -33,6 +33,8 @@ interface BookingContract {
         fun onSelectDate(selectedDate: String)
 
         fun moveToBookingComplete(booking: Booking)
+
+        fun restoreSavedState(savedCount: Int)
     }
 
     interface Presenter {
@@ -51,10 +53,6 @@ interface BookingContract {
             now: LocalDateTime,
         )
 
-        fun decreasePeopleCount()
-
-        fun increasePeopleCount()
-
         fun loadBooking(
             title: String,
             bookingDate: String,
@@ -62,6 +60,12 @@ interface BookingContract {
             peopleCount: String,
             ticketType: TicketType,
         )
+
+        fun decreasePeopleCount()
+
+        fun increasePeopleCount()
+
+        fun restorePeopleCount(savedCount: Int)
     }
 
     companion object PresenterFactory {

@@ -20,10 +20,14 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
-import java.time.LocalDate
 import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
+    private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_title) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
+    private val peopleCountTextView: TextView by lazy { findViewById(R.id.tv_people_count) }
+
     private val presenter by lazy { PresenterFactory.providePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +38,9 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         val movieIdx = intent.getIntExtra(KEY_MOVIE, NO_MOVIE)
 
         initView(movieIdx)
+        savedInstanceState?.let {
+            restoreSavedState(it)
+        }
     }
 
     private fun initView(movieIdx: Int) {
@@ -62,15 +69,14 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         initReleaseDateView(releaseStartDate, releaseEndDate)
         initRunningTimeView(runningTime)
         presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDateTime.now())
+        presenter.loadScreeningTime(dateSpinner.selectedItem.toString(), LocalDateTime.now())
     }
 
     override fun showPeopleCount(count: Int) {
-        findViewById<TextView>(R.id.tv_people_count).text = count.toString()
+        peopleCountTextView.text = count.toString()
     }
 
     override fun showScreeningDate(screeningBookingDates: List<String>) {
-        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
-
         with(dateSpinner) {
             adapter =
                 ArrayAdapter(
@@ -87,8 +93,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     override fun showScreeningTime(screeningBookingTimes: List<String>) {
-        val timeSpinner: Spinner = findViewById(R.id.sp_time)
-
         with(timeSpinner) {
             adapter =
                 ArrayAdapter(
@@ -113,10 +117,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
     override fun onClickBooking() {
         presenter.loadBooking(
-            title = findViewById<TextView>(R.id.tv_title).text.toString(),
-            bookingDate = findViewById<Spinner>(R.id.sp_date).selectedItem.toString(),
-            bookingTime = findViewById<Spinner>(R.id.sp_time).selectedItem.toString(),
-            peopleCount = findViewById<TextView>(R.id.tv_people_count).text.toString(),
+            title = movieTitleTextView.text.toString(),
+            bookingDate = dateSpinner.selectedItem.toString(),
+            bookingTime = timeSpinner.selectedItem.toString(),
+            peopleCount = peopleCountTextView.text.toString(),
             ticketType = TicketType.GENERAL,
         )
     }
@@ -133,9 +137,12 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         startActivity(intent)
     }
 
+    override fun restoreSavedState(savedCount: Int) {
+        presenter.restorePeopleCount(savedCount)
+    }
+
     private fun initTitleView(title: String) {
-        val movieTitleView = findViewById<TextView>(R.id.tv_title)
-        movieTitleView.text = title
+        movieTitleTextView.text = title
     }
 
     private fun initPosterView(posterId: Int?) {
@@ -158,21 +165,12 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             getString(R.string.text_running_time_ㅡminute_unit).format(runningTime)
     }
 
-    private fun restoreSavedState(
-        savedInstanceState: Bundle?,
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ) {
-        var savedDatePosition: Int? = null
-        var savedTimePosition: Int? = null
+    private fun restoreSavedState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
-            val count = it.getString(KEY_PEOPLE_COUNT)
-            savedDatePosition = it.getInt(KEY_SELECTED_DATE_POSITION)
-            savedTimePosition = it.getInt(KEY_SELECTED_TIME_POSITION)
-            findViewById<TextView>(R.id.tv_people_count).text = count
+            presenter.restorePeopleCount(it.getInt(KEY_PEOPLE_COUNT))
+            val savedTimePosition = it.getInt(KEY_SELECTED_TIME_POSITION)
+            timeSpinner.setSelection(savedTimePosition)
         }
-
-        // initDateSpinner(startDate, endDate, savedDatePosition, savedTimePosition)
     }
 
     private fun initButtonListener() {
@@ -222,12 +220,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val dateSpinner = findViewById<Spinner>(R.id.sp_date)
-        val timeSpinner = findViewById<Spinner>(R.id.sp_time)
-        val peopleCount = findViewById<TextView>(R.id.tv_people_count)
-
-        outState.putString(KEY_PEOPLE_COUNT, peopleCount.text.toString())
-        outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
+        outState.putInt(KEY_PEOPLE_COUNT, peopleCountTextView.text.toString().toInt())
         outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
     }
 
@@ -235,7 +228,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         const val KEY_BOOKING = "BOOKING"
 
         private const val NO_MOVIE = -1
-        private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
+
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
     }
