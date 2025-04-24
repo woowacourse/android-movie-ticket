@@ -9,5 +9,10 @@ object Poster {
     fun Screening.posterId(): Int? = posters[id]
 
     private val posters: Map<Int, Int> =
-        mapOf(0 to R.drawable.poster_harry_potter_and_the_philosophers_stone)
+        mapOf(
+            0 to R.drawable.poster_harry_potter_and_the_philosophers_stone,
+            1 to R.drawable.poster_harry_potter_and_the_chamber_of_secrets,
+            2 to R.drawable.poster_harry_potter_and_the_prisoner_of_azkaban,
+            3 to R.drawable.poster_harry_potter_and_the_goblet_of_fire,
+        )
 }

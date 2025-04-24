@@ -19,7 +19,7 @@ import woowacourse.movie.view.screening.ScreeningActivity
 import java.time.LocalDate
 
 class ScreeningActivityTest {
-    private val harryPotter = Movies().harryPotter
+    private val harryPotter = Movies().harryPotterPhilosopersStone
 
     @get:Rule
     val activityRule =
