@@ -9,11 +9,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.DummyData
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.reservation.MovieReservationActivity
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListActivity :
+    AppCompatActivity(),
+    MovieListContract.View {
+    private lateinit var presenter: MovieListPresenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,11 +27,11 @@ class MovieListActivity : AppCompatActivity() {
             insets
         }
 
-        val movies = DummyData.movies
-        initMovieList(movies)
+        presenter = MovieListPresenter(this)
+        presenter.loadMovieListScreen()
     }
 
-    private fun initMovieList(movies: List<Movie>) {
+    override fun showMovieList(movies: List<Movie>) {
         val movieListView: ListView = findViewById(R.id.movie_list)
         val movieAdapter =
             MovieAdapter(movies) { movie ->
