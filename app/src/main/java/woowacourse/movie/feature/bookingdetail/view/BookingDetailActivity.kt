@@ -20,6 +20,7 @@ import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.DateType
 import woowacourse.movie.domain.model.MovieDates
 import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
+import woowacourse.movie.feature.bookingdetail.contract.BookingDetailContract
 import woowacourse.movie.feature.bookingdetail.view.adapter.DateAdapter
 import woowacourse.movie.feature.bookingdetail.view.adapter.TimeAdapter
 import woowacourse.movie.feature.mapper.toDomain
@@ -30,7 +31,9 @@ import woowacourse.movie.feature.model.MovieTimeUiModel
 import woowacourse.movie.feature.model.MovieUiModel
 import woowacourse.movie.util.getExtra
 
-class BookingDetailActivity : AppCompatActivity() {
+class BookingDetailActivity :
+    AppCompatActivity(),
+    BookingDetailContract.View {
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
     private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }

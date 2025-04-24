@@ -11,9 +11,12 @@ import woowacourse.movie.domain.model.Movie.Companion.movies
 import woowacourse.movie.feature.bookingdetail.view.BookingDetailActivity
 import woowacourse.movie.feature.mapper.toUi
 import woowacourse.movie.feature.model.MovieUiModel
+import woowacourse.movie.feature.movies.contract.MoviesContract
 import woowacourse.movie.feature.movies.view.adapter.MoviesAdapter
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity :
+    AppCompatActivity(),
+    MoviesContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

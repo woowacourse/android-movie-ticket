@@ -11,10 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.feature.bookingcomplete.contract.BookingCompleteContract
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.util.getExtra
 
-class BookingCompleteActivity : AppCompatActivity() {
+class BookingCompleteActivity :
+    AppCompatActivity(),
+    BookingCompleteContract.View {
     private val bookingInfoUiModel: BookingInfoUiModel by lazy { intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
