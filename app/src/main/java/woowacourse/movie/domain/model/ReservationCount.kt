@@ -6,15 +6,15 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @JvmInline
 value class ReservationCount(
-    val count: Int = MINIMUM_RESERVATION_COUNT,
+    val value: Int = MINIMUM_RESERVATION_COUNT,
 ) : Parcelable {
     init {
-        require(count >= MINIMUM_RESERVATION_COUNT) { INVALID_RESERVATION_COUNT }
+        require(value >= MINIMUM_RESERVATION_COUNT) { INVALID_RESERVATION_COUNT }
     }
 
-    operator fun plus(other: Int): ReservationCount = ReservationCount(count + other)
+    operator fun plus(other: Int): ReservationCount = ReservationCount(value + other)
 
-    operator fun minus(other: Int): ReservationCount = ReservationCount(count - other)
+    operator fun minus(other: Int): ReservationCount = ReservationCount(value - other)
 
     companion object {
         const val MINIMUM_RESERVATION_COUNT = 1

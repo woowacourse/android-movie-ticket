@@ -48,7 +48,7 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         setupCancelDescription()
         setupMovieTitle(reservationInfo?.title)
         setupMovieDate(reservationInfo?.reservationDateTime)
-        setupReservationCount(reservationInfo?.reservationCount?.count)
+        setupReservationCount(reservationInfo?.reservationCount?.value)
         setupTotalPrice(reservationInfo?.totalPrice())
     }
 

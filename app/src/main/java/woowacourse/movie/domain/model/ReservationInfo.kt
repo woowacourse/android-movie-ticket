@@ -10,7 +10,7 @@ class ReservationInfo(
     val reservationDateTime: LocalDateTime,
     val reservationCount: ReservationCount,
 ) : Parcelable {
-    fun totalPrice(): Int = reservationCount.count * TICKET_PRICE
+    fun totalPrice(): Int = reservationCount.value * TICKET_PRICE
 
     companion object {
         private const val TICKET_PRICE = 13_000

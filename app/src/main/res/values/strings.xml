@@ -24,4 +24,7 @@
 
     <string name="movie_screening_period_format">yyyy.M.d</string>
     <string name="reservation_datetime_format">yyyy.M.d HH:mm</string>
+
+    <string name="unavailable_reservation_message">선택 가능한 날짜 및 시간이 없습니다</string>
+    <string name="confirm">확인</string>
 </resources>
