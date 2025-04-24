@@ -8,9 +8,16 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
+import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.global.ServiceLocator
 
 class MainActivity : AppCompatActivity(), MainContract.View {
+    private lateinit var movieDto: List<MovieDto>
+
+    override fun initMovieDto(movies: List<MovieDto>) {
+        movieDto = movies
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,12 +28,12 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val presenter = ServiceLocator.mainPresenter(this)
+        presenter.initMovieDto()
 
-        val presenter = ServiceLocator.mainPresenter
-        val movies = presenter.movies()
         val movieListView = binding.movies
         movieListView.adapter =
-            MovieListAdapter(movies) { movieDto ->
+            MovieListAdapter(movieDto) { movieDto ->
                 val intent = ReservationActivity.newIntent(this, movieDto)
                 startActivity(intent)
             }
