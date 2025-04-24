@@ -4,10 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import woowacourse.movie.R
+import woowacourse.movie.databinding.MovieItemBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.helper.CustomClickListenerHelper.setOnSingleClickListener
 import woowacourse.movie.helper.LocalDateHelper.toDotFormat
@@ -35,52 +33,37 @@ class MovieListAdapter(
     ): View {
         val movie = getItem(position)
         val view: View
-        val viewHolder: ViewHolder
+        val binding: MovieItemBinding
 
         if (convertView == null) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-            viewHolder = ViewHolder(view)
-            view.tag = viewHolder
+            binding = MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            view = binding.root
+            view.tag = binding
         } else {
             view = convertView
-            viewHolder = view.tag as ViewHolder
+            binding = view.tag as MovieItemBinding
         }
 
-        initMovie(viewHolder, movie)
-
-        clickMovieItem(viewHolder, position)
+        bindMovie(binding, movie)
+        binding.root.setOnSingleClickListener { navigateToBook(movie) }
 
         return view
     }
 
-    private fun initMovie(
-        viewHolder: ViewHolder,
-        movie: Movie
-    ) {
-        viewHolder.title.text = movie.title
-        viewHolder.poster.setImageResource(movie.poster)
-        viewHolder.screeningDate.text = viewHolder.screeningDate.context.getString(
+    private fun bindMovie(binding: MovieItemBinding, movie: Movie) {
+        binding.movieTitle.text = movie.title
+        binding.moviePoster.setImageResource(movie.poster)
+        binding.movieDate.text = binding.movieDate.context.getString(
             R.string.movie_screening_date,
             movie.screeningPeriod.screeningStartDate.toDotFormat(),
             movie.screeningPeriod.screeningEndDate.toDotFormat()
         )
-        viewHolder.runningTime.text = viewHolder.runningTime.context.getString(
+        binding.movieRunningTime.text = binding.movieRunningTime.context.getString(
             R.string.movie_running_time,
             movie.runningTime
         )
-        viewHolder.bookBtn.text = viewHolder.bookBtn.context.getString(R.string.movie_book)
+        binding.movieBookBtn.commonButton.text =
+            binding.movieBookBtn.commonButton.context.getString(R.string.movie_book)
+        binding.movieBookBtn.commonButton.setOnSingleClickListener { navigateToBook(movie) }
     }
-
-    private fun clickMovieItem(viewHolder: ViewHolder, position: Int) {
-        viewHolder.movieItem.setOnSingleClickListener { navigateToBook(value[position]) }
-    }
-}
-
-private class ViewHolder(view: View) {
-    val movieItem: View = view.findViewById(R.id.movie_item)
-    val title: TextView = view.findViewById(R.id.movie_title)
-    val poster: ImageView = view.findViewById(R.id.movie_poster)
-    val screeningDate: TextView = view.findViewById(R.id.movie_date)
-    val runningTime: TextView = view.findViewById(R.id.movie_running_time)
-    val bookBtn: Button = view.findViewById(R.id.movie_book_btn)
 }
