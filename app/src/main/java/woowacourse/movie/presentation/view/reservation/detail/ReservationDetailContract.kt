@@ -27,25 +27,25 @@ interface ReservationDetailContract {
     interface View {
         fun setScreen(movie: MovieUiModel)
 
-        fun updateDateSpinner(
+        fun updateDates(
             dates: List<LocalDate>,
             times: List<LocalTime>,
             selectedDateTime: LocalDateTime? = null,
         )
 
-        fun updateTimeSpinner(
+        fun updateTimes(
             times: List<LocalTime>,
             selectedTime: LocalTime? = null,
         )
 
         fun updateReservationCount(
             count: Int,
-            isClickable: Boolean,
+            isEnabled: Boolean,
         )
 
-        fun showNoAvailableTimesDialog()
+        fun notifyNoAvailableDates()
 
-        fun showReservationConfirmationDialog()
+        fun notifyReservationConfirm()
 
         fun navigateToResult(reservationInfo: ReservationInfoUiModel)
     }

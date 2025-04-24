@@ -74,9 +74,9 @@ class ReservationDetailActivity :
 
     override fun updateReservationCount(
         count: Int,
-        isClickable: Boolean,
+        isEnabled: Boolean,
     ) {
-        views.updateReservationCount(count, isClickable)
+        views.updateReservationCount(count, isEnabled)
     }
 
     override fun setScreen(movie: MovieUiModel) {
@@ -91,15 +91,15 @@ class ReservationDetailActivity :
         startActivity(intent)
     }
 
-    override fun showNoAvailableTimesDialog() {
+    override fun notifyNoAvailableDates() {
         views.dialog.show(noAvailableTimesDialogInfo)
     }
 
-    override fun showReservationConfirmationDialog() {
+    override fun notifyReservationConfirm() {
         views.dialog.show(reservationConfirmationDialogInfo)
     }
 
-    override fun updateDateSpinner(
+    override fun updateDates(
         dates: List<LocalDate>,
         times: List<LocalTime>,
         selectedDateTime: LocalDateTime?,
@@ -107,10 +107,10 @@ class ReservationDetailActivity :
         val selectedDate = selectedDateTime?.toLocalDate()
         val selectedTime = selectedDateTime?.toLocalTime()
         views.updateDateSpinnerItems(dates, selectedDate)
-        updateTimeSpinner(times, selectedTime)
+        updateTimes(times, selectedTime)
     }
 
-    override fun updateTimeSpinner(
+    override fun updateTimes(
         times: List<LocalTime>,
         selectedTime: LocalTime?,
     ) {

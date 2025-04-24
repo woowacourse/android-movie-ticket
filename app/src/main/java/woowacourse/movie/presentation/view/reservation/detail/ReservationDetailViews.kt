@@ -108,10 +108,10 @@ class ReservationDetailViews(
         updateSpinnerItems(spinnerTime, timeAdapter, items, selected)
     }
 
-    private fun updateReservationCountMinusButton(isClickable: Boolean) {
+    private fun updateReservationCountMinusButton(isEnabled: Boolean) {
         btnCountMinus.apply {
-            alpha = if (isClickable) 1f else 0.4f
-            this.isClickable = isClickable
+            alpha = if (isEnabled) 1f else 0.4f
+            this.isClickable = isEnabled
         }
     }
 

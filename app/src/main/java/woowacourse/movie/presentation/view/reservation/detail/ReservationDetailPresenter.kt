@@ -25,7 +25,7 @@ class ReservationDetailPresenter(
         initCount?.let { reservationCount = ReservationCount(it) }
 
         if (movie == null) {
-            view.showNoAvailableTimesDialog()
+            view.notifyNoAvailableDates()
             return
         }
 
@@ -34,7 +34,7 @@ class ReservationDetailPresenter(
 
     override fun updateReservationCount(updateCount: Int) {
         reservationCount += updateCount
-        view.updateReservationCount(reservationCount.value, reservationCount.isClickable())
+        view.updateReservationCount(reservationCount.value, reservationCount.isEnabled())
     }
 
     override fun onSelectDate(
@@ -42,7 +42,7 @@ class ReservationDetailPresenter(
         selectedTime: LocalTime?,
     ) {
         val availableTimes = getAvailableTimesForDate(date)
-        view.updateTimeSpinner(availableTimes, selectedTime)
+        view.updateTimes(availableTimes, selectedTime)
     }
 
     override fun onReserve(reservationDateTime: LocalDateTime) {
@@ -61,20 +61,20 @@ class ReservationDetailPresenter(
     private fun setupView(dateTime: LocalDateTime?) {
         val availableDates = getAvailableDates()
         if (availableDates.isEmpty()) {
-            view.showNoAvailableTimesDialog()
+            view.notifyNoAvailableDates()
             return
         }
 
         view.setScreen(movie!!.toUiModel())
-        view.updateDateSpinner(
+        view.updateDates(
             availableDates,
             getAvailableTimesForDate(dateTime?.toLocalDate()),
             dateTime,
         )
-        view.updateReservationCount(reservationCount.value, reservationCount.isClickable())
+        view.updateReservationCount(reservationCount.value, reservationCount.isEnabled())
     }
 
-    private fun ReservationCount.isClickable(): Boolean = this.value > ReservationCount.RESERVATION_MIN_COUNT
+    private fun ReservationCount.isEnabled(): Boolean = this.value > ReservationCount.RESERVATION_MIN_COUNT
 
     private fun getAvailableDates(): List<LocalDate> {
         val now = LocalDate.now()

@@ -29,7 +29,7 @@ class ReservationDetailPresenterTest {
     @Test
     fun `영화 데이터를 불러온다`() {
         every { view.setScreen(any()) } just Runs
-        every { view.updateDateSpinner(any(), any()) } just Runs
+        every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
 
         presenter.fetchData { dummyMovie.toUiModel() }
@@ -51,9 +51,9 @@ class ReservationDetailPresenterTest {
         val now = LocalDateTime.of(2025, 4, 1, 0, 0)
         val times = dummyMovie.screeningPeriod.getAvailableTimesFor(now, now.toLocalDate())
 
-        every { view.updateTimeSpinner(times) } just Runs
+        every { view.updateTimes(times) } just Runs
         every { view.setScreen(dummyMovie.toUiModel()) } just Runs
-        every { view.updateDateSpinner(any(), any()) } just Runs
+        every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
 
         presenter.fetchData { dummyMovie.toUiModel() }
@@ -61,9 +61,9 @@ class ReservationDetailPresenterTest {
 
         verifySequence {
             view.setScreen(dummyMovie.toUiModel())
-            view.updateDateSpinner(any(), any(), any())
+            view.updateDates(any(), any(), any())
             view.updateReservationCount(any(), any())
-            view.updateTimeSpinner(times)
+            view.updateTimes(times)
         }
     }
 
@@ -71,7 +71,7 @@ class ReservationDetailPresenterTest {
     fun `예약 시 조건이 맞으면 예약 정보를 넘긴다`() {
         val now = LocalDateTime.of(2025, 4, 1, 12, 0)
         every { view.setScreen(any()) } just Runs
-        every { view.updateDateSpinner(any(), any()) } just Runs
+        every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
         every { view.navigateToResult(any()) } just Runs
 
@@ -97,19 +97,19 @@ class ReservationDetailPresenterTest {
             dummyMovie.copy(
                 screeningPeriod = dummyPeriod,
             )
-        every { view.showNoAvailableTimesDialog() } just Runs
+        every { view.notifyNoAvailableDates() } just Runs
 
         presenter.fetchData { dummyItem.toUiModel() }
 
-        verify { view.showNoAvailableTimesDialog() }
+        verify { view.notifyNoAvailableDates() }
     }
 
     @Test
     fun `영화 정보를 불러오지 못하는 경우 다이얼로그를 보여준다`() {
-        every { view.showNoAvailableTimesDialog() } just Runs
+        every { view.notifyNoAvailableDates() } just Runs
 
         presenter.fetchData { null }
 
-        verify { view.showNoAvailableTimesDialog() }
+        verify { view.notifyNoAvailableDates() }
     }
 }
