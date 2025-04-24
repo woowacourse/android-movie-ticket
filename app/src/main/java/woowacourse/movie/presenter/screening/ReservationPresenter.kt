@@ -23,4 +23,8 @@ class ReservationPresenter(
             )
         }
     }
+
+    override fun presentRunningTime() {
+        view.setRunningTime(screening.runningTime)
+    }
 }

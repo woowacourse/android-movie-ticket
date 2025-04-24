@@ -88,6 +88,7 @@ class ReservationActivity :
         (presenter ?: error(ErrorMessage("screening").notProvided())).run {
             presentTitle()
             presentPeriod()
+            presentRunningTime()
         }
         initPosterView()
         initRunningTimeView()
@@ -263,6 +264,15 @@ class ReservationActivity :
                 endYear,
                 endMonth,
                 endDay,
+            )
+    }
+
+    override fun setRunningTime(runningTime: Int) {
+        val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
+        runningTimeView.text =
+            getString(
+                R.string.running_time,
+                runningTime,
             )
     }
 

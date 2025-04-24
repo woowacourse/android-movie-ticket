@@ -5,6 +5,8 @@ interface ReservationContract {
         fun presentTitle()
 
         fun presentPeriod()
+
+        fun presentRunningTime()
     }
 
     interface View {
@@ -18,5 +20,7 @@ interface ReservationContract {
             endMonth: Int,
             endDay: Int,
         )
+
+        fun setRunningTime(runningTime: Int) {}
     }
 }

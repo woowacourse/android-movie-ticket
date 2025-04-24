@@ -58,4 +58,16 @@ class ReservationPresenterTest {
         // then
         verify { view.setPeriod(2025, 4, 1, 2025, 4, 25) }
     }
+
+    @Test
+    fun `러닝타임을 표시한다`() {
+        // given
+        every { view.setRunningTime(152) } just Runs
+
+        // when
+        presenter.presentRunningTime()
+
+        // then
+        verify { view.setRunningTime(152) }
+    }
 }
