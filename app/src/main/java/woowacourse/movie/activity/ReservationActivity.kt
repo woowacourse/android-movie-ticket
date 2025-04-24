@@ -15,9 +15,6 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.ReservationDaySpinnerAdapter
 import woowacourse.movie.adapter.RunningTimeSpinnerAdapter
 import woowacourse.movie.databinding.ActivityReservationBinding
-import woowacourse.movie.domain.BookingStatus
-import woowacourse.movie.domain.MemberCount
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.ServiceLocator
@@ -28,7 +25,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity : AppCompatActivity() {
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private lateinit var reservationDay: LocalDate
     private lateinit var runningDateTime: LocalTime
     private lateinit var screeningTimeAdapter: RunningTimeSpinnerAdapter
@@ -38,6 +35,7 @@ class ReservationActivity : AppCompatActivity() {
     private val runningTimeRule = ServiceLocator.runningTimeRule
     private val today = ServiceLocator.today
     private val now = ServiceLocator.now
+    private val reservationPresenter = ServiceLocator.reservationPresenter
     private val binding: ActivityReservationBinding by lazy {
         ActivityReservationBinding.inflate(layoutInflater)
     }
@@ -69,8 +67,15 @@ class ReservationActivity : AppCompatActivity() {
         binding.timePickerActions.setSelection(savedInstanceState.getInt(RUNNING_TIME_KEY))
     }
 
+    override fun navigate(reservationDto: ReservationDto) {
+        val intent =
+            ReservationCompleteActivity
+                .newIntent(this, reservationDto)
+        startActivity(intent)
+    }
+
     private fun init() {
-        val movie = intent.getObjectFromIntent<MovieDto>(MOVIE_KEY).toMovie()
+        val movie = intent.getObjectFromIntent<MovieDto>(MOVIE_KEY)
         setBindingText(movie)
         setScreeningDate(movie)
         setScreeningTime()
@@ -78,7 +83,7 @@ class ReservationActivity : AppCompatActivity() {
         setCompleteButtonEventListener(movie)
     }
 
-    private fun setBindingText(movie: Movie) {
+    private fun setBindingText(movie: MovieDto) {
         binding.count.text = memberCount.toString()
         binding.bookedMovieRunningDayText.text =
             getString(
@@ -92,7 +97,7 @@ class ReservationActivity : AppCompatActivity() {
                 R.string.movie_running_time,
                 movie.runningTime.inWholeMinutes,
             )
-        binding.moviePoster.setImage(movie.posterUrl)
+        binding.moviePoster.setImage(movie.drawable)
     }
 
     private fun setCounterEventListener() {
@@ -111,16 +116,17 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCompleteButtonEventListener(movie: Movie) {
+    private fun setCompleteButtonEventListener(movie: MovieDto) {
         binding.commonButton.setOnClickListener {
             dialog {
                 onPositiveButtonClicked {
-                    navigateToReservationComplete(
-                        BookingStatus(
+                    navigate(
+                        ReservationDto(
                             movie = movie,
                             isBooked = true,
-                            memberCount = MemberCount(memberCount),
+                            memberCount = memberCount,
                             bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
+                            totalPrice = reservationPresenter.price(memberCount),
                         ),
                     )
                 }
@@ -128,10 +134,10 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun setScreeningDate(movie: Movie) {
+    private fun setScreeningDate(movie: MovieDto) {
         binding.datePickerActions.adapter =
             ReservationDaySpinnerAdapter(
-                movie.betweenDates(today),
+                reservationPresenter.betweenDates(today, movie),
             )
         reservationDay = binding.datePickerActions.selectedItem as LocalDate
 
@@ -174,13 +180,6 @@ class ReservationActivity : AppCompatActivity() {
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
-    }
-
-    private fun navigateToReservationComplete(bookingStatus: BookingStatus) {
-        val intent =
-            ReservationCompleteActivity
-                .newIntent(this, ReservationDto.fromBookingStatus(bookingStatus))
-        startActivity(intent)
     }
 
     private fun dialog(block: DialogBuilder.() -> Unit): AlertDialog {
