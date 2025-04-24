@@ -11,7 +11,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.presentation.fixture.fakeContext
-import woowacourse.movie.presentation.view.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.model.toUiModel
 import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
@@ -24,7 +24,7 @@ class ReservationResultActivityTest {
 
     @Before
     fun setUp() {
-        val intent = ReservationResultActivity.newIntent(fakeContext, reservationInfo)
+        val intent = ReservationResultActivity.newIntent(fakeContext, reservationInfo.toUiModel())
         ActivityScenario.launch<ReservationResultActivity>(intent)
     }
 

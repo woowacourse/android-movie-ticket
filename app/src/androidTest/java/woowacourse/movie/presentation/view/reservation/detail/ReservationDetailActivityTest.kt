@@ -18,6 +18,7 @@ import woowacourse.movie.domain.model.Poster
 import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningPeriod
 import woowacourse.movie.presentation.fixture.fakeContext
+import woowacourse.movie.presentation.model.toUiModel
 import java.time.LocalDate
 
 class ReservationDetailActivityTest {
@@ -36,7 +37,7 @@ class ReservationDetailActivityTest {
 
     @Before
     fun setUp() {
-        val intent = ReservationDetailActivity.newIntent(fakeContext, fakeMovie)
+        val intent = ReservationDetailActivity.newIntent(fakeContext, fakeMovie.toUiModel())
         scenario = ActivityScenario.launch(intent)
     }
 
@@ -118,17 +119,19 @@ class ReservationDetailActivityTest {
             val intent =
                 ReservationDetailActivity.newIntent(
                     fakeContext,
-                    fakeMovie.copy(
-                        screeningPeriod =
-                            ScreeningPeriod(
-                                LocalDate.of(2025, 1, 1),
-                                LocalDate.of(2025, 1, 1),
-                            ),
-                    ),
+                    fakeMovie
+                        .copy(
+                            screeningPeriod =
+                                ScreeningPeriod(
+                                    LocalDate.of(2025, 1, 1),
+                                    LocalDate.of(2025, 1, 1),
+                                ),
+                        ).toUiModel(),
                 )
             activity.startActivity(intent)
         }
 
+        Thread.sleep(1000)
         onView(withText("선택 가능한 날짜/시간이 없습니다"))
             .check(matches(isDisplayed()))
     }
