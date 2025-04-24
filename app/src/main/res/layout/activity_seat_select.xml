@@ -25,6 +25,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
+        android:id="@+id/seat_table"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="30dp"
@@ -40,21 +41,24 @@
             android:gravity="center">
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                android:layout_column="1"
-                tools:text="A1" />
+                style="@style/SeatTextStyle"
+                tools:text="A1"
+                tools:textColor="@color/purple" />
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                tools:text="A2" />
+                style="@style/SeatTextStyle"
+                tools:text="A2"
+                tools:textColor="@color/purple" />
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                tools:text="A3" />
+                style="@style/SeatTextStyle"
+                tools:text="A3"
+                tools:textColor="@color/purple" />
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                tools:text="A4" />
+                style="@style/SeatTextStyle"
+                tools:text="A4"
+                tools:textColor="@color/purple" />
         </TableRow>
 
         <TableRow
@@ -62,21 +66,24 @@
             android:gravity="center">
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                android:layout_column="1"
-                tools:text="B1" />
+                style="@style/SeatTextStyle"
+                tools:text="B1"
+                tools:textColor="@color/purple" />
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                tools:text="B2" />
+                style="@style/SeatTextStyle"
+                tools:text="B2"
+                tools:textColor="@color/purple" />
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                tools:text="B3" />
+                style="@style/SeatTextStyle"
+                tools:text="B3"
+                tools:textColor="@color/purple" />
 
             <TextView
-                style="@style/SeatBGradeTextStyle"
-                tools:text="B4" />
+                style="@style/SeatTextStyle"
+                tools:text="B4"
+                tools:textColor="@color/purple" />
         </TableRow>
 
         <TableRow
@@ -84,21 +91,24 @@
             android:gravity="center">
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                android:layout_column="1"
-                tools:text="C1" />
+                style="@style/SeatTextStyle"
+                tools:text="C1"
+                tools:textColor="@color/green" />
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                tools:text="C2" />
+                style="@style/SeatTextStyle"
+                tools:text="C2"
+                tools:textColor="@color/green" />
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                tools:text="C3" />
+                style="@style/SeatTextStyle"
+                tools:text="C3"
+                tools:textColor="@color/green" />
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                tools:text="C4" />
+                style="@style/SeatTextStyle"
+                tools:text="C4"
+                tools:textColor="@color/green" />
         </TableRow>
 
         <TableRow
@@ -106,21 +116,24 @@
             android:gravity="center">
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                android:layout_column="1"
-                tools:text="D1" />
+                style="@style/SeatTextStyle"
+                tools:text="D1"
+                tools:textColor="@color/green" />
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                tools:text="D2" />
+                style="@style/SeatTextStyle"
+                tools:text="D2"
+                tools:textColor="@color/green" />
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                tools:text="D3" />
+                style="@style/SeatTextStyle"
+                tools:text="D3"
+                tools:textColor="@color/green" />
 
             <TextView
-                style="@style/SeatSGradeTextStyle"
-                tools:text="D4" />
+                style="@style/SeatTextStyle"
+                tools:text="D4"
+                tools:textColor="@color/green" />
         </TableRow>
 
         <TableRow
@@ -128,21 +141,24 @@
             android:gravity="center">
 
             <TextView
-                style="@style/SeatAGradeTextStyle"
-                android:layout_column="1"
-                tools:text="E1" />
+                style="@style/SeatTextStyle"
+                tools:text="E1"
+                tools:textColor="@color/blue" />
 
             <TextView
-                style="@style/SeatAGradeTextStyle"
-                tools:text="E2" />
+                style="@style/SeatTextStyle"
+                tools:text="E2"
+                tools:textColor="@color/blue" />
 
             <TextView
-                style="@style/SeatAGradeTextStyle"
-                tools:text="E3" />
+                style="@style/SeatTextStyle"
+                tools:text="E3"
+                tools:textColor="@color/blue" />
 
             <TextView
-                style="@style/SeatAGradeTextStyle"
-                tools:text="E4" />
+                style="@style/SeatTextStyle"
+                tools:text="E4"
+                tools:textColor="@color/blue" />
         </TableRow>
 
     </TableLayout>

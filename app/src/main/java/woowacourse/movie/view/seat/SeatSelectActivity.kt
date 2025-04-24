@@ -4,14 +4,21 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
+import woowacourse.movie.domain.Position
+import woowacourse.movie.domain.SeatGrade
 import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
 import woowacourse.movie.view.reservation.ticket.TicketUiModel
 
@@ -48,7 +55,21 @@ class SeatSelectActivity :
         }
     }
 
-    private fun initView() {}
+    private fun initView() {
+        val seatTable: TableLayout = findViewById(R.id.seat_table)
+        seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIdx, row ->
+            val seatGrade = SeatGrade.of(rowIdx + 1)
+            row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, view ->
+                view.tag = Position(rowIdx, colIdx)
+                view.text = "${'A' + rowIdx}${colIdx + 1}"
+                when (seatGrade) {
+                    SeatGrade.S -> view.setTextColor(ContextCompat.getColor(this, R.color.green))
+                    SeatGrade.A -> view.setTextColor(ContextCompat.getColor(this, R.color.blue))
+                    SeatGrade.B -> view.setTextColor(ContextCompat.getColor(this, R.color.purple))
+                }
+            }
+        }
+    }
 
     private fun initConfirmButton() {
         val alertDialog =
