@@ -46,7 +46,7 @@ class ScreeningPresenterTest {
         every { view.setScreenings(fakeScreenings) } just Runs
 
         // when
-        presenter.updateScreenings()
+        presenter.presentScreenings()
 
         // then
         verify { view.setScreenings(fakeScreenings) }

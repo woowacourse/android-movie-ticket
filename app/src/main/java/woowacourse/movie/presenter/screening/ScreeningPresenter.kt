@@ -8,7 +8,7 @@ class ScreeningPresenter(
     private val view: ScreeningContract.View,
     private val screenings: Screenings = LocalScreenings(),
 ) : ScreeningContract.Presenter {
-    override fun updateScreenings() {
+    override fun presentScreenings() {
         view.setScreenings(screenings.value)
     }
 }

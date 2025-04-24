@@ -4,7 +4,7 @@ import woowacourse.movie.domain.screening.Screening
 
 interface ScreeningContract {
     interface Presenter {
-        fun updateScreenings()
+        fun presentScreenings()
     }
 
     interface View {
