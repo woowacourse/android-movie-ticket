@@ -16,6 +16,7 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.Seats
 import woowacourse.movie.view.Extras
+import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
 
 class SeatSelectActivity : AppCompatActivity() {
@@ -84,7 +85,7 @@ class SeatSelectActivity : AppCompatActivity() {
                 Toast
                     .makeText(
                         this,
-                        "최대 ${movieTicket!!.count}개의 좌석만 선택할 수 있어요.",
+                        getString(R.string.seat_select_error_count, movieTicket!!.count),
                         Toast.LENGTH_SHORT,
                     ).show()
                 return
@@ -97,7 +98,11 @@ class SeatSelectActivity : AppCompatActivity() {
             }
         }
         priceTextView.text =
-            getString(R.string.seat_select_ticket_price).format(selectedSeats.totalPrice)
+            getString(R.string.seat_select_ticket_price).format(
+                ReservationUiFormatter().priceToUI(
+                    selectedSeats.totalPrice,
+                ),
+            )
     }
 
     private fun reservationInfoIntent(): Intent {

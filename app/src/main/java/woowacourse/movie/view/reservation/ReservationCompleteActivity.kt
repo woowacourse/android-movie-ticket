@@ -50,7 +50,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             resources.getString(
                 R.string.reservation_complete_ticket_count,
                 reservationInfo?.seats?.size,
-                reservationInfo?.seats?.joinToString(", "),
+                reservationInfo?.seats?.joinToString(),
             )
 
         val ticketPriceTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_price)

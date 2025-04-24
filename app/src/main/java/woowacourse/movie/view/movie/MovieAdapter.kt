@@ -74,29 +74,26 @@ class MovieAdapter(
         convertView: View?,
         parent: ViewGroup?,
     ): View {
-        val view: View
-
+        var view = convertView
         val viewType = getItemViewType(position)
 
         return if (viewType == VIEW_TYPE_MOVIE) {
             val viewHolder: MovieViewHolder
-            if (convertView == null) {
+            if (view == null || view.tag !is MovieViewHolder) {
                 view =
                     LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
-                viewHolder =
-                    MovieViewHolder(view, clickListener, reservationUiFormatter)
+                viewHolder = MovieViewHolder(view, clickListener, reservationUiFormatter)
                 view.tag = viewHolder
             } else {
-                view = convertView
                 viewHolder = view.tag as MovieViewHolder
             }
 
             val movie = movies[getMovieIndex(position)]
             viewHolder.bind(movie)
-            view
+            view!!
         } else {
             val viewHolder: AdViewHolder
-            if (convertView == null) {
+            if (view == null || view.tag !is AdViewHolder) {
                 view =
                     LayoutInflater
                         .from(parent?.context)
@@ -104,12 +101,11 @@ class MovieAdapter(
                 viewHolder = AdViewHolder(view)
                 view.tag = viewHolder
             } else {
-                view = convertView
                 viewHolder = view.tag as AdViewHolder
             }
 
             viewHolder.bind()
-            view
+            view!!
         }
     }
 
