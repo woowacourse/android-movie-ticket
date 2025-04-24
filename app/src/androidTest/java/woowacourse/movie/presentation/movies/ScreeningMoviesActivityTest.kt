@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.presentation.movies
 
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
@@ -19,9 +19,11 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.presentation.movies.MoviesActivity
+import woowacourse.movie.presentation.booking.BookingActivity
 
 @RunWith(AndroidJUnit4::class)
-class MoviesActivityTest {
+class ScreeningMoviesActivityTest {
     @get:Rule
     val activityScenarioRule = ActivityScenarioRule(MoviesActivity::class.java)
 

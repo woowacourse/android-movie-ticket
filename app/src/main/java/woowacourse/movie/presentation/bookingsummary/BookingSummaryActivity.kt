@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.presentation.bookingsummary
 
 import android.os.Bundle
 import android.widget.TextView
@@ -10,6 +10,7 @@ import woowacourse.movie.ui.util.TicketUiFormatter.formatAmount
 import woowacourse.movie.ui.util.TicketUiFormatter.formatDateTime
 import woowacourse.movie.ui.util.TicketUiFormatter.formatHeadCount
 import woowacourse.movie.ui.util.intentSerializable
+import woowacourse.movie.ui.BaseActivity
 
 class BookingSummaryActivity : BaseActivity() {
     override val layoutRes: Int

@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.presentation.booking
 
 import android.content.Intent
 import android.os.Bundle
@@ -20,6 +20,8 @@ import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.PosterMapper
 import woowacourse.movie.ui.util.intentSerializable
+import woowacourse.movie.ui.BaseActivity
+import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

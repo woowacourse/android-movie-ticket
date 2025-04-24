@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view
+package woowacourse.movie.ui
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
