@@ -12,13 +12,16 @@ import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.view.booking.BookingActivity
 import java.time.LocalDate
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+    val movieListPresenter = MovieListPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie_list)
         applyWindowInsets()
-        setListView(dummyMovieList())
+
+        movieListPresenter.updateMovieList()
     }
 
     private fun applyWindowInsets() {
@@ -29,32 +32,19 @@ class MovieListActivity : AppCompatActivity() {
         }
     }
 
-    private fun setListView(itemList: List<Movie>) {
+    override fun moveToBookingActivity(movie: Movie) {
+        startActivity(BookingActivity.newIntent(this, movie))
+    }
+
+    override fun setMoveList(movies: List<Movie>) {
         val listView = findViewById<ListView>(R.id.list_view)
 
         listView.adapter =
             MovieAdapter(
-                items = itemList,
+                items = movies,
                 onClickBooking = { movie ->
-                    moveToBookingComplete(movie)
+                    moveToBookingActivity(movie)
                 },
             )
-    }
-
-    private fun dummyMovieList(): List<Movie> =
-        (1..100).map {
-            Movie(
-                "해리 포터와 마법사의 돌 $it",
-                R.drawable.harry_potter_one,
-                ScreeningDate(
-                    LocalDate.of(2025, 4, 1),
-                    LocalDate.of(2025, 4, 25),
-                ),
-                152,
-            )
-        }
-
-    private fun moveToBookingComplete(movie: Movie) {
-        startActivity(BookingActivity.newIntent(this, movie))
     }
 }
