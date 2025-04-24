@@ -50,6 +50,7 @@ class ReserveActivity : AppCompatActivity() {
     private lateinit var reservation: Reservation
     private var purchaseCount = PurchaseCount(1)
     private val ticketMachine = TicketMachine()
+    private var savedTimePosition = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +82,7 @@ class ReserveActivity : AppCompatActivity() {
         dateSpinner.setSelection(datePosition)
         if (selectedDate != null) updateTimeSpinner(selectedDate)
         ticketCountTextView.text = purchaseCount.toString()
-        timeSpinner.setSelection(timePosition)
+        this.savedTimePosition = timePosition
     }
 
     private fun initSystemUI() {
@@ -220,18 +221,20 @@ class ReserveActivity : AppCompatActivity() {
     }
 
     private fun initTimeSpinner(startDate: LocalDate) {
-        updateTimeSpinner(reservationScheduler.startDate(startDate, LocalDate.now()))
+        updateTimeSpinner(startDate)
         timeSpinner.onItemSelectedListener = createTimeSelectionListener()
     }
 
-    private fun updateTimeSpinner(selectedDate: LocalDate) {
-        val times =
-            reservationScheduler.reservableTimes(
-                selectedDate,
-                LocalDateTime.now(),
-            )
+    private fun screeningTimes(selectedDate: LocalDate): List<LocalTime> =
+        reservationScheduler.reservableTimes(
+            selectedDate,
+            LocalDateTime.now(),
+        )
 
-        timeSpinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
+    private fun updateTimeSpinner(selectedDate: LocalDate) {
+        screeningTimes(selectedDate)
+        timeSpinner.adapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTimes(selectedDate))
     }
 
     private fun getSelectedDateTime(): LocalDateTime =
@@ -263,6 +266,7 @@ class ReserveActivity : AppCompatActivity() {
             ) {
                 val selectedDate = dates[position]
                 updateTimeSpinner(selectedDate)
+                timeSpinner.setSelection(savedTimePosition.coerceAtMost(screeningTimes(selectedDate).size - 1))
                 reservation = reservation.updateReservedTime(getSelectedDateTime())
             }
 
@@ -277,6 +281,7 @@ class ReserveActivity : AppCompatActivity() {
                 position: Int,
                 id: Long,
             ) {
+                savedTimePosition = position
                 reservation = reservation.updateReservedTime(getSelectedDateTime())
             }
 
