@@ -6,19 +6,21 @@ import java.time.LocalDateTime
 class Reservation(
     val title: String,
     val reservedTime: LocalDateTime,
-    private val tickets: Tickets,
+    private var tickets: Tickets?,
     purchaseType: PurchaseType = PurchaseType.DEFAULT,
 ) : Serializable {
-    val ticketCount = tickets.count
+    val ticketCount get() = requireNotNull(tickets?.count) { INVALID_TICKETS_NOT_NULL }
     val cancelMinute = purchaseType.cancelTime.minute
 
-    fun totalPrice(): Int = tickets.totalPrice()
+    fun initTickets(tickets: Tickets) {
+        this.tickets = tickets
+    }
 
-    fun plusCount() = Reservation(title, reservedTime, tickets.add(Ticket(TicketType.DEFAULT)))
-
-    fun canMinus(): Boolean = tickets.canMinus()
-
-    fun minusCount() = Reservation(title, reservedTime, tickets.remove(Ticket(TicketType.DEFAULT)))
+    fun totalPrice(): Int = requireNotNull(tickets?.totalPrice()) { INVALID_TICKETS_NOT_NULL }
 
     fun updateReservedTime(time: LocalDateTime) = Reservation(title, time, tickets)
+
+    companion object {
+        private const val INVALID_TICKETS_NOT_NULL = "아직 티켓을 초기화 하지 않았습니다."
+    }
 }
