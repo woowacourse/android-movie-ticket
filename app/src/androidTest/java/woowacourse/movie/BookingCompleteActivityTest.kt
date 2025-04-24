@@ -8,7 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.BookingCompleteActivity.Companion.newIntent
+import woowacourse.movie.booking.complete.BookingCompleteActivity
+import woowacourse.movie.booking.complete.BookingCompleteActivity.Companion.newIntent
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.TicketInfo
 import woowacourse.movie.domain.TicketQuantity

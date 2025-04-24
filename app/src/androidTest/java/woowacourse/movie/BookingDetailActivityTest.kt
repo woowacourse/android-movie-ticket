@@ -20,8 +20,10 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import woowacourse.movie.BookingDetailActivity.Companion.newIntent
+import woowacourse.movie.booking.detail.BookingDetailActivity
+import woowacourse.movie.booking.detail.BookingDetailActivity.Companion.newIntent
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.movies.toMovieUiModel
 import java.time.LocalDate
 
 @Suppress("ktlint:standard:function-naming")
@@ -41,11 +43,11 @@ class BookingDetailActivityTest {
                 endDate = LocalDate.of(2025, 4, 25),
                 runningTime = 152,
                 poster = R.drawable.img_poster_harry_potter_and_the_philosophers_stone,
-            )
+            ).toMovieUiModel()
         val intent =
             newIntent(
                 context = getApplicationContext(),
-                movie = movie,
+                uiModel = movie,
             )
 
         activityScenario = ActivityScenario.launch(intent)

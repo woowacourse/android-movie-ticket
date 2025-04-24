@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.booking.complete
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,8 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
+import woowacourse.movie.StringFormatter
 import woowacourse.movie.domain.TicketInfo
 import woowacourse.movie.util.parcelableExtraWithVersion
 

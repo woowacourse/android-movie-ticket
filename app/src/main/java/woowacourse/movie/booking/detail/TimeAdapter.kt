@@ -1,7 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.booking.detail
 
 import android.content.Context
 import android.widget.ArrayAdapter
+import woowacourse.movie.StringFormatter
 import woowacourse.movie.domain.DateType
 import woowacourse.movie.domain.Time
 
