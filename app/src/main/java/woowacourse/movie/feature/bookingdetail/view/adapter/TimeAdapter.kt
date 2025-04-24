@@ -1,21 +1,22 @@
-package woowacourse.movie.presentation.bookingdetail.adapter
+package woowacourse.movie.feature.bookingdetail.view.adapter
 
+import android.R
 import android.content.Context
 import android.widget.ArrayAdapter
 import woowacourse.movie.domain.model.DateType
 import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.domain.model.MovieTime.Companion.getMovieTimes
-import woowacourse.movie.presentation.mapper.toUi
+import woowacourse.movie.feature.mapper.toUi
 
 class TimeAdapter(
     context: Context,
 ) : ArrayAdapter<String>(
         context,
-        android.R.layout.simple_spinner_item,
+        R.layout.simple_spinner_item,
         mutableListOf(),
     ) {
     init {
-        setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
     }
 
     fun updateTimes(dateType: DateType) {

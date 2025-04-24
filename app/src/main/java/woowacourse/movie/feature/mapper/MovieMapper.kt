@@ -1,15 +1,15 @@
-package woowacourse.movie.presentation.mapper
+package woowacourse.movie.feature.mapper
 
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieDates
 import woowacourse.movie.domain.model.MovieTime
-import woowacourse.movie.presentation.model.BookingInfoUiModel
-import woowacourse.movie.presentation.model.MovieDateUiModel
-import woowacourse.movie.presentation.model.MovieTimeUiModel
-import woowacourse.movie.presentation.model.MovieUiModel
-import woowacourse.movie.presentation.model.getPosterImage
+import woowacourse.movie.feature.model.BookingInfoUiModel
+import woowacourse.movie.feature.model.MovieDateUiModel
+import woowacourse.movie.feature.model.MovieTimeUiModel
+import woowacourse.movie.feature.model.MovieUiModel
+import woowacourse.movie.feature.model.getPosterImage
 
 fun Movie.toUi(): MovieUiModel =
     MovieUiModel(

@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation
+package woowacourse.movie.feature
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider.getApplicationContext
@@ -10,8 +10,8 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.BOOKING_INFO_UI_MODEL_01
 import woowacourse.movie.R
-import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
-import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity.Companion.newIntent
+import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
+import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity.Companion.newIntent
 
 @Suppress("ktlint:standard:function-naming")
 class BookingCompleteActivityTest {

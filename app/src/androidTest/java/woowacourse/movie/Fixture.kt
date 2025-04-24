@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieTime
-import woowacourse.movie.presentation.mapper.toUi
+import woowacourse.movie.feature.mapper.toUi
 
 val MOVIE_UI_MODEL_01 =
     Movie(

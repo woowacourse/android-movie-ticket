@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.bookingcomplete
+package woowacourse.movie.feature.bookingcomplete.view
 
 import android.content.Context
 import android.content.Intent
@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.presentation.model.BookingInfoUiModel
+import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.util.getExtra
 
 class BookingCompleteActivity : AppCompatActivity() {

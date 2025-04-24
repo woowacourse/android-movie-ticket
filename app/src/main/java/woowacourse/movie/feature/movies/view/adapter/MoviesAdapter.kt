@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.movies.adapter
+package woowacourse.movie.feature.movies.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.presentation.model.MovieUiModel
+import woowacourse.movie.feature.model.MovieUiModel
 
 class MoviesAdapter(
     private val movies: List<MovieUiModel>,

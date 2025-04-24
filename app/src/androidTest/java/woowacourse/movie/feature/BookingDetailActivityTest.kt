@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation
+package woowacourse.movie.feature
 
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
@@ -18,8 +18,8 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.MOVIE_UI_MODEL_01
 import woowacourse.movie.R
-import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity
-import woowacourse.movie.presentation.bookingdetail.BookingDetailActivity.Companion.newIntent
+import woowacourse.movie.feature.bookingdetail.view.BookingDetailActivity
+import woowacourse.movie.feature.bookingdetail.view.BookingDetailActivity.Companion.newIntent
 
 @Suppress("ktlint:standard:function-naming")
 class BookingDetailActivityTest {

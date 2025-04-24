@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation
+package woowacourse.movie.feature
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -8,7 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.presentation.movies.MoviesActivity
+import woowacourse.movie.feature.movies.view.MoviesActivity
 
 @Suppress("ktlint:standard:function-naming")
 class MoviesActivityTest {

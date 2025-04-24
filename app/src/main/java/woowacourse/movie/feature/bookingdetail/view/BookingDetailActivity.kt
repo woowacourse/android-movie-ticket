@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.bookingdetail
+package woowacourse.movie.feature.bookingdetail.view
 
 import android.content.Context
 import android.content.Intent
@@ -19,15 +19,15 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.DateType
 import woowacourse.movie.domain.model.MovieDates
-import woowacourse.movie.presentation.bookingcomplete.BookingCompleteActivity
-import woowacourse.movie.presentation.bookingdetail.adapter.DateAdapter
-import woowacourse.movie.presentation.bookingdetail.adapter.TimeAdapter
-import woowacourse.movie.presentation.mapper.toDomain
-import woowacourse.movie.presentation.mapper.toUi
-import woowacourse.movie.presentation.model.BookingInfoUiModel
-import woowacourse.movie.presentation.model.MovieDateUiModel
-import woowacourse.movie.presentation.model.MovieTimeUiModel
-import woowacourse.movie.presentation.model.MovieUiModel
+import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
+import woowacourse.movie.feature.bookingdetail.view.adapter.DateAdapter
+import woowacourse.movie.feature.bookingdetail.view.adapter.TimeAdapter
+import woowacourse.movie.feature.mapper.toDomain
+import woowacourse.movie.feature.mapper.toUi
+import woowacourse.movie.feature.model.BookingInfoUiModel
+import woowacourse.movie.feature.model.MovieDateUiModel
+import woowacourse.movie.feature.model.MovieTimeUiModel
+import woowacourse.movie.feature.model.MovieUiModel
 import woowacourse.movie.util.getExtra
 
 class BookingDetailActivity : AppCompatActivity() {
