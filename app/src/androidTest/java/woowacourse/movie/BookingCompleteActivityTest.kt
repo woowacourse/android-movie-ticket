@@ -22,21 +22,13 @@ import java.time.LocalTime
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
 
-    @get:Rule
-    val activityRule = ActivityScenarioRule(BookingCompleteActivity::class.java)
-
     @Before
     fun setUp() {
         Intents.init()
 
-        val bookingResult = mockBookingResult()
-        val intent =
-            Intent(
-                ApplicationProvider.getApplicationContext(),
-                BookingCompleteActivity::class.java,
-            ).apply {
-                putExtra("bookingResult", bookingResult)
-            }
+        val intent = Intent(ApplicationProvider.getApplicationContext(), BookingCompleteActivity::class.java).apply {
+            putExtra(BookingCompleteActivity.KEY_BOOKING_RESULT, mockBookingResult())
+        }
 
         scenario = ActivityScenario.launch(intent)
     }
@@ -64,7 +56,7 @@ class BookingCompleteActivityTest {
         onView(withId(R.id.tv_complete_screening_date)).check(
             matches(
                 allOf(
-                    withText("2025.04.20"),
+                    withText("2028.10.13"),
                     isDisplayed(),
                 ),
             ),
@@ -111,7 +103,7 @@ class BookingCompleteActivityTest {
         return BookingResult(
             title = "해리 포터와 마법사의 돌",
             headCount = 2,
-            selectedDate = LocalDate.of(2025, 4, 20),
+            selectedDate = LocalDate.of(2028, 10, 13),
             selectedTime = LocalTime.of(12, 0),
         )
     }

@@ -85,7 +85,7 @@ class MainActivityTest {
             .check(
                 matches(
                     allOf(
-                        withText("2025.4.1 ~ 2025.4.25"),
+                        withText("2028.10.1 ~ 2028.10.25"),
                         isDisplayed(),
                     ),
                 ),
@@ -160,7 +160,7 @@ class MainActivityTest {
             .check(matches(allOf(withText("150분"), isDisplayed())))
 
         onView(withId(R.id.tv_booking_screening_date))
-            .check(matches(allOf(withText("2025.4.1 ~ 2025.4.25"), isDisplayed())))
+            .check(matches(allOf(withText("2028.10.1 ~ 2028.10.25"), isDisplayed())))
 
         onView(withId(R.id.img_booking_poster)).check(matches(isDisplayed()))
     }
@@ -170,8 +170,8 @@ class MainActivityTest {
             imageSource = "harry_potter.png",
             title = "---",
             runningTime = 150,
-            screeningStartDate = LocalDate.of(2025, 4, 1),
-            screeningEndDate = LocalDate.of(2025, 4, 25),
+            screeningStartDate = LocalDate.of(2028, 10, 1),
+            screeningEndDate = LocalDate.of(2028, 10, 25),
         )
     }
 }
