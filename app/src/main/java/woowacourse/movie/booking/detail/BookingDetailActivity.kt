@@ -22,6 +22,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.TicketInfo
 import woowacourse.movie.domain.TicketQuantity
 import woowacourse.movie.movies.MovieUiModel
+import woowacourse.movie.movies.periodText
 import woowacourse.movie.util.dateRange
 import woowacourse.movie.util.parcelableExtraWithVersion
 import java.time.LocalDate
@@ -54,7 +55,7 @@ class BookingDetailActivity : AppCompatActivity() {
 
     private fun bindMovie() {
         val title = movie.title
-        val period = movie.periodText
+        val period = movie.periodText()
         val runningTime = movie.runningTimeText
         val poster = movie.posterResId
 

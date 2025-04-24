@@ -21,7 +21,7 @@ class MovieItemViewHolder(
     ) {
         title.text = movie.title
         poster.setImageResource(movie.posterResId)
-        date.text = movie.periodText
+        date.text = movie.periodText()
         runningTime.text = movie.runningTimeText
         bookingBtn.setOnClickListener {
             onBookingClick(movie)
