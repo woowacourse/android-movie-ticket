@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.presenter
 
 import io.mockk.mockk
 import io.mockk.verify
@@ -13,7 +13,7 @@ class MovieListPresenterTest {
     private lateinit var presenter: MovieListPresenter
 
     @BeforeEach
-    fun test() {
+    fun setUp() {
         view = mockk<MovieListContract.View>(relaxed = true)
         model = mockk<MovieListContract.MovieModel>()
         presenter = MovieListPresenter(view, model)
