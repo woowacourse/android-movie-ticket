@@ -2,28 +2,22 @@ package woowacourse.movie.feature.bookingdetail.view.adapter
 
 import android.content.Context
 import android.widget.ArrayAdapter
-import woowacourse.movie.domain.model.DateType
-import woowacourse.movie.domain.model.MovieTime
-import woowacourse.movie.domain.model.MovieTime.Companion.getMovieTimes
-import woowacourse.movie.feature.mapper.toUi
 
 class TimeAdapter(
     context: Context,
+    times: List<String>,
 ) : ArrayAdapter<String>(
         context,
         android.R.layout.simple_spinner_item,
-        mutableListOf(),
+        times.toMutableList(),
     ) {
     init {
         setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
 
-    fun updateTimes(dateType: DateType) {
+    fun updateTimes(times: List<String>) {
         clear()
-
-        val movieTimes: List<MovieTime> = getMovieTimes(dateType)
-        addAll(movieTimes.map { it.toUi().toString() })
-
+        addAll(times)
         notifyDataSetChanged()
     }
 }

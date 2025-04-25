@@ -16,15 +16,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.BookingInfo
-import woowacourse.movie.domain.model.DateType
-import woowacourse.movie.domain.model.MovieDates
 import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
 import woowacourse.movie.feature.bookingdetail.contract.BookingDetailContract
+import woowacourse.movie.feature.bookingdetail.presenter.BookingDetailPresenter
 import woowacourse.movie.feature.bookingdetail.view.adapter.DateAdapter
 import woowacourse.movie.feature.bookingdetail.view.adapter.TimeAdapter
-import woowacourse.movie.feature.mapper.toDomain
-import woowacourse.movie.feature.mapper.toUi
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.feature.model.MovieDateUiModel
 import woowacourse.movie.feature.model.MovieTimeUiModel
@@ -37,65 +33,89 @@ class BookingDetailActivity :
     private lateinit var dateAdapter: DateAdapter
     private lateinit var timeAdapter: TimeAdapter
     private val ticketCountView: TextView by lazy { findViewById(R.id.tv_booking_detail_count) }
-    private val movieUiModel: MovieUiModel by lazy { intent.getExtra(MOVIE_KEY) ?: MovieUiModel() }
-    private val bookingInfo: BookingInfo by lazy { BookingInfo(movieUiModel.toDomain()) }
-    private val bookingInfoUiModel: BookingInfoUiModel get() = bookingInfo.toUi()
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_booking_detail_time) }
-    private val selectCompleteDialog: AlertDialog.Builder by lazy { createSelectCompleteDialog() }
+    private val presenter: BookingDetailPresenter by lazy { BookingDetailPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
-        updateView(bookingInfoUiModel)
-
-        setupDateSpinner()
-        setupTimeSpinner()
-
         setupDateSpinnerItemClickListener()
         setupTimeSpinnerItemClickListener()
         setupTicketCountClickListeners()
-
         setupSelectCompleteClickListener()
+        presenter.onCreateView(movieUiModel = intent.getExtra(MOVIE_KEY) ?: MovieUiModel())
     }
 
-    private fun updateView(bookingInfo: BookingInfoUiModel) {
+    override fun setupDateView(dates: List<MovieDateUiModel>) {
+        dateAdapter = DateAdapter(this, dates)
+        dateSpinner.adapter = dateAdapter
+    }
+
+    override fun setupTimeView(times: List<String>) {
+        timeAdapter = TimeAdapter(this, times)
+        timeSpinner.adapter = timeAdapter
+    }
+
+    override fun updateView(bookingInfo: BookingInfoUiModel) {
         findViewById<TextView>(R.id.tv_booking_detail_movie_title).text = bookingInfo.movie.title
         findViewById<TextView>(R.id.tv_booking_detail_date).text =
             getString(R.string.movies_movie_date_with_tilde, bookingInfo.movie.startDate, bookingInfo.movie.endDate)
         findViewById<TextView>(R.id.tv_booking_detail_running_time).text =
             getString(R.string.movies_movie_running_time, bookingInfo.movie.runningTime)
         findViewById<ImageView>(R.id.iv_booking_detail_movie_poster).setImageResource(bookingInfo.movie.poster)
+
         ticketCountView.text = bookingInfo.ticketCount.toString()
+        dateSpinner.setSelection(dateAdapter.getPosition(bookingInfo.date.toString()))
+        timeSpinner.setSelection(timeAdapter.getPosition(bookingInfo.movieTime.toString()))
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) finish()
-        return super.onOptionsItemSelected(item)
+    override fun updateTimeSpinnerItems(times: List<String>) {
+        timeAdapter.updateTimes(times)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(BOOKING_INFO_KEY, bookingInfoUiModel)
+    override fun updateTicketCount(count: Int) {
+        ticketCountView.text = count.toString()
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        val bookingInfo: BookingInfoUiModel = savedInstanceState.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
-        updateView(bookingInfo)
-    }
-
-    private fun createSelectCompleteDialog(): AlertDialog.Builder =
+    override fun showBookingCompleteDialog(bookingInfo: BookingInfoUiModel) {
         AlertDialog
             .Builder(this@BookingDetailActivity)
             .setTitle(getString(R.string.booking_detail_booking_check))
             .setMessage(getString(R.string.booking_detail_booking_check_description))
             .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
-                navigateToBookingComplete()
+                navigateToBookingComplete(bookingInfo)
             }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
             .setCancelable(false)
+            .show()
+    }
+
+    override fun navigateToBack() {
+        finish()
+    }
+
+    override fun navigateToBookingComplete(bookingInfo: BookingInfoUiModel) {
+        val intent = BookingCompleteActivity.newIntent(this, bookingInfo)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelable(BOOKING_INFO_KEY, presenter.onSaveInstanceState())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val bookingInfo: BookingInfoUiModel = savedInstanceState.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
+        presenter.onRestoreInstanceState(bookingInfo)
+    }
 
     private fun setupView() {
         enableEdgeToEdge()
@@ -108,17 +128,6 @@ class BookingDetailActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupDateSpinner() {
-        dateAdapter = DateAdapter(this, MovieDates(movieUiModel.startDate.toDomain(), movieUiModel.endDate.toDomain()).toUi())
-        dateSpinner.adapter = dateAdapter
-    }
-
-    private fun setupTimeSpinner() {
-        timeAdapter = TimeAdapter(this)
-        timeAdapter.updateTimes(DateType.from(movieUiModel.startDate.toDomain()))
-        timeSpinner.adapter = timeAdapter
-    }
-
     private fun setupDateSpinnerItemClickListener() {
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -128,11 +137,8 @@ class BookingDetailActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate = MovieDateUiModel.from(parent?.getItemAtPosition(position) as String).toDomain()
-                    bookingInfo.updateDate(selectedDate)
-
-                    val dateType = DateType.from(selectedDate)
-                    timeAdapter.updateTimes(dateType)
+                    val selectedDate = MovieDateUiModel.from(parent?.getItemAtPosition(position) as String)
+                    presenter.onDateSelected(selectedDate.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -149,7 +155,7 @@ class BookingDetailActivity :
                     id: Long,
                 ) {
                     val selectedTime = MovieTimeUiModel.from(parent?.getItemAtPosition(position) as String)
-                    bookingInfo.updateMovieTime(selectedTime.toDomain())
+                    presenter.onTimeSelected(selectedTime.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -158,44 +164,23 @@ class BookingDetailActivity :
 
     private fun setupTicketCountClickListeners() {
         findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
-            decreaseTicketCount()
+            presenter.onTicketCountDecreased()
         }
 
         findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
-            increaseTicketCount()
+            presenter.onTicketCountIncreased()
         }
-    }
-
-    private fun decreaseTicketCount() {
-        bookingInfo.decreaseTicketCount()
-        ticketCountView.text = bookingInfoUiModel.ticketCount.toString()
-    }
-
-    private fun increaseTicketCount() {
-        bookingInfo.increaseTicketCount()
-        ticketCountView.text = bookingInfoUiModel.ticketCount.toString()
     }
 
     private fun setupSelectCompleteClickListener() {
         findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
-            selectCompleteDialog.show()
+            presenter.onBookingCompleteButtonClicked()
         }
     }
 
-    private fun navigateToBookingComplete() {
-        val intent =
-            BookingCompleteActivity.newIntent(
-                context = this,
-                bookingInfo = bookingInfoUiModel,
-            )
-
-        startActivity(intent)
-        finish()
-    }
-
     companion object {
-        const val MOVIE_KEY = "movie"
-        private const val BOOKING_INFO_KEY = "booking_info"
+        const val MOVIE_KEY = "MOVIE"
+        private const val BOOKING_INFO_KEY = "BOOKING_INFO"
 
         fun newIntent(
             context: Context,

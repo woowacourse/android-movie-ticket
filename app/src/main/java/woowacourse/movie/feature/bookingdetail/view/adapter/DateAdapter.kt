@@ -15,4 +15,6 @@ class DateAdapter(
     init {
         setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
     }
+
+    override fun getPosition(item: String?): Int = super.getPosition(item?.let { MovieDateUiModel.from(it).toString() })
 }

@@ -38,12 +38,29 @@ fun BookingInfo.toUi(): BookingInfoUiModel =
         totalPrice = totalPrice,
     )
 
+fun BookingInfoUiModel.toDomain(): BookingInfo {
+    val previousDate = date
+    val previousMovieTime = movieTime
+    val previousTicketCount = ticketCount
+
+    return BookingInfo(
+        movie = movie.toDomain(),
+    ).apply {
+        updateDate(previousDate.toDomain())
+        updateMovieTime(previousMovieTime.toDomain())
+        increaseTicketCount(previousTicketCount)
+    }
+}
+
 fun MovieTime.toUi(): MovieTimeUiModel {
     val hour = if (value.hour == 0) 24 else value.hour
     return MovieTimeUiModel(hour, value.minute)
 }
 
-fun MovieTimeUiModel.toDomain(): MovieTime = MovieTime(hour, minute)
+fun MovieTimeUiModel.toDomain(): MovieTime {
+    val hour = if (hour == 24) 0 else hour
+    return MovieTime(hour, minute)
+}
 
 fun MovieDate.toUi(): MovieDateUiModel =
     MovieDateUiModel(
