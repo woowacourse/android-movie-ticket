@@ -46,14 +46,17 @@ class SeatSelectPresenter(
         view.updateConfirmButtonState(selectedSeats.size == movieTicket.count)
     }
 
-    override fun createReservationInfo(): ReservationInfo =
-        ReservationInfo(
-            title = movieTicket.title,
-            date = movieTicket.date,
-            time = movieTicket.time,
-            seats = selectedSeats.labels(),
-            price = selectedSeats.totalPrice,
-        )
+    override fun createReservationInfo(onCreated: (ReservationInfo) -> Unit) {
+        val reservationInfo =
+            ReservationInfo(
+                title = movieTicket.title,
+                date = movieTicket.date,
+                time = movieTicket.time,
+                seats = selectedSeats.labels(),
+                price = selectedSeats.totalPrice,
+            )
+        onCreated(reservationInfo)
+    }
 
     override fun onConfirmClicked(
         title: String,

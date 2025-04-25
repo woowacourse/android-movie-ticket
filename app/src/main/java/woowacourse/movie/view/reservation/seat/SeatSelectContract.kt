@@ -27,6 +27,8 @@ interface SeatSelectContract {
             title: String,
             message: String,
         )
+
+        fun navigateToComplete(reservationInfo: ReservationInfo)
     }
 
     interface Presenter {
@@ -34,7 +36,7 @@ interface SeatSelectContract {
 
         fun onSeatClicked(seatView: TextView)
 
-        fun createReservationInfo(): ReservationInfo
+        fun createReservationInfo(onCreated: (ReservationInfo) -> Unit)
 
         fun onConfirmClicked(
             title: String,

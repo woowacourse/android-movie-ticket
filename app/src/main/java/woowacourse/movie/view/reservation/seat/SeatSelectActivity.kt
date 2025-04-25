@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.reservation.ReservationDialog
@@ -94,11 +95,20 @@ class SeatSelectActivity :
             message,
             { dialog -> dialog.dismiss() },
             { _ ->
-                val intent = reservationInfoIntent()
-                startActivity(intent)
-                finish()
+                presenter.createReservationInfo { reservationInfo ->
+                    navigateToComplete(reservationInfo)
+                }
             },
         )
+    }
+
+    override fun navigateToComplete(reservationInfo: ReservationInfo) {
+        val intent =
+            Intent(this, ReservationCompleteActivity::class.java).apply {
+                putExtra(Extras.ReservationInfoData.RESERVATION_KEY, reservationInfo)
+            }
+        startActivity(intent)
+        finish()
     }
 
     private fun setupSeatView(tableLayout: TableLayout) {
@@ -129,13 +139,6 @@ class SeatSelectActivity :
                     getString(R.string.reservation_dialog_message),
                 )
             }
-        }
-    }
-
-    private fun reservationInfoIntent(): Intent {
-        val reservationInfo = presenter.createReservationInfo()
-        return Intent(this, ReservationCompleteActivity::class.java).apply {
-            putExtra(Extras.ReservationInfoData.RESERVATION_KEY, reservationInfo)
         }
     }
 
