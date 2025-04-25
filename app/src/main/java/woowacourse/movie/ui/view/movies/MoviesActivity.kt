@@ -27,7 +27,7 @@ class MoviesActivity :
         val adapter =
             MovieAdapter(
                 this,
-                presenter.getMovies(),
+                movies,
                 onReservationClickListener =
                     { movieId ->
                         val intent = Intent(this, BookingActivity::class.java)
