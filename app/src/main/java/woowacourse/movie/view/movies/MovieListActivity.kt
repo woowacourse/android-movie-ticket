@@ -2,15 +2,17 @@ package woowacourse.movie.view.movies
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.view.booking.BookingActivity
 import woowacourse.movie.view.movies.MovieListContract.PresenterFactory
 import woowacourse.movie.view.movies.adapter.MovieAdapter
+import woowacourse.movie.view.movies.model.UiModel
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private val presenter: MovieListContract.Presenter by lazy {
@@ -30,18 +32,18 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        presenter.setMovies()
+        presenter.loadUiData()
     }
 
-    override fun showMovieList(movieList: MovieListContract.MovieModel) {
-        val listView = findViewById<ListView>(R.id.list_view)
+    override fun showMovieList(movieList: List<UiModel>) {
+        val rv = findViewById<RecyclerView>(R.id.list_view)
         val adapter =
             MovieAdapter(
                 itemsList = movieList,
                 onClickBooking = ::moveToBookingComplete,
             )
-
-        listView.adapter = adapter
+        rv.layoutManager = LinearLayoutManager(this)
+        rv.adapter = adapter
     }
 
     override fun moveToBookingComplete(movieIdx: Int) {

@@ -1,34 +1,25 @@
 package woowacourse.movie.view.movies
 
-import woowacourse.movie.domain.model.movies.DefaultMovieModel
-import woowacourse.movie.domain.model.movies.Movie
-import woowacourse.movie.domain.model.movies.Movies
+import woowacourse.movie.data.MovieStore
+import woowacourse.movie.view.movies.model.UiModel
 
 interface MovieListContract {
     interface View {
-        fun showMovieList(movieList: MovieModel)
+        fun showMovieList(movieList: List<UiModel>)
 
         fun moveToBookingComplete(movieIdx: Int)
     }
 
     interface Presenter {
-        fun setMovies()
+        fun loadUiData()
 
         fun onSelectMovie(movieIdx: Int)
     }
 
-    interface MovieModel {
-        operator fun get(index: Int): Movie
-
-        fun getAll(): Movies
-
-        fun size(): Int
-    }
-
     companion object PresenterFactory {
         fun providePresenter(view: View): Presenter {
-            val model: MovieModel = DefaultMovieModel()
-            return MovieListPresenter(view, model)
+            val model = MovieStore()
+            return MovieListPresenter(view, model.getAll())
         }
     }
 }
