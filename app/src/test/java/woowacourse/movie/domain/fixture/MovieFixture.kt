@@ -2,14 +2,13 @@ package woowacourse.movie.domain.fixture
 
 import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.movies.Movie
-import woowacourse.movie.domain.model.movies.Poster
 import java.time.LocalDate
 
 val MoviesFixture =
     listOf(
         Movie(
             title = "테스트 영화 1",
-            posterResource = Poster(""),
+            posterResource = "",
             releaseDate =
                 ScreeningDate(
                     LocalDate.of(2025, 4, 24),
@@ -19,7 +18,7 @@ val MoviesFixture =
         ),
         Movie(
             title = "테스트 영화 2",
-            posterResource = Poster(""),
+            posterResource = "",
             releaseDate =
                 ScreeningDate(
                     LocalDate.of(2025, 4, 24),
