@@ -10,7 +10,8 @@ data class Screening(
     private val start: LocalDate,
     private val end: LocalDate,
     private val current: LocalDateTime = LocalDateTime.now(),
-) : Serializable {
+) : ScreeningContent,
+    Serializable {
     val id: Int = movie.id
     val title: String = movie.title
     val runningTime: Int = movie.runningTime
