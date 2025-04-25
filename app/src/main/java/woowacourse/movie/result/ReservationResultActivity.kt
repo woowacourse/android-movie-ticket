@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
+import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.ext.getSerializableCompat
 import woowacourse.movie.main.MainActivity
@@ -42,13 +43,25 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
     override fun bindReservation(reservation: Reservation) {
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
-        val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)
 
         val formattedScreeningDate = formatting(reservation.reservedTime)
 
         title.text = reservation.movie.title
         screeningDate.text = formattedScreeningDate
-        ticketCount.text = getString(R.string.formatted_ticket_count).format(reservation.count)
+    }
+
+    override fun bindTicket(
+        count: Int,
+        seats: Set<Point>,
+    ) {
+        val ticketCount = findViewById<TextView>(R.id.tv_ticket)
+
+        val seat =
+            seats.joinToString { point ->
+                getString(R.string.seat_point).format('A' + point.x, point.y + 1)
+            }
+
+        ticketCount.text = getString(R.string.formatted_ticket).format(count, seat)
     }
 
     override fun bindTotalPrice(price: Int) {
@@ -69,6 +82,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
     }
