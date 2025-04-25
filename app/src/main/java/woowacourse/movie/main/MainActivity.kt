@@ -7,9 +7,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import woowacourse.movie.MoviesAdapter
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.main.adapter.MoviesAdapter
 import woowacourse.movie.reserve.ReserveActivity
 
 class MainActivity : AppCompatActivity(), MainContract.View {
@@ -29,11 +28,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.initMovies()
     }
 
-    override fun showMovies(movies: List<Movie>) {
+    override fun showMovies(movies: List<Item>) {
         moviesView.layoutManager = LinearLayoutManager(this)
         moviesView.adapter =
             MoviesAdapter(movies) { movie ->
-                val intent = ReserveActivity.newIntent(this, movie)
+                val intent = ReserveActivity.newIntent(this, (movie as Item.MovieItem).movie)
                 startActivity(intent)
             }
     }

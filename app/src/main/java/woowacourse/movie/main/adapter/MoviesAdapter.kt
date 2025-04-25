@@ -1,0 +1,62 @@
+package woowacourse.movie.main.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import woowacourse.movie.R
+import woowacourse.movie.main.Item
+
+class MoviesAdapter(
+    private val items: List<Item>,
+    private val onClick: (Item) -> Unit,
+) : RecyclerView.Adapter<ViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
+        val holder: ViewHolder
+
+        when (ViewType.entries[viewType]) {
+            ViewType.TYPE_MOVIE -> {
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+                holder = MoviesViewHolder(view)
+
+                holder.reserveBtn.setOnClickListener {
+                    val position = holder.getAdapterPosition()
+                    onClick(items[position])
+                }
+            }
+            ViewType.TYPE_ADVERTISEMENT -> {
+                val view =
+                    LayoutInflater.from(parent.context)
+                        .inflate(R.layout.advertisement_item, parent, false)
+                holder = AdViewHolder(view)
+            }
+        }
+
+        return holder
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (items[position]) {
+            is Item.MovieItem -> ViewType.TYPE_MOVIE.ordinal
+            is Item.AdvertisementItem -> ViewType.TYPE_ADVERTISEMENT.ordinal
+        }
+    }
+
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
+        val item = items[position]
+
+        when (holder) {
+            is MoviesViewHolder -> holder.binding((item as Item.MovieItem).movie)
+            is AdViewHolder -> holder.binding(item as Item.AdvertisementItem)
+        }
+    }
+
+    override fun getItemCount(): Int = items.count()
+}

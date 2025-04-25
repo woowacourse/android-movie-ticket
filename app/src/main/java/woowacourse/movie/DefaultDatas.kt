@@ -5,7 +5,7 @@ import woowacourse.movie.domain.RunningTime
 import woowacourse.movie.domain.ScreeningDate
 import java.time.LocalDate
 
-object DefaultMovies {
+object DefaultDatas {
     private val startDate: LocalDate = LocalDate.of(2025, 4, 1)
     private val endDate: LocalDate = LocalDate.of(2025, 4, 28)
 

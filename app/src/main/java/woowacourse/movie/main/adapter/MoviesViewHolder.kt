@@ -1,10 +1,11 @@
-package woowacourse.movie
+package woowacourse.movie.main.adapter
 
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.ScreeningDate
 import java.time.format.DateTimeFormatter
@@ -18,17 +19,17 @@ class MoviesViewHolder(
     private val runningTime: TextView = itemView.findViewById(R.id.tv_running_time)
     val reserveBtn: Button = itemView.findViewById(R.id.btn_reserve)
 
-    fun binding(item: Movie) {
-        poster.setImageResource(item.imageUrl)
-        title.text = item.title
+    fun binding(movie: Movie) {
+        poster.setImageResource(movie.imageUrl)
+        title.text = movie.title
         screeningDate.text =
             formatting(
-                item.screeningDate,
+                movie.screeningDate,
                 itemView.context.getString(R.string.text_screening_date),
             )
         runningTime.text =
             itemView.context.getString(R.string.text_running_time)
-                .format(item.runningTime.time)
+                .format(movie.runningTime.time)
     }
 
     private fun formatting(
