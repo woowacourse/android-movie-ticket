@@ -48,6 +48,10 @@ class SeatSelectActivity :
         findViewById<TextView>(R.id.movie_title).text = movie.title
     }
 
+    override fun showTotalPrice(price: Int) {
+        findViewById<TextView>(R.id.total_price).text = getString(R.string.total_price, price)
+    }
+
     override fun updateSeatSelection(
         position: Position,
         isSelected: Boolean,
@@ -82,7 +86,7 @@ class SeatSelectActivity :
 
     private fun initSeatTable() {
         seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIdx, row ->
-            val seatGrade = SeatGrade.of(rowIdx + 1)
+            val seatGrade = SeatGrade.of(rowIdx)
             row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, seatTextView ->
                 val position = Position(rowIdx, colIdx)
                 seatTextView.tag = position
@@ -115,7 +119,7 @@ class SeatSelectActivity :
                 .setCancelable(false)
 
         confirmButton.setOnClickListener {
-            // TODO: 선택된 좌석이 있는지 확인
+            // TODO: 선택된 좌석의 수가 티켓의 수와 같은지 확인
             if (true) {
                 alertDialog.show()
             } else {

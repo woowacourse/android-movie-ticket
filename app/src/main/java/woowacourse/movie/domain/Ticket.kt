@@ -17,10 +17,9 @@ data class Ticket(
 
     fun contains(seat: Seat): Boolean = seats.contains(seat)
 
-    fun totalPrice(): Int = count * TICKET_PRICE
+    fun totalPrice(): Int = seats.totalPrice()
 
     companion object {
         private const val MINIMUM_TICKET_COUNT = 1
-        private const val TICKET_PRICE = 13_000
     }
 }

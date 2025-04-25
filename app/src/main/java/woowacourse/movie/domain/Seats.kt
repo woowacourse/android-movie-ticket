@@ -14,4 +14,6 @@ class Seats(
     fun contains(seat: Seat): Boolean = seats.contains(seat)
 
     fun isEmpty(): Boolean = seats.isEmpty()
+
+    fun totalPrice(): Int = seats.sumOf { it.price }
 }

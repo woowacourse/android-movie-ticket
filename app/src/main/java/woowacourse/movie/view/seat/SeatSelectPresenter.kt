@@ -14,6 +14,7 @@ class SeatSelectPresenter(
 
     override fun loadSeatSelectScreen() {
         view.showMovieInfo(ticket.movie)
+        view.showTotalPrice(ticket.toDomain().totalPrice())
     }
 
     override fun onClickSeat(position: Position) {
@@ -26,6 +27,7 @@ class SeatSelectPresenter(
             }
         view.updateSeatSelection(position, ticket.toDomain().contains(seat))
         view.updateConfirmButton(ticket.seats.isEmpty().not())
+        view.showTotalPrice(ticket.toDomain().totalPrice())
     }
 
     override fun completeReservation() {

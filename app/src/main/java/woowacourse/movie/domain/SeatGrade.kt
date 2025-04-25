@@ -11,9 +11,9 @@ enum class SeatGrade(
     companion object {
         fun of(row: Int): SeatGrade =
             when (row) {
-                3, 4 -> S
-                5 -> A
-                1, 2 -> B
+                2, 3 -> S
+                4 -> A
+                0, 1 -> B
                 else -> B
             }
     }

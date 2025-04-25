@@ -8,6 +8,8 @@ interface SeatSelectContract {
     interface View {
         fun showMovieInfo(movie: MovieUiModel)
 
+        fun showTotalPrice(price: Int)
+
         fun updateSeatSelection(
             position: Position,
             isSelected: Boolean,
