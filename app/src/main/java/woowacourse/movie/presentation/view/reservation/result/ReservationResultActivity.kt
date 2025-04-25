@@ -8,7 +8,7 @@ import androidx.activity.OnBackPressedCallback
 import woowacourse.movie.R
 import woowacourse.movie.presentation.base.BaseActivity
 import woowacourse.movie.presentation.extension.getParcelableCompat
-import woowacourse.movie.presentation.model.ReservationInfoUiModel
+import woowacourse.movie.presentation.model.TicketBundleUiModel
 import woowacourse.movie.presentation.util.DialogInfo
 import woowacourse.movie.presentation.view.movies.MoviesActivity
 
@@ -34,9 +34,8 @@ class ReservationResultActivity :
         setupActionBar()
         setBackPressedDispatcher()
 
-        presenter.fetchDate {
-            intent?.getParcelableCompat<ReservationInfoUiModel>(BUNDLE_KEY_RESERVATION_INFO)
-        }
+        val ticketBundle = intent?.getParcelableCompat<TicketBundleUiModel>(BUNDLE_KEY_TICKET_BUNDLE)
+        presenter.fetchDate(ticketBundle)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -49,8 +48,11 @@ class ReservationResultActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setScreen(info: ReservationInfoUiModel) {
-        views.bindReservationResult(info, presenter.cancellationTime)
+    override fun setScreen(
+        ticketBundle: TicketBundleUiModel,
+        cancellationTime: Int,
+    ) {
+        views.bindReservationResult(ticketBundle, cancellationTime)
     }
 
     override fun showInvalidReservationInfoDialog() {
@@ -79,15 +81,15 @@ class ReservationResultActivity :
     }
 
     companion object {
-        private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
+        private const val BUNDLE_KEY_TICKET_BUNDLE = "ticket_bundle"
 
         fun newIntent(
             context: Context,
-            reservationInfo: ReservationInfoUiModel,
+            ticketBundle: TicketBundleUiModel,
         ): Intent =
             Intent(context, ReservationResultActivity::class.java).putExtra(
-                BUNDLE_KEY_RESERVATION_INFO,
-                reservationInfo,
+                BUNDLE_KEY_TICKET_BUNDLE,
+                ticketBundle,
             )
     }
 }

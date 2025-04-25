@@ -8,8 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.ReservationCount
-import woowacourse.movie.domain.model.ReservationInfo
+import woowacourse.movie.domain.model.reservation.ReservationCount
+import woowacourse.movie.domain.model.reservation.ReservationInfo
 import woowacourse.movie.presentation.fixture.fakeContext
 import woowacourse.movie.presentation.model.toUiModel
 import java.time.LocalDateTime

@@ -3,7 +3,7 @@ package woowacourse.movie.presentation.view.reservation.result
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
-import woowacourse.movie.presentation.model.ReservationInfoUiModel
+import woowacourse.movie.presentation.model.TicketBundleUiModel
 import woowacourse.movie.presentation.util.CustomAlertDialog
 
 class ReservationResultViews(
@@ -19,20 +19,20 @@ class ReservationResultViews(
     val dialog: CustomAlertDialog by lazy { CustomAlertDialog(activity) }
 
     fun bindReservationResult(
-        info: ReservationInfoUiModel,
+        ticketBundle: TicketBundleUiModel,
         cancellationTime: Int,
     ) {
-        tvMovieTitle.text = info.title
+        tvMovieTitle.text = ticketBundle.title
         activity
             .getString(R.string.reservation_datetime_format)
             .toDateTimeFormatter()
             ?.let { formatter ->
-                tvMovieDate.text = info.reservationDateTime.format(formatter)
+                tvMovieDate.text = ticketBundle.dateTime.format(formatter)
             }
         tvReservationCountInfo.text =
-            activity.getString(R.string.reservation_count_info).format(info.reservationCount)
+            activity.getString(R.string.reservation_count_info).format(ticketBundle.size)
         tvTotalPrice.text =
-            activity.getString(R.string.reservation_total_price).format(info.totalPrice)
+            activity.getString(R.string.reservation_total_price).format(ticketBundle.totalPrice)
         tvCancelDescription.text =
             activity.getString(
                 R.string.reservation_result_cancel_time_description,
