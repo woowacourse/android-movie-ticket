@@ -11,7 +11,7 @@ import org.junit.Test
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.booking.BookingCompleteActivity
+import woowacourse.movie.view.booking.complete.BookingCompleteActivity
 import java.time.LocalDateTime
 
 class BookingCompleteActivityTest {

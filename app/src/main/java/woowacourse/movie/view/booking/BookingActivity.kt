@@ -21,6 +21,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
 import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable
+import woowacourse.movie.view.booking.complete.BookingCompleteActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

@@ -8,11 +8,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.view.booking.BookingActivity
-import java.time.LocalDate
 
-class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+class MovieListActivity :
+    AppCompatActivity(),
+    MovieListContract.View {
     val movieListPresenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
