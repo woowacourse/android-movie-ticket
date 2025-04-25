@@ -94,3 +94,10 @@ View와 Model의 의존성을 최소화한다.
 Activity에 존재하는 View와 Controller의 역할을 분리하는 것부터 시작해보자.
 
 ## 🛠️ 구현할 기능
+
+- [x] MovieListContract 인터페이스 추가
+- [ ] MovieListPresenter 구현
+- [ ] DetailBookingContract 인터페이스 추가
+- [ ] DatailBookingPresenter 구현
+- [ ] CompleteBookingContract 인터페이스 추가
+- [ ] CompleteBookingPresenter 구현
