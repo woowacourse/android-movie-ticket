@@ -33,7 +33,7 @@ class BookingCompleteActivity :
     }
 
     override fun showBookingResult(bookingInfo: BookingInfoUiModel) {
-        val ticketTotalPrice = DecimalFormat("#,###").format(bookingInfo.totalPrice)
+        val ticketTotalPrice = MONEY_DECIMAL_FORMAT.format(bookingInfo.totalPrice)
 
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfo.movie.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
@@ -65,6 +65,7 @@ class BookingCompleteActivity :
 
     companion object {
         const val BOOKING_INFO_KEY = "BOOKING_INFO"
+        private val MONEY_DECIMAL_FORMAT = DecimalFormat("#,###")
 
         fun newIntent(
             context: Context,
