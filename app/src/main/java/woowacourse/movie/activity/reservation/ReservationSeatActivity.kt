@@ -12,6 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatBinding
+import woowacourse.movie.dto.PriceRuleDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.dto.SeatDto
 import woowacourse.movie.global.ServiceLocator
@@ -89,9 +90,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         view: TextView,
     ) {
         when (seat.price.tag) {
-            "RANK_A" -> view.setTextColor(getColor(R.color.seat_rank_a))
-            "RANK_S" -> view.setTextColor(getColor(R.color.seat_rank_s))
-            "RANK_B" -> view.setTextColor(getColor(R.color.seat_rank_b))
+            PriceRuleDto.RANK_A -> view.setTextColor(getColor(R.color.seat_rank_a))
+            PriceRuleDto.RANK_S -> view.setTextColor(getColor(R.color.seat_rank_s))
+            PriceRuleDto.RANK_B -> view.setTextColor(getColor(R.color.seat_rank_b))
             else -> view.setTextColor(getColor(R.color.gray_button_background))
         }
     }
