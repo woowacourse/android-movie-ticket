@@ -11,27 +11,13 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.model.ticket.Ticket
-import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.model.ticket.getOrDefault
+import woowacourse.movie.presenter.TicketPresenter
 import woowacourse.movie.view.model.TicketData
-import java.time.LocalDateTime
 
-class TicketActivity : AppCompatActivity() {
-    private val ticketData: TicketData by lazy {
-        intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
-            ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
-    }
-
-    private val ticket: Ticket by lazy {
-        val screening = ticketData.screeningData.toScreening()
-        val ticketCount = ticketData.ticketCount
-        val showtime: LocalDateTime = ticketData.showtime
-        Ticket(
-            screening = screening,
-            ticketCount = TicketCount.create(ticketCount).getOrDefault(),
-            showtime = showtime,
-        )
-    }
+class TicketActivity :
+    AppCompatActivity(),
+    TicketView {
+    private val present: TicketPresenter = TicketPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,10 +28,14 @@ class TicketActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        initViews()
+        present.initTicketUi()
     }
 
-    private fun initViews() {
+    override fun getTicketData(): TicketData =
+        intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
+            ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
+
+    override fun initTicketUI(ticket: Ticket) {
         val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
         titleView.text = ticket.title
 
