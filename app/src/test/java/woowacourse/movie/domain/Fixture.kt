@@ -21,3 +21,7 @@ val HARRY_POTTER_MOVIE =
             ),
         imageUrl = 0,
     )
+
+val B_CLASS: Point = Point(0, 0)
+val A_CLASS: Point = Point(2, 0)
+val S_CLASS: Point = Point(4, 0)
