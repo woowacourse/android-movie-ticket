@@ -11,7 +11,9 @@ import java.time.LocalDateTime
 class BookingPresenter(
     val bookingView: BookingContract.View,
 ) : BookingContract.Presenter {
-    private val headcount: Headcount = Headcount()
+    private var _headcount: Headcount = Headcount()
+    val headcount get() = _headcount.deepCopy()
+
     private val movie: Movie by lazy { restoreMovie() }
 
     private var selectedDatePosition: Int = 0
@@ -21,13 +23,13 @@ class BookingPresenter(
     fun restoreMovie(): Movie = fetchMovie()
 
     override fun increaseHeadcount() {
-        headcount.increase()
-        bookingView.setHeadcountTextView(headcount)
+        _headcount.increase()
+        bookingView.setHeadcountTextView(_headcount)
     }
 
     override fun decreaseHeadcount() {
-        headcount.decrease()
-        bookingView.setHeadcountTextView(headcount)
+        _headcount.decrease()
+        bookingView.setHeadcountTextView(_headcount)
     }
 
     override fun fetchMovie(): Movie = bookingView.getMovie() ?: Movie.DUMMY_MOVIE
@@ -36,8 +38,12 @@ class BookingPresenter(
         bookingView.setMovieInfoViews(movie)
     }
 
+    override fun updateHeadcount(headcount: Headcount) {
+        this._headcount = headcount
+    }
+
     override fun updateHeadcountTextView() {
-        bookingView.setHeadcountTextView(headcount)
+        bookingView.setHeadcountTextView(_headcount)
     }
 
     override fun updateDateSpinner() {
@@ -56,11 +62,21 @@ class BookingPresenter(
         bookingView.setTimeSpinner(screeningTimes, selectedTimePosition)
     }
 
+    override fun updateSelectedDatePosition(position: Int) {
+        selectedDatePosition = position
+        updateDateSpinner()
+    }
+
+    override fun updateSelectedTimePosition(position: Int) {
+        selectedTimePosition = position
+        updateTimeSpinner()
+    }
+
     override fun completeBooking() {
         val bookedTicket =
             BookedTicket(
                 movie.title,
-                headcount,
+                _headcount,
                 selectedDateTime,
             )
         bookingView.moveToBookingCompleteActivity(bookedTicket)

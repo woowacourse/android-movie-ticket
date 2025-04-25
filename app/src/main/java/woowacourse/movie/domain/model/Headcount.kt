@@ -9,6 +9,8 @@ class Headcount(
     var count: Int = count
         private set
 
+    fun deepCopy(): Headcount = Headcount(count, ticketType)
+
     fun price(): Int = ticketType.price * count
 
     fun increase() {

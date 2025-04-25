@@ -15,7 +15,11 @@ interface BookingContract {
 
         fun fetchMovie(): Movie
 
+        fun completeBooking()
+
         fun updateMovieInfoViews()
+
+        fun updateHeadcount(headcount: Headcount)
 
         fun updateHeadcountTextView()
 
@@ -23,7 +27,9 @@ interface BookingContract {
 
         fun updateTimeSpinner()
 
-        fun completeBooking()
+        fun updateSelectedDatePosition(position: Int)
+
+        fun updateSelectedTimePosition(position: Int)
     }
 
     interface View {

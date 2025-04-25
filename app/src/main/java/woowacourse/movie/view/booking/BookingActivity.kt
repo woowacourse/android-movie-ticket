@@ -19,6 +19,7 @@ import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
+import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -47,13 +48,17 @@ class BookingActivity :
         setButtonClickListeners()
     }
 
+    override fun getMovie(): Movie? = intent.intentSerializable(EXTRA_MOVIE, Movie::class.java)
+
     override fun getSelectedDateTime(): LocalDateTime =
         LocalDateTime.of(
             dateSpinner.selectedItem as LocalDate,
             timeSpinner.selectedItem as LocalTime,
         )
 
-    override fun getMovie(): Movie? = intent.intentSerializable(EXTRA_MOVIE, Movie::class.java)
+    override fun getSelectedDate(): LocalDate = dateSpinner.selectedItem as LocalDate
+
+    override fun getSelectedTimePosition(): Int = timeSpinner.id
 
     override fun setMovieInfoViews(movie: Movie) {
         val movieTitleView: TextView = findViewById(R.id.tv_title)
@@ -96,10 +101,6 @@ class BookingActivity :
         bookingPresenter.updateTimeSpinner()
     }
 
-    override fun getSelectedDate(): LocalDate = dateSpinner.selectedItem as LocalDate
-
-    override fun getSelectedTimePosition(): Int = timeSpinner.id
-
     override fun setTimeSpinner(
         spinnerItems: List<LocalTime>,
         position: Int,
@@ -120,6 +121,43 @@ class BookingActivity :
         }
     }
 
+    override fun moveToBookingCompleteActivity(bookedTicket: BookedTicket) {
+        startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable(KEY_PEOPLE_COUNT, bookingPresenter.headcount)
+        outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
+        outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val headcount =
+            savedInstanceState.bundleSerializable(
+                KEY_PEOPLE_COUNT,
+                Headcount::class.java,
+            ) as Headcount
+        val selectedDatePosition: Int = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION)
+        val selectedTimePosition: Int = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
+
+        bookingPresenter.updateHeadcount(headcount)
+        bookingPresenter.updateSelectedDatePosition(selectedDatePosition)
+        bookingPresenter.updateSelectedTimePosition(selectedTimePosition)
+    }
+
     private fun applyWindowInsets() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -127,16 +165,6 @@ class BookingActivity :
             insets
         }
     }
-
-//    private fun restoreState(savedInstanceState: Bundle) {
-//        val headcount =
-//            savedInstanceState.bundleSerializable(
-//                KEY_PEOPLE_COUNT,
-//                Headcount::class.java,
-//            ) as Headcount
-//        selectedDatePosition = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION, 0)
-//        selectedTimePosition = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION, 0)
-//    }
 
     private fun setButtonClickListeners() {
         setIncreaseButtonClickListener()
@@ -186,27 +214,6 @@ class BookingActivity :
             .show()
     }
 
-    override fun moveToBookingCompleteActivity(bookedTicket: BookedTicket) {
-        startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean =
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//        outState.putSerializable(KEY_PEOPLE_COUNT, headcount)
-//        outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
-//        outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
-//    }
-
     companion object {
         fun newIntent(
             context: Context,
@@ -215,8 +222,6 @@ class BookingActivity :
             Intent(context, BookingActivity::class.java).apply {
                 putExtra(EXTRA_MOVIE, movie)
             }
-
-        private const val DEFAULT_SPINNER_POSITION = 0
 
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
