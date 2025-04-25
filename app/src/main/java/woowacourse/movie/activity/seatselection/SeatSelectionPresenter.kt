@@ -44,6 +44,10 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
         view?.updateConfirmButtonState(hasSelection)
     }
 
+    override fun onConfirmButtonClicked(ticket: Ticket) {
+        view?.moveToBookingResult(ticket)
+    }
+
     companion object {
         private const val B_CLASS_SEAT_PRICE = 10000
         private const val S_CLASS_SEAT_PRICE = 15000

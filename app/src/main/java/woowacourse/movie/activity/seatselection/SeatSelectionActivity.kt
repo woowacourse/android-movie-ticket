@@ -1,5 +1,6 @@
 package woowacourse.movie.activity.seatselection
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -7,8 +8,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.children
+import woowacourse.movie.ConfirmDialog
 import woowacourse.movie.R
 import woowacourse.movie.activity.booking.BookingActivity.Companion.KEY_TICKET
+import woowacourse.movie.activity.bookingresult.BookingResultActivity
 import woowacourse.movie.domain.Ticket
 
 class SeatSelectionActivity :
@@ -39,6 +42,7 @@ class SeatSelectionActivity :
         val seatTable = findViewById<TableLayout>(R.id.seat_table_layout)
         setupSeats(seatTable)
         selectSeat()
+        handleConfirmButton(ticket)
     }
 
     private fun selectSeat() {
@@ -60,6 +64,12 @@ class SeatSelectionActivity :
                 .map { row -> row.children.filterIsInstance<TextView>() }
     }
 
+    private fun handleConfirmButton(ticket: Ticket) {
+        findViewById<TextView>(R.id.confirm_button).setOnClickListener {
+            presenter.onConfirmButtonClicked(ticket)
+        }
+    }
+
     override fun showMovieInfo(ticket: Ticket) {
         findViewById<TextView>(R.id.title).text = ticket.title
         showMoney(INITIAL_TICKET_PRICE)
@@ -73,6 +83,16 @@ class SeatSelectionActivity :
     override fun updateConfirmButtonState(hasSelection: Boolean) {
         val confirmButton = findViewById<TextView>(R.id.confirm_button)
         confirmButton.isEnabled = hasSelection
+    }
+
+    override fun moveToBookingResult(ticket: Ticket) {
+        ConfirmDialog.show(this, ticket) {
+            val intent =
+                Intent(this, BookingResultActivity::class.java).apply {
+                    putExtra(KEY_TICKET, ticket)
+                }
+            startActivity(intent)
+        }
     }
 
     companion object {
