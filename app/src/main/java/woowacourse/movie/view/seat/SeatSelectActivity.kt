@@ -19,6 +19,7 @@ import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.domain.Position
 import woowacourse.movie.domain.SeatGrade
+import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
 import woowacourse.movie.view.reservation.model.TicketUiModel
 
@@ -40,7 +41,11 @@ class SeatSelectActivity :
         presenter = SeatSelectPresenter(this, ticket)
 
         initView()
-        initConfirmButton()
+        presenter.loadSeatSelectScreen()
+    }
+
+    override fun showMovieInfo(movie: MovieUiModel) {
+        findViewById<TextView>(R.id.movie_title).text = movie.title
     }
 
     override fun updateSeatSelection(
@@ -71,6 +76,11 @@ class SeatSelectActivity :
     }
 
     private fun initView() {
+        initSeatTable()
+        initConfirmButton()
+    }
+
+    private fun initSeatTable() {
         seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIdx, row ->
             val seatGrade = SeatGrade.of(rowIdx + 1)
             row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, seatTextView ->

@@ -12,6 +12,10 @@ class SeatSelectPresenter(
     val ticket: TicketUiModel
         get() = _ticket
 
+    override fun loadSeatSelectScreen() {
+        view.showMovieInfo(ticket.movie)
+    }
+
     override fun onClickSeat(position: Position) {
         val seat = Seat(position)
         _ticket =
