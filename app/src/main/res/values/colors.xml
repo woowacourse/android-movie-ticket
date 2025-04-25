@@ -9,4 +9,15 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="purple_9160F9">#9160F9</color>
+    <color name="gray_ea">#EAEAEA</color>
+    <color name="gray_49">#494949</color>
+    <color name="gray_72">#727272</color>
+
+    <!-- Seat Color -->
+    <color name="purple_8e">#8E13EF</color>
+    <color name="purple_62">#6200EE</color>
+    <color name="green_19">#19D358</color>
+    <color name="blue_1b">#1B48E9</color>
+    <color name="yellow_fa">#FAFF00</color>
+    <color name="gray_b7">#B7B7B7</color>
 </resources>

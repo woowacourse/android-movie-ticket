@@ -35,17 +35,6 @@ class ReservationDetailActivity :
         )
     }
 
-//    private val reservationConfirmationDialogInfo: DialogInfo by lazy {
-//        DialogInfo(
-//            title = getString(R.string.reservation_dialog_title),
-//            message = getString(R.string.reservation_dialog_message),
-//            positiveButtonText = getString(R.string.reservation_dialog_positive),
-//            negativeButtonText = getString(R.string.reservation_dialog_negative),
-//            onClickPositiveButton = { submitReservation() },
-//            onClickNegativeButton = { it.dismiss() },
-//        )
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()

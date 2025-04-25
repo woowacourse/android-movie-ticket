@@ -17,6 +17,8 @@ class TicketMachine(
         return TicketBundle(tickets)
     }
 
+    fun canPublish(reservationInfo: ReservationInfo): Boolean = reservationInfo.seats.size == reservationInfo.reservationCount.value
+
     private fun ReservationInfo.toTicket(seat: Seat): Ticket =
         Ticket(
             this.title,
