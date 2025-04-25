@@ -36,7 +36,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     }
 
     override fun showMovieList(movieList: List<UiModel>) {
-        val rv = findViewById<RecyclerView>(R.id.list_view)
+        val rv = findViewById<RecyclerView>(R.id.rv)
         val adapter =
             MovieAdapter(
                 itemsList = movieList,
