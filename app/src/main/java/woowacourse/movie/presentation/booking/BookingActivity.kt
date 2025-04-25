@@ -12,27 +12,23 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.DefaultPricingPolicy
-import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieScheduler
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
+import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.PosterMapper
 import woowacourse.movie.ui.util.intentSerializable
-import woowacourse.movie.ui.BaseActivity
-import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.Locale
 
-class BookingActivity : BaseActivity() {
+class BookingActivity : BaseActivity(), BookingContract.View {
     override val layoutRes: Int
         get() = R.layout.activity_booking
 
+    private lateinit var presenter: BookingPresenter
     private lateinit var movie: Movie
-    private var headCount: HeadCount = HeadCount()
     private var dateItemPosition: Int = DEFAULT_POSITION
     private var timeItemPosition: Int = DEFAULT_POSITION
     private val dateSpinner: Spinner by lazy { findViewById(R.id.spinner_date) }
@@ -44,23 +40,27 @@ class BookingActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         if (!fetchMovieFromIntent()) return
         setupScreen(layoutRes)
-        setupUI()
-        bindListeners()
+        presenter = BookingPresenter(this, movie)
+        presenter.onViewCreated()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(HEADCOUNT_KEY, headCount.value)
+        outState.putString(HEADCOUNT_KEY, headCountView.text.toString())
         outState.putInt(DATE_POSITION_KEY, dateItemPosition)
         outState.putInt(TIME_POSITION_KEY, timeItemPosition)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        headCount = HeadCount(savedInstanceState.getInt(HEADCOUNT_KEY))
-        updateHeadCount()
+        val count = savedInstanceState.getString(HEADCOUNT_KEY)
         dateItemPosition = savedInstanceState.getInt(DATE_POSITION_KEY)
         timeItemPosition = savedInstanceState.getInt(TIME_POSITION_KEY)
+        presenter.onConfigurationChanged(
+            count?.toIntOrNull(),
+            dateSpinner.getItemAtPosition(dateItemPosition) as LocalDate?,
+            timeSpinner.getItemAtPosition(timeItemPosition) as LocalTime?,
+        )
     }
 
     override fun onDestroy() {
@@ -69,28 +69,12 @@ class BookingActivity : BaseActivity() {
         super.onDestroy()
     }
 
-    private fun fetchMovieFromIntent(): Boolean {
-        val data = intent.intentSerializable(IntentKeys.MOVIE, Movie::class.java)
-        if (data == null) {
-            Toast.makeText(this, MOVIE_INTENT_ERROR, Toast.LENGTH_SHORT).show()
-            finish()
-            return false
-        }
-        movie = data
-        return true
-    }
-
-    private fun setupUI() {
-        displayMovieInfo()
-        setupDateSpinner()
-    }
-
-    private fun bindListeners() {
+    override fun initBooking() {
         bindHeadCountButtonListeners()
         bindSelectButtonListener()
     }
 
-    private fun displayMovieInfo() {
+    override fun showMovie(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.imageview_poster)
         poster.setImageResource(PosterMapper.convertTitleToResId(movie.title))
 
@@ -105,30 +89,7 @@ class BookingActivity : BaseActivity() {
         runningTime.text = getString(R.string.runningTime_text, movie.runningTime.toString())
     }
 
-    private fun bindHeadCountButtonListeners() {
-        updateHeadCount()
-        val increaseBtn = findViewById<Button>(R.id.button_increase)
-        increaseBtn.setOnClickListener {
-            headCount.increase()
-            updateHeadCount()
-        }
-        val decreaseBtn = findViewById<Button>(R.id.button_decrease)
-        decreaseBtn.setOnClickListener {
-            headCount.decrease()
-            updateHeadCount()
-        }
-    }
-
-    private fun bindSelectButtonListener() {
-        val selectBtn = findViewById<Button>(R.id.button_select)
-        selectBtn.setOnClickListener {
-            showConfirmDialog()
-        }
-    }
-
-    private fun setupDateSpinner() {
-        val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
-        val dates = movieScheduler.getBookableDates()
+    override fun showBookableDates(dates: List<LocalDate>) {
         dateSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -143,16 +104,15 @@ class BookingActivity : BaseActivity() {
                 id: Long
             ) {
                 val selectedDate = dateSpinner.getItemAtPosition(position) as LocalDate
+                presenter.onDateSelected(selectedDate)
                 dateItemPosition = position
-                setupTimeSpinner(movieScheduler, selectedDate)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
-    private fun setupTimeSpinner(movieScheduler: MovieScheduler, selectedDate: LocalDate) {
-        val times = movieScheduler.getBookableTimes(selectedDate)
+    override fun showBookableTimes(times: List<LocalTime>) {
         timeSpinner.adapter = ArrayAdapter(
             this,
             android.R.layout.simple_spinner_item,
@@ -166,6 +126,8 @@ class BookingActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
+                val selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
+                presenter.onTimeSelected(selectedTime)
                 timeItemPosition = position
             }
 
@@ -173,42 +135,61 @@ class BookingActivity : BaseActivity() {
         }
     }
 
-    private fun showConfirmDialog() {
+    override fun updateHeadCount(count: Int) {
+       headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, count)
+    }
+
+    override fun showConfirmDialog() {
         if (confirmDialog == null) {
             initConfirmDialog()
         }
         confirmDialog?.show()
     }
 
-    private fun initConfirmDialog() {
-        confirmDialog = AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_title))
-            .setMessage(getString(R.string.dialog_message))
-            .setPositiveButton(getString(R.string.complete)) { _, _ -> onConfirm() }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
-            .create()
-    }
-
-    private fun onConfirm() {
-        val selectedDate = dateSpinner.selectedItem as LocalDate
-        val selectedTime = timeSpinner.selectedItem as LocalTime
-
-        val movieTicket = MovieTicket(
-            title = movie.title,
-            screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
-            headCount = headCount.value,
-            pricingPolicy = DefaultPricingPolicy()
-        )
-
+    override fun navigateToBookingSummary(ticket: MovieTicket) {
         val intent = Intent(this, BookingSummaryActivity::class.java).apply {
-            putExtra(IntentKeys.TICKET, movieTicket)
+            putExtra(IntentKeys.TICKET, ticket)
         }
         startActivity(intent)
     }
 
-    private fun updateHeadCount() {
-        headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, headCount.value)
+    private fun fetchMovieFromIntent(): Boolean {
+        val data = intent.intentSerializable(IntentKeys.MOVIE, Movie::class.java)
+        if (data == null) {
+            Toast.makeText(this, MOVIE_INTENT_ERROR, Toast.LENGTH_SHORT).show()
+            finish()
+            return false
+        }
+        movie = data
+        return true
+    }
+
+    private fun bindHeadCountButtonListeners() {
+        val increaseBtn = findViewById<Button>(R.id.button_increase)
+        increaseBtn.setOnClickListener {
+            presenter.onIncreaseHeadCount()
+        }
+        val decreaseBtn = findViewById<Button>(R.id.button_decrease)
+        decreaseBtn.setOnClickListener {
+            presenter.onDecreaseHeadCount()
+        }
+    }
+
+    private fun bindSelectButtonListener() {
+        val selectBtn = findViewById<Button>(R.id.button_select)
+        selectBtn.setOnClickListener {
+            showConfirmDialog()
+        }
+    }
+
+    private fun initConfirmDialog() {
+        confirmDialog = AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dialog_title))
+            .setMessage(getString(R.string.dialog_message))
+            .setPositiveButton(getString(R.string.complete)) { _, _ -> presenter.onConfirmClicked() }
+            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
+            .create()
     }
 
     companion object {
