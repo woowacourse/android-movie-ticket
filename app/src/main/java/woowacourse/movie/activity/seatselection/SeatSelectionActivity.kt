@@ -44,7 +44,10 @@ class SeatSelectionActivity :
     private fun selectSeat() {
         seats.forEachIndexed { rowIndex, row ->
             row.forEachIndexed { colIndex, textView ->
-                textView.setOnClickListener { presenter.onSeatClicked(textView) }
+                textView.setOnClickListener {
+                    val isSelected = presenter.onSeatClicked(textView)
+                    presenter.calculateMoney(rowIndex, isSelected)
+                }
             }
         }
     }
@@ -58,5 +61,15 @@ class SeatSelectionActivity :
 
     override fun showMovieInfo(ticket: Ticket) {
         findViewById<TextView>(R.id.title).text = ticket.title
+        showMoney(INITIAL_TICKET_PRICE)
+    }
+
+    override fun showMoney(money: Int) {
+        findViewById<TextView>(R.id.money).text =
+            String.format(resources.getString(R.string.money), money)
+    }
+
+    companion object {
+        private const val INITIAL_TICKET_PRICE = 0
     }
 }

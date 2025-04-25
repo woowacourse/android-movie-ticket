@@ -6,6 +6,8 @@ import woowacourse.movie.domain.Ticket
 interface SeatSelectionContract {
     interface View {
         fun showMovieInfo(ticket: Ticket)
+
+        fun showMoney(money: Int)
     }
 
     interface Presenter {
@@ -13,6 +15,11 @@ interface SeatSelectionContract {
 
         fun loadMovie(ticket: Ticket)
 
-        fun onSeatClicked(seat: TextView)
+        fun calculateMoney(
+            rowIndex: Int,
+            isSelected: Boolean,
+        )
+
+        fun onSeatClicked(seat: TextView): Boolean
     }
 }
