@@ -42,43 +42,58 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
 
     override fun initSeatTable(seats: List<SeatDto>) {
         binding.submit.isEnabled = false
-        seats
-            .sortedBy { it.row }
-            .map { it.row }
-            .distinct()
+        val rows = seats.groupBy { it.row }
+
+        rows.keys
+            .sorted()
             .forEach { row ->
                 val tableRow = layoutInflater.inflate(R.layout.seat_table_row, binding.root, false) as TableRow
-                seats.filter { it.row == row }
-                    .forEach { seat ->
-                        val a = layoutInflater.inflate(R.layout.seat_item, tableRow, false) as TextView
-                        a.text = seat.location
-                        if (seat.price.tag == "RANK_A") {
-                            a.setTextColor(getColor(R.color.seat_rank_a))
-                        } else if (seat.price.tag == "RANK_S") {
-                            a.setTextColor(getColor(R.color.seat_rank_s))
-                        } else if (seat.price.tag == "RANK_B") {
-                            a.setTextColor(getColor(R.color.seat_rank_b))
-                        } else {
-                            a.setTextColor(getColor(R.color.gray_button_background))
-                        }
-
-                        a.setOnClickListener {
-                            if (a.isSelected) {
-                                a.isSelected = false
-                                a.setBackgroundColor(getColor(R.color.white))
-                                totalPrice -= seat.price.price
-                            } else {
-                                a.isSelected = true
-                                a.setBackgroundColor(getColor(R.color.seat_selected))
-                                totalPrice += seat.price.price
+                rows[row]?.forEach { seat ->
+                    (layoutInflater.inflate(R.layout.seat_item, tableRow, false) as TextView)
+                        .apply {
+                            text = seat.location
+                            getColorResIdForRankTag(seat, this)
+                            setOnClickListener {
+                                whenSeatClicked(seat, this)
                             }
-                            binding.total.text = getString(R.string.total_price_general, totalPrice)
-                            presenter.setButtonState(totalPrice)
+                        }.let {
+                            tableRow.addView(it)
                         }
-                        tableRow.addView(a)
-                    }
+                }
                 binding.table.addView(tableRow)
             }
+    }
+
+    private fun whenSeatClicked(
+        seat: SeatDto,
+        view: TextView,
+    ) {
+        when (view.isSelected) {
+            true -> {
+                view.isSelected = false
+                totalPrice -= seat.price.price
+                view.setBackgroundColor(getColor(R.color.white))
+            }
+            false -> {
+                view.isSelected = true
+                totalPrice += seat.price.price
+                view.setBackgroundColor(getColor(R.color.seat_selected))
+            }
+        }
+        binding.total.text = getString(R.string.total_price_general, totalPrice)
+        presenter.setButtonState(totalPrice)
+    }
+
+    private fun getColorResIdForRankTag(
+        seat: SeatDto,
+        view: TextView,
+    ) {
+        when (seat.price.tag) {
+            "RANK_A" -> view.setTextColor(getColor(R.color.seat_rank_a))
+            "RANK_S" -> view.setTextColor(getColor(R.color.seat_rank_s))
+            "RANK_B" -> view.setTextColor(getColor(R.color.seat_rank_b))
+            else -> view.setTextColor(getColor(R.color.gray_button_background))
+        }
     }
 
     companion object {
