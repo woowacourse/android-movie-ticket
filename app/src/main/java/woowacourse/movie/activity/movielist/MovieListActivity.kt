@@ -2,8 +2,9 @@ package woowacourse.movie.activity.movielist
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.activity.booking.BookingActivity
 import woowacourse.movie.adapter.MovieListAdapter
@@ -22,12 +23,13 @@ class MovieListActivity :
         presenter = MovieListPresenter()
         presenter.attachView(this)
 
-        val listView: ListView = findViewById(R.id.movie_list)
+        val movieList: RecyclerView = findViewById(R.id.movie_list)
         adapter =
             MovieListAdapter(emptyList()) { movie ->
                 presenter.onMovieClicked(movie)
             }
-        listView.adapter = adapter
+        movieList.adapter = adapter
+        movieList.layoutManager = LinearLayoutManager(this)
 
         presenter.loadMovies()
     }
