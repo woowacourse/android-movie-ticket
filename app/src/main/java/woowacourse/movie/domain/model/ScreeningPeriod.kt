@@ -22,10 +22,14 @@ data class ScreeningPeriod(
         return dates
     }
 
-    fun getAvailableTimesFor(date: LocalDate): List<LocalTime> {
-        val nowDateTime = LocalDateTime.now()
-        val isToday = date == nowDateTime.toLocalDate()
-        val currentTime = if (isToday) nowDateTime.toLocalTime() else LocalTime.MIN
+    fun getAvailableTimesFor(
+        now: LocalDateTime,
+        date: LocalDate,
+    ): List<LocalTime> {
+        if (now.toLocalDate().isBefore(startDate) || now.toLocalDate().isAfter(endDate)) return emptyList()
+
+        val isToday = date == now.toLocalDate()
+        val currentTime = if (isToday) now.toLocalTime() else LocalTime.MIN
 
         val isWeekend = date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY
         val startHour = if (isWeekend) 9 else 10

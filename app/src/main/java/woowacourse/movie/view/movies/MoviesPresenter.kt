@@ -15,7 +15,7 @@ class MoviesPresenter(
     }
 
     companion object {
-        private val dummyMovie =
+        val dummyMovie =
             Movie(
                 R.drawable.harrypotter.toString(),
                 "해리 포터와 마법사의 돌",
