@@ -18,6 +18,10 @@ class BookingPresenter(
 ) : BookingContract.Presenter {
     private val movie = getMovie()
     private val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
+    var selectedDate: LocalDate = LocalDate.now()
+        private set
+    var selectedTime: LocalTime = LocalTime.now()
+        private set
 
     override fun getHeadCount(): Int = headCount.getCount()
 
@@ -35,8 +39,16 @@ class BookingPresenter(
         view.updateHeadCount(getHeadCount())
     }
 
-    override fun restoreHeadCount(restoredCount: Int) {
+    override fun saveHeadCount(restoredCount: Int) {
         headCount = HeadCount(restoredCount)
+    }
+
+    override fun saveDate(restoredDate: LocalDate) {
+        selectedDate = restoredDate
+    }
+
+    override fun saveTime(restoredTime: LocalTime) {
+        selectedTime = restoredTime
     }
 
     override fun getMovie(): Movie = MovieRepository().getMovieById(movieId)
@@ -50,22 +62,24 @@ class BookingPresenter(
             true
         }
 
-    override fun onConfirm(screeningDateTime: LocalDateTime) {
+    override fun onConfirm() {
         val movieTicket =
-            movieTicketService.createMovieTicket(movieId, screeningDateTime, getHeadCount())
+            movieTicketService.createMovieTicket(
+                movieId,
+                LocalDateTime.of(selectedDate, selectedTime),
+                getHeadCount(),
+            )
         view.navigateToSummary(movieTicket)
     }
 
-    override fun loadAvailableDates(selectedDate: LocalDate) {
+    override fun loadAvailableDates() {
         val bookableDates = movieScheduler.getBookableDates()
         val index = bookableDates.indexOf(selectedDate).takeIf { it != -1 } ?: 0
         view.updateDateSpinner(bookableDates, index)
     }
 
-    override fun loadAvailableTimes(
-        selectedDate: LocalDate,
-        selectedTime: LocalTime,
-    ) {
+    override fun loadAvailableTimes(selectedDate: LocalDate) {
+        this.selectedDate = selectedDate
         val times = movieScheduler.getBookableTimes(selectedDate)
         val index = times.indexOf(selectedTime).takeIf { it != -1 } ?: 0
         view.updateTimeSpinner(times, index)

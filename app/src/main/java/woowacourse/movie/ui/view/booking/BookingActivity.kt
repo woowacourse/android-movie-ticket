@@ -17,7 +17,6 @@ import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.BaseActivity
 import woowacourse.movie.ui.view.utils.setImage
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity :
@@ -25,8 +24,6 @@ class BookingActivity :
     BookingContract.View {
     private lateinit var headCountView: TextView
     private lateinit var presenter: BookingPresenter
-    private var date: LocalDate = LocalDate.now()
-    private var time: LocalTime = LocalTime.now()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +33,7 @@ class BookingActivity :
         showSelectedMovie()
         setupTicketQuantityButtonListeners()
         setupSelectButtonListener()
-        presenter.loadAvailableDates(date)
+        presenter.loadAvailableDates()
     }
 
     override fun showSelectedMovie() {
@@ -63,8 +60,8 @@ class BookingActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(KEY_HEAD_COUNT, presenter.getHeadCount())
-        outState.putString(KEY_DATE, date.toString())
-        outState.putString(KEY_TIME, time.toString())
+        outState.putString(KEY_DATE, presenter.selectedDate.toString())
+        outState.putString(KEY_TIME, presenter.selectedTime.toString())
     }
 
     override fun showErrorDialog() {
@@ -82,7 +79,7 @@ class BookingActivity :
             .setTitle(getString(R.string.dialog_title))
             .setMessage(getString(R.string.dialog_message))
             .setPositiveButton(getString(R.string.complete)) { _, _ ->
-                presenter.onConfirm(LocalDateTime.of(date, time))
+                presenter.onConfirm()
             }.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
@@ -115,8 +112,7 @@ class BookingActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    date = dates[position]
-                    presenter.loadAvailableTimes(date, time)
+                    presenter.loadAvailableTimes(dates[position])
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -146,7 +142,8 @@ class BookingActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    time = timeSpinner.getItemAtPosition(position) as LocalTime
+                    val selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
+                    presenter.saveTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -182,9 +179,13 @@ class BookingActivity :
 
     private fun loadSavedInstanceState(savedInstance: Bundle) {
         val restoredCount = savedInstance.getInt(KEY_HEAD_COUNT, presenter.getHeadCount())
-        presenter.restoreHeadCount(restoredCount)
-        date = LocalDate.parse(savedInstance.getString(KEY_DATE))
-        time = LocalTime.parse(savedInstance.getString(KEY_TIME))
+        presenter.saveHeadCount(restoredCount)
+
+        val restoredDate = LocalDate.parse(savedInstance.getString(KEY_DATE))
+        presenter.saveDate(restoredDate)
+
+        val restoredTime = LocalTime.parse(savedInstance.getString(KEY_TIME))
+        presenter.saveTime(restoredTime)
     }
 
     companion object {
