@@ -10,13 +10,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.presenter.reservationComplete.ReservationCompleteContracts
+import woowacourse.movie.presenter.reservationComplete.ReservationCompletePresenter
 import woowacourse.movie.view.extension.getSerializableExtraData
 import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.mapper.Formatter.priceToUI
+import java.time.LocalDate
 
-class ReservationCompleteActivity : AppCompatActivity() {
-    private val movieTicket by lazy { intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY) }
+class ReservationCompleteActivity :
+    AppCompatActivity(),
+    ReservationCompleteContracts.View {
+    private val presenter: ReservationCompleteContracts.Presenter =
+        ReservationCompletePresenter(this)
 
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_title) }
     private val screeningDateTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_timestamp) }
@@ -33,30 +39,42 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        setupMovieTicketInfo()
+        presenter.updateTicketData(intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    private fun setupMovieTicketInfo() {
-        movieTitleTextView.text = movieTicket.title
-        screeningDateTextView.text =
-            getString(
-                R.string.reservation_ticket_timestamp,
-                localDateToUI(movieTicket.movieDate),
-                movieTimeToUI(movieTicket.movieTime.value),
-            )
-        ticketCountTextView.text =
-            resources.getString(R.string.reservation_complete_ticket_count, movieTicket.count)
-        ticketPriceTextView.text =
-            resources.getString(
-                R.string.reservation_complete_ticket_price,
-                priceToUI(movieTicket.price()),
-            )
     }
 
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun showTitle(title: String) {
+        movieTitleTextView.text = title
+    }
+
+    override fun showTimestamp(
+        date: LocalDate,
+        time: Int,
+    ) {
+        screeningDateTextView.text =
+            getString(
+                R.string.reservation_ticket_timestamp,
+                localDateToUI(date),
+                movieTimeToUI(time),
+            )
+    }
+
+    override fun showTicketCount(count: Int) {
+        ticketCountTextView.text =
+            resources.getString(R.string.reservation_complete_ticket_count, count)
+    }
+
+    override fun showPrice(price: Int) {
+        ticketPriceTextView.text =
+            resources.getString(
+                R.string.reservation_complete_ticket_price,
+                priceToUI(price),
+            )
     }
 
     companion object {
