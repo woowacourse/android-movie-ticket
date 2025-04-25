@@ -13,7 +13,6 @@ class ReservationPresenter(
 ) : ReservationContract.Presenter {
     private lateinit var movie: Movie
     private var ticketCount = TicketCount()
-    private var selectedDatePosition: Int = 0
     private val movieDate by lazy { MovieDate(movie.startDate, movie.endDate) }
     private val movieTime by lazy { MovieTime() }
 
