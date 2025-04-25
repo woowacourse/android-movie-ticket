@@ -19,16 +19,23 @@ import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ReservationResultActivity : AppCompatActivity() {
+class ReservationResultActivity : AppCompatActivity(), ReservationResultContract.View {
     private val customAlertDialog = CustomAlertDialog(this)
+    private lateinit var cancelGuide: TextView
+    private lateinit var title: TextView
+    private lateinit var screeningDate: TextView
+    private lateinit var ticketCount: TextView
+    private lateinit var totalPrice: TextView
+    private lateinit var reservationResultPresenter: ReservationResultPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_reservation_result)
         initSystemUI()
+        reservationResultPresenter = ReservationResultPresenter(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        initViewId()
         initReservationResult()
     }
 
@@ -40,8 +47,20 @@ class ReservationResultActivity : AppCompatActivity() {
         }
     }
 
+    private fun initViewId() {
+        cancelGuide = findViewById(R.id.tv_cancel_guide)
+        title = findViewById(R.id.tv_title)
+        screeningDate = findViewById(R.id.tv_screening_date)
+        ticketCount = findViewById(R.id.tv_ticket_count)
+        totalPrice = findViewById(R.id.tv_total_price)
+    }
+
     private fun initReservationResult() {
-        val reservation = intent.serializableData(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, Reservation::class.java)
+        val reservation =
+            intent.serializableData(
+                KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION,
+                Reservation::class.java,
+            )
 
         if (reservation == null) {
             showReservationError()
@@ -64,12 +83,6 @@ class ReservationResultActivity : AppCompatActivity() {
     }
 
     private fun initReservation(reservation: Reservation) {
-        val cancelGuide = findViewById<TextView>(R.id.tv_cancel_guide)
-        val title = findViewById<TextView>(R.id.tv_title)
-        val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
-        val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)
-        val totalPrice = findViewById<TextView>(R.id.tv_total_price)
-
         val screeningDateView = screeningDate(reservation.reservedTime)
 
         cancelGuide.text = getString(R.string.cancel_guide, reservation.cancelMinute)
@@ -97,9 +110,14 @@ class ReservationResultActivity : AppCompatActivity() {
         }
     }
 
+    override fun initScreen(reservation: Reservation) {
+        initReservation(reservation)
+    }
+
     companion object {
         private fun wonFormat(context: Context) = DecimalFormat(context.getString(R.string.won_format))
 
-        const val KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION = "key_reservation_result_activity_reservation"
+        const val KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION =
+            "key_reservation_result_activity_reservation"
     }
 }
