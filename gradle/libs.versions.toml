@@ -17,6 +17,7 @@ ktlint = "12.1.0"
 mannodermaus-junit5 = "1.7.0"
 mockk = "1.13.8"
 recyclerview = "1.4.0"
+espresso-contrib = "3.6.1"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity-ktx" }
@@ -35,6 +36,7 @@ mannodermaus-junit5-core = { group = "de.mannodermaus.junit5", name = "android-t
 mannodermaus-junit5-runner = { group = "de.mannodermaus.junit5", name = "android-test-runner", version.ref = "mannodermaus-junit5" }
 mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 mockk-android = { module = "io.mockk:mockk-android", version.ref = "mockk" }
+androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso-contrib" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }
