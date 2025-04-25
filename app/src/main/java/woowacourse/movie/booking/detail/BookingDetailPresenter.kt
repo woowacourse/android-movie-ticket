@@ -69,7 +69,7 @@ class BookingDetailPresenter(
         val date = selectedDate
         val time = selectedTime
 
-        if (date == null || time == null) return // validation
+        if (date == null || time == null) return
 
         val uiModel =
             BookingCompleteUiModel(

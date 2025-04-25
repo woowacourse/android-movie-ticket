@@ -149,9 +149,9 @@ class BookingDetailActivity :
     }
 
     override fun navigateToBookingComplete(bookingCompleteUiModel: BookingCompleteUiModel) {
-        startActivity(
-            BookingCompleteActivity.newIntent(this, bookingCompleteUiModel),
-        )
+        val intent = BookingCompleteActivity.newIntent(this, bookingCompleteUiModel)
+
+        startActivity(intent)
         finish()
     }
 
