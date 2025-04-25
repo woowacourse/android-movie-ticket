@@ -8,4 +8,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="seat_confirm_deactivated">#B7B7B7</color>
+    <color name="seat_confirm_activated">#6200EE</color>
 </resources>
