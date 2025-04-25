@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -93,7 +94,11 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
     override fun initSelectButtonClick() {
         selectButton.setOnClickListener {
-            showSelectDialog()
+            if (presenter.canReserve()) {
+                showSelectDialog()
+            } else {
+                Toast.makeText(this, R.string.seat_not_match_count, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

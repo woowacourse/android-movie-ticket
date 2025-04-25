@@ -30,5 +30,7 @@ interface SeatContract {
         fun cancelSelection(point: Point)
 
         fun selectSeat(point: Point)
+
+        fun canReserve(): Boolean
     }
 }

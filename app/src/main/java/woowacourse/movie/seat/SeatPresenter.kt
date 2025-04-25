@@ -40,6 +40,10 @@ class SeatPresenter(
         view.updateTotalPrice(reservation.points.totalPrice())
     }
 
+    override fun canReserve(): Boolean {
+        return reservation.points.points.size == reservation.count
+    }
+
     fun canClickButton(): Boolean {
         return reservation.points.points.isNotEmpty()
     }

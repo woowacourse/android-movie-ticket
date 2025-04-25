@@ -26,4 +26,5 @@
     <string name="seat_screen">SCREEN</string>
     <string name="seat_point">%c%d</string>
     <string name="seat_select">확인</string>
+    <string name="seat_not_match_count">선택한 좌석 수와 인원 수가 맞지 않습니다</string>
 </resources>
