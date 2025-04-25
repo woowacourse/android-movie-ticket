@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.reservation.complete
 
 import android.os.Bundle
 import android.widget.TextView

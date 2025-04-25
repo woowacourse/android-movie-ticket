@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.reservation.seat
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,9 +11,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.presenter.reservation.SeatSelectPresenter
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
+import woowacourse.movie.view.reservation.ReservationDialog
+import woowacourse.movie.view.reservation.complete.ReservationCompleteActivity
 
 class SeatSelectActivity :
     AppCompatActivity(),

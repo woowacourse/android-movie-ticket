@@ -9,7 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.presenter.movie.MoviePresenter
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.reservation.ReservationActivity
 

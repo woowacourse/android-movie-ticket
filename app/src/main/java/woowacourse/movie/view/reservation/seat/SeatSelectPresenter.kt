@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter.reservation
+package woowacourse.movie.view.reservation.seat
 
 import android.content.Intent
 import android.widget.TextView
@@ -7,7 +7,6 @@ import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.Seats
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.getParcelableExtraCompat
-import woowacourse.movie.view.reservation.SeatSelectContract
 
 class SeatSelectPresenter(
     val view: SeatSelectContract.View,

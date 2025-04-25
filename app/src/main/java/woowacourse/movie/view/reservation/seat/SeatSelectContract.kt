@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.reservation.seat
 
 import android.content.Intent
 import android.widget.TextView

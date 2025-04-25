@@ -19,10 +19,10 @@ import com.google.android.material.R.layout
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.presenter.reservation.ReservationPresenter
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.getParcelableExtraCompat
 import woowacourse.movie.view.movie.MoviesActivity
+import woowacourse.movie.view.reservation.seat.SeatSelectActivity
 import java.time.LocalDate
 
 class ReservationActivity :

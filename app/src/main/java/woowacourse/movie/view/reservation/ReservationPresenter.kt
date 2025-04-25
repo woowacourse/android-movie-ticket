@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter.reservation
+package woowacourse.movie.view.reservation
 
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
@@ -6,7 +6,6 @@ import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.view.ReservationUiFormatter
-import woowacourse.movie.view.reservation.ReservationContract
 import java.time.LocalDate
 import java.time.LocalDateTime
 
