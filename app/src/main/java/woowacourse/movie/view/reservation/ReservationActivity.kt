@@ -33,7 +33,6 @@ class ReservationActivity :
     ReservationContract.View {
     private val presenter: ReservationContract.Presenter = ReservationPresenter(this)
     private lateinit var timeSpinnerAdapter: TimeSpinnerAdapter
-    private var selectedDatePosition: Int = 0
 
     private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_reservation_ticket_count) }
     private val posterImageView: ImageView by lazy { findViewById(R.id.iv_reservation_poster) }
@@ -56,8 +55,9 @@ class ReservationActivity :
             insets
         }
 
-        updateMovieToPresenter()
         setupClickListener()
+        setupTimeAdapter()
+        updateMovieToPresenter()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -94,24 +94,6 @@ class ReservationActivity :
             }.show()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putInt(TICKET_COUNT_DATA_KEY, ticketCountTextView.text.toString().toInt())
-        outState.putInt(TICKET_DATE_POSITION_DATA_KEY, selectedDatePosition)
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        val savedCount: Int? = savedInstanceState.getInt(TICKET_COUNT_DATA_KEY)
-        presenter.updateTicketCount(savedCount)
-        selectedDatePosition = savedInstanceState.getInt(TICKET_DATE_POSITION_DATA_KEY)
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return super.onSupportNavigateUp()
-    }
-
     override fun setupDateAdapter(dates: List<LocalDate>) {
         val dateAdapter =
             ArrayAdapter(
@@ -121,7 +103,6 @@ class ReservationActivity :
             )
         dateSpinner.apply {
             adapter = dateAdapter
-            setSelection(selectedDatePosition)
             onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(
@@ -131,7 +112,6 @@ class ReservationActivity :
                         id: Long,
                     ) {
                         presenter.updateMovieDate(dates[position])
-                        selectedDatePosition = position
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -139,9 +119,8 @@ class ReservationActivity :
         }
     }
 
-    override fun setupTimeAdapter(times: List<Int>) {
-        timeSpinnerAdapter = TimeSpinnerAdapter(this, times.toMutableList())
-
+    private fun setupTimeAdapter() {
+        timeSpinnerAdapter = TimeSpinnerAdapter(this, mutableListOf())
         timeSpinner.apply {
             adapter = timeSpinnerAdapter
             onItemSelectedListener =
@@ -161,6 +140,29 @@ class ReservationActivity :
                     override fun onNothingSelected(parent: AdapterView<*>?) = Unit
                 }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt(TICKET_COUNT_DATA_KEY, ticketCountTextView.text.toString().toInt())
+        outState.putInt(TICKET_DATE_POSITION_DATA_KEY, dateSpinner.selectedItemPosition)
+        outState.putInt(MOVIE_TIME_POSITION_DATA_KEY, timeSpinner.selectedItemPosition)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val savedCount: Int? = savedInstanceState.getInt(TICKET_COUNT_DATA_KEY)
+        val savedDatePosition: Int = savedInstanceState.getInt(TICKET_DATE_POSITION_DATA_KEY)
+        val savedTimePosition: Int = savedInstanceState.getInt(MOVIE_TIME_POSITION_DATA_KEY)
+
+        presenter.updateTicketCount(savedCount)
+        presenter.updateSelectedDatePosition(savedDatePosition)
+        presenter.updateSelectedTimePosition(savedTimePosition)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     override fun showTicketCount(count: Int) {
@@ -211,9 +213,18 @@ class ReservationActivity :
         timeSpinnerAdapter.updateDateItems(times)
     }
 
+    override fun showSelectedDate(position: Int) {
+        dateSpinner.setSelection(position)
+    }
+
+    override fun showSelectedTime(position: Int) {
+        timeSpinner.setSelection(position)
+    }
+
     companion object {
         private const val TICKET_COUNT_DATA_KEY = "count"
         private const val TICKET_DATE_POSITION_DATA_KEY = "date"
+        private const val MOVIE_TIME_POSITION_DATA_KEY = "time"
         private const val MOVIE_DATA_KEY = "data"
 
         fun getIntent(

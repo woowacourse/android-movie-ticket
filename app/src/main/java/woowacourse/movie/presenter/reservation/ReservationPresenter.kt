@@ -24,7 +24,7 @@ class ReservationPresenter(
         view.showScreeningDate(movie.startDate, movie.endDate)
         view.showTicketCount(ticketCount.value)
         view.setupDateAdapter(movieDate.getDateTable(LocalDate.now()))
-        view.setupTimeAdapter(movieTime.getTimeTable(LocalDateTime.now(), movieDate.value))
+        view.updateTimes(movieTime.getTimeTable(LocalDateTime.now(), movieDate.value))
     }
 
     override fun increaseTicketCount() {
@@ -67,5 +67,13 @@ class ReservationPresenter(
             ticketCount += count - 1
         }
         view.showTicketCount(ticketCount.value)
+    }
+
+    override fun updateSelectedDatePosition(position: Int) {
+        view.showSelectedDate(position)
+    }
+
+    override fun updateSelectedTimePosition(position: Int) {
+        view.showSelectedTime(position)
     }
 }
