@@ -1,4 +1,4 @@
-package woowacourse.movie.ticket
+package woowacourse.movie.presenter.ticket
 
 import io.mockk.Runs
 import io.mockk.every
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.contract.ticket.TicketContract
 import woowacourse.movie.domain.ticket.FakeCancelTimePolicy
 import woowacourse.movie.domain.ticket.Ticket
-import woowacourse.movie.presenter.ticket.TicketPresenter
 import java.time.LocalDateTime
 
 class TicketPresenterTest {

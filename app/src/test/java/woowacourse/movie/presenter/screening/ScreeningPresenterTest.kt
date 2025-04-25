@@ -1,4 +1,4 @@
-package woowacourse.movie.screening
+package woowacourse.movie.presenter.screening
 
 import io.mockk.Runs
 import io.mockk.every
@@ -11,7 +11,6 @@ import woowacourse.movie.contract.screening.ScreeningContract
 import woowacourse.movie.data.screening.FakeScreenings
 import woowacourse.movie.domain.screening.Movie
 import woowacourse.movie.domain.screening.Screening
-import woowacourse.movie.presenter.screening.ScreeningPresenter
 import java.time.LocalDate
 
 class ScreeningPresenterTest {

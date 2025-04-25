@@ -1,4 +1,4 @@
-package woowacourse.movie.screening
+package woowacourse.movie.presenter.screening
 
 import io.mockk.Runs
 import io.mockk.every
@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.contract.screening.ReservationContract
 import woowacourse.movie.domain.screening.Movie
 import woowacourse.movie.domain.screening.Screening
-import woowacourse.movie.presenter.screening.ReservationPresenter
 import java.time.LocalDate
 import java.time.LocalTime
 
