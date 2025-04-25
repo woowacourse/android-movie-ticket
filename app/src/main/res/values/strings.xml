@@ -24,5 +24,6 @@
     <string name="reserve_dialog_negative_button">취소</string>
 
     <string name="seat_screen">SCREEN</string>
+    <string name="seat_point">%c%d</string>
     <string name="seat_select">확인</string>
 </resources>

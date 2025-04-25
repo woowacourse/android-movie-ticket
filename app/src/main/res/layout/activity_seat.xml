@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_gray"
-    tools:context=".SeatActivity">
+    tools:context=".seat.SeatActivity">
 
     <TextView
         android:id="@+id/tv_screen"
@@ -41,7 +41,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="A1"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
 
             <TextView
                 android:layout_width="73dp"
@@ -51,7 +51,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="A2"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
 
             <TextView
                 android:layout_width="73dp"
@@ -61,7 +61,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="A3"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
 
             <TextView
                 android:layout_width="73dp"
@@ -71,7 +71,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="A4"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
         </TableRow>
 
         <TableRow>
@@ -84,7 +84,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="B1"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
 
             <TextView
                 android:layout_width="73dp"
@@ -94,7 +94,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="B2"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
 
             <TextView
                 android:layout_width="73dp"
@@ -104,7 +104,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="B3"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
 
             <TextView
                 android:layout_width="73dp"
@@ -114,7 +114,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="B4"
-                tools:textColor="@color/purple_200" />
+                android:textColor="@color/purple_200" />
         </TableRow>
 
         <TableRow>
@@ -127,7 +127,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="C1"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:layout_width="73dp"
@@ -137,7 +137,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="C2"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:layout_width="73dp"
@@ -147,7 +147,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="C3"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:layout_width="73dp"
@@ -157,7 +157,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="C4"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
         </TableRow>
 
         <TableRow>
@@ -170,7 +170,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="D1"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:layout_width="73dp"
@@ -180,7 +180,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="D2"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:layout_width="73dp"
@@ -190,7 +190,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="D3"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
 
             <TextView
                 android:layout_width="73dp"
@@ -200,7 +200,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="D4"
-                tools:textColor="@color/green" />
+                android:textColor="@color/green" />
         </TableRow>
 
         <TableRow>
@@ -213,7 +213,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="E1"
-                tools:textColor="@color/blue" />
+                android:textColor="@color/blue" />
 
             <TextView
                 android:layout_width="73dp"
@@ -223,7 +223,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="E2"
-                tools:textColor="@color/blue" />
+                android:textColor="@color/blue" />
 
             <TextView
                 android:layout_width="73dp"
@@ -233,7 +233,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="E3"
-                tools:textColor="@color/blue" />
+                android:textColor="@color/blue" />
 
             <TextView
                 android:layout_width="73dp"
@@ -243,7 +243,7 @@
                 android:textSize="22sp"
                 android:textStyle="bold"
                 tools:text="E4"
-                tools:textColor="@color/blue" />
+                android:textColor="@color/blue" />
 
         </TableRow>
 

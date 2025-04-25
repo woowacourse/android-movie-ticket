@@ -17,11 +17,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
-import woowacourse.movie.SeatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.ext.getSerializableCompat
+import woowacourse.movie.seat.SeatActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
