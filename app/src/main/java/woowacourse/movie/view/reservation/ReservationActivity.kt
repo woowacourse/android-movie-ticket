@@ -20,35 +20,25 @@ import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.model.ticket.TicketCountResult
-import woowacourse.movie.model.ticket.getOrDefault
-import woowacourse.movie.model.ticket.getOrThrow
+import woowacourse.movie.presenter.ReservationPresenter
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.model.setPoster
 import woowacourse.movie.view.ticket.TicketActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity : AppCompatActivity() {
-    private var selectedDate: LocalDate? = null
-    private var selectedTime: LocalTime? = null
+class ReservationActivity :
+    AppCompatActivity(),
+    ReservationView {
+    private val present: ReservationPresenter = ReservationPresenter(this)
     private var dialog: AlertDialog? = null
-    private val screeningData: ScreeningData by lazy {
-        intent.getParcelableExtraCompat<ScreeningData>(EXTRA_SCREENING_DATA)
-            ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
-    }
-    private val screening: Screening by lazy { screeningData.toScreening() }
-
-    private var ticketCount = TicketCount.create().getOrThrow()
-    private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt(TICKET_COUNT, ticketCount.value)
-        outState.putInt(TIME_ITEM_POSITION, timeItemPosition)
+        outState.putInt(TICKET_COUNT, present.ticketCount.value)
+        outState.putInt(TIME_ITEM_POSITION, present.timeItemPosition)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,91 +52,43 @@ class ReservationActivity : AppCompatActivity() {
         }
 
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
-        val savedTimeItemPosition = savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: 0
+        val savedTimeItemPosition =
+            savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: DEFAULT_TIME_ITEM_POSITION
 
-        initModel(savedTicketCount, savedTimeItemPosition)
-        initViews()
-    }
-
-    private fun initModel(
-        savedTicketCount: Int,
-        savedTimeItemPosition: Int,
-    ) {
-        ticketCount = TicketCount.create(savedTicketCount).getOrDefault()
-        timeItemPosition = savedTimeItemPosition
-    }
-
-    private fun initViews() {
-        initScreeningInfoViews()
-
-        initDateSpinner(initTimeSpinner())
-
-        initTicketCounterViews()
-
+        present.initReservationData(savedTicketCount, savedTimeItemPosition)
+        present.initReservationUI()
+        initTicketPlusBtnUi()
+        initTicketMinusBtnUi()
         initCompleteButtonView()
     }
 
-    private fun initScreeningInfoViews() {
+    override fun getScreeningData(): ScreeningData =
+        intent.getParcelableExtraCompat<ScreeningData>(EXTRA_SCREENING_DATA)
+            ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
+
+    override fun initScreeningInfoUI(screeningData: ScreeningData) {
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
-        titleView.text = screening.title
+        titleView.text = screeningData.title
 
         val periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
         periodView.text =
             getString(
                 R.string.screening_period,
-                screening.period.start.year,
-                screening.period.start.monthValue,
-                screening.period.start.dayOfMonth,
-                screening.period.endInclusive.year,
-                screening.period.endInclusive.monthValue,
-                screening.period.endInclusive.dayOfMonth,
+                screeningData.startDate.year,
+                screeningData.startDate.monthValue,
+                screeningData.startDate.dayOfMonth,
+                screeningData.endDate.year,
+                screeningData.endDate.monthValue,
+                screeningData.endDate.dayOfMonth,
             )
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
         posterImageView.setPoster(screeningData.poster)
 
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
-        runningTimeView.text = getString(R.string.running_time, screening.runningTime)
+        runningTimeView.text = getString(R.string.running_time, screeningData.runningTime)
     }
 
-    private fun navigateToTicketActivity() {
-        if (selectedDate == null || selectedTime == null) {
-            Toast.makeText(this, ERROR_NOT_SELECTED_SPINNER, Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val ticketData =
-            TicketData(
-                screeningData = screeningData,
-                showtime = LocalDateTime.of(selectedDate, selectedTime),
-                ticketCount = ticketCount.value,
-            )
-        startActivity(TicketActivity.newIntent(this, ticketData))
-    }
-
-    private fun initTimeSpinner(): Spinner {
-        val timeSpinnerView =
-            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
-
-        timeSpinnerView.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedDate = selectedDate ?: return
-                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
-                    selectedTime = screeningTimes[position]
-                    timeItemPosition = position
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
-            }
-        return timeSpinnerView
-    }
-
-    private fun initDateSpinner(timeSpinnerView: Spinner) {
+    override fun setDateSelectUi(screening: Screening) {
         val screeningDates = screening.getScreeningDates()
 
         val dateAdapter =
@@ -168,47 +110,69 @@ class ReservationActivity : AppCompatActivity() {
                     id: Long,
                 ) {
                     val selectedDate = screeningDates[position]
-                    this@ReservationActivity.selectedDate = selectedDate
-                    val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
-
-                    val timeAdapter =
-                        ArrayAdapter(
-                            this@ReservationActivity,
-                            android.R.layout.simple_spinner_item,
-                            screeningTimes,
-                        )
-
-                    timeSpinnerView.adapter = timeAdapter
-
-                    if (timeItemPosition >= screeningTimes.size) {
-                        timeSpinnerView.setSelection(screeningTimes.lastIndex)
-                    } else {
-                        timeSpinnerView.setSelection(timeItemPosition)
-                    }
+                    present.onChangedDate(selectedDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
     }
 
-    private fun initTicketCounterViews() {
+    override fun setTimeSelectUi(
+        selectedDate: LocalDate,
+        screening: Screening,
+        position: Int,
+    ) {
+        val timeSpinnerView =
+            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
+
+        val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
+
+        val timeAdapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                screeningTimes,
+            )
+
+        timeSpinnerView.adapter = timeAdapter
+
+        timeSpinnerView.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    present.onChangedTime(screeningTimes[position])
+                    present.timeItemPosition = position
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
+        if (position >= screeningTimes.size) {
+            timeSpinnerView.setSelection(screeningTimes.lastIndex)
+        } else {
+            timeSpinnerView.setSelection(position)
+        }
+    }
+
+    override fun setTicketCounterUi(ticketCount: TicketCount) {
         val ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
         ticketCountView.text = ticketCount.toString()
+    }
 
-        val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
-        ticketCountPlusButton.setOnClickListener {
-            ticketCount = ticketCount.increase().getOrThrow()
-            ticketCountView.text = ticketCount.toString()
-        }
-
+    override fun initTicketMinusBtnUi() {
         val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
         ticketCountMinusButton.setOnClickListener {
-            ticketCount =
-                when (val result = ticketCount.decrease()) {
-                    is TicketCountResult.Success -> result.ticketCount
-                    is TicketCountResult.Error -> ticketCount
-                }
-            ticketCountView.text = ticketCount.toString()
+            present.decreaseTicketCount()
+        }
+    }
+
+    override fun initTicketPlusBtnUi() {
+        val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
+        ticketCountPlusButton.setOnClickListener {
+            present.increaseTicketCount()
         }
     }
 
@@ -221,12 +185,20 @@ class ReservationActivity : AppCompatActivity() {
                     .setTitle(getString(R.string.ticket_dialog_title))
                     .setMessage(getString(R.string.ticket_dialog_message))
                     .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                        navigateToTicketActivity()
+                        present.navigateToTicketUI()
                     }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
                         dialog.dismiss()
                     }.setCancelable(false)
                     .show()
         }
+    }
+
+    override fun printError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun navigateToTicketUI(ticketData: TicketData) {
+        startActivity(TicketActivity.newIntent(this, ticketData))
     }
 
     override fun onDestroy() {
@@ -246,7 +218,6 @@ class ReservationActivity : AppCompatActivity() {
         const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
         private const val ERROR_CANT_READ_SCREENING_INFO = "상영 정보가 전달되지 않았습니다"
-        private const val ERROR_NOT_SELECTED_SPINNER = "예매 정보가 선택되지 않았습니다"
 
         private const val EXTRA_SCREENING_DATA = "woowacourse.movie.EXTRA_SCREENING_DATA"
 
