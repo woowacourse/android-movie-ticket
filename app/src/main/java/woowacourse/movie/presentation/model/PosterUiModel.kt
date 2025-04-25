@@ -2,7 +2,7 @@ package woowacourse.movie.presentation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.model.Poster
+import woowacourse.movie.domain.model.movie.Poster
 
 @Parcelize
 sealed class PosterUiModel : Parcelable {

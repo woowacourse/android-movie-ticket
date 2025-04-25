@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertAll
 import org.junit.jupiter.api.assertThrows
+import woowacourse.movie.domain.model.movie.ScreeningPeriod
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

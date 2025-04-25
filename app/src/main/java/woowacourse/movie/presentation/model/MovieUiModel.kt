@@ -2,9 +2,9 @@ package woowacourse.movie.presentation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningPeriod
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.ScreeningPeriod
 
 @Parcelize
 data class MovieUiModel(

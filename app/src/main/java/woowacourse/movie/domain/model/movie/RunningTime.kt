@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.movie
 
 @JvmInline
 value class RunningTime(

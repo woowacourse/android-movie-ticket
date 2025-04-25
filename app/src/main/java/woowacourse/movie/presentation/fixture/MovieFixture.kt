@@ -1,10 +1,10 @@
 package woowacourse.movie.presentation.fixture
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Poster
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningPeriod
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.Poster
+import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.ScreeningPeriod
 import java.time.LocalDate
 
 val dummyMovie =

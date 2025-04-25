@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.movie
 
 sealed class Poster {
     data class Resource(
