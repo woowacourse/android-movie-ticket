@@ -35,15 +35,6 @@ class MoviesActivity :
         setupMovieAdapter(movies)
     }
 
-    override fun navigateToReservationComplete(movie: Movie) {
-        val intent =
-            Intent(
-                this,
-                ReservationActivity::class.java,
-            ).apply { putExtra(Extras.MovieData.MOVIE_KEY, movie) }
-        startActivity(intent)
-    }
-
     private fun setupMovieAdapter(movies: List<Movie>) {
         val movieListView = findViewById<ListView>(R.id.lv_movies)
         movieListView.adapter =
@@ -51,9 +42,18 @@ class MoviesActivity :
                 movies,
                 object : MovieClickListener {
                     override fun onReservationClick(movie: Movie) {
-                        navigateToReservationComplete(movie)
+                        navigateToReservation(movie)
                     }
                 },
             )
+    }
+
+    override fun navigateToReservation(movie: Movie) {
+        val intent =
+            Intent(
+                this,
+                ReservationActivity::class.java,
+            ).apply { putExtra(Extras.MovieData.MOVIE_KEY, movie) }
+        startActivity(intent)
     }
 }

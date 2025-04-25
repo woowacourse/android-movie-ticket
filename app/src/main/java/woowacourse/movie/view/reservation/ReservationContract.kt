@@ -24,6 +24,8 @@ interface ReservationContract {
         )
 
         fun updateTimeAdapter(times: List<String>)
+
+        fun navigateToSeatSelect(ticket: MovieTicket)
     }
 
     interface Presenter {
@@ -42,6 +44,6 @@ interface ReservationContract {
 
         fun minusTicketCount()
 
-        fun createTicket(): MovieTicket
+        fun createTicket(onCreated: (MovieTicket) -> Unit)
     }
 }

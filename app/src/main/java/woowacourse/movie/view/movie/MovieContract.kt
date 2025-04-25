@@ -6,7 +6,7 @@ interface MovieContract {
     interface View {
         fun updateView(movies: List<Movie>)
 
-        fun navigateToReservationComplete(movie: Movie)
+        fun navigateToReservation(movie: Movie)
     }
 
     interface Presenter {

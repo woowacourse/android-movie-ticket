@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.presenter.reservation.ReservationPresenter
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.getParcelableExtraCompat
@@ -189,16 +190,18 @@ class ReservationActivity :
 
     private fun setupCompleteButtonClick() {
         findViewById<Button>(R.id.btn_reservation_select_complete).setOnClickListener {
-            val intent = movieTicketIntent()
-            startActivity(intent)
+            presenter.createTicket { ticket ->
+                navigateToSeatSelect(ticket)
+            }
         }
     }
 
-    private fun movieTicketIntent(): Intent {
-        val ticket = presenter.createTicket()
-        return Intent(this, SeatSelectActivity::class.java).apply {
-            putExtra(Extras.TicketData.TICKET_KEY, ticket)
-        }
+    override fun navigateToSeatSelect(ticket: MovieTicket) {
+        val intent =
+            Intent(this, SeatSelectActivity::class.java).apply {
+                putExtra(Extras.TicketData.TICKET_KEY, ticket)
+            }
+        startActivity(intent)
     }
 
     private fun setupSavedData(savedInstanceState: Bundle?) {

@@ -71,13 +71,16 @@ class ReservationPresenter(
         view.setTicketCount(ticketCount.value)
     }
 
-    override fun createTicket(): MovieTicket =
-        MovieTicket(
-            title = movie.title,
-            date = movieDate.value,
-            time = formatter.movieTimeToUI(movieTime.value),
-            count = ticketCount.value,
-        )
+    override fun createTicket(onCreated: (MovieTicket) -> Unit) {
+        val ticket =
+            MovieTicket(
+                title = movie.title,
+                date = movieDate.value,
+                time = formatter.movieTimeToUI(movieTime.value),
+                count = ticketCount.value,
+            )
+        onCreated(ticket)
+    }
 
     fun currentDatePosition(): Int = selectedDatePosition
 
