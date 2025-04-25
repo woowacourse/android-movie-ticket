@@ -1,20 +1,15 @@
 package woowacourse.movie.view.booking
 
+import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.TicketType
-import woowacourse.movie.domain.model.movies.DefaultMovieModel
+import woowacourse.movie.view.movies.model.UiModel
 import java.time.LocalDateTime
 
 interface BookingContract {
     interface View {
-        fun showMovieDetail(
-            title: String,
-            posterResId: Int?,
-            releaseStartDate: String,
-            releaseEndDate: String,
-            runningTime: Int,
-        )
+        fun showMovieDetail(movie: UiModel.MovieUiModel)
 
         fun showPeopleCount(count: Int)
 
@@ -70,7 +65,7 @@ interface BookingContract {
 
     companion object PresenterFactory {
         fun providePresenter(view: View): Presenter {
-            val movies = DefaultMovieModel()
+            val movies = MovieStore()
             val peopleCount = PeopleCount()
             return BookingPresenter(view, movies, peopleCount)
         }

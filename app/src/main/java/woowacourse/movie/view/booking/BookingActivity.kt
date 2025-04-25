@@ -19,7 +19,9 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.booking.BookingContract.PresenterFactory
+import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
+import woowacourse.movie.view.movies.model.UiModel
 import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
@@ -57,19 +59,15 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         initButtonListener()
     }
 
-    override fun showMovieDetail(
-        title: String,
-        posterResId: Int?,
-        releaseStartDate: String,
-        releaseEndDate: String,
-        runningTime: Int,
-    ) {
-        initTitleView(title)
-        initPosterView(posterResId)
-        initReleaseDateView(releaseStartDate, releaseEndDate)
-        initRunningTimeView(runningTime)
-        presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDateTime.now())
-        presenter.loadScreeningTime(dateSpinner.selectedItem.toString(), LocalDateTime.now())
+    override fun showMovieDetail(movie: UiModel.MovieUiModel) {
+        with(movie) {
+            initTitleView(title)
+            initPosterView(imgName)
+            initReleaseDateView(releaseStartDate, releaseEndDate)
+            initRunningTimeView(runningTime)
+            presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDateTime.now())
+            presenter.loadScreeningTime(dateSpinner.selectedItem.toString(), LocalDateTime.now())
+        }
     }
 
     override fun showPeopleCount(count: Int) {
@@ -145,10 +143,9 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         movieTitleTextView.text = title
     }
 
-    private fun initPosterView(posterId: Int?) {
+    private fun initPosterView(imgName: String) {
         val moviePosterView = findViewById<ImageView>(R.id.img_movie_poster)
-        val resource = posterId ?: R.drawable.movie_place_holder
-        moviePosterView.setImageResource(resource)
+        moviePosterView.setImageResource(imgName.toDrawableResourceId(this@BookingActivity))
     }
 
     private fun initReleaseDateView(
