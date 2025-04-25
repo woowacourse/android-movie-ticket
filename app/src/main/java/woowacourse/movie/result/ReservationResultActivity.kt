@@ -43,14 +43,18 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
         val ticketCount = findViewById<TextView>(R.id.tv_ticket_count)
-        val totalPrice = findViewById<TextView>(R.id.tv_total_price)
 
         val formattedScreeningDate = formatting(reservation.reservedTime)
 
         title.text = reservation.movie.title
         screeningDate.text = formattedScreeningDate
         ticketCount.text = getString(R.string.formatted_ticket_count).format(reservation.count)
-        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(reservation.totalPrice()))
+    }
+
+    override fun bindTotalPrice(price: Int) {
+        val totalPrice = findViewById<TextView>(R.id.tv_total_price)
+
+        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(price))
     }
 
     private fun formatting(reservedDateTime: LocalDateTime): String {

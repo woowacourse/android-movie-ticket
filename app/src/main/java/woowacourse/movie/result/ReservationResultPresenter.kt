@@ -13,5 +13,6 @@ class ReservationResultPresenter(
 
     override fun showReservation() {
         view.bindReservation(reservation)
+        view.bindTotalPrice(reservation.points.totalPrice())
     }
 }
