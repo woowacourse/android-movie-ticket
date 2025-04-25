@@ -12,6 +12,6 @@ class ReservationResultPresenter(
             return
         }
 
-        view.showInvalidReservationInfoDialog()
+        view.notifyInvalidReservationInfo()
     }
 }

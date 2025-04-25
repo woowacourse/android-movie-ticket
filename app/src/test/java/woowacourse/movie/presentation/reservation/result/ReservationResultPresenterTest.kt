@@ -49,10 +49,10 @@ class ReservationResultPresenterTest {
 
     @Test
     fun `예매 정보를 불러오지 못한 경우 다이얼로그를 보여준다`() {
-        every { view.showInvalidReservationInfoDialog() } just Runs
+        every { view.notifyInvalidReservationInfo() } just Runs
 
         presenter.fetchDate { null }
 
-        verify { view.showInvalidReservationInfoDialog() }
+        verify { view.notifyInvalidReservationInfo() }
     }
 }

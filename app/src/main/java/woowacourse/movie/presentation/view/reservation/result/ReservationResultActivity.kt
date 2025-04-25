@@ -55,7 +55,7 @@ class ReservationResultActivity :
         views.bindReservationResult(ticketBundle, cancellationTime)
     }
 
-    override fun showInvalidReservationInfoDialog() {
+    override fun notifyInvalidReservationInfo() {
         views.dialog.show(invalidReservationDialogInfo)
     }
 
