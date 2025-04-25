@@ -63,6 +63,17 @@ class SeatSelectPresenter(
         view.showReservationDialog(title, message)
     }
 
+    fun getSelectedSeatIds(): List<String> = selectedSeats.labels()
+
+    fun restoreSelectedSeats(ids: List<String>) {
+        for (id in ids) {
+            selectedSeats.add(id)
+            view.updateSeatSelected(id)
+        }
+        view.updateTotalPrice(selectedSeats.totalPrice)
+        view.updateConfirmButtonState(selectedSeats.size == movieTicket.count)
+    }
+
     private fun getMovieTicketData(intent: Intent): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
 
     companion object {

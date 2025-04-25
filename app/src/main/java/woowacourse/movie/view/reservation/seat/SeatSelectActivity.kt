@@ -26,6 +26,7 @@ class SeatSelectActivity :
     private val priceTextView: TextView by lazy { findViewById(R.id.tv_seat_select_total_price) }
     private val confirmButton: TextView by lazy { findViewById(R.id.tv_seat_select_confirm) }
     private val tl: TableLayout by lazy { findViewById(R.id.tl_seat) }
+    private val seatViews: MutableMap<String, TextView> = mutableMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +39,13 @@ class SeatSelectActivity :
         }
 
         setupSeatView(tl)
-        setupConfirmButton()
         presenter.fetchData(this.intent)
+        val savedSeatIds = savedInstanceState?.getStringArrayList("selectedSeats")
+        if (savedSeatIds != null) {
+            presenter.restoreSelectedSeats(savedSeatIds)
+        }
+
+        setupConfirmButton()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -66,13 +72,11 @@ class SeatSelectActivity :
     }
 
     override fun updateSeatSelected(seatId: String) {
-        val seatView = findSeatView(seatId)
-        seatView?.setBackgroundResource(R.color.yellow)
+        seatViews[seatId]?.setBackgroundResource(R.color.yellow)
     }
 
     override fun updateSeatDeselected(seatId: String) {
-        val seatView = findSeatView(seatId)
-        seatView?.setBackgroundResource(R.color.white)
+        seatViews[seatId]?.setBackgroundResource(R.color.white)
     }
 
     private fun findSeatView(seatId: String): TextView? {
@@ -133,6 +137,7 @@ class SeatSelectActivity :
                     if (seatView is TextView) {
                         val seatId = seatView.text.toString()
                         seatView.tag = seatId
+                        seatViews[seatId] = seatView
                         seatView.setOnClickListener {
                             presenter.onSeatClicked(seatId)
                         }
@@ -153,6 +158,14 @@ class SeatSelectActivity :
                 )
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putStringArrayList(
+            Extras.SeatsData.SEATS_KEY,
+            ArrayList(presenter.getSelectedSeatIds()),
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
