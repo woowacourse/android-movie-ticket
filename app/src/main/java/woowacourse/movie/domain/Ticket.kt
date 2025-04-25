@@ -15,9 +15,11 @@ data class Ticket(
 
     fun isMinimumCount(): Boolean = count == MINIMUM_TICKET_COUNT
 
-    fun contains(seat: Seat): Boolean = seats.contains(seat)
+    fun isSeatsAllSelected(): Boolean = count == seats.size()
 
     fun totalPrice(): Int = seats.totalPrice()
+
+    fun contains(seat: Seat): Boolean = seats.contains(seat)
 
     companion object {
         private const val MINIMUM_TICKET_COUNT = 1

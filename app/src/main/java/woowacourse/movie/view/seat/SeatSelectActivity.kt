@@ -52,6 +52,21 @@ class SeatSelectActivity :
         findViewById<TextView>(R.id.total_price).text = getString(R.string.total_price, price)
     }
 
+    override fun showConfirmAlertDialog() {
+        AlertDialog
+            .Builder(this)
+            .setTitle(R.string.confirm_reservation)
+            .setMessage(R.string.confirm_reservation_message)
+            .setPositiveButton(R.string.complete_reservation) { _, _ -> presenter.completeReservation() }
+            .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
+            .setCancelable(false)
+            .show()
+    }
+
+    override fun showSelectToast() {
+        Toast.makeText(this, R.string.select_seat, Toast.LENGTH_SHORT).show()
+    }
+
     override fun updateSeatSelection(
         position: Position,
         isSelected: Boolean,
@@ -109,24 +124,10 @@ class SeatSelectActivity :
     }
 
     private fun initConfirmButton() {
-        val alertDialog =
-            AlertDialog
-                .Builder(this)
-                .setTitle(R.string.confirm_reservation)
-                .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.complete_reservation) { _, _ -> presenter.completeReservation() }
-                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-                .setCancelable(false)
-
-        confirmButton.setOnClickListener {
-            // TODO: 선택된 좌석의 수가 티켓의 수와 같은지 확인
-            if (true) {
-                alertDialog.show()
-            } else {
-                Toast.makeText(this, R.string.select_seat, Toast.LENGTH_SHORT).show()
-            }
-        }
         confirmButton.isEnabled = false
+        confirmButton.setOnClickListener {
+            presenter.onClickConfirmButton()
+        }
     }
 
     companion object {

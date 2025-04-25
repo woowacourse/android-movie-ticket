@@ -11,6 +11,8 @@ class Seats(
 
     operator fun minus(seat: Seat): Seats = Seats(seats - seat)
 
+    fun size(): Int = seats.size
+
     fun contains(seat: Seat): Boolean = seats.contains(seat)
 
     fun isEmpty(): Boolean = seats.isEmpty()

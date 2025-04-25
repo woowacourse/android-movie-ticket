@@ -30,6 +30,14 @@ class SeatSelectPresenter(
         view.showTotalPrice(ticket.toDomain().totalPrice())
     }
 
+    override fun onClickConfirmButton() {
+        if (ticket.toDomain().isSeatsAllSelected()) {
+            view.showConfirmAlertDialog()
+        } else {
+            view.showSelectToast()
+        }
+    }
+
     override fun completeReservation() {
         view.navigateToCompleteScreen(ticket)
     }

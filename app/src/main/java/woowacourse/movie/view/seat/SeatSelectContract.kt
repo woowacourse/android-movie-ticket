@@ -10,6 +10,10 @@ interface SeatSelectContract {
 
         fun showTotalPrice(price: Int)
 
+        fun showConfirmAlertDialog()
+
+        fun showSelectToast()
+
         fun updateSeatSelection(
             position: Position,
             isSelected: Boolean,
@@ -24,6 +28,8 @@ interface SeatSelectContract {
         fun loadSeatSelectScreen()
 
         fun onClickSeat(position: Position)
+
+        fun onClickConfirmButton()
 
         fun completeReservation()
     }
