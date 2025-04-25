@@ -1,7 +1,17 @@
 package woowacourse.movie.feature.bookingcomplete.contract
 
-interface BookingCompleteContract {
-    interface View
+import woowacourse.movie.feature.model.BookingInfoUiModel
 
-    interface Presenter
+interface BookingCompleteContract {
+    interface View {
+        fun showBookingResult(bookingInfo: BookingInfoUiModel)
+
+        fun navigateToBack()
+    }
+
+    interface Presenter {
+        fun onCreateView(bookingInfo: BookingInfoUiModel)
+
+        fun onBackButtonClicked()
+    }
 }

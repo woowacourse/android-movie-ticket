@@ -12,37 +12,44 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.feature.bookingcomplete.contract.BookingCompleteContract
+import woowacourse.movie.feature.bookingcomplete.presenter.BookingCompletePresenter
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.util.getExtra
 
 class BookingCompleteActivity :
     AppCompatActivity(),
     BookingCompleteContract.View {
-    private val bookingInfoUiModel: BookingInfoUiModel by lazy { intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel() }
+    private val presenter: BookingCompleteContract.Presenter by lazy { BookingCompletePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setupView()
+        presenter.onCreateView(bookingInfo = intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel())
+    }
 
-        val ticketTotalPrice = DecimalFormat("#,###").format(bookingInfoUiModel.totalPrice)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
+        return super.onOptionsItemSelected(item)
+    }
 
-        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfoUiModel.movie.title
+    override fun showBookingResult(bookingInfo: BookingInfoUiModel) {
+        val ticketTotalPrice = DecimalFormat("#,###").format(bookingInfo.totalPrice)
+
+        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = bookingInfo.movie.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
             getString(
                 R.string.booking_complete_movie_date_time,
-                bookingInfoUiModel.date.toString(),
-                bookingInfoUiModel.movieTime.toString(),
+                bookingInfo.date.toString(),
+                bookingInfo.movieTime.toString(),
             )
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
-            getString(R.string.booking_complete_ticket_count, bookingInfoUiModel.ticketCount)
+            getString(R.string.booking_complete_ticket_count, bookingInfo.ticketCount)
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
             getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) finish()
-        return super.onOptionsItemSelected(item)
+    override fun navigateToBack() {
+        finish()
     }
 
     private fun setupView() {
@@ -57,7 +64,7 @@ class BookingCompleteActivity :
     }
 
     companion object {
-        const val BOOKING_INFO_KEY = "booking_info"
+        const val BOOKING_INFO_KEY = "BOOKING_INFO"
 
         fun newIntent(
             context: Context,
