@@ -21,6 +21,7 @@ class SeatSelectPresenter(
                 ticket.copy(seats = ticket.seats + seat)
             }
         view.updateSeatSelection(position, ticket.toDomain().contains(seat))
+        view.updateConfirmButton(ticket.seats.isEmpty().not())
     }
 
     override fun completeReservation() {

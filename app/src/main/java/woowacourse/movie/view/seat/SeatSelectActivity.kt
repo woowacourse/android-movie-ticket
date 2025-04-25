@@ -28,6 +28,7 @@ class SeatSelectActivity :
     private lateinit var presenter: SeatSelectPresenter
 
     private val seatTable: TableLayout by lazy { findViewById(R.id.seat_table) }
+    private val confirmButton: Button by lazy { findViewById(R.id.confirm_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,10 @@ class SeatSelectActivity :
     ) {
         val seatTextView = seatTable.findViewWithTag<TextView>(position)
         seatTextView.setBackgroundResource(if (isSelected) R.color.yellow else R.color.white)
+    }
+
+    override fun updateConfirmButton(isEnabled: Boolean) {
+        confirmButton.isEnabled = isEnabled
     }
 
     override fun navigateToCompleteScreen(ticket: TicketUiModel) {
@@ -99,7 +104,6 @@ class SeatSelectActivity :
                 .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
                 .setCancelable(false)
 
-        val confirmButton: Button = findViewById(R.id.confirm_button)
         confirmButton.setOnClickListener {
             // TODO: 선택된 좌석이 있는지 확인
             if (true) {
@@ -108,6 +112,7 @@ class SeatSelectActivity :
                 Toast.makeText(this, R.string.select_seat, Toast.LENGTH_SHORT).show()
             }
         }
+        confirmButton.isEnabled = false
     }
 
     companion object {

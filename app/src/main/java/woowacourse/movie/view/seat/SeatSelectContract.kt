@@ -10,6 +10,8 @@ interface SeatSelectContract {
             isSelected: Boolean,
         )
 
+        fun updateConfirmButton(isEnabled: Boolean)
+
         fun navigateToCompleteScreen(ticket: TicketUiModel)
     }
 
