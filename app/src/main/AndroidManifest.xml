@@ -21,7 +21,7 @@
             android:name=".bookingResult.BookingResultActivity"
             android:exported="false" />
         <activity
-            android:name=".movieList.MainActivity"
+            android:name=".movieList.MovieListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
