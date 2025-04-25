@@ -47,12 +47,12 @@ class MovieReservationCompleteActivityTest {
     @Test
     @DisplayName("예매한 인원수가 표시된다")
     fun displayReservedTicketCountTest() {
-        onView(withId(R.id.ticket_count)).check(matches(withText("일반 2명")))
+        onView(withId(R.id.ticket_info)).check(matches(withText("일반 2명 | B3, D2")))
     }
 
     @Test
     @DisplayName("예매한 총 금액이 표시된다")
     fun displayReservedTotalPriceTest() {
-        onView(withId(R.id.total_price)).check(matches(withText("25,000원")))
+        onView(withId(R.id.total_price)).check(matches(withText("25,000원 (현장 결제)")))
     }
 }

@@ -103,7 +103,7 @@ class SeatSelectActivity :
             row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, seatTextView ->
                 val seat = SeatUiModel(rowIdx, colIdx)
                 seatTextView.tag = seat
-                seatTextView.text = "${'A' + rowIdx}${colIdx + 1}"
+                seatTextView.text = seat.toString()
                 seatTextView.setTextColor(ContextCompat.getColor(this, seat.colorResId))
                 seatTextView.setOnClickListener {
                     presenter.onClickSeat(seat)

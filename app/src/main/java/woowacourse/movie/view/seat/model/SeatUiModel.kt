@@ -17,4 +17,6 @@ data class SeatUiModel(
             SeatGrade.A -> R.color.blue
             SeatGrade.B -> R.color.purple
         }
+
+    override fun toString(): String = "${'A' + row}${col + 1}"
 }

@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.reservation.model.TicketUiModel
+import woowacourse.movie.view.seat.model.toUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
@@ -38,12 +39,18 @@ class MovieReservationCompleteActivity :
     override fun showTicketInfo(ticket: TicketUiModel) {
         findViewById<TextView>(R.id.movie_title).text = ticket.movie.title
         findViewById<TextView>(R.id.showtime).text = ticket.showtime.format(DATE_FORMAT)
-        findViewById<TextView>(R.id.ticket_count).text =
-            getString(R.string.ticket_count, ticket.count)
+        findViewById<TextView>(R.id.ticket_info).text =
+            getString(
+                R.string.ticket_info,
+                ticket.count,
+                ticket.seats.seats
+                    .map { it.toUiModel() }
+                    .joinToString(),
+            )
     }
 
     override fun showTotalPrice(totalPrice: Int) {
-        findViewById<TextView>(R.id.total_price).text = getString(R.string.total_price, totalPrice)
+        findViewById<TextView>(R.id.total_price).text = getString(R.string.result_price, totalPrice)
     }
 
     companion object {

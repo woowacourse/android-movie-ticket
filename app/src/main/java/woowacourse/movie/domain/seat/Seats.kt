@@ -5,17 +5,18 @@ import java.io.Serializable
 class Seats(
     seats: Set<Seat> = emptySet(),
 ) : Serializable {
-    private val seats = seats.toMutableSet()
+    private val _seats = seats.toMutableSet()
+    val seats get() = _seats.toSet()
 
-    operator fun plus(seat: Seat): Seats = Seats(seats + seat)
+    operator fun plus(seat: Seat): Seats = Seats(_seats + seat)
 
-    operator fun minus(seat: Seat): Seats = Seats(seats - seat)
+    operator fun minus(seat: Seat): Seats = Seats(_seats - seat)
 
-    fun size(): Int = seats.size
+    fun size(): Int = _seats.size
 
-    fun contains(seat: Seat): Boolean = seats.contains(seat)
+    fun contains(seat: Seat): Boolean = _seats.contains(seat)
 
-    fun isEmpty(): Boolean = seats.isEmpty()
+    fun isEmpty(): Boolean = _seats.isEmpty()
 
-    fun totalPrice(): Int = seats.sumOf { it.price }
+    fun totalPrice(): Int = _seats.sumOf { it.price }
 }
