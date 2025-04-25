@@ -12,17 +12,16 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
+import woowacourse.movie.SeatActivity
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.ext.getSerializableCompat
-import woowacourse.movie.result.ReservationResultActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -158,23 +157,9 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         }
 
         selectBtn.setOnClickListener {
-            showSelectDialog()
+            val intent = SeatActivity.newIntent(this, presenter.reservation)
+            startActivity(intent)
         }
-    }
-
-    private fun showSelectDialog() {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.reserve_dialog_title))
-            .setMessage(getString(R.string.reserve_dialog_message))
-            .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
-                val intent = ReservationResultActivity.newIntent(this, presenter.reservation)
-                startActivity(intent)
-            }
-            .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setCancelable(false)
-            .show()
     }
 
     override fun updateTicketCount(count: String) {

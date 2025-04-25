@@ -1,10 +1,13 @@
 package woowacourse.movie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.domain.Reservation
 
 class SeatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +19,15 @@ class SeatActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    companion object {
+        fun newIntent(
+            context: Context,
+            reservation: Reservation,
+        ): Intent =
+            Intent(context, SeatActivity::class.java).apply {
+                putExtra(KeyIdentifiers.KEY_RESERVATION, reservation)
+            }
     }
 }
