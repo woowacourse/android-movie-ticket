@@ -290,6 +290,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/ll_movie_info"
         android:background="@color/gray"
+        android:enabled="false"
         android:text="@string/seat_select"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -80,10 +80,10 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     private fun updateButtonState() {
         if (presenter.canClickButton()) {
             selectButton.setBackgroundColor(getColor(R.color.purple_500))
-            selectButton.isClickable = true
+            selectButton.isEnabled = true
         } else {
             selectButton.setBackgroundColor(getColor(R.color.gray))
-            selectButton.isClickable = false
+            selectButton.isEnabled = false
         }
     }
 
