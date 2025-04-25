@@ -13,6 +13,7 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
+import woowacourse.movie.ui.view.booking.BookingActivity
 import woowacourse.movie.util.mapper.MovieModelMapper
 
 class MovieActivity : AppCompatActivity() {
@@ -23,7 +24,13 @@ class MovieActivity : AppCompatActivity() {
         applySystemBarInsets()
 
         val movies: List<MovieUiModel> = loadMoviesOrNull() ?: mockMovies()
-        val movieAdapter = MovieAdapter(movieList = validatedMovies(movies))
+        val movieAdapter =
+            MovieAdapter(
+                movieList = validatedMovies(movies),
+                onSelectMovieListener = { movieUiModel ->
+                    startActivity(BookingActivity.newIntent(this, movieUiModel))
+                },
+            )
         val listView = findViewById<ListView>(R.id.listview_layout)
 
         listView.adapter = movieAdapter
