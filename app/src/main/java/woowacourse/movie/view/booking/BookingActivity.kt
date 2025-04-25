@@ -1,7 +1,6 @@
 package woowacourse.movie.view.booking
 
 import AdapterItemSelectedListener
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -21,6 +20,7 @@ import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import woowacourse.movie.view.movies.model.UiModel
+import woowacourse.movie.view.seat.SeatActivity
 import java.time.LocalDateTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
@@ -61,6 +61,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     override fun showMovieDetail(movie: UiModel.MovieUiModel) {
         with(movie) {
             initTitleView(title)
+            initPosterView(imgName)
             initPosterView(imgName)
             initReleaseDateView(releaseStartDate, releaseEndDate)
             initRunningTimeView(runningTime)
@@ -127,7 +128,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
     override fun moveToBookingComplete(booking: Booking) {
         val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
+            Intent(this, SeatActivity::class.java).apply {
                 putExtra(KEY_BOOKING, booking)
             }
         startActivity(intent)
@@ -177,28 +178,8 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         decreaseBtn.setOnClickListener { onClickDecrease() }
 
         bookingBtn.setOnClickListener {
-            showDialog(
-                getString(R.string.text_booking_dialog_title),
-                getString(R.string.text_booking_dialog_description),
-            )
+            onClickBooking()
         }
-    }
-
-    private fun showDialog(
-        title: String,
-        description: String,
-    ) {
-        AlertDialog.Builder(this)
-            .setTitle(title)
-            .setMessage(description)
-            .setPositiveButton(R.string.text_booking_dialog_positive_button) { _, _ ->
-                onClickBooking()
-            }
-            .setNegativeButton(R.string.text_booking_dialog_negative_button) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setCancelable(false)
-            .show()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <TextView
+        android:id="@+id/screenLabel"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="#444444"
+        android:gravity="center"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/text_screen"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TableLayout
+        android:id="@+id/seatTable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:gravity="center"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/footer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/screenLabel">
+
+        <TableRow>
+            <TextView
+                android:id="@+id/a1"
+                style="@style/SeatPurple"
+                android:text="A1" />
+            <TextView
+                android:id="@+id/a2"
+                style="@style/SeatPurple"
+                android:text="A2" />
+            <TextView
+                android:id="@+id/a3"
+                style="@style/SeatPurple"
+                android:text="A3" />
+
+            <TextView
+                android:id="@+id/a4"
+                style="@style/SeatPurple"
+                android:text="A4" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/b1"
+                style="@style/SeatPurple"
+                android:text="B1" />
+            <TextView
+                android:id="@+id/b2"
+                style="@style/SeatPurple"
+                android:text="B2" />
+            <TextView
+                android:id="@+id/b3"
+                style="@style/SeatPurple"
+                android:text="B3" />
+            <TextView
+                android:id="@+id/b4"
+                style="@style/SeatPurple"
+                android:text="B4" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/c1"
+                style="@style/SeatGreen"
+                android:text="C1" />
+            <TextView
+                android:id="@+id/c2"
+                style="@style/SeatGreen"
+                android:text="C2" />
+            <TextView
+                android:id="@+id/c3"
+                style="@style/SeatGreen"
+                android:text="C3" />
+            <TextView
+                android:id="@+id/c4"
+                style="@style/SeatGreen"
+                android:text="C4" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/d1"
+                style="@style/SeatGreen"
+                android:text="D1" />
+            <TextView
+                android:id="@+id/d2"
+                style="@style/SeatGreen"
+                android:text="D2" />
+            <TextView
+                android:id="@+id/d3"
+                style="@style/SeatGreen"
+                android:text="D3" />
+            <TextView
+                android:id="@+id/d4"
+                style="@style/SeatGreen"
+                android:text="D4" />
+        </TableRow>
+
+        <TableRow>
+            <TextView
+                android:id="@+id/e1"
+                style="@style/SeatBlue"
+                android:text="E1" />
+            <TextView
+                android:id="@+id/e2"
+                style="@style/SeatBlue"
+                android:text="E2" />
+            <TextView
+                android:id="@+id/e3"
+                style="@style/SeatBlue"
+                android:text="E3" />
+            <TextView
+                android:id="@+id/e4"
+                style="@style/SeatBlue"
+                android:text="E4" />
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="#E4E4E4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="해리 포터와 마법사의 돌"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                tools:text="12000원"
+                android:textColor="#4E4E4E" />
+        </LinearLayout>
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="@string/text_complete"
+            android:textSize="20sp"
+            android:backgroundTint="#AAAAAA"
+            android:textColor="#FFFFFF" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
