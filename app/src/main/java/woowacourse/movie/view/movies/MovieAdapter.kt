@@ -10,7 +10,7 @@ import woowacourse.movie.model.Movie
 
 class MovieAdapter(
     private val context: Context,
-    private val movies: List<Movie>,
+    private val movies: MutableList<Movie>,
     private val movieClickListener: MovieClickListener,
 ) : BaseAdapter() {
     private lateinit var movieViewHolder: MovieViewHolder
@@ -41,5 +41,11 @@ class MovieAdapter(
         movieViewHolder.bind(movies[position])
 
         return view
+    }
+
+    fun updateMovies(newMovies: List<Movie>) {
+        movies.clear()
+        movies.addAll(newMovies)
+        notifyDataSetChanged()
     }
 }

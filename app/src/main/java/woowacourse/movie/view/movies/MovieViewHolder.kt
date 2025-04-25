@@ -54,7 +54,7 @@ class MovieViewHolder(
 
     private fun setupButtonClick(item: Movie) {
         button.setOnClickListener {
-            movieClickListener.onReservationClick(item)
+            movieClickListener.onReservationClick(item.id)
         }
     }
 }

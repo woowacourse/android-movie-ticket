@@ -8,9 +8,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.presenter.movies.MoviesContracts
+import woowacourse.movie.presenter.movies.MoviesPresenter
 import woowacourse.movie.view.reservation.ReservationActivity
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity :
+    AppCompatActivity(),
+    MoviesContracts.View {
+    private val presenter: MoviesContracts.Presenter = MoviesPresenter(this)
+    private lateinit var movieAdapter: MovieAdapter
+    private val movieListView by lazy { findViewById<ListView>(R.id.lv_main_movies) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,25 +29,28 @@ class MoviesActivity : AppCompatActivity() {
             insets
         }
 
-        setupMovieAdapter()
+        presenter.initView()
     }
 
-    private fun setupMovieAdapter() {
-        val movieListView = findViewById<ListView>(R.id.lv_main_movies)
-        movieListView.adapter =
-            MovieAdapter(
-                context = this,
-                movies = Movie.values,
-                movieClickListener =
-                    object : MovieClickListener {
-                        override fun onReservationClick(movie: Movie) {
-                            navigateToReservation(movie)
-                        }
-                    },
-            )
+    override fun showMovies(movies: List<Movie>) {
+        if (::movieAdapter.isInitialized.not()) {
+            movieAdapter =
+                MovieAdapter(
+                    context = this,
+                    movies = mutableListOf(),
+                    movieClickListener =
+                        object : MovieClickListener {
+                            override fun onReservationClick(movieId: Long) {
+                                presenter.createMovie(movieId)
+                            }
+                        },
+                )
+            movieListView.adapter = movieAdapter
+        }
+        movieAdapter.updateMovies(movies)
     }
 
-    private fun navigateToReservation(movie: Movie) {
+    override fun showReservationView(movie: Movie) {
         startActivity(ReservationActivity.getIntent(this, movie))
     }
 }
