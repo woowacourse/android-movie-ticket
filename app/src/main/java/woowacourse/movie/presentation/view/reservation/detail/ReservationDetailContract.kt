@@ -45,8 +45,6 @@ interface ReservationDetailContract {
 
         fun notifyNoAvailableDates()
 
-        fun notifyReservationConfirm()
-
-        fun navigateToResult(reservationInfo: ReservationInfoUiModel)
+        fun notifyReservationConfirm(reservationInfo: ReservationInfoUiModel)
     }
 }

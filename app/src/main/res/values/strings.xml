@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">Movie</string>
+
+    <!-- 기본 메시지 -->
+    <string name="default_error_message">문제가 발생 했습니다</string>
+
+
     <string name="movie_poster">movie poster</string>
 
     <string name="movie_date">상영일: %s ~ %s</string>
@@ -29,6 +34,11 @@
     <string name="invalid_reservation_dialog_positive">뒤로가기</string>
 
     <string name="reservation_result_cancel_time_description">영화 상영 시작 시간 %d분 전까지\n취소가 가능합니다.</string>
+
+    <!-- Select Seats -->
+    <string name="reservation_select_seats_screen">SCREEN</string>
+    <string name="reservation_select_seats_confirm">확인</string>
+    <string name="reservation_select_total_price_format">%,d원</string>
 
     <!--  DateTime Format  -->
     <string name="movie_screening_period_format">yyyy.M.d</string>

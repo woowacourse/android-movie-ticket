@@ -8,7 +8,7 @@ import io.mockk.verify
 import io.mockk.verifySequence
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.ScreeningPeriod
+import woowacourse.movie.domain.model.movie.ScreeningPeriod
 import woowacourse.movie.presentation.fixture.dummyMovie
 import woowacourse.movie.presentation.model.toUiModel
 import woowacourse.movie.presentation.view.reservation.detail.ReservationDetailContract
@@ -73,13 +73,13 @@ class ReservationDetailPresenterTest {
         every { view.setScreen(any()) } just Runs
         every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
-        every { view.navigateToResult(any()) } just Runs
+        every { view.navigateToSeat(any()) } just Runs
 
         presenter.fetchData(3) { dummyMovie.toUiModel() }
         presenter.onReserve(now)
 
         verify {
-            view.navigateToResult(
+            view.navigateToSeat(
                 withArg {
                     assert(it.title == dummyMovie.title)
                     assert(it.reservationDateTime == now)

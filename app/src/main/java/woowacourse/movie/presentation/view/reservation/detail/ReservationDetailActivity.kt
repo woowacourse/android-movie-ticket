@@ -11,7 +11,7 @@ import woowacourse.movie.presentation.extension.toDateTimeFormatter
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
 import woowacourse.movie.presentation.util.DialogInfo
-import woowacourse.movie.presentation.view.reservation.result.ReservationResultActivity
+import woowacourse.movie.presentation.view.reservation.seat.ReservationSeatActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -35,16 +35,16 @@ class ReservationDetailActivity :
         )
     }
 
-    private val reservationConfirmationDialogInfo: DialogInfo by lazy {
-        DialogInfo(
-            title = getString(R.string.reservation_dialog_title),
-            message = getString(R.string.reservation_dialog_message),
-            positiveButtonText = getString(R.string.reservation_dialog_positive),
-            negativeButtonText = getString(R.string.reservation_dialog_negative),
-            onClickPositiveButton = { submitReservation() },
-            onClickNegativeButton = { it.dismiss() },
-        )
-    }
+//    private val reservationConfirmationDialogInfo: DialogInfo by lazy {
+//        DialogInfo(
+//            title = getString(R.string.reservation_dialog_title),
+//            message = getString(R.string.reservation_dialog_message),
+//            positiveButtonText = getString(R.string.reservation_dialog_positive),
+//            negativeButtonText = getString(R.string.reservation_dialog_negative),
+//            onClickPositiveButton = { submitReservation() },
+//            onClickNegativeButton = { it.dismiss() },
+//        )
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,17 +86,13 @@ class ReservationDetailActivity :
         setupFinishButton()
     }
 
-    override fun navigateToResult(reservationInfo: ReservationInfoUiModel) {
-        val intent = ReservationResultActivity.newIntent(this, reservationInfo)
-        startActivity(intent)
-    }
-
     override fun notifyNoAvailableDates() {
         views.dialog.show(noAvailableTimesDialogInfo)
     }
 
-    override fun notifyReservationConfirm() {
-        views.dialog.show(reservationConfirmationDialogInfo)
+    override fun notifyReservationConfirm(reservationInfo: ReservationInfoUiModel) {
+        val intent = ReservationSeatActivity.newIntent(this, reservationInfo)
+        startActivity(intent)
     }
 
     override fun updateDates(
@@ -130,7 +126,13 @@ class ReservationDetailActivity :
 
     private fun setupFinishButton() {
         views.setOnFinishClickListener {
-            views.dialog.show(reservationConfirmationDialogInfo)
+            val (date, time) = views.selectedSpinnerDateAndTime()
+            if (date == null || time == null) {
+                showToast(getString(R.string.invalid_reservation_datetime_message))
+                return@setOnFinishClickListener
+            }
+
+            presenter.onReserve(LocalDateTime.of(date, time))
         }
     }
 
@@ -142,16 +144,6 @@ class ReservationDetailActivity :
                 shouldIgnoreNextSelection = false
             },
         )
-    }
-
-    private fun submitReservation() {
-        val (date, time) = views.selectedSpinnerDateAndTime()
-        if (date == null || time == null) {
-            showToast(getString(R.string.invalid_reservation_datetime_message))
-            return
-        }
-
-        presenter.onReserve(LocalDateTime.of(date, time))
     }
 
     private fun saveSpinnersData(outState: Bundle) {

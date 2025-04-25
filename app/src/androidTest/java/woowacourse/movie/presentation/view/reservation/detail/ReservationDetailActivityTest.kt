@@ -13,10 +13,10 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Poster
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningPeriod
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.Poster
+import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.ScreeningPeriod
 import woowacourse.movie.presentation.fixture.fakeContext
 import woowacourse.movie.presentation.model.toUiModel
 import java.time.LocalDate

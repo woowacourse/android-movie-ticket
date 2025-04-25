@@ -1,8 +1,8 @@
 package woowacourse.movie.presentation.view.reservation.detail
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationCount
-import woowacourse.movie.domain.model.ReservationInfo
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.reservation.ReservationCount
+import woowacourse.movie.domain.model.reservation.ReservationInfo
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.model.toModel
 import woowacourse.movie.presentation.model.toUiModel
@@ -55,7 +55,8 @@ class ReservationDetailPresenter(
                 reservationDateTime = reservationDateTime,
                 reservationCount = reservationCount,
             ).toUiModel()
-        view.navigateToResult(reservationInfo)
+
+        view.notifyReservationConfirm(reservationInfo)
     }
 
     private fun setupView(dateTime: LocalDateTime?) {
