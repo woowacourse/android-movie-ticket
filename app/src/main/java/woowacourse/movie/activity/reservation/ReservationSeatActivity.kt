@@ -73,12 +73,12 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                                 totalPrice += seat.price.price
                             }
                             binding.total.text = getString(R.string.total_price_general, totalPrice)
+                            presenter.setButtonState(totalPrice)
                         }
                         tableRow.addView(a)
                     }
                 binding.table.addView(tableRow)
             }
-        presenter.setButtonState(totalPrice)
     }
 
     companion object {

@@ -8,7 +8,7 @@ import woowacourse.movie.activity.reservation.ReservationSeatContract
 import woowacourse.movie.activity.reservation.ReservationSeatPresenter
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimeRuleImpl
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.SeatsFactoryImpl
 import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
@@ -28,7 +28,7 @@ object ServiceLocator {
     val now: LocalDateTime = LocalDateTime.of(2025, 4, 3, 14, 0, 0)
     val runningTimeRule = RunningTimeRuleImpl()
 
-    val seats = Seat.allCombinations()
+    val seats = SeatsFactoryImpl().get()
 
     fun mainPresenter(view: MainContract.View): MainContract.Presenter = MainPresenter(view)
 
