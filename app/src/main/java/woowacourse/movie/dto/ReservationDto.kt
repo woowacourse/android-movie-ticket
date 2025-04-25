@@ -21,7 +21,7 @@ data class ReservationDto(
                 isBooked = bookingStatus.isBooked,
                 memberCount = bookingStatus.memberCount.value,
                 bookedTime = bookingStatus.bookedTime,
-                totalPrice = PriceRule.NORMAL.price(bookingStatus.memberCount),
+                totalPrice = PriceRule.RANK_A.price(bookingStatus.memberCount),
             )
         }
     }

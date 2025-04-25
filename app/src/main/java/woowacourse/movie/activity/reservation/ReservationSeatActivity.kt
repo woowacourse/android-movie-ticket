@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -11,11 +13,15 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatBinding
 import woowacourse.movie.dto.ReservationDto
+import woowacourse.movie.dto.SeatDto
+import woowacourse.movie.global.ServiceLocator
 
-class ReservationSeatActivity : AppCompatActivity() {
+class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val binding: ActivitySeatBinding by lazy {
         ActivitySeatBinding.inflate(layoutInflater)
     }
+
+    private var totalPrice = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,6 +32,47 @@ class ReservationSeatActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        val presenter = ServiceLocator.reservationSeatPresenter(this)
+        presenter.initSeatTable()
+    }
+
+    override fun initSeatTable(seats: List<SeatDto>) {
+        seats
+            .sortedBy { it.row }
+            .map { it.row }
+            .distinct()
+            .forEach { row ->
+                val tableRow = layoutInflater.inflate(R.layout.seat_table_row, binding.root, false) as TableRow
+                seats.filter { it.row == row }
+                    .forEach { seat ->
+                        val a = layoutInflater.inflate(R.layout.seat_item, tableRow, false) as TextView
+                        a.text = seat.location
+                        if (seat.price.tag == "RANK_A") {
+                            a.setTextColor(getColor(R.color.seat_rank_a))
+                        } else if (seat.price.tag == "RANK_S") {
+                            a.setTextColor(getColor(R.color.seat_rank_s))
+                        } else if (seat.price.tag == "RANK_B") {
+                            a.setTextColor(getColor(R.color.seat_rank_b))
+                        } else {
+                            a.setTextColor(getColor(R.color.gray_button_background))
+                        }
+
+                        a.setOnClickListener {
+                            if (a.isSelected) {
+                                a.isSelected = false
+                                a.setBackgroundColor(getColor(R.color.white))
+                                totalPrice -= seat.price.price
+                            } else {
+                                a.isSelected = true
+                                a.setBackgroundColor(getColor(R.color.seat_selected))
+                                totalPrice += seat.price.price
+                            }
+                        }
+                        tableRow.addView(a)
+                    }
+                binding.table.addView(tableRow)
+            }
     }
 
     companion object {

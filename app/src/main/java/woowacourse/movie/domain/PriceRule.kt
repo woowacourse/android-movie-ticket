@@ -1,7 +1,9 @@
 package woowacourse.movie.domain
 
 enum class PriceRule(val price: Int) {
-    NORMAL(13_000),
+    RANK_B(10_000),
+    RANK_S(15_000),
+    RANK_A(12_000),
     ;
 
     fun price(memberCount: MemberCount): Int {
