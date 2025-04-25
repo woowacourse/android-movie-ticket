@@ -9,6 +9,7 @@ import java.time.LocalDate
 
 val MOVIE: Movie =
     Movie(
+        1,
         "라라랜드",
         R.drawable.lalaland,
         LocalDate.of(2025, 4, 1),

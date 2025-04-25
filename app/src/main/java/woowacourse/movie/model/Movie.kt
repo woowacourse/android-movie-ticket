@@ -5,6 +5,7 @@ import java.io.Serializable
 import java.time.LocalDate
 
 data class Movie(
+    val id: Long,
     val title: String,
     val poster: Int,
     val startDate: LocalDate,
@@ -15,6 +16,7 @@ data class Movie(
         val values: List<Movie> =
             listOf(
                 Movie(
+                    1,
                     "라라랜드",
                     R.drawable.lalaland,
                     LocalDate.of(2025, 4, 1),
