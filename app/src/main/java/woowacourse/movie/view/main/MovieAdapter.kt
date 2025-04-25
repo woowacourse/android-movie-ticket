@@ -42,15 +42,15 @@ class MovieAdapter(
     ): View {
         val view: View
         val viewHolder: ViewHolder
-        if (convertView == null) {
+        if (convertView == null || convertView.getTag(R.id.tag_view_holder) !is ViewHolder) {
             view =
                 LayoutInflater
                     .from(parent?.context)
                     .inflate(R.layout.item_movie, parent, false)
             viewHolder = ViewHolder(view)
-            view.tag = viewHolder
+            view.setTag(R.id.tag_view_holder, viewHolder)
         } else {
-            viewHolder = convertView.tag as ViewHolder
+            viewHolder = convertView.getTag(R.id.tag_view_holder) as ViewHolder
             view = convertView
         }
         val screening: Screening = screenings[position]
