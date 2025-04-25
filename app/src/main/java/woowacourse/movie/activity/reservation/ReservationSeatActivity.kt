@@ -20,6 +20,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     private val binding: ActivitySeatBinding by lazy {
         ActivitySeatBinding.inflate(layoutInflater)
     }
+    private val presenter: ReservationSeatContract.Presenter = ServiceLocator.reservationSeatPresenter(this)
 
     private var totalPrice = 0
 
@@ -32,12 +33,15 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
-        val presenter = ServiceLocator.reservationSeatPresenter(this)
         presenter.initSeatTable()
     }
 
+    override fun setButtonState(state: Boolean) {
+        binding.submit.isEnabled = state
+    }
+
     override fun initSeatTable(seats: List<SeatDto>) {
+        binding.submit.isEnabled = false
         seats
             .sortedBy { it.row }
             .map { it.row }
@@ -68,11 +72,13 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                                 a.setBackgroundColor(getColor(R.color.seat_selected))
                                 totalPrice += seat.price.price
                             }
+                            binding.total.text = getString(R.string.total_price_general, totalPrice)
                         }
                         tableRow.addView(a)
                     }
                 binding.table.addView(tableRow)
             }
+        presenter.setButtonState(totalPrice)
     }
 
     companion object {
