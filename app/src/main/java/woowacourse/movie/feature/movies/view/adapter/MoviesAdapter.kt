@@ -86,6 +86,10 @@ class MoviesAdapter(
         }
     }
 
+    override fun submitList(list: List<Item?>?) {
+        if (itemCount + (list?.size ?: 0) > 10000) return else super.submitList(list)
+    }
+
     private class AdvertisementViewHolder(
         view: View,
     ) : RecyclerView.ViewHolder(view)
