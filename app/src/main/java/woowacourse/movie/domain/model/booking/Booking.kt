@@ -9,7 +9,4 @@ class Booking(
     val bookingDate: LocalDate,
     val bookingTime: LocalTime,
     val count: PeopleCount,
-    val ticketType: TicketType,
-) : Serializable {
-    val ticketPrice: Int get() = ticketType.price * count.value
-}
+) : Serializable

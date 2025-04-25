@@ -3,7 +3,6 @@ package woowacourse.movie.view.booking
 import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
-import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.movies.model.UiModel
 import java.time.LocalDateTime
 
@@ -53,7 +52,6 @@ interface BookingContract {
             bookingDate: String,
             bookingTime: String,
             peopleCount: String,
-            ticketType: TicketType,
         )
 
         fun decreasePeopleCount()

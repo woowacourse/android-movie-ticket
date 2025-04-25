@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.view.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
@@ -119,7 +118,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             bookingDate = dateSpinner.selectedItem.toString(),
             bookingTime = timeSpinner.selectedItem.toString(),
             peopleCount = peopleCountTextView.text.toString(),
-            ticketType = TicketType.GENERAL,
         )
     }
 

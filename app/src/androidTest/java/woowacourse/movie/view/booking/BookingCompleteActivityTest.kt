@@ -10,7 +10,6 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
-import woowacourse.movie.domain.model.booking.TicketType
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import java.time.LocalDate
@@ -32,7 +31,6 @@ class BookingCompleteActivityTest {
                         bookingDate = LocalDate.parse("2025-04-01"),
                         bookingTime = LocalTime.parse("12:00"),
                         count = PeopleCount(2),
-                        ticketType = TicketType.GENERAL,
                     )
                 putExtra(KEY_BOOKING, booking)
             }
