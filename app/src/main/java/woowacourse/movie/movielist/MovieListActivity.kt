@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.data.MovieFactory
 import woowacourse.movie.detailbooking.DetailBookingActivity
 import woowacourse.movie.domain.Movie
 
-class MovieListActivity : AppCompatActivity() {
+class MovieListActivity : AppCompatActivity(), MovieListContract.View {
+    private val movieListPresenter = MovieListPresenter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -21,18 +21,24 @@ class MovieListActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        movieListPresenter.updateMovies()
+    }
 
-        val movieFactory: List<Movie> = MovieFactory().getAll()
+    override fun showMovieList(movies: List<Movie>) {
         val listView: ListView = findViewById(R.id.movie_listview)
         val movieListAdapter =
             MovieListAdapter(
-                movieFactory,
+                movies,
                 object : ClickListener {
                     override fun onReserveClick(movie: Movie) {
-                        startActivity(DetailBookingActivity.newIntent(this@MovieListActivity, movie))
+                        clickedButton(movie)
                     }
                 },
             )
         listView.adapter = movieListAdapter
+    }
+
+    override fun clickedButton(movie: Movie) {
+        startActivity(DetailBookingActivity.newIntent(this@MovieListActivity, movie))
     }
 }
