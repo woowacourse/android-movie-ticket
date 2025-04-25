@@ -1,6 +1,7 @@
 package woowacourse.movie.view.seat
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,23 +17,35 @@ class SeatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_seat)
+
+        intent.getSerializable(KEY_BOOKING, Booking::class.java)?.let {
+            initView(it.title)
+        }
+    }
+
+    private fun initView(movieTitle: String) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        val booking =
-            intent.getSerializable(KEY_BOOKING, Booking::class.java)?.let {
-                initView(it.title)
-            }
-    }
-
-    private fun initView(movieTitle: String) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initMovieTitle(movieTitle)
     }
 
     private fun initMovieTitle(movieTitle: String) {
         findViewById<TextView>(R.id.tv_title).text = movieTitle
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
