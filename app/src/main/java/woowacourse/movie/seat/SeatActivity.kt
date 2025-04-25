@@ -13,7 +13,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
+import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.ext.getSerializableCompat
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
     private val presenter = SeatPresenter()
@@ -28,7 +30,12 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
             insets
         }
 
+        presenter.initReservation(getReservation())
         initSeat()
+    }
+
+    private fun getReservation(): Reservation {
+        return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
     }
 
     private fun initSeat() {
@@ -41,7 +48,23 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
                     view.tag = point
 
                     view.text = getString(R.string.seat_point).format('A' + point.x, point.y + 1)
+                    setClickListener(view, point)
                 }
+        }
+    }
+
+    private fun setClickListener(
+        view: TextView,
+        point: Point,
+    ) {
+        view.setOnClickListener {
+            if (presenter.isOccupied(point)) {
+                presenter.cancelSelection(point)
+                view.setBackgroundColor(getColor(R.color.white))
+            } else {
+                presenter.selectSeat(point)
+                view.setBackgroundColor(getColor(R.color.yellow))
+            }
         }
     }
 
