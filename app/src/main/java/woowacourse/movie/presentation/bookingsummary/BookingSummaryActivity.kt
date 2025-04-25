@@ -12,31 +12,22 @@ import woowacourse.movie.ui.util.TicketUiFormatter.formatHeadCount
 import woowacourse.movie.ui.util.intentSerializable
 import woowacourse.movie.ui.BaseActivity
 
-class BookingSummaryActivity : BaseActivity() {
+class BookingSummaryActivity : BaseActivity(), BookingSummaryContract.View {
     override val layoutRes: Int
         get() = R.layout.activity_bookingsummary
 
+    private lateinit var presenter: BookingSummaryPresenter
     private lateinit var ticket: MovieTicket
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!fetchTicketFromIntent()) return
         setupScreen(layoutRes)
-        displayBookingSummary()
+        presenter = BookingSummaryPresenter(this, ticket)
+        presenter.onViewCreated()
     }
 
-    private fun fetchTicketFromIntent(): Boolean {
-        val data = intent.intentSerializable(IntentKeys.TICKET, MovieTicket::class.java)
-        if (data == null) {
-            Toast.makeText(this, TICKET_INTENT_ERROR, Toast.LENGTH_SHORT).show()
-            finish()
-            return false
-        }
-        ticket = data
-        return true
-    }
-
-    private fun displayBookingSummary() {
+    override fun showTicket(ticket: MovieTicket) {
         val notice = findViewById<TextView>(R.id.textview_notice)
         val title = findViewById<TextView>(R.id.textview_title)
         val screeningDateTime = findViewById<TextView>(R.id.textview_screeningdatetime)
@@ -48,6 +39,17 @@ class BookingSummaryActivity : BaseActivity() {
         screeningDateTime.text = formatDateTime(ticket.screeningDateTime)
         headCount.text = formatHeadCount(getString(R.string.headCount_message), ticket.headCount)
         amount.text = formatAmount(getString(R.string.amount_message), ticket.amount)
+    }
+
+    private fun fetchTicketFromIntent(): Boolean {
+        val data = intent.intentSerializable(IntentKeys.TICKET, MovieTicket::class.java)
+        if (data == null) {
+            Toast.makeText(this, TICKET_INTENT_ERROR, Toast.LENGTH_SHORT).show()
+            finish()
+            return false
+        }
+        ticket = data
+        return true
     }
 
     companion object {
