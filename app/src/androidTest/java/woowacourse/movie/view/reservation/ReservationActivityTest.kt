@@ -19,6 +19,7 @@ import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.view.model.ResourceMapper
 import woowacourse.movie.view.model.ScreeningData
 import java.time.LocalDate
 import java.time.LocalTime
@@ -31,6 +32,7 @@ class ReservationActivityTest {
             endDate = LocalDate.of(2025, 4, 21),
             movieId = "HarryPotter1",
             runningTime = 152,
+            ResourceMapper.movieIdToPoster("HarryPotter1"),
         )
 
     @get:Rule

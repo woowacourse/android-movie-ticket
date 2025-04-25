@@ -34,16 +34,7 @@ class MainActivity : AppCompatActivity() {
         movieListView.adapter = movieAdapter
     }
 
-    private fun navigateToReservationActivity(screening: Screening) {
-        val screeningData =
-            ScreeningData(
-                title = screening.title,
-                startDate = screening.period.start,
-                endDate = screening.period.endInclusive,
-                movieId = screening.movieId,
-                runningTime = screening.runningTime,
-            )
-
+    private fun navigateToReservationActivity(screeningData: ScreeningData) {
         startActivity(ReservationActivity.newIntent(this, screeningData))
     }
 }

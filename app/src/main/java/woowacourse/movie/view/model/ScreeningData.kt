@@ -13,10 +13,11 @@ data class ScreeningData(
     val endDate: LocalDate,
     val movieId: String,
     val runningTime: Int,
+    val poster: Poster,
 ) : Parcelable {
-    fun toMovie(): Movie = Movie(title, runningTime, movieId)
+    private fun toMovie(): Movie = Movie(title, runningTime, movieId)
 
-    fun toPeriod(): ClosedRange<LocalDate> = startDate..endDate
+    private fun toPeriod(): ClosedRange<LocalDate> = startDate..endDate
 
     fun toScreening(): Screening = Screening(toMovie(), toPeriod())
 }
