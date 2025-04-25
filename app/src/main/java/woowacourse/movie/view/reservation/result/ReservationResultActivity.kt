@@ -14,10 +14,18 @@ import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_result) {
+class ReservationResultActivity :
+    BaseActivity(R.layout.activity_reservation_result),
+    ReservationResultContract.View {
+    val presenter = ReservationResultPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setupViews()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val reservationInfo = intent?.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
+        presenter.loadReservationInfo(reservationInfo)
+
         onBackPressedDispatcher.addCallback(
             this,
             object : OnBackPressedCallback(true) {
@@ -30,11 +38,6 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         )
     }
 
-    private fun setupViews() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        displayReservationResult()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> startActivity(Intent(this, MoviesActivity::class.java))
@@ -43,13 +46,16 @@ class ReservationResultActivity : BaseActivity(R.layout.activity_reservation_res
         return super.onOptionsItemSelected(item)
     }
 
-    private fun displayReservationResult() {
-        val reservationInfo = intent?.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
+    override fun showReservationResult(reservationInfo: ReservationInfo) {
+        displayReservationResult(reservationInfo)
+    }
+
+    private fun displayReservationResult(reservationInfo: ReservationInfo) {
         setupCancelDescription()
-        setupMovieTitle(reservationInfo?.title)
-        setupMovieDate(reservationInfo?.reservationDateTime)
-        setupReservationCount(reservationInfo?.reservationCount?.value)
-        setupTotalPrice(reservationInfo?.totalPrice())
+        setupMovieTitle(reservationInfo.title)
+        setupMovieDate(reservationInfo.reservationDateTime)
+        setupReservationCount(reservationInfo.reservationCount.value)
+        setupTotalPrice(reservationInfo.totalPrice())
     }
 
     private fun setupCancelDescription() {
