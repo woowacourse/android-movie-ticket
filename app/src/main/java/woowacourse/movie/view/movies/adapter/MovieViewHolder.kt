@@ -11,24 +11,29 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.movies.OnMovieEventListener
 import java.time.format.DateTimeFormatter
 
-class MovieViewHolder(private val view: View) {
+class MovieViewHolder(
+    private val view: View,
+    eventListener: OnMovieEventListener,
+) {
     private val movieImage: ImageView = view.findViewById(R.id.iv_movie_image)
     private val movieTitle: TextView = view.findViewById(R.id.tv_movie_title)
     private val movieDate: TextView = view.findViewById(R.id.tv_movie_date)
     private val movieTime: TextView = view.findViewById(R.id.tv_movie_time)
     private val reserveButton: Button = view.findViewById(R.id.btn_reserve)
+    private var movie: Movie? = null
 
-    fun bind(
-        movie: Movie,
-        eventListener: OnMovieEventListener,
-    ) {
+    init {
+        reserveButton.setOnClickListener {
+            movie?.let { eventListener.onClickReservation(it) }
+        }
+    }
+
+    fun bind(movie: Movie) {
+        this.movie = movie
         movieImage.setImageResource(movie.image)
         movieTitle.text = movie.title
         setDateTextView(movie.date, view.context)
         setTimeTextView(movie.time, view.context)
-        reserveButton.setOnClickListener {
-            eventListener.onClickReservation(movie)
-        }
     }
 
     private fun setDateTextView(

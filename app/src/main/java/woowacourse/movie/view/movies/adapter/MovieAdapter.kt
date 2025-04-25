@@ -37,14 +37,14 @@ class MovieAdapter(
                 LayoutInflater
                     .from(parent?.context)
                     .inflate(R.layout.movie_item, parent, false)
-            viewHolder = MovieViewHolder(view)
+            viewHolder = MovieViewHolder(view, eventListener)
             view.tag = viewHolder
         } else {
             view = convertView
             viewHolder = convertView.tag as MovieViewHolder
         }
 
-        viewHolder.bind(items[position], eventListener)
+        viewHolder.bind(items[position])
 
         return view
     }
