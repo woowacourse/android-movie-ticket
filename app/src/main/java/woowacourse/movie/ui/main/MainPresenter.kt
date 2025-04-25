@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter
 class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
     override fun showMovies() {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
-        val startDate: LocalDate = LocalDate.parse("2025.04.01", formatter)
-        val endDate: LocalDate = LocalDate.parse("2025.04.25", formatter)
+        val startDate: LocalDate = LocalDate.parse("2025.04.15", formatter)
+        val endDate: LocalDate = LocalDate.parse("2025.05.23", formatter)
 
         val movies =
             List(1000) {
