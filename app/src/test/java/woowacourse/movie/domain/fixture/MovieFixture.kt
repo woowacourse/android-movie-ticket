@@ -7,6 +7,7 @@ import java.time.LocalDate
 val MoviesFixture =
     listOf(
         Movie(
+            id = 1,
             title = "테스트 영화 1",
             posterResource = "",
             releaseDate =
@@ -17,6 +18,7 @@ val MoviesFixture =
             runningTime = 120,
         ),
         Movie(
+            id = 1,
             title = "테스트 영화 2",
             posterResource = "",
             releaseDate =

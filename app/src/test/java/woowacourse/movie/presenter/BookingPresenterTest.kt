@@ -7,31 +7,33 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.fakeMoviesModel
+import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.PeopleCount
-import woowacourse.movie.domain.model.booking.TicketType
-import woowacourse.movie.view.StringFormatter.dotDateFormat
+import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingContract
 import woowacourse.movie.view.booking.BookingPresenter
+import woowacourse.movie.view.movies.model.UiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingPresenterTest {
     private lateinit var view: BookingContract.View
+    private lateinit var model: MovieStore
     private lateinit var presenter: BookingPresenter
 
     @BeforeEach
     fun setUp() {
         view = mockk<BookingContract.View>(relaxed = true)
-        presenter = BookingPresenter(view, fakeMoviesModel, PeopleCount(1))
+        model = MovieStore()
+        presenter = BookingPresenter(view, MovieStore(), PeopleCount(1))
     }
 
     @Test
     fun `영화 정보를 UI에 표시한다`() {
         // given
         val movieIndex = 0
-        val movie = fakeMoviesModel[movieIndex]
+        val movie = model[movieIndex]
 
         // when
         presenter.loadMovieDetail(movieIndex)
@@ -39,11 +41,14 @@ class BookingPresenterTest {
         // then
         verify {
             view.showMovieDetail(
-                title = movie.title,
-                posterResId = movie.posterResource.posterId,
-                releaseStartDate = dotDateFormat(movie.releaseDate.startDate),
-                releaseEndDate = dotDateFormat(movie.releaseDate.endDate),
-                runningTime = movie.runningTime,
+                UiModel.MovieUiModel(
+                    movie.id,
+                    movie.title,
+                    movie.posterResource,
+                    StringFormatter.dotDateFormat(movie.releaseDate.startDate),
+                    StringFormatter.dotDateFormat(movie.releaseDate.endDate),
+                    movie.runningTime,
+                ),
             )
         }
     }
@@ -86,7 +91,7 @@ class BookingPresenterTest {
     @Test
     fun `인원이 1명 감소한다`() {
         // given
-        val presenter = BookingPresenter(view, fakeMoviesModel, PeopleCount(5))
+        val presenter = BookingPresenter(view, model, PeopleCount(5))
         every { view.showPeopleCount(4) } just Runs
 
         // when
@@ -107,7 +112,6 @@ class BookingPresenterTest {
             bookingDate = "2025-04-24",
             bookingTime = "12:00",
             count = "3",
-            ticketType = TicketType.GENERAL,
         )
 
         // then
@@ -117,8 +121,7 @@ class BookingPresenterTest {
                     it.title == "테스트 영화 1" &&
                         it.bookingDate == LocalDate.of(2025, 4, 24) &&
                         it.bookingTime == LocalTime.of(12, 0) &&
-                        it.count == PeopleCount(3) &&
-                        it.ticketType == TicketType.GENERAL
+                        it.count == PeopleCount(3)
                 },
             )
         }
