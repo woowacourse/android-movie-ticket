@@ -41,6 +41,27 @@ class MoviePresenter(
                 runningTime = 152,
             ),
             Movie(
+                title = "해리 포터와 비밀의 방",
+                imageSource = "harry_potter2.png",
+                screeningStartDate = LocalDate.of(2025, 4, 1),
+                screeningEndDate = LocalDate.of(2025, 4, 28),
+                runningTime = 162,
+            ),
+            Movie(
+                title = "해리 포터와 아즈카반의 죄수",
+                imageSource = "harry_potter3.png",
+                screeningStartDate = LocalDate.of(2025, 5, 1),
+                screeningEndDate = LocalDate.of(2025, 5, 31),
+                runningTime = 141,
+            ),
+            Movie(
+                title = "해리 포터와 불의 잔",
+                imageSource = "harry_potter4.png",
+                screeningStartDate = LocalDate.of(2025, 6, 1),
+                screeningEndDate = LocalDate.of(2025, 6, 30),
+                runningTime = 157,
+            ),
+            Movie(
                 title = "스타 이즈 본",
                 imageSource = "star_is_born.jpg",
                 screeningStartDate = LocalDate.of(2025, 4, 19),

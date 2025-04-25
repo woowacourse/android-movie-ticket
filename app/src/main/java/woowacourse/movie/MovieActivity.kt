@@ -2,12 +2,13 @@ package woowacourse.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.BookingDetailActivity.Companion.KEY_MOVIE_DATA
 import woowacourse.movie.model.Movie
 import woowacourse.movie.movie.MovieContract
@@ -40,7 +41,9 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
             MovieAdapter(resources, movies) { movie ->
                 presenter.onReserveClicked(movie)
             }
-        findViewById<ListView>(R.id.listview_layout).adapter = adapter
+        val recyclerView = findViewById<RecyclerView>(R.id.listview_layout)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     override fun showToast(message: String) {

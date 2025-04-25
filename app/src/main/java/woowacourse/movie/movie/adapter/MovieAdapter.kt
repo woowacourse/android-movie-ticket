@@ -4,78 +4,87 @@ import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Movie
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
 class MovieAdapter(
-    val resource: Resources,
-    val movieList: List<Movie>,
+    private val resource: Resources,
+    private val movieList: List<Movie>,
     private val onReserveClick: (Movie) -> Unit,
-) : BaseAdapter() {
-    private val movieUiList = movieList.map { it.toUiModel(resource) }
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun getCount(): Int {
-        return movieList.size
+    override fun getItemCount(): Int {
+        val adCount = movieList.size / AD_FREQUENCY
+        return movieList.size + adCount
     }
 
-    override fun getItem(position: Int): Any {
-        return movieList[position]
+    override fun getItemViewType(position: Int): Int {
+        return if ((position + 1) % (AD_FREQUENCY + 1) == 0) TYPE_AD else TYPE_MOVIE
     }
 
     override fun getItemId(position: Int): Long {
         return position.toLong()
     }
 
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val itemView: View
-        val viewHolder: MovieViewHolder
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_AD -> {
+                val view = inflater.inflate(R.layout.ad_banner_item, parent, false)
+                AdViewHolder(view)
+            }
 
-        if (convertView == null) {
-            itemView =
-                LayoutInflater.from(parent?.context)
-                    .inflate(R.layout.movie_list_item, parent, false)
-            viewHolder = MovieViewHolder(itemView)
-            itemView.tag = viewHolder
-        } else {
-            itemView = convertView
-            viewHolder = convertView.tag as MovieViewHolder
+            else -> {
+                val view = inflater.inflate(R.layout.movie_list_item, parent, false)
+                MovieViewHolder(view)
+            }
         }
-
-        val movie = movieList[position]
-        val movieUiData = movieUiList[position]
-
-        viewHolder.reserveButton.setOnClickListener {
-            onReserveClick(movie)
-        }
-
-        viewHolder.poster.setImageResource(movieUiData.imageSource)
-        viewHolder.title.text = movieUiData.title
-        viewHolder.screeningDate.text = movieUiData.screeningPeriod
-        viewHolder.runningTime.text = movieUiData.runningTimeText
-
-        return itemView
     }
 
-    private class MovieViewHolder(view: View) {
-        val poster: ImageView = view.findViewById<ImageView>(R.id.img_poster)
-        val title: TextView = view.findViewById<TextView>(R.id.tv_movie_title)
-        val screeningDate: TextView = view.findViewById<TextView>(R.id.tv_movie_screening_date)
-        val runningTime: TextView = view.findViewById<TextView>(R.id.tv_movie_running_time)
-        val reserveButton: Button = view.findViewById<Button>(R.id.btn_reserve)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder) {
+            is MovieViewHolder -> {
+                // movie의 실제 위치를 알기 위함. 광고가 포함 되어 있기 때문
+                val realPosition = position - (position / (AD_FREQUENCY + 1))
+                val movie = movieList[realPosition]
+                val movieUiData = movie.toUiModel(resource)
+
+                holder.poster.setImageResource(movieUiData.imageSource)
+                holder.title.text = movieUiData.title
+                holder.screeningDate.text = movieUiData.screeningPeriod
+                holder.runningTime.text = movieUiData.runningTimeText
+
+                holder.reserveButton.setOnClickListener {
+                    onReserveClick(movie)
+                }
+            }
+
+            is AdViewHolder -> {
+                holder.imgBanner.setImageResource(R.drawable.img_advertisement)
+            }
+        }
     }
 
-    private fun formatDate(date: LocalDate): String {
-        return date.format(DateTimeFormatter.ofPattern("yyyy.M.d"))
+    inner class MovieViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val poster: ImageView = view.findViewById(R.id.img_poster)
+        val title: TextView = view.findViewById(R.id.tv_movie_title)
+        val screeningDate: TextView = view.findViewById(R.id.tv_movie_screening_date)
+        val runningTime: TextView = view.findViewById(R.id.tv_movie_running_time)
+        val reserveButton: Button = view.findViewById(R.id.btn_reserve)
+    }
+
+    inner class AdViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val imgBanner: ImageView = view.findViewById(R.id.img_banner)
+    }
+
+    companion object {
+        private const val TYPE_MOVIE = 0
+        private const val TYPE_AD = 1
+        private const val AD_FREQUENCY = 3
     }
 }
