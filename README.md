@@ -28,7 +28,7 @@
 - [x] 평일에는 오전 10시부터 두 시간 간격으로 상영한다.
 - [x] 날짜와 시간은 기본값(가장 빠른 날짜 및 시간)으로 초기화되어있다.
 
-## 리팩터링 변경사항
+## step2 리팩터링 변경사항
 
 - [x] UI와 도메인 로직 분리
     - [x] 포스터 이미지 리소스 ID를 도메인에서 분리
@@ -48,3 +48,15 @@
 - [x] activity가 dialog보다 먼저 종료되는 경우의 처리
 - [x] getParcelableExtra의 확장함수를 구현하여 적용
 - [x] 티켓 객체 생성시의 비논리오류를 예외를 던지는 대신 sealed calss로 처리
+
+## step3 요구사항
+
+- [x] step2 마지막 리뷰 반영
+    - [x] convertView의 태그를 안전하게 참조할 수 있도록 수정
+    - [x] ScreeningData에 Poster 데이터를 추가하여 전달하도록 수정
+    -
+- [x] MVP로 전체 프로젝트 리팩터링
+    - [x] MainUI 코드를 MVP로 변환
+    - [x] ReservationUI 코드를 MVP로 변환
+    - [x] TicketUI 코드를 MVP로 변환
+    - [ ] 테스트 코드 추가
