@@ -13,7 +13,7 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.MainActivity
+import woowacourse.movie.activity.main.MainActivity
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")

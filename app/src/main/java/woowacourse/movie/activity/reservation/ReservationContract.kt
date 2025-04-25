@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.reservation
 
 import woowacourse.movie.dto.MovieDto
 import java.time.LocalDate

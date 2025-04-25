@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.dto.MovieDto
@@ -34,7 +35,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val movieListView = binding.movies
         movieListView.adapter =
             MovieListAdapter(movieDto) { movieDto ->
-                val intent = ReservationActivity.newIntent(this, movieDto)
+                val intent = ReservationActivity.Companion.newIntent(this, movieDto)
                 startActivity(intent)
             }
     }

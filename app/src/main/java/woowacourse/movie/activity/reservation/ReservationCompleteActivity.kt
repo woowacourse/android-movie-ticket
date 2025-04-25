@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.reservation
 
 import android.content.Context
 import android.content.Intent

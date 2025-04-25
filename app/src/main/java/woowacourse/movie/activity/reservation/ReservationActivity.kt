@@ -1,6 +1,5 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.reservation
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -136,7 +135,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 totalPrice = movie.priceRuleDto[0].price * memberCount,
             )
         val intent =
-            ReservationCompleteActivity
+            ReservationSeatActivity.Companion
                 .newIntent(this, reservationDto)
         startActivity(intent)
     }
@@ -179,16 +178,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     private fun setCompleteButtonEventListener(movie: MovieDto) {
         binding.commonButton.setOnClickListener {
-            dialog {
-                onPositiveButtonClicked {
-                    navigate(movie)
-                }
-            }.show()
+            navigate(movie)
         }
-    }
-
-    private fun dialog(block: DialogBuilder.() -> Unit): AlertDialog {
-        return DialogBuilder(this).apply(block).build()
     }
 
     companion object {
@@ -207,24 +198,4 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 .apply { putExtra(MOVIE_KEY, dto) }
         }
     }
-}
-
-private class DialogBuilder(val context: Context) {
-    private var dialog: AlertDialog.Builder =
-        AlertDialog.Builder(context)
-            .setTitle(context.getString(R.string.complete_dialog_title))
-            .setMessage(context.getString(R.string.complete_dialog_message))
-            .setNegativeButton(R.string.complete_dialog_negative_button) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setCancelable(false)
-
-    fun onPositiveButtonClicked(block: () -> Unit): DialogBuilder {
-        dialog.setPositiveButton(context.getString(R.string.complete_dialog_positive_button)) { _, _ ->
-            block()
-        }
-        return this
-    }
-
-    fun build(): AlertDialog = dialog.create()
 }

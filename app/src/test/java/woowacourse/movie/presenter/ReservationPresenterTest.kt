@@ -7,7 +7,7 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.activity.ReservationContract
+import woowacourse.movie.activity.reservation.ReservationContract
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.fixture.DomainFixture
 import woowacourse.movie.global.ServiceLocator

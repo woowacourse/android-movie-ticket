@@ -17,7 +17,7 @@ import org.hamcrest.Matchers.anything
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.ReservationActivity
+import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.dto.MovieDto
 import woowacourse.movie.global.ServiceLocator
 

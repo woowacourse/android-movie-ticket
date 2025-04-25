@@ -1,9 +1,9 @@
 package woowacourse.movie.global
 
-import woowacourse.movie.activity.MainContract
-import woowacourse.movie.activity.MainPresenter
-import woowacourse.movie.activity.ReservationContract
-import woowacourse.movie.activity.ReservationPresenter
+import woowacourse.movie.activity.main.MainContract
+import woowacourse.movie.activity.main.MainPresenter
+import woowacourse.movie.activity.reservation.ReservationContract
+import woowacourse.movie.activity.reservation.ReservationPresenter
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimeRuleImpl
 import java.time.LocalDate

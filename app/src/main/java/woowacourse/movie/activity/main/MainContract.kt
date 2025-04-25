@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.main
 
 import woowacourse.movie.dto.MovieDto
 

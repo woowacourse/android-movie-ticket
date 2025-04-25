@@ -1,4 +1,4 @@
-package woowacourse.movie.activity
+package woowacourse.movie.activity.reservation
 
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.dto.MovieDto
