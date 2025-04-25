@@ -101,7 +101,7 @@ class BookingActivity :
         findViewById<TextView>(R.id.running_time).text = movieUiModel.runningTime
     }
 
-    override fun moveToBookingResult(ticket: Ticket) {
+    override fun moveToSeatSelection(ticket: Ticket) {
         val intent =
             Intent(this, SeatSelectionActivity::class.java).apply {
                 putExtra(KEY_TICKET, ticket)

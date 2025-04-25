@@ -9,7 +9,7 @@ interface BookingContract {
     interface View {
         fun setupPage(movieUiModel: MovieUiModel)
 
-        fun moveToBookingResult(ticket: Ticket)
+        fun moveToSeatSelection(ticket: Ticket)
 
         fun showTicketCount(count: Int)
 

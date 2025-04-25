@@ -32,7 +32,7 @@ class BookingPresenter : BookingContract.Presenter {
 
     override fun onConfirmButtonClicked() {
         if (ticketManager.getTicketCount() > MINIMUM_TICKET_COUNT) {
-            view?.moveToBookingResult(ticketManager.createTicket())
+            view?.moveToSeatSelection(ticketManager.createTicket())
         }
     }
 
