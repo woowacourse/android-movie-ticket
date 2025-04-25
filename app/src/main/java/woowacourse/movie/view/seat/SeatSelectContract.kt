@@ -1,6 +1,6 @@
 package woowacourse.movie.view.seat
 
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
 

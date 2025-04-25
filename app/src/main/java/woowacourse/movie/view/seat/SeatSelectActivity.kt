@@ -17,8 +17,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
-import woowacourse.movie.domain.Seat
-import woowacourse.movie.domain.SeatGrade
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.SeatGrade
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.result.MovieReservationCompleteActivity

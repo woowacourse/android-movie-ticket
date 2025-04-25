@@ -1,5 +1,7 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.Seats
 import java.time.LocalDateTime
 import java.time.LocalTime
 

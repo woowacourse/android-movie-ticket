@@ -2,8 +2,8 @@ package woowacourse.movie.view.reservation.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.seat.Seats
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.movie.model.toDomain
 import java.time.LocalDateTime

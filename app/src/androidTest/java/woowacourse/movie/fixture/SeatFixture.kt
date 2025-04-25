@@ -1,6 +1,6 @@
 package woowacourse.movie.fixture
 
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.seat.Seat
 
 val A1 = Seat.from(0, 0)
 val A2 = Seat.from(0, 1)
