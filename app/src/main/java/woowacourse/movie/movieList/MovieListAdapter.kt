@@ -14,7 +14,7 @@ import woowacourse.movie.util.ErrorUtils
 
 class MovieListAdapter(
     context: Context,
-    items: MutableList<MovieInfo>,
+    items: List<MovieInfo>,
     val changeActivity: (MovieInfo) -> Unit,
     val onError: () -> Unit,
 ) : ArrayAdapter<MovieInfo>(context, 0, items) {

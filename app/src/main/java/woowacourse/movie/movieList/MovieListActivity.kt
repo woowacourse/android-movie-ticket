@@ -9,31 +9,26 @@ import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.util.ErrorUtils
 
-class MainActivity : AppCompatActivity() {
-    private lateinit var allItems: MutableList<MovieInfo>
+class MovieListActivity :
+    AppCompatActivity(),
+    MovieListContract.View {
     private lateinit var adapter: MovieListAdapter
+    private var presenter: MovieListPresenter = MovieListPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        allItems =
-            mutableListOf(
-                MovieInfo(
-                    R.drawable.harry_potter_poster,
-                    "해리 포터와 마법사의 돌",
-                    "2025.4.1",
-                    "2025.4.25",
-                    152,
-                ),
-            )
+        presenter.onViewCreated(this)
+    }
 
+    override fun showMovie(items: List<MovieInfo>) {
         val listView = findViewById<ListView>(R.id.movie_list)
-        adapter = MovieListAdapter(this, allItems, ::changeActivity, ::onError)
+        adapter = MovieListAdapter(this, items, ::changeActivity, this::showError)
         listView.adapter = adapter
     }
 
-    private fun changeActivity(item: MovieInfo) {
+    override fun changeActivity(item: MovieInfo) {
         val intent =
             Intent(this, BookingActivity::class.java).apply {
                 putExtra("MOVIE_INFO", item)
@@ -41,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun onError() {
+    override fun showError() {
         ErrorUtils.printError(this)
         finish()
     }
