@@ -41,7 +41,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
             MovieAdapter(resources, movies) { movie ->
                 presenter.onReserveClicked(movie)
             }
-        val recyclerView = findViewById<RecyclerView>(R.id.listview_layout)
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_layout)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
     }
