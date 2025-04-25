@@ -65,4 +65,5 @@ dependencies {
     androidTestImplementation(libs.mannodermaus.junit5.core)
     androidTestRuntimeOnly(libs.mannodermaus.junit5.runner)
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.13.8")
 }
