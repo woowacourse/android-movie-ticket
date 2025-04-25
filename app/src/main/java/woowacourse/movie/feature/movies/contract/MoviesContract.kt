@@ -1,7 +1,17 @@
 package woowacourse.movie.feature.movies.contract
 
-interface MoviesContract {
-    interface View
+import woowacourse.movie.feature.model.MovieUiModel
 
-    interface Presenter
+interface MoviesContract {
+    interface View {
+        fun showMovies(movies: List<MovieUiModel>)
+
+        fun navigateToBookingDetail(movie: MovieUiModel)
+    }
+
+    interface Presenter {
+        fun onCreateView()
+
+        fun onMovieBookingClicked(movie: MovieUiModel)
+    }
 }
