@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.view.movie.adapter.MovieAdapter
 import woowacourse.movie.view.movie.adapter.MovieListItem
+import woowacourse.movie.view.movie.model.AdUiModel
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.MovieReservationActivity
 
@@ -57,7 +58,7 @@ class MovieListActivity :
         movies.forEachIndexed { index, movie ->
             result.add(MovieListItem.MovieItem(movie))
             if ((index + 1) % 3 == 0) {
-                result.add(MovieListItem.AdItem())
+                result.add(MovieListItem.AdItem(AdUiModel()))
             }
         }
 

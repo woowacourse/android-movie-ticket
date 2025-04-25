@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 
 class MovieAdapter(
-    private val movies: List<MovieListItem>,
+    private val items: List<MovieListItem>,
     private val onClickButton: (Int) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
@@ -31,20 +31,22 @@ class MovieAdapter(
                 )
         }
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
     ) {
-        when (val item = movies[position]) {
+        when (val item = items[position]) {
             is MovieListItem.MovieItem -> {
                 (holder as MovieViewHolder).bind(item.movie)
             }
 
-            is MovieListItem.AdItem -> {}
+            is MovieListItem.AdItem -> {
+                (holder as AdsViewHolder).bind(item.ad)
+            }
         }
     }
 
-    override fun getItemViewType(position: Int): Int = movies[position].type.ordinal
+    override fun getItemViewType(position: Int): Int = items[position].type.ordinal
 }

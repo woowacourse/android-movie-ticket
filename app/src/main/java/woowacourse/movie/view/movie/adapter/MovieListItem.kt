@@ -1,5 +1,6 @@
 package woowacourse.movie.view.movie.adapter
 
+import woowacourse.movie.view.movie.model.AdUiModel
 import woowacourse.movie.view.movie.model.MovieUiModel
 
 sealed class MovieListItem(
@@ -9,7 +10,9 @@ sealed class MovieListItem(
         val movie: MovieUiModel,
     ) : MovieListItem(ViewType.TYPE_MOVIE)
 
-    class AdItem : MovieListItem(ViewType.TYPE_ADS)
+    data class AdItem(
+        val ad: AdUiModel,
+    ) : MovieListItem(ViewType.TYPE_ADS)
 
     enum class ViewType {
         TYPE_MOVIE,

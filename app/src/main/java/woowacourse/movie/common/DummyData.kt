@@ -59,5 +59,8 @@ object DummyData {
         )
 
     @DrawableRes
+    val adImage: Int = R.drawable.woowacourse_ad
+
+    @DrawableRes
     fun getDrawableResId(movie: Movie): Int = movies[movie] ?: R.drawable.harry_potter_01
 }
