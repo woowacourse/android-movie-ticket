@@ -17,7 +17,6 @@ class MovieAdapter(
     private val movieList: List<Movie>,
     private val onReserveClick: (Movie) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     override fun getItemCount(): Int {
         val adCount = movieList.size / AD_FREQUENCY
         return movieList.size + adCount
@@ -31,7 +30,10 @@ class MovieAdapter(
         return position.toLong()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             TYPE_AD -> {
@@ -46,7 +48,10 @@ class MovieAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         when (holder) {
             is MovieViewHolder -> {
                 // movie의 실제 위치를 알기 위함. 광고가 포함 되어 있기 때문
