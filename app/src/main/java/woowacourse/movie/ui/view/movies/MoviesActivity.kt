@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.presenter.MoviePresenter
 import woowacourse.movie.ui.adapter.MovieAdapter
 import woowacourse.movie.ui.view.BaseActivity
@@ -15,13 +14,12 @@ class MoviesActivity :
     BaseActivity(),
     MovieContract.View {
     private lateinit var presenter: MoviePresenter
-    private val movieRepository = MovieRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_main)
 
-        presenter = MoviePresenter(this, movieRepository)
+        presenter = MoviePresenter(this)
         presenter.loadAllMovies()
     }
 
@@ -29,7 +27,7 @@ class MoviesActivity :
         val adapter =
             MovieAdapter(
                 this,
-                movieRepository.getAllMovies(),
+                presenter.getMovies(),
                 onReservationClickListener =
                     { movieId ->
                         val intent = Intent(this, BookingActivity::class.java)

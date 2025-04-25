@@ -8,6 +8,8 @@ interface MovieContract {
     }
 
     interface Presenter {
+        fun getMovies(): List<Movie>
+
         fun loadAllMovies()
     }
 }
