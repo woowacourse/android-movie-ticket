@@ -32,7 +32,7 @@ class BookingPresenter(
         bookingView.setHeadcountTextView(_headcount)
     }
 
-    override fun fetchMovie(): Movie = bookingView.getMovie() ?: Movie.DUMMY_MOVIE
+    override fun fetchMovie(): Movie = bookingView.getMovie() ?: Movie.DUMMY_MOVIES.first()
 
     override fun updateMovieInfoViews() {
         bookingView.setMovieInfoViews(movie)
