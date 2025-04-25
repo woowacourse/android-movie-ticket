@@ -12,9 +12,19 @@ import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
 
-class ReservationCompleteActivity : AppCompatActivity() {
-    private val reservationInfo by lazy { getReservationInfoData() }
+class ReservationCompleteActivity :
+    AppCompatActivity(),
+    ReservationCompleteContract.View {
+    private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_title) }
+    private val reservationDateTimeTextView: TextView by lazy {
+        findViewById(R.id.tv_reservation_complete_timestamp)
+    }
+    private val ticketCountTextView: TextView by lazy {
+        findViewById(R.id.tv_reservation_complete_ticket_count)
+    }
+    private val ticketPriceTextView: TextView by lazy { findViewById<TextView>(R.id.tv_reservation_complete_ticket_price) }
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
+    private val presenter: ReservationCompletePresenter by lazy { ReservationCompletePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,38 +36,37 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        setupReservationInfo()
+        presenter.fetchData {
+            intent?.getParcelableExtraCompat<ReservationInfo>(Extras.ReservationInfoData.RESERVATION_KEY)
+        }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun getReservationInfoData(): ReservationInfo? = intent.getParcelableExtraCompat(Extras.ReservationInfoData.RESERVATION_KEY)
+    override fun showErrorDialog() {
+    }
 
-    private fun setupReservationInfo() {
-        val movieTitleTextView = findViewById<TextView>(R.id.tv_reservation_complete_title)
-        movieTitleTextView.text = reservationInfo?.title
+    override fun updateReservationInfo(reservationInfo: ReservationInfo) {
+        setupReservationInfo(reservationInfo)
+    }
 
-        val screeningDateTextView =
-            findViewById<TextView>(R.id.tv_reservation_complete_timestamp)
-        screeningDateTextView.text =
+    private fun setupReservationInfo(reservationInfo: ReservationInfo) {
+        movieTitleTextView.text = reservationInfo.title
+        reservationDateTimeTextView.text =
             resources.getString(
                 R.string.reservation_complete_date_time,
-                reservationUiFormatter.localDateToUI(reservationInfo?.date!!),
-                reservationInfo?.time,
+                reservationUiFormatter.localDateToUI(reservationInfo.date),
+                reservationInfo.time,
             )
-
-        val ticketCountTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_count)
         ticketCountTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_count,
-                reservationInfo?.seats?.size,
-                reservationInfo?.seats?.joinToString(),
+                reservationInfo.seats.size,
+                reservationInfo.seats.joinToString(),
             )
-
-        val ticketPriceTextView = findViewById<TextView>(R.id.tv_reservation_complete_ticket_price)
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                reservationUiFormatter.priceToUI(reservationInfo?.price!!),
+                reservationUiFormatter.priceToUI(reservationInfo.price),
             )
     }
 }
