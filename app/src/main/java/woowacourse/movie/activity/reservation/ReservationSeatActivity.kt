@@ -24,6 +24,8 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
     private val presenter: ReservationSeatContract.Presenter = ServiceLocator.reservationSeatPresenter(this)
     private var totalPrice = 0
+    private var selectedMember = 0
+    private lateinit var reservationDto: ReservationDto
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
         presenter.initSeatTable()
         setSubmitButtonEventListener()
+        reservationDto = intent.getObjectFromIntent<ReservationDto>(RESERVATION_DTO_KEY)
     }
 
     override fun setButtonState(state: Boolean) {
@@ -67,9 +70,8 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     private fun navigate() {
-        val obj = intent.getObjectFromIntent<ReservationDto>(RESERVATION_DTO_KEY)
         val reservationDto =
-            obj.copy(
+            reservationDto.copy(
                 totalPrice = totalPrice,
             )
         val intent =
@@ -100,11 +102,14 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             true -> {
                 view.isSelected = false
                 totalPrice -= seat.price.price
+                selectedMember--
                 view.setBackgroundColor(getColor(R.color.white))
             }
             false -> {
+                if (reservationDto.memberCount == selectedMember) return
                 view.isSelected = true
                 totalPrice += seat.price.price
+                selectedMember++
                 view.setBackgroundColor(getColor(R.color.seat_selected))
             }
         }
