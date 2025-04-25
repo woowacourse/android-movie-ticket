@@ -6,31 +6,19 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.MovieSelectionContract
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.presenter.MovieSelectionPresenter
 import woowacourse.movie.view.model.MovieUiModel
-import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
-import java.time.LocalDate
 
-class MovieSelectionActivity : AppCompatActivity() {
+class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View {
+    private val presenter = MovieSelectionPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-
-        val movies: List<MovieUiModel> =
-            (1..10000).map { n ->
-                Movie(
-                    "해리 포터 $n",
-                    startDate = LocalDate.of(2025, 4, 1),
-                    endDate = LocalDate.of(2025, 5, 31),
-                    runningTime = 152,
-                ).toUiModel()
-            }
-
-        val movieListView = findViewById<ListView>(R.id.movie_list)
-        val movieAdapter = MovieAdapter(movies) { movie -> onReserveMovie(movie) }
-        movieListView.adapter = movieAdapter
+        presenter.loadMovies()
     }
 
     private fun initializeView() {
@@ -43,7 +31,16 @@ class MovieSelectionActivity : AppCompatActivity() {
         }
     }
 
-    private fun onReserveMovie(movie: MovieUiModel) {
+    override fun showMovies(movies: List<MovieUiModel>) {
+        val movieListView = findViewById<ListView>(R.id.movie_list)
+        val movieAdapter =
+            MovieAdapter(movies) { movie ->
+                presenter.onMovieSelection(movie)
+            }
+        movieListView.adapter = movieAdapter
+    }
+
+    override fun selectMovie(movie: MovieUiModel) {
         val intent = MovieReservationActivity.createIntent(this, movie)
         startActivity(intent)
     }
