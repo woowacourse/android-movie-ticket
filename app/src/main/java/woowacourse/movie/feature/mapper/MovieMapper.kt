@@ -3,7 +3,6 @@ package woowacourse.movie.feature.mapper
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
-import woowacourse.movie.domain.model.MovieDates
 import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.feature.model.MovieDateUiModel
@@ -70,5 +69,3 @@ fun MovieDate.toUi(): MovieDateUiModel =
     )
 
 fun MovieDateUiModel.toDomain(): MovieDate = MovieDate(year, month, day)
-
-fun MovieDates.toUi() = value.map { it.toUi() }
