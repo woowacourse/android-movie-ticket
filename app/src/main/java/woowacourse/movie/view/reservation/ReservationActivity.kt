@@ -17,16 +17,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.google.android.material.R.layout
 import woowacourse.movie.R
+import woowacourse.movie.model.Movie
 import woowacourse.movie.presenter.reservation.ReservationPresenter
 import woowacourse.movie.view.Extras
+import woowacourse.movie.view.getParcelableExtraCompat
 import woowacourse.movie.view.movie.MoviesActivity
 import java.time.LocalDate
 
 class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
-    private lateinit var ticketCountTextView: TextView
     private val reservationDialog by lazy { ReservationDialog() }
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.tv_reservation_ticket_count) }
     private val presenter: ReservationPresenter by lazy { ReservationPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,15 +41,17 @@ class ReservationActivity :
             insets
         }
 
-        ticketCountTextView = findViewById(R.id.tv_reservation_ticket_count)
+        presenter.fetchData {
+            intent?.getParcelableExtraCompat<Movie>(Extras.MovieData.MOVIE_KEY)
+        }
+        setupButtonClickListener()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
-        presenter.fetchData(this.intent)
-
+    private fun setupButtonClickListener() {
         setupMinusButtonClick()
         setupPlusButtonClick()
         setupCompleteButtonClick()
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun updateMovieInfo(
@@ -58,6 +62,7 @@ class ReservationActivity :
         runningTime: Int,
     ) {
         setupMovieReservationInfo(posterResId, title, startDate, endDate, runningTime)
+        presenter.initDateAdapter()
     }
 
     override fun showErrorDialog() {

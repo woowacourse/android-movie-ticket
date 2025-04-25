@@ -1,14 +1,11 @@
 package woowacourse.movie.presenter.reservation
 
-import android.content.Intent
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieDate
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.MovieTime
 import woowacourse.movie.model.TicketCount
-import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
-import woowacourse.movie.view.getParcelableExtraCompat
 import woowacourse.movie.view.reservation.ReservationContract
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -24,8 +21,8 @@ class ReservationPresenter(
     private var ticketCount = TicketCount()
     private var selectedDatePosition: Int = 0
 
-    override fun fetchData(intent: Intent) {
-        val result = getMovieFromIntent(intent)
+    override fun fetchData(getMovie: () -> Movie?) {
+        val result = getMovie()
         if (result == null) {
             view.showErrorDialog()
             return
@@ -40,8 +37,6 @@ class ReservationPresenter(
             endDate = formatter.localDateToUI(movie.endDate),
             runningTime = movie.runningTime,
         )
-
-        initDateAdapter()
     }
 
     override fun initDateAdapter() {
@@ -91,6 +86,4 @@ class ReservationPresenter(
     }
 
     fun currentTicketCount(): Int = ticketCount.value
-
-    private fun getMovieFromIntent(intent: Intent): Movie? = intent.getParcelableExtraCompat<Movie>(Extras.MovieData.MOVIE_KEY)
 }

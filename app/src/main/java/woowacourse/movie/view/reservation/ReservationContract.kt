@@ -1,6 +1,6 @@
 package woowacourse.movie.view.reservation
 
-import android.content.Intent
+import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieTicket
 import java.time.LocalDate
 
@@ -27,7 +27,7 @@ interface ReservationContract {
     }
 
     interface Presenter {
-        fun fetchData(intent: Intent)
+        fun fetchData(getMovie: () -> Movie?)
 
         fun initDateAdapter()
 
