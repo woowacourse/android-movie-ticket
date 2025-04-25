@@ -14,8 +14,8 @@ import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.ticket
 import woowacourse.movie.view.reservation.MovieReservationActivity
-import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
 import woowacourse.movie.view.reservation.model.toUiModel
+import woowacourse.movie.view.result.MovieReservationCompleteActivity
 
 class MovieReservationCompleteActivityTest {
     private lateinit var intent: Intent
@@ -53,6 +53,6 @@ class MovieReservationCompleteActivityTest {
     @Test
     @DisplayName("예매한 총 금액이 표시된다")
     fun displayReservedTotalPriceTest() {
-        onView(withId(R.id.total_price)).check(matches(withText("26,000원 (현장 결제)")))
+        onView(withId(R.id.total_price)).check(matches(withText("25,000원")))
     }
 }

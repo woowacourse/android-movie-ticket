@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.result
 
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.reservation.model.toDomain

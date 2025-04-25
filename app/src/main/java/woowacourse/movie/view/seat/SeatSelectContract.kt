@@ -1,6 +1,6 @@
 package woowacourse.movie.view.seat
 
-import woowacourse.movie.domain.Position
+import woowacourse.movie.domain.Seat
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
 
@@ -15,7 +15,7 @@ interface SeatSelectContract {
         fun showSelectToast()
 
         fun updateSeatSelection(
-            position: Position,
+            seat: Seat,
             isSelected: Boolean,
         )
 
@@ -27,7 +27,7 @@ interface SeatSelectContract {
     interface Presenter {
         fun loadSeatSelectScreen()
 
-        fun onClickSeat(position: Position)
+        fun onClickSeat(seat: Seat)
 
         fun onClickConfirmButton()
 
