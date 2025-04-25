@@ -21,6 +21,7 @@ class MoviesActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupView()
+        presenter.onCreateView()
     }
 
     override fun showMovies(movies: List<MovieUiModel>) {
