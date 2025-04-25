@@ -8,6 +8,8 @@ interface SeatSelectionContract {
         fun showMovieInfo(ticket: Ticket)
 
         fun showMoney(money: Int)
+
+        fun updateConfirmButtonState(hasSelection: Boolean)
     }
 
     interface Presenter {
@@ -21,5 +23,7 @@ interface SeatSelectionContract {
         )
 
         fun onSeatClicked(seat: TextView): Boolean
+
+        fun handleConfirmButtonActivation(seats: Sequence<Sequence<TextView>>)
     }
 }

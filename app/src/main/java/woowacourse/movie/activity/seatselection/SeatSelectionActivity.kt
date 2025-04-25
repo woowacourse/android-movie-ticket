@@ -47,6 +47,7 @@ class SeatSelectionActivity :
                 textView.setOnClickListener {
                     val isSelected = presenter.onSeatClicked(textView)
                     presenter.calculateMoney(rowIndex, isSelected)
+                    presenter.handleConfirmButtonActivation(seats)
                 }
             }
         }
@@ -67,6 +68,11 @@ class SeatSelectionActivity :
     override fun showMoney(money: Int) {
         findViewById<TextView>(R.id.money).text =
             String.format(resources.getString(R.string.money), money)
+    }
+
+    override fun updateConfirmButtonState(hasSelection: Boolean) {
+        val confirmButton = findViewById<TextView>(R.id.confirm_button)
+        confirmButton.isEnabled = hasSelection
     }
 
     companion object {

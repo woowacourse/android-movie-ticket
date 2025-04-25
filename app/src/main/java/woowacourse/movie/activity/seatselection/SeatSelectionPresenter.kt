@@ -39,6 +39,11 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
         return seat.isSelected
     }
 
+    override fun handleConfirmButtonActivation(seats: Sequence<Sequence<TextView>>) {
+        val hasSelection = seats.flatten().any { it.isSelected }
+        view?.updateConfirmButtonState(hasSelection)
+    }
+
     companion object {
         private const val B_CLASS_SEAT_PRICE = 10000
         private const val S_CLASS_SEAT_PRICE = 15000
