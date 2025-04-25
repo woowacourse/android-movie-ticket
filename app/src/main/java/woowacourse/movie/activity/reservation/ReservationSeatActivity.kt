@@ -16,13 +16,13 @@ import woowacourse.movie.dto.PriceRuleDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.dto.SeatDto
 import woowacourse.movie.global.ServiceLocator
+import woowacourse.movie.global.getObjectFromIntent
 
 class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val binding: ActivitySeatBinding by lazy {
         ActivitySeatBinding.inflate(layoutInflater)
     }
     private val presenter: ReservationSeatContract.Presenter = ServiceLocator.reservationSeatPresenter(this)
-
     private var totalPrice = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +35,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             insets
         }
         presenter.initSeatTable()
+        setSubmitButtonEventListener()
     }
 
     override fun setButtonState(state: Boolean) {
@@ -63,6 +64,32 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                 }
                 binding.table.addView(tableRow)
             }
+    }
+
+    private fun navigate() {
+        val obj = intent.getObjectFromIntent<ReservationDto>(RESERVATION_DTO_KEY)
+        val reservationDto =
+            obj.copy(
+                totalPrice = totalPrice,
+            )
+        val intent =
+            ReservationCompleteActivity
+                .newIntent(this, reservationDto)
+        startActivity(intent)
+    }
+
+    private fun setSubmitButtonEventListener() {
+        binding.submit.setOnClickListener {
+            dialog {
+                onPositiveButtonClicked {
+                    navigate()
+                }
+            }.show()
+        }
+    }
+
+    private fun dialog(block: DialogBuilder.() -> Unit): AlertDialog {
+        return DialogBuilder(this).apply(block).build()
     }
 
     private fun whenSeatClicked(
@@ -98,14 +125,14 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     companion object {
-        private const val BOOKING_STATUS_KEY = "bookingStatus"
+        private const val RESERVATION_DTO_KEY = "reservation"
 
         fun newIntent(
             from: Context,
             dto: ReservationDto,
         ): Intent {
             return Intent(from, ReservationSeatActivity::class.java).apply {
-                putExtra(BOOKING_STATUS_KEY, dto)
+                putExtra(RESERVATION_DTO_KEY, dto)
             }
         }
     }

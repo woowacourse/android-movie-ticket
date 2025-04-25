@@ -135,7 +135,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 totalPrice = movie.priceRuleDto[0].price * memberCount,
             )
         val intent =
-            ReservationSeatActivity.Companion
+            ReservationSeatActivity
                 .newIntent(this, reservationDto)
         startActivity(intent)
     }
