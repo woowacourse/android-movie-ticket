@@ -11,6 +11,8 @@ interface SeatContract {
         fun showMovieInfo(movie: Movie)
 
         fun updateTotalPrice(price: Int)
+
+        fun initSelectButtonClick()
     }
 
     interface Presenter {

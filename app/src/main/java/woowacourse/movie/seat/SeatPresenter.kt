@@ -22,6 +22,7 @@ class SeatPresenter(
     override fun initView() {
         view.showMovieInfo(reservation.movie)
         view.initSeat()
+        view.initSelectButtonClick()
         view.updateTotalPrice(reservation.points.totalPrice())
     }
 
@@ -37,5 +38,9 @@ class SeatPresenter(
     override fun selectSeat(point: Point) {
         reservation.points + point
         view.updateTotalPrice(reservation.points.totalPrice())
+    }
+
+    fun canClickButton(): Boolean {
+        return reservation.points.points.isNotEmpty()
     }
 }

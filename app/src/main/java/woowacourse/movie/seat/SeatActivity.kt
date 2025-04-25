@@ -3,10 +3,12 @@ package woowacourse.movie.seat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -17,9 +19,11 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.ext.getSerializableCompat
+import woowacourse.movie.result.ReservationResultActivity
 import java.text.DecimalFormat
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
+    private val selectButton: Button by lazy { findViewById(R.id.btn_select) }
     private val presenter = SeatPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +38,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
         presenter.initReservation(getReservation())
         presenter.initView()
-        initSeat()
+        initSelectButtonClick()
     }
 
     private fun getReservation(): Reservation {
@@ -51,12 +55,12 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
                     view.tag = point
 
                     view.text = getString(R.string.seat_point).format('A' + point.x, point.y + 1)
-                    setClickListener(view, point)
+                    initSeatClickAction(view, point)
                 }
         }
     }
 
-    private fun setClickListener(
+    private fun initSeatClickAction(
         view: TextView,
         point: Point,
     ) {
@@ -68,12 +72,44 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
                 presenter.selectSeat(point)
                 view.setBackgroundColor(getColor(R.color.yellow))
             }
+            updateButtonState()
+        }
+    }
+
+    private fun updateButtonState() {
+        if (presenter.canClickButton()) {
+            selectButton.setBackgroundColor(getColor(R.color.purple_500))
+            selectButton.isClickable = true
+        } else {
+            selectButton.setBackgroundColor(getColor(R.color.gray))
+            selectButton.isClickable = false
         }
     }
 
     override fun showMovieInfo(movie: Movie) {
         val title = findViewById<TextView>(R.id.tv_title)
         title.text = movie.title
+    }
+
+    override fun initSelectButtonClick() {
+        selectButton.setOnClickListener {
+            showSelectDialog()
+        }
+    }
+
+    private fun showSelectDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.reserve_dialog_title))
+            .setMessage(getString(R.string.reserve_dialog_message))
+            .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
+                val intent = ReservationResultActivity.newIntent(this, presenter.reservation)
+                startActivity(intent)
+            }
+            .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     override fun updateTotalPrice(price: Int) {
