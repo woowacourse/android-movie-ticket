@@ -27,6 +27,7 @@ class MovieStore {
         List(10_000) { index ->
             val titleIndex = index % movieTitles.size
             Movie(
+                id = index,
                 title = movieTitles[titleIndex],
                 posterResource = "harry_potter_${titleIndex + 1}",
                 releaseDate = screeningDate,

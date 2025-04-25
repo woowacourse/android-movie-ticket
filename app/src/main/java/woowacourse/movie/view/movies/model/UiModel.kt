@@ -7,7 +7,7 @@ import woowacourse.movie.view.movies.model.UiModel.MovieUiModel
 
 sealed interface UiModel {
     data class MovieUiModel(
-        val id: Long,
+        val id: Int,
         val title: String,
         val imgName: String,
         val releaseStartDate: String,
