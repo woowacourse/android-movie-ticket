@@ -9,14 +9,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.view.model.Poster
 import woowacourse.movie.view.model.ResourceMapper
-import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.setPoster
 
 class MovieAdapter(
     screenings: List<Screening>,
     private val onClickReserveButton: (
-        screeningData: ScreeningData,
+        screening: Screening,
+        poster: Poster,
     ) -> Unit,
 ) : BaseAdapter() {
     private val screenings: List<Screening> = screenings.toList()
@@ -55,49 +56,39 @@ class MovieAdapter(
             viewHolder = convertView.getTag(R.id.tag_view_holder) as ViewHolder
             view = convertView
         }
-        val screeningData: ScreeningData = convertScreeningData(screenings[position])
-        bindMovieItemViewHolder(viewHolder, screeningData)
+        bindMovieItemViewHolder(viewHolder, screenings[position])
 
         return view
     }
 
-    private fun convertScreeningData(screening: Screening): ScreeningData =
-        ScreeningData(
-            title = screening.title,
-            startDate = screening.period.start,
-            endDate = screening.period.endInclusive,
-            movieId = screening.movieId,
-            runningTime = screening.runningTime,
-            poster = ResourceMapper.movieIdToPoster(screening.movieId),
-        )
-
     private fun bindMovieItemViewHolder(
         viewHolder: ViewHolder,
-        screeningData: ScreeningData,
+        screening: Screening,
     ) {
         with(viewHolder) {
             val context = titleView.context
 
-            titleView.text = screeningData.title
+            titleView.text = screening.title
 
             screeningDateView.text =
                 context.getString(
                     R.string.screening_period,
-                    screeningData.startDate.year,
-                    screeningData.startDate.monthValue,
-                    screeningData.startDate.dayOfMonth,
-                    screeningData.endDate.year,
-                    screeningData.endDate.monthValue,
-                    screeningData.endDate.dayOfMonth,
+                    screening.period.start.year,
+                    screening.period.start.monthValue,
+                    screening.period.start.dayOfMonth,
+                    screening.period.endInclusive.year,
+                    screening.period.endInclusive.monthValue,
+                    screening.period.endInclusive.dayOfMonth,
                 )
 
             runningTimeView.text =
-                context.getString(R.string.running_time, screeningData.runningTime)
+                context.getString(R.string.running_time, screening.runningTime)
 
-            posterView.setPoster(screeningData.poster)
+            val poster = ResourceMapper.movieIdToPoster(screening.movieId)
+            posterView.setPoster(poster)
 
             reserveButton.setOnClickListener {
-                onClickReserveButton(screeningData)
+                onClickReserveButton(screening, poster)
             }
         }
     }

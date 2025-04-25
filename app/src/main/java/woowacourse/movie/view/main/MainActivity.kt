@@ -8,10 +8,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.presenter.MainPresenter
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.reservation.ReservationActivity
 
-class MainActivity : AppCompatActivity() {
+class MainActivity :
+    AppCompatActivity(),
+    MainView {
+    private val present: MainPresenter = MainPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,19 +27,17 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        initListView()
+        present.initMainUI()
     }
 
-    private fun initListView() {
-        val screenings = Screening.getDefaultScreenings()
-
+    override fun initMovieListUI(screenings: List<Screening>) {
         val movieListView = findViewById<ListView>(R.id.lv_main_movies)
 
-        val movieAdapter = MovieAdapter(screenings, ::navigateToReservationActivity)
+        val movieAdapter = MovieAdapter(screenings, present::navigateToReservationUI)
         movieListView.adapter = movieAdapter
     }
 
-    private fun navigateToReservationActivity(screeningData: ScreeningData) {
+    override fun navigateToReservationUI(screeningData: ScreeningData) {
         startActivity(ReservationActivity.newIntent(this, screeningData))
     }
 }
