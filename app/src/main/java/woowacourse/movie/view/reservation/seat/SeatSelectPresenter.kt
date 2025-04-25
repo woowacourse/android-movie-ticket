@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
 import android.content.Intent
-import android.widget.TextView
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.Seats
@@ -28,18 +27,17 @@ class SeatSelectPresenter(
         )
     }
 
-    override fun onSeatClicked(seatView: TextView) {
-        val seatId = seatView.text.toString()
+    override fun onSeatClicked(seatId: String) {
         if (selectedSeats.contains(seatId)) {
             selectedSeats.remove(seatId)
-            view.updateSeatDeselected(seatView)
+            view.updateSeatDeselected(seatId)
         } else {
             if (selectedSeats.size >= movieTicket.count) {
                 view.showSeatCountError(movieTicket.count)
                 return
             }
             selectedSeats.add(seatId)
-            view.updateSeatSelected(seatView)
+            view.updateSeatSelected(seatId)
         }
 
         view.updateTotalPrice(selectedSeats.totalPrice)

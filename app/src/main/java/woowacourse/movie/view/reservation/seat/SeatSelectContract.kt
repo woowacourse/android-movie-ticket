@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
 import android.content.Intent
-import android.widget.TextView
 import woowacourse.movie.model.ReservationInfo
 
 interface SeatSelectContract {
@@ -15,9 +14,9 @@ interface SeatSelectContract {
 
         fun showSeatCountError(count: Int)
 
-        fun updateSeatSelected(seatView: TextView)
+        fun updateSeatSelected(seatId: String)
 
-        fun updateSeatDeselected(seatView: TextView)
+        fun updateSeatDeselected(seatId: String)
 
         fun updateTotalPrice(totalPrice: Int)
 
@@ -34,7 +33,7 @@ interface SeatSelectContract {
     interface Presenter {
         fun fetchData(intent: Intent)
 
-        fun onSeatClicked(seatView: TextView)
+        fun onSeatClicked(seatId: String)
 
         fun createReservationInfo(onCreated: (ReservationInfo) -> Unit)
 

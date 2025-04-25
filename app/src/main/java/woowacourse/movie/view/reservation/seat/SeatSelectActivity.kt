@@ -65,12 +65,25 @@ class SeatSelectActivity :
         return
     }
 
-    override fun updateSeatSelected(seatView: TextView) {
-        seatView.setBackgroundResource(R.color.yellow)
+    override fun updateSeatSelected(seatId: String) {
+        val seatView = findSeatView(seatId)
+        seatView?.setBackgroundResource(R.color.yellow)
     }
 
-    override fun updateSeatDeselected(seatView: TextView) {
-        seatView.setBackgroundResource(R.color.white)
+    override fun updateSeatDeselected(seatId: String) {
+        val seatView = findSeatView(seatId)
+        seatView?.setBackgroundResource(R.color.white)
+    }
+
+    private fun findSeatView(seatId: String): TextView? {
+        for (i in 0 until tl.childCount) {
+            val row = tl.getChildAt(i) as? TableRow ?: continue
+            for (j in 0 until row.childCount) {
+                val seatView = row.getChildAt(j) as? TextView
+                if (seatView?.tag == seatId) return seatView
+            }
+        }
+        return null
     }
 
     override fun updateTotalPrice(totalPrice: Int) {
@@ -121,7 +134,7 @@ class SeatSelectActivity :
                         val seatId = seatView.text.toString()
                         seatView.tag = seatId
                         seatView.setOnClickListener {
-                            presenter.onSeatClicked(seatView)
+                            presenter.onSeatClicked(seatId)
                         }
                     }
                 }
