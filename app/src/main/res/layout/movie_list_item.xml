@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal">
 
     <ImageView
@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/harry_potter_poster"/>
+        android:src="@drawable/harry_potter_and_the_philosophers_stone"/>
 
     <LinearLayout
         android:layout_width="match_parent"
