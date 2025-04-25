@@ -3,11 +3,14 @@ package woowacourse.movie.feature.mapper
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
+import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.feature.model.MovieDateUiModel
+import woowacourse.movie.feature.model.MovieSeatUiModel
 import woowacourse.movie.feature.model.MovieTimeUiModel
 import woowacourse.movie.feature.model.MovieUiModel
+import woowacourse.movie.feature.model.SeatTypeUiModel
 import woowacourse.movie.feature.model.getPosterImage
 
 fun Movie.toUi(): MovieUiModel =
@@ -33,14 +36,14 @@ fun BookingInfo.toUi(): BookingInfoUiModel =
         date = date.toUi(),
         movieTime = movieTime.toUi(),
         ticketCount = ticketCount.value,
-        eachPrice = eachPrice,
-        totalPrice = totalPrice,
+        totalPrice = totalPrice.value,
     )
 
 fun BookingInfoUiModel.toDomain(): BookingInfo {
     val previousDate = date
     val previousMovieTime = movieTime
     val previousTicketCount = ticketCount
+    val selectedSeats = selectedSeats
 
     return BookingInfo(
         movie = movie.toDomain(),
@@ -48,6 +51,7 @@ fun BookingInfoUiModel.toDomain(): BookingInfo {
         updateDate(previousDate.toDomain())
         updateMovieTime(previousMovieTime.toDomain())
         increaseTicketCount(previousTicketCount)
+        addSeats(selectedSeats.map { it.toDomain() }.toSet())
     }
 }
 
@@ -69,3 +73,7 @@ fun MovieDate.toUi(): MovieDateUiModel =
     )
 
 fun MovieDateUiModel.toDomain(): MovieDate = MovieDate(year, month, day)
+
+fun MovieSeatUiModel.toDomain(): MovieSeat = MovieSeat(row, column)
+
+fun MovieSeat.toUi(): MovieSeatUiModel = MovieSeatUiModel(row, column, SeatTypeUiModel.valueOf(seatType.name))

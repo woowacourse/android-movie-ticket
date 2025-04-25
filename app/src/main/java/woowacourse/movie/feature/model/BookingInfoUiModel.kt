@@ -9,6 +9,6 @@ data class BookingInfoUiModel(
     val date: MovieDateUiModel = MovieDateUiModel(),
     val movieTime: MovieTimeUiModel = MovieTimeUiModel(),
     val ticketCount: Int = 0,
-    val eachPrice: Int = 0,
     val totalPrice: Int = 0,
+    val selectedSeats: Set<MovieSeatUiModel> = setOf<MovieSeatUiModel>(),
 ) : Parcelable

@@ -13,8 +13,10 @@ data class BookingInfo(
 
     val ticketCount: TicketCount = TicketCount()
 
-    val eachPrice: Int = DEFAULT_TICKET_PRICE
-    val totalPrice: Int get() = ticketCount * eachPrice
+    private val movieSeats: MovieSeats = MovieSeats()
+    val selectedSeats: Set<MovieSeat> get() = movieSeats.seats
+
+    val totalPrice: TicketPrice get() = movieSeats.totalPrice
 
     fun updateDate(date: MovieDate) {
         _date = date
@@ -33,7 +35,19 @@ data class BookingInfo(
         ticketCount.decrease(count)
     }
 
-    companion object {
-        private const val DEFAULT_TICKET_PRICE = 13_000
+    fun addSeat(seat: MovieSeat) {
+        if (ticketCount.value > movieSeats.seats.size) {
+            movieSeats.add(seat)
+        }
+    }
+
+    fun addSeats(seats: Set<MovieSeat>) {
+        if (ticketCount.value > movieSeats.seats.size) {
+            movieSeats.addAll(seats)
+        }
+    }
+
+    fun removeSeat(seat: MovieSeat) {
+        movieSeats.remove(seat)
     }
 }

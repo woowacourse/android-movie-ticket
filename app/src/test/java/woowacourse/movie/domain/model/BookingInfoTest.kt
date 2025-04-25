@@ -57,4 +57,22 @@ class BookingInfoTest {
         // then
         assertThat(bookingInfo.totalPrice).isEqualTo(3 * 13_000)
     }
+
+    @Test
+    fun `티켓 장수보다 많은 좌석을 선택할 수 없다`() {
+        // given
+        bookingInfo.increaseTicketCount(2)
+        val seats =
+            setOf(
+                MovieSeat(1, 1),
+                MovieSeat(1, 2),
+                MovieSeat(1, 3),
+            )
+
+        // when
+        bookingInfo.addSeats(seats)
+
+        // then
+        assertThat(bookingInfo.selectedSeats).hasSize(2)
+    }
 }
