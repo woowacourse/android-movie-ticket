@@ -16,5 +16,11 @@ object Formatter {
     fun movieTimeToUI(time: Int): String = TIME_UI_SUFFIX.format(time)
 
     @JvmStatic
+    fun uiToMovieTime(value: String): Int {
+        val index = value.indexOf(":")
+        return value.substring(0, index).toInt()
+    }
+
+    @JvmStatic
     fun priceToUI(price: Int): String = PRICE_UI_FORMATTER.format(price)
 }
