@@ -4,16 +4,16 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movies.Movie
-import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.movies.adapter.AbstractListViewAdapter.ViewHolder
+import woowacourse.movie.view.ext.toDrawableResourceId
+import woowacourse.movie.view.movies.model.UiModel.MovieUiModel
 
 class MovieViewHolder(
     itemView: View,
     onClickBooking: (Int) -> Unit,
-) : ViewHolder(itemView) {
-    private var mPosition: Int = NO_POSITION
+) : RecyclerView.ViewHolder(itemView) {
+    private val context = itemView.context
 
     private val moviePoster = itemView.findViewById<ImageView>(R.id.img_poster)
     private val movieTitle = itemView.findViewById<TextView>(R.id.tv_title)
@@ -22,31 +22,26 @@ class MovieViewHolder(
     private val bookingBtn = itemView.findViewById<Button>(R.id.btn_booking)
 
     init {
-        bookingBtn.setOnClickListener { onClickBooking(mPosition) }
+        bookingBtn.setOnClickListener { onClickBooking(bindingAdapterPosition) }
     }
 
-    fun bind(
-        item: Movie,
-        position: Int,
-    ) {
-        mPosition = position
+    fun bind(item: MovieUiModel) {
         with(item) {
-            val resource = posterResource.posterId ?: R.drawable.movie_place_holder
-            moviePoster.setImageResource(resource)
+            moviePoster.setImageResource(imgName.toDrawableResourceId(context))
 
             movieTitle.text = title
             movieReleaseDate.text =
-                itemView.context.getString(R.string.text_date_period).format(
-                    StringFormatter.dotDateFormat(releaseDate.startDate),
-                    StringFormatter.dotDateFormat(releaseDate.endDate),
-                )
+                context
+                    .getString(R.string.text_date_period)
+                    .format(
+                        releaseStartDate,
+                        releaseEndDate,
+                    )
+
             movieRunningTime.text =
-                movieRunningTime.context.getString(R.string.text_running_time_ㅡminute_unit)
+                context
+                    .getString(R.string.text_running_time_ㅡminute_unit)
                     .format(runningTime)
         }
-    }
-
-    companion object {
-        private const val NO_POSITION: Int = -1
     }
 }
