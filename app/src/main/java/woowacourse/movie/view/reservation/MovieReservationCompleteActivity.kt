@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
-import woowacourse.movie.view.reservation.ticket.TicketUiModel
+import woowacourse.movie.view.reservation.model.TicketUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :

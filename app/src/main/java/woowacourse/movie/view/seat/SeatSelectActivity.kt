@@ -20,12 +20,14 @@ import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.domain.Position
 import woowacourse.movie.domain.SeatGrade
 import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
-import woowacourse.movie.view.reservation.ticket.TicketUiModel
+import woowacourse.movie.view.reservation.model.TicketUiModel
 
 class SeatSelectActivity :
     AppCompatActivity(),
     SeatSelectContract.View {
     private lateinit var presenter: SeatSelectPresenter
+
+    private val seatTable: TableLayout by lazy { findViewById(R.id.seat_table) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,14 @@ class SeatSelectActivity :
 
         initView()
         initConfirmButton()
+    }
+
+    override fun updateSeatSelection(
+        position: Position,
+        isSelected: Boolean,
+    ) {
+        val seatTextView = seatTable.findViewWithTag<TextView>(position)
+        seatTextView.setBackgroundResource(if (isSelected) R.color.yellow else R.color.white)
     }
 
     override fun navigateToCompleteScreen(ticket: TicketUiModel) {
@@ -56,16 +66,24 @@ class SeatSelectActivity :
     }
 
     private fun initView() {
-        val seatTable: TableLayout = findViewById(R.id.seat_table)
         seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIdx, row ->
             val seatGrade = SeatGrade.of(rowIdx + 1)
-            row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, view ->
-                view.tag = Position(rowIdx, colIdx)
-                view.text = "${'A' + rowIdx}${colIdx + 1}"
+            row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, seatTextView ->
+                val position = Position(rowIdx, colIdx)
+                seatTextView.tag = position
+                seatTextView.text = "${'A' + rowIdx}${colIdx + 1}"
                 when (seatGrade) {
-                    SeatGrade.S -> view.setTextColor(ContextCompat.getColor(this, R.color.green))
-                    SeatGrade.A -> view.setTextColor(ContextCompat.getColor(this, R.color.blue))
-                    SeatGrade.B -> view.setTextColor(ContextCompat.getColor(this, R.color.purple))
+                    SeatGrade.S ->
+                        seatTextView.setTextColor(ContextCompat.getColor(this, R.color.green))
+
+                    SeatGrade.A ->
+                        seatTextView.setTextColor(ContextCompat.getColor(this, R.color.blue))
+
+                    SeatGrade.B ->
+                        seatTextView.setTextColor(ContextCompat.getColor(this, R.color.purple))
+                }
+                seatTextView.setOnClickListener {
+                    presenter.onClickSeat(position)
                 }
             }
         }

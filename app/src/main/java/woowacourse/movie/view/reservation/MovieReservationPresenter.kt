@@ -1,7 +1,7 @@
 package woowacourse.movie.view.reservation
 
 import woowacourse.movie.domain.Scheduler
-import woowacourse.movie.view.reservation.ticket.TicketUiModel
+import woowacourse.movie.view.reservation.model.TicketUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

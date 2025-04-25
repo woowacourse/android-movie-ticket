@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation.ticket
+package woowacourse.movie.view.reservation.model
 
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.movie.model.toDomain
@@ -9,6 +9,7 @@ fun Ticket.toUiModel(): TicketUiModel =
         movie = movie.toUiModel(),
         showtime = showtime,
         count = count,
+        seats = seats,
     )
 
 fun TicketUiModel.toDomain(): Ticket =
@@ -16,4 +17,5 @@ fun TicketUiModel.toDomain(): Ticket =
         movie = movie.toDomain(),
         showtime = showtime,
         count = count,
+        seats = seats,
     )

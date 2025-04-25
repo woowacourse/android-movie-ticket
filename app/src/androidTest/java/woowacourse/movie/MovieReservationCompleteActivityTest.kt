@@ -15,7 +15,7 @@ import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.fixture.ticket
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import woowacourse.movie.view.reservation.MovieReservationCompleteActivity
-import woowacourse.movie.view.reservation.ticket.toUiModel
+import woowacourse.movie.view.reservation.model.toUiModel
 
 class MovieReservationCompleteActivityTest {
     private lateinit var intent: Intent

@@ -19,8 +19,8 @@ import woowacourse.movie.R
 import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.movie.model.MovieUiModel
-import woowacourse.movie.view.reservation.ticket.TicketUiModel
-import woowacourse.movie.view.reservation.ticket.toDomain
+import woowacourse.movie.view.reservation.model.TicketUiModel
+import woowacourse.movie.view.reservation.model.toDomain
 import woowacourse.movie.view.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.LocalTime

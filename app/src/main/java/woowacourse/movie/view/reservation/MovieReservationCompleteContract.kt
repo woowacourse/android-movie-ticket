@@ -1,6 +1,6 @@
 package woowacourse.movie.view.reservation
 
-import woowacourse.movie.view.reservation.ticket.TicketUiModel
+import woowacourse.movie.view.reservation.model.TicketUiModel
 
 interface MovieReservationCompleteContract {
     interface View {
