@@ -13,12 +13,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.ext.getSerializableCompat
+import java.text.DecimalFormat
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
-    private val presenter = SeatPresenter()
+    private val presenter = SeatPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +33,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
 
         presenter.initReservation(getReservation())
+        presenter.initView()
         initSeat()
     }
 
@@ -38,7 +41,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
     }
 
-    private fun initSeat() {
+    override fun initSeat() {
         val seat = findViewById<TableLayout>(R.id.tl_seat)
 
         seat.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
@@ -68,7 +71,19 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
     }
 
+    override fun showMovieInfo(movie: Movie) {
+        val title = findViewById<TextView>(R.id.tv_title)
+        title.text = movie.title
+    }
+
+    override fun updateTotalPrice(price: Int) {
+        val totalPrice = findViewById<TextView>(R.id.tv_total_price)
+        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(price))
+    }
+
     companion object {
+        private val decimal = DecimalFormat("#,###")
+
         fun newIntent(
             context: Context,
             reservation: Reservation,

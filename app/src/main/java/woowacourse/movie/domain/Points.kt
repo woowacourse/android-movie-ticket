@@ -10,6 +10,10 @@ class Points(values: Set<Point> = setOf()) : Serializable {
         return _points.contains(point)
     }
 
+    fun totalPrice(): Int {
+        return _points.sumOf { it.price() }
+    }
+
     operator fun minus(point: Point) {
         _points.remove(point)
     }

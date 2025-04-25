@@ -3,8 +3,14 @@ package woowacourse.movie.seat
 import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
 
-class SeatPresenter : SeatContract.Presenter {
+class SeatPresenter(
+    private val view: SeatContract.View,
+) : SeatContract.Presenter {
     lateinit var reservation: Reservation
+
+    override fun initReservation(reservation: Reservation) {
+        this.reservation = reservation
+    }
 
     override fun getPoint(
         row: Int,
@@ -13,8 +19,10 @@ class SeatPresenter : SeatContract.Presenter {
         return Point(row, col)
     }
 
-    override fun initReservation(reservation: Reservation) {
-        this.reservation = reservation
+    override fun initView() {
+        view.showMovieInfo(reservation.movie)
+        view.initSeat()
+        view.updateTotalPrice(reservation.points.totalPrice())
     }
 
     override fun isOccupied(point: Point): Boolean {
@@ -23,9 +31,11 @@ class SeatPresenter : SeatContract.Presenter {
 
     override fun cancelSelection(point: Point) {
         reservation.points - point
+        view.updateTotalPrice(reservation.points.totalPrice())
     }
 
     override fun selectSeat(point: Point) {
         reservation.points + point
+        view.updateTotalPrice(reservation.points.totalPrice())
     }
 }
