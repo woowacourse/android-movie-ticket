@@ -1,4 +1,4 @@
-package woowacourse.movie.view.booking
+package woowacourse.movie.view.booking.booking
 
 import android.app.AlertDialog
 import android.content.Context

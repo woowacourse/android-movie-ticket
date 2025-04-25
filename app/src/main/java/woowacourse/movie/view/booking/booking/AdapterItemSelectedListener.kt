@@ -1,4 +1,4 @@
-package woowacourse.movie.view.booking
+package woowacourse.movie.view.booking.booking
 
 import android.view.View
 import android.widget.AdapterView

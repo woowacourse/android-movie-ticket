@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.view.booking.BookingActivity
+import woowacourse.movie.view.booking.booking.BookingActivity
 
 class MovieListActivity :
     AppCompatActivity(),

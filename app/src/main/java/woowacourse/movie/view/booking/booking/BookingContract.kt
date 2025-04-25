@@ -1,4 +1,4 @@
-package woowacourse.movie.view.booking
+package woowacourse.movie.view.booking.booking
 
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
