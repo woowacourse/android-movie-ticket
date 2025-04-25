@@ -35,9 +35,7 @@ class MovieStore {
         }
     }
 
-    fun get(index: Int): Movie = movies[index]
+    operator fun get(index: Int): Movie = movies[index]
 
     fun getAll(): List<Movie> = movies
-
-    fun size(): Int = movies.size
 }
