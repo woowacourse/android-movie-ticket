@@ -7,7 +7,6 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -60,10 +59,6 @@ class SeatSelectActivity :
             .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
             .setCancelable(false)
             .show()
-    }
-
-    override fun showSelectToast() {
-        Toast.makeText(this, R.string.select_seat, Toast.LENGTH_SHORT).show()
     }
 
     override fun updateSeatSelection(

@@ -8,7 +8,6 @@
     <string name="cancel">취소</string>
     <string name="screen">SCREEN</string>
     <string name="select_date_and_time">날짜와 시간을 선택해 주세요.</string>
-    <string name="select_seat">티켓 수만큼 좌석을 선택해 주세요.</string>
     <string name="screening_date">상영일: %s ~ %s</string>
     <string name="running_time">러닝타임: %d분</string>
     <string name="ticket_info">일반 %d명 | %s</string>

@@ -12,8 +12,6 @@ interface SeatSelectContract {
 
         fun showConfirmAlertDialog()
 
-        fun showSelectToast()
-
         fun updateSeatSelection(
             seat: SeatUiModel,
             isSelected: Boolean,

@@ -26,16 +26,12 @@ class SeatSelectPresenter(
                 ticket.copy(seats = ticket.seats + seatDomainModel)
             }
         view.updateSeatSelection(seat, ticket.toDomain().contains(seatDomainModel))
-        view.updateConfirmButton(ticket.seats.isEmpty().not())
+        view.updateConfirmButton(ticket.toDomain().isSeatsAllSelected())
         view.showTotalPrice(ticket.toDomain().totalPrice())
     }
 
     override fun onClickConfirmButton() {
-        if (ticket.toDomain().isSeatsAllSelected()) {
-            view.showConfirmAlertDialog()
-        } else {
-            view.showSelectToast()
-        }
+        view.showConfirmAlertDialog()
     }
 
     override fun completeReservation() {
