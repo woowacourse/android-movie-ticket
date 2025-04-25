@@ -17,11 +17,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
-import woowacourse.movie.domain.seat.Seat
-import woowacourse.movie.domain.seat.SeatGrade
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.result.MovieReservationCompleteActivity
+import woowacourse.movie.view.seat.model.SeatUiModel
 
 class SeatSelectActivity :
     AppCompatActivity(),
@@ -68,7 +67,7 @@ class SeatSelectActivity :
     }
 
     override fun updateSeatSelection(
-        seat: Seat,
+        seat: SeatUiModel,
         isSelected: Boolean,
     ) {
         val seatTextView = seatTable.findViewWithTag<TextView>(seat)
@@ -101,21 +100,11 @@ class SeatSelectActivity :
 
     private fun initSeatTable() {
         seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIdx, row ->
-            val seatGrade = SeatGrade.of(rowIdx)
             row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, seatTextView ->
-                val seat = Seat.from(rowIdx, colIdx)
+                val seat = SeatUiModel(rowIdx, colIdx)
                 seatTextView.tag = seat
                 seatTextView.text = "${'A' + rowIdx}${colIdx + 1}"
-                when (seatGrade) {
-                    SeatGrade.S ->
-                        seatTextView.setTextColor(ContextCompat.getColor(this, R.color.green))
-
-                    SeatGrade.A ->
-                        seatTextView.setTextColor(ContextCompat.getColor(this, R.color.blue))
-
-                    SeatGrade.B ->
-                        seatTextView.setTextColor(ContextCompat.getColor(this, R.color.purple))
-                }
+                seatTextView.setTextColor(ContextCompat.getColor(this, seat.colorResId))
                 seatTextView.setOnClickListener {
                     presenter.onClickSeat(seat)
                 }

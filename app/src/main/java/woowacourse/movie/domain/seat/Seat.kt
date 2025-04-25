@@ -6,7 +6,7 @@ class Seat private constructor(
     val row: Int,
     val col: Int,
 ) : Serializable {
-    private val grade: SeatGrade = SeatGrade.of(row)
+    val grade: SeatGrade = SeatGrade.of(row)
     val price: Int = grade.price
 
     companion object {

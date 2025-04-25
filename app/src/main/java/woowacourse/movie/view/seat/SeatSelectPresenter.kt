@@ -1,8 +1,9 @@
 package woowacourse.movie.view.seat
 
-import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.reservation.model.toDomain
+import woowacourse.movie.view.seat.model.SeatUiModel
+import woowacourse.movie.view.seat.model.toDomain
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
@@ -16,14 +17,15 @@ class SeatSelectPresenter(
         view.showTotalPrice(ticket.toDomain().totalPrice())
     }
 
-    override fun onClickSeat(seat: Seat) {
+    override fun onClickSeat(seat: SeatUiModel) {
+        val seatDomainModel = seat.toDomain()
         _ticket =
-            if (ticket.toDomain().contains(seat)) {
-                ticket.copy(seats = ticket.seats - seat)
+            if (ticket.toDomain().contains(seatDomainModel)) {
+                ticket.copy(seats = ticket.seats - seatDomainModel)
             } else {
-                ticket.copy(seats = ticket.seats + seat)
+                ticket.copy(seats = ticket.seats + seatDomainModel)
             }
-        view.updateSeatSelection(seat, ticket.toDomain().contains(seat))
+        view.updateSeatSelection(seat, ticket.toDomain().contains(seatDomainModel))
         view.updateConfirmButton(ticket.seats.isEmpty().not())
         view.showTotalPrice(ticket.toDomain().totalPrice())
     }
