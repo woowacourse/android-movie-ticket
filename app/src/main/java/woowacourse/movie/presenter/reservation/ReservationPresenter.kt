@@ -48,7 +48,7 @@ class ReservationPresenter(
                 movie.title,
                 movieDate.value,
                 movieTime,
-                ticketCount.value,
+                ticketCount,
             )
         view.showReservationCompleteView(movieTicket)
     }

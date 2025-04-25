@@ -13,7 +13,7 @@ class MovieTicketTest {
                 title = "라라랜드",
                 movieDate = LocalDate.of(2025, 4, 22),
                 movieTime = MovieTime(),
-                count = 4,
+                count = TicketCount(4),
             )
 
         // when
