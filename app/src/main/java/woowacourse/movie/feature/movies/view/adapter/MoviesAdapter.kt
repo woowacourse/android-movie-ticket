@@ -3,48 +3,59 @@ package woowacourse.movie.feature.movies.view.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.feature.model.MovieUiModel
 
 class MoviesAdapter(
-    private val movies: List<MovieUiModel>,
     private val onBookingClick: (MovieUiModel) -> Unit,
-) : BaseAdapter() {
-    override fun getView(
-        position: Int,
-        convertView: View?,
+) : ListAdapter<Item, RecyclerView.ViewHolder>(DiffCallback) {
+    override fun onCreateViewHolder(
         parent: ViewGroup,
-    ): View {
-        val movieViewHolder: MovieViewHolder
-        val view: View
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            ItemViewType.MOVIE.type ->
+                MovieViewHolder(
+                    inflater.inflate(R.layout.item_movie, parent, false),
+                )
 
-        if (convertView == null) {
-            view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-            movieViewHolder = MovieViewHolder(view)
-            MovieViewHolder.setTag(view, movieViewHolder)
-        } else {
-            view = convertView
-            movieViewHolder = MovieViewHolder.getTag(view)
+            ItemViewType.ADVERTISEMENT.type ->
+                AdvertisementViewHolder(
+                    inflater.inflate(R.layout.item_advertisement, parent, false),
+                )
+
+            else -> throw IllegalArgumentException("[ERROR] 알 수 없는 뷰 타입 오류입니다.")
         }
-
-        movieViewHolder.bind(movies[position]) { movie -> onBookingClick(movie) }
-
-        return view
     }
 
-    override fun getItem(position: Int): MovieUiModel = movies[position]
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
+        val item: Item = getItem(position)
 
-    override fun getItemId(position: Int): Long = 0
+        when (holder) {
+            is MovieViewHolder -> holder.bind(item as Item.Movie, onBookingClick)
+            is AdvertisementViewHolder -> Unit
+        }
+    }
 
-    override fun getCount(): Int = movies.size
+    override fun getItemViewType(position: Int): Int =
+        when (getItem(position)) {
+            is Item.Movie -> ItemViewType.MOVIE.type
+            is Item.Advertisement -> ItemViewType.ADVERTISEMENT.type
+        }
 
     private class MovieViewHolder(
         private val view: View,
-    ) {
+    ) : RecyclerView.ViewHolder(view) {
         private val title: TextView = view.findViewById(R.id.tv_movie_title)
         private val poster: ImageView = view.findViewById(R.id.iv_movie_poster)
         private val date: TextView = view.findViewById(R.id.tv_movie_date)
@@ -52,39 +63,42 @@ class MoviesAdapter(
         private val bookingButton: Button = view.findViewById(R.id.btn_movie_booking)
 
         fun bind(
-            movie: MovieUiModel,
+            movie: Item.Movie,
             onBookingClick: (MovieUiModel) -> Unit,
         ) {
-            title.text = movie.title
-            poster.setImageResource(movie.poster)
+            title.text = movie.value.title
+            poster.setImageResource(movie.value.poster)
 
             date.text =
                 view.context.getString(
                     R.string.movies_movie_date_with_tilde,
-                    movie.startDate,
-                    movie.endDate,
+                    movie.value.startDate,
+                    movie.value.endDate,
                 )
 
             runningTime.text =
                 view.context.getString(
                     R.string.movies_movie_running_time,
-                    movie.runningTime,
+                    movie.value.runningTime,
                 )
 
-            bookingButton.setOnClickListener { onBookingClick(movie) }
+            bookingButton.setOnClickListener { onBookingClick(movie.value) }
         }
+    }
 
-        companion object {
-            private val MOVIE_VIEW_TYPE = R.id.tag_movie_view_holder
+    private class AdvertisementViewHolder(
+        view: View,
+    ) : RecyclerView.ViewHolder(view)
 
-            fun setTag(
-                view: View,
-                tag: MovieViewHolder,
-            ) {
-                view.setTag(MOVIE_VIEW_TYPE, tag)
-            }
+    object DiffCallback : DiffUtil.ItemCallback<Item>() {
+        override fun areItemsTheSame(
+            oldItem: Item,
+            newItem: Item,
+        ): Boolean = oldItem.id == newItem.id && oldItem::class == newItem::class
 
-            fun getTag(view: View): MovieViewHolder = view.getTag(MOVIE_VIEW_TYPE) as MovieViewHolder
-        }
+        override fun areContentsTheSame(
+            oldItem: Item,
+            newItem: Item,
+        ): Boolean = oldItem == newItem
     }
 }

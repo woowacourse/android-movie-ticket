@@ -1,16 +1,17 @@
 package woowacourse.movie.feature.movies.view
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.feature.bookingdetail.view.BookingDetailActivity
 import woowacourse.movie.feature.model.MovieUiModel
 import woowacourse.movie.feature.movies.contract.MoviesContract
 import woowacourse.movie.feature.movies.presenter.MoviesPresenter
+import woowacourse.movie.feature.movies.view.adapter.Item
 import woowacourse.movie.feature.movies.view.adapter.MoviesAdapter
 
 class MoviesActivity :
@@ -25,8 +26,9 @@ class MoviesActivity :
     }
 
     override fun showMovies(movies: List<MovieUiModel>) {
-        val moviesAdapter = MoviesAdapter(movies) { movie -> presenter.onMovieBookingClicked(movie) }
-        findViewById<ListView>(R.id.lv_movies).adapter = moviesAdapter
+        val moviesAdapter = MoviesAdapter { movie -> presenter.onMovieBookingClicked(movie) }
+        moviesAdapter.submitList(Item.from(movies))
+        findViewById<RecyclerView>(R.id.lv_movies).adapter = moviesAdapter
     }
 
     override fun navigateToBookingDetail(movie: MovieUiModel) {
