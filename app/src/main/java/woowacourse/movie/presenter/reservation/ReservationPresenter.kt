@@ -18,6 +18,10 @@ class ReservationPresenter(
 
     override fun updateMovieData(movie: Movie) {
         this.movie = movie
+        updateView(movie)
+    }
+
+    private fun updateView(movie: Movie) {
         view.showTitle(movie.title)
         view.showPoster(movie.poster)
         view.showRunningTime(movie.runningTime)
@@ -42,7 +46,7 @@ class ReservationPresenter(
         }
     }
 
-    override fun updateMovieReservationInfo() {
+    override fun onMovieToReserveRequest() {
         val movieToReserve =
             MovieToReserve(
                 id = movie.id,

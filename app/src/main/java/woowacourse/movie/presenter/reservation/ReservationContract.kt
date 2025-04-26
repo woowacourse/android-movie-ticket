@@ -39,7 +39,7 @@ interface ReservationContract {
 
         fun decreaseTicketCount()
 
-        fun updateMovieReservationInfo()
+        fun onMovieToReserveRequest()
 
         fun updateMovieDate(date: LocalDate)
 

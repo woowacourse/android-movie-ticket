@@ -75,7 +75,7 @@ class ReservationActivity :
         }
 
         completeButton.setOnClickListener {
-            presenter.updateMovieReservationInfo()
+            presenter.onMovieToReserveRequest()
         }
     }
 
