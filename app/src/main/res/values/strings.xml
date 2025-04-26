@@ -12,4 +12,5 @@
     <string name="okay">예매 완료</string>
     <string name="total_price">%,d원 (현장 결제)</string>
     <string name="error_people_over_one">영화 예매 인원은 1명이상 선택해야 합니다.</string>
+    <string name="error_dialog_okay">확인</string>
 </resources>
