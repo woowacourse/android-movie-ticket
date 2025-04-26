@@ -15,7 +15,6 @@ class MovieTicketTest {
                 title = "라라랜드",
                 movieDate = LocalDate.of(2025, 4, 22),
                 movieTime = MovieTime(),
-                count = TicketCount(4),
                 seats = listOf(Seat(0, 0), Seat(1, 1), Seat(2, 2), Seat(4, 0)),
             )
 
