@@ -14,8 +14,8 @@ interface MoviesContracts {
     interface Presenter {
         fun initView()
 
-        fun createMovie(id: Long)
+        fun onReservationRequested(id: Long)
 
-        fun clickAdvertisement(url: String)
+        fun onClickAdvertisement(url: String)
     }
 }

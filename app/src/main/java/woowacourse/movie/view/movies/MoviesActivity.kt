@@ -44,10 +44,10 @@ class MoviesActivity :
                     movieClickListener =
                         object : MovieClickListener {
                             override fun onReservationClick(movieId: Long) {
-                                presenter.createMovie(movieId)
+                                presenter.onReservationRequested(movieId)
                             }
                         },
-                    advertisementClickListener = { presenter.clickAdvertisement(ADVERTISEMENT_URL) },
+                    advertisementClickListener = { presenter.onClickAdvertisement(ADVERTISEMENT_URL) },
                 )
             movieListView.apply {
                 adapter = movieAdapter
