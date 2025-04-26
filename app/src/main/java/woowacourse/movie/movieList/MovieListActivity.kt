@@ -13,18 +13,18 @@ class MovieListActivity :
     AppCompatActivity(),
     MovieListContract.View {
     private lateinit var adapter: MovieListAdapter
-    private var presenter: MovieListPresenter = MovieListPresenter()
+    private var presenter: MovieListPresenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter.onViewCreated(this)
+        presenter.onViewCreated()
     }
 
     override fun showMovies(items: List<MovieInfo>) {
         val listView = findViewById<ListView>(R.id.movie_list)
-        adapter = MovieListAdapter(this, items, ::changeActivity, this::showError)
+        adapter = MovieListAdapter(this, items, presenter)
         listView.adapter = adapter
     }
 
