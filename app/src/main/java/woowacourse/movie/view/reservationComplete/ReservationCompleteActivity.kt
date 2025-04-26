@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.ticket.MovieTicket
 import woowacourse.movie.presenter.reservationComplete.ReservationCompleteContracts
 import woowacourse.movie.presenter.reservationComplete.ReservationCompletePresenter
@@ -18,6 +19,7 @@ import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.mapper.Formatter.priceToUI
 import woowacourse.movie.view.movies.MoviesActivity
+import woowacourse.movie.view.seatSelection.SeatSelectionFormatter.seatsToUI
 import java.time.LocalDate
 
 class ReservationCompleteActivity :
@@ -80,9 +82,10 @@ class ReservationCompleteActivity :
             )
     }
 
-    override fun showTicketCount(count: Int) {
+    override fun showSeat(seats: List<Seat>) {
+        val seatsFormat: String = seatsToUI(seats, ", ")
         ticketCountTextView.text =
-            resources.getString(R.string.reservation_complete_ticket_count, count)
+            resources.getString(R.string.reservation_complete_ticket_count, seats.size, seatsFormat)
     }
 
     override fun showPrice(price: Int) {

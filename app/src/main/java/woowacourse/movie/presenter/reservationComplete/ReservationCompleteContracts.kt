@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.reservationComplete
 
+import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.ticket.MovieTicket
 import java.time.LocalDate
 
@@ -12,7 +13,7 @@ interface ReservationCompleteContracts {
             time: Int,
         )
 
-        fun showTicketCount(count: Int)
+        fun showSeat(seats: List<Seat>)
 
         fun showPrice(price: Int)
     }
