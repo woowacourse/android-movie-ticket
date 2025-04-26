@@ -17,22 +17,37 @@ import woowacourse.movie.global.toFormattedDate
 class MovieListAdapter(
     private val movies: List<MovieDto>,
     private val onReservationClick: (selectedMovie: MovieDto) -> Unit,
-) : ListAdapter<MovieDto, MovieListAdapter.ViewHolder>(MyDataDiffCallback()) {
+) : ListAdapter<MovieDto, RecyclerView.ViewHolder>(MyDataDiffCallback()) {
     override fun onBindViewHolder(
-        holder: ViewHolder,
+        holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        holder.setData(movies[position], onReservationClick)
+        (holder as? ViewHolder)?.setData(getItem(position), onReservationClick) ?: (holder as? AdvertiseViewHolder)?.setData()
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): ViewHolder {
+    ): RecyclerView.ViewHolder {
         val binding =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.movie_item, parent, false)
-        return ViewHolder(binding)
+        return if (viewType == VIEW_TYPE_ADS) {
+            val adsBinding =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_item_ads, parent, false)
+            AdvertiseViewHolder(adsBinding)
+        } else {
+            ViewHolder(binding)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if ((position + 1) % 4 == 0) {
+            VIEW_TYPE_ADS
+        } else {
+            VIEW_TYPE_MOVIE
+        }
     }
 
     private class MyDataDiffCallback : DiffUtil.ItemCallback<MovieDto>() {
@@ -79,5 +94,18 @@ class MovieListAdapter(
                 onReservationClick(movie)
             }
         }
+    }
+
+    class AdvertiseViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val ads: ImageView = view.findViewById<ImageView>(R.id.ads)
+
+        fun setData() {
+            ads.setImage("ads/광고.png")
+        }
+    }
+
+    companion object {
+        private const val VIEW_TYPE_MOVIE = 0
+        private const val VIEW_TYPE_ADS = 1
     }
 }

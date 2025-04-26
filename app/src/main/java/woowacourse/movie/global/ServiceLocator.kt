@@ -15,15 +15,15 @@ import kotlin.time.Duration.Companion.minutes
 
 object ServiceLocator {
     val movies: List<Movie> =
-        listOf<Movie>(
+        (0..100).map {
             Movie(
-                "해리포터와 마법사의 돌",
+                "해리포터와 마법사의 돌$it",
                 "images/movie_poster.jpg",
                 LocalDateTime.of(2025, 4, 3, 0, 0, 0),
                 LocalDateTime.of(2025, 4, 5, 23, 59, 59),
                 125.minutes,
-            ),
-        )
+            )
+        }
     val today: LocalDate = LocalDate.of(2025, 4, 3)
     val now: LocalDateTime = LocalDateTime.of(2025, 4, 3, 14, 0, 0)
     val runningTimeRule = RunningTimeRuleImpl()
