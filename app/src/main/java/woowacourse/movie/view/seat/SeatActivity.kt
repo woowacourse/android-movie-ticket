@@ -116,6 +116,9 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         priceText.text = getString(R.string.text_korea_unit).format(formattedPrice)
     }
 
+    override fun setConfirmButtonEnabled(enabled: Boolean) {
+        bookingBtn.isEnabled = enabled
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {

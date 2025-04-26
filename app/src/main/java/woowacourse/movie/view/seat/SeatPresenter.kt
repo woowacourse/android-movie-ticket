@@ -34,6 +34,10 @@ class SeatPresenter(
 
         view.showSeat(toCoordination())
         view.showPrice(seats.bookingPrice())
+        updateConfirmButtonState(limit)
+    private fun updateConfirmButtonState(peopleCount: Int) {
+        val isEnabled = seats.item.size == peopleCount
+        view.setConfirmButtonEnabled(isEnabled)
     }
 
     private fun canSelect(limit: Int): Boolean {

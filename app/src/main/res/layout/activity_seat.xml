@@ -167,11 +167,13 @@
         </LinearLayout>
 
         <Button
+            android:id="@+id/btn_booking"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:text="@string/text_complete"
             android:textSize="20sp"
-            android:backgroundTint="#AAAAAA"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:enabled="false"
+            android:backgroundTint="@color/btn_booking_background" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

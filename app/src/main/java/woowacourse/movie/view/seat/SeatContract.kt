@@ -15,6 +15,8 @@ interface SeatContract {
         fun showToast(peopleCount: Int)
 
         fun showPrice(price: Int)
+
+        fun setConfirmButtonEnabled(clickable: Boolean)
     }
 
     interface Presenter {
