@@ -1,7 +1,8 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.ticket
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.movie.MovieTime
 import java.time.LocalDate
 
 class MovieTicketTest {
@@ -20,6 +21,6 @@ class MovieTicketTest {
         val price = ticket.price()
 
         // then
-        assertThat(price).isEqualTo(52000)
+        Assertions.assertThat(price).isEqualTo(52000)
     }
 }

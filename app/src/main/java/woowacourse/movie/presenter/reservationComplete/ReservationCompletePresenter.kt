@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.reservationComplete
 
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.ticket.MovieTicket
 
 class ReservationCompletePresenter(
     private val view: ReservationCompleteContracts.View,

@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.seat
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
@@ -12,7 +12,7 @@ class SeatGradeTest {
         expected: SeatGrade,
     ) {
         // given:
-        val row = SeatRow(rowValue)
+        val row = SeatGridElement(rowValue)
 
         // when:
         val actual: SeatGrade = SeatGrade.calculateSeatGrade(row)

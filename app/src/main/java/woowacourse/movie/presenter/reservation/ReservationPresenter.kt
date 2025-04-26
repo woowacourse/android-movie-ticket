@@ -1,10 +1,10 @@
 package woowacourse.movie.presenter.reservation
 
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieDate
-import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.model.MovieTime
-import woowacourse.movie.model.TicketCount
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.MovieDate
+import woowacourse.movie.model.movie.MovieTime
+import woowacourse.movie.model.ticket.MovieTicket
+import woowacourse.movie.model.ticket.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
 

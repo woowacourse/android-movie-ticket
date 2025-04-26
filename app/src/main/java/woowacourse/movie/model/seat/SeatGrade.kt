@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.seat
 
 enum class SeatGrade(
     val price: Int,
@@ -9,11 +9,11 @@ enum class SeatGrade(
     ;
 
     companion object {
-        fun calculateSeatGrade(row: SeatRow): SeatGrade =
-            when (row.value) {
-                1, 2 -> B
-                3, 4 -> S
-                5 -> A
+        fun calculateSeatGrade(seatGridElement: SeatGridElement): SeatGrade =
+            when (seatGridElement.value) {
+                0, 1 -> B
+                2, 3 -> S
+                4 -> A
                 else -> throw IllegalArgumentException("알 수 없는 좌석 행입니다.")
             }
     }

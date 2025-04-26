@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.movie.Movie
 
 class MovieAdapter(
     private val context: Context,

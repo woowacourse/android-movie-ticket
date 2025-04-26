@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDate
 

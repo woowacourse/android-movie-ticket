@@ -1,5 +1,6 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.ticket
 
+import woowacourse.movie.model.movie.MovieTime
 import java.io.Serializable
 import java.time.LocalDate
 

@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.movies
 
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.movie.Movie
 
 class MoviesPresenter(
     private val view: MoviesContracts.View,

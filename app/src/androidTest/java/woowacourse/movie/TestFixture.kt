@@ -2,9 +2,9 @@ package woowacourse.movie
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import woowacourse.movie.model.Movie
-import woowacourse.movie.model.MovieTicket
-import woowacourse.movie.model.MovieTime
+import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.MovieTime
+import woowacourse.movie.model.ticket.MovieTicket
 import java.time.LocalDate
 
 val MOVIE: Movie =
