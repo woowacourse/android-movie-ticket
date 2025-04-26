@@ -14,6 +14,7 @@ class BookingPresenter(
     private val view: BookingContract.View,
     private val movieId: Int,
     private var headCount: HeadCount = HeadCount(),
+    private val movieRepository: MovieRepository = MovieRepository(),
     private val movieTicketService: MovieTicketService = MovieTicketService(),
 ) : BookingContract.Presenter {
     private val movie = getMovie()
@@ -51,7 +52,7 @@ class BookingPresenter(
         selectedTime = restoredTime
     }
 
-    override fun getMovie(): Movie = MovieRepository().getMovieById(movieId)
+    override fun getMovie(): Movie = movieRepository.getMovieById(movieId)
 
     override fun tryLoadMovie(movieId: Int): Boolean =
         if (movieId == -1) {
