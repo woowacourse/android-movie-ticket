@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".SeatsSelectionActivity"
+            android:name=".ui.view.seat.SeatsSelectionActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.booking.BookingActivity"

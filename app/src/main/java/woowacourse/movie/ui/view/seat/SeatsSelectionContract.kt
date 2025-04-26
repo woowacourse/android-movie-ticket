@@ -1,6 +1,4 @@
-package woowacourse.movie.ui.view.booking
-
-import woowacourse.movie.ui.view.seat.SeatButtonState
+package woowacourse.movie.ui.view.seat
 
 interface SeatsSelectionContract {
     interface View {

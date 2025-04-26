@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.ui.view.seat
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,13 +7,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.presenter.SeatsSelectionPresenter
 import woowacourse.movie.ui.view.BaseActivity
 import woowacourse.movie.ui.view.booking.BookingSummaryActivity
 import woowacourse.movie.ui.view.booking.BookingSummaryActivity.Companion.formatAmount
-import woowacourse.movie.ui.view.booking.SeatsSelectionContract
-import woowacourse.movie.ui.view.seat.SeatButtonState
 import woowacourse.movie.ui.view.utils.intentSerializable
 
 class SeatsSelectionActivity :

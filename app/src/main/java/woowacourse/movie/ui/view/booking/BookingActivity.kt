@@ -11,11 +11,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.SeatsSelectionActivity
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.presenter.BookingPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.BaseActivity
+import woowacourse.movie.ui.view.seat.SeatsSelectionActivity
 import woowacourse.movie.ui.view.utils.setImage
 import java.time.LocalDate
 import java.time.LocalTime
