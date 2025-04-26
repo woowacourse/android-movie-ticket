@@ -41,17 +41,22 @@ class SeatSelectionActivity :
 
         val seatTable = findViewById<TableLayout>(R.id.seat_table_layout)
         setupSeats(seatTable)
-        selectSeat()
+        selectSeat(ticket)
         handleConfirmButton(ticket)
     }
 
-    private fun selectSeat() {
+    private fun selectSeat(ticket: Ticket) {
         seats.forEachIndexed { rowIndex, row ->
             row.forEachIndexed { colIndex, textView ->
                 textView.setOnClickListener {
-                    val isSelected = presenter.onSeatClicked(textView)
+                    val willSelect = !textView.isSelected
+                    if (willSelect && presenter.calculateAudienceCount(true) > ticket.count) {
+                        Toast.makeText(this, R.string.seat_select_error_message, Toast.LENGTH_SHORT).show()
+                        return@setOnClickListener
+                    }
+
+                    val isSelected = presenter.onSeatClicked(textView, ticket)
                     presenter.calculateMoney(rowIndex, isSelected)
-                    presenter.calculateAudienceCount(isSelected)
                     presenter.handleConfirmButtonActivation(seats)
                 }
             }

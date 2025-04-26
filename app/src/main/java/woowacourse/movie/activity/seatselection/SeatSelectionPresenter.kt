@@ -35,14 +35,18 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
         view?.showMoney(ticketPrice)
     }
 
-    override fun calculateAudienceCount(isSelected: Boolean) {
+    override fun calculateAudienceCount(isSelected: Boolean): Int {
         when (isSelected) {
             true -> audienceCount++
             false -> audienceCount--
         }
+        return audienceCount
     }
 
-    override fun onSeatClicked(seat: TextView): Boolean {
+    override fun onSeatClicked(
+        seat: TextView,
+        ticket: Ticket,
+    ): Boolean {
         seat.isSelected = !seat.isSelected
         return seat.isSelected
     }

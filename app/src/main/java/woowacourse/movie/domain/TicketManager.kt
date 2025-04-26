@@ -77,6 +77,7 @@ class TicketManager(
             title = movie.title,
             date = date,
             time = time,
+            count = ticketCountValue,
         )
     }
 
