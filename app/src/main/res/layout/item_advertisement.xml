@@ -9,8 +9,8 @@
         android:id="@+id/iv_advertisement"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scaleType="fitXY"
         android:contentDescription="@null"
+        android:scaleType="fitXY"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@drawable/advertisement" />
 
