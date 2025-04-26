@@ -1,10 +1,17 @@
 package woowacourse.movie
 
+import android.view.View
+import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.Matchers.allOf
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.activity.movielist.MovieListActivity
@@ -15,19 +22,47 @@ class MovieListActivityTest {
 
     @Test
     fun `화면에_해리포터_영화의_제목이_표시된다`() {
-        onView(withId(R.id.title))
-            .check(matches(withText("해리 포터와 마법사의 돌")))
+        onView(
+            allOf(
+                withId(R.id.title),
+                isDescendantOfA(nthChildOf(withId(R.id.movie_list), 0)),
+            ),
+        ).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `화면에_해리포터_영화의_상영날짜가_표시된다`() {
-        onView(withId(R.id.start_date))
-            .check(matches(withText("2025-04-01")))
+        onView(
+            allOf(
+                withId(R.id.start_date),
+                isDescendantOfA(nthChildOf(withId(R.id.movie_list), 0)),
+            ),
+        ).check(matches(withText("2025-04-01")))
     }
 
     @Test
     fun `화면에_해리포터_영화의_러닝타임이_표시된다`() {
-        onView(withId(R.id.running_time))
-            .check(matches(withText("152분")))
+        onView(
+            allOf(
+                withId(R.id.running_time),
+                isDescendantOfA(nthChildOf(withId(R.id.movie_list), 0)),
+            ),
+        ).check(matches(withText("152분")))
+    }
+
+    fun nthChildOf(
+        parentMatcher: Matcher<View>,
+        childPosition: Int,
+    ): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+            override fun describeTo(description: Description?) = Unit
+
+            override fun matchesSafely(view: View): Boolean {
+                val parent = view.parent
+                return parent is ViewGroup &&
+                    parentMatcher.matches(parent) &&
+                    parent.getChildAt(childPosition) == view
+            }
+        }
     }
 }
