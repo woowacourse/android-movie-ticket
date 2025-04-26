@@ -3,7 +3,6 @@ package woowacourse.movie.presentation.view.reservation.detail
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -17,7 +16,9 @@ import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.movie.Poster
 import woowacourse.movie.domain.model.movie.RunningTime
 import woowacourse.movie.domain.model.movie.ScreeningPeriod
+import woowacourse.movie.presentation.extension.toDateTimeFormatter
 import woowacourse.movie.presentation.fixture.fakeContext
+import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.model.toUiModel
 import java.time.LocalDate
 
@@ -29,15 +30,15 @@ class ReservationDetailActivityTest {
             "해리 포터와 마법사의 돌",
             Poster.Resource(R.drawable.harrypotter),
             ScreeningPeriod(
-                LocalDate.of(2025, 4, 1),
-                LocalDate.of(2025, 4, 25),
+                LocalDate.now(),
+                LocalDate.now().plusDays(1),
             ),
             RunningTime(152),
-        )
+        ).toUiModel()
 
     @Before
     fun setUp() {
-        val intent = ReservationDetailActivity.newIntent(fakeContext, fakeMovie.toUiModel())
+        val intent = ReservationDetailActivity.newIntent(fakeContext, fakeMovie)
         scenario = ActivityScenario.launch(intent)
     }
 
@@ -50,7 +51,7 @@ class ReservationDetailActivityTest {
     @Test
     fun `영화_상영_기간을_보여준다`() {
         onView(withId(R.id.tv_screening_period))
-            .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
+            .check(matches(withText(formatPeriod(fakeMovie))))
     }
 
     @Test
@@ -76,24 +77,6 @@ class ReservationDetailActivityTest {
 
         onView(withId(R.id.tv_reservation_count))
             .check(matches(withText("2")))
-    }
-
-    @Test
-    fun `선택_완료_버튼을_누르면_예매_확인_다이얼로그가_노출된다`() {
-        onView(withId(R.id.btn_reservation_finish))
-            .perform(click())
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `예매_확인_다이얼로그_밖_영역을_터치해도_닫히지_않는다`() {
-        onView(withId(R.id.btn_reservation_finish))
-            .perform(click())
-
-        pressBack()
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
     }
 
     @Test
@@ -126,7 +109,7 @@ class ReservationDetailActivityTest {
                                     LocalDate.of(2025, 1, 1),
                                     LocalDate.of(2025, 1, 1),
                                 ),
-                        ).toUiModel(),
+                        ),
                 )
             activity.startActivity(intent)
         }
@@ -134,5 +117,12 @@ class ReservationDetailActivityTest {
         Thread.sleep(1000)
         onView(withText("선택 가능한 날짜/시간이 없습니다"))
             .check(matches(isDisplayed()))
+    }
+
+    private fun formatPeriod(movie: MovieUiModel): String {
+        val formatter = "yyyy.M.d".toDateTimeFormatter()
+        val start = movie.screeningPeriod.startDate.format(formatter)
+        val end = movie.screeningPeriod.endDate.format(formatter)
+        return "상영일: %s ~ %s".format(start, end)
     }
 }

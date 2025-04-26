@@ -39,7 +39,7 @@ class MoviesActivityTest {
     fun `영화의_상영일이_보여진다`() {
         movieItemView
             .onChildView(withId(R.id.tv_date))
-            .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
+            .check(matches(withText("상영일: 2025.4.1 ~ 2025.11.25")))
     }
 
     @Test
