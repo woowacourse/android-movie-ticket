@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
+import woowacourse.movie.view.seat.SeatActivity.Companion.newIntent
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -24,19 +24,15 @@ class SeatActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(
+            newIntent(
                 fakeContext,
-                SeatActivity::class.java,
-            ).apply {
-                val booking =
-                    Booking(
-                        title = "해리 포터와 마법사의 돌",
-                        bookingDate = LocalDate.parse("2025-04-01"),
-                        bookingTime = LocalTime.parse("12:00"),
-                        count = PeopleCount(2),
-                    )
-                putExtra(KEY_BOOKING, booking)
-            }
+                Booking(
+                    title = "해리 포터와 마법사의 돌",
+                    bookingDate = LocalDate.parse("2025-04-01"),
+                    bookingTime = LocalTime.parse("12:00"),
+                    count = PeopleCount(2),
+                ),
+            )
         ActivityScenario.launch<SeatActivity>(intent)
     }
 

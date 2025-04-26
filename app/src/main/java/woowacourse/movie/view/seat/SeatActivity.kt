@@ -1,5 +1,6 @@
 package woowacourse.movie.view.seat
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -19,7 +20,6 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.presenter.seat.SeatContract
 import woowacourse.movie.presenter.seat.SeatContract.PresenterFactory
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import woowacourse.movie.view.booking.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.seat.model.coord.Column
@@ -172,11 +172,20 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     }
 
     companion object {
+        const val KEY_BOOKING = "BOOKING"
+
         const val KEY_BOOKING_SEAT = "BOOKING_SEAT"
         const val KEY_BOOKING_PEOPLE_COUNT = "PEOPLE_COUNT"
         const val KEY_BOOKING_PRICE = "BOOKING_PRICE"
         const val KEY_BOOKING_DATE = "BOOKING_DATE"
         const val KEY_BOOKING_TIME = "BOOKING_TIME"
         const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
+
+        fun newIntent(
+            context: Context,
+            booking: Booking,
+        ) = Intent(context, SeatActivity::class.java).apply {
+            putExtra(KEY_BOOKING, booking)
+        }
     }
 }

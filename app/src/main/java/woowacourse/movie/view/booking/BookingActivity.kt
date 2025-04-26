@@ -128,10 +128,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     override fun moveToBookingComplete(booking: Booking) {
-        val intent =
-            Intent(this, SeatActivity::class.java).apply {
-                putExtra(KEY_BOOKING, booking)
-            }
+        val intent = SeatActivity.newIntent(this, booking)
         startActivity(intent)
     }
 
@@ -203,7 +200,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
     companion object {
         const val KEY_MOVIE = "MOVIE"
-        const val KEY_BOOKING = "BOOKING"
 
         private const val NO_MOVIE = -1
 
