@@ -29,20 +29,26 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
         reservation = Reservation(movie.title, selectedDateTime(), null)
     }
 
-    override fun initDateSpinner() {
-        val dates = reservationScheduler.reservableDates(movie.screeningDate, LocalDate.now())
+    override fun initDateSpinner(currentDate: LocalDate) {
+        val dates = reservationScheduler.reservableDates(movie.screeningDate, currentDate)
         view.fetchDates(dates)
     }
 
-    override fun initTimeSpinner(startDate: LocalDate) {
-        val firstDate = reservationScheduler.startDate(startDate, LocalDate.now())
-        view.fetchTimes(screeningTimes(firstDate))
+    override fun initTimeSpinner(
+        startDate: LocalDate,
+        currentDateTime: LocalDateTime,
+    ) {
+        val firstDate = reservationScheduler.startDate(startDate, currentDateTime.toLocalDate())
+        view.fetchTimes(screeningTimes(firstDate, currentDateTime))
     }
 
-    private fun screeningTimes(selectedDate: LocalDate): List<LocalTime> =
+    private fun screeningTimes(
+        selectedDate: LocalDate,
+        currentDateTime: LocalDateTime,
+    ): List<LocalTime> =
         reservationScheduler.reservableTimes(
             selectedDate,
-            LocalDateTime.now(),
+            currentDateTime,
         )
 
     override fun increasePurchaseCount() {
@@ -71,11 +77,12 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
 
     override fun dateOnClick(
         date: LocalDate,
+        currentDateTime: LocalDateTime,
         selectedDateTime: () -> LocalDateTime,
     ) {
-        view.fetchTimes(screeningTimes(date))
+        view.fetchTimes(screeningTimes(date, currentDateTime))
         val screeningTimesSize =
-            reservationScheduler.reservableTimes(date, LocalDateTime.now()).size
+            reservationScheduler.reservableTimes(date, currentDateTime).size
         view.dateOnClick(date, screeningTimesSize)
         reservation = reservation.updateReservedTime(selectedDateTime())
     }

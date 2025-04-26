@@ -2,10 +2,10 @@ package woowacourse.movie.domain.date.scheduler
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.APRIL_THIRTIETH
-import woowacourse.movie.domain.MAY_FIRST
-import woowacourse.movie.domain.MAY_SECOND
-import woowacourse.movie.domain.MAY_THIRD
+import woowacourse.movie.APRIL_THIRTIETH
+import woowacourse.movie.MAY_FIRST
+import woowacourse.movie.MAY_SECOND
+import woowacourse.movie.MAY_THIRD
 import woowacourse.movie.domain.model.ScreeningDate
 import java.time.LocalDate
 

@@ -12,9 +12,12 @@ interface ReserveContract {
 
         fun initReservationData(selectedDateTime: () -> LocalDateTime)
 
-        fun initDateSpinner()
+        fun initDateSpinner(currentDate: LocalDate)
 
-        fun initTimeSpinner(startDate: LocalDate)
+        fun initTimeSpinner(
+            startDate: LocalDate,
+            currentDateTime: LocalDateTime,
+        )
 
         fun updateTicketCount()
 
@@ -26,6 +29,7 @@ interface ReserveContract {
 
         fun dateOnClick(
             date: LocalDate,
+            currentDateTime: LocalDateTime,
             selectedDateTime: () -> LocalDateTime,
         )
 

@@ -3,8 +3,8 @@ package woowacourse.movie.domain.model
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.APRIL_THIRTIETH
-import woowacourse.movie.domain.MAY_FIRST
+import woowacourse.movie.APRIL_THIRTIETH
+import woowacourse.movie.MAY_FIRST
 import java.time.LocalDateTime
 import java.time.LocalTime
 

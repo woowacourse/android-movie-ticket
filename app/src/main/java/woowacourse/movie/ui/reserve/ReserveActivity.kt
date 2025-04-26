@@ -73,7 +73,12 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
             savedInstanceState.serializableData(KEY_SELECTED_DATE, LocalDate::class.java)
         val purchaseCount = savedInstanceState.getInt(KEY_PURCHASE_COUNT)
         dateSpinner.setSelection(datePosition)
-        if (selectedDate != null) presenter.initTimeSpinner(selectedDate)
+        if (selectedDate != null) {
+            presenter.initTimeSpinner(
+                selectedDate,
+                LocalDateTime.now(),
+            )
+        }
         ticketCountTextView.text = purchaseCount.toString()
         this.savedTimePosition = timePosition
     }
@@ -170,11 +175,11 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
     }
 
     private fun initDateSpinner() {
-        presenter.initDateSpinner()
+        presenter.initDateSpinner(LocalDate.now())
     }
 
     private fun initTimeSpinner(startDate: LocalDate) {
-        presenter.initTimeSpinner(startDate)
+        presenter.initTimeSpinner(startDate, LocalDateTime.now())
     }
 
     private fun getSelectedDateTime(): LocalDateTime {
@@ -212,7 +217,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
                 position: Int,
                 id: Long,
             ) {
-                presenter.dateOnClick(dates[position], ::getSelectedDateTime)
+                presenter.dateOnClick(dates[position], LocalDateTime.now(), ::getSelectedDateTime)
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -269,7 +274,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         date: LocalDate,
         screeningTimesSize: Int,
     ) {
-        presenter.initTimeSpinner(date)
+        presenter.initTimeSpinner(date, LocalDateTime.now())
         timeSpinner.setSelection(savedTimePosition.coerceAtMost(screeningTimesSize - 1))
         presenter.initReservationData {
             getSelectedDateTime()
