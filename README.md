@@ -86,3 +86,6 @@
 # 3차
 - [X] view와 model의 의존성을 최소화
 - [X] MemberCount -> TicketCount
+
+# 4차
+- [ ] 영화 데이터 추가
