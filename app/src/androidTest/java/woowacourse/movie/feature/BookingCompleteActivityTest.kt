@@ -29,8 +29,8 @@ class BookingCompleteActivityTest {
     }
 
     @Test
-    fun 티켓_장수가_1이면_13000원을_출력한다() {
+    fun S_랭크_티켓_장수가_1이면_15000원을_출력한다() {
         onView(withId(R.id.tv_booking_complete_ticket_total_price))
-            .check(matches(withText("13,000원 (현장 결제)")))
+            .check(matches(withText("15,000원 (현장 결제)")))
     }
 }
