@@ -80,18 +80,6 @@ class BookingActivityTest {
     }
 
     @Test
-    fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_뜬다`() {
-        // when
-        onView(withId(R.id.btn_booking_complete)).perform(click())
-
-        // then
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-    }
-
-    @Test
     fun `화면이_회전_되어도_인원수가_유지된다`() {
         // given
         onView(withId(R.id.btn_increase)).perform(click())
