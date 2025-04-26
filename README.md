@@ -99,5 +99,5 @@ Activity에 존재하는 View와 Controller의 역할을 분리하는 것부터 
 - [x] MovieListPresenter 구현, MovieListActivity 수정
 - [x] DetailBookingContract 인터페이스 추가
 - [x] DatailBookingPresenter 구현, DetailBookingActivity 수정
-- [ ] CompleteBookingContract 인터페이스 추가
+- [x] CompleteBookingContract 인터페이스 추가
 - [ ] CompleteBookingPresenter 구현
