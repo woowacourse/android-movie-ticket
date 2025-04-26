@@ -3,12 +3,13 @@ package woowacourse.movie.fixture
 import woowacourse.movie.R
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Movies
 import woowacourse.movie.domain.ScreeningPeriod
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.Title
 import java.time.LocalDate
 import java.time.LocalDateTime
-import kotlin.time.Duration.Companion.minutes
+
 
 object MovieFixture {
     val movie = Movie(
@@ -91,6 +92,20 @@ object MovieFixture {
             ),
             152,
         )
+    )
+
+    val MAX_MOVIES = Movies(
+        (0 until 10_000).associate { index ->
+            Title("해리포터와 마법사의 돌 $index") to Movie(
+                Title("해리포터와 마법사의 돌 $index"),
+                R.drawable.movie_poster,
+                ScreeningPeriod(
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ),
+                152
+            )
+        }
     )
 
     val BOOKING_STATUS =

@@ -13,6 +13,13 @@ data class Movies(
         movies.keys.map { key ->
             require(key.value == movies[key]?.title)
         }
+
+        require(movies.size <= MAX_NUMBER_OF_MOVIES) { ERROR_MOVIE_COUNTS_UNDER_10000 }
+    }
+
+    fun add(movie: Movie): Movies {
+        val newMap = this.movies + (Title(movie.title) to movie)
+        return Movies(newMap)
     }
 
     fun find(title: Title): Movie {
@@ -22,7 +29,10 @@ data class Movies(
     fun toList(): List<Movie> = movies.values.toList()
 
     companion object {
-        private const val ERROR_MOVIE_NOT_FOUND = "영화가 존재하지 않습니다."
+        private const val MAX_NUMBER_OF_MOVIES: Int = 10_000
+        private const val ERROR_MOVIE_NOT_FOUND: String = "영화가 존재하지 않습니다."
+        private const val ERROR_MOVIE_COUNTS_UNDER_10000: String = "영화 목록에는 만개이하만 등록이 가능합니다."
+
         val value = Movies(
             mapOf(
                 Title("해리포터와 마법사의 돌") to

@@ -44,4 +44,13 @@ class MoviesTest {
 
         Assertions.assertThat(actual).isEqualTo(expected)
     }
+
+    @Test
+    fun 영화_목록의_개수가_10000개이면_추가가_되지_않는다() {
+        val maxMovies: Movies = MovieFixture.MAX_MOVIES
+
+        assertThrows<java.lang.IllegalArgumentException> {
+            maxMovies.add(MovieFixture.movie)
+        }
+    }
 }
