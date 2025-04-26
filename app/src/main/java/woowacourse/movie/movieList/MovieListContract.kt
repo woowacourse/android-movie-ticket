@@ -12,11 +12,10 @@ interface MovieListContract {
     }
 
     interface Presenter {
-        fun onViewCreated(view: View)
+        fun onViewCreated()
 
-        fun onButtonClicked(
-            view: View,
-            item: MovieInfo,
-        )
+        fun onButtonClicked(item: MovieInfo)
+
+        fun onError()
     }
 }

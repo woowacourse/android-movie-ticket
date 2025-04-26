@@ -10,13 +10,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.dto.MovieInfo
-import woowacourse.movie.util.ErrorUtils
 
 class MovieListAdapter(
     context: Context,
     items: List<MovieInfo>,
-    val changeActivity: (MovieInfo) -> Unit,
-    val onError: () -> Unit,
+    private val presenter: MovieListContract.Presenter,
 ) : ArrayAdapter<MovieInfo>(context, 0, items) {
     override fun getView(
         position: Int,
@@ -39,7 +37,7 @@ class MovieListAdapter(
 
         val item =
             getMovieInfoOrPrintError(position) ?: run {
-                onError()
+                presenter.onError()
                 return view
             }
 
@@ -56,7 +54,7 @@ class MovieListAdapter(
                 context.getString(R.string.running_time, item.runningTime)
 
             button.setOnClickListener {
-                changeActivity(item)
+                presenter.onButtonClicked(item)
             }
         }
 
@@ -65,7 +63,7 @@ class MovieListAdapter(
 
     private fun getMovieInfoOrPrintError(position: Int): MovieInfo? {
         return getItem(position) ?: run {
-            ErrorUtils.printError(context)
+            presenter.onError()
             return null
         }
     }

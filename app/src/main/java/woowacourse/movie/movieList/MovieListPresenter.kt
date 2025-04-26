@@ -3,8 +3,10 @@ package woowacourse.movie.movieList
 import woowacourse.movie.R
 import woowacourse.movie.dto.MovieInfo
 
-class MovieListPresenter : MovieListContract.Presenter {
-    override fun onViewCreated(view: MovieListContract.View) {
+class MovieListPresenter(
+    val view: MovieListContract.View,
+) : MovieListContract.Presenter {
+    override fun onViewCreated() {
         val item =
             mutableListOf(
                 MovieInfo(
@@ -23,10 +25,11 @@ class MovieListPresenter : MovieListContract.Presenter {
         }
     }
 
-    override fun onButtonClicked(
-        view: MovieListContract.View,
-        item: MovieInfo,
-    ) {
+    override fun onButtonClicked(item: MovieInfo) {
         view.changeActivity(item)
+    }
+
+    override fun onError() {
+        view.showError()
     }
 }
