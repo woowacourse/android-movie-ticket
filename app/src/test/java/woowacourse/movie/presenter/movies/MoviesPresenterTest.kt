@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presenter.movies
 
 import io.mockk.Runs
 import io.mockk.every
@@ -7,8 +7,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.presenter.movies.MoviesContracts
-import woowacourse.movie.presenter.movies.MoviesPresenter
+import woowacourse.movie.presenter.MOVIE
 
 class MoviesPresenterTest {
     private lateinit var presenter: MoviesPresenter
