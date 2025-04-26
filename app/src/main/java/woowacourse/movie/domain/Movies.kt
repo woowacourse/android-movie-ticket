@@ -26,7 +26,7 @@ data class Movies(
             Movie(
                 Title("해리포터와 마법사의 돌"),
                 R.drawable.movie_poster,
-                ScreeningPeriod.ofDot("2025.04.01", "2025.04.25"),
+                ScreeningPeriod.ofDot("2025.04.01", "2025.04.30"),
                 125
             )
         )
