@@ -25,7 +25,7 @@ class BookingDetailPresenter(
         val movieDates = MovieDates(bookingInfo.movie.startDate, bookingInfo.movie.endDate).value.map { it.toUi() }
         view.setupDateView(movieDates)
 
-        val movieTimes = MovieTime.getMovieTimes(DateType.from(bookingInfo.date)).map { it.toUi().toString() }
+        val movieTimes = MovieTime.getMovieTimes(DateType.from(bookingInfo.selectedDate)).map { it.toUi().toString() }
         view.setupTimeView(movieTimes)
 
         view.updateView(bookingInfo.toUi())
@@ -46,12 +46,12 @@ class BookingDetailPresenter(
 
     override fun onTicketCountDecreased() {
         bookingInfo.decreaseTicketCount()
-        view.updateTicketCount(bookingInfo.ticketCount.value)
+        view.updateTicketCount(bookingInfo.currentTicketCount)
     }
 
     override fun onTicketCountIncreased() {
         bookingInfo.increaseTicketCount()
-        view.updateTicketCount(bookingInfo.ticketCount.value)
+        view.updateTicketCount(bookingInfo.currentTicketCount)
     }
 
     override fun onBookingCompleteButtonClicked() {

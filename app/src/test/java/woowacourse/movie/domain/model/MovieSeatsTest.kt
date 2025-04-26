@@ -14,7 +14,7 @@ class MovieSeatsTest {
         movieSeats.add(seat)
 
         // then
-        assertThat(movieSeats.seats).contains(seat)
+        assertThat(movieSeats.value).contains(seat)
     }
 
     @Test
@@ -27,7 +27,7 @@ class MovieSeatsTest {
         movieSeats.remove(seat)
 
         // then
-        assertThat(movieSeats.seats).doesNotContain(seat)
+        assertThat(movieSeats.value).doesNotContain(seat)
     }
 
     @Test

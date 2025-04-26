@@ -3,7 +3,6 @@ package woowacourse.movie.domain.model
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.BOOKING_INFO_01
 import woowacourse.movie.MOVIE_01
 import java.time.LocalTime
 
@@ -14,13 +13,26 @@ class BookingInfoTest {
     @BeforeEach
     fun setup() {
         movie = MOVIE_01.copy()
-        bookingInfo = BOOKING_INFO_01.copy()
+        bookingInfo =
+            BookingInfo(
+                movie =
+                    Movie(
+                        title = "해리 포터와 마법사의 돌",
+                        startDate = MovieDate(2025, 4, 1),
+                        endDate = MovieDate(2025, 4, 25),
+                        runningTime = 152,
+                    ),
+                date = MovieDate(2025, 4, 1),
+                time = MovieTime(9, 0),
+                seats = MovieSeats(),
+                ticketCount = TicketCount(),
+            )
     }
 
     @Test
     fun `초기 날짜는 영화 시작일로 설정된다`() {
         // given & when & then
-        assertThat(bookingInfo.date).isEqualTo(movie.startDate)
+        assertThat(bookingInfo.selectedDate).isEqualTo(movie.startDate)
     }
 
     @Test
@@ -33,8 +45,8 @@ class BookingInfoTest {
         bookingInfo.updateDate(expectedDate)
 
         // then
-        assertThat(bookingInfo.date).isEqualTo(expectedDate)
-        assertThat(bookingInfo.movieTime).isEqualTo(expectedTime)
+        assertThat(bookingInfo.selectedDate).isEqualTo(expectedDate)
+        assertThat(bookingInfo.selectedTime).isEqualTo(expectedTime)
     }
 
     @Test
@@ -46,7 +58,7 @@ class BookingInfoTest {
         bookingInfo.updateMovieTime(expected)
 
         // then
-        assertThat(bookingInfo.movieTime).isEqualTo(expected)
+        assertThat(bookingInfo.selectedTime).isEqualTo(expected)
     }
 
     @Test

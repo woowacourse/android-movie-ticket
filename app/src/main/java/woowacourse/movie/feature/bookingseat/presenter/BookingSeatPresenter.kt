@@ -19,6 +19,8 @@ class BookingSeatPresenter(
         this.bookingInfo = bookingInfo.toDomain()
         view.showSeats()
         view.showBookingInfo(bookingInfo)
+        view.updatePrice(this.bookingInfo.totalPrice.value)
+        view.updateSeatSelectionCompleteButton(this.bookingInfo.isSeatAllSelected)
     }
 
     override fun onSeatSetup(

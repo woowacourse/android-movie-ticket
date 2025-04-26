@@ -3,19 +3,15 @@ package woowacourse.movie.domain.model
 class MovieSeats(
     seats: Set<MovieSeat> = emptySet<MovieSeat>(),
 ) {
-    private val _seats: MutableSet<MovieSeat> = seats.toMutableSet()
-    val seats: Set<MovieSeat> get() = _seats
-    val totalPrice: TicketPrice get() = TicketPrice(seats.sumOf { TicketPrice.from(it.seatType).value })
+    private val _value: MutableSet<MovieSeat> = seats.toMutableSet()
+    val value: Set<MovieSeat> get() = _value
+    val totalPrice: TicketPrice get() = TicketPrice(value.sumOf { TicketPrice.from(it.seatType).value })
 
     fun add(seat: MovieSeat) {
-        _seats.add(seat)
-    }
-
-    fun addAll(seats: Set<MovieSeat>) {
-        _seats.addAll(seats)
+        _value.add(seat)
     }
 
     fun remove(seat: MovieSeat) {
-        _seats.remove(seat)
+        _value.remove(seat)
     }
 }

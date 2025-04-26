@@ -119,6 +119,6 @@ class BookingDetailActivityTest {
             .check(matches(withSpinnerText("12:00")))
 
         onView(withId(R.id.tv_booking_detail_count))
-            .check(matches(withText("1")))
+            .check(matches(withText("2")))
     }
 }
