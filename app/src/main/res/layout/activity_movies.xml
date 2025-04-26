@@ -8,7 +8,7 @@
     tools:context=".feature.movies.view.MoviesActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lv_movies"
+        android:id="@+id/rv_movies"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

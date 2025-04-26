@@ -28,7 +28,7 @@ class MoviesActivity :
     override fun showMovies(movies: List<MovieUiModel>) {
         val moviesAdapter = MoviesAdapter { movie -> presenter.onMovieBookingClicked(movie) }
         moviesAdapter.submitList(Item.from(movies))
-        findViewById<RecyclerView>(R.id.lv_movies).adapter = moviesAdapter
+        findViewById<RecyclerView>(R.id.rv_movies).adapter = moviesAdapter
     }
 
     override fun navigateToBookingDetail(movie: MovieUiModel) {
