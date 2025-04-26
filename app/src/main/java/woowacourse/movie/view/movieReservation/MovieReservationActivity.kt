@@ -20,7 +20,9 @@ import woowacourse.movie.presenter.MovieReservationPresenter
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
+import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_TICKET
 import woowacourse.movie.view.utils.buildAlertDialog
+import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
@@ -40,13 +42,23 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-//        outState.putParcelable(KEY_TICKET, ticket)
+        outState.putParcelable(KEY_TICKET, presenter.ticket)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-//        ticket = savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: run { return }
-//        initializeTicketCountButton()
+        val ticket =
+            savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET)
+                ?: run { return }
+        presenter.onInstanceStateRestored(ticket)
+    }
+
+    override fun setDateSpinner(position: Int) {
+        dateSpinner.setSelection(position)
+    }
+
+    override fun setTimeSpinner(position: Int) {
+        timeSpinner.setSelection(position)
     }
 
     private fun initializeView() {
@@ -105,7 +117,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate: LocalDate = dateAdapter.getItem(position) ?: return
+                    val selectedDate: LocalDate = dates[position]
                     presenter.onDateSelection(selectedDate)
                 }
 
@@ -113,7 +125,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             }
     }
 
-    override fun showScreeningTimes(times: List<LocalTime>) {
+    override fun showScreeningTimes(
+        times: List<LocalTime>,
+        savedTime: LocalTime,
+    ) {
         val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
         timeSpinner.adapter = timeAdapter
 
@@ -125,12 +140,14 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedTime: LocalTime = timeAdapter.getItem(position) ?: return
+                    val selectedTime: LocalTime = times[position]
                     presenter.onTimeSelection(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
+
+        savedTime.let { timeSpinner.setSelection(times.indexOf(savedTime)) }
     }
 
     override fun showTicketCount(count: Int) {

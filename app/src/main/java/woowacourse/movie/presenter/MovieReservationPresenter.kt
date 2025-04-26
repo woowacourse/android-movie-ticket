@@ -5,6 +5,7 @@ import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
@@ -17,7 +18,8 @@ import java.time.LocalTime
 class MovieReservationPresenter(
     private val view: MovieReservationActivity,
 ) : MovieReservationContract.Presenter {
-    private lateinit var ticket: Ticket
+    private lateinit var _ticket: Ticket
+    val ticket get() = _ticket.toUiModel()
     private val scheduler = Scheduler()
 
     override fun loadReservationInfo() {
@@ -31,9 +33,8 @@ class MovieReservationPresenter(
 
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(screeningDates.first(), LocalDateTime.now())
-        view.showScreeningTimes(screeningTimes)
 
-        ticket =
+        _ticket =
             Ticket(
                 movie.toDomain(),
                 LocalDateTime.of(
@@ -43,27 +44,38 @@ class MovieReservationPresenter(
                 TicketCount.of(TicketCount.MIN_COUNT),
             )
 
-        view.showReservationInfo(ticket.toUiModel())
+        view.showReservationInfo(_ticket.toUiModel())
+    }
+
+    override fun onInstanceStateRestored(ticket: TicketUiModel) {
+        _ticket = ticket.toDomain()
+        val selectedDate = _ticket.showtime.toLocalDate()
+
+        val screeningTimes: List<LocalTime> =
+            scheduler.getShowtimes(selectedDate, LocalDateTime.now())
+        view.setTimeSpinner(screeningTimes.indexOf(_ticket.showtime.toLocalTime()))
+
+        view.showReservationInfo(_ticket.toUiModel())
     }
 
     override fun onDateSelection(date: LocalDate) {
         val screeningTimes: List<LocalTime> = scheduler.getShowtimes(date, LocalDateTime.now())
-        view.showScreeningTimes(screeningTimes)
-        ticket = ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
+        view.showScreeningTimes(screeningTimes, _ticket.showtime.toLocalTime())
+        _ticket = _ticket.copy(showtime = LocalDateTime.of(date, _ticket.showtime.toLocalTime()))
     }
 
     override fun onTimeSelection(time: LocalTime) {
-        ticket = ticket.copy(showtime = LocalDateTime.of(ticket.showtime.toLocalDate(), time))
+        _ticket = _ticket.copy(showtime = LocalDateTime.of(_ticket.showtime.toLocalDate(), time))
     }
 
     override fun incrementTicketCount() {
-        ticket = ticket.increment()
-        view.showTicketCount(ticket.count.value)
+        _ticket = _ticket.increment()
+        view.showTicketCount(_ticket.count.value)
     }
 
     override fun decrementTicketCount() {
-        ticket = ticket.decrement()
-        view.showTicketCount(ticket.count.value)
+        _ticket = _ticket.decrement()
+        view.showTicketCount(_ticket.count.value)
     }
 
     override fun onReservation() {
@@ -71,6 +83,6 @@ class MovieReservationPresenter(
     }
 
     override fun onReservationConfirmation() {
-        view.confirmReservation(ticket.toUiModel())
+        view.confirmReservation(_ticket.toUiModel())
     }
 }

@@ -10,7 +10,14 @@ interface MovieReservationContract {
 
         fun showScreeningDates(dates: List<LocalDate>)
 
-        fun showScreeningTimes(times: List<LocalTime>)
+        fun showScreeningTimes(
+            times: List<LocalTime>,
+            savedTime: LocalTime,
+        )
+
+        fun setDateSpinner(position: Int)
+
+        fun setTimeSpinner(position: Int)
 
         fun showTicketCount(count: Int)
 
@@ -23,6 +30,8 @@ interface MovieReservationContract {
 
     interface Presenter {
         fun loadReservationInfo()
+
+        fun onInstanceStateRestored(ticket: TicketUiModel)
 
         fun onDateSelection(date: LocalDate)
 
