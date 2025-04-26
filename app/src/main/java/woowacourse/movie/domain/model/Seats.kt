@@ -1,6 +1,8 @@
 package woowacourse.movie.domain.model
 
-class Seats {
+import java.io.Serializable
+
+class Seats : Serializable {
     private val _seats: MutableSet<Seat> = mutableSetOf()
     val seats get() = _seats.toSet()
     val size get() = _seats.size

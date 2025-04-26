@@ -2,6 +2,7 @@ package woowacourse.movie.ui.complete
 
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Seats
 import java.time.LocalDateTime
 
 class BookingCompletePresenter(
@@ -19,6 +20,7 @@ class BookingCompletePresenter(
             "NULL",
             Headcount(),
             LocalDateTime.now(),
+            Seats(),
         )
 
     override fun updateBookedTicketPrice() {

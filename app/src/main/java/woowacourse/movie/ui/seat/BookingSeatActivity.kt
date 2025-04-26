@@ -17,6 +17,7 @@ import androidx.core.view.forEachIndexed
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.complete.BookingCompleteActivity
 import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDateTime
@@ -108,6 +109,7 @@ class BookingSeatActivity :
     override fun moveToBookingCompleteActivity(
         movieTitle: String,
         headcount: Headcount,
+        seats: Seats,
     ) {
         val bookedDateTime =
             intent.intentSerializable(EXTRA_DATETIME, LocalDateTime::class.java)
@@ -117,6 +119,7 @@ class BookingSeatActivity :
                 movieTitle,
                 headcount,
                 bookedDateTime,
+                seats,
             )
         startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
     }

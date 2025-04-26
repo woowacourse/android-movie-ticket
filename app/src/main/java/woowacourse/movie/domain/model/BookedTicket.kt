@@ -7,6 +7,7 @@ class BookedTicket(
     val movieName: String,
     val headcount: Headcount,
     val dateTime: LocalDateTime,
+    val seats: Seats,
 ) : Serializable {
-    fun totalPrice(): Int = headcount.price()
+    fun totalPrice(): Int = seats.totalPrice()
 }

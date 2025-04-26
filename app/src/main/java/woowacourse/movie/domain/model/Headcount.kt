@@ -4,7 +4,7 @@ import java.io.Serializable
 
 class Headcount(
     count: Int = 1,
-    val ticketType: TicketType = TicketType.GENERAL,
+    val ticketType: TicketType = TicketType.B_GRADE,
 ) : Serializable {
     var count: Int = count
         private set

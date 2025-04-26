@@ -41,7 +41,7 @@ class BookingSeatPresenter(
     }
 
     override fun updateConfirmButton() {
-        if (seats.size == 0) {
+        if (seats.size != headcount.count) {
             bookingSeatView.setConfirmButton(false)
         } else {
             bookingSeatView.setConfirmButton(true)
@@ -49,14 +49,14 @@ class BookingSeatPresenter(
     }
 
     override fun completeBookingSeat() {
-        bookingSeatView.moveToBookingCompleteActivity(movieTitle, headcount)
+        bookingSeatView.moveToBookingCompleteActivity(movieTitle, headcount, seats)
     }
 
     private fun ticketTypeByRow(row: Int): TicketType =
         when {
-            row < 2 -> TicketType.GENERAL
-            row < 4 -> TicketType.GENERAL
-            row < 5 -> TicketType.GENERAL
-            else -> TicketType.GENERAL
+            row < 2 -> TicketType.B_GRADE
+            row < 4 -> TicketType.S_GRADE
+            row < 5 -> TicketType.A_GRADE
+            else -> TicketType.B_GRADE
         }
 }

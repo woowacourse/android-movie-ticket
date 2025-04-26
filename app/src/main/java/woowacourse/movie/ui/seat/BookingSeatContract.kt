@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.seat
 
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Seats
 
 interface BookingSeatContract {
     interface Presenter {
@@ -37,6 +38,7 @@ interface BookingSeatContract {
         fun moveToBookingCompleteActivity(
             movieTitle: String,
             headcount: Headcount,
+            seats: Seats,
         )
     }
 }
