@@ -1,4 +1,4 @@
-package woowacourse.movie.view.movie
+package woowacourse.movie.view.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,8 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.ReservationUiFormatter
-import woowacourse.movie.view.movie.adapter.AdViewHolder
-import woowacourse.movie.view.movie.adapter.MovieViewHolder
+import woowacourse.movie.view.movie.MovieClickListener
 
 class MovieAdapter(
     private val clickListener: MovieClickListener,

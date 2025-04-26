@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
+import woowacourse.movie.view.movie.adapter.MovieAdapter
 import woowacourse.movie.view.reservation.reservation.ReservationActivity
 
 class MoviesActivity :
