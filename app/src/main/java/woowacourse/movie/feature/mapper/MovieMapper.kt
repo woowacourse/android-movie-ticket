@@ -12,7 +12,7 @@ import woowacourse.movie.feature.model.MovieSeatUiModel
 import woowacourse.movie.feature.model.MovieTimeUiModel
 import woowacourse.movie.feature.model.MovieUiModel
 import woowacourse.movie.feature.model.SeatTypeUiModel
-import woowacourse.movie.feature.model.getPosterImage
+import woowacourse.movie.resource.getPosterImage
 
 fun Movie.toUi(): MovieUiModel =
     MovieUiModel(
