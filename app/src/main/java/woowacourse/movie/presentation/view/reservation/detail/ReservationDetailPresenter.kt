@@ -22,36 +22,34 @@ class ReservationDetailPresenter(
         getMovie: () -> MovieUiModel?,
     ) {
         movie = getMovie()?.toModel()
-        initCount?.let { reservationCount = ReservationCount(it) }
-
         if (movie == null) {
             view.notifyNoAvailableDates()
             return
         }
 
+        initReservationCount(initCount)
         setupView(dateTime)
     }
 
     override fun updateReservationCount(updateCount: Int) {
         reservationCount += updateCount
-        view.updateReservationCount(reservationCount.value, reservationCount.isEnabled())
+        view.updateReservationCount(reservationCount.value, reservationCount.isValid())
     }
 
     override fun onSelectDate(
         date: LocalDate,
         selectedTime: LocalTime?,
     ) {
-        val availableTimes = getAvailableTimesForDate(date)
-        view.updateTimes(availableTimes, selectedTime)
+        view.updateTimes(getAvailableTimesForDate(date), selectedTime)
     }
 
     override fun onReserve(reservationDateTime: LocalDateTime) {
-        if (movie == null) return
-        if (reservationCount.value < ReservationCount.RESERVATION_MIN_COUNT) return
+        val currentMovie = movie ?: return
+        if (!reservationCount.isValid()) return
 
         val reservationInfo =
             ReservationInfo(
-                title = movie!!.title,
+                title = currentMovie.title,
                 reservationDateTime = reservationDateTime,
                 reservationCount = reservationCount,
             ).toUiModel()
@@ -60,22 +58,47 @@ class ReservationDetailPresenter(
     }
 
     private fun setupView(dateTime: LocalDateTime?) {
+        movie?.let {
+            view.setScreen(it.toUiModel())
+            view.updateReservationCount(reservationCount.value, reservationCount.isValid())
+            setAvailableItems(dateTime)
+        }
+    }
+
+    private fun initReservationCount(initCount: Int?) {
+        initCount?.let { count ->
+            runCatching { ReservationCount(count) }.onSuccess { reservationCount = it }
+        }
+    }
+
+    private fun setAvailableItems(selectedDateTime: LocalDateTime?) {
         val availableDates = getAvailableDates()
         if (availableDates.isEmpty()) {
             view.notifyNoAvailableDates()
             return
         }
 
-        view.setScreen(movie!!.toUiModel())
+        val selectedDate = findValidSelectedDate(selectedDateTime, availableDates)
+        val availableTimes = selectedDate?.let { getAvailableTimesForDate(it) }.orEmpty()
+
         view.updateDates(
             availableDates,
-            getAvailableTimesForDate(dateTime?.toLocalDate()),
-            dateTime,
+            availableTimes,
+            selectedDate?.atTime(availableTimes.firstOrNull() ?: LocalTime.MIN),
         )
-        view.updateReservationCount(reservationCount.value, reservationCount.isEnabled())
     }
 
-    private fun ReservationCount.isEnabled(): Boolean = this.value > ReservationCount.RESERVATION_MIN_COUNT
+    private fun findValidSelectedDate(
+        selectedDateTime: LocalDateTime?,
+        availableDates: List<LocalDate>,
+    ): LocalDate? {
+        val initialDate = selectedDateTime?.toLocalDate()
+        return if (initialDate != null && getAvailableTimesForDate(initialDate).isNotEmpty()) {
+            initialDate
+        } else {
+            availableDates.firstOrNull { getAvailableTimesForDate(it).isNotEmpty() }
+        }
+    }
 
     private fun getAvailableDates(): List<LocalDate> {
         val now = LocalDate.now()
@@ -87,4 +110,6 @@ class ReservationDetailPresenter(
         val now = LocalDateTime.now()
         return movie?.screeningPeriod?.getAvailableTimesFor(now, date).orEmpty()
     }
+
+    private fun ReservationCount.isValid(): Boolean = value > ReservationCount.RESERVATION_MIN_COUNT
 }
