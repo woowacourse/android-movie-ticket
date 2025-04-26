@@ -4,8 +4,9 @@ import woowacourse.movie.domain.Movie
 import java.time.Duration
 import java.time.LocalDate
 
-class MovieListPresenter : MovieListContract.Presenter {
-    private var view: MovieListContract.View? = null
+class MovieListPresenter(
+    private val view: MovieListContract.View,
+) : MovieListContract.Presenter {
     private val movieList: List<Movie> =
         listOf(
             Movie(
@@ -34,15 +35,11 @@ class MovieListPresenter : MovieListContract.Presenter {
             ),
         )
 
-    override fun attachView(view: MovieListContract.View) {
-        this.view = view
-    }
-
     override fun loadMovies() {
-        view?.showMovieList(movieList)
+        view.showMovieList(movieList)
     }
 
     override fun onMovieClicked(movie: Movie) {
-        view?.moveToBooking(movie)
+        view.moveToBooking(movie)
     }
 }

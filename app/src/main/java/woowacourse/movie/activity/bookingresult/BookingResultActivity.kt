@@ -17,8 +17,7 @@ class BookingResultActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_result)
 
-        presenter = BookingResultPresenter()
-        presenter.attachView(this)
+        presenter = BookingResultPresenter(this)
 
         val ticket = intent.getParcelableExtra<Ticket>(BookingActivity.Companion.KEY_TICKET)
 

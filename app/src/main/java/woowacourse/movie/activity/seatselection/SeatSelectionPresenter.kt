@@ -3,17 +3,14 @@ package woowacourse.movie.activity.seatselection
 import android.widget.TextView
 import woowacourse.movie.domain.Ticket
 
-class SeatSelectionPresenter : SeatSelectionContract.Presenter {
-    private var view: SeatSelectionContract.View? = null
+class SeatSelectionPresenter(
+    private val view: SeatSelectionContract.View,
+) : SeatSelectionContract.Presenter {
     private var audienceCount: Int = 0
     private var ticketPrice: Int = 0
 
-    override fun attachView(view: SeatSelectionContract.View) {
-        this.view = view
-    }
-
     override fun loadMovie(ticket: Ticket) {
-        view?.showMovieInfo(ticket)
+        view.showMovieInfo(ticket)
     }
 
     override fun calculateMoney(
@@ -32,7 +29,7 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
             false -> ticketPrice -= oneTicketPrice
         }
 
-        view?.showMoney(ticketPrice)
+        view.showMoney(ticketPrice)
     }
 
     override fun calculateAudienceCount(isSelected: Boolean): Int {
@@ -53,7 +50,7 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
 
     override fun handleConfirmButtonActivation(seats: Sequence<Sequence<TextView>>) {
         val hasSelection = seats.flatten().any { it.isSelected }
-        view?.updateConfirmButtonState(hasSelection)
+        view.updateConfirmButtonState(hasSelection)
     }
 
     override fun onConfirmButtonClicked(
@@ -74,7 +71,7 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
                 seat = selectedSeats,
             )
 
-        view?.moveToBookingResult(updatedTicket)
+        view.moveToBookingResult(updatedTicket)
     }
 
     companion object {

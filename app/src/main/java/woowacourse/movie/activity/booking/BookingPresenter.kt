@@ -5,25 +5,22 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.TicketManager
 import woowacourse.movie.ui.MovieUiModel
 
-class BookingPresenter : BookingContract.Presenter {
-    private var view: BookingContract.View? = null
+class BookingPresenter(
+    private val view: BookingContract.View,
+) : BookingContract.Presenter {
     private lateinit var ticketManager: TicketManager
-
-    override fun attachView(view: BookingContract.View) {
-        this.view = view
-    }
 
     override fun initData(movie: Movie) {
         ticketManager = TicketManager(movie)
         val movieUiModel = MovieUiModel.fromDomain(movie)
-        view?.setupPage(movieUiModel)
+        view.setupPage(movieUiModel)
 
         val dates = ticketManager.getDates()
         val times = ticketManager.getTimes(dates[0])
 
-        view?.updateDateSpinner(dates, ticketManager.getDatePosition())
-        view?.updateTimeSpinner(times, ticketManager.getTimePosition())
-        view?.showTicketCount(ticketManager.getTicketCount())
+        view.updateDateSpinner(dates, ticketManager.getDatePosition())
+        view.updateTimeSpinner(times, ticketManager.getTimePosition())
+        view.showTicketCount(ticketManager.getTicketCount())
     }
 
     override fun getSelectedDate(): Int = ticketManager.getDatePosition()
@@ -32,25 +29,25 @@ class BookingPresenter : BookingContract.Presenter {
 
     override fun onConfirmButtonClicked() {
         if (ticketManager.getTicketCount() > MINIMUM_TICKET_COUNT) {
-            view?.moveToSeatSelection(ticketManager.createTicket())
+            view.moveToSeatSelection(ticketManager.createTicket())
         }
     }
 
     override fun onMinusButtonClicked() {
         ticketManager.decrementTicketCount()
-        view?.showTicketCount(ticketManager.getTicketCount())
+        view.showTicketCount(ticketManager.getTicketCount())
     }
 
     override fun onPlusButtonClicked() {
         ticketManager.incrementTicketCount()
-        view?.showTicketCount(ticketManager.getTicketCount())
+        view.showTicketCount(ticketManager.getTicketCount())
     }
 
     override fun onDateSelected(position: Int) {
         ticketManager.setDatePosition(position)
         val selectedDate = ticketManager.getDates()[position]
         val times = ticketManager.getTimes(selectedDate)
-        view?.updateTimeSpinner(times, 0)
+        view.updateTimeSpinner(times, 0)
     }
 
     override fun onTimeSelected(position: Int) {
@@ -74,9 +71,9 @@ class BookingPresenter : BookingContract.Presenter {
         val selectedDate = dates[ticketManager.getDatePosition()]
         val times = ticketManager.getTimes(selectedDate)
 
-        view?.updateDateSpinner(dates, savedDatePosition)
-        view?.updateTimeSpinner(times, savedTimePosition)
-        view?.showTicketCount(ticketManager.getTicketCount())
+        view.updateDateSpinner(dates, savedDatePosition)
+        view.updateTimeSpinner(times, savedTimePosition)
+        view.showTicketCount(ticketManager.getTicketCount())
     }
 
     companion object {

@@ -24,8 +24,7 @@ class SeatSelectionActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat_selection)
 
-        presenter = SeatSelectionPresenter()
-        presenter.attachView(this)
+        presenter = SeatSelectionPresenter(this)
 
         val ticket: Ticket =
             intent.getParcelableExtra(KEY_TICKET)

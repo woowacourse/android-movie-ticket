@@ -15,8 +15,6 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun attachView(view: View)
-
         fun loadMovie(ticket: Ticket)
 
         fun calculateMoney(

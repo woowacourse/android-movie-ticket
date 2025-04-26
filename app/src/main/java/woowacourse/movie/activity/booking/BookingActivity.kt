@@ -27,8 +27,7 @@ class BookingActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
 
-        presenter = BookingPresenter()
-        presenter.attachView(this)
+        presenter = BookingPresenter(this)
 
         val movie: Movie =
             intent.getParcelableExtra(KEY_MOVIE_INFO)

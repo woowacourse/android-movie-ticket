@@ -10,8 +10,6 @@ interface MovieListContract {
     }
 
     interface Presenter {
-        fun attachView(view: MovieListContract.View)
-
         fun loadMovies()
 
         fun onMovieClicked(movie: Movie)

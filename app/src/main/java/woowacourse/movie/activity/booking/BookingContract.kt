@@ -25,8 +25,6 @@ interface BookingContract {
     }
 
     interface Presenter {
-        fun attachView(view: View)
-
         fun initData(movie: Movie)
 
         fun getSelectedDate(): Int

@@ -8,8 +8,6 @@ interface BookingResultContract {
     }
 
     interface Presenter {
-        fun attachView(view: View)
-
         fun loadTicket(ticket: Ticket)
     }
 }

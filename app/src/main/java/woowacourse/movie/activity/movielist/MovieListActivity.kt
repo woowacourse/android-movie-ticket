@@ -20,8 +20,7 @@ class MovieListActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movie_list)
 
-        presenter = MovieListPresenter()
-        presenter.attachView(this)
+        presenter = MovieListPresenter(this)
 
         val movieList: RecyclerView = findViewById(R.id.movie_list)
         adapter =

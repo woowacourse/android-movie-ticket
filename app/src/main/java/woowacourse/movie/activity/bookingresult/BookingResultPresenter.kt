@@ -2,14 +2,10 @@ package woowacourse.movie.activity.bookingresult
 
 import woowacourse.movie.domain.Ticket
 
-class BookingResultPresenter : BookingResultContract.Presenter {
-    private var view: BookingResultContract.View? = null
-
-    override fun attachView(view: BookingResultContract.View) {
-        this.view = view
-    }
-
+class BookingResultPresenter(
+    private val view: BookingResultContract.View,
+) : BookingResultContract.Presenter {
     override fun loadTicket(ticket: Ticket) {
-        view?.showTicketInfo(ticket)
+        view.showTicketInfo(ticket)
     }
 }
