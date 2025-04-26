@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.google.material)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.espresso.contrib)
 
     testImplementation(libs.assertj.core)
     testImplementation(libs.junit.jupiter)
