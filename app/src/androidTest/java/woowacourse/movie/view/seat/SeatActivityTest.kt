@@ -1,4 +1,4 @@
-package woowacourse.movie.view.booking
+package woowacourse.movie.view.seat
 
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
@@ -15,7 +15,6 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
-import woowacourse.movie.view.seat.SeatActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
