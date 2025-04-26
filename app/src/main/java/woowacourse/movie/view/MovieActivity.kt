@@ -6,6 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import woowacourse.movie.adpater.MovieListAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
@@ -36,6 +37,7 @@ class MovieActivity : AppCompatActivity(), View {
         binding.movies.adapter = MovieListAdapter(movies) { movie ->
             presenter.selectedMovie(movie)
         }
+        binding.movies.layoutManager = LinearLayoutManager(this)
     }
 
     override fun navigateToBook(movie: Movie) {

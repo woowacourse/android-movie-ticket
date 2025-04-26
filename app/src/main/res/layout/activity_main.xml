@@ -8,11 +8,11 @@
     android:layout_height="match_parent"
     tools:context=".view.MovieActivity">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movies"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/movie_item">
-    </ListView>
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
