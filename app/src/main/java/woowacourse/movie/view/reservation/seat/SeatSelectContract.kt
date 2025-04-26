@@ -1,6 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
-import android.content.Intent
+import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.ReservationInfo
 
 interface SeatSelectContract {
@@ -31,7 +31,7 @@ interface SeatSelectContract {
     }
 
     interface Presenter {
-        fun fetchData(intent: Intent)
+        fun fetchData(getMovieTicket: () -> MovieTicket?)
 
         fun onSeatClicked(seatId: String)
 
