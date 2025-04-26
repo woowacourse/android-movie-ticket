@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         moviesView.layoutManager = LinearLayoutManager(this)
         moviesView.adapter =
             MoviesAdapter(movies) { movie ->
-                val intent = ReserveActivity.newIntent(this, (movie as Item.MovieItem).movie)
+                val intent = ReserveActivity.newIntent(this, movie)
                 startActivity(intent)
             }
     }

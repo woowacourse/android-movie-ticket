@@ -10,11 +10,16 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
 
         movies.forEachIndexed { index, movieItem ->
             result.add(movieItem)
-            if ((index + 1) % 3 == 0) {
+            if ((index + INDEX_OFFSET) % AD_INSERT_INTERVAL == 0) {
                 result.add(Item.AdvertisementItem(R.drawable.advertisement))
             }
         }
 
         view.showMovies(result)
+    }
+
+    companion object {
+        private const val AD_INSERT_INTERVAL: Int = 3
+        private const val INDEX_OFFSET: Int = 1
     }
 }

@@ -5,11 +5,12 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
 import woowacourse.movie.main.Item
 
 class MoviesAdapter(
     private val items: List<Item>,
-    private val onClick: (Item) -> Unit,
+    private val onClick: (Movie) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -25,7 +26,7 @@ class MoviesAdapter(
 
                 holder.reserveBtn.setOnClickListener {
                     val position = holder.getAdapterPosition()
-                    onClick(items[position])
+                    onClick((items[position] as Item.MovieItem).movie)
                 }
             }
             ViewType.TYPE_ADVERTISEMENT -> {
