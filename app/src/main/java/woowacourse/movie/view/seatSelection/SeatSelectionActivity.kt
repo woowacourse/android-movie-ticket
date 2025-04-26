@@ -8,12 +8,14 @@ import android.widget.TableRow
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.MovieToReserve
 import woowacourse.movie.model.seat.Seat
+import woowacourse.movie.model.seat.SeatGrade
 import woowacourse.movie.model.ticket.MovieTicket
 import woowacourse.movie.presenter.seatSelection.SeatSelectionContracts
 import woowacourse.movie.presenter.seatSelection.SeatSelectionPresenter
@@ -41,6 +43,7 @@ class SeatSelectionActivity :
             insets
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        presenter.loadSeats()
         presenter.updateReservationInfo(
             intent.getSerializableExtraData<MovieToReserve>(MOVIE_TO_RESERVE_DATA_KEY),
         )
@@ -73,16 +76,69 @@ class SeatSelectionActivity :
     }
 
     override fun showSeats(seats: List<Seat>) {
-        seatsLayout.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
-            row.children.filterIsInstance<TextView>().forEachIndexed { colIndex, view ->
-                val key = "${rowToUI(rowIndex)}${columnToUI(colIndex)}"
-                view.setTag(R.id.seat_cell_key, key)
-                view.text = key
-                view.setOnClickListener {
-                    view.isSelected = !view.isSelected
-                    presenter.updateSelectedSeat(rowIndex, colIndex)
-                }
+        seatsLayout.children
+            .filterIsInstance<TableRow>()
+            .forEachIndexed { rowIndex, row ->
+                row.children
+                    .filterIsInstance<TextView>()
+                    .forEachIndexed { colIndex, view ->
+                        val seat =
+                            seats.find { it.row.value == rowIndex && it.column.value == colIndex }
+                                ?: return
+                        setupSeatText(seat, view)
+                        setupSeatTextColor(seat, view)
+                        setupSeatClickListener(view, seat)
+                    }
             }
+    }
+
+    private fun setupSeatText(
+        seat: Seat,
+        view: TextView,
+    ) {
+        val key = "${rowToUI(seat.row.value)}${columnToUI(seat.column.value)}"
+        view.setTag(R.id.seat_cell_key, key)
+        view.text = key
+    }
+
+    private fun setupSeatTextColor(
+        seat: Seat,
+        view: TextView,
+    ) {
+        when (SeatGrade.calculateSeatGrade(seat.row)) {
+            SeatGrade.B ->
+                view.setTextColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.purple_8E13EF,
+                    ),
+                )
+
+            SeatGrade.S ->
+                view.setTextColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.green_19D358,
+                    ),
+                )
+
+            SeatGrade.A ->
+                view.setTextColor(
+                    ContextCompat.getColor(
+                        view.context,
+                        R.color.blue_1B48E9,
+                    ),
+                )
+        }
+    }
+
+    private fun setupSeatClickListener(
+        view: TextView,
+        seat: Seat,
+    ) {
+        view.setOnClickListener {
+            view.isSelected = !view.isSelected
+            presenter.updateSelectedSeat(seat.row.value, seat.column.value)
         }
     }
 

@@ -11,10 +11,19 @@ class SeatSelectionPresenter(
     private lateinit var movieToReserve: MovieToReserve
     private var seats: MutableList<Seat> = mutableListOf()
 
+    override fun loadSeats() {
+        val seats: List<Seat> =
+            (0 until 5).flatMap { row ->
+                (0 until 4).map { col ->
+                    Seat(row, col)
+                }
+            }
+        view.showSeats(seats)
+    }
+
     override fun updateReservationInfo(movieToReserve: MovieToReserve) {
         this.movieToReserve = movieToReserve
 
-        view.showSeats(seats)
         view.showMovieTitle(movieToReserve.title)
         view.showPrice(0)
         view.showButtonEnabled(false)
