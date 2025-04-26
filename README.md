@@ -88,4 +88,4 @@
 - [X] MemberCount -> TicketCount
 
 # 4차
-- [ ] 영화 데이터 추가
+- [X] 영화 데이터 추가
