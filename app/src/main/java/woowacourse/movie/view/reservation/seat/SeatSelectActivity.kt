@@ -58,7 +58,7 @@ class SeatSelectActivity :
         price: Int,
     ) {
         titleTextView.text = title
-        priceTextView.text = price.toString()
+        priceTextView.text = getString(R.string.seat_select_ticket_price).format(price)
     }
 
     override fun showSeatCountError(count: Int) {
@@ -77,17 +77,6 @@ class SeatSelectActivity :
 
     override fun updateSeatDeselected(seatId: String) {
         seatViews[seatId]?.setBackgroundResource(R.color.white)
-    }
-
-    private fun findSeatView(seatId: String): TextView? {
-        for (i in 0 until tl.childCount) {
-            val row = tl.getChildAt(i) as? TableRow ?: continue
-            for (j in 0 until row.childCount) {
-                val seatView = row.getChildAt(j) as? TextView
-                if (seatView?.tag == seatId) return seatView
-            }
-        }
-        return null
     }
 
     override fun updateTotalPrice(totalPrice: Int) {
