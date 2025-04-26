@@ -29,10 +29,16 @@ class SeatSelectionPresenter(
             seats.add(selectedSeat)
         }
 
-        calculateTotalPrice()
+        updateButtonEnabled()
+        updateTotalPrice()
     }
 
-    private fun calculateTotalPrice() {
+    private fun updateButtonEnabled() {
+        val buttonEnabled = seats.size == movieTicket.count.value
+        view.showButtonEnabled(buttonEnabled)
+    }
+
+    private fun updateTotalPrice() {
         val totalPrice: Int = seats.sumOf { seat -> seat.price }
         view.showPrice(totalPrice)
     }

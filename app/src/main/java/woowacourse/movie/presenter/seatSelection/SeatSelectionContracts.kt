@@ -10,6 +10,8 @@ interface SeatSelectionContracts {
         fun showMovieTitle(title: String)
 
         fun showPrice(price: Int)
+
+        fun showButtonEnabled(enabled: Boolean)
     }
 
     interface Presenter {

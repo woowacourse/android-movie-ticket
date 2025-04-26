@@ -27,6 +27,7 @@ class SeatSelectionActivity :
     private val seatsLayout: TableLayout by lazy { findViewById(R.id.tl_seat_selection) }
     private val titleTextView: TextView by lazy { findViewById(R.id.tv_seat_selection_movie_title) }
     private val seatPriceTextView: TextView by lazy { findViewById(R.id.tv_seat_selection_price) }
+    private val completeButton: TextView by lazy { findViewById(R.id.tv_seat_selection_complete_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,21 +41,17 @@ class SeatSelectionActivity :
     }
 
     override fun showSeats(seats: List<Seat>) {
-        seatsLayout.children
-            .filterIsInstance<TableRow>()
-            .forEachIndexed { rowIndex, row ->
-                row.children
-                    .filterIsInstance<TextView>()
-                    .forEachIndexed { colIndex, view ->
-                        val key = "${rowToUI(rowIndex)}${columnToUI(colIndex)}"
-                        view.setTag(R.id.seat_cell_key, key)
-                        view.text = key
-                        view.setOnClickListener {
-                            view.isSelected = !view.isSelected
-                            presenter.updateSelectedSeat(rowIndex, colIndex)
-                        }
-                    }
+        seatsLayout.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
+            row.children.filterIsInstance<TextView>().forEachIndexed { colIndex, view ->
+                val key = "${rowToUI(rowIndex)}${columnToUI(colIndex)}"
+                view.setTag(R.id.seat_cell_key, key)
+                view.text = key
+                view.setOnClickListener {
+                    view.isSelected = !view.isSelected
+                    presenter.updateSelectedSeat(rowIndex, colIndex)
+                }
             }
+        }
     }
 
     override fun showMovieTitle(title: String) {
@@ -67,6 +64,10 @@ class SeatSelectionActivity :
                 R.string.seat_selection_ticket_price,
                 priceToUI(price),
             )
+    }
+
+    override fun showButtonEnabled(enabled: Boolean) {
+        completeButton.isEnabled = enabled
     }
 
     companion object {
