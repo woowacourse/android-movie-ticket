@@ -9,7 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.util.PosterMapper
 
 class MovieAdapter(

@@ -1,5 +1,6 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.movie
 
+import woowacourse.movie.domain.model.DayType
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

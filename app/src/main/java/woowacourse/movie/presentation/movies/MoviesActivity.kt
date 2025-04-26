@@ -4,8 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ScreeningMovies
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.ScreeningMovies
 import woowacourse.movie.presentation.booking.BookingActivity
 import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.adapter.MovieAdapter

@@ -1,7 +1,7 @@
 package woowacourse.movie.presentation.booking
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.MovieTicket
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.bookingsummary
 
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.movie.MovieTicket
 
 class BookingSummaryPresenter(
     private val view: BookingSummaryContract.View,

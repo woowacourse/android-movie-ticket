@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.pricingpolicy
 
 class DefaultPricingPolicy : PricingPolicy {
     override fun calculatePrice(headCount: Int): Int = headCount * DEFAULT_PRICE

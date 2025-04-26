@@ -12,8 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.MovieTicket
 import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
 import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.constant.IntentKeys

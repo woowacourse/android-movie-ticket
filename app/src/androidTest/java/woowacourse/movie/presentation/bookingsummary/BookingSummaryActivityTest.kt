@@ -12,8 +12,8 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.DefaultPricingPolicy
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.pricingpolicy.DefaultPricingPolicy
+import woowacourse.movie.domain.model.movie.MovieTicket
 import woowacourse.movie.presentation.booking.BookingActivity
 import java.time.LocalDateTime
 

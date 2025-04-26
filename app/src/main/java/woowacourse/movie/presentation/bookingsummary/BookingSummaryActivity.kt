@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.movie.MovieTicket
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.TicketUiFormatter.formatAmount
 import woowacourse.movie.ui.util.TicketUiFormatter.formatDateTime

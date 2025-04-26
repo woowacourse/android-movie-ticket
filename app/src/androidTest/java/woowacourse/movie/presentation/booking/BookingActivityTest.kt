@@ -22,8 +22,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.presentation.booking.BookingActivity
+import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
 import java.time.LocalDate
 

@@ -5,8 +5,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ScreeningMovies
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.ScreeningMovies
 import java.time.LocalDate
 
 class MoviesPresenterTest {

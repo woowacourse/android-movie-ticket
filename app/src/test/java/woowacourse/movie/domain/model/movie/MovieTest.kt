@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.movie
 
 import io.kotest.assertions.assertSoftly
 import io.kotest.matchers.shouldBe

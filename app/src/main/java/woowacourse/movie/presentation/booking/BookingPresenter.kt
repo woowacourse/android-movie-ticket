@@ -1,10 +1,10 @@
 package woowacourse.movie.presentation.booking
 
-import woowacourse.movie.domain.model.DefaultPricingPolicy
+import woowacourse.movie.domain.model.pricingpolicy.DefaultPricingPolicy
 import woowacourse.movie.domain.model.HeadCount
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieScheduler
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.MovieScheduler
+import woowacourse.movie.domain.model.movie.MovieTicket
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

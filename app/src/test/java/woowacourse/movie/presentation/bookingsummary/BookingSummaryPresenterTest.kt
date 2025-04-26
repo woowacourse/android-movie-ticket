@@ -4,8 +4,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.DefaultPricingPolicy
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.pricingpolicy.DefaultPricingPolicy
+import woowacourse.movie.domain.model.movie.MovieTicket
 import java.time.LocalDateTime
 
 class BookingSummaryPresenterTest {
