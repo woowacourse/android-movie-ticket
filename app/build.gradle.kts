@@ -16,7 +16,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        testInstrumentationRunnerArguments["runnerBuilder"] = "de.mannodermaus.junit5.AndroidJUnit5Builder"
+        testInstrumentationRunnerArguments["runnerBuilder"] =
+            "de.mannodermaus.junit5.AndroidJUnit5Builder"
     }
 
     buildTypes {
@@ -49,11 +50,13 @@ android {
 }
 
 dependencies {
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.google.material)
+    implementation(libs.androidx.activity)
     testImplementation(libs.assertj.core)
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.runner.junit5)

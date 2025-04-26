@@ -1,4 +1,4 @@
-package woowacourse.movie.view.booking.seat
+package woowacourse.movie.ui.seat
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

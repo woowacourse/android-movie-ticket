@@ -20,7 +20,7 @@ import org.junit.Test
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.booking.booking.BookingActivity
+import woowacourse.movie.ui.booking.view.BookingActivity
 import java.time.LocalDate
 
 class BookingActivityTest {

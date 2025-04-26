@@ -7,7 +7,7 @@
     android:padding="12dp">
 
     <ImageView
-        android:id="@+id/img_poster"
+        android:id="@+id/img_advertisement"
         android:layout_width="76dp"
         android:layout_height="108dp"
         android:contentDescription="Poster Image"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:orientation="vertical"
-        app:layout_constraintStart_toEndOf="@+id/img_poster"
+        app:layout_constraintStart_toEndOf="@+id/img_advertisement"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView

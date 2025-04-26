@@ -1,10 +1,11 @@
-package woowacourse.movie.view.booking.booking
+package woowacourse.movie.ui.booking.presenter
 
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
+import woowacourse.movie.ui.booking.contract.BookingContract
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -32,7 +33,7 @@ class BookingPresenter(
         bookingView.setHeadcountTextView(_headcount)
     }
 
-    override fun fetchMovie(): Movie = bookingView.getMovie() ?: Movie.DUMMY_MOVIES.first()
+    override fun fetchMovie(): Movie = bookingView.getMovie() ?: Movie.Companion.DUMMY_MOVIES.first()
 
     override fun updateMovieInfoViews() {
         bookingView.setMovieInfoViews(movie)

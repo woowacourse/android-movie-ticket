@@ -1,4 +1,4 @@
-package woowacourse.movie.view.movie
+package woowacourse.movie.ui.movielist.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieListItem
-import woowacourse.movie.view.booking.booking.BookingActivity
+import woowacourse.movie.ui.booking.view.BookingActivity
+import woowacourse.movie.ui.movielist.contract.MovieListContract
+import woowacourse.movie.ui.movielist.presenter.MovieListPresenter
 
 class MovieListActivity :
     AppCompatActivity(),

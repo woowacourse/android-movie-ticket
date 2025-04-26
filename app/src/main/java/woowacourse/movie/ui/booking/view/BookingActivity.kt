@@ -1,4 +1,4 @@
-package woowacourse.movie.view.booking.booking
+package woowacourse.movie.ui.booking.view
 
 import android.app.AlertDialog
 import android.content.Context
@@ -18,10 +18,12 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.booking.contract.BookingContract
+import woowacourse.movie.ui.booking.presenter.BookingPresenter
+import woowacourse.movie.ui.complete.BookingCompleteActivity
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
 import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable
-import woowacourse.movie.view.booking.complete.BookingCompleteActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
