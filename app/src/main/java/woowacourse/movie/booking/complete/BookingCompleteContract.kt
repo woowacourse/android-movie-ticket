@@ -1,7 +1,7 @@
 package woowacourse.movie.booking.complete
 
 import android.os.Bundle
-import woowacourse.movie.model.BookingResult
+import woowacourse.movie.booking.detail.TicketUiModel
 
 interface BookingCompleteContract {
     interface Presenter {
@@ -9,7 +9,7 @@ interface BookingCompleteContract {
     }
 
     interface View {
-        fun showBookingCompleteResult(result: BookingResult)
+        fun showBookingCompleteResult(result: TicketUiModel)
 
         fun showToastErrorAndFinish(message: String)
     }
