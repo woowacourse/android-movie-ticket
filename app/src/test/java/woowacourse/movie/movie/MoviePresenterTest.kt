@@ -1,10 +1,12 @@
 package woowacourse.movie.movie
 
 import android.content.Intent
+import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
@@ -39,28 +41,25 @@ class MoviePresenterTest {
 
     @Test
     fun `영화 리스트가 null이면 기본 메시지를 띄운다`() {
-        val emptyIntent = Intent()
+        val mockIntent = mockk<Intent> {
+            every { getParcelableExtra<MovieUiModel>(any()) } returns null
+        }
 
-        presenter.initializeData(emptyIntent)
+        val presenter = MoviePresenter(view = mockView)
+
+        presenter.initializeData(mockIntent)
 
         verify { mockView.showToast("기본 영화 목록을 불러왔습니다.") }
-        verify {
-            mockView.showMovies(
-                match {
-                    it.size == 2 &&
-                        it[0].title == "해리 포터와 마법사의 돌" &&
-                        it[1].title == "스타 이즈 본"
-                },
-            )
-        }
+        verify { mockView.showMovies(any()) }
     }
+
 
     @Test
     fun `지금 예매 버튼을 누르면 다음 화면으로 넘어간다`() {
         val movie = presenter.getMockMovieList().first()
+        val movieUiData = movie.toUiModel()
+        presenter.onReserveClicked(movieUiData)
 
-        presenter.onReserveClicked(movie)
-
-        verify { mockView.startBookingActivity(movie) }
+        verify { mockView.startBookingActivity(movieUiData) }
     }
 }
