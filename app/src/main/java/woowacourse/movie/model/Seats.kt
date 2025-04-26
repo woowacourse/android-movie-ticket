@@ -11,17 +11,18 @@ value class Seats(
         seat: Seat,
         headCount: Int,
     ): Seats {
-        val isAlreadySelected = values.any { it.seatName == seat.seatName }
+        val existingSeat = values.find { it.seatName == seat.seatName }
 
-        val updatedSeats =
-            if (isAlreadySelected) {
-                values.filterNot { it.seatName == seat.seatName }
+        return if (existingSeat != null) {
+            Seats(values.map {
+                if (it.seatName == seat.seatName) it.copy(isSelected = false) else it
+            }.filter { it.isSelected })
+        } else {
+            if (values.count { it.isSelected } >= headCount) {
+                this
             } else {
-                if (values.size >= headCount) return this
-
-                values + seat
+                Seats(values + seat.copy(isSelected = true))
             }
-
-        return Seats(updatedSeats)
+        }
     }
 }
