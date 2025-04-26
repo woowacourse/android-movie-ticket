@@ -10,7 +10,10 @@ import java.time.LocalTime
 
 val APRIL_THIRTIETH: LocalDate = LocalDate.of(2025, 4, 30)
 
-fun createReservation(movieName: String): Reservation =
+fun createReservation(
+    movieName: String,
+    points: Points = POINTS,
+): Reservation =
     Reservation(
         movie = createMovie(movieName),
         _count = TicketCount(3),
@@ -19,14 +22,16 @@ fun createReservation(movieName: String): Reservation =
                 APRIL_THIRTIETH,
                 LocalTime.of(12, 0),
             ),
-        points =
-            Points(
-                setOf(
-                    Point(0, 0),
-                    Point(2, 0),
-                    Point(4, 0),
-                ),
-            ),
+        points = points,
+    )
+
+val POINTS =
+    Points(
+        setOf(
+            Point(0, 0),
+            Point(2, 0),
+            Point(4, 0),
+        ),
     )
 
 const val SCREENING_DATE: String = "2025.04.30 12:00"
