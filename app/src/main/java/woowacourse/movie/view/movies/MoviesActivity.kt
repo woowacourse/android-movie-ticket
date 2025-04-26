@@ -1,5 +1,7 @@
 package woowacourse.movie.view.movies
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -55,5 +57,12 @@ class MoviesActivity :
 
     override fun showReservationView(movie: Movie) {
         startActivity(ReservationActivity.getIntent(this, movie))
+    }
+
+    companion object {
+        fun getIntent(context: Context): Intent =
+            Intent(context, MoviesActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+            }
     }
 }

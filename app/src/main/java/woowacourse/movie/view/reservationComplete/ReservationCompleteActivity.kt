@@ -16,6 +16,7 @@ import woowacourse.movie.view.extension.getSerializableExtraData
 import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.mapper.Formatter.priceToUI
+import woowacourse.movie.view.movies.MoviesActivity
 import java.time.LocalDate
 
 class ReservationCompleteActivity :
@@ -44,7 +45,7 @@ class ReservationCompleteActivity :
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        finish()
+        startActivity(MoviesActivity.getIntent(this))
         return super.onSupportNavigateUp()
     }
 
