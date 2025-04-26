@@ -1,4 +1,4 @@
-package woowacourse.movie.view.movies
+package woowacourse.movie.presenter.movies
 
 import woowacourse.movie.domain.model.ad.Advertisement
 import woowacourse.movie.domain.model.movies.Movie

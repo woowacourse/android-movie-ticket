@@ -8,8 +8,8 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.fixture.twoByThreeCoord
 import woowacourse.movie.domain.fixture.twoByThreeSeat
 import woowacourse.movie.domain.model.seat.Seats
-import woowacourse.movie.view.seat.SeatContract
-import woowacourse.movie.view.seat.SeatPresenter
+import woowacourse.movie.presenter.seat.SeatContract
+import woowacourse.movie.presenter.seat.SeatPresenter
 
 class SeatPresenterTest {
     private lateinit var view: SeatContract.View

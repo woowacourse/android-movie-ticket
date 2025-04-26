@@ -9,8 +9,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.presenter.movies.MovieListContract
+import woowacourse.movie.presenter.movies.MovieListContract.PresenterFactory
 import woowacourse.movie.view.booking.BookingActivity
-import woowacourse.movie.view.movies.MovieListContract.PresenterFactory
 import woowacourse.movie.view.movies.adapter.MovieAdapter
 import woowacourse.movie.view.movies.model.UiModel
 

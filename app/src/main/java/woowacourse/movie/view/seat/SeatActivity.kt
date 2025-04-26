@@ -15,11 +15,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.presenter.seat.SeatContract
+import woowacourse.movie.presenter.seat.SeatContract.PresenterFactory
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import woowacourse.movie.view.booking.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
-import woowacourse.movie.view.seat.SeatContract.PresenterFactory
 import woowacourse.movie.view.seat.model.coord.Column
 import woowacourse.movie.view.seat.model.coord.Coordination
 import woowacourse.movie.view.seat.model.coord.Row

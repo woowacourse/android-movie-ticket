@@ -16,7 +16,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.view.booking.BookingContract.PresenterFactory
+import woowacourse.movie.presenter.booking.BookingContract
+import woowacourse.movie.presenter.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import woowacourse.movie.view.movies.model.UiModel

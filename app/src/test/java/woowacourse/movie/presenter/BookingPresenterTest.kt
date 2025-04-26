@@ -9,9 +9,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.presenter.booking.BookingContract
+import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.booking.BookingContract
-import woowacourse.movie.view.booking.BookingPresenter
 import woowacourse.movie.view.movies.model.UiModel
 import java.time.LocalDate
 import java.time.LocalDateTime

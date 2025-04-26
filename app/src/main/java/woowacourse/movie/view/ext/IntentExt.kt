@@ -7,9 +7,9 @@ import java.io.Serializable
 inline fun <reified T : Serializable> Intent.getSerializable(
     key: String,
     clazz: Class<T>,
-): T? {
+): T {
     return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        getSerializableExtra(key, clazz)
+        getSerializableExtra(key, clazz) ?: throw IllegalArgumentException()
     } else {
         getSerializableExtra(key) as T
     }
