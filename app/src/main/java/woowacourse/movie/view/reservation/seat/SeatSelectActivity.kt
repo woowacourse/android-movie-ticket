@@ -16,8 +16,8 @@ import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.view.Extras
 import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.getParcelableExtraCompat
-import woowacourse.movie.view.reservation.ReservationDialog
 import woowacourse.movie.view.reservation.complete.ReservationCompleteActivity
+import woowacourse.movie.view.reservation.reservation.ReservationDialog
 
 class SeatSelectActivity :
     AppCompatActivity(),

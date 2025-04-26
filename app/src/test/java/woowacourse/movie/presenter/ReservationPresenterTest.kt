@@ -9,8 +9,8 @@ import io.mockk.verifySequence
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Fixture
-import woowacourse.movie.view.reservation.ReservationContract
-import woowacourse.movie.view.reservation.ReservationPresenter
+import woowacourse.movie.view.reservation.reservation.ReservationContract
+import woowacourse.movie.view.reservation.reservation.ReservationPresenter
 import java.time.LocalDate
 
 class ReservationPresenterTest {

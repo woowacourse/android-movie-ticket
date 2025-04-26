@@ -5,7 +5,7 @@
     android:id="@+id/sv_reservation"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.reservation.ReservationActivity">
+    tools:context=".view.reservation.reservation.ReservationActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
