@@ -17,13 +17,13 @@ import org.hamcrest.Matchers.`is`
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.fixture.movie
+import woowacourse.movie.fixture.FAKE_CONTEXT
+import woowacourse.movie.fixture.HARRY_POTTER_01
 import woowacourse.movie.view.movie.model.toUiModel
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import java.time.LocalDate
 
+@Suppress("ktlint:standard:function-naming")
 class MovieReservationActivityTest {
     private lateinit var intent: Intent
     private lateinit var scenario: ActivityScenario<MovieReservationActivity>
@@ -34,33 +34,29 @@ class MovieReservationActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(fakeContext, MovieReservationActivity::class.java).apply {
-                putExtra("extra_movie", movie.toUiModel())
+            Intent(FAKE_CONTEXT, MovieReservationActivity::class.java).apply {
+                putExtra("extra_movie", HARRY_POTTER_01.toUiModel())
             }
         scenario = ActivityScenario.launch(intent)
     }
 
     @Test
-    @DisplayName("선택한 영화의 제목이 표시된다")
-    fun displaySelectedMovieTitleTest() {
+    fun 선택한_영화의_제목이_표시된다() {
         onView(withId(R.id.movie_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    @DisplayName("선택한 영화의 상영일이 표시된다")
-    fun displaySelectedMovieScreeningDateTest() {
+    fun 선택한_영화의_상영일이_표시된다() {
         onView(withId(R.id.screening_date)).check(matches(withText("상영일: 2025.04.01 ~ 2025.04.30")))
     }
 
     @Test
-    @DisplayName("선택한 영화의 러닝타임이 표시된다")
-    fun displaySelectedMovieRunningTimeTest() {
+    fun 선택한_영화의_러닝타임이_표시된다() {
         onView(withId(R.id.running_time)).check(matches(withText("러닝타임: 152분")))
     }
 
     @Test
-    @DisplayName("+ 버튼을 클릭하면 인원수가 1 증가한다")
-    fun increaseTicketCountOnIncrementButtonClickTest() {
+    fun 증가_버튼을_클릭하면_인원수가_1_증가한다() {
         // given
         onView(withId(R.id.ticket_count)).check(matches(withText("1")))
 
@@ -72,8 +68,7 @@ class MovieReservationActivityTest {
     }
 
     @Test
-    @DisplayName("- 버튼을 클릭하면 인원수가 1 감소한다")
-    fun decreaseTicketCountOnDecrementButtonClickTest() {
+    fun 감소_버튼을_클릭하면_인원수가_1_감소한다() {
         // given
         onView(withId(R.id.increment_button)).perform(click())
         onView(withId(R.id.ticket_count)).check(matches(withText("2")))
@@ -86,8 +81,7 @@ class MovieReservationActivityTest {
     }
 
     @Test
-    @DisplayName("화면이 회전돼도 입력한 정보가 유지된다")
-    fun retainInformationOnScreenRotateTest() {
+    fun 화면을_회전해도_입력한_정보가_유지된다() {
         onView(withId(R.id.increment_button)).perform(click())
         scenario.onActivity { activity ->
             activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
@@ -96,8 +90,7 @@ class MovieReservationActivityTest {
     }
 
     @Test
-    @DisplayName("선택한 날짜가 Spinner에 표시된다")
-    fun displayDateSpinnerTest() {
+    fun 선택한_날짜가_Spinner에_표시된다() {
         // given
         onView(withId(R.id.date_spinner)).perform(click())
 
@@ -105,11 +98,11 @@ class MovieReservationActivityTest {
         onData(
             allOf(
                 `is`(instanceOf(LocalDate::class.java)),
-                `is`(LocalDate.of(2025, 4, 25)),
+                `is`(LocalDate.of(2025, 4, 30)),
             ),
         ).perform(click())
 
         // then
-        onView(withId(R.id.date_spinner)).check(matches(withSpinnerText("2025-04-25")))
+        onView(withId(R.id.date_spinner)).check(matches(withSpinnerText("2025-04-30")))
     }
 }

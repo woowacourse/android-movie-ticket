@@ -10,13 +10,13 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.fixture.ticket
+import woowacourse.movie.fixture.FAKE_CONTEXT
+import woowacourse.movie.fixture.TICKET
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import woowacourse.movie.view.reservation.model.toUiModel
 import woowacourse.movie.view.result.MovieReservationCompleteActivity
 
+@Suppress("ktlint:standard:function-naming")
 class MovieReservationCompleteActivityTest {
     private lateinit var intent: Intent
 
@@ -26,33 +26,29 @@ class MovieReservationCompleteActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(fakeContext, MovieReservationCompleteActivity::class.java).apply {
-                putExtra("extra_ticket", ticket.toUiModel())
+            Intent(FAKE_CONTEXT, MovieReservationCompleteActivity::class.java).apply {
+                putExtra("extra_ticket", TICKET.toUiModel())
             }
         ActivityScenario.launch<MovieReservationCompleteActivity>(intent)
     }
 
     @Test
-    @DisplayName("예매한 영화의 제목이 표시된다")
-    fun displayReservedMovieTitleTest() {
+    fun 예매한_영화의_제목이_표시된다() {
         onView(withId(R.id.movie_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
-    @DisplayName("예매한 영화의 상영 시간이 표시된다")
-    fun displayReservedMovieShowtimeTest() {
+    fun 예매한_영화의_상영_시간이_표시된다() {
         onView(withId(R.id.showtime)).check(matches(withText("2025.04.15 11:00")))
     }
 
     @Test
-    @DisplayName("예매한 인원수가 표시된다")
-    fun displayReservedTicketCountTest() {
+    fun 예매한_인원수가_표시된다() {
         onView(withId(R.id.ticket_info)).check(matches(withText("일반 2명 | B3, D2")))
     }
 
     @Test
-    @DisplayName("예매한 총 금액이 표시된다")
-    fun displayReservedTotalPriceTest() {
+    fun 예매한_총_금액이_표시된다() {
         onView(withId(R.id.total_price)).check(matches(withText("25,000원 (현장 결제)")))
     }
 }
