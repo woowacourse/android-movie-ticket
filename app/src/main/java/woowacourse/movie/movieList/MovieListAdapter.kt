@@ -23,7 +23,13 @@ class MovieListAdapter(
     ): View {
         lateinit var view: View
 
-        if (convertView == null) {
+        if (position % 4 == 3) {
+            view = LayoutInflater.from(context).inflate(R.layout.movie_list_ad, parent, false)
+            printAd(view)
+            return view
+        }
+
+        if (convertView == null || convertView.tag == null) {
             view =
                 LayoutInflater
                     .from(context)
@@ -59,6 +65,11 @@ class MovieListAdapter(
         }
 
         return view
+    }
+
+    fun printAd(view: View) {
+        val adView = view.findViewById<ImageView>(R.id.ad)
+        adView.setImageResource(R.drawable.ad_image)
     }
 
     private fun getMovieInfoOrPrintError(position: Int): MovieInfo? {

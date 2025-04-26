@@ -12,7 +12,7 @@
         android:layout_height="150dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:src="@drawable/harry_potter_poster"/>
+        android:src="@drawable/harry_potter_poster_1"/>
 
     <LinearLayout
         android:layout_width="match_parent"
