@@ -1,11 +1,12 @@
 package woowacourse.movie.view.movie
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.booking.booking.BookingActivity
@@ -37,14 +38,17 @@ class MovieListActivity :
     }
 
     override fun setMoveList(movies: List<Movie>) {
-        val listView = findViewById<ListView>(R.id.list_view)
+        val recyclerView = findViewById<RecyclerView>(R.id.movies_recycler_view)
 
-        listView.adapter =
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        val adapter =
             MovieAdapter(
-                items = movies,
                 onClickBooking = { movie ->
                     moveToBookingActivity(movie)
                 },
             )
+
+        recyclerView.adapter = adapter
+        adapter.submitList(movies)
     }
 }

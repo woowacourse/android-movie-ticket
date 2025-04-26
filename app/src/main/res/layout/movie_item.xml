@@ -10,6 +10,7 @@
         android:id="@+id/img_poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
+        android:contentDescription="Poster Image"
         android:scaleType="centerCrop"
         android:src="@drawable/harry_potter_one"
         app:layout_constraintBottom_toBottomOf="parent"

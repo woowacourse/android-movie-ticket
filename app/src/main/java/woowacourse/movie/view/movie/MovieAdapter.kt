@@ -1,42 +1,42 @@
 package woowacourse.movie.view.movie
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 
 class MovieAdapter(
     val onClickBooking: (Movie) -> Unit,
-    private val items: List<Movie>,
-) : BaseAdapter() {
-    override fun getCount(): Int = items.size
+) : ListAdapter<Movie, MovieViewHolder>(
+        object : DiffUtil.ItemCallback<Movie>() {
+            override fun areItemsTheSame(
+                oldItem: Movie,
+                newItem: Movie,
+            ): Boolean = oldItem.title == newItem.title
 
-    override fun getItem(position: Int): Movie = items[position]
+            override fun areContentsTheSame(
+                oldItem: Movie,
+                newItem: Movie,
+            ): Boolean = oldItem == newItem
+        },
+    ) {
+    override fun getItem(position: Int): Movie? = currentList[position]
 
-    override fun getItemId(position: Int): Long = position.toLong()
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): MovieViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+        return MovieViewHolder(itemView, onClickBooking)
+    }
 
-    override fun getView(
+    override fun onBindViewHolder(
+        holder: MovieViewHolder,
         position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        val viewHolder: MovieViewHolder
-
-        val item: Movie = getItem(position)
-
-        if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.movie_item, parent, false)
-            viewHolder = MovieViewHolder(view, onClickBooking)
-            view.setTag(R.id.view_holder_tag, viewHolder)
-        } else {
-            view = convertView
-            viewHolder = view.getTag(R.id.view_holder_tag) as MovieViewHolder
-        }
-
-        viewHolder.bind(item)
-        return view
+    ) {
+        holder.bind(currentList[position])
     }
 }
