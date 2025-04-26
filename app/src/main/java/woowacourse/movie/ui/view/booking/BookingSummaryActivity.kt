@@ -33,7 +33,11 @@ class BookingSummaryActivity :
         title.text = PosterMapper.mapMovieIdToMovieTitle(movieTicket.movieId)
         screeningDateTime.text = formatDateTime(movieTicket.screeningDateTime)
         headCount.text =
-            formatHeadCount(getString(R.string.headCount_message), movieTicket.headCount)
+            formatHeadCount(
+                getString(R.string.headCount_message),
+                movieTicket.headCount,
+                movieTicket.selectedSeats,
+            )
         amount.text =
             formatAmount(getString(R.string.amount_message), movieTicket.amount)
     }
@@ -49,7 +53,8 @@ class BookingSummaryActivity :
         private fun formatHeadCount(
             message: String,
             headCount: Int,
-        ): String = String.format(message, headCount)
+            selectedSeats: List<String>,
+        ): String = String.format(message, headCount, selectedSeats.joinToString())
 
         private fun formatAmount(
             message: String,
