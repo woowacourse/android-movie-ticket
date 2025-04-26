@@ -22,6 +22,7 @@ interface ReservationSeatContract {
             reservationInfo: ReservationInfoUiModel,
             screen: ScreenUiModel,
             totalPrice: Int,
+            canPublish: Boolean,
         )
 
         fun updateSeatStatus(

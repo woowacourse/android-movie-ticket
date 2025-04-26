@@ -77,6 +77,7 @@ class ReservationSeatActivity :
         reservationInfo: ReservationInfoUiModel,
         screen: ScreenUiModel,
         totalPrice: Int,
+        canPublish: Boolean,
     ) {
         views.bind(
             reservationInfo,
@@ -84,6 +85,7 @@ class ReservationSeatActivity :
             { views.dialog.show(publishTicketConfirmationDialogInfo) },
             { seat -> presenter.updateSeat(seat) },
         )
+        views.updateConfirmButton(canPublish)
 
         reservationInfo.seats.let {
             views.updateSeatsView(it)

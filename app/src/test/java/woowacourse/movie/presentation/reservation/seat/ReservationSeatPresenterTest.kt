@@ -36,13 +36,13 @@ class ReservationSeatPresenterTest {
     @Test
     fun `예매 정보를 불러온다`() {
         // Given: view의 setScreen 동작을 설정한다
-        every { view.setScreen(any(), any(), any()) } just Runs
+        every { view.setScreen(any(), any(), any(), any()) } just Runs
 
         // When: presenter가 데이터를 불러온다
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())
 
         // Then: view에 setScreen이 호출되어야 한다
-        verify { view.setScreen(fakeReservationInfo, any(), 0) }
+        verify { view.setScreen(fakeReservationInfo, any(), 0, any()) }
     }
 
     @Test
@@ -62,7 +62,7 @@ class ReservationSeatPresenterTest {
         val seat = SeatUiModel(0, 1, SeatTypeUiModel.B_CLASS)
 
         // Given: 초기 데이터 로딩과 updateSeatStatus 동작을 설정한다
-        every { view.setScreen(any(), any(), any()) } just Runs
+        every { view.setScreen(any(), any(), any(), any()) } just Runs
         every { view.updateSeatStatus(any(), any(), any()) } just Runs
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())
 
@@ -78,7 +78,7 @@ class ReservationSeatPresenterTest {
         val seat = SeatUiModel(0, 1, SeatTypeUiModel.B_CLASS)
 
         // Given: view의 동작을 설정한다
-        every { view.setScreen(any(), any(), any()) } just Runs
+        every { view.setScreen(any(), any(), any(), any()) } just Runs
         every { view.updateSeatStatus(any(), any(), any()) } just Runs
         every { view.notifySeatUpdateFailed(any()) } just Runs
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())
@@ -97,7 +97,7 @@ class ReservationSeatPresenterTest {
         val seat = SeatUiModel(0, 1, SeatTypeUiModel.B_CLASS)
 
         // Given: 초기 데이터 로딩, 좌석 업데이트, 티켓 발행 알림 동작을 설정한다
-        every { view.setScreen(any(), any(), any()) } just Runs
+        every { view.setScreen(any(), any(), any(), any()) } just Runs
         every { view.updateSeatStatus(any(), any(), any()) } just Runs
         every { view.notifyPublishedTickets(any()) } just Runs
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())

@@ -28,6 +28,7 @@ class ReservationSeatPresenter(
                 uiModel,
                 screen ?: Screen.DEFAULT_SCREEN.toUiModel(),
                 publishTicketBundle()?.totalPrice ?: 0,
+                canPublish(),
             )
             return
         }
@@ -45,7 +46,7 @@ class ReservationSeatPresenter(
         view.updateSeatStatus(
             reservationInfo?.seats?.map { it } ?: emptyList(),
             publishTicketBundle()?.totalPrice ?: TicketBundle.DEFAULT_TOTAL_PRICE,
-            _reservationInfo?.let { machine.canPublish(it) } ?: false,
+            canPublish(),
         )
     }
 
@@ -55,6 +56,8 @@ class ReservationSeatPresenter(
             return
         }
     }
+
+    private fun canPublish(): Boolean = _reservationInfo?.let { machine.canPublish(it) } ?: false
 
     private fun publishTicketBundle(): TicketBundle? {
         runCatching {
