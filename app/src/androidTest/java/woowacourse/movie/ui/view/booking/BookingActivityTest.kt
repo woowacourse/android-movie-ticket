@@ -36,9 +36,6 @@ class BookingActivityTest {
         Intents.init()
 
         val intent = BookingActivity.newIntent(ApplicationProvider.getApplicationContext(), movieUiModel)
-//            Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
-//                putExtra(Keys.Extra.SELECTED_MOVIE_ITEM, movieUiModel)
-//            }
 
         scenario = ActivityScenario.launch(intent)
     }
