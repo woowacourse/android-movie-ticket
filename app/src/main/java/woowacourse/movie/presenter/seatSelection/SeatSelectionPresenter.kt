@@ -22,6 +22,7 @@ class SeatSelectionPresenter(
         view.showSeats(seats)
         view.showMovieTitle(movie.title)
         view.showPrice(0)
+        view.showButtonEnabled(false)
     }
 
     override fun updateSelectedSeat(
