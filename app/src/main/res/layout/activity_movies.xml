@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".presentation.view.movies.MoviesActivity">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/lv_movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

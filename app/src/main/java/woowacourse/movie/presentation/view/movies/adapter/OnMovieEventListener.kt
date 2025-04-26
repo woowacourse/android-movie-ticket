@@ -1,4 +1,4 @@
-package woowacourse.movie.presentation.view.movies
+package woowacourse.movie.presentation.view.movies.adapter
 
 import woowacourse.movie.presentation.model.MovieUiModel
 

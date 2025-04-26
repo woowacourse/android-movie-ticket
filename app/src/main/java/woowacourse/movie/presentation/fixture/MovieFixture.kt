@@ -18,3 +18,5 @@ val dummyMovie =
         ),
         RunningTime(152),
     )
+
+fun createDummyMovies(count: Int): List<Movie> = List(count) { dummyMovie.copy(id = it.toLong(), title = "해리 포터와 마법사의 돌 $it") }
