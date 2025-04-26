@@ -32,7 +32,7 @@ class MoviesPresenterTest {
     }
 
     @Test
-    fun `예매 요청이 오면 영화 예매 뷰가 보인다`() {
+    fun `예매 요청을 보내면 영화 예매 뷰가 보인다`() {
         // given:
         every { view.showReservationView(any()) } just Runs
 
