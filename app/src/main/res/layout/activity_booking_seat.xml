@@ -278,6 +278,8 @@
             android:id="@+id/tv_booking_seat_select_complete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/selector_movie_seat_complete_background"
+            android:enabled="false"
             android:minWidth="88dp"
             android:padding="28dp"
             android:text="@string/booking_seat_select_complete"

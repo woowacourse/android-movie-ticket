@@ -18,6 +18,8 @@ data class BookingInfo(
 
     val totalPrice: TicketPrice get() = movieSeats.totalPrice
 
+    val isSeatAllSelected: Boolean get() = selectedSeats.size == ticketCount.value
+
     fun updateDate(date: MovieDate) {
         _date = date
         _movieTime = getMovieTimes(DateType.from(date)).first()
@@ -35,11 +37,13 @@ data class BookingInfo(
         ticketCount.decrease(count)
     }
 
-    fun addSeat(seat: MovieSeat) {
+    fun addSeat(seat: MovieSeat): SeatSelectionResult =
         if (ticketCount.value > movieSeats.seats.size) {
             movieSeats.add(seat)
+            SeatSelectionResult.Success(seat)
+        } else {
+            SeatSelectionResult.ExceedCountFailure
         }
-    }
 
     fun addSeats(seats: Set<MovieSeat>) {
         if (ticketCount.value > movieSeats.seats.size) {
@@ -50,4 +54,12 @@ data class BookingInfo(
     fun removeSeat(seat: MovieSeat) {
         movieSeats.remove(seat)
     }
+
+    fun updateSeat(seat: MovieSeat): SeatSelectionResult =
+        if (movieSeats.seats.contains(seat)) {
+            removeSeat(seat)
+            SeatSelectionResult.Success(seat.copy(isSelected = false))
+        } else {
+            addSeat(seat.copy(isSelected = true))
+        }
 }

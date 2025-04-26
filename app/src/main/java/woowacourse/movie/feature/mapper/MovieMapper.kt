@@ -5,6 +5,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.MovieTime
+import woowacourse.movie.domain.model.SeatType
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.feature.model.MovieDateUiModel
 import woowacourse.movie.feature.model.MovieSeatUiModel
@@ -74,6 +75,6 @@ fun MovieDate.toUi(): MovieDateUiModel =
 
 fun MovieDateUiModel.toDomain(): MovieDate = MovieDate(year, month, day)
 
-fun MovieSeatUiModel.toDomain(): MovieSeat = MovieSeat(row, column)
+fun MovieSeatUiModel.toDomain(): MovieSeat = MovieSeat(row, column, SeatType.from(seatType.name, row), isSelected)
 
-fun MovieSeat.toUi(): MovieSeatUiModel = MovieSeatUiModel(row, column, SeatTypeUiModel.valueOf(seatType.name))
+fun MovieSeat.toUi(): MovieSeatUiModel = MovieSeatUiModel(row, column, SeatTypeUiModel.from(seatType.name), isSelected)

@@ -11,16 +11,15 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
 import woowacourse.movie.feature.bookingdetail.contract.BookingDetailContract
 import woowacourse.movie.feature.bookingdetail.presenter.BookingDetailPresenter
 import woowacourse.movie.feature.bookingdetail.view.adapter.DateAdapter
 import woowacourse.movie.feature.bookingdetail.view.adapter.TimeAdapter
+import woowacourse.movie.feature.bookingseat.view.BookingSeatActivity
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.feature.model.MovieDateUiModel
 import woowacourse.movie.feature.model.MovieTimeUiModel
@@ -48,6 +47,11 @@ class BookingDetailActivity :
         presenter.onCreateView(movieUiModel = intent.getExtra(MOVIE_KEY) ?: MovieUiModel())
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
+        return super.onOptionsItemSelected(item)
+    }
+
     override fun setupDateView(dates: List<MovieDateUiModel>) {
         dateAdapter = DateAdapter(this, dates)
         dateSpinner.adapter = dateAdapter
@@ -71,6 +75,11 @@ class BookingDetailActivity :
         timeSpinner.setSelection(timeAdapter.getPosition(bookingInfo.movieTime.toString()))
     }
 
+    override fun navigateToBookingSeat(bookingInfo: BookingInfoUiModel) {
+        val intent = BookingSeatActivity.newIntent(this, bookingInfo)
+        startActivity(intent)
+    }
+
     override fun updateTimeSpinnerItems(times: List<String>) {
         timeAdapter.updateTimes(times)
     }
@@ -79,31 +88,8 @@ class BookingDetailActivity :
         ticketCountView.text = count.toString()
     }
 
-    override fun showBookingCompleteDialog(bookingInfo: BookingInfoUiModel) {
-        AlertDialog
-            .Builder(this@BookingDetailActivity)
-            .setTitle(getString(R.string.booking_detail_booking_check))
-            .setMessage(getString(R.string.booking_detail_booking_check_description))
-            .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
-                navigateToBookingComplete(bookingInfo)
-            }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
-            .setCancelable(false)
-            .show()
-    }
-
     override fun navigateToBack() {
         finish()
-    }
-
-    override fun navigateToBookingComplete(bookingInfo: BookingInfoUiModel) {
-        val intent = BookingCompleteActivity.newIntent(this, bookingInfo)
-        startActivity(intent)
-        finish()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

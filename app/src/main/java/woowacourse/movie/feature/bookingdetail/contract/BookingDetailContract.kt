@@ -16,11 +16,9 @@ interface BookingDetailContract {
 
         fun updateTimeSpinnerItems(times: List<String>)
 
-        fun showBookingCompleteDialog(bookingInfo: BookingInfoUiModel)
-
         fun navigateToBack()
 
-        fun navigateToBookingComplete(bookingInfo: BookingInfoUiModel)
+        fun navigateToBookingSeat(bookingInfo: BookingInfoUiModel)
     }
 
     interface Presenter {

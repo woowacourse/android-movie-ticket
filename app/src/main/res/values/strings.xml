@@ -30,4 +30,5 @@
     <string name="booking_seat_screen">SCREEN</string>
     <string name="booking_seat_price">%d원</string>
     <string name="booking_seat_select_complete">확인</string>
+    <string name="booking_seat_exceed_count_failure">[ERROR] 선택한 티켓 수량을 초과할 수 없습니다.</string>
 </resources>

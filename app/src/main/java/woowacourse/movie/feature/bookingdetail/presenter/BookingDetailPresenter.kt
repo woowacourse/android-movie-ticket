@@ -55,7 +55,7 @@ class BookingDetailPresenter(
     }
 
     override fun onBookingCompleteButtonClicked() {
-        view.showBookingCompleteDialog(bookingInfo.toUi())
+        view.navigateToBookingSeat(bookingInfo.toUi())
     }
 
     override fun onBackButtonClicked() {
