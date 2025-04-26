@@ -13,9 +13,12 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".seating.SeatingActivity"
+            android:exported="false" />
+        <activity
             android:name=".detailbooking.DetailBookingActivity"
             android:exported="false"
-            android:parentActivityName=".movielist.MovieListActivity"/>
+            android:parentActivityName=".movielist.MovieListActivity" />
         <activity
             android:name=".completedbooking.CompletedBookingActivity"
             android:exported="false"
