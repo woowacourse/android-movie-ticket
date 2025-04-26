@@ -50,10 +50,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         screeningDate.text = formattedScreeningDate
     }
 
-    override fun bindTicket(
-        count: Int,
-        seats: Set<Point>,
-    ) {
+    override fun bindTicket(seats: Set<Point>) {
         val ticketCount = findViewById<TextView>(R.id.tv_ticket)
 
         val seat =
@@ -61,7 +58,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
                 getString(R.string.seat_point).format('A' + point.x, point.y + 1)
             }
 
-        ticketCount.text = getString(R.string.formatted_ticket).format(count, seat)
+        ticketCount.text = getString(R.string.formatted_ticket).format(seats.size, seat)
     }
 
     override fun bindTotalPrice(price: Int) {

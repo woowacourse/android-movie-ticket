@@ -9,10 +9,7 @@ interface ReservationResultContract {
 
         fun bindTotalPrice(price: Int)
 
-        fun bindTicket(
-            count: Int,
-            seats: Set<Point>,
-        )
+        fun bindTicket(seats: Set<Point>)
     }
 
     interface Presenter {
