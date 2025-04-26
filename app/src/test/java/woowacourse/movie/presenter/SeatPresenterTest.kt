@@ -1,19 +1,15 @@
 package woowacourse.movie.presenter
 
-import io.mockk.Runs
 import io.mockk.every
-import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.fixture.twoByThreeCoord
+import woowacourse.movie.domain.fixture.twoByThreeSeat
 import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.view.seat.SeatContract
 import woowacourse.movie.view.seat.SeatPresenter
-import woowacourse.movie.view.seat.model.coord.Column
-import woowacourse.movie.view.seat.model.coord.Coordination
-import woowacourse.movie.view.seat.model.coord.Row
 
 class SeatPresenterTest {
     private lateinit var view: SeatContract.View
@@ -22,26 +18,60 @@ class SeatPresenterTest {
 
     @BeforeEach
     fun setUp() {
-        view = mockk<SeatContract.View>()
-        model = mockk()
-        presenter = SeatPresenter(view, Seats())
+        view = mockk<SeatContract.View>(relaxed = true)
+        model = mockk<Seats>(relaxed = true)
+        presenter = SeatPresenter(view, model)
     }
 
     @Test
-    fun `선택된_좌석이_선택된적이_없다면_해당_좌석을_반환한다`() {
-        // when
-        val pos = Coordination(Column(1), Row(1))
-        val seat = Seat(1, 1)
+    fun `선택한 좌석이 이미 선택되어 있으면 좌석을 제거한다`() {
+        val coord = twoByThreeCoord
+        val seat = twoByThreeSeat
 
-        // given
-        every { view.showSeat(any()) } just Runs
-        every { model.isSelected(seat) } returns false
-        every { model.item } returns setOf(seat)
+        every { model.isSelected(any()) } returns true
 
-        presenter.changeSeat(pos)
+        presenter.changeSeat(coord, limit = 3)
 
-        // then
+        verify { model.removeSeat(seat) }
+    }
+
+    @Test
+    fun `선택한 좌석이 추가되지 않았었다면 좌석을 추가한다`() {
+        val coord = twoByThreeCoord
+        val seat = twoByThreeSeat
+
+        every { model.isSelected(any()) } returns false
+        every { model.canSelect(any()) } returns true
+
+        presenter.changeSeat(coord, 2)
+
         verify { model.addSeat(seat) }
-        verify { view.showSeat(listOf(pos)) }
+    }
+
+    @Test
+    fun `클릭한 좌석이 선택됐던 좌석이 아니고 예매 가능한 인원수를 초과하면 토스트 메시지를 보여준다`() {
+        val coord = twoByThreeCoord
+        val limit = 0
+
+        every { model.isSelected(any()) } returns false
+        every { model.canSelect(any()) } returns false
+
+        presenter.changeSeat(coord, limit)
+
+        verify { view.showToast(limit) }
+    }
+
+    @Test
+    fun `클릭한 좌석이 선택됐던 좌석이고 예매 가능한 인원수를 초과할 때 선택된 좌석을 해제한다`() {
+        val coord = twoByThreeCoord
+        val seat = twoByThreeSeat
+        val limit = 0
+
+        every { model.isSelected(any()) } returns true
+        every { model.canSelect(any()) } returns false
+
+        presenter.changeSeat(coord, limit)
+
+        verify { model.removeSeat(seat) }
     }
 }

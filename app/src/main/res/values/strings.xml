@@ -19,4 +19,5 @@
     <string name="text_no_booking_time">예약 가능한 시간이 없습니다. 다른 시간을 선택해주세요</string>
     <string name="text_screen">SCREEN</string>
     <string name="text_complete">확인</string>
+    <string name="text_over_limit_people_count">선택하신 예매 인원은 %d명입니다.</string>
 </resources>

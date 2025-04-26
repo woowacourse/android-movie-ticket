@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -22,7 +23,8 @@ import woowacourse.movie.view.seat.model.coord.Row
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
     private val presenter by lazy { PresenterFactory.providePresenter(this) }
-    private val seat by lazy { findViewById<TableLayout>(R.id.seatTable) }
+
+    private val seat = findViewById<TableLayout>(R.id.seatTable)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +36,10 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         initView("it.title")
     }
 
-    private fun initView(movieTitle: String) {
+    private fun initView(
+        movieTitle: String,
+        peopleCount: Int,
+    ) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -43,49 +48,42 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initMovieTitle(movieTitle)
-        initSeat()
+        initSeat(peopleCount)
     }
 
     private fun initMovieTitle(movieTitle: String) {
         findViewById<TextView>(R.id.tv_title).text = movieTitle
     }
 
-    private fun initSeat() {
+    private fun initSeat(peopleCount: Int) {
         seat
             .children
             .filterIsInstance<TableRow>()
             .forEachIndexed { rowIndex, row ->
-                setRowListener(row, rowIndex)
+                setRowListener(row, rowIndex, peopleCount)
             }
     }
 
     private fun setRowListener(
         row: TableRow,
         rowIndex: Int,
+        count: Int,
     ) {
         row.children
             .forEachIndexed { col, view ->
                 val newTag = Coordination(Column(rowIndex + 1), Row(col + 1))
                 view.tag = newTag
                 view.setOnClickListener {
-                    onClickSeat(it.tag as Coordination)
+                    onClickSeat(it.tag as Coordination, count)
                 }
             }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onClickSeat(position: Coordination) {
-        presenter.changeSeat(position)
+    override fun onClickSeat(
+        position: Coordination,
+        peopleCount: Int,
+    ) {
+        presenter.changeSeat(position, peopleCount)
     }
 
     override fun showSeat(seat: List<Coordination>) {
@@ -103,5 +101,21 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
                         }
                     }
             }
+    }
+
+    override fun showToast(peopleCount: Int) {
+        val msg = getString(R.string.text_over_limit_people_count).format(peopleCount)
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }
