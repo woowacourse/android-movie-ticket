@@ -15,7 +15,9 @@
     <string name="movie_info_key">Movie</string>
     <string name="ticket_info_key">Ticket</string>
     <string name="headCount_message">일반 %s명 | %s</string>
+    <string name="won">%s원</string>
     <string name="amount_message">%s원 (현장 결제)</string>
     <string name="movie_not_found_message">존재하지 않는 영화입니다.</string>
     <string name="confirm">확인</string>
+    <string name="seat_limit_message">선택 가능한 좌석 수를 초과했습니다.</string>
 </resources>
