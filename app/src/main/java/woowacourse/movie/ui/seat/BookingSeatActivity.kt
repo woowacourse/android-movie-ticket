@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -123,6 +124,16 @@ class BookingSeatActivity :
             )
         startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
 
     private fun setConfirmButtonClickListener() {
         confirmButton.setOnClickListener {
