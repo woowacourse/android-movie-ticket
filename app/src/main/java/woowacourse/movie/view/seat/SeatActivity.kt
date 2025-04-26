@@ -9,6 +9,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -72,7 +73,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
     private fun initBookingBtn() {
         bookingBtn.setOnClickListener {
-            presenter.onConfirmClicked(defaultBooking.count.value)
+            showDialog()
         }
     }
 
@@ -154,6 +155,20 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun showDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.text_booking_dialog_title)
+            .setMessage(R.string.text_booking_dialog_description)
+            .setPositiveButton(R.string.text_booking_dialog_positive_button) { _, _ ->
+                presenter.onConfirmClicked(defaultBooking.count.value)
+            }
+            .setNegativeButton(R.string.text_booking_dialog_negative_button) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
     }
 
     companion object {
