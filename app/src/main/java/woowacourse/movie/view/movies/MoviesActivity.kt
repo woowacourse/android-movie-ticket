@@ -1,11 +1,12 @@
 package woowacourse.movie.view.movies
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.movies.MoviesContracts
@@ -17,7 +18,7 @@ class MoviesActivity :
     MoviesContracts.View {
     private val presenter: MoviesContracts.Presenter = MoviesPresenter(this)
     private lateinit var movieAdapter: MovieAdapter
-    private val movieListView by lazy { findViewById<ListView>(R.id.lv_main_movies) }
+    private val movieListView by lazy { findViewById<RecyclerView>(R.id.rv_main_movies) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +37,6 @@ class MoviesActivity :
         if (::movieAdapter.isInitialized.not()) {
             movieAdapter =
                 MovieAdapter(
-                    context = this,
                     movies = mutableListOf(),
                     movieClickListener =
                         object : MovieClickListener {
@@ -45,7 +45,10 @@ class MoviesActivity :
                             }
                         },
                 )
-            movieListView.adapter = movieAdapter
+            movieListView.apply {
+                adapter = movieAdapter
+                layoutManager = LinearLayoutManager(this@MoviesActivity)
+            }
         }
         movieAdapter.updateMovies(movies)
     }

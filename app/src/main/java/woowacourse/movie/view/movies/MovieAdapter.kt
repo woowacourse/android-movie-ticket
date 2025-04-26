@@ -1,47 +1,37 @@
 package woowacourse.movie.view.movies
 
-import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.Movie
 
 class MovieAdapter(
-    private val context: Context,
     private val movies: MutableList<Movie>,
     private val movieClickListener: MovieClickListener,
-) : BaseAdapter() {
-    private lateinit var movieViewHolder: MovieViewHolder
+) : RecyclerView.Adapter<MovieViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): MovieViewHolder {
+        val view =
+            LayoutInflater
+                .from(parent.context)
+                .inflate(R.layout.item_movie, parent, false)
+        return MovieViewHolder(view, parent.context, movieClickListener)
+    }
 
-    override fun getCount(): Int = movies.size
-
-    override fun getItem(position: Int): Movie = movies[position]
+    override fun onBindViewHolder(
+        holder: MovieViewHolder,
+        position: Int,
+    ) {
+        val item: Movie = movies[position]
+        holder.bind(item)
+    }
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        if (convertView == null) {
-            view =
-                LayoutInflater
-                    .from(parent?.context)
-                    .inflate(R.layout.item_movie, parent, false)
-            movieViewHolder = MovieViewHolder(view, context, movieClickListener)
-            view.tag = movieViewHolder
-        } else {
-            view = convertView
-            movieViewHolder = convertView.tag as MovieViewHolder
-        }
-        movieViewHolder.bind(movies[position])
-
-        return view
-    }
+    override fun getItemCount(): Int = movies.size
 
     fun updateMovies(newMovies: List<Movie>) {
         movies.clear()

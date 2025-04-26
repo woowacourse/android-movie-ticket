@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.view.mapper.Formatter.localDateToUI
@@ -14,7 +15,7 @@ class MovieViewHolder(
     view: View,
     private val context: Context,
     private val movieClickListener: MovieClickListener,
-) {
+) : RecyclerView.ViewHolder(view) {
     private val titleTextView: TextView by lazy { view.findViewById(R.id.tv_movie_title) }
     private val posterImageView: ImageView by lazy { view.findViewById(R.id.iv_movie_poster) }
     private val screeningDateTextView: TextView by lazy { view.findViewById(R.id.tv_movie_screening_date) }
