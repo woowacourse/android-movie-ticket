@@ -10,6 +10,10 @@ class SeatPresenter(
     private val view: SeatContract.View,
     private val seats: Seats,
 ) : SeatContract.Presenter {
+    init {
+        view.showPrice(0)
+    }
+
     override fun changeSeat(
         position: Coordination,
         limit: Int,
@@ -29,6 +33,7 @@ class SeatPresenter(
         }
 
         view.showSeat(toCoordination())
+        view.showPrice(seats.bookingPrice())
     }
 
     private fun canSelect(limit: Int): Boolean {

@@ -13,6 +13,8 @@ interface SeatContract {
         fun showSeat(seat: List<Coordination>)
 
         fun showToast(peopleCount: Int)
+
+        fun showPrice(price: Int)
     }
 
     interface Presenter {

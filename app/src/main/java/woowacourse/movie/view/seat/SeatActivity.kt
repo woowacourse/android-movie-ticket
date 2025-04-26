@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
 import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.seat.SeatContract.PresenterFactory
@@ -22,15 +23,17 @@ import woowacourse.movie.view.seat.model.coord.Coordination
 import woowacourse.movie.view.seat.model.coord.Row
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
-    private val presenter by lazy { PresenterFactory.providePresenter(this) }
+    private lateinit var presenter: SeatContract.Presenter
 
-    private val seat = findViewById<TableLayout>(R.id.seatTable)
+    private val seat by lazy { findViewById<TableLayout>(R.id.seatTable) }
+    private val priceText by lazy { findViewById<TextView>(R.id.tv_price) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_seat)
 
+        presenter = PresenterFactory.providePresenter(this)
         intent.getSerializable(KEY_BOOKING, Booking::class.java)?.let {
         }
         initView("it.title")
@@ -106,6 +109,11 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     override fun showToast(peopleCount: Int) {
         val msg = getString(R.string.text_over_limit_people_count).format(peopleCount)
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showPrice(price: Int) {
+        val formattedPrice = StringFormatter.thousandFormat(price)
+        priceText.text = getString(R.string.text_korea_unit).format(formattedPrice)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -25,53 +25,82 @@ class SeatPresenterTest {
 
     @Test
     fun `선택한 좌석이 이미 선택되어 있으면 좌석을 제거한다`() {
-        val coord = twoByThreeCoord
-        val seat = twoByThreeSeat
-
+        // given
         every { model.isSelected(any()) } returns true
 
-        presenter.changeSeat(coord, limit = 3)
+        // when
+        presenter.changeSeat(twoByThreeCoord, limit = 3)
 
-        verify { model.removeSeat(seat) }
+        // then
+        verify { model.removeSeat(twoByThreeSeat) }
     }
 
     @Test
     fun `선택한 좌석이 추가되지 않았었다면 좌석을 추가한다`() {
-        val coord = twoByThreeCoord
-        val seat = twoByThreeSeat
-
+        // given
         every { model.isSelected(any()) } returns false
         every { model.canSelect(any()) } returns true
 
-        presenter.changeSeat(coord, 2)
+        // when
+        presenter.changeSeat(twoByThreeCoord, 2)
 
-        verify { model.addSeat(seat) }
+        // then
+        verify { model.addSeat(twoByThreeSeat) }
     }
 
     @Test
     fun `클릭한 좌석이 선택됐던 좌석이 아니고 예매 가능한 인원수를 초과하면 토스트 메시지를 보여준다`() {
-        val coord = twoByThreeCoord
+        // given
         val limit = 0
-
         every { model.isSelected(any()) } returns false
         every { model.canSelect(any()) } returns false
 
-        presenter.changeSeat(coord, limit)
+        // when
+        presenter.changeSeat(twoByThreeCoord, limit)
 
+        // then
         verify { view.showToast(limit) }
     }
 
     @Test
     fun `클릭한 좌석이 선택됐던 좌석이고 예매 가능한 인원수를 초과할 때 선택된 좌석을 해제한다`() {
-        val coord = twoByThreeCoord
-        val seat = twoByThreeSeat
+        // given
         val limit = 0
-
         every { model.isSelected(any()) } returns true
         every { model.canSelect(any()) } returns false
 
-        presenter.changeSeat(coord, limit)
+        // when
+        presenter.changeSeat(twoByThreeCoord, limit)
 
-        verify { model.removeSeat(seat) }
+        // then
+        verify { model.removeSeat(twoByThreeSeat) }
+    }
+
+    @Test
+    fun `좌석을 추가하면 추가된 티켓의 가격을 출력한다`() {
+        // given
+        every { model.isSelected(any()) } returns false
+        every { model.canSelect(any()) } returns true
+        every { model.bookingPrice() } returns 10_000
+
+        // when
+        presenter.changeSeat(twoByThreeCoord, 2)
+
+        // then
+        verify(exactly = 1) { view.showPrice(10_000) }
+    }
+
+    @Test
+    fun `좌석을 취소하면 취소된 티켓의 가격을 출력한다`() {
+        // given
+        every { model.isSelected(any()) } returns true
+        every { model.canSelect(any()) } returns true
+        every { model.bookingPrice() } returns 10_000
+
+        // when
+        presenter.changeSeat(twoByThreeCoord, 2)
+
+        // then
+        verify { view.showPrice(0) }
     }
 }

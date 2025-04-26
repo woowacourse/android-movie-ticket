@@ -15,6 +15,7 @@
     <string name="text_booking_dialog_description">정말 예매하시겠습니까?</string>
     <string name="text_booking_schedule">%s %s</string>
     <string name="text_general_people_count">일반 %d명</string>
+    <string name="text_korea_unit">%s원</string>
     <string name="text_on_site_payment">%s원 (현장 결제)</string>
     <string name="text_no_booking_time">예약 가능한 시간이 없습니다. 다른 시간을 선택해주세요</string>
     <string name="text_screen">SCREEN</string>
