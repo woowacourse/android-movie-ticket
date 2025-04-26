@@ -10,7 +10,6 @@ data class MovieTicket(
     val movieDate: LocalDate,
     val movieTime: MovieTime,
     val seats: List<Seat>,
-    val count: TicketCount,
 ) : Serializable {
     fun price(): Int = seats.sumOf { seat -> seat.price }
 }
