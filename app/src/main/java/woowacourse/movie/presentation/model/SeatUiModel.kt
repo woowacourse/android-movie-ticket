@@ -9,7 +9,9 @@ data class SeatUiModel(
     val row: Int,
     val col: Int,
     val type: SeatTypeUiModel,
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String = "${'A' + row}$col"
+}
 
 fun Seat.toUiModel(): SeatUiModel = SeatUiModel(row, col, type.toUiModel())
 

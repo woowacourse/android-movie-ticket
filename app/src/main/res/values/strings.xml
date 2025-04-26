@@ -15,7 +15,7 @@
     <string name="reservation_count_plus">+</string>
     <string name="reservation_count_minus">-</string>
 
-    <string name="reservation_count_info">일반 %s명</string>
+    <string name="reservation_count_info">일반 %d명 | %s</string>
     <string name="reservation_total_price">%,d원 (현장 결제)</string>
 
     <string name="invalid_reservation_datetime_message">예약 날짜 및 시간을 선택해 주세요</string>
