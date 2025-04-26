@@ -53,7 +53,7 @@ class ReservationResultActivityTest {
     @DisplayName("예매 인원수 표시 테스트")
     @Test
     fun countTest() {
-        onView(withId(R.id.tv_ticket_count))
+        onView(withId(R.id.tv_ticket))
             .check(matches(withText(TICKET_COUNT)))
     }
 
