@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
-import woowacourse.movie.MOVIE_TICKET
+import woowacourse.movie.MOVIE_TICKET_B1_C3
 import woowacourse.movie.fakeContext
 import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
 
@@ -22,7 +22,7 @@ class ReservationCompleteActivityTest {
                 fakeContext,
                 ReservationCompleteActivity::class.java,
             ).apply {
-                putExtra("movieTicket", MOVIE_TICKET)
+                putExtra("movieTicket", MOVIE_TICKET_B1_C3)
             }
         ActivityScenario.launch<ReservationCompleteActivity>(intent)
     }
@@ -31,7 +31,7 @@ class ReservationCompleteActivityTest {
     fun 전달_받은_영화_이름_예약_날짜_인원_가격을_출력한다() {
         onView(withText("라라랜드")).check(matches(isDisplayed()))
         onView(withText("2025.04.01 0:00")).check(matches(isDisplayed()))
-        onView(withText("일반 2명")).check(matches(isDisplayed()))
-        onView(withText("26,000원 (현장 결제)")).check(matches(isDisplayed()))
+        onView(withText("일반 2명 | B1, C3")).check(matches(isDisplayed()))
+        onView(withText("25,000원 (현장 결제)")).check(matches(isDisplayed()))
     }
 }
