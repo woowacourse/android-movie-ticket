@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.booking.presenter
 
-import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
@@ -74,12 +73,6 @@ class BookingPresenter(
     }
 
     override fun completeBooking() {
-        val bookedTicket =
-            BookedTicket(
-                movie.title,
-                _headcount,
-                selectedDateTime,
-            )
-        bookingView.moveToBookingCompleteActivity(bookedTicket)
+        bookingView.moveToBookingSeatActivity(movie.title, headcount)
     }
 }

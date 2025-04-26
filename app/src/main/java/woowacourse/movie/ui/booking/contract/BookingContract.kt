@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.booking.contract
 
-import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import java.time.LocalDate
@@ -55,6 +54,9 @@ interface BookingContract {
             position: Int,
         )
 
-        fun moveToBookingCompleteActivity(bookedTicket: BookedTicket)
+        fun moveToBookingSeatActivity(
+            movieTitle: String,
+            headcount: Headcount,
+        )
     }
 }

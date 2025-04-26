@@ -15,12 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.booking.contract.BookingContract
 import woowacourse.movie.ui.booking.presenter.BookingPresenter
-import woowacourse.movie.ui.complete.BookingCompleteActivity
+import woowacourse.movie.ui.seat.BookingSeatActivity
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
 import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable
@@ -124,8 +123,11 @@ class BookingActivity :
         }
     }
 
-    override fun moveToBookingCompleteActivity(bookedTicket: BookedTicket) {
-        startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
+    override fun moveToBookingSeatActivity(
+        movieTitle: String,
+        headcount: Headcount,
+    ) {
+        startActivity(BookingSeatActivity.newIntent(this, movieTitle, headcount))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =

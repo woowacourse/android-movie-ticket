@@ -8,4 +8,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="seat_b_grade">#8E13EF</color>
+    <color name="seat_s_grade">#19D358</color>
+    <color name="seat_a_grade">#1B48E9</color>
+    <color name="selected_seat">#FAFF00</color>
 </resources>
