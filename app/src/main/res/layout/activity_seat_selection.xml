@@ -2,7 +2,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EAEAEA">
+    android:background="#EAEAEA"
+    android:id="@+id/main">
 
     <TextView
         android:id="@+id/tv_screen"
@@ -10,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="SCREEN"
         android:textColor="@color/white"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textAlignment="center"
         android:background="#494949"
         android:layout_marginLeft="30dp"
@@ -48,6 +49,7 @@
             android:layout_margin="15dp">
 
             <TextView
+                android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="해리 포터와 마법사의 돌"
@@ -56,6 +58,7 @@
                 android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/amount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="25,000원" />
@@ -65,6 +68,7 @@
 
 
         <Button
+            android:id="@+id/confirm_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#6200EE"

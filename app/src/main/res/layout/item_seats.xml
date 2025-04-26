@@ -7,6 +7,7 @@
     <TableRow style="?android:attr/buttonBarStyle">
 
         <Button
+            android:id="@+id/button_A1"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -21,6 +22,7 @@
             android:textColor="#8E13EF" />
 
         <Button
+            android:id="@+id/button_A2"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -35,6 +37,7 @@
             android:textColor="#8E13EF" />
 
         <Button
+            android:id="@+id/button_A3"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -49,6 +52,7 @@
             android:textColor="#8E13EF" />
 
         <Button
+            android:id="@+id/button_A4"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -68,6 +72,7 @@
         android:padding="0dp">
 
         <Button
+            android:id="@+id/button_B1"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -82,6 +87,7 @@
             android:textColor="#8E13EF" />
 
         <Button
+            android:id="@+id/button_B2"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -96,6 +102,7 @@
             android:textColor="#8E13EF" />
 
         <Button
+            android:id="@+id/button_B3"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -110,6 +117,7 @@
             android:textColor="#8E13EF" />
 
         <Button
+            android:id="@+id/button_B4"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -129,6 +137,7 @@
         android:padding="0dp">
 
         <Button
+            android:id="@+id/button_C1"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -143,6 +152,7 @@
             android:textColor="#19D358" />
 
         <Button
+            android:id="@+id/button_C2"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -157,6 +167,7 @@
             android:textColor="#19D358" />
 
         <Button
+            android:id="@+id/button_C3"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -171,6 +182,7 @@
             android:textColor="#19D358" />
 
         <Button
+            android:id="@+id/button_C4"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -190,6 +202,7 @@
         android:padding="0dp">
 
         <Button
+            android:id="@+id/button_D1"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -204,6 +217,7 @@
             android:textColor="#19D358" />
 
         <Button
+            android:id="@+id/button_D2"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -218,6 +232,7 @@
             android:textColor="#19D358" />
 
         <Button
+            android:id="@+id/button_D3"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -232,6 +247,7 @@
             android:textColor="#19D358" />
 
         <Button
+            android:id="@+id/button_D4"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -251,6 +267,7 @@
         android:padding="0dp">
 
         <Button
+            android:id="@+id/button_E1"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -265,6 +282,7 @@
             android:textColor="#1B48E9" />
 
         <Button
+            android:id="@+id/button_E2"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -279,6 +297,7 @@
             android:textColor="#1B48E9" />
 
         <Button
+            android:id="@+id/button_E3"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -293,6 +312,7 @@
             android:textColor="#1B48E9" />
 
         <Button
+            android:id="@+id/button_E4"
             style="?android:attr/buttonBarButtonStyle"
             android:background="@null"
             android:elevation="0dp"
@@ -306,6 +326,5 @@
             android:textStyle="bold"
             android:textColor="#1B48E9" />
     </TableRow>
-
 
 </TableLayout>
