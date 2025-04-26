@@ -43,7 +43,8 @@ class SeatSelectionPresenter(
     }
 
     private fun updateButtonEnabled() {
-        val buttonEnabled = seats.size == movieToReserve.ticketCount.value
+        val buttonEnabled: Boolean = seats.size == movieToReserve.ticketCount.value
+        view.updateSeatsEnabled(buttonEnabled.not())
         view.showButtonEnabled(buttonEnabled)
     }
 

@@ -169,6 +169,17 @@ class SeatSelectionActivity :
         completeButton.isEnabled = enabled
     }
 
+    override fun updateSeatsEnabled(enabled: Boolean) {
+        seatsLayout.children
+            .filterIsInstance<TableRow>()
+            .flatMap { row ->
+                row.children.filterIsInstance<TextView>()
+            }.filter { view -> view.isSelected.not() }
+            .forEach { view ->
+                view.isEnabled = enabled
+            }
+    }
+
     override fun showReservationCompleteView(movieTicket: MovieTicket) {
         startActivity(ReservationCompleteActivity.getIntent(this, movieTicket))
         finish()

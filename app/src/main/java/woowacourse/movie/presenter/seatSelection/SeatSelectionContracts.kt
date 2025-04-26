@@ -14,6 +14,8 @@ interface SeatSelectionContracts {
 
         fun showButtonEnabled(enabled: Boolean)
 
+        fun updateSeatsEnabled(enabled: Boolean)
+
         fun showReservationCompleteView(movieTicket: MovieTicket)
     }
 
