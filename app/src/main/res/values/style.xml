@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SeatTextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
+    <style name="SeatTextViewB" parent="SeatTextView">
+        <item name="android:textColor">@color/purple</item>
+    </style>
+
+    <style name="SeatTextViewS" parent="SeatTextView">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="SeatTextViewA" parent="SeatTextView">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+</resources>

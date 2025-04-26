@@ -28,4 +28,5 @@
     <string name="error_reservation_title">예매 문제 발생</string>
     <string name="error_reservation_message">예매 내역에 문제가 생겨서 예매를 할 수 없습니다.</string>
     <string name="won_format">#,###원</string>
+    <string name="screen">SCREEN</string>
 </resources>
