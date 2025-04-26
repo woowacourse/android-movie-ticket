@@ -3,6 +3,6 @@ package woowacourse.movie.domain.model
 data class MovieSeat(
     val row: Int,
     val column: Int,
-) {
-    val seatType: SeatType = SeatType.from(row)
-}
+    val seatType: SeatType = SeatType.from(row),
+    val isSelected: Boolean = false,
+)

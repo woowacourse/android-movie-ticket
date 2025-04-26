@@ -8,4 +8,5 @@ data class MovieSeatUiModel(
     val row: Int,
     val column: Int,
     val seatType: SeatTypeUiModel,
+    val isSelected: Boolean,
 ) : Parcelable

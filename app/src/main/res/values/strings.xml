@@ -25,4 +25,9 @@
     <string name="booking_complete_movie_date_time">%s %s</string>
     <string name="booking_complete_ticket_count">일반 %d명</string>
     <string name="booking_complete_ticket_total_price">%s원 (현장 결제)</string>
+
+    <!--    BookingSeatActivity-->
+    <string name="booking_seat_screen">SCREEN</string>
+    <string name="booking_seat_price">%d원</string>
+    <string name="booking_seat_select_complete">확인</string>
 </resources>

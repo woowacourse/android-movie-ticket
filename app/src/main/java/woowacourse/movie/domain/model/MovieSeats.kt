@@ -1,7 +1,7 @@
 package woowacourse.movie.domain.model
 
 class MovieSeats(
-    seats: List<MovieSeat> = emptyList(),
+    seats: Set<MovieSeat> = emptySet<MovieSeat>(),
 ) {
     private val _seats: MutableSet<MovieSeat> = seats.toMutableSet()
     val seats: Set<MovieSeat> get() = _seats
