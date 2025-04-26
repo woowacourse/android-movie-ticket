@@ -27,8 +27,8 @@ import java.time.LocalTime
 class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
     private lateinit var detailBookingPresenter: DetailBookingPresenter
 
-    private val minusButton: Button by lazy { findViewById(R.id.decrement_button) }
-    private val plusButton: Button by lazy { findViewById(R.id.increment_button) }
+    private val decreasedButton: Button by lazy { findViewById(R.id.decrement_button) }
+    private val increasedButton: Button by lazy { findViewById(R.id.increment_button) }
     private val spinnerDate: Spinner by lazy { findViewById(R.id.detail_spinner_date) }
     private val spinnerTime: Spinner by lazy { findViewById(R.id.detail_spinner_time) }
     private val reservationButton: Button by lazy { findViewById(R.id.detail_reservation_button) }
@@ -48,12 +48,12 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
         val movie: Movie = intent.parcelableCompat(KEY_MOVIE, Movie::class.java)
         detailBookingPresenter.set(movie)
 
-        minusButton.setOnClickListener {
-            detailBookingPresenter.increasedCount()
+        decreasedButton.setOnClickListener {
+            detailBookingPresenter.decreasedCount()
         }
 
-        plusButton.setOnClickListener {
-            detailBookingPresenter.decreasedCount()
+        increasedButton.setOnClickListener {
+            detailBookingPresenter.increasedCount()
         }
 
         reservationButton.setOnClickListener {
