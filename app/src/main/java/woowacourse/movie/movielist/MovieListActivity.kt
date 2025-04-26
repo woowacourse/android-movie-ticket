@@ -12,6 +12,7 @@ import woowacourse.movie.domain.Movie
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private val movieListPresenter = MovieListPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

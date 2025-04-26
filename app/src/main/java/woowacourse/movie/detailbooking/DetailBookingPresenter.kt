@@ -9,7 +9,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class DetailBookingPresenter(private val view: DetailBookingContract.View): DetailBookingContract.Presenter {
+class DetailBookingPresenter(private val view: DetailBookingContract.View) : DetailBookingContract.Presenter {
     private lateinit var movie: Movie
     private lateinit var movieSchedule: List<LocalDate>
     private lateinit var screeningTime: List<LocalTime>
@@ -27,7 +27,6 @@ class DetailBookingPresenter(private val view: DetailBookingContract.View): Deta
             this.movieSchedule = MovieSchedule(movie.date).selectableDates(LocalDate.now().plusDays(1))
             this.screeningTime = ScreeningTime(movieSchedule[selectedDatePosition].atStartOfDay().plusDays(1)).selectableTimes()
         }
-
 
         view.showMovieData(movie)
         view.showMovieSchedule(movieSchedule, selectedDatePosition)

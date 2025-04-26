@@ -4,8 +4,9 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.utils.PriceFormatter
 
-class CompletedBookingPresenter(private val view: CompletedBookingContract.View): CompletedBookingContract.Presenter {
+class CompletedBookingPresenter(private val view: CompletedBookingContract.View) : CompletedBookingContract.Presenter {
     private lateinit var ticket: Ticket
+
     override fun set(ticket: Ticket) {
         this.ticket = ticket
         view.showCancelDeadLine(CANCEL_DEADLINE)

@@ -80,13 +80,21 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
         findViewById<ImageView>(R.id.detail_movie_image).setImageResource(movie.image)
     }
 
-    override fun showMovieSchedule(movieSchedule: List<LocalDate>, selectedIndex: Int) {
+    override fun showMovieSchedule(
+        movieSchedule: List<LocalDate>,
+        selectedIndex: Int,
+    ) {
         spinnerDate.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, movieSchedule)
         spinnerDate.setSelection(selectedIndex)
         spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
                     detailBookingPresenter.clickedDate(position)
                 }
 
@@ -94,7 +102,10 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
             }
     }
 
-    override fun showMovieScreeningTime(screeningTime: List<LocalTime>, selectedIndex: Int) {
+    override fun showMovieScreeningTime(
+        screeningTime: List<LocalTime>,
+        selectedIndex: Int,
+    ) {
         spinnerTime.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTime).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -102,7 +113,12 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
         spinnerTime.setSelection(selectedIndex)
         spinnerTime.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
                     detailBookingPresenter.clickedTime(position)
                 }
 
@@ -131,7 +147,10 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
     companion object {
         private const val KEY_MOVIE = "movie"
 
-        fun newIntent(context: Context, movie: Movie): Intent {
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent {
             return Intent(context, DetailBookingActivity::class.java).putExtra(KEY_MOVIE, movie)
         }
     }

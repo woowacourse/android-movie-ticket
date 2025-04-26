@@ -6,8 +6,10 @@ interface MovieListContract {
     interface Presenter {
         fun updateMovies()
     }
+
     interface View {
         fun showMovieList(movies: List<Movie>)
+
         fun clickedButton(movie: Movie)
     }
 }

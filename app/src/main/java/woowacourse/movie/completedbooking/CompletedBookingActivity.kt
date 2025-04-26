@@ -14,6 +14,7 @@ import woowacourse.movie.utils.parcelableCompat
 
 class CompletedBookingActivity : AppCompatActivity(), CompletedBookingContract.View {
     private lateinit var completedBookingPresenter: CompletedBookingContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -38,7 +39,6 @@ class CompletedBookingActivity : AppCompatActivity(), CompletedBookingContract.V
     override fun showMovieTitle(title: String) {
         val movieTitleTextView = findViewById<TextView>(R.id.ticket_movie_title)
         movieTitleTextView.text = title
-
     }
 
     override fun showMovieDateTime(dateTime: String) {
@@ -67,4 +67,3 @@ class CompletedBookingActivity : AppCompatActivity(), CompletedBookingContract.V
         }
     }
 }
-
