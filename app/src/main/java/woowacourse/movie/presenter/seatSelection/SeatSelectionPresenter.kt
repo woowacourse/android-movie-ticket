@@ -2,7 +2,6 @@ package woowacourse.movie.presenter.seatSelection
 
 import woowacourse.movie.model.movie.MovieToReserve
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.seat.SeatGridElement
 import woowacourse.movie.model.ticket.MovieTicket
 
 class SeatSelectionPresenter(
@@ -32,15 +31,11 @@ class SeatSelectionPresenter(
         view.showButtonEnabled(false)
     }
 
-    override fun updateSelectedSeat(
-        row: Int,
-        column: Int,
-    ) {
-        val selectedSeat = Seat(SeatGridElement(row), SeatGridElement(column))
-        if (seats.contains(selectedSeat)) {
-            seats.remove(selectedSeat)
+    override fun updateSelectedSeat(seat: Seat) {
+        if (seats.contains(seat)) {
+            seats.remove(seat)
         } else {
-            seats.add(selectedSeat)
+            seats.add(seat)
         }
 
         updateButtonEnabled()

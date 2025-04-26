@@ -149,7 +149,7 @@ class SeatSelectionActivity :
     ) {
         view.setOnClickListener {
             view.isSelected = !view.isSelected
-            presenter.updateSelectedSeat(seat.row.value, seat.column.value)
+            presenter.updateSelectedSeat(seat)
         }
     }
 
