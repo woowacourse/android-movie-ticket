@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
@@ -25,7 +24,7 @@ import woowacourse.movie.view.extension.getSerializableExtraData
 import woowacourse.movie.view.extension.showShortToast
 import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.uiToMovieTime
-import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
+import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 import java.time.LocalDate
 
 class ReservationActivity :
@@ -76,22 +75,8 @@ class ReservationActivity :
         }
 
         completeButton.setOnClickListener {
-            showReservationDialog()
+            presenter.createMovieTicket()
         }
-    }
-
-    private fun showReservationDialog() {
-        AlertDialog
-            .Builder(this)
-            .setTitle(getString(R.string.reservation_dialog_title))
-            .setMessage(getString(R.string.reservation_dialog_message))
-            .setCancelable(false)
-            .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
-                dialog.dismiss()
-            }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
-                presenter.createMovieTicket()
-                dialog.dismiss()
-            }.show()
     }
 
     override fun setupDateAdapter(dates: List<LocalDate>) {
@@ -204,9 +189,8 @@ class ReservationActivity :
         showShortToast(message)
     }
 
-    override fun showReservationCompleteView(movieTicket: MovieTicket) {
-        startActivity(ReservationCompleteActivity.getIntent(this, movieTicket))
-        finish()
+    override fun showSeatSelectionView(movieTicket: MovieTicket) {
+        startActivity(Intent(this, SeatSelectionActivity::class.java))
     }
 
     override fun updateTimes(times: List<Int>) {

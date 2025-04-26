@@ -50,7 +50,7 @@ class ReservationPresenter(
                 movieTime,
                 ticketCount,
             )
-        view.showReservationCompleteView(movieTicket)
+        view.showSeatSelectionView(movieTicket)
     }
 
     override fun updateMovieDate(date: LocalDate) {

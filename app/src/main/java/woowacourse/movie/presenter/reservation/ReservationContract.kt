@@ -23,7 +23,7 @@ interface ReservationContract {
 
         fun showErrorToastMessage(message: String)
 
-        fun showReservationCompleteView(movieTicket: MovieTicket)
+        fun showSeatSelectionView(movieTicket: MovieTicket)
 
         fun updateTimes(times: List<Int>)
 
