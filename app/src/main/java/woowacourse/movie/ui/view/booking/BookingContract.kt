@@ -11,11 +11,11 @@ interface BookingContract {
 
         fun showErrorDialog()
 
-        fun showBookingConfirmDialog()
+//        fun showBookingConfirmDialog()
 
         fun updateHeadCount(headCount: Int)
 
-        fun navigateToSummary(movieTicket: MovieTicket)
+        fun navigateToSeatsSelection(movieTicket: MovieTicket)
 
         fun updateDateSpinner(
             dates: List<LocalDate>,

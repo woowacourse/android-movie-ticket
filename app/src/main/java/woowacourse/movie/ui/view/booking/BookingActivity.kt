@@ -11,6 +11,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
+import woowacourse.movie.SeatsSelectionActivity
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.presenter.BookingPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
@@ -73,20 +74,20 @@ class BookingActivity :
             .show()
     }
 
-    override fun showBookingConfirmDialog() {
-        AlertDialog
-            .Builder(this)
-            .setTitle(getString(R.string.dialog_title))
-            .setMessage(getString(R.string.dialog_message))
-            .setPositiveButton(getString(R.string.complete)) { _, _ ->
-                presenter.onConfirm()
-            }.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
-            .show()
-    }
+//    override fun showBookingConfirmDialog() {
+//        AlertDialog
+//            .Builder(this)
+//            .setTitle(getString(R.string.dialog_title))
+//            .setMessage(getString(R.string.dialog_message))
+//            .setPositiveButton(getString(R.string.complete)) { _, _ ->
+//                presenter.onConfirm()
+//            }.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+//            .setCancelable(false)
+//            .show()
+//    }
 
-    override fun navigateToSummary(movieTicket: MovieTicket) {
-        val intent = Intent(this, BookingSummaryActivity::class.java)
+    override fun navigateToSeatsSelection(movieTicket: MovieTicket) {
+        val intent = Intent(this, SeatsSelectionActivity::class.java)
         intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
         startActivity(intent)
     }
@@ -173,7 +174,7 @@ class BookingActivity :
     private fun setupSelectButtonListener() {
         val selectBtn = findViewById<Button>(R.id.select)
         selectBtn.setOnClickListener {
-            showBookingConfirmDialog()
+            presenter.onConfirm()
         }
     }
 

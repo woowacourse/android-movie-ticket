@@ -70,7 +70,7 @@ class BookingPresenter(
                 LocalDateTime.of(selectedDate, selectedTime),
                 getHeadCount(),
             )
-        view.navigateToSummary(movieTicket)
+        view.navigateToSeatsSelection(movieTicket)
     }
 
     override fun loadAvailableDates() {
