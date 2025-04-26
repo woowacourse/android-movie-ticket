@@ -8,8 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.cinema.seat.Seat
-import woowacourse.movie.domain.model.cinema.seat.SeatType
+import woowacourse.movie.domain.model.cinema.screen.Seat
+import woowacourse.movie.domain.model.cinema.screen.SeatType
 import woowacourse.movie.domain.model.cinema.ticket.Ticket
 import woowacourse.movie.domain.model.cinema.ticket.TicketBundle
 import woowacourse.movie.presentation.fixture.fakeContext

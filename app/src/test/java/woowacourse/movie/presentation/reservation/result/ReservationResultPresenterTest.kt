@@ -7,8 +7,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.cinema.seat.Seat
-import woowacourse.movie.domain.model.cinema.seat.SeatType
+import woowacourse.movie.domain.model.cinema.screen.Seat
+import woowacourse.movie.domain.model.cinema.screen.SeatType
 import woowacourse.movie.domain.model.cinema.ticket.Ticket
 import woowacourse.movie.domain.model.cinema.ticket.TicketBundle
 import woowacourse.movie.presentation.model.toUiModel

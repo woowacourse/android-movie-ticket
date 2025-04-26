@@ -21,7 +21,7 @@ import org.hamcrest.Matcher
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.cinema.Screen
+import woowacourse.movie.domain.model.cinema.screen.Screen
 import woowacourse.movie.presentation.fixture.fakeContext
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
 import woowacourse.movie.presentation.model.toUiModel

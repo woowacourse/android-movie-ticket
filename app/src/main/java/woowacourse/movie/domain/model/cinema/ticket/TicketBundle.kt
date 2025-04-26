@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.cinema.ticket
 
-import woowacourse.movie.domain.model.cinema.seat.Seat
+import woowacourse.movie.domain.model.cinema.screen.Seat
 import java.time.LocalDateTime
 
 class TicketBundle(

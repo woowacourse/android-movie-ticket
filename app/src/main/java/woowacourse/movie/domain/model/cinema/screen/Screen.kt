@@ -1,7 +1,4 @@
-package woowacourse.movie.domain.model.cinema
-
-import woowacourse.movie.domain.model.cinema.seat.Seat
-import woowacourse.movie.domain.model.cinema.seat.SeatType
+package woowacourse.movie.domain.model.cinema.screen
 
 class Screen(
     size: ScreenSize,

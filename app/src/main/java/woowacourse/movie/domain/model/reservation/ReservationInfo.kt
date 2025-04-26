@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.reservation
 
-import woowacourse.movie.domain.model.cinema.seat.Seat
+import woowacourse.movie.domain.model.cinema.screen.Seat
 import java.time.LocalDateTime
 
 class ReservationInfo(

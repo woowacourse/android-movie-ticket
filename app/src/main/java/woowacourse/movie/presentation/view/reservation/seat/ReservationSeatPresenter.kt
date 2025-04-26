@@ -1,9 +1,9 @@
 package woowacourse.movie.presentation.view.reservation.seat
 
 import woowacourse.movie.domain.model.cinema.DiceCinemaPricePolicy
-import woowacourse.movie.domain.model.cinema.Screen
-import woowacourse.movie.domain.model.cinema.TicketMachine
+import woowacourse.movie.domain.model.cinema.screen.Screen
 import woowacourse.movie.domain.model.cinema.ticket.TicketBundle
+import woowacourse.movie.domain.model.cinema.ticket.TicketMachine
 import woowacourse.movie.domain.model.reservation.ReservationInfo
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
 import woowacourse.movie.presentation.model.ScreenUiModel

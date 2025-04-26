@@ -1,9 +1,8 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.movie
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.domain.model.movie.RunningTime
 
 class RunningTimeTest {
     @Test

@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.view.reservation.result
 
-import woowacourse.movie.domain.model.cinema.TicketMachine
+import woowacourse.movie.domain.model.cinema.ticket.TicketMachine
 import woowacourse.movie.presentation.model.TicketBundleUiModel
 
 class ReservationResultPresenter(

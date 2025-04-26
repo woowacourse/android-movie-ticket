@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.cinema
 
-import woowacourse.movie.domain.model.cinema.seat.SeatType
+import woowacourse.movie.domain.model.cinema.screen.SeatType
 
 class DiceCinemaPricePolicy : PricePolicy {
     override fun calculatePrice(seatType: SeatType): Int =

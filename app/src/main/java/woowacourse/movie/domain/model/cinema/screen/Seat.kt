@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model.cinema.seat
+package woowacourse.movie.domain.model.cinema.screen
 
 data class Seat(
     val row: Int,

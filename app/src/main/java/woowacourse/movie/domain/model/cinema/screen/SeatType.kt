@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model.cinema.seat
+package woowacourse.movie.domain.model.cinema.screen
 
 enum class SeatType {
     S_CLASS,

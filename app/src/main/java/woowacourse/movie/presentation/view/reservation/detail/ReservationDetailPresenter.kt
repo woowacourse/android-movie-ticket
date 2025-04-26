@@ -1,6 +1,6 @@
 package woowacourse.movie.presentation.view.reservation.detail
 
-import woowacourse.movie.domain.model.cinema.Screen
+import woowacourse.movie.domain.model.cinema.screen.Screen
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.reservation.ReservationCount
 import woowacourse.movie.domain.model.reservation.ReservationInfo
