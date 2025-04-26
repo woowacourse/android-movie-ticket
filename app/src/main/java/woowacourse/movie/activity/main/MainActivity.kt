@@ -5,6 +5,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import woowacourse.movie.R
 import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.adapter.MovieListAdapter
@@ -32,11 +33,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val presenter = ServiceLocator.mainPresenter(this)
         presenter.initMovieDto()
 
-        val movieListView = binding.movies
-        movieListView.adapter =
+        binding.movies.layoutManager = LinearLayoutManager(this)
+        binding.movies.adapter =
             MovieListAdapter(movieDto) { movieDto ->
                 val intent = ReservationActivity.Companion.newIntent(this, movieDto)
                 startActivity(intent)
-            }
+            }.apply { submitList(movieDto) }
     }
 }
