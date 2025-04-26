@@ -13,6 +13,7 @@ class DefaultScreeningContentsPolicy(
         var screeningCount = 0
 
         for (screening in screenings) {
+            if (screeningContents.size == CONTENTS_SIZE_MAX) break
             screeningContents.add(screening)
             screeningCount++
             if (screeningCount % 3 == 0) {
@@ -21,5 +22,9 @@ class DefaultScreeningContentsPolicy(
         }
 
         return screeningContents
+    }
+
+    companion object {
+        const val CONTENTS_SIZE_MAX = 10_000
     }
 }

@@ -90,4 +90,27 @@ class ContentItemPolicyTest {
             ),
         )
     }
+
+    @Test
+    fun `영화 목록의 요소는 10,000개까지 추가될 수 있다`() {
+        // given
+        val screenings: List<Screening> =
+            List(10_000) {
+                Screening(
+                    harryPotterPhilosopersStone,
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                    fakeCurrent,
+                )
+            }
+        val advertisements = Advertisements(listOf(Advertisement(0)))
+        val screeningContentsPolicy: ScreeningContentsPolicy =
+            DefaultScreeningContentsPolicy(screenings, advertisements)
+
+        // when
+        val screeningContents: List<ScreeningContent> = screeningContentsPolicy.screeningContents()
+
+        // then
+        assertThat(screeningContents.size).isEqualTo(10_000)
+    }
 }
