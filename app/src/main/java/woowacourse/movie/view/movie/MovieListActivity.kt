@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieListItem
 import woowacourse.movie.view.booking.booking.BookingActivity
 
 class MovieListActivity :
@@ -37,7 +38,7 @@ class MovieListActivity :
         startActivity(BookingActivity.newIntent(this, movie))
     }
 
-    override fun setMoveList(movies: List<Movie>) {
+    override fun setMoveListItems(items: List<MovieListItem>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movies_recycler_view)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -49,6 +50,6 @@ class MovieListActivity :
             )
 
         recyclerView.adapter = adapter
-        adapter.submitList(movies)
+        adapter.submitList(items)
     }
 }
