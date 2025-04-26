@@ -3,16 +3,10 @@ package woowacourse.movie.presenter
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
-import woowacourse.movie.domain.APRIL_THIRTIETH
-import woowacourse.movie.domain.HARRY_POTTER_MOVIE
-import woowacourse.movie.domain.Point
-import woowacourse.movie.domain.Points
+import woowacourse.movie.RESERVATION_WITH_POINTS
 import woowacourse.movie.domain.Reservation
-import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.result.ReservationResultContract
 import woowacourse.movie.result.ReservationResultPresenter
-import java.time.LocalDateTime
-import java.time.LocalTime
 import kotlin.test.Test
 
 class ReservationResultPresenterTest {
@@ -24,24 +18,7 @@ class ReservationResultPresenterTest {
     fun setUp() {
         view = mockk<ReservationResultContract.View>(relaxed = true)
         presenter = ReservationResultPresenter(view)
-        reservation =
-            Reservation(
-                movie = HARRY_POTTER_MOVIE,
-                _count = TicketCount(3),
-                reservedTime =
-                    LocalDateTime.of(
-                        APRIL_THIRTIETH,
-                        LocalTime.of(12, 0),
-                    ),
-                points =
-                    Points(
-                        setOf(
-                            Point(0, 0),
-                            Point(2, 0),
-                            Point(4, 0),
-                        ),
-                    ),
-            )
+        reservation = RESERVATION_WITH_POINTS
     }
 
     @Test

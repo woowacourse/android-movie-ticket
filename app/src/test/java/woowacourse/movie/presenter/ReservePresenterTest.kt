@@ -4,14 +4,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
-import woowacourse.movie.domain.APRIL_THIRTIETH
-import woowacourse.movie.domain.HARRY_POTTER_MOVIE
-import woowacourse.movie.domain.Reservation
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.RESERVATION
 import woowacourse.movie.reserve.ReserveContract
 import woowacourse.movie.reserve.ReservePresenter
 import java.time.LocalDateTime
-import java.time.LocalTime
 import kotlin.test.Test
 
 class ReservePresenterTest {
@@ -22,16 +18,7 @@ class ReservePresenterTest {
     fun setUp() {
         view = mockk<ReserveContract.View>(relaxed = true)
         presenter = ReservePresenter(view)
-        presenter.reservation =
-            Reservation(
-                movie = HARRY_POTTER_MOVIE,
-                _count = TicketCount(1),
-                reservedTime =
-                    LocalDateTime.of(
-                        APRIL_THIRTIETH,
-                        LocalTime.of(12, 0),
-                    ),
-            )
+        presenter.reservation = RESERVATION
     }
 
     @Test

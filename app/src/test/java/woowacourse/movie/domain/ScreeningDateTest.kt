@@ -3,6 +3,10 @@ package woowacourse.movie.domain
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
 import org.junit.jupiter.api.Test
+import woowacourse.movie.APRIL_THIRTIETH
+import woowacourse.movie.MAY_FIRST
+import woowacourse.movie.MAY_SECOND
+import woowacourse.movie.MAY_THIRD
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

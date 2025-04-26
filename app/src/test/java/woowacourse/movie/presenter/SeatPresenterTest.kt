@@ -5,15 +5,11 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
-import woowacourse.movie.domain.APRIL_THIRTIETH
-import woowacourse.movie.domain.HARRY_POTTER_MOVIE
-import woowacourse.movie.domain.Point
+import woowacourse.movie.B_CLASS
+import woowacourse.movie.RESERVATION
 import woowacourse.movie.domain.Reservation
-import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.seat.SeatContract
 import woowacourse.movie.seat.SeatPresenter
-import java.time.LocalDateTime
-import java.time.LocalTime
 import kotlin.test.Test
 
 class SeatPresenterTest {
@@ -25,16 +21,7 @@ class SeatPresenterTest {
     fun setUp() {
         view = mockk<SeatContract.View>(relaxed = true)
         presenter = SeatPresenter(view)
-        reservation =
-            Reservation(
-                movie = HARRY_POTTER_MOVIE,
-                _count = TicketCount(1),
-                reservedTime =
-                    LocalDateTime.of(
-                        APRIL_THIRTIETH,
-                        LocalTime.of(12, 0),
-                    ),
-            )
+        reservation = RESERVATION
         presenter.initReservation(reservation)
     }
 
@@ -53,7 +40,7 @@ class SeatPresenterTest {
     @Test
     fun `좌석을 선택하면 추가되고 총 가격을 업데이트 한다`() {
         // given
-        val point = Point(0, 0)
+        val point = B_CLASS
 
         // when
         presenter.selectSeat(point)
@@ -67,7 +54,7 @@ class SeatPresenterTest {
     @Test
     fun `좌석을 다시 선택하면 제거되고 총 가격을 업데이트 한다`() {
         // given
-        val point = Point(0, 0)
+        val point = B_CLASS
         reservation.points + point
 
         // when
@@ -82,7 +69,7 @@ class SeatPresenterTest {
     @Test
     fun `인원 수와 선택한 좌석 수가 같으면 true를 반환한다`() {
         // given
-        val point = Point(0, 0)
+        val point = B_CLASS
 
         // when
         reservation.points + point
@@ -100,7 +87,7 @@ class SeatPresenterTest {
     @Test
     fun `선택한 좌석이 하나라도 존재하면 true를 반환한다`() {
         // when
-        reservation.points + Point(0, 0)
+        reservation.points + B_CLASS
         val actual = presenter.canClickButton()
 
         // then
@@ -115,7 +102,7 @@ class SeatPresenterTest {
     @Test
     fun `선택한 좌석이 이미 선택되어 있으면 true를 반환한다`() {
         // given
-        val point = Point(0, 0)
+        val point = B_CLASS
         reservation.points + point
 
         // when
@@ -128,7 +115,7 @@ class SeatPresenterTest {
     @Test
     fun `선택한 좌석이 선택되어 있지 않으면 false를 반환한다`() {
         // given
-        val point = Point(0, 0)
+        val point = B_CLASS
 
         // when
         val actual = presenter.isOccupied(point)

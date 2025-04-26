@@ -2,6 +2,9 @@ package woowacourse.movie.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import woowacourse.movie.A_CLASS
+import woowacourse.movie.B_CLASS
+import woowacourse.movie.S_CLASS
 
 class PointsTest {
     private val points =

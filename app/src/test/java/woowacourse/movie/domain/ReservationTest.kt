@@ -3,6 +3,8 @@ package woowacourse.movie.domain
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.MAY_FIRST
+import woowacourse.movie.RESERVATION
 import java.time.LocalDateTime
 import java.time.LocalTime
 
@@ -11,15 +13,7 @@ class ReservationTest {
 
     @BeforeEach
     fun setUp() {
-        reservation =
-            Reservation(
-                HARRY_POTTER_MOVIE,
-                LocalDateTime.of(
-                    APRIL_THIRTIETH,
-                    LocalTime.of(12, 0),
-                ),
-                TicketCount(1),
-            )
+        reservation = RESERVATION
     }
 
     @Test
