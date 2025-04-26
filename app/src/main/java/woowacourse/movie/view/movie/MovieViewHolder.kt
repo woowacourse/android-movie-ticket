@@ -10,12 +10,12 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.utils.StringFormatter.periodFormat
 
 class MovieViewHolder(
-    val itemView: View,
+    itemView: View,
     val onClickBooking: (Movie) -> Unit,
 ) : RecyclerView.ViewHolder(itemView) {
     private var currentMovieItem: Movie? = null
 
-    val moviePoster: ImageView = itemView.findViewById<ImageView>(R.id.img_poster)
+    val moviePoster: ImageView = itemView.findViewById<ImageView>(R.id.img_advertisement)
     val movieTitle: TextView = itemView.findViewById<TextView>(R.id.tv_title)
     val movieReleaseDate: TextView = itemView.findViewById<TextView>(R.id.tv_release_date)
     val movieRunningTime: TextView = itemView.findViewById<TextView>(R.id.tv_running_time)
