@@ -5,6 +5,7 @@ import woowacourse.movie.domain.Ticket
 
 class SeatSelectionPresenter : SeatSelectionContract.Presenter {
     private var view: SeatSelectionContract.View? = null
+    private var audienceCount: Int = 0
     private var ticketPrice: Int = 0
 
     override fun attachView(view: SeatSelectionContract.View) {
@@ -34,6 +35,13 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
         view?.showMoney(ticketPrice)
     }
 
+    override fun calculateAudienceCount(isSelected: Boolean) {
+        when (isSelected) {
+            true -> audienceCount++
+            false -> audienceCount--
+        }
+    }
+
     override fun onSeatClicked(seat: TextView): Boolean {
         seat.isSelected = !seat.isSelected
         return seat.isSelected
@@ -44,8 +52,25 @@ class SeatSelectionPresenter : SeatSelectionContract.Presenter {
         view?.updateConfirmButtonState(hasSelection)
     }
 
-    override fun onConfirmButtonClicked(ticket: Ticket) {
-        view?.moveToBookingResult(ticket)
+    override fun onConfirmButtonClicked(
+        seats: Sequence<Sequence<TextView>>,
+        ticket: Ticket,
+    ) {
+        val selectedSeats =
+            seats
+                .flatten()
+                .filter { it.isSelected }
+                .map { it.text.toString() }
+                .toList()
+
+        val updatedTicket =
+            ticket.copy(
+                count = audienceCount,
+                money = ticketPrice,
+                seat = selectedSeats,
+            )
+
+        view?.moveToBookingResult(updatedTicket)
     }
 
     companion object {

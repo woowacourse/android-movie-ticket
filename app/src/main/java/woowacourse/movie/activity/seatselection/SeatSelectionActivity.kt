@@ -51,6 +51,7 @@ class SeatSelectionActivity :
                 textView.setOnClickListener {
                     val isSelected = presenter.onSeatClicked(textView)
                     presenter.calculateMoney(rowIndex, isSelected)
+                    presenter.calculateAudienceCount(isSelected)
                     presenter.handleConfirmButtonActivation(seats)
                 }
             }
@@ -66,7 +67,7 @@ class SeatSelectionActivity :
 
     private fun handleConfirmButton(ticket: Ticket) {
         findViewById<TextView>(R.id.confirm_button).setOnClickListener {
-            presenter.onConfirmButtonClicked(ticket)
+            presenter.onConfirmButtonClicked(seats, ticket)
         }
     }
 
