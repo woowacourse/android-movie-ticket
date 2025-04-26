@@ -1,7 +1,10 @@
 package woowacourse.movie.domain.policy
 
-import java.io.Serializable
-
-interface PricingPolicy : Serializable {
-    fun calculatePrice(headCount: Int): Int
+class PricingPolicy(
+    private val selectedSeats: List<String>,
+) {
+    fun calculatePrice(): Int =
+        selectedSeats.sumOf { seatName ->
+            SeatType.fromSeatName(seatName).price
+        }
 }
