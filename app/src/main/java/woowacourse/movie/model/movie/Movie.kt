@@ -13,16 +13,29 @@ data class Movie(
     val runningTime: Int,
 ) : Serializable {
     companion object {
-        val values: List<Movie> =
+        private val posterImages =
             listOf(
-                Movie(
-                    1,
-                    "라라랜드",
-                    R.drawable.lalaland,
-                    LocalDate.of(2025, 4, 1),
-                    LocalDate.of(2025, 5, 30),
-                    120,
-                ),
+                R.drawable.harry_potter_azkaban,
+                R.drawable.harry_potter_final_1,
+                R.drawable.harry_potter_final_2,
+                R.drawable.harry_potter_glass,
+                R.drawable.harry_potter_knight,
+                R.drawable.harry_potter_prince,
+                R.drawable.harry_potter_rock,
+                R.drawable.harry_potter_room,
             )
+
+        val values: List<Movie> =
+            (1..1000).map { id ->
+                val poster = posterImages[(id - 1) % posterImages.size]
+                Movie(
+                    id = id.toLong(),
+                    title = "해리포터 $id",
+                    poster = poster,
+                    startDate = LocalDate.of(2025, 4, (id % 28) + 1),
+                    endDate = LocalDate.of(2025, 5, (id % 28) + 1),
+                    runningTime = 100 + (id % 60),
+                )
+            }
     }
 }
