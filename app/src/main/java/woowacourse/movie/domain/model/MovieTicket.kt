@@ -8,4 +8,5 @@ data class MovieTicket(
     val screeningDateTime: LocalDateTime,
     val headCount: Int,
     val amount: Int,
+    val seats: List<String> = mutableListOf(),
 ) : Serializable
