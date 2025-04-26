@@ -17,11 +17,11 @@ class ReservationDetailPresenter(
     private var reservationCount = ReservationCount()
 
     override fun fetchData(
+        movie: MovieUiModel?,
         initCount: Int?,
         dateTime: LocalDateTime?,
-        getMovie: () -> MovieUiModel?,
     ) {
-        movie = getMovie()?.toModel()
+        this.movie = movie?.toModel()
         if (movie == null) {
             view.notifyNoAvailableDates()
             return

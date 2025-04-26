@@ -9,9 +9,9 @@ import java.time.LocalTime
 interface ReservationDetailContract {
     interface Presenter {
         fun fetchData(
+            movie: MovieUiModel?,
             initCount: Int? = null,
             dateTime: LocalDateTime? = null,
-            getMovie: () -> MovieUiModel?,
         )
 
         fun updateReservationCount(updateCount: Int)

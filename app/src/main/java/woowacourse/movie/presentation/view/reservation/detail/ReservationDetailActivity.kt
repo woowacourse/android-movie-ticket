@@ -40,11 +40,9 @@ class ReservationDetailActivity :
         setupActionBar()
 
         shouldIgnoreNextSelection = savedInstanceState != null
+        val movie = intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)
         val (count, dateTime) = restoreReservationData(savedInstanceState)
-
-        presenter.fetchData(count, dateTime) {
-            intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)
-        }
+        presenter.fetchData(movie, count, dateTime)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
