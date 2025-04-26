@@ -19,6 +19,15 @@ import java.time.LocalDateTime
 class ReservationDetailPresenterTest {
     private lateinit var presenter: ReservationDetailContract.Presenter
     private lateinit var view: ReservationDetailContract.View
+    private val movie =
+        dummyMovie
+            .copy(
+                screeningPeriod =
+                    ScreeningPeriod(
+                        LocalDate.now(),
+                        LocalDate.now().plusDays(1),
+                    ),
+            ).toUiModel()
 
     @BeforeEach
     fun setUp() {
@@ -32,9 +41,9 @@ class ReservationDetailPresenterTest {
         every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
 
-        presenter.fetchData { dummyMovie.toUiModel() }
+        presenter.fetchData { movie }
 
-        verify { view.setScreen(dummyMovie.toUiModel()) }
+        verify { view.setScreen(movie) }
     }
 
     @Test
@@ -52,15 +61,15 @@ class ReservationDetailPresenterTest {
         val times = dummyMovie.screeningPeriod.getAvailableTimesFor(now, now.toLocalDate())
 
         every { view.updateTimes(times) } just Runs
-        every { view.setScreen(dummyMovie.toUiModel()) } just Runs
+        every { view.setScreen(movie) } just Runs
         every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
 
-        presenter.fetchData { dummyMovie.toUiModel() }
+        presenter.fetchData { movie }
         presenter.onSelectDate(now.toLocalDate())
 
         verifySequence {
-            view.setScreen(dummyMovie.toUiModel())
+            view.setScreen(movie)
             view.updateDates(any(), any(), any())
             view.updateReservationCount(any(), any())
             view.updateTimes(times)
@@ -73,15 +82,15 @@ class ReservationDetailPresenterTest {
         every { view.setScreen(any()) } just Runs
         every { view.updateDates(any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
-        every { view.navigateToSeat(any()) } just Runs
+        every { view.notifyReservationConfirm(any()) } just Runs
 
-        presenter.fetchData(3) { dummyMovie.toUiModel() }
+        presenter.fetchData(3) { movie }
         presenter.onReserve(now)
 
         verify {
-            view.navigateToSeat(
+            view.notifyReservationConfirm(
                 withArg {
-                    assert(it.title == dummyMovie.title)
+                    assert(it.title == movie.title)
                     assert(it.reservationDateTime == now)
                     assert(it.reservationCount == 3)
                 },
