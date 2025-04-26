@@ -1,26 +1,21 @@
 package woowacourse.movie.presenter.seatSelection
 
-import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.MovieToReserve
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatGridElement
-import woowacourse.movie.model.ticket.TicketCount
+import woowacourse.movie.model.ticket.MovieTicket
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContracts.View,
 ) : SeatSelectionContracts.Presenter {
-    private lateinit var movie: Movie
-    private var ticketCount: TicketCount = TicketCount(1)
+    private lateinit var movieToReserve: MovieToReserve
     private var seats: MutableList<Seat> = mutableListOf()
 
-    override fun updateReservationInfo(
-        movie: Movie,
-        ticketCount: TicketCount,
-    ) {
-        this.movie = movie
-        this.ticketCount = ticketCount
+    override fun updateReservationInfo(movieToReserve: MovieToReserve) {
+        this.movieToReserve = movieToReserve
 
         view.showSeats(seats)
-        view.showMovieTitle(movie.title)
+        view.showMovieTitle(movieToReserve.title)
         view.showPrice(0)
         view.showButtonEnabled(false)
     }
@@ -41,12 +36,23 @@ class SeatSelectionPresenter(
     }
 
     private fun updateButtonEnabled() {
-        val buttonEnabled = seats.size == ticketCount.value
+        val buttonEnabled = seats.size == movieToReserve.ticketCount.value
         view.showButtonEnabled(buttonEnabled)
     }
 
     private fun updateTotalPrice() {
         val totalPrice: Int = seats.sumOf { seat -> seat.price }
         view.showPrice(totalPrice)
+    }
+
+    override fun createMovieTicket() {
+        val movieTicket =
+            MovieTicket(
+                title = movieToReserve.title,
+                movieDate = movieToReserve.movieDate.value,
+                movieTime = movieToReserve.movieTime,
+                seats = seats.toList(),
+            )
+        view.showReservationCompleteView(movieTicket)
     }
 }

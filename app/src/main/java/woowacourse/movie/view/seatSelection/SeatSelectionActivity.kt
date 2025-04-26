@@ -6,18 +6,20 @@ import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.MovieToReserve
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.ticket.TicketCount
+import woowacourse.movie.model.ticket.MovieTicket
 import woowacourse.movie.presenter.seatSelection.SeatSelectionContracts
 import woowacourse.movie.presenter.seatSelection.SeatSelectionPresenter
 import woowacourse.movie.view.extension.getSerializableExtraData
 import woowacourse.movie.view.mapper.Formatter.priceToUI
+import woowacourse.movie.view.reservationComplete.ReservationCompleteActivity
 import woowacourse.movie.view.seatSelection.SeatSelectionFormatter.columnToUI
 import woowacourse.movie.view.seatSelection.SeatSelectionFormatter.rowToUI
 
@@ -40,15 +42,29 @@ class SeatSelectionActivity :
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter.updateReservationInfo(
-            intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY),
-            intent.getSerializableExtraData<TicketCount>(TICKET_COUNT_DATA_KEY),
+            intent.getSerializableExtraData<MovieToReserve>(MOVIE_TO_RESERVE_DATA_KEY),
         )
         setupClickListener()
     }
 
     private fun setupClickListener() {
         completeButton.setOnClickListener {
+            showReservationDialog()
         }
+    }
+
+    private fun showReservationDialog() {
+        AlertDialog
+            .Builder(this)
+            .setTitle(getString(R.string.reservation_dialog_title))
+            .setMessage(getString(R.string.reservation_dialog_message))
+            .setCancelable(false)
+            .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
+                dialog.dismiss()
+            }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
+                presenter.createMovieTicket()
+                dialog.dismiss()
+            }.show()
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -86,18 +102,20 @@ class SeatSelectionActivity :
         completeButton.isEnabled = enabled
     }
 
+    override fun showReservationCompleteView(movieTicket: MovieTicket) {
+        startActivity(ReservationCompleteActivity.getIntent(this, movieTicket))
+        finish()
+    }
+
     companion object {
-        private const val MOVIE_DATA_KEY = "movie"
-        private const val TICKET_COUNT_DATA_KEY = "ticketCount"
+        private const val MOVIE_TO_RESERVE_DATA_KEY = "movieReserve"
 
         fun getIntent(
             context: Context,
-            movie: Movie,
-            ticketCount: TicketCount,
+            movieToReserve: MovieToReserve,
         ): Intent =
             Intent(context, SeatSelectionActivity::class.java).apply {
-                putExtra(MOVIE_DATA_KEY, movie)
-                putExtra(TICKET_COUNT_DATA_KEY, ticketCount)
+                putExtra(MOVIE_TO_RESERVE_DATA_KEY, movieToReserve)
             }
     }
 }

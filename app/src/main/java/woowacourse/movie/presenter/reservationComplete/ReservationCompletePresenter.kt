@@ -8,7 +8,7 @@ class ReservationCompletePresenter(
     override fun updateTicketData(movieTicket: MovieTicket) {
         view.showTitle(movieTicket.title)
         view.showTimestamp(movieTicket.movieDate, movieTicket.movieTime.value)
-        view.showTicketCount(movieTicket.count.value)
+        view.showTicketCount(movieTicket.seats.size)
         view.showPrice(movieTicket.price())
     }
 }

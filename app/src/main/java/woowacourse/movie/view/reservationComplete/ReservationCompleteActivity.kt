@@ -58,7 +58,7 @@ class ReservationCompleteActivity :
     ) {
         screeningDateTextView.text =
             getString(
-                R.string.reservation_ticket_timestamp,
+                R.string.reservation_complete_ticket_timestamp,
                 localDateToUI(date),
                 movieTimeToUI(time),
             )

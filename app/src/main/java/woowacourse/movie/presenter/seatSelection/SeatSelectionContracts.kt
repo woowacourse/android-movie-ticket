@@ -1,8 +1,8 @@
 package woowacourse.movie.presenter.seatSelection
 
-import woowacourse.movie.model.movie.Movie
+import woowacourse.movie.model.movie.MovieToReserve
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.ticket.TicketCount
+import woowacourse.movie.model.ticket.MovieTicket
 
 interface SeatSelectionContracts {
     interface View {
@@ -13,17 +13,18 @@ interface SeatSelectionContracts {
         fun showPrice(price: Int)
 
         fun showButtonEnabled(enabled: Boolean)
+
+        fun showReservationCompleteView(movieTicket: MovieTicket)
     }
 
     interface Presenter {
-        fun updateReservationInfo(
-            movie: Movie,
-            ticketCount: TicketCount,
-        )
+        fun updateReservationInfo(movieToReserve: MovieToReserve)
 
         fun updateSelectedSeat(
             row: Int,
             column: Int,
         )
+
+        fun createMovieTicket()
     }
 }

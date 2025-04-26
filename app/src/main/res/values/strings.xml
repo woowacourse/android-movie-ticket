@@ -6,12 +6,11 @@
     <string name="movie_running_time">러닝타임: %d분</string>
     <string name="movie_reservation">지금 예매</string>
 
-    <!-- 예매 완료 다이얼로그 -->
+    <!-- 예매 확인 다이얼로그 -->
     <string name="reservation_dialog_title">예매 확인</string>
     <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reservation_dialog_cancel">취소</string>
     <string name="reservation_dialog_complete">예매 완료</string>
-    <string name="reservation_ticket_timestamp">%s %s</string>
 
     <!-- 예매 페이지 -->
     <string name="reservation_minus">-</string>
@@ -21,6 +20,7 @@
     <!-- 예매 완료 페이지 -->
     <string name="reservation_complete_information">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
     <string name="reservation_complete_ticket_count">일반 %d명</string>
+    <string name="reservation_complete_ticket_timestamp">%s %s</string>
     <string name="reservation_complete_ticket_price">%s원 (현장 결제)</string>
 
     <!-- 좌석 선택 페이지 -->

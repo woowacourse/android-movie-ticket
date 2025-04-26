@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.Movie
-import woowacourse.movie.model.ticket.TicketCount
+import woowacourse.movie.model.movie.MovieToReserve
 import woowacourse.movie.presenter.reservation.ReservationContract
 import woowacourse.movie.presenter.reservation.ReservationPresenter
 import woowacourse.movie.view.extension.getSerializableExtraData
@@ -189,11 +189,8 @@ class ReservationActivity :
         showShortToast(message)
     }
 
-    override fun showSeatSelectionView(
-        movie: Movie,
-        ticketCount: TicketCount,
-    ) {
-        startActivity(SeatSelectionActivity.getIntent(this, movie, ticketCount))
+    override fun showSeatSelectionView(movieToReserve: MovieToReserve) {
+        startActivity(SeatSelectionActivity.getIntent(this, movieToReserve))
     }
 
     override fun updateTimes(times: List<Int>) {
