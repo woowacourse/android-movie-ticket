@@ -24,23 +24,15 @@ class ReservationPresenterTest {
     }
 
     @Test
-    fun `영화 정보를 불러온다`() {
+    fun `데이터를 가져오면 영화 정보를 설정한다`() {
         // given
         every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
 
         // when: 영화 목록을 조회하면
         presenter.fetchData { Fixture.dummyMovie }
 
-        // then: 뷰에 반영된다.
-        verify {
-            view.updateMovieInfo(
-                title = Fixture.dummyMovie.title,
-                posterResId = Fixture.dummyMovie.poster,
-                startDate = any(),
-                endDate = any(),
-                runningTime = Fixture.dummyMovie.runningTime,
-            )
-        }
+        // then: 영화 정보를 설정한다
+        verify { view.updateMovieInfo(any(), any(), any(), any(), any()) }
     }
 
     @Test

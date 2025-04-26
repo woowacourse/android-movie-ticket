@@ -2,6 +2,7 @@ package woowacourse.movie.domain.model
 
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
+import woowacourse.movie.model.MovieTicket
 import java.time.LocalDate
 
 object Fixture {
@@ -12,5 +13,13 @@ object Fixture {
             LocalDate.of(2025, 4, 1),
             LocalDate.of(2025, 4, 30),
             120,
+        )
+
+    val dummyTicket =
+        MovieTicket(
+            "라라랜드",
+            LocalDate.of(2025, 4, 1),
+            "14:00",
+            3,
         )
 }
