@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presenter.movieSelection
 
 import woowacourse.movie.view.model.MovieUiModel
 

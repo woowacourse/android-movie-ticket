@@ -6,9 +6,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MovieSelectionContract
 import woowacourse.movie.R
-import woowacourse.movie.presenter.MovieSelectionPresenter
+import woowacourse.movie.presenter.movieSelection.MovieSelectionContract
+import woowacourse.movie.presenter.movieSelection.MovieSelectionPresenter
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
 

@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presenter.movieReservation
 
-import woowacourse.movie.MovieReservationContract
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount

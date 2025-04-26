@@ -8,9 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MovieReservationResultContract
 import woowacourse.movie.R
-import woowacourse.movie.presenter.MovieReservationResultPresenter
+import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultContract
+import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import java.time.format.DateTimeFormatter

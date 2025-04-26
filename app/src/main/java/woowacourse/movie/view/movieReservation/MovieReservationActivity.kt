@@ -14,9 +14,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.MovieReservationContract
 import woowacourse.movie.R
-import woowacourse.movie.presenter.MovieReservationPresenter
+import woowacourse.movie.presenter.movieReservation.MovieReservationContract
+import woowacourse.movie.presenter.movieReservation.MovieReservationPresenter
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity

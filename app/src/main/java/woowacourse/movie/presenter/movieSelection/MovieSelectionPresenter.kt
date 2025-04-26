@@ -1,6 +1,5 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presenter.movieSelection
 
-import woowacourse.movie.MovieSelectionContract
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.model.MovieUiModel
 import woowacourse.movie.view.model.toUiModel

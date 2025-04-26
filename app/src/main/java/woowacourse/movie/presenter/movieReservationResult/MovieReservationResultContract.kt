@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.presenter.movieReservationResult
 
 import woowacourse.movie.view.model.TicketUiModel
 
