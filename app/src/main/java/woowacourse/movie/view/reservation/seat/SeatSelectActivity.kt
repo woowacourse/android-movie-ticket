@@ -45,11 +45,6 @@ class SeatSelectActivity :
             intent?.getParcelableExtraCompat<MovieTicket>(Extras.TicketData.TICKET_KEY)
         }
 
-        val savedSeatIds = savedInstanceState?.getStringArrayList(Extras.SeatsData.SEATS_KEY)
-        if (savedSeatIds != null) {
-            presenter.restoreSelectedSeats(savedSeatIds)
-        }
-
         setupConfirmButton()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -165,12 +160,25 @@ class SeatSelectActivity :
         }
     }
 
+    private fun setupSavedData(savedInstanceState: Bundle?) {
+        val savedSeats =
+            savedInstanceState?.getStringArrayList(Extras.SeatsData.SEATS_KEY)
+                ?: emptyList<String>()
+        presenter.restoreSelectedSeats(savedSeats)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putStringArrayList(
             Extras.SeatsData.SEATS_KEY,
             ArrayList(presenter.getSelectedSeatIds()),
         )
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        setupSavedData(savedInstanceState)
+        presenter.restoreButtonState()
     }
 
     override fun onSupportNavigateUp(): Boolean {

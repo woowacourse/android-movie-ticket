@@ -1,11 +1,8 @@
 package woowacourse.movie.view.reservation.seat
 
-import android.content.Intent
 import woowacourse.movie.model.MovieTicket
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.model.Seats
-import woowacourse.movie.view.Extras
-import woowacourse.movie.view.getParcelableExtraCompat
 
 class SeatSelectPresenter(
     val view: SeatSelectContract.View,
@@ -74,7 +71,10 @@ class SeatSelectPresenter(
         view.updateConfirmButtonState(selectedSeats.size == movieTicket.count)
     }
 
-    private fun getMovieTicketData(intent: Intent): MovieTicket? = intent.getParcelableExtraCompat(Extras.TicketData.TICKET_KEY)
+    fun restoreButtonState() {
+        val isEnabled = selectedSeats.size == movieTicket.count
+        view.updateConfirmButtonState(isEnabled)
+    }
 
     companion object {
         private const val DEFAULT_PRICE = 0
