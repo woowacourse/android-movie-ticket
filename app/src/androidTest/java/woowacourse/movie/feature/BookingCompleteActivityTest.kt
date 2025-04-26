@@ -40,7 +40,7 @@ class BookingCompleteActivityTest {
                             ),
                         date = MovieDate(2025, 4, 1),
                         time = MovieTime(9, 0),
-                        seats = MovieSeats(setOf(MovieSeat(3, 1))),
+                        seats = MovieSeats(setOf(MovieSeat(1, 1), MovieSeat(2, 2))),
                         ticketCount = TicketCount(),
                     ).toUi(),
             )
@@ -52,5 +52,11 @@ class BookingCompleteActivityTest {
     fun S_랭크_티켓_장수가_1이면_15000원을_출력한다() {
         onView(withId(R.id.tv_booking_complete_ticket_total_price))
             .check(matches(withText("15,000원 (현장 결제)")))
+    }
+
+    @Test
+    fun 선택된_좌석_정보가_출력된다() {
+        onView(withId(R.id.tv_booking_complete_ticket_seats))
+            .check(matches(withText("A1, B2")))
     }
 }
