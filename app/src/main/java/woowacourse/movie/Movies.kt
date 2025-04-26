@@ -6,6 +6,7 @@ interface Movies {
     interface View {
         fun showMovies(movies: List<Movie>)
         fun navigateToBook(movie: Movie)
+        fun showError(messageResId: Int)
     }
 
     interface Presenter {

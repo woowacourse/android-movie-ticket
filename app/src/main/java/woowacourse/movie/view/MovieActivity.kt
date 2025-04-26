@@ -2,6 +2,7 @@ package woowacourse.movie.view
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -40,5 +41,13 @@ class MovieActivity : AppCompatActivity(), View {
     override fun navigateToBook(movie: Movie) {
         val intent = movieBookingIntent(this@MovieActivity, movie)
         startActivity(intent)
+    }
+
+    override fun showError(messageResId: Int) {
+        AlertDialog.Builder(this)
+            .setMessage(getString(messageResId))
+            .setPositiveButton(R.string.error_dialog_okay, null)
+            .show()
+            .setCancelable(false)
     }
 }
