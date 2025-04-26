@@ -23,7 +23,7 @@ class SeatSelectionPresenter(
         view.showSeats(seats)
     }
 
-    override fun updateReservationInfo(movieToReserve: MovieToReserve) {
+    override fun updateMovieToReserve(movieToReserve: MovieToReserve) {
         this.movieToReserve = movieToReserve
 
         view.showMovieTitle(movieToReserve.title)
@@ -53,7 +53,7 @@ class SeatSelectionPresenter(
         view.showPrice(totalPrice)
     }
 
-    override fun createMovieTicket() {
+    override fun onReservationCompleteRequest() {
         val movieTicket =
             MovieTicket(
                 title = movieToReserve.title,

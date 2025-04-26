@@ -25,10 +25,10 @@ interface SeatSelectionContracts {
             column: Int,
         )
 
-        fun updateReservationInfo(movieToReserve: MovieToReserve)
+        fun updateMovieToReserve(movieToReserve: MovieToReserve)
 
         fun updateSelectedSeat(seat: Seat)
 
-        fun createMovieTicket()
+        fun onReservationCompleteRequest()
     }
 }

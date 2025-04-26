@@ -52,7 +52,7 @@ class SeatSelectionActivity :
             getSeatsLayoutRowCount(),
             getSeatsLayoutColumnCount(),
         )
-        presenter.updateReservationInfo(
+        presenter.updateMovieToReserve(
             intent.getSerializableExtraData<MovieToReserve>(MOVIE_TO_RESERVE_DATA_KEY),
         )
     }
@@ -76,7 +76,7 @@ class SeatSelectionActivity :
             .setNegativeButton(getString(R.string.reservation_dialog_cancel)) { dialog, _ ->
                 dialog.dismiss()
             }.setPositiveButton(getString(R.string.reservation_dialog_complete)) { dialog, _ ->
-                presenter.createMovieTicket()
+                presenter.onReservationCompleteRequest()
                 dialog.dismiss()
             }.show()
     }
