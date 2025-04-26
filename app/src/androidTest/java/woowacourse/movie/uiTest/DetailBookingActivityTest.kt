@@ -26,7 +26,7 @@ class DetailBookingActivityTest {
     fun setUp() {
         val movie =
             Movie(
-                R.drawable.harry,
+                R.drawable.harry_potter_and_the_philosopher_stone,
                 "해리 포터와 마법사의 돌",
                 Date(LocalDate.of(3025, 4, 1), LocalDate.of(3025, 4, 25)),
                 152,
