@@ -16,9 +16,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookingInfo
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
-import woowacourse.movie.domain.model.MovieSeats
 import woowacourse.movie.domain.model.MovieTime
-import woowacourse.movie.domain.model.TicketCount
 import woowacourse.movie.feature.bookingseat.view.BookingSeatActivity
 import woowacourse.movie.feature.bookingseat.view.BookingSeatActivity.Companion.newIntent
 import woowacourse.movie.feature.mapper.toUi
@@ -43,8 +41,6 @@ class BookingSeatActivityTest {
                             ),
                         date = MovieDate(2025, 4, 1),
                         time = MovieTime(9, 0),
-                        seats = MovieSeats(),
-                        ticketCount = TicketCount(),
                     ).toUi(),
             )
 

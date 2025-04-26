@@ -15,7 +15,6 @@ import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.MovieSeats
 import woowacourse.movie.domain.model.MovieTime
-import woowacourse.movie.domain.model.TicketCount
 import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
 import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity.Companion.newIntent
 import woowacourse.movie.feature.mapper.toUi
@@ -41,7 +40,6 @@ class BookingCompleteActivityTest {
                         date = MovieDate(2025, 4, 1),
                         time = MovieTime(9, 0),
                         seats = MovieSeats(setOf(MovieSeat(1, 1), MovieSeat(2, 2))),
-                        ticketCount = TicketCount(),
                     ).toUi(),
             )
 
@@ -49,7 +47,7 @@ class BookingCompleteActivityTest {
     }
 
     @Test
-    fun S_랭크_티켓_장수가_1이면_15000원을_출력한다() {
+    fun 선택된_정보에_따라_금액을_출력한다() {
         onView(withId(R.id.tv_booking_complete_ticket_total_price))
             .check(matches(withText("15,000원 (현장 결제)")))
     }
