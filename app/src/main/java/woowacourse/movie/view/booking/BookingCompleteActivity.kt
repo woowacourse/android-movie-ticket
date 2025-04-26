@@ -1,5 +1,7 @@
 package woowacourse.movie.view.booking
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -10,12 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.ext.getSerializable
-import woowacourse.movie.view.seat.SeatActivity.Companion.KEY_BOOKING_DATE
-import woowacourse.movie.view.seat.SeatActivity.Companion.KEY_BOOKING_MOVIE_TITLE
-import woowacourse.movie.view.seat.SeatActivity.Companion.KEY_BOOKING_PEOPLE_COUNT
-import woowacourse.movie.view.seat.SeatActivity.Companion.KEY_BOOKING_PRICE
-import woowacourse.movie.view.seat.SeatActivity.Companion.KEY_BOOKING_SEAT
-import woowacourse.movie.view.seat.SeatActivity.Companion.KEY_BOOKING_TIME
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -103,5 +99,29 @@ class BookingCompleteActivity : AppCompatActivity() {
         private const val EMPTY_TITLE = ""
         private const val EMPTY_SEATS = ""
         private const val EMPTY_PRICE = 0
+
+        const val KEY_BOOKING_SEAT = "BOOKING_SEAT"
+        const val KEY_BOOKING_PEOPLE_COUNT = "PEOPLE_COUNT"
+        const val KEY_BOOKING_PRICE = "BOOKING_PRICE"
+        const val KEY_BOOKING_DATE = "BOOKING_DATE"
+        const val KEY_BOOKING_TIME = "BOOKING_TIME"
+        const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
+
+        fun newIntent(
+            context: Context,
+            title: String,
+            bookingDate: LocalDate,
+            bookingTime: LocalTime,
+            peopleCount: Int,
+            price: Int,
+            seats: String,
+        ) = Intent(context, BookingCompleteActivity::class.java).apply {
+            putExtra(KEY_BOOKING_MOVIE_TITLE, title)
+            putExtra(KEY_BOOKING_DATE, bookingDate)
+            putExtra(KEY_BOOKING_PRICE, price)
+            putExtra(KEY_BOOKING_TIME, bookingTime)
+            putExtra(KEY_BOOKING_PEOPLE_COUNT, peopleCount)
+            putExtra(KEY_BOOKING_SEAT, seats)
+        }
     }
 }

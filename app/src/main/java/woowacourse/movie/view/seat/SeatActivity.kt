@@ -135,14 +135,15 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         price: Int,
     ) {
         val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra(KEY_BOOKING_DATE, defaultBooking.bookingDate)
-                putExtra(KEY_BOOKING_TIME, defaultBooking.bookingTime)
-                putExtra(KEY_BOOKING_MOVIE_TITLE, defaultBooking.title)
-                putExtra(KEY_BOOKING_PEOPLE_COUNT, defaultBooking.count.value)
-                putExtra(KEY_BOOKING_PRICE, price)
-                putExtra(KEY_BOOKING_SEAT, seats)
-            }
+            BookingCompleteActivity.newIntent(
+                this,
+                defaultBooking.title,
+                defaultBooking.bookingDate,
+                defaultBooking.bookingTime,
+                defaultBooking.count.value,
+                price,
+                seats,
+            )
         startActivity(intent)
     }
 
@@ -173,13 +174,6 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
     companion object {
         const val KEY_BOOKING = "BOOKING"
-
-        const val KEY_BOOKING_SEAT = "BOOKING_SEAT"
-        const val KEY_BOOKING_PEOPLE_COUNT = "PEOPLE_COUNT"
-        const val KEY_BOOKING_PRICE = "BOOKING_PRICE"
-        const val KEY_BOOKING_DATE = "BOOKING_DATE"
-        const val KEY_BOOKING_TIME = "BOOKING_TIME"
-        const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
 
         fun newIntent(
             context: Context,
