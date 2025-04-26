@@ -45,12 +45,13 @@ class MovieListAdapter(
         }
 
         bindMovie(binding, movie)
-        binding.root.setOnSingleClickListener { navigateToBook(movie) }
 
         return view
     }
 
     private fun bindMovie(binding: MovieItemBinding, movie: Movie) {
+        binding.root.setOnSingleClickListener { navigateToBook(movie) }
+
         binding.movieTitle.text = movie.title
         binding.moviePoster.setImageResource(movie.poster)
         binding.movieDate.text = binding.movieDate.context.getString(
