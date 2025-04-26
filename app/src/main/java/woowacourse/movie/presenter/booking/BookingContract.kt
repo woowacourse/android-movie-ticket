@@ -56,7 +56,7 @@ interface BookingContract {
 
         fun decreasePeopleCount()
 
-        fun increasePeopleCount()
+        fun increasePeopleCount(limit: Int)
 
         fun restorePeopleCount(savedCount: Int)
     }

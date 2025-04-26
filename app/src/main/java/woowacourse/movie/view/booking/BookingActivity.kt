@@ -107,7 +107,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     override fun onClickIncrease() {
-        presenter.increasePeopleCount()
+        presenter.increasePeopleCount(MAX_SEAT)
     }
 
     override fun onClickDecrease() {
@@ -202,6 +202,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         const val KEY_MOVIE = "MOVIE"
 
         private const val NO_MOVIE = -1
+        private const val MAX_SEAT = 20
 
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"

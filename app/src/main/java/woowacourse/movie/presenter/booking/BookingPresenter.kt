@@ -61,8 +61,8 @@ class BookingPresenter(
         view.showPeopleCount(count.value)
     }
 
-    override fun increasePeopleCount() {
-        count = count.increase()
+    override fun increasePeopleCount(limit: Int) {
+        count = count.increase(limit)
         view.showPeopleCount(count.value)
     }
 
