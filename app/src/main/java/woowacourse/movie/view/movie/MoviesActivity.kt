@@ -2,11 +2,12 @@ package woowacourse.movie.view.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
@@ -35,16 +36,18 @@ class MoviesActivity :
     }
 
     private fun setupMovieAdapter(movies: List<Movie>) {
-        val movieListView = findViewById<ListView>(R.id.lv_movies)
-        movieListView.adapter =
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_movies)
+        val movieAdapter =
             MovieAdapter(
-                movies,
                 object : MovieClickListener {
                     override fun onReservationClick(movie: Movie) {
                         navigateToReservation(movie)
                     }
                 },
             )
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = movieAdapter
+        movieAdapter.submitList(movies)
     }
 
     override fun navigateToReservation(movie: Movie) {
