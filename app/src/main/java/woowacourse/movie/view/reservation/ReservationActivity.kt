@@ -23,7 +23,7 @@ import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.presenter.ReservationPresenter
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.model.setPoster
+import woowacourse.movie.view.model.setImageResource
 import woowacourse.movie.view.ticket.TicketActivity
 import java.time.LocalDate
 import java.time.LocalTime
@@ -82,7 +82,7 @@ class ReservationActivity :
                 screeningData.endDate.dayOfMonth,
             )
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        posterImageView.setPoster(screeningData.poster)
+        posterImageView.setImageResource(screeningData.poster)
 
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
         runningTimeView.text = getString(R.string.running_time, screeningData.runningTime)

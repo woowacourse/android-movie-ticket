@@ -13,7 +13,7 @@ data class ScreeningData(
     val endDate: LocalDate,
     val movieId: String,
     val runningTime: Int,
-    val poster: Poster,
+    val poster: ImageResource,
 ) : Parcelable {
     private fun toMovie(): Movie = Movie(title, runningTime, movieId)
 

@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.main.MainView
-import woowacourse.movie.view.model.Poster
+import woowacourse.movie.view.model.ImageResource
 import java.time.LocalDate
 
 class MainPresenterTest {
@@ -35,7 +35,7 @@ class MainPresenterTest {
         val start = LocalDate.of(2025, 4, 1)
         val end = LocalDate.of(2025, 4, 10)
         val screening = mockk<Screening>()
-        val poster = mockk<Poster>()
+        val poster = mockk<ImageResource>()
 
         every { screening.title } returns "영화 제목"
         every { screening.movieId } returns 1L.toString()

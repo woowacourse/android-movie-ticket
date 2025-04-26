@@ -1,8 +1,11 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="cd_poster">영화 포스터</string>
     <string name="screening_period">상영일: %1$d.%2$d.%3$d ~ %4$d.%5$d.%6$d</string>
     <string name="running_time">러닝타임: %1$d분</string>
+
+    <!--contentDescription-->
+    <string name="cd_poster">영화 포스터</string>
+    <string name="ad_banner">광고 배너</string>
 
     <!--item_movie.xml-->
     <string name="item_movie_reserve">지금 예매</string>

@@ -1,8 +1,9 @@
 package woowacourse.movie.presenter
 
+import woowacourse.movie.model.movie.Advertisement
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.main.MainView
-import woowacourse.movie.view.model.Poster
+import woowacourse.movie.view.model.ImageResource
 import woowacourse.movie.view.model.ScreeningData
 
 class MainPresenter(
@@ -10,19 +11,20 @@ class MainPresenter(
 ) {
     fun initMainUI() {
         val screenings: List<Screening> = Screening.getDefaultScreenings()
-        view.initMovieListUI(screenings)
+        val ads: List<Advertisement> = Advertisement.getDefaultAds()
+        view.initMovieListUI(screenings, ads)
     }
 
     fun navigateToReservationUI(
         screening: Screening,
-        poster: Poster,
+        poster: ImageResource,
     ) {
         view.navigateToReservationUI(convertScreeningData(screening, poster))
     }
 
     private fun convertScreeningData(
         screening: Screening,
-        poster: Poster,
+        poster: ImageResource,
     ): ScreeningData =
         ScreeningData(
             title = screening.title,
