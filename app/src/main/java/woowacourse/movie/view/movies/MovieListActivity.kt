@@ -40,7 +40,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         val adapter =
             MovieAdapter(
                 itemsList = movieList,
-                onClickBooking = ::moveToBookingComplete,
+                onClickBooking = { presenter.onSelectMovie(it) },
             )
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter

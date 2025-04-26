@@ -9,9 +9,9 @@ class MovieListPresenter(
     private val view: MovieListContract.View,
     private val model: List<Movie>,
 ) : MovieListContract.Presenter {
-    override fun loadUiData() {
-        val items = mutableListOf<UiModel>()
+    private val items = mutableListOf<UiModel>()
 
+    override fun loadUiData() {
         model.forEachIndexed { index, movie ->
             items.add(movie.toUiModel())
             if ((index + 1) % AD_DIVIDE_STANDARD == 0) {
@@ -21,7 +21,13 @@ class MovieListPresenter(
         view.showMovieList(items)
     }
 
-    override fun onSelectMovie(movieIdx: Int) = view.moveToBookingComplete(movieIdx)
+    override fun onSelectMovie(movieIdx: Int) {
+        val movieIndex =
+            items
+                .subList(0, movieIdx)
+                .count { it is UiModel.MovieUiModel }
+        view.moveToBookingComplete(movieIndex)
+    }
 
     companion object {
         private const val AD_DIVIDE_STANDARD = 3
