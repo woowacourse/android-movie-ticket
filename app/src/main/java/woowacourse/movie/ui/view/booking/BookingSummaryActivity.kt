@@ -56,7 +56,7 @@ class BookingSummaryActivity :
             selectedSeats: List<String>,
         ): String = String.format(message, headCount, selectedSeats.joinToString())
 
-        private fun formatAmount(
+        fun formatAmount(
             message: String,
             value: Int,
         ): String = String.format(message, value.formatWithComma())
