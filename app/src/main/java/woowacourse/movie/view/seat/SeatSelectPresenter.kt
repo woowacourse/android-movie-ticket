@@ -1,5 +1,6 @@
 package woowacourse.movie.view.seat
 
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.reservation.model.toDomain
 import woowacourse.movie.view.seat.model.SeatUiModel
@@ -9,8 +10,7 @@ class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
     private var _ticket: TicketUiModel,
 ) : SeatSelectContract.Presenter {
-    val ticket: TicketUiModel
-        get() = _ticket
+    private val ticket get() = _ticket
 
     override fun loadSeatSelectScreen() {
         view.showMovieInfo(ticket.movie)
@@ -18,16 +18,12 @@ class SeatSelectPresenter(
     }
 
     override fun onClickSeat(seat: SeatUiModel) {
-        val seatDomainModel = seat.toDomain()
-        _ticket =
-            if (ticket.toDomain().contains(seatDomainModel)) {
-                ticket.copy(seats = ticket.seats - seatDomainModel)
-            } else {
-                ticket.copy(seats = ticket.seats + seatDomainModel)
-            }
-        view.updateSeatSelection(seat, ticket.toDomain().contains(seatDomainModel))
-        view.updateConfirmButton(ticket.toDomain().isSeatsAllSelected())
-        view.showTotalPrice(ticket.toDomain().totalPrice())
+        val seatDomain = seat.toDomain()
+        toggleSeat(seatDomain)
+        val ticketDomain = ticket.toDomain()
+        view.updateSeatSelection(seat, ticketDomain.contains(seatDomain))
+        view.updateConfirmButton(ticketDomain.isSeatsAllSelected())
+        view.showTotalPrice(ticketDomain.totalPrice())
     }
 
     override fun onClickConfirmButton() {
@@ -36,5 +32,14 @@ class SeatSelectPresenter(
 
     override fun completeReservation() {
         view.navigateToCompleteScreen(ticket)
+    }
+
+    private fun toggleSeat(seat: Seat) {
+        _ticket =
+            if (ticket.toDomain().contains(seat)) {
+                ticket.copy(seats = ticket.seats - seat)
+            } else {
+                ticket.copy(seats = ticket.seats + seat)
+            }
     }
 }

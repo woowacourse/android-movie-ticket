@@ -31,14 +31,15 @@ class SeatSelectActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setView()
+        setupView()
 
         val ticket =
             intent.parcelableExtraCompat(EXTRA_TICKET, TicketUiModel::class.java)
                 ?: finish().run { return }
         presenter = SeatSelectPresenter(this, ticket)
 
-        initView()
+        initSeatTable()
+        initConfirmButton()
         presenter.loadSeatSelectScreen()
     }
 
@@ -65,7 +66,7 @@ class SeatSelectActivity :
         seat: SeatUiModel,
         isSelected: Boolean,
     ) {
-        val seatTextView = seatTable.findViewWithTag<TextView>(seat)
+        val seatTextView: TextView = seatTable.findViewWithTag(seat)
         seatTextView.setBackgroundResource(if (isSelected) R.color.yellow else R.color.white)
     }
 
@@ -78,7 +79,7 @@ class SeatSelectActivity :
         startActivity(intent)
     }
 
-    private fun setView() {
+    private fun setupView() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_seat_select)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -88,20 +89,15 @@ class SeatSelectActivity :
         }
     }
 
-    private fun initView() {
-        initSeatTable()
-        initConfirmButton()
-    }
-
     private fun initSeatTable() {
         seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIdx, row ->
             row.children.filterIsInstance<TextView>().forEachIndexed { colIdx, seatTextView ->
                 val seat = SeatUiModel(rowIdx, colIdx)
-                seatTextView.tag = seat
-                seatTextView.text = seat.toString()
-                seatTextView.setTextColor(ContextCompat.getColor(this, seat.colorResId))
-                seatTextView.setOnClickListener {
-                    presenter.onClickSeat(seat)
+                seatTextView.apply {
+                    tag = seat
+                    text = seat.toString()
+                    setTextColor(ContextCompat.getColor(context, seat.colorResId))
+                    setOnClickListener { presenter.onClickSeat(seat) }
                 }
             }
         }
@@ -109,9 +105,7 @@ class SeatSelectActivity :
 
     private fun initConfirmButton() {
         confirmButton.isEnabled = false
-        confirmButton.setOnClickListener {
-            presenter.onClickConfirmButton()
-        }
+        confirmButton.setOnClickListener { presenter.onClickConfirmButton() }
     }
 
     companion object {
