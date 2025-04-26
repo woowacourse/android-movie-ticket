@@ -1,10 +1,9 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.movie.screening
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.model.movie.Movie
-import woowacourse.movie.model.movie.screening.Screening
 import java.time.LocalDate
 
 class ScreeningTest {
