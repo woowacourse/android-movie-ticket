@@ -20,7 +20,7 @@ class ReservationCompleteActivity :
         findViewById(R.id.tv_reservation_complete_timestamp)
     }
     private val ticketCountTextView: TextView by lazy {
-        findViewById(R.id.tv_reservation_complete_ticket_count)
+        findViewById(R.id.tv_reservation_complete_count_seats)
     }
     private val ticketPriceTextView: TextView by lazy { findViewById<TextView>(R.id.tv_reservation_complete_ticket_price) }
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }

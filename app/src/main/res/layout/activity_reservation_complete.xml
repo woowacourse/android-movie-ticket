@@ -53,7 +53,7 @@
             tools:text="2025.4.15 11:00" />
 
         <TextView
-            android:id="@+id/tv_reservation_complete_ticket_count"
+            android:id="@+id/tv_reservation_complete_count_seats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -72,9 +72,9 @@
             android:text="@string/reservation_complete_ticket_price"
             android:textColor="@color/black"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@id/tv_reservation_complete_ticket_count"
-            app:layout_constraintStart_toStartOf="@id/tv_reservation_complete_ticket_count"
-            app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_ticket_count" />
+            app:layout_constraintEnd_toEndOf="@id/tv_reservation_complete_count_seats"
+            app:layout_constraintStart_toStartOf="@id/tv_reservation_complete_count_seats"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_count_seats" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
