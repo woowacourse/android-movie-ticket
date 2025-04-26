@@ -23,13 +23,13 @@ class MoviesPresenterTest {
 
     @Test
     fun `영화 목록을 불러온다`() {
-        // given - Just Runs
+        // Given: view의 setScreen 동작을 설정한다
         every { view.setScreen(any()) } just Runs
 
-        // when - 영화 목록 조회
+        // When: presenter가 데이터를 불러온다
         presenter.fetchData()
 
-        // then - 조회 후 뷰에 반영 함수 호출 여부 검증
+        // Then: view에 setScreen이 호출되어야 한다
         verify { view.setScreen(any()) }
     }
 }
