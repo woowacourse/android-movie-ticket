@@ -17,7 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieReservation.MovieReservationContract
 import woowacourse.movie.presenter.movieReservation.MovieReservationPresenter
-import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_TICKET

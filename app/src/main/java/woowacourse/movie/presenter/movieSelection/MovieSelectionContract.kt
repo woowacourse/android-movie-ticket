@@ -1,10 +1,11 @@
 package woowacourse.movie.presenter.movieSelection
 
-import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.MovieListItem
+import woowacourse.movie.view.model.MovieListItem.MovieUiModel
 
 interface MovieSelectionContract {
     interface View {
-        fun showMovies(movies: List<MovieUiModel>)
+        fun showMovies(movies: List<MovieListItem>)
 
         fun selectMovie(movie: MovieUiModel)
     }

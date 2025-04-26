@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieSelection.MovieSelectionContract
 import woowacourse.movie.presenter.movieSelection.MovieSelectionPresenter
-import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.MovieListItem
+import woowacourse.movie.view.model.MovieListItem.MovieUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
 
 class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View {
@@ -32,13 +33,12 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
         }
     }
 
-    override fun showMovies(movies: List<MovieUiModel>) {
+    override fun showMovies(movies: List<MovieListItem>) {
         val movieListView = findViewById<RecyclerView>(R.id.movie_list)
         movieListView.layoutManager = LinearLayoutManager(this)
-        movieListView.adapter =
-            MovieAdapter(movies) { movie ->
-                presenter.onMovieSelection(movie)
-            }
+        val adapter = MovieAdapter { movie -> presenter.onMovieSelection(movie) }
+        movieListView.adapter = adapter
+        adapter.submitList(movies)
     }
 
     override fun selectMovie(movie: MovieUiModel) {

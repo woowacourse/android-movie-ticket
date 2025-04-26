@@ -3,7 +3,7 @@ package woowacourse.movie.presenter.movieReservation
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.view.model.MovieUiModel
+import woowacourse.movie.view.model.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
@@ -48,33 +48,31 @@ class MovieReservationPresenter(
 
     override fun onInstanceStateRestored(ticket: TicketUiModel) {
         _ticket = ticket.toDomain()
-        val selectedDate = _ticket.showtime.toLocalDate()
-
+        val selectedDate = ticket.showtime.toLocalDate()
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(selectedDate, LocalDateTime.now())
-        view.setTimeSpinner(screeningTimes.indexOf(_ticket.showtime.toLocalTime()))
-
+        view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
         view.showReservationInfo(_ticket.toUiModel())
     }
 
     override fun onDateSelection(date: LocalDate) {
         val screeningTimes: List<LocalTime> = scheduler.getShowtimes(date, LocalDateTime.now())
-        view.showScreeningTimes(screeningTimes, _ticket.showtime.toLocalTime())
-        _ticket = _ticket.copy(showtime = LocalDateTime.of(date, _ticket.showtime.toLocalTime()))
+        view.showScreeningTimes(screeningTimes, ticket.showtime.toLocalTime())
+        _ticket = _ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
     }
 
     override fun onTimeSelection(time: LocalTime) {
-        _ticket = _ticket.copy(showtime = LocalDateTime.of(_ticket.showtime.toLocalDate(), time))
+        _ticket = _ticket.copy(showtime = LocalDateTime.of(ticket.showtime.toLocalDate(), time))
     }
 
     override fun incrementTicketCount() {
         _ticket = _ticket.increment()
-        view.showTicketCount(_ticket.count.value)
+        view.showTicketCount(ticket.count)
     }
 
     override fun decrementTicketCount() {
         _ticket = _ticket.decrement()
-        view.showTicketCount(_ticket.count.value)
+        view.showTicketCount(ticket.count)
     }
 
     override fun onReservation() {
