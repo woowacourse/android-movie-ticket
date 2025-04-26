@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -42,10 +43,24 @@ class ReservationCompleteActivity :
 
         presenter.updateTicketData(intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupBackPressedDispatcher()
+    }
+
+    private fun setupBackPressedDispatcher() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    startActivity(MoviesActivity.getIntent(this@ReservationCompleteActivity))
+                    finish()
+                }
+            },
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
         startActivity(MoviesActivity.getIntent(this))
+        finish()
         return super.onSupportNavigateUp()
     }
 
