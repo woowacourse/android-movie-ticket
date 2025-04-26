@@ -1,7 +1,6 @@
 package woowacourse.movie.ui.view.movie
 
 import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -18,22 +17,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.ui.model.movie.MovieUiModel
-import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.ui.view.booking.BookingActivity
 
 class MovieActivityTest {
-    private lateinit var scenario: ActivityScenario<MovieActivity>
-    private val movieUiModels = mockMovieUiModels()
+    private val scenario = ActivityScenario.launch(MovieActivity::class.java)
 
     @Before
     fun setUp() {
         Intents.init()
-
-        val intent =
-            MovieActivity.newIntent(ApplicationProvider.getApplicationContext(), movieUiModels)
-
-        scenario = ActivityScenario.launch(intent)
     }
 
     @After
@@ -66,7 +57,7 @@ class MovieActivityTest {
             .check(
                 matches(
                     allOf(
-                        withText("해리포터와 불의 잔 - 테스트용"),
+                        withText("어바웃 타임"),
                         isDisplayed(),
                     ),
                 ),
@@ -82,7 +73,7 @@ class MovieActivityTest {
             .check(
                 matches(
                     allOf(
-                        withText("2025.4.1 ~ 2025.4.25"),
+                        withText("2025.4.21 ~ 2025.5.25"),
                         isDisplayed(),
                     ),
                 ),
@@ -98,7 +89,7 @@ class MovieActivityTest {
             .check(
                 matches(
                     allOf(
-                        withText("151분"),
+                        withText("120분"),
                         isDisplayed(),
                     ),
                 ),
@@ -137,37 +128,16 @@ class MovieActivityTest {
             .check(
                 matches(
                     allOf(
-                        withText("테스트 데이터 제목"),
+                        withText("해리 포터와 마법사의 돌"),
                         isDisplayed(),
                     ),
                 ),
             )
 
         onView(withId(R.id.tv_booking_running_time))
-            .check(matches(allOf(withText("151분"), isDisplayed())))
+            .check(matches(allOf(withText("120분"), isDisplayed())))
         onView(withId(R.id.tv_booking_screening_date))
-            .check(matches(allOf(withText("2025.4.1 ~ 2025.4.25"), isDisplayed())))
+            .check(matches(allOf(withText("2025.4.21 ~ 2025.5.25"), isDisplayed())))
         onView(withId(R.id.img_booking_poster)).check(matches(isDisplayed()))
-    }
-
-    private fun mockMovieUiModels(): ArrayList<MovieUiModel> {
-        return arrayListOf(
-            MovieUiModel(
-                id = 1L,
-                poster = Poster.Resource(R.drawable.prepare_poster),
-                title = "테스트 데이터 제목",
-                runningTime = "151",
-                screeningStartDate = "2025.4.1",
-                screeningEndDate = "2025.4.25",
-            ),
-            MovieUiModel(
-                id = 2L,
-                poster = Poster.Resource(R.drawable.harry_potter),
-                title = "해리포터와 불의 잔 - 테스트용",
-                runningTime = "150",
-                screeningStartDate = "2025.4.12",
-                screeningEndDate = "2025.4.25",
-            ),
-        )
     }
 }
