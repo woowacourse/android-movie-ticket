@@ -3,6 +3,7 @@ package woowacourse.movie.movie
 import android.content.Intent
 import woowacourse.movie.BookingDetailActivity
 import woowacourse.movie.mapper.IntentCompat
+import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Movie
 import java.time.LocalDate
 
@@ -14,21 +15,25 @@ class MoviePresenter(
             IntentCompat.getParcelableExtra(
                 intent,
                 BookingDetailActivity.Companion.KEY_MOVIE_DATA,
-                Movie::class.java,
+                MovieUiModel::class.java,
             )
 
         if (movie == null) {
             view.showToast("기본 영화 목록을 불러왔습니다.")
         }
 
-        val movies = movie?.let { listOf(it) } ?: mockMovieList()
+        val movies =
+            movie?.let { listOf(it) }
+                ?: List(10) { mockMovieList() }
+                    .flatten()
+                    .map { it.toUiModel() }
         view.showMovies(movies)
     }
 
     fun getMockMovieList(): List<Movie> = mockMovieList()
 
-    override fun onReserveClicked(movie: Movie) {
-        view.startBookingActivity(movie)
+    override fun onReserveClicked(movieUi: MovieUiModel) {
+        view.startBookingActivity(movieUi)
     }
 
     private fun mockMovieList(): List<Movie> {

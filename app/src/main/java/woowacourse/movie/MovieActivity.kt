@@ -10,9 +10,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.BookingDetailActivity.Companion.KEY_MOVIE_DATA
-import woowacourse.movie.model.Movie
 import woowacourse.movie.movie.MovieContract
 import woowacourse.movie.movie.MoviePresenter
+import woowacourse.movie.movie.MovieUiModel
 import woowacourse.movie.movie.adapter.MovieAdapter
 
 class MovieActivity : AppCompatActivity(), MovieContract.View {
@@ -36,9 +36,9 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         }
     }
 
-    override fun showMovies(movies: List<Movie>) {
+    override fun showMovies(movies: List<MovieUiModel>) {
         val adapter =
-            MovieAdapter(resources, movies) { movie ->
+            MovieAdapter(this, movies) { movie ->
                 presenter.onReserveClicked(movie)
             }
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_layout)
@@ -50,7 +50,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun startBookingActivity(movie: Movie) {
+    override fun startBookingActivity(movie: MovieUiModel) {
         val intent =
             Intent(this, BookingDetailActivity::class.java).apply {
                 putExtra(KEY_MOVIE_DATA, movie)

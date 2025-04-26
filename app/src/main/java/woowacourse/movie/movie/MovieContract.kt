@@ -1,20 +1,19 @@
 package woowacourse.movie.movie
 
 import android.content.Intent
-import woowacourse.movie.model.Movie
 
 interface MovieContract {
     interface View {
-        fun showMovies(movies: List<Movie>)
+        fun showMovies(movies: List<MovieUiModel>)
 
         fun showToast(message: String)
 
-        fun startBookingActivity(movie: Movie)
+        fun startBookingActivity(movie: MovieUiModel)
     }
 
     interface Presenter {
         fun initializeData(intent: Intent)
 
-        fun onReserveClicked(movie: Movie)
+        fun onReserveClicked(movie: MovieUiModel)
     }
 }

@@ -1,6 +1,6 @@
 package woowacourse.movie.movie.adapter
 
-import android.content.res.Resources
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,13 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.mapper.toUiModel
-import woowacourse.movie.model.Movie
+import woowacourse.movie.movie.MovieUiModel
+import woowacourse.movie.util.Formatter.formatDateDotSeparated
 
 class MovieAdapter(
-    private val resource: Resources,
-    private val movieList: List<Movie>,
-    private val onReserveClick: (Movie) -> Unit,
+    private val context: Context,
+    private val movieList: List<MovieUiModel>,
+    private val onReserveClick: (MovieUiModel) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int {
         val adCount = movieList.size / AD_FREQUENCY
@@ -54,15 +54,21 @@ class MovieAdapter(
     ) {
         when (holder) {
             is MovieViewHolder -> {
-                // movie의 실제 위치를 알기 위함. 광고가 포함 되어 있기 때문
                 val realPosition = position - (position / (AD_FREQUENCY + 1))
                 val movie = movieList[realPosition]
-                val movieUiData = movie.toUiModel(resource)
 
-                holder.poster.setImageResource(movieUiData.imageSource)
-                holder.title.text = movieUiData.title
-                holder.screeningDate.text = movieUiData.screeningPeriod
-                holder.runningTime.text = movieUiData.runningTimeText
+                val screeningPeriod =
+                    context.getString(
+                        R.string.screening_date_period,
+                        formatDateDotSeparated(movie.screeningStartDate),
+                        formatDateDotSeparated(movie.screeningEndDate),
+                    )
+                val runningTimeText = context.getString(R.string.minute_text, movie.runningTime)
+
+                holder.poster.setImageResource(movie.imageSource)
+                holder.title.text = movie.title
+                holder.screeningDate.text = screeningPeriod
+                holder.runningTime.text = runningTimeText
 
                 holder.reserveButton.setOnClickListener {
                     onReserveClick(movie)

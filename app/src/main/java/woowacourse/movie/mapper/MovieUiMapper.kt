@@ -1,24 +1,27 @@
 package woowacourse.movie.mapper
 
-import android.content.res.Resources
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.movie.MovieUiModel
-import woowacourse.movie.util.Formatter.formatDateDotSeparated
 
-fun Movie.toUiModel(resources: Resources): MovieUiModel {
-    val screeningStartDate = formatDateDotSeparated(screeningStartDate)
-    val screeningEndDate = formatDateDotSeparated(screeningEndDate)
+fun Movie.toUiModel(): MovieUiModel {
     return MovieUiModel(
         imageSource = getImageResIdFromUrl(imageSource),
+        imageUrl = imageSource,
         title = title,
-        screeningPeriod =
-            resources.getString(
-                R.string.screening_date_period,
-                screeningStartDate,
-                screeningEndDate,
-            ),
-        runningTimeText = resources.getString(R.string.minute_text, runningTime),
+        screeningStartDate = screeningStartDate,
+        screeningEndDate = screeningEndDate,
+        runningTime = runningTime,
+    )
+}
+
+fun MovieUiModel.toDomain(): Movie {
+    return Movie(
+        imageSource = imageUrl,
+        title = title,
+        screeningStartDate = screeningStartDate,
+        screeningEndDate = screeningEndDate,
+        runningTime = runningTime,
     )
 }
 
