@@ -9,16 +9,14 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
-import woowacourse.movie.util.mapper.MovieModelMapper
 
 class MovieAdapter(
-    val movieList: List<Movie>,
+    val movieUiModels: List<MovieUiModel>,
     val onSelectMovieListener: OnSelectMovieListener,
 ) : BaseAdapter() {
-    private inner class ViewHolder(private val view: View, private val context: Context?) {
+    private inner class ViewHolder(view: View, private val context: Context?) {
         private val poster = view.findViewById<ImageView>(R.id.img_poster)
         private val title = view.findViewById<TextView>(R.id.tv_movie_title)
         private val screeningDate = view.findViewById<TextView>(R.id.tv_movie_screening_date)
@@ -43,15 +41,15 @@ class MovieAdapter(
     }
 
     override fun getCount(): Int {
-        return movieList.size
+        return movieUiModels.size
     }
 
     override fun getItem(position: Int): Any {
-        return movieList[position]
+        return movieUiModels[position]
     }
 
     override fun getItemId(position: Int): Long {
-        return movieList[position].id
+        return movieUiModels[position].id
     }
 
     override fun getView(
@@ -73,8 +71,8 @@ class MovieAdapter(
             viewHolder = itemView.tag as ViewHolder
         }
 
-        val movie = movieList[position]
-        viewHolder.bind(MovieModelMapper.toUi(movie))
+        val movieUiModel = movieUiModels[position]
+        viewHolder.bind(movieUiModel)
 
         return itemView
     }

@@ -1,39 +1,55 @@
 package woowacourse.movie.ui.view.movie
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.startActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.compat.IntentCompat
-import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.presenter.movie.MovieContract
+import woowacourse.movie.presenter.movie.MoviePresenter
 import woowacourse.movie.ui.model.movie.MovieUiModel
-import woowacourse.movie.ui.model.movie.Poster
 import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.util.mapper.MovieModelMapper
 
-class MovieActivity : AppCompatActivity() {
+class MovieActivity : AppCompatActivity(), MovieContract.View {
+    private val moviePresenter by lazy { generatePresenter() }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie)
         applySystemBarInsets()
 
-        val movies: List<MovieUiModel> = loadMoviesOrNull() ?: mockMovies()
+        moviePresenter.loadMovies()
+    }
+
+    override fun showMovies(movieUiModels: List<MovieUiModel>) {
         val movieAdapter =
             MovieAdapter(
-                movieList = validatedMovies(movies),
+                movieUiModels = movieUiModels,
                 onSelectMovieListener = { movieUiModel ->
-                    startActivity(BookingActivity.newIntent(this, movieUiModel))
+                    moviePresenter.onMovieSelect(movieUiModel)
                 },
             )
-        val listView = findViewById<ListView>(R.id.listview_layout)
 
+        val listView = findViewById<ListView>(R.id.listview_layout)
         listView.adapter = movieAdapter
+    }
+
+    override fun showErrorMessage(message: String) {
+        Toast.makeText(this@MovieActivity, message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun moveTo(movieUiModel: MovieUiModel) {
+        // movieUiModel 내부에 이동할 페이지에 대한 정보가 있으면 여기에서 분기처리
+        startActivity(BookingActivity.newIntent(this, movieUiModel))
+    }
+
+    private fun generatePresenter(): MovieContract.Presenter {
+        return MoviePresenter(this@MovieActivity)
     }
 
     private fun applySystemBarInsets() {
@@ -41,55 +57,6 @@ class MovieActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
-        }
-    }
-
-    private fun loadMoviesOrNull(): List<MovieUiModel>? {
-        val movieUiModels =
-            IntentCompat.getParcelableArrayListExtra(
-                intent,
-                EXTRA_LOADED_MOVIE_ITEMS,
-                MovieUiModel::class.java,
-            )?.toList()
-        return movieUiModels
-    }
-
-    private fun mockMovies(): List<MovieUiModel> {
-        return listOf(
-            MovieUiModel(
-                id = 1L,
-                poster = Poster.Resource(R.drawable.harry_potter),
-                title = "해리 포터와 마법사의 돌",
-                runningTime = "152",
-                screeningStartDate = "2025.4.1",
-                screeningEndDate = "2025.4.25",
-            ),
-            MovieUiModel(
-                id = 2L,
-                poster = Poster.Resource(R.drawable.harry_potter),
-                title = "해리포터 시리즈 2",
-                runningTime = "151",
-                screeningStartDate = "2025.4.21",
-                screeningEndDate = "2025.5.10",
-            ),
-        )
-    }
-
-    private fun validatedMovies(movieUiModels: List<MovieUiModel>): List<Movie> {
-        return movieUiModels.map { uiModel -> MovieModelMapper.toDomain(uiModel) }
-    }
-
-    companion object {
-        private const val EXTRA_LOADED_MOVIE_ITEMS = "extra_loaded_movie_items"
-
-        fun newIntent(
-            context: Context,
-            movieUiModels: ArrayList<MovieUiModel>,
-        ): Intent {
-            return Intent(
-                context,
-                MovieActivity::class.java,
-            ).apply { putParcelableArrayListExtra(EXTRA_LOADED_MOVIE_ITEMS, movieUiModels) }
         }
     }
 }
