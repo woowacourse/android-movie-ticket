@@ -17,6 +17,11 @@ interface SeatContract {
         fun showPrice(price: Int)
 
         fun setConfirmButtonEnabled(clickable: Boolean)
+
+        fun moveToBookingComplete(
+            seats: String,
+            price: Int,
+        )
     }
 
     interface Presenter {
@@ -24,6 +29,8 @@ interface SeatContract {
             position: Coordination,
             limit: Int,
         )
+
+        fun onConfirmClicked(limit: Int)
     }
 
     companion object PresenterFactory {

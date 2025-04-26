@@ -31,10 +31,19 @@ class SeatPresenter(
                 seats.addSeat(newSeat)
             }
         }
-
-        view.showSeat(toCoordination())
+        view.showSeat(seatToCoordination())
         view.showPrice(seats.bookingPrice())
         updateConfirmButtonState(limit)
+    }
+
+    override fun onConfirmClicked(limit: Int) {
+        if (seats.isNotSelectDone(limit)) {
+            view.showToast(limit)
+            return
+        }
+        view.moveToBookingComplete(seatToLabel(), seats.bookingPrice())
+    }
+
     private fun updateConfirmButtonState(peopleCount: Int) {
         val isEnabled = seats.item.size == peopleCount
         view.setConfirmButtonEnabled(isEnabled)
@@ -48,11 +57,21 @@ class SeatPresenter(
         return true
     }
 
-    private fun toCoordination(): List<Coordination> {
+    private fun seatToCoordination(): List<Coordination> {
         return seats
             .item
             .map {
                 Coordination(Column(it.x), Row(it.y))
+            }
+    }
+
+    private fun seatToLabel(): String {
+        return seats
+            .item
+            .joinToString {
+                val rowLetter = ('A' + it.x - 1)
+                val columnNumber = it.y
+                "$rowLetter$columnNumber"
             }
     }
 }

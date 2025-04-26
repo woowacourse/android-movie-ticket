@@ -21,4 +21,5 @@
     <string name="text_screen">SCREEN</string>
     <string name="text_complete">확인</string>
     <string name="text_over_limit_people_count">선택하신 예매 인원은 %d명입니다.</string>
+    <string name="text_divider">|</string>
 </resources>

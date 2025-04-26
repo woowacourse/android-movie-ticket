@@ -1,5 +1,6 @@
 package woowacourse.movie.view.seat
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
@@ -16,6 +17,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.booking.BookingActivity.Companion.KEY_BOOKING
+import woowacourse.movie.view.booking.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.seat.SeatContract.PresenterFactory
 import woowacourse.movie.view.seat.model.coord.Column
@@ -24,9 +26,11 @@ import woowacourse.movie.view.seat.model.coord.Row
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
     private lateinit var presenter: SeatContract.Presenter
+    private lateinit var defaultBooking: Booking
 
     private val seat by lazy { findViewById<TableLayout>(R.id.seatTable) }
     private val priceText by lazy { findViewById<TextView>(R.id.tv_price) }
+    private val bookingBtn by lazy { findViewById<TextView>(R.id.btn_booking) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,15 +38,12 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         setContentView(R.layout.activity_seat)
 
         presenter = PresenterFactory.providePresenter(this)
-        intent.getSerializable(KEY_BOOKING, Booking::class.java)?.let {
-        }
-        initView("it.title")
+        defaultBooking = intent.getSerializable(KEY_BOOKING, Booking::class.java)
+
+        initView()
     }
 
-    private fun initView(
-        movieTitle: String,
-        peopleCount: Int,
-    ) {
+    private fun initView() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -50,21 +51,28 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initMovieTitle(movieTitle)
-        initSeat(peopleCount)
+        initMovieTitle()
+        initSeat()
+        initBookingBtn()
     }
 
-    private fun initMovieTitle(movieTitle: String) {
-        findViewById<TextView>(R.id.tv_title).text = movieTitle
+    private fun initMovieTitle() {
+        findViewById<TextView>(R.id.tv_title).text = defaultBooking.title
     }
 
-    private fun initSeat(peopleCount: Int) {
+    private fun initSeat() {
         seat
             .children
             .filterIsInstance<TableRow>()
             .forEachIndexed { rowIndex, row ->
-                setRowListener(row, rowIndex, peopleCount)
+                setRowListener(row, rowIndex, defaultBooking.count.value)
             }
+    }
+
+    private fun initBookingBtn() {
+        bookingBtn.setOnClickListener {
+            presenter.onConfirmClicked(defaultBooking.count.value)
+        }
     }
 
     private fun setRowListener(
@@ -119,6 +127,23 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     override fun setConfirmButtonEnabled(enabled: Boolean) {
         bookingBtn.isEnabled = enabled
     }
+
+    override fun moveToBookingComplete(
+        seats: String,
+        price: Int,
+    ) {
+        val intent =
+            Intent(this, BookingCompleteActivity::class.java).apply {
+                putExtra(KEY_BOOKING_DATE, defaultBooking.bookingDate)
+                putExtra(KEY_BOOKING_TIME, defaultBooking.bookingTime)
+                putExtra(KEY_BOOKING_MOVIE_TITLE, defaultBooking.title)
+                putExtra(KEY_BOOKING_PEOPLE_COUNT, defaultBooking.count.value)
+                putExtra(KEY_BOOKING_PRICE, price)
+                putExtra(KEY_BOOKING_SEAT, seats)
+            }
+        startActivity(intent)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -128,5 +153,14 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    companion object {
+        const val KEY_BOOKING_SEAT = "BOOKING_SEAT"
+        const val KEY_BOOKING_PEOPLE_COUNT = "PEOPLE_COUNT"
+        const val KEY_BOOKING_PRICE = "BOOKING_PRICE"
+        const val KEY_BOOKING_DATE = "BOOKING_DATE"
+        const val KEY_BOOKING_TIME = "BOOKING_TIME"
+        const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
     }
 }
