@@ -11,10 +11,13 @@ class SeatSelectionPresenter(
     private lateinit var movieToReserve: MovieToReserve
     private var seats: MutableList<Seat> = mutableListOf()
 
-    override fun loadSeats() {
+    override fun loadSeats(
+        row: Int,
+        column: Int,
+    ) {
         val seats: List<Seat> =
-            (0 until 5).flatMap { row ->
-                (0 until 4).map { col ->
+            (0 until row).flatMap { row ->
+                (0 until column).map { col ->
                     Seat(row, col)
                 }
             }

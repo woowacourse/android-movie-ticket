@@ -42,13 +42,24 @@ class SeatSelectionActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        initView()
+        setupClickListener()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.loadSeats()
+    }
+
+    private fun initView() {
+        presenter.loadSeats(
+            getSeatsLayoutRowCount(),
+            getSeatsLayoutColumnCount(),
+        )
         presenter.updateReservationInfo(
             intent.getSerializableExtraData<MovieToReserve>(MOVIE_TO_RESERVE_DATA_KEY),
         )
-        setupClickListener()
     }
+
+    private fun getSeatsLayoutRowCount(): Int = seatsLayout.childCount
+
+    private fun getSeatsLayoutColumnCount(): Int = (seatsLayout.getChildAt(0) as TableRow).childCount
 
     private fun setupClickListener() {
         completeButton.setOnClickListener {

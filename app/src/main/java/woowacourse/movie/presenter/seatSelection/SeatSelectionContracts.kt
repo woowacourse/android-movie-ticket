@@ -18,7 +18,10 @@ interface SeatSelectionContracts {
     }
 
     interface Presenter {
-        fun loadSeats()
+        fun loadSeats(
+            row: Int,
+            column: Int,
+        )
 
         fun updateReservationInfo(movieToReserve: MovieToReserve)
 
