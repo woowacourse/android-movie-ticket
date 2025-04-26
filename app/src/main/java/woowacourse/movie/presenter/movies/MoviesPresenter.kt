@@ -13,4 +13,8 @@ class MoviesPresenter(
         val movie: Movie = Movie.values.find { it.id == id } ?: return
         view.showReservationView(movie)
     }
+
+    override fun clickAdvertisement(url: String) {
+        view.showAdvertisement(url)
+    }
 }

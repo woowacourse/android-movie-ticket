@@ -7,11 +7,15 @@ interface MoviesContracts {
         fun showMovies(movies: List<Movie>)
 
         fun showReservationView(movie: Movie)
+
+        fun showAdvertisement(url: String)
     }
 
     interface Presenter {
         fun initView()
 
         fun createMovie(id: Long)
+
+        fun clickAdvertisement(url: String)
     }
 }

@@ -9,6 +9,7 @@ import woowacourse.movie.model.movie.Movie
 class MovieAdapter(
     private val movies: MutableList<Movie>,
     private val movieClickListener: MovieClickListener,
+    private val advertisementClickListener: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int =
         if ((position + 1) % 4 == 0) MovieItemType.TYPE_ADVERTISEMENT.ordinal else MovieItemType.TYPE_MOVIE.ordinal
@@ -26,7 +27,7 @@ class MovieAdapter(
                 LayoutInflater
                     .from(parent.context)
                     .inflate(R.layout.item_advertisement, parent, false)
-            AdvertisementViewHolder(view)
+            AdvertisementViewHolder(view, advertisementClickListener)
         }
 
     override fun onBindViewHolder(
