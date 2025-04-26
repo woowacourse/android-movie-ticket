@@ -15,11 +15,11 @@
         android:background="@color/custom_purple"
         android:gravity="center|bottom"
         android:padding="20dp"
+        android:text="@string/booking_result_guide"
         android:textColor="@color/white"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="-199dp"
-        tools:layout_editor_absoluteY="0dp"
-        tools:text="영화 상영 시작 시간 15분 전까지 \n 취소가 가능합니다" />
+        tools:layout_editor_absoluteY="0dp" />
 
     <TextView
         android:id="@+id/title"
@@ -67,21 +67,40 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/count"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:textColor="@color/black"
-        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.55"
-        tools:text="일반 0명" />
+        app:layout_constraintVertical_bias="0.55">
+
+        <TextView
+            android:id="@+id/count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            tools:text="일반 0명" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/text_divider"
+            android:textColor="@color/black"
+            android:textSize="25sp"/>
+
+        <TextView
+            android:id="@+id/seat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            tools:text="A1, B2" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/money"

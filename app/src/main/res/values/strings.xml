@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Movie</string>
     <string name="people_count">일반 %s명</string>
+    <string name="money">%d원</string>
     <string name="payment">%d원 (현장 결제)</string>
     <string name="confirm_booking_title">예매 확인</string>
     <string name="confirm_booking_message">정말 예매하시겠습니까?</string>
@@ -13,4 +14,6 @@
     <string name="plus">+</string>
     <string name="confirm_selection_button">선택 완료</string>
     <string name="screen">SCREEN</string>
+    <string name="booking_result_guide">영화 상영 시작 시간 15분 전까지 \n 취소가 가능합니다</string>
+    <string name="text_divider">&#160;|&#160;</string>
 </resources>
