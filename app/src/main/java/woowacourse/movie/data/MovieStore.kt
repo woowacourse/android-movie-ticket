@@ -38,5 +38,5 @@ class MovieStore {
 
     operator fun get(index: Int): Movie = movies[index]
 
-    fun getAll(): List<Movie> = movies
+    fun getAll(): List<Movie> = movies.toList()
 }
