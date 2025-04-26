@@ -17,13 +17,16 @@ import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.util.DataUtils
 import woowacourse.movie.util.MovieScheduleUtils
 
-class BookingActivity : AppCompatActivity() {
+class BookingActivity :
+    AppCompatActivity(),
+    BookingContract.View {
     private lateinit var movieInfo: MovieInfo
     private lateinit var movieTime: Spinner
     private lateinit var selectedDate: Spinner
     private lateinit var ticketCount: TextView
     private lateinit var movieDate: TextView
     private var ticketCountValue = TicketCount()
+    private var presenter = BookingPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +36,9 @@ class BookingActivity : AppCompatActivity() {
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
         movieDate = findViewById(R.id.movie_date)
+        movieInfo = DataUtils.getExtraOrFinish<MovieInfo>(intent, this, KEY_MOVIE_INFO) ?: return
 
-        setupPage()
-        setupDateChangeListener()
-        countButtonHandler()
-        confirmButtonHandler()
-        if (savedInstanceState != null) {
-            repairInstanceState(savedInstanceState)
-        }
+        presenter.onCreateView(this, savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -51,7 +49,7 @@ class BookingActivity : AppCompatActivity() {
         outState.putInt(KEY_MOVIE_TIME_POSITION, movieTime.selectedItemPosition)
     }
 
-    private fun repairInstanceState(state: Bundle) {
+    override fun repairInstanceState(state: Bundle) {
         selectedDate.setSelection(state.getInt(KEY_MOVIE_DATE_POSITION))
         selectedDate.post {
             movieTime.post {
@@ -61,12 +59,10 @@ class BookingActivity : AppCompatActivity() {
         ticketCount.text = state.getString(KEY_TICKET_COUNT)
     }
 
-    private fun setupPage() {
+    override fun setupPage() {
         val title = findViewById<TextView>(R.id.title)
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
-
-        movieInfo = DataUtils.getExtraOrFinish<MovieInfo>(intent, this, KEY_MOVIE_INFO) ?: return
 
         poster.setImageResource(movieInfo.poster)
         title.text = movieInfo.title
@@ -86,7 +82,22 @@ class BookingActivity : AppCompatActivity() {
         SpinnerAdapter.bind(this, movieTime, MovieScheduleUtils.generateScreeningTimesFor(movieInfo.startDate))
     }
 
-    private fun setupDateChangeListener() {
+    override fun moveActivity() {
+        val ticketDTO =
+            TicketMaker.generator(
+                title = findViewById<TextView>(R.id.title).text.toString(),
+                date = selectedDate.selectedItem.toString(),
+                time = movieTime.selectedItem.toString(),
+                count = ticketCountValue.count,
+            )
+        val intent =
+            Intent(this, BookingResultActivity::class.java).apply {
+                putExtra(KEY_TICKET, ticketDTO)
+            }
+        startActivity(intent)
+    }
+
+    override fun setupDateChangeListener() {
         selectedDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -95,60 +106,45 @@ class BookingActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    val selectedDate =
-                        MovieScheduleUtils
-                            .generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
-                            .getOrNull(position)
-                    selectedDate?.let {
-                        val selectedTimes = MovieScheduleUtils.generateScreeningTimesFor(it)
-                        SpinnerAdapter.bind(this@BookingActivity, movieTime, selectedTimes)
-                    }
+                    presenter.dateSpinnerSelect(this@BookingActivity, movieInfo, position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
     }
 
-    private fun confirmButtonHandler() {
+    override fun confirmButtonHandler() {
         val confirmButton = findViewById<Button>(R.id.confirm_button)
-
         confirmButton.setOnClickListener {
-            if (ticketCount.text.toString() == "0") return@setOnClickListener
-            askToConfirmBook()
+            presenter.onBookButtonClick(this@BookingActivity, ticketCountValue)
         }
     }
 
-    private fun countButtonHandler() {
+    override fun countButtonHandler() {
         val minusButton = findViewById<Button>(R.id.minus_button)
         val plusButton = findViewById<Button>(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            ticketCountValue.downCount()
-            ticketCount.text = ticketCountValue.count.toString()
+            presenter.onDownButtonClick(this@BookingActivity, ticketCountValue)
         }
 
         plusButton.setOnClickListener {
-            ticketCountValue.upCount()
-            ticketCount.text = ticketCountValue.count.toString()
+            presenter.onUpButtonClick(this@BookingActivity, ticketCountValue)
         }
     }
 
-    private fun askToConfirmBook() {
-        val ticketDTO =
-            TicketMaker.generator(
-                title = findViewById<TextView>(R.id.title).text.toString(),
-                date = selectedDate.selectedItem.toString(),
-                time = movieTime.selectedItem.toString(),
-                count = ticketCountValue.count,
-            )
+    override fun changeTicketCount(ticketCountValue: TicketCount) {
+        ticketCount.text = ticketCountValue.count.toString()
+    }
 
-        ConfirmDialog.show(this, ticketDTO) {
-            val intent =
-                Intent(this, BookingResultActivity::class.java).apply {
-                    putExtra(KEY_TICKET, ticketDTO)
-                }
-            startActivity(intent)
+    override fun askToConfirmBook() {
+        ConfirmDialog.show(this) {
+            presenter.onYesClick(this@BookingActivity)
         }
+    }
+
+    override fun timeSpinnerSet(times: List<String>) {
+        SpinnerAdapter.bind(this@BookingActivity, movieTime, times)
     }
 
     companion object {

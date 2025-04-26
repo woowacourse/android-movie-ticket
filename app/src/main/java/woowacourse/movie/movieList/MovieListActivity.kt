@@ -22,7 +22,7 @@ class MovieListActivity :
         presenter.onViewCreated(this)
     }
 
-    override fun showMovie(items: List<MovieInfo>) {
+    override fun showMovies(items: List<MovieInfo>) {
         val listView = findViewById<ListView>(R.id.movie_list)
         adapter = MovieListAdapter(this, items, ::changeActivity, this::showError)
         listView.adapter = adapter
