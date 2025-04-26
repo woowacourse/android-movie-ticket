@@ -1,54 +1,72 @@
 package woowacourse.movie.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.utils.setImage
 
 class MovieAdapter(
-    context: Context,
     private val movies: List<Movie>,
     private val onReservationClickListener: (Int) -> Unit,
-) : ArrayAdapter<Movie>(context, 0, movies) {
-    override fun getView(
-        position: Int,
-        convertView: View?,
+) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+    override fun onCreateViewHolder(
         parent: ViewGroup,
-    ): View {
-        val view =
-            convertView ?: LayoutInflater
-                .from(context)
-                .inflate(R.layout.item_movie, parent, false)
+        viewType: Int,
+    ): MovieViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+        return MovieViewHolder(itemView, onReservationClickListener)
+    }
 
-        val movie = movies[position]
+    override fun getItemCount(): Int = movies.size
 
-        val reservationBtn = view.findViewById<Button>(R.id.reservation)
-        reservationBtn.setOnClickListener {
-            onReservationClickListener(movie.id)
+    override fun onBindViewHolder(
+        holder: MovieViewHolder,
+        position: Int,
+    ) {
+        holder.bind(movies[position])
+    }
+
+    class MovieViewHolder(
+        itemView: View,
+        private val onReservationClickListener: (Int) -> Unit,
+    ) : RecyclerView.ViewHolder(itemView) {
+        private val reservation: Button = itemView.findViewById(R.id.reservation)
+        private val imagePoster: ImageView = itemView.findViewById(R.id.poster)
+        private val title: TextView = itemView.findViewById(R.id.title)
+        private val screeningDate: TextView = itemView.findViewById(R.id.screeningDate)
+        private val runningTime: TextView = itemView.findViewById(R.id.runningTime)
+//        private val advertisement: ImageView = itemView.findViewById(R.id.advertisement)
+
+        fun bind(movie: Movie) {
+            reservation.setOnClickListener {
+                onReservationClickListener.invoke(movie.id)
+            }
+
+            title.text = movie.title
+            screeningDate.text =
+                itemView.context.getString(
+                    R.string.date_text,
+                    movie.startScreeningDate,
+                    movie.endScreeningDate,
+                )
+            runningTime.text =
+                itemView.context.getString(
+                    R.string.runningTime_text,
+                    movie.runningTime.toString(),
+                )
+
+            val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
+            imagePoster.setImage(posterRes)
+
+//            advertisement.setImage(advertisement.id)
         }
-
-        val imagePoster = view.findViewById<ImageView>(R.id.poster)
-        val title = view.findViewById<TextView>(R.id.title)
-        val screeningDate = view.findViewById<TextView>(R.id.screeningDate)
-        val runningTime = view.findViewById<TextView>(R.id.runningTime)
-
-        title.text = movie.title
-        screeningDate.text =
-            context.getString(R.string.date_text, movie.startScreeningDate, movie.endScreeningDate)
-        runningTime.text =
-            context.getString(R.string.runningTime_text, movie.runningTime.toString())
-
-        val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
-        imagePoster.setImage(posterRes)
-
-        return view
     }
 }

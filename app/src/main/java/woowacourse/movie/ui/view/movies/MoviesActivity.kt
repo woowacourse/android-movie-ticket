@@ -2,7 +2,8 @@ package woowacourse.movie.ui.view.movies
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.presenter.MoviePresenter
@@ -26,7 +27,6 @@ class MoviesActivity :
     override fun showAllMovies(movies: List<Movie>) {
         val adapter =
             MovieAdapter(
-                this,
                 movies,
                 onReservationClickListener =
                     { movieId ->
@@ -35,7 +35,8 @@ class MoviesActivity :
                         startActivity(intent)
                     },
             )
-        val listView = findViewById<ListView>(R.id.movies)
-        listView.adapter = adapter
+        val recyclerView = findViewById<RecyclerView>(R.id.movies)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
     }
 }
