@@ -1,11 +1,12 @@
 package woowacourse.movie.view.movieSelection
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieSelection.MovieSelectionContract
 import woowacourse.movie.presenter.movieSelection.MovieSelectionPresenter
@@ -32,12 +33,12 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
     }
 
     override fun showMovies(movies: List<MovieUiModel>) {
-        val movieListView = findViewById<ListView>(R.id.movie_list)
-        val movieAdapter =
+        val movieListView = findViewById<RecyclerView>(R.id.movie_list)
+        movieListView.layoutManager = LinearLayoutManager(this)
+        movieListView.adapter =
             MovieAdapter(movies) { movie ->
                 presenter.onMovieSelection(movie)
             }
-        movieListView.adapter = movieAdapter
     }
 
     override fun selectMovie(movie: MovieUiModel) {
