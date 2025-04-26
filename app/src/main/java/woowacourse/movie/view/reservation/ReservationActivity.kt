@@ -190,7 +190,7 @@ class ReservationActivity :
     }
 
     override fun showSeatSelectionView(movieTicket: MovieTicket) {
-        startActivity(Intent(this, SeatSelectionActivity::class.java))
+        startActivity(SeatSelectionActivity.getIntent(this, movieTicket))
     }
 
     override fun updateTimes(times: List<Int>) {
