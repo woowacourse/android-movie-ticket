@@ -54,7 +54,7 @@ class BookingSeatActivity :
     }
 
     override fun showBookingInfo(bookingInfo: BookingInfoUiModel) {
-        findViewById<TextView>(R.id.tv_booking_seat_movie_name).text = bookingInfo.movie.title
+        findViewById<TextView>(R.id.tv_booking_seat_movie_title).text = bookingInfo.movie.title
         priceView.text = getString(R.string.booking_seat_price, bookingInfo.totalPrice)
     }
 

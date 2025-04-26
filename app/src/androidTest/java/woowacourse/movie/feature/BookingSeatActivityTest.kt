@@ -91,4 +91,10 @@ class BookingSeatActivityTest {
         onView(withText("정말 예매하시겠습니까?"))
             .check(matches(isDisplayed()))
     }
+
+    @Test
+    fun 영화_제목이_출력된다() {
+        onView(withId(R.id.tv_booking_seat_movie_title))
+            .check(matches(withText("해리 포터와 마법사의 돌")))
+    }
 }
