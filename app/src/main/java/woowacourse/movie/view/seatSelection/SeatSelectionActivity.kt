@@ -38,6 +38,7 @@ class SeatSelectionActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter.updateReservationInfo(
             intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY),
             intent.getSerializableExtraData<TicketCount>(TICKET_COUNT_DATA_KEY),
@@ -48,6 +49,11 @@ class SeatSelectionActivity :
     private fun setupClickListener() {
         completeButton.setOnClickListener {
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
     }
 
     override fun showSeats(seats: List<Seat>) {
