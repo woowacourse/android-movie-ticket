@@ -4,7 +4,6 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.domain.ScreeningDate
 import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.domain.TicketCount.Companion.DEFAULT_TICKET_COUNT_SIZE
 import woowacourse.movie.domain.TimeScheduler
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -20,7 +19,7 @@ class ReservePresenter(
     ) {
         this.reservation = reservation ?: Reservation(
             movie = movie,
-            _count = TicketCount(DEFAULT_TICKET_COUNT_SIZE),
+            _count = TicketCount(),
             reservedTime = getInitSchedule(movie.screeningDate),
         )
     }

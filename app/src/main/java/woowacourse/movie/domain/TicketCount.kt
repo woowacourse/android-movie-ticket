@@ -1,7 +1,7 @@
 package woowacourse.movie.domain
 
 @JvmInline
-value class TicketCount(val count: Int) {
+value class TicketCount(val count: Int = DEFAULT_TICKET_COUNT_SIZE) {
     init {
         require(count >= DEFAULT_TICKET_COUNT_SIZE) { INVALID_COUNT }
     }
