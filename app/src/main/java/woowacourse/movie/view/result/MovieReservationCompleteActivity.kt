@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.StringFormatter
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.seat.model.toUiModel
-import java.time.format.DateTimeFormatter
 
 class MovieReservationCompleteActivity :
     AppCompatActivity(),
@@ -38,7 +38,7 @@ class MovieReservationCompleteActivity :
 
     override fun showTicketInfo(ticket: TicketUiModel) {
         findViewById<TextView>(R.id.movie_title).text = ticket.movie.title
-        findViewById<TextView>(R.id.showtime).text = ticket.showtime.format(DATE_FORMAT)
+        findViewById<TextView>(R.id.showtime).text = StringFormatter.dateTime(ticket.showtime)
         findViewById<TextView>(R.id.ticket_info).text =
             getString(
                 R.string.ticket_info,
@@ -63,6 +63,5 @@ class MovieReservationCompleteActivity :
             }
 
         private const val EXTRA_TICKET = "extra_ticket"
-        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm")
     }
 }

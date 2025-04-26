@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.common.StringFormatter
 import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.movie.model.MovieUiModel
@@ -24,7 +25,6 @@ import woowacourse.movie.view.reservation.model.toDomain
 import woowacourse.movie.view.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity :
     AppCompatActivity(),
@@ -71,8 +71,8 @@ class MovieReservationActivity :
 
         poster.setImageResource(movie.posterResId)
         title.text = movie.title
-        val startDate = movie.startDate.format(DATE_FORMAT)
-        val endDate = movie.endDate.format(DATE_FORMAT)
+        val startDate = StringFormatter.date(movie.startDate)
+        val endDate = StringFormatter.date(movie.endDate)
         screeningDate.text = getString(R.string.screening_date, startDate, endDate)
         runningTime.text = getString(R.string.running_time, movie.runningTime)
     }
@@ -189,6 +189,5 @@ class MovieReservationActivity :
 
         private const val EXTRA_MOVIE = "extra_movie"
         private const val EXTRA_TICKET = "extra_ticket"
-        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
