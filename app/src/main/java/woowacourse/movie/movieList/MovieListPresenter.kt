@@ -19,7 +19,7 @@ class MovieListPresenter : MovieListContract.Presenter {
         if (item == null) {
             view.showError()
         } else {
-            view.showMovie(item)
+            view.showMovies(item)
         }
     }
 

@@ -3,12 +3,10 @@ package woowacourse.movie.booking
 import android.app.AlertDialog
 import android.content.Context
 import woowacourse.movie.R
-import woowacourse.movie.dto.Ticket
 
 object ConfirmDialog {
     fun show(
         context: Context,
-        ticketDTO: Ticket,
         onConfirmed: () -> Unit,
     ) {
         AlertDialog
