@@ -2,6 +2,7 @@ package woowacourse.movie.domain
 
 import java.time.DayOfWeek
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class TicketManager(
@@ -65,14 +66,17 @@ class TicketManager(
     }
 
     fun createTicket(): Ticket {
-        val date = getDates()[selectedDatePosition]
-        val time = getTimes(date)[selectedTimePosition]
+        val dateString = getDates()[selectedDatePosition]
+        val timeString = getTimes(dateString)[selectedTimePosition]
+
+        val date = LocalDate.parse(dateString, dateFormatter)
+        val hour = timeString.substringBefore(":").toInt()
+        val time = LocalTime.of(hour, 0)
+
         return Ticket(
             title = movie.title,
             date = date,
             time = time,
-            count = ticketCountValue.toString(),
-            money = (ticketCountValue * TICKET_PRICE).toString(),
         )
     }
 
@@ -83,6 +87,5 @@ class TicketManager(
         private const val WEEKDAY_START_HOUR = 10
         private const val LAST_HOUR = 24
         private const val HOUR_STEP = 2
-        private const val TICKET_PRICE = 13000
     }
 }
