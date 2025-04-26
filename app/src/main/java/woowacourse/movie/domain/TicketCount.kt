@@ -14,6 +14,6 @@ value class TicketCount(val count: Int = DEFAULT_TICKET_COUNT_SIZE) {
 
     companion object {
         private const val INVALID_COUNT = "예약 개수는 1보다 같거나 커야 합니다."
-        const val DEFAULT_TICKET_COUNT_SIZE = 1
+        private const val DEFAULT_TICKET_COUNT_SIZE = 1
     }
 }
