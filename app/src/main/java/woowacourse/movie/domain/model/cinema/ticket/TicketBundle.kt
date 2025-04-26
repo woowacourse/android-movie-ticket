@@ -6,9 +6,9 @@ import java.time.LocalDateTime
 class TicketBundle(
     tickets: List<Ticket>,
 ) {
-    val title: String = tickets.first().title
+    val title: String by lazy { tickets.first().title }
     val size: Int = tickets.size
-    val dateTime: LocalDateTime = tickets.first().reservationDateTime
+    val dateTime: LocalDateTime by lazy { tickets.first().reservationDateTime }
     val totalPrice: Int = tickets.sumOf { it.price }
     val labels: List<Seat> = tickets.map { it.seat }
 
