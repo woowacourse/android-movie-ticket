@@ -7,32 +7,51 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.booking.complete.BookingCompleteContract
 import woowacourse.movie.booking.complete.BookingCompletePresenter
-import woowacourse.movie.model.BookingResult
+import woowacourse.movie.booking.detail.TicketUiModel
+import woowacourse.movie.mapper.toUiModel
+import woowacourse.movie.model.HeadCount
+import woowacourse.movie.model.Seat
+import woowacourse.movie.model.SeatGrade
+import woowacourse.movie.model.Seats
+import woowacourse.movie.model.Ticket
 import java.time.LocalDate
 import java.time.LocalTime
 
 class BookingCompletePresenterTest {
     private lateinit var presenter: BookingCompletePresenter
     private lateinit var mockView: BookingCompleteContract.View
-    private lateinit var mockBookingResult: BookingResult
+    private lateinit var mockTicket: Ticket
+    private lateinit var mockTicketUiData: TicketUiModel
+
 
     @BeforeEach
     fun setUp() {
         mockView = mockk(relaxed = true)
-        mockBookingResult =
-            BookingResult(
+
+        val seats =
+            listOf(
+                Seat("A1", true),
+                Seat("C2", true),
+                Seat("E1", true)
+        )
+
+        mockTicket =
+            Ticket(
                 title = "해리 포터와 마법사의 돌",
-                headCount = 3,
+                headCount = HeadCount(3),
                 selectedDate = LocalDate.of(2028, 10, 13),
                 selectedTime = LocalTime.of(11, 0),
+                seats = Seats(seats)
             )
 
-        presenter = BookingCompletePresenter(view = mockView, bookingResult = mockBookingResult)
+        mockTicketUiData = mockTicket.toUiModel()
+
+        presenter = BookingCompletePresenter(view = mockView, ticket = mockTicketUiData)
     }
 
     @Test
     fun `영화 예매 정보가 null이면 오류 메시지를 띄우고 종료한다`() {
-        presenter = BookingCompletePresenter(view = mockView, bookingResult = null)
+        presenter = BookingCompletePresenter(view = mockView, ticket = null)
 
         presenter.initializeData(null)
 
@@ -42,10 +61,14 @@ class BookingCompletePresenterTest {
 
     @Test
     fun `영화 예매 정보를 화면에 표시할 수 있다`() {
-        presenter = BookingCompletePresenter(view = mockView, bookingResult = mockBookingResult)
+        presenter = BookingCompletePresenter(view = mockView, ticket = mockTicketUiData)
 
         presenter.initializeData(null)
 
-        verify { mockView.showBookingCompleteResult(mockBookingResult) }
+        verify { mockView.showBookingCompleteResult(mockTicketUiData) }
+        verify { mockView.showBookingCompleteResult(
+            match { it.headCount == 3  && it.selectedDateText == "2028.10.13"
+                    && it.selectedTimeText == "11:00" && it.seats == "A1,C2,E1"
+                    && it.totalPrice == "37,000"})}
     }
 }
