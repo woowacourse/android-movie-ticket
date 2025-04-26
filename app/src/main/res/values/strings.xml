@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Movie</string>
 
+    <string name="ad_description">광고</string>
+
     <string name="alert_default_yes">확인</string>
     <string name="alert_default_no">취소</string>
 
