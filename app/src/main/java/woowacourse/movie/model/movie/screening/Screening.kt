@@ -28,19 +28,20 @@ class Screening(
     companion object {
         const val HARRY_POTTER_1_MOVIE_ID = "HarryPotter1"
 
-        fun getDefaultScreenings(): List<Screening> {
-            val harryPotter =
-                Movie(
-                    "해리 포터와 마법사의 돌",
-                    152,
-                    HARRY_POTTER_1_MOVIE_ID,
-                )
-            val harryPotterScreening =
+        fun getDefaultScreenings(): List<Screening> =
+            List(10000) {
                 Screening(
-                    harryPotter,
-                    LocalDate.of(2025, 4, 1)..LocalDate.of(2025, 4, 25),
+                    Movie(
+                        "해리 포터 ${it + 1}",
+                        (100..200).random(),
+                        HARRY_POTTER_1_MOVIE_ID,
+                    ),
+                    LocalDate.of(2025, 4, (1..10).random())..LocalDate.of(
+                        2025,
+                        4,
+                        (20..28).random(),
+                    ),
                 )
-            return listOf(harryPotterScreening)
-        }
+            }
     }
 }
