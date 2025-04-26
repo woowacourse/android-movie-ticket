@@ -55,7 +55,7 @@ class ReservationSeatViews(
     fun updateConfirmButton(canPublish: Boolean) {
         val color = if (canPublish) R.color.purple_62 else R.color.gray_b7
         btnConfirm.apply {
-            isClickable = canPublish
+            isEnabled = canPublish
             setBackgroundResource(color)
         }
     }
