@@ -73,6 +73,6 @@ class BookingPresenter(
     }
 
     override fun completeBooking() {
-        bookingView.moveToBookingSeatActivity(movie.title, headcount)
+        bookingView.moveToBookingSeatActivity(movie.title, selectedDateTime, headcount)
     }
 }

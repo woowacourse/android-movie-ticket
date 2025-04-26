@@ -1,5 +1,6 @@
 package woowacourse.movie.ui.seat
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -14,8 +15,11 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import androidx.core.view.forEachIndexed
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.ui.complete.BookingCompleteActivity
 import woowacourse.movie.utils.intentSerializable
+import java.time.LocalDateTime
 
 class BookingSeatActivity :
     AppCompatActivity(),
@@ -29,6 +33,7 @@ class BookingSeatActivity :
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_seat)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applyWindowInsets()
         setSeatsId()
@@ -37,6 +42,7 @@ class BookingSeatActivity :
         bookingSeatPresenter.updateMovieTitle()
         bookingSeatPresenter.updateTotalPrice()
         bookingSeatPresenter.updateConfirmButton()
+        setConfirmButtonClickListener()
     }
 
     private fun applyWindowInsets() {
@@ -99,19 +105,63 @@ class BookingSeatActivity :
         confirmButton.isEnabled = isEnabled
     }
 
+    override fun moveToBookingCompleteActivity(
+        movieTitle: String,
+        headcount: Headcount,
+    ) {
+        val bookedDateTime =
+            intent.intentSerializable(EXTRA_DATETIME, LocalDateTime::class.java)
+                ?: LocalDateTime.now()
+        val bookedTicket =
+            BookedTicket(
+                movieTitle,
+                headcount,
+                bookedDateTime,
+            )
+        startActivity(BookingCompleteActivity.newIntent(this, bookedTicket))
+    }
+
+    private fun setConfirmButtonClickListener() {
+        confirmButton.setOnClickListener {
+            showDialog(
+                getString(R.string.text_booking_dialog_title),
+                getString(R.string.text_booking_dialog_description),
+            )
+        }
+    }
+
+    private fun showDialog(
+        title: String,
+        description: String,
+    ) {
+        AlertDialog
+            .Builder(this)
+            .setTitle(title)
+            .setMessage(description)
+            .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
+                bookingSeatPresenter.completeBookingSeat()
+            }.setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
+                dialog.dismiss()
+            }.setCancelable(false)
+            .show()
+    }
+
     private fun Pair<Int, Int>.toSeatTag(): String = "${ASCII_A + first}$second"
 
     companion object {
         fun newIntent(
             context: Context,
             movieTitle: String,
+            dateTime: LocalDateTime,
             headcount: Headcount,
         ) = Intent(context, BookingSeatActivity::class.java).apply {
             putExtra(EXTRA_MOVIE_TITLE, movieTitle)
+            putExtra(EXTRA_DATETIME, dateTime)
             putExtra(EXTRA_HEADCOUNT, headcount)
         }
 
         private const val EXTRA_MOVIE_TITLE = "movieTitle"
+        private const val EXTRA_DATETIME = "dateTime"
         private const val EXTRA_HEADCOUNT = "headcount"
         private const val ASCII_A = 'A'
     }

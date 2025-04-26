@@ -1,6 +1,5 @@
 package woowacourse.movie.ui.booking.view
 
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -125,9 +124,10 @@ class BookingActivity :
 
     override fun moveToBookingSeatActivity(
         movieTitle: String,
+        dateTime: LocalDateTime,
         headcount: Headcount,
     ) {
-        startActivity(BookingSeatActivity.newIntent(this, movieTitle, headcount))
+        startActivity(BookingSeatActivity.newIntent(this, movieTitle, dateTime, headcount))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -196,27 +196,8 @@ class BookingActivity :
     private fun setBookingCompleteButtonClickListener() {
         val bookingCompleteBtn: Button = findViewById(R.id.btn_booking_complete)
         bookingCompleteBtn.setOnClickListener {
-            showDialog(
-                getString(R.string.text_booking_dialog_title),
-                getString(R.string.text_booking_dialog_description),
-            )
+            bookingPresenter.completeBooking()
         }
-    }
-
-    private fun showDialog(
-        title: String,
-        description: String,
-    ) {
-        AlertDialog
-            .Builder(this)
-            .setTitle(title)
-            .setMessage(description)
-            .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
-                bookingPresenter.completeBooking()
-            }.setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
-                dialog.dismiss()
-            }.setCancelable(false)
-            .show()
     }
 
     companion object {

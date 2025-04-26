@@ -32,10 +32,11 @@ class BookingSeatPresenter(
         if (seats.contains(seat)) {
             seats.remove(seat)
             bookingSeatView.unselectSeat(row to col)
-        } else if (seats.size <= headcount.count) {
+        } else if (seats.size < headcount.count) {
             seats.add(seat)
             bookingSeatView.selectSeat(row to col)
         }
+        updateTotalPrice()
         updateConfirmButton()
     }
 
@@ -45,6 +46,10 @@ class BookingSeatPresenter(
         } else {
             bookingSeatView.setConfirmButton(true)
         }
+    }
+
+    override fun completeBookingSeat() {
+        bookingSeatView.moveToBookingCompleteActivity(movieTitle, headcount)
     }
 
     private fun ticketTypeByRow(row: Int): TicketType =

@@ -15,6 +15,8 @@ interface BookingSeatContract {
         fun updateSeat(seatTag: String)
 
         fun updateConfirmButton()
+
+        fun completeBookingSeat()
     }
 
     interface View {
@@ -31,5 +33,10 @@ interface BookingSeatContract {
         fun unselectSeat(seatPosition: Pair<Int, Int>)
 
         fun setConfirmButton(isEnabled: Boolean)
+
+        fun moveToBookingCompleteActivity(
+            movieTitle: String,
+            headcount: Headcount,
+        )
     }
 }

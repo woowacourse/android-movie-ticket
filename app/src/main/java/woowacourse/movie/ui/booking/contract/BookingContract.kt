@@ -56,6 +56,7 @@ interface BookingContract {
 
         fun moveToBookingSeatActivity(
             movieTitle: String,
+            dateTime: LocalDateTime,
             headcount: Headcount,
         )
     }
