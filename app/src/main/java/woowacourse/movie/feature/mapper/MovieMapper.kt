@@ -6,6 +6,7 @@ import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieSeat
 import woowacourse.movie.domain.model.MovieTime
 import woowacourse.movie.domain.model.SeatType
+import woowacourse.movie.domain.model.TicketCount.Companion.INITIAL_TICKET_COUNT
 import woowacourse.movie.feature.model.BookingInfoUiModel
 import woowacourse.movie.feature.model.MovieDateUiModel
 import woowacourse.movie.feature.model.MovieSeatUiModel
@@ -51,7 +52,7 @@ fun BookingInfoUiModel.toDomain(): BookingInfo {
     ).apply {
         updateDate(previousDate.toDomain())
         updateMovieTime(previousMovieTime.toDomain())
-        increaseTicketCount(previousTicketCount)
+        increaseTicketCount(previousTicketCount - INITIAL_TICKET_COUNT)
         addSeats(selectedSeats.map { it.toDomain() }.toSet())
     }
 }

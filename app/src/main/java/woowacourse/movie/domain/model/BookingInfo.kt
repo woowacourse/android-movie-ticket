@@ -38,7 +38,7 @@ data class BookingInfo(
     }
 
     fun addSeat(seat: MovieSeat): SeatSelectionResult =
-        if (ticketCount.value > movieSeats.seats.size) {
+        if (ticketCount.value > selectedSeats.size) {
             movieSeats.add(seat)
             SeatSelectionResult.Success(seat)
         } else {
@@ -46,7 +46,7 @@ data class BookingInfo(
         }
 
     fun addSeats(seats: Set<MovieSeat>) {
-        if (ticketCount.value > movieSeats.seats.size) {
+        if (ticketCount.value > selectedSeats.size + seats.size) {
             movieSeats.addAll(seats)
         }
     }

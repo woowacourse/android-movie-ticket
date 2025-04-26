@@ -50,27 +50,28 @@ class BookingInfoTest {
     }
 
     @Test
-    fun `3장의 티켓을 구매하면 39,000원이 된다`() {
+    fun `구매한 티켓 좌석 종류에 맞게 금액을 반환한다`() {
         // given & when
-        bookingInfo.increaseTicketCount(3)
+        bookingInfo.increaseTicketCount(2)
+
+        // when
+        bookingInfo.addSeat(MovieSeat(1, 1))
+        bookingInfo.addSeat(MovieSeat(3, 1))
+        bookingInfo.addSeat(MovieSeat(5, 1))
 
         // then
-        assertThat(bookingInfo.totalPrice).isEqualTo(3 * 13_000)
+        assertThat(bookingInfo.totalPrice).isEqualTo(TicketPrice(10_000 + 12_000 + 15_000))
     }
 
     @Test
     fun `티켓 장수보다 많은 좌석을 선택할 수 없다`() {
         // given
-        bookingInfo.increaseTicketCount(2)
-        val seats =
-            setOf(
-                MovieSeat(1, 1),
-                MovieSeat(1, 2),
-                MovieSeat(1, 3),
-            )
+        bookingInfo.increaseTicketCount()
 
         // when
-        bookingInfo.addSeats(seats)
+        bookingInfo.addSeat(MovieSeat(1, 1))
+        bookingInfo.addSeat(MovieSeat(1, 2))
+        bookingInfo.addSeat(MovieSeat(1, 3))
 
         // then
         assertThat(bookingInfo.selectedSeats).hasSize(2)

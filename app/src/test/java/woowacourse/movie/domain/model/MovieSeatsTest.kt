@@ -8,7 +8,7 @@ class MovieSeatsTest {
     fun `좌석을 추가하면 좌석 목록에 해당 좌석이 추가된다`() {
         // given
         val movieSeats = MovieSeats()
-        val seat = MovieSeat(0, 0)
+        val seat = MovieSeat(1, 1)
 
         // when
         movieSeats.add(seat)
@@ -20,8 +20,8 @@ class MovieSeatsTest {
     @Test
     fun `좌석을 제거하면 좌석 목록에서 해당 좌석이 제거된다`() {
         // given
-        val seat = MovieSeat(0, 0)
-        val movieSeats = MovieSeats(listOf(seat))
+        val seat = MovieSeat(1, 1)
+        val movieSeats = MovieSeats(setOf(seat))
 
         // when
         movieSeats.remove(seat)
@@ -35,7 +35,7 @@ class MovieSeatsTest {
         // given
         val movieSeats =
             MovieSeats(
-                listOf(
+                setOf(
                     MovieSeat(1, 1),
                     MovieSeat(3, 1),
                     MovieSeat(5, 1),

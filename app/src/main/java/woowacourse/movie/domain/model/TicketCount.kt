@@ -1,7 +1,7 @@
 package woowacourse.movie.domain.model
 
 class TicketCount(
-    initialCount: Int = 0,
+    initialCount: Int = INITIAL_TICKET_COUNT,
 ) {
     var value: Int = initialCount
         private set
@@ -13,10 +13,14 @@ class TicketCount(
     }
 
     fun decrease(count: Int) {
-        if (value - count > 0) {
+        if (value - count > INITIAL_TICKET_COUNT) {
             value -= count
         } else {
-            value = 0
+            value = INITIAL_TICKET_COUNT
         }
+    }
+
+    companion object {
+        const val INITIAL_TICKET_COUNT = 1
     }
 }

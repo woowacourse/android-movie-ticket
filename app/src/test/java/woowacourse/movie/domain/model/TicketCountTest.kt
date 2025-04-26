@@ -19,13 +19,13 @@ class TicketCountTest {
         ticketCount.increase(2)
 
         // then
-        assertThat(ticketCount.value).isEqualTo(3)
+        assertThat(ticketCount.value).isEqualTo(4)
     }
 
     @Test
     fun `decreaseTicketCount 호출 시 티켓 수량을 감소시킨다`() {
         // given
-        ticketCount.increase(2)
+        ticketCount.increase(1)
 
         // when
         ticketCount.decrease(1)
@@ -35,7 +35,7 @@ class TicketCountTest {
     }
 
     @Test
-    fun `티켓 수량이 0보다 작아질 수는 없다`() {
+    fun `티켓 수량이 1보다 작아질 수는 없다`() {
         // given
         ticketCount.increase(1)
 
@@ -43,6 +43,6 @@ class TicketCountTest {
         ticketCount.decrease(10)
 
         // then
-        assertThat(ticketCount.value).isEqualTo(0)
+        assertThat(ticketCount.value).isEqualTo(1)
     }
 }
