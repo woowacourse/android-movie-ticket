@@ -1,12 +1,10 @@
 package woowacourse.movie.presenter
 
-import android.content.Intent
 import woowacourse.movie.MovieBooking
 import woowacourse.movie.R
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.RunningTimes
-import woowacourse.movie.helper.BuildVersion
 import java.time.LocalDate
 import java.time.LocalTime
 
