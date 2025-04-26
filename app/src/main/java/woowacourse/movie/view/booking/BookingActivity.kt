@@ -1,6 +1,7 @@
 package woowacourse.movie.view.booking
 
 import AdapterItemSelectedListener
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -19,7 +20,6 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.presenter.booking.BookingContract
 import woowacourse.movie.presenter.booking.BookingContract.PresenterFactory
 import woowacourse.movie.view.ext.toDrawableResourceId
-import woowacourse.movie.view.movies.MovieListActivity.Companion.KEY_MOVIE
 import woowacourse.movie.view.movies.model.UiModel
 import woowacourse.movie.view.seat.SeatActivity
 import java.time.LocalDateTime
@@ -202,11 +202,20 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     companion object {
+        const val KEY_MOVIE = "MOVIE"
         const val KEY_BOOKING = "BOOKING"
 
         private const val NO_MOVIE = -1
 
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
+
+        fun newIntent(
+            context: Context,
+            movieIdx: Int,
+        ): Intent =
+            Intent(context, BookingActivity::class.java).apply {
+                putExtra(KEY_MOVIE, movieIdx)
+            }
     }
 }

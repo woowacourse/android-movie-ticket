@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movies
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -48,14 +47,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     }
 
     override fun moveToBookingComplete(movieIdx: Int) {
-        val intent =
-            Intent(this, BookingActivity::class.java).apply {
-                putExtra(KEY_MOVIE, movieIdx)
-            }
-        startActivity(intent)
-    }
-
-    companion object {
-        const val KEY_MOVIE = "MOVIE"
+        startActivity(BookingActivity.newIntent(this, movieIdx))
     }
 }

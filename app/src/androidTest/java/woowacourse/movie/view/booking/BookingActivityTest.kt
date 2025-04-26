@@ -21,14 +21,7 @@ class BookingActivityTest {
 
     @Before
     fun setUp() {
-        val intent =
-            Intent(
-                fakeContext,
-                BookingActivity::class.java,
-            ).apply {
-                putExtra(KEY_MOVIE, 1)
-            }
-
+        val intent = BookingActivity.newIntent(fakeContext, 0)
         scenario = ActivityScenario.launch(intent)
     }
 
