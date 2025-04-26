@@ -4,7 +4,7 @@ import woowacourse.movie.dto.MovieInfo
 
 interface MovieListContract {
     interface View {
-        fun showMovie(item: List<MovieInfo>)
+        fun showMovies(items: List<MovieInfo>)
 
         fun showError()
 
