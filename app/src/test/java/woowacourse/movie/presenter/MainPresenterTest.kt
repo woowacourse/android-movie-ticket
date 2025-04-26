@@ -26,7 +26,7 @@ class MainPresenterTest {
         mainPresenter.initMainUI()
 
         // Then
-        verify { mainView.initMovieListUI(any()) }
+        verify { mainView.initMovieListUI(any(), any()) }
     }
 
     @Test

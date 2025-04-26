@@ -33,7 +33,7 @@ class ReservationActivityLandscapeTest {
             endDate = LocalDate.of(2025, 4, 21),
             movieId = "HarryPotter1",
             runningTime = 152,
-            poster = ResourceMapper.movieIdToPoster("HarryPotter1"),
+            poster = ResourceMapper.movieIdToPosterImageResource("HarryPotter1"),
         )
 
     @get:Rule

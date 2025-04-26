@@ -56,6 +56,7 @@ dependencies {
     testImplementation(libs.kotest.runner.junit5)
     testImplementation("io.mockk:mockk:1.13.8")
     androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.espresso.contrib)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.runner)
     androidTestImplementation(libs.assertj.core)
