@@ -49,7 +49,7 @@ class BookingCompleteActivityTest {
     @Test
     fun 선택된_정보에_따라_금액을_출력한다() {
         onView(withId(R.id.tv_booking_complete_ticket_total_price))
-            .check(matches(withText("15,000원 (현장 결제)")))
+            .check(matches(withText("20,000원 (현장 결제)")))
     }
 
     @Test
