@@ -27,8 +27,7 @@ class SeatSelectionPresenter(
 
     override fun onSeatClicked(seat: TextView) {
         val seatName = seat.text.toString()
-        val grade = SeatGrade.fromRow(seatName.first())
-        val domainSeat = Seat(seatName, grade)
+        val domainSeat = Seat(seatName)
 
         domainTicket = domainTicket.toggleSeat(domainSeat)
 

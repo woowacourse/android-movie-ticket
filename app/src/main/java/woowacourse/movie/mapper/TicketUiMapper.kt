@@ -3,7 +3,6 @@ package woowacourse.movie.mapper
 import woowacourse.movie.booking.detail.TicketUiModel
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.Seat
-import woowacourse.movie.model.SeatGrade
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
 import woowacourse.movie.util.Formatter.formatDateDotSeparated
@@ -40,8 +39,7 @@ fun TicketUiModel.toDomain(): Ticket {
             emptyList()
         } else {
             seats.split(",").map { seatName ->
-                val grade = SeatGrade.fromRow(seatName.first())
-                Seat(seatName = seatName, grade = grade, isSelected = true)
+                Seat(seatName = seatName, isSelected = true)
             }
         }
 

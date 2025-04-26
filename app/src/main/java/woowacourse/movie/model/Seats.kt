@@ -4,6 +4,10 @@ package woowacourse.movie.model
 value class Seats(
     val values: List<Seat>,
 ) {
+    init{
+        require(values.all { it.isSelected })  { "선택되지 않은 Seat은 포함될 수 없습니다" }
+    }
+
     val amount: Int
         get() = values.sumOf { it.grade.price }
 
