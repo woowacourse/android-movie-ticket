@@ -85,21 +85,6 @@ class SeatPresenterTest {
     }
 
     @Test
-    fun `선택한 좌석이 하나라도 존재하면 true를 반환한다`() {
-        // when
-        reservation.points + B_CLASS
-        val actual = presenter.canClickButton()
-
-        // then
-        assertTrue(actual)
-    }
-
-    @Test
-    fun `선택한 좌석이 존재하지 않으면 false를 반환한다`() {
-        assertFalse(presenter.canClickButton())
-    }
-
-    @Test
     fun `선택한 좌석이 이미 선택되어 있으면 true를 반환한다`() {
         // given
         val point = B_CLASS

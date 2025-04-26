@@ -74,6 +74,10 @@ class SeatActivityTest {
         // when
         onView(withText("A1"))
             .perform(click())
+        onView(withText("A2"))
+            .perform(click())
+        onView(withText("A3"))
+            .perform(click())
 
         // then
         onView(withId(R.id.btn_select))
