@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.utils.StringFormatter
 import woowacourse.movie.utils.intentSerializable
 
@@ -47,10 +48,18 @@ class BookingCompleteActivity :
         val releaseDateTextView: TextView = findViewById(R.id.tv_release_date)
         val headcountTextView: TextView = findViewById(R.id.tv_headcount)
 
-        releaseDateTextView.text = StringFormatter.dateTimeFormat(bookedTicket.dateTime)
-        movieNameTextView.text = bookedTicket.movieName
-        headcountTextView.text =
-            getString(R.string.text_general_people_count).format(bookedTicket.headcount.count)
+        with(bookedTicket) {
+            releaseDateTextView.text = StringFormatter.dateTimeFormat(dateTime)
+            movieNameTextView.text = movieName
+            headcountTextView.text =
+                getString(R.string.text_headcount_with_seats).format(
+                    headcount.count,
+                    seats.seats
+                        .map { it.toText() }
+                        .sorted()
+                        .joinToString(),
+                )
+        }
     }
 
     override fun setBookedTicketPriceTextView(price: Int) {
@@ -67,6 +76,8 @@ class BookingCompleteActivity :
         }
     }
 
+    private fun Seat.toText(): String = Char(row + ASCII_A.code) + col.toString()
+
     companion object {
         fun newIntent(
             context: Context,
@@ -77,5 +88,6 @@ class BookingCompleteActivity :
             }
 
         private const val EXTRA_BOOKED_TICKET = "bookedTicket"
+        private const val ASCII_A = 'A'
     }
 }
