@@ -1,5 +1,7 @@
 package woowacourse.movie.view
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -34,15 +36,24 @@ class MovieActivity : AppCompatActivity(), View {
     }
 
     override fun showMovies(movies: List<Movie>) {
-        binding.movies.adapter = MovieListAdapter(movies) { movie ->
-            presenter.selectedMovie(movie)
-        }
+        binding.movies.adapter = MovieListAdapter(
+            movies,
+            { movie -> presenter.selectedMovie(movie) },
+            { presenter.selectedAd() },
+        )
         binding.movies.layoutManager = LinearLayoutManager(this)
     }
 
     override fun navigateToBook(movie: Movie) {
         val intent = movieBookingIntent(this@MovieActivity, movie)
         startActivity(intent)
+    }
+
+    override fun navigateToAdPage() {
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            data = Uri.parse("https://www.woowacourse.io/")
+        }
+        binding.root.context.startActivity(intent)
     }
 
     override fun showError(messageResId: Int) {

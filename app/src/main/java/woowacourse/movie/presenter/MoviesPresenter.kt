@@ -20,4 +20,8 @@ class MoviesPresenter(
         }
         view.navigateToBook(movie)
     }
+
+    override fun selectedAd() {
+        view.navigateToAdPage()
+    }
 }

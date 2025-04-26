@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.databinding.AdItemBinding
 import woowacourse.movie.databinding.MovieItemBinding
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.helper.CustomClickListenerHelper.setOnSingleClickListener
@@ -12,23 +13,55 @@ import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 class MovieListAdapter(
     private val value: List<Movie>,
     private val navigateToBook: (Movie) -> Unit,
-) : RecyclerView.Adapter<MovieListAdapter.MovieViewHolder>() {
+    private val navigateToAd: () -> Unit
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MovieViewHolder {
-        val binding = MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MovieViewHolder(binding)
+    ): RecyclerView.ViewHolder {
+        return when (viewType) {
+            VIEW_TYPE_MOVIE -> {
+                val binding =
+                    MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                MovieViewHolder(binding)
+            }
+
+            else -> {
+                val binding =
+                    AdItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                AdViewHolder(binding)
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when {
+            isAdPosition(position) -> VIEW_TYPE_AD
+            else -> VIEW_TYPE_MOVIE
+        }
+    }
+
+    private fun isAdPosition(position: Int): Boolean {
+        return (position + 1) % 4 == 0
     }
 
     override fun onBindViewHolder(
-        holder: MovieViewHolder,
+        holder: RecyclerView.ViewHolder,
         position: Int
     ) {
-        holder.bindMovie(value[position])
+        if (getItemViewType(position) == VIEW_TYPE_MOVIE) {
+            val realPosition = position - (position / 4)
+            (holder as MovieViewHolder).bindMovie(value[realPosition])
+        } else {
+            (holder as AdViewHolder).bindAd()
+        }
     }
 
-    override fun getItemCount(): Int = value.size
+    override fun getItemCount(): Int {
+        val movieCount = value.size
+        val adCount = movieCount / 3
+        return movieCount + adCount
+    }
 
     inner class MovieViewHolder(
         private val binding: MovieItemBinding
@@ -52,4 +85,20 @@ class MovieListAdapter(
             binding.movieBookBtn.commonButton.setOnSingleClickListener { navigateToBook(movie) }
         }
     }
+
+    inner class AdViewHolder(
+        private val binding: AdItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
+        fun bindAd() {
+            binding.root.setOnSingleClickListener {
+                navigateToAd()
+            }
+        }
+    }
+
+    companion object {
+        private const val VIEW_TYPE_MOVIE = 0
+        private const val VIEW_TYPE_AD = 1
+    }
 }
+

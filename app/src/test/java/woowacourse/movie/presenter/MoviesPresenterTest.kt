@@ -40,4 +40,14 @@ class MoviesPresenterTest {
         // then - 영화 예매 페이지를 호출한다
         verify { view.navigateToBook(any()) }
     }
+
+    @Test
+    fun `selectedAd 호출 시 View의 navigateToAd이 호출된다`() {
+        // given - 광고가 보여지고 있음
+        every { view.navigateToAdPage() } just Runs
+        // when - 광고를 선택시
+        presenter.selectedAd()
+        // then - 광고 페이지를 호출한다
+        verify { view.navigateToAdPage() }
+    }
 }
