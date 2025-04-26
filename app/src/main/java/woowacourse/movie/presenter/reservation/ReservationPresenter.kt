@@ -3,7 +3,6 @@ package woowacourse.movie.presenter.reservation
 import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.movie.MovieDate
 import woowacourse.movie.model.movie.MovieTime
-import woowacourse.movie.model.ticket.MovieTicket
 import woowacourse.movie.model.ticket.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -42,15 +41,8 @@ class ReservationPresenter(
         }
     }
 
-    override fun createMovieTicket() {
-        val movieTicket =
-            MovieTicket(
-                movie.title,
-                movieDate.value,
-                movieTime,
-                ticketCount,
-            )
-        view.showSeatSelectionView(movieTicket)
+    override fun updateMovieReservationInfo() {
+        view.showSeatSelectionView(movie, ticketCount)
     }
 
     override fun updateMovieDate(date: LocalDate) {

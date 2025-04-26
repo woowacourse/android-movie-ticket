@@ -1,20 +1,26 @@
 package woowacourse.movie.presenter.seatSelection
 
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.seat.Seat
 import woowacourse.movie.model.seat.SeatGridElement
-import woowacourse.movie.model.ticket.MovieTicket
+import woowacourse.movie.model.ticket.TicketCount
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContracts.View,
 ) : SeatSelectionContracts.Presenter {
-    private lateinit var movieTicket: MovieTicket
+    private lateinit var movie: Movie
+    private var ticketCount: TicketCount = TicketCount(1)
     private var seats: MutableList<Seat> = mutableListOf()
 
-    override fun updateTicketData(ticket: MovieTicket) {
-        movieTicket = ticket
+    override fun updateReservationInfo(
+        movie: Movie,
+        ticketCount: TicketCount,
+    ) {
+        this.movie = movie
+        this.ticketCount = ticketCount
 
         view.showSeats(seats)
-        view.showMovieTitle(movieTicket.title)
+        view.showMovieTitle(movie.title)
         view.showPrice(0)
     }
 
@@ -34,7 +40,7 @@ class SeatSelectionPresenter(
     }
 
     private fun updateButtonEnabled() {
-        val buttonEnabled = seats.size == movieTicket.count.value
+        val buttonEnabled = seats.size == ticketCount.value
         view.showButtonEnabled(buttonEnabled)
     }
 

@@ -1,7 +1,8 @@
 package woowacourse.movie.presenter.seatSelection
 
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.ticket.MovieTicket
+import woowacourse.movie.model.ticket.TicketCount
 
 interface SeatSelectionContracts {
     interface View {
@@ -15,7 +16,10 @@ interface SeatSelectionContracts {
     }
 
     interface Presenter {
-        fun updateTicketData(ticket: MovieTicket)
+        fun updateReservationInfo(
+            movie: Movie,
+            ticketCount: TicketCount,
+        )
 
         fun updateSelectedSeat(
             row: Int,

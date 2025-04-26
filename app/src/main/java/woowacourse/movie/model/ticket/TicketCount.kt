@@ -1,9 +1,11 @@
 package woowacourse.movie.model.ticket
 
+import java.io.Serializable
+
 @JvmInline
 value class TicketCount(
     val value: Int = TICKET_MINIMUM_COUNT,
-) {
+) : Serializable {
     init {
         require(value >= TICKET_MINIMUM_COUNT) { TICKET_MINIMUM_ERROR_MESSAGE }
     }

@@ -11,8 +11,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.model.seat.Seat
-import woowacourse.movie.model.ticket.MovieTicket
+import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.presenter.seatSelection.SeatSelectionContracts
 import woowacourse.movie.presenter.seatSelection.SeatSelectionPresenter
 import woowacourse.movie.view.extension.getSerializableExtraData
@@ -37,7 +38,16 @@ class SeatSelectionActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        presenter.updateTicketData(intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY))
+        presenter.updateReservationInfo(
+            intent.getSerializableExtraData<Movie>(MOVIE_DATA_KEY),
+            intent.getSerializableExtraData<TicketCount>(TICKET_COUNT_DATA_KEY),
+        )
+        setupClickListener()
+    }
+
+    private fun setupClickListener() {
+        completeButton.setOnClickListener {
+        }
     }
 
     override fun showSeats(seats: List<Seat>) {
@@ -71,14 +81,17 @@ class SeatSelectionActivity :
     }
 
     companion object {
-        private const val TICKET_DATA_KEY = "movieTicket"
+        private const val MOVIE_DATA_KEY = "movie"
+        private const val TICKET_COUNT_DATA_KEY = "ticketCount"
 
         fun getIntent(
             context: Context,
-            movieTicket: MovieTicket,
+            movie: Movie,
+            ticketCount: TicketCount,
         ): Intent =
             Intent(context, SeatSelectionActivity::class.java).apply {
-                putExtra(TICKET_DATA_KEY, movieTicket)
+                putExtra(MOVIE_DATA_KEY, movie)
+                putExtra(TICKET_COUNT_DATA_KEY, ticketCount)
             }
     }
 }

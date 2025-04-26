@@ -1,7 +1,7 @@
 package woowacourse.movie.presenter.reservation
 
 import woowacourse.movie.model.movie.Movie
-import woowacourse.movie.model.ticket.MovieTicket
+import woowacourse.movie.model.ticket.TicketCount
 import java.time.LocalDate
 
 interface ReservationContract {
@@ -23,7 +23,10 @@ interface ReservationContract {
 
         fun showErrorToastMessage(message: String)
 
-        fun showSeatSelectionView(movieTicket: MovieTicket)
+        fun showSeatSelectionView(
+            movie: Movie,
+            count: TicketCount,
+        )
 
         fun updateTimes(times: List<Int>)
 
@@ -39,7 +42,7 @@ interface ReservationContract {
 
         fun decreaseTicketCount()
 
-        fun createMovieTicket()
+        fun updateMovieReservationInfo()
 
         fun updateMovieDate(date: LocalDate)
 
