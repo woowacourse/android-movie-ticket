@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/seat_selection_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_EAEAEA">
@@ -24,12 +25,82 @@
     <TableLayout
         android:id="@+id/tl_seat_selection"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="56dp"
+        android:layout_marginBottom="96dp"
         android:background="@color/white"
+        android:stretchColumns="*"
+        app:layout_constraintBottom_toTopOf="@id/cl_seat_selection_info"
         app:layout_constraintEnd_toEndOf="@id/tv_seat_selection_screen"
         app:layout_constraintStart_toStartOf="@id/tv_seat_selection_screen"
-        app:layout_constraintTop_toBottomOf="@id/tv_seat_selection_screen" />
+        app:layout_constraintTop_toBottomOf="@id/tv_seat_selection_screen">
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+        </TableRow>
+
+        <TableRow
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+
+            <TextView style="@style/SeatTextViewStyle" />
+        </TableRow>
+
+    </TableLayout>
 
     <TextView
         android:id="@+id/tv_seat_selection_complete_button"
