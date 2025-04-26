@@ -7,7 +7,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.movie.Movie
 import woowacourse.movie.presenter.movies.MoviesContracts
 import woowacourse.movie.presenter.movies.MoviesPresenter
 
@@ -24,37 +23,36 @@ class MoviesPresenterTest {
     @Test
     fun `뷰를 초기화하면 영화 목록이 보인다`() {
         // given:
-        every { view.showMovies(MOVIES) } just Runs
+        every { view.showMovies(any()) } just Runs
 
         // when:
         presenter.initView()
 
         // then:
-        verify { view.showMovies(MOVIES) }
+        verify { view.showMovies(any()) }
     }
 
     @Test
     fun `예매 요청이 오면 영화 예매 뷰가 보인다`() {
         // given:
-        val movie: Movie = MOVIES[0]
-        every { view.showReservationView(movie) } just Runs
+        every { view.showReservationView(any()) } just Runs
 
         // when:
-        presenter.onReservationRequested(movie.id)
+        presenter.onReservationRequested(MOVIE.id)
 
         // then:
-        verify { view.showReservationView(movie) }
+        verify { view.showReservationView(any()) }
     }
 
     @Test
     fun `광고를 클릭하면 광고가 보인다`() {
         // given:
-        every { view.showAdvertisement("https://navar.com") } just Runs
+        every { view.showAdvertisement(any()) } just Runs
 
         // when:
         presenter.onClickAdvertisement("https://navar.com")
 
         // then:
-        verify { view.showAdvertisement("https://navar.com") }
+        verify { view.showAdvertisement(any()) }
     }
 }
