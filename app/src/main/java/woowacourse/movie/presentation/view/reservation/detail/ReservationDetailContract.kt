@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.view.reservation.detail
 
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
+import woowacourse.movie.presentation.model.ScreenUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -45,6 +46,11 @@ interface ReservationDetailContract {
 
         fun notifyNoAvailableDates()
 
-        fun notifyReservationConfirm(reservationInfo: ReservationInfoUiModel)
+        fun notifyReservationConfirm(
+            reservationInfo: ReservationInfoUiModel,
+            screen: ScreenUiModel,
+        )
+
+        fun notifyReservationLimitReached()
     }
 }

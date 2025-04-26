@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.view.reservation.detail
 
+import woowacourse.movie.domain.model.cinema.Screen
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.reservation.ReservationCount
 import woowacourse.movie.domain.model.reservation.ReservationInfo
@@ -13,6 +14,7 @@ import java.time.LocalTime
 class ReservationDetailPresenter(
     private val view: ReservationDetailContract.View,
 ) : ReservationDetailContract.Presenter {
+    private val screen: Screen = Screen.DEFAULT_SCREEN
     private var movie: Movie? = null
     private var reservationCount = ReservationCount()
 
@@ -32,6 +34,11 @@ class ReservationDetailPresenter(
     }
 
     override fun updateReservationCount(updateCount: Int) {
+        if (updateCount >= 0 && screen.seats.size <= reservationCount.value) {
+            view.notifyReservationLimitReached()
+            return
+        }
+
         reservationCount += updateCount
         view.updateReservationCount(reservationCount.value, reservationCount.isValid())
     }
@@ -45,16 +52,15 @@ class ReservationDetailPresenter(
 
     override fun onReserve(reservationDateTime: LocalDateTime) {
         val currentMovie = movie ?: return
-        if (!reservationCount.isValid()) return
 
         val reservationInfo =
             ReservationInfo(
-                title = currentMovie.title,
-                reservationDateTime = reservationDateTime,
-                reservationCount = reservationCount,
+                currentMovie.title,
+                reservationDateTime,
+                reservationCount,
             ).toUiModel()
 
-        view.notifyReservationConfirm(reservationInfo)
+        view.notifyReservationConfirm(reservationInfo, screen.toUiModel())
     }
 
     private fun setupView(dateTime: LocalDateTime?) {

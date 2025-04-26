@@ -2,11 +2,11 @@ package woowacourse.movie.presentation.view.reservation.seat
 
 import woowacourse.movie.domain.model.cinema.DiceCinemaPricePolicy
 import woowacourse.movie.domain.model.cinema.Screen
-import woowacourse.movie.domain.model.cinema.ScreenSize
 import woowacourse.movie.domain.model.cinema.TicketMachine
 import woowacourse.movie.domain.model.cinema.ticket.TicketBundle
 import woowacourse.movie.domain.model.reservation.ReservationInfo
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
+import woowacourse.movie.presentation.model.ScreenUiModel
 import woowacourse.movie.presentation.model.SeatUiModel
 import woowacourse.movie.presentation.model.toModel
 import woowacourse.movie.presentation.model.toUiModel
@@ -18,25 +18,28 @@ class ReservationSeatPresenter(
     private var _reservationInfo: ReservationInfo? = null
     val reservationInfo get() = _reservationInfo?.toUiModel()
 
-    override fun fetchData(reservationInfoUiModel: ReservationInfoUiModel?) {
+    override fun fetchData(
+        reservationInfoUiModel: ReservationInfoUiModel?,
+        screen: ScreenUiModel?,
+    ) {
         reservationInfoUiModel?.let { uiModel ->
             _reservationInfo = uiModel.toModel()
             view.setScreen(
                 uiModel,
-                Screen.create(DEFAULT_SEAT_SIZE).toUiModel(),
+                screen ?: Screen.DEFAULT_SCREEN.toUiModel(),
                 publishTicketBundle()?.totalPrice ?: 0,
             )
             return
         }
 
-        view.showMessage("예매 정보를 불러오는데 실패했습니다.")
+        view.notifyInvalidReservationInfo()
     }
 
     override fun updateSeat(seat: SeatUiModel) {
         runCatching {
             _reservationInfo?.updateSeats(seat.toModel())
         }.onFailure {
-            view.showMessage(it.message.orEmpty())
+            view.notifySeatUpdateFailed(it.message.orEmpty())
         }
 
         view.updateSeatStatus(
@@ -61,9 +64,5 @@ class ReservationSeatPresenter(
         }
 
         return null
-    }
-
-    companion object {
-        private val DEFAULT_SEAT_SIZE = ScreenSize(5, 4)
     }
 }

@@ -18,11 +18,11 @@ class ReservationResultActivity :
     private val views: ReservationResultViews by lazy { ReservationResultViews(this) }
     private val presenter: ReservationResultPresenter by lazy { ReservationResultPresenter(this) }
 
-    private val invalidReservationDialogInfo: DialogInfo by lazy {
+    private val invalidTicketsDialogInfo: DialogInfo by lazy {
         DialogInfo(
-            title = getString(R.string.invalid_reservation_dialog_title),
-            message = getString(R.string.invalid_reservation_datetime_message),
-            positiveButtonText = getString(R.string.invalid_reservation_dialog_positive),
+            title = getString(R.string.invalid_tickets_dialog_title),
+            message = getString(R.string.invalid_tickets_dialog_message),
+            positiveButtonText = getString(R.string.invalid_tickets_dialog_positive),
             onClickPositiveButton = {
                 onBackPressedDispatcher.onBackPressed()
             },
@@ -55,8 +55,8 @@ class ReservationResultActivity :
         views.bindReservationResult(ticketBundle, cancellationTime)
     }
 
-    override fun notifyInvalidReservationInfo() {
-        views.dialog.show(invalidReservationDialogInfo)
+    override fun notifyInvalidTickets() {
+        views.dialog.show(invalidTicketsDialogInfo)
     }
 
     private fun setupActionBar() {

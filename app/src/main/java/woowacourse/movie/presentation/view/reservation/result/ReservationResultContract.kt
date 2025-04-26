@@ -13,6 +13,6 @@ interface ReservationResultContract {
             cancellationTime: Int,
         )
 
-        fun notifyInvalidReservationInfo()
+        fun notifyInvalidTickets()
     }
 }

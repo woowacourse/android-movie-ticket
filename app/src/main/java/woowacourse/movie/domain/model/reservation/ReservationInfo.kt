@@ -11,8 +11,6 @@ class ReservationInfo(
     private val _seats: MutableList<Seat> = mutableListOf()
     val seats: List<Seat> get() = _seats.toList()
 
-    fun isFull(): Boolean = reservationCount.value == seats.size
-
     fun updateSeats(seat: Seat) {
         if (seats.contains(seat)) {
             _seats.remove(seat)
@@ -24,6 +22,6 @@ class ReservationInfo(
     }
 
     companion object {
-        private const val INVALID_SEATS_SIZE_ERROR_MESSAGE = "예매 인원 보다 선택된 좌석 수가 많을 수 없습니다 (총: %d / 현재: %d)"
+        private const val INVALID_SEATS_SIZE_ERROR_MESSAGE = "예매 인원 수보다 많은 좌석을 선택할 수 없습니다. (총 인원: %d / 선택 좌석: %d)"
     }
 }

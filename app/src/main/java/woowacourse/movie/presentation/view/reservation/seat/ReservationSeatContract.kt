@@ -7,7 +7,10 @@ import woowacourse.movie.presentation.model.TicketBundleUiModel
 
 interface ReservationSeatContract {
     interface Presenter {
-        fun fetchData(reservationInfoUiModel: ReservationInfoUiModel?)
+        fun fetchData(
+            reservationInfoUiModel: ReservationInfoUiModel?,
+            screen: ScreenUiModel?,
+        )
 
         fun updateSeat(seat: SeatUiModel)
 
@@ -29,6 +32,8 @@ interface ReservationSeatContract {
 
         fun notifyPublishedTickets(ticketBundle: TicketBundleUiModel)
 
-        fun showMessage(message: String)
+        fun notifyInvalidReservationInfo()
+
+        fun notifySeatUpdateFailed(message: String)
     }
 }

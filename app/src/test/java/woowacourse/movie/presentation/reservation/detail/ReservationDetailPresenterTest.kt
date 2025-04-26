@@ -93,7 +93,7 @@ class ReservationDetailPresenterTest {
         every { view.setScreen(any()) } just Runs
         every { view.updateDates(any(), any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
-        every { view.notifyReservationConfirm(any()) } just Runs
+        every { view.notifyReservationConfirm(any(), any()) } just Runs
 
         presenter.fetchData(fakeMovie, 3)
 
@@ -108,6 +108,7 @@ class ReservationDetailPresenterTest {
                     assert(it.reservationDateTime == now)
                     assert(it.reservationCount == 3)
                 },
+                any(),
             )
         }
     }

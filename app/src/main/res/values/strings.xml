@@ -4,22 +4,33 @@
     <!-- 기본 메시지 -->
     <string name="default_error_message">문제가 발생 했습니다</string>
 
-
+    <!-- 영화 목록 화면 -->
     <string name="movie_poster">movie poster</string>
 
     <string name="movie_date">상영일: %s ~ %s</string>
     <string name="running_time">러닝타임: %s분</string>
     <string name="reservation_button_text">지금 예매</string>
 
+    <!-- 영화 예매 화면 -->
     <string name="reservation_finish_button_text">선택 완료</string>
     <string name="reservation_count_plus">+</string>
     <string name="reservation_count_minus">-</string>
-
-    <string name="reservation_count_info">일반 %d명 | %s</string>
-    <string name="reservation_total_price">%,d원 (현장 결제)</string>
-
+    <string name="reservation_count_limit_reached_message">예매 가능한 최대 인원 입니다.</string>
     <string name="invalid_reservation_datetime_message">예약 날짜 및 시간을 선택해 주세요</string>
 
+    <!-- 좌석 선택 화면 -->
+    <string name="reservation_select_seats_screen">SCREEN</string>
+    <string name="reservation_select_seats_confirm">확인</string>
+    <string name="reservation_select_total_price_format">%,d원</string>
+
+    <string name="invalid_reservation_info">"예매 정보를 불러오는데 실패했습니다</string>
+
+    <!-- 예매 완료 화면 -->
+    <string name="reservation_count_info">일반 %d명 | %s</string>
+    <string name="reservation_total_price">%,d원 (현장 결제)</string>
+    <string name="reservation_result_cancel_time_description">영화 상영 시작 시간 %d분 전까지\n취소가 가능합니다.</string>
+
+    <!-- Dialog -->
     <string name="reservation_dialog_title">예매 확인</string>
     <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reservation_dialog_positive">예매 완료</string>
@@ -33,12 +44,9 @@
     <string name="invalid_reservation_dialog_message">예매 정보에 문제가 발생 했습니다.</string>
     <string name="invalid_reservation_dialog_positive">뒤로가기</string>
 
-    <string name="reservation_result_cancel_time_description">영화 상영 시작 시간 %d분 전까지\n취소가 가능합니다.</string>
-
-    <!-- Select Seats -->
-    <string name="reservation_select_seats_screen">SCREEN</string>
-    <string name="reservation_select_seats_confirm">확인</string>
-    <string name="reservation_select_total_price_format">%,d원</string>
+    <string name="invalid_tickets_dialog_title">안내</string>
+    <string name="invalid_tickets_dialog_message">예매 정보에 문제가 발생 했습니다.</string>
+    <string name="invalid_tickets_dialog_positive">뒤로가기</string>
 
     <!--  DateTime Format  -->
     <string name="movie_screening_period_format">yyyy.M.d</string>

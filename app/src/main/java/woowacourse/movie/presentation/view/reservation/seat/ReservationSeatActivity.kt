@@ -31,10 +31,22 @@ class ReservationSeatActivity :
         )
     }
 
+    private val invalidReservationInfoDialogInfo: DialogInfo by lazy {
+        DialogInfo(
+            title = getString(R.string.invalid_reservation_dialog_title),
+            message = getString(R.string.invalid_reservation_datetime_message),
+            positiveButtonText = getString(R.string.invalid_reservation_dialog_positive),
+            onClickPositiveButton = {
+                onBackPressedDispatcher.onBackPressed()
+            },
+        )
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupActionBar()
 
+        val screen = intent?.getParcelableCompat<ScreenUiModel>(BUNDLE_KEY_SCREEN)
         val reservationInfo =
             if (savedInstanceState == null) {
                 intent?.getParcelableCompat<ReservationInfoUiModel>(BUNDLE_KEY_RESERVATION_INFO)
@@ -44,7 +56,7 @@ class ReservationSeatActivity :
                 )
             }
 
-        presenter.fetchData(reservationInfo)
+        presenter.fetchData(reservationInfo, screen)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,7 +106,11 @@ class ReservationSeatActivity :
         startActivity(intent)
     }
 
-    override fun showMessage(message: String) {
+    override fun notifyInvalidReservationInfo() {
+        views.dialog.show(invalidReservationInfoDialogInfo)
+    }
+
+    override fun notifySeatUpdateFailed(message: String) {
         showToast(message.ifEmpty { getString(R.string.default_error_message) })
     }
 
@@ -104,14 +120,16 @@ class ReservationSeatActivity :
 
     companion object {
         private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
+        private const val BUNDLE_KEY_SCREEN = "screen"
 
         fun newIntent(
             context: Context,
             reservationInfo: ReservationInfoUiModel,
+            screen: ScreenUiModel,
         ): Intent =
-            Intent(context, ReservationSeatActivity::class.java).putExtra(
-                BUNDLE_KEY_RESERVATION_INFO,
-                reservationInfo,
-            )
+            Intent(context, ReservationSeatActivity::class.java).apply {
+                putExtra(BUNDLE_KEY_RESERVATION_INFO, reservationInfo)
+                putExtra(BUNDLE_KEY_SCREEN, screen)
+            }
     }
 }

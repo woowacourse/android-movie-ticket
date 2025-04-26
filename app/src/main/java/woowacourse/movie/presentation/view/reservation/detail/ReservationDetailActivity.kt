@@ -10,6 +10,7 @@ import woowacourse.movie.presentation.extension.getParcelableCompat
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
 import woowacourse.movie.presentation.model.MovieUiModel
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
+import woowacourse.movie.presentation.model.ScreenUiModel
 import woowacourse.movie.presentation.util.DialogInfo
 import woowacourse.movie.presentation.view.reservation.seat.ReservationSeatActivity
 import java.time.LocalDate
@@ -40,6 +41,7 @@ class ReservationDetailActivity :
         setupActionBar()
 
         shouldIgnoreNextSelection = savedInstanceState != null
+
         val movie = intent?.getParcelableCompat<MovieUiModel>(BUNDLE_KEY_MOVIE)
         val (count, dateTime) = restoreReservationData(savedInstanceState)
         presenter.fetchData(movie, count, dateTime)
@@ -77,8 +79,11 @@ class ReservationDetailActivity :
         views.dialog.show(noAvailableTimesDialogInfo)
     }
 
-    override fun notifyReservationConfirm(reservationInfo: ReservationInfoUiModel) {
-        val intent = ReservationSeatActivity.newIntent(this, reservationInfo)
+    override fun notifyReservationConfirm(
+        reservationInfo: ReservationInfoUiModel,
+        screen: ScreenUiModel,
+    ) {
+        val intent = ReservationSeatActivity.newIntent(this, reservationInfo, screen)
         startActivity(intent)
     }
 
@@ -98,6 +103,10 @@ class ReservationDetailActivity :
         selectedTime: LocalTime?,
     ) {
         views.updateTimeSpinnerItems(times, selectedTime)
+    }
+
+    override fun notifyReservationLimitReached() {
+        showToast(getString(R.string.reservation_count_limit_reached_message))
     }
 
     private fun setupActionBar() {
@@ -168,10 +177,6 @@ class ReservationDetailActivity :
         fun newIntent(
             context: Context,
             movie: MovieUiModel,
-        ): Intent =
-            Intent(context, ReservationDetailActivity::class.java).putExtra(
-                BUNDLE_KEY_MOVIE,
-                movie,
-            )
+        ): Intent = Intent(context, ReservationDetailActivity::class.java).putExtra(BUNDLE_KEY_MOVIE, movie)
     }
 }
