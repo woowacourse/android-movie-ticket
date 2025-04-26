@@ -18,7 +18,6 @@ import java.time.LocalDate
 class MovieBookingPresenterTest {
     private lateinit var view: MovieBooking.View
     private lateinit var presenter: MovieBooking.Presenter
-    private lateinit var movie: Movie
 
     @BeforeEach
     fun setUp() {

@@ -84,5 +84,5 @@
 - [ ] booking.xml 비율로 만든 부분 수정하기
 
 # 3차
-- [ ] view와 model의 의존성을 최소화
+- [X] view와 model의 의존성을 최소화
 - [X] MemberCount -> TicketCount

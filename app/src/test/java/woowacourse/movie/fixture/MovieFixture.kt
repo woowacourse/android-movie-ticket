@@ -1,8 +1,10 @@
 package woowacourse.movie.fixture
 
 import woowacourse.movie.R
+import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.ScreeningPeriod
+import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.Title
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -90,4 +92,7 @@ object MovieFixture {
             152,
         )
     )
+
+    val BOOKING_STATUS =
+        BookingStatus(movie, true, TicketCount(2), LocalDateTime.of(2025, 4, 30, 9, 0, 0))
 }
