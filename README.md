@@ -100,4 +100,4 @@ Activity에 존재하는 View와 Controller의 역할을 분리하는 것부터 
 - [x] DetailBookingContract 인터페이스 추가
 - [x] DatailBookingPresenter 구현, DetailBookingActivity 수정
 - [x] CompleteBookingContract 인터페이스 추가
-- [ ] CompleteBookingPresenter 구현
+- [x] CompleteBookingPresenter 구현, CompletedBookingActivity 수정
