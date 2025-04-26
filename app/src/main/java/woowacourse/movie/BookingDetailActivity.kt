@@ -9,21 +9,20 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.BookingCompleteActivity.Companion.KEY_BOOKING_RESULT
+import woowacourse.movie.SeatSelectionActivity.Companion.KEY_TICKET
 import woowacourse.movie.booking.detail.BookingDetailContract
 import woowacourse.movie.booking.detail.BookingDetailPresenter
+import woowacourse.movie.booking.detail.TicketUiModel
 import woowacourse.movie.booking.detail.adapter.ScreeningDateSpinnerAdapter
 import woowacourse.movie.booking.detail.adapter.ScreeningTimeSpinnerAdapter
 import woowacourse.movie.booking.detail.listener.ScreeningDateSelectedListener
 import woowacourse.movie.booking.detail.listener.ScreeningTimeSelectedListener
 import woowacourse.movie.mapper.IntentCompat
-import woowacourse.movie.mapper.toUiModel
-import woowacourse.movie.model.BookingResult
-import woowacourse.movie.model.Movie
+import woowacourse.movie.movie.MovieUiModel
+import woowacourse.movie.util.Formatter.formatDateDotSeparated
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -52,11 +51,12 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
         }
     }
 
-    private fun requireMovieOrFinish(): Movie {
-        return IntentCompat.getParcelableExtra(intent, KEY_MOVIE_DATA, Movie::class.java)
+    private fun requireMovieOrFinish(): MovieUiModel? {
+        return IntentCompat.getParcelableExtra(intent, KEY_MOVIE_DATA, MovieUiModel::class.java)
             ?: run {
+                Log.e(TAG, "인텐트에 영화 예매 정보(KEY_MOVIE_DATA)가 없습니다.")
                 showToastErrorAndFinish(getString(R.string.booking_toast_message))
-                throw IllegalStateException("영화 정보가 없습니다")
+                null
             }
     }
 
@@ -65,20 +65,27 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
         return super.onSupportNavigateUp()
     }
 
-    override fun showMovieInfo(movie: Movie) {
-        val movieUiData = movie.toUiModel(resources)
+    override fun showMovieInfo(movie: MovieUiModel) {
         val moviePoster = findViewById<ImageView>(R.id.img_booking_poster)
         val bookingTitle = findViewById<TextView>(R.id.tv_booking_title)
         val bookingScreenDate = findViewById<TextView>(R.id.tv_booking_screening_date)
         val bookingRunningTime = findViewById<TextView>(R.id.tv_booking_running_time)
 
-        bookingTitle.text = movieUiData.title
-        moviePoster.setImageResource(movieUiData.imageSource)
-        bookingScreenDate.text = movieUiData.screeningPeriod
-        bookingRunningTime.text = movieUiData.runningTimeText
+        val screeningPeriod =
+            getString(
+                R.string.screening_date_period,
+                formatDateDotSeparated(movie.screeningStartDate),
+                formatDateDotSeparated(movie.screeningEndDate),
+            )
+        val runningTimeText = getString(R.string.minute_text, movie.runningTime)
+
+        bookingTitle.text = movie.title
+        moviePoster.setImageResource(movie.imageSource)
+        bookingScreenDate.text = screeningPeriod
+        bookingRunningTime.text = runningTimeText
     }
 
-    override fun showBookingResult(result: BookingResult) {
+    override fun showTicket(result: TicketUiModel) {
         val headCountText = findViewById<TextView>(R.id.tv_people_count)
         val btnPlus = findViewById<Button>(R.id.btn_plus)
         val btnMinus = findViewById<Button>(R.id.btn_minus)
@@ -130,25 +137,18 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
     }
 
     private fun initReserveConfirm() {
-        val btnReserveConfirm = findViewById<Button>(R.id.btn_reserve_confirm)
+        val btnReserveConfirm = findViewById<Button>(R.id.btn_selection_confirm)
         btnReserveConfirm.setOnClickListener {
             presenter.onConfirmReservation()
         }
     }
 
-    override fun showBookingResultDialog(result: BookingResult) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dig_title))
-            .setMessage(getString(R.string.dig_message))
-            .setPositiveButton(getString(R.string.dig_btn_positive_message)) { _, _ ->
-                val intent = Intent(this, BookingCompleteActivity::class.java)
-                intent.putExtra(KEY_BOOKING_RESULT, result)
-                startActivity(intent)
+    override fun startSeatSelectionActivity(ticket: TicketUiModel) {
+        val intent =
+            Intent(this, SeatSelectionActivity::class.java).apply {
+                putExtra(KEY_TICKET, ticket)
             }
-            .setNegativeButton(getString(R.string.dig_btn_negative_message)) { dialog, _ ->
-                dialog.dismiss()
-            }.setCancelable(false)
-            .show()
+        startActivity(intent)
     }
 
     override fun showToastErrorAndFinish(message: String) {
@@ -164,6 +164,7 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
     }
 
     companion object {
+        private const val TAG = "BookingDetailActivity"
         const val KEY_MOVIE_DATA = "movieData"
     }
 }

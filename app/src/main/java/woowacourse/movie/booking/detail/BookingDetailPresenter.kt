@@ -1,17 +1,21 @@
 package woowacourse.movie.booking.detail
 
 import android.os.Bundle
+import woowacourse.movie.mapper.toDomain
+import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Booking
-import woowacourse.movie.model.BookingResult
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.HeadCount
+import woowacourse.movie.model.Seats
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.movie.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
 
 class BookingDetailPresenter(
     private val view: BookingDetailContract.View,
-    private val movie: Movie?,
+    private val movie: MovieUiModel?,
 ) : BookingDetailContract.Presenter {
-    private lateinit var bookingResult: BookingResult
+    private lateinit var ticket: Ticket
     private lateinit var booking: Booking
 
     override fun initializeData(savedInstanceState: Bundle?) {
@@ -20,75 +24,75 @@ class BookingDetailPresenter(
             return
         }
 
-        bookingResult = restoreData(movie, savedInstanceState)
-        booking = Booking(movie)
+        ticket = restoreData(movie, savedInstanceState)
+        booking = Booking(movie.toDomain())
 
         view.showMovieInfo(movie)
-        view.showBookingResult(bookingResult)
+        view.showTicket(ticket.toUiModel())
         view.showScreeningDates(
             dates = booking.screeningPeriods(),
-            selected = bookingResult.selectedDate,
+            selected = ticket.selectedDate,
         )
         view.showScreeningTimes(
-            times = booking.screeningTimes(bookingResult.selectedDate),
-            selected = bookingResult.selectedTime,
+            times = booking.screeningTimes(ticket.selectedDate),
+            selected = ticket.selectedTime,
         )
     }
 
     override fun onDateSelected(date: LocalDate) {
-        bookingResult = bookingResult.updateDate(date)
+        ticket = ticket.updateDate(date)
         val times = booking.screeningTimes(date)
 
         if (times.isEmpty()) {
             val nextDate = date.plusDays(1)
-            bookingResult = bookingResult.updateDate(nextDate)
+            ticket = ticket.updateDate(nextDate)
             val nextTimes = booking.screeningTimes(nextDate)
             nextTimes.firstOrNull()?.let {
-                bookingResult = bookingResult.updateTime(it)
+                ticket = ticket.updateTime(it)
             }
-            view.showScreeningTimes(nextTimes, bookingResult.selectedTime)
+            view.showScreeningTimes(nextTimes, ticket.selectedTime)
         } else {
-            bookingResult = bookingResult.updateTime(times.first())
-            view.showScreeningTimes(times, bookingResult.selectedTime)
+            ticket = ticket.updateTime(times.first())
+            view.showScreeningTimes(times, ticket.selectedTime)
         }
 
-        view.showBookingResult(bookingResult)
+        view.showTicket(ticket.toUiModel())
     }
 
     override fun onTimeSelected(time: LocalTime) {
-        if (bookingResult.selectedTime == time) return
+        if (ticket.selectedTime == time) return
 
-        bookingResult = bookingResult.updateTime(time)
-        view.showScreeningTimes(booking.screeningTimes(bookingResult.selectedDate), bookingResult.selectedTime)
-        view.showBookingResult(bookingResult)
+        ticket = ticket.updateTime(time)
+        view.showScreeningTimes(booking.screeningTimes(ticket.selectedDate), ticket.selectedTime)
+        view.showTicket(ticket.toUiModel())
     }
 
     override fun onHeadCountIncreased() {
-        bookingResult = bookingResult.plusHeadCount()
-        view.showBookingResult(bookingResult)
+        ticket = ticket.plusHeadCount()
+        view.showTicket(ticket.toUiModel())
     }
 
     override fun onHeadCountDecreased() {
-        if (bookingResult.isHeadCountValid()) bookingResult = bookingResult.minusHeadCount()
-        view.showBookingResult(bookingResult)
+        if (ticket.isHeadCountValid()) ticket = ticket.minusHeadCount()
+        view.showTicket(ticket.toUiModel())
     }
 
     override fun onConfirmReservation() {
-        if (bookingResult.isHeadCountValid()) {
-            view.showBookingResultDialog(bookingResult)
+        if (ticket.isHeadCountValid()) {
+            view.startSeatSelectionActivity(ticket.toUiModel())
         }
     }
 
     override fun onSaveState(outState: Bundle) {
-        outState.putInt(KEY_HEAD_COUNT, bookingResult.headCount)
-        outState.putString(KEY_SCREENING_DATE, bookingResult.selectedDate.toString())
-        outState.putString(KEY_SCREENING_TIME, bookingResult.selectedTime.toString())
+        outState.putInt(KEY_HEAD_COUNT, ticket.headCount.value)
+        outState.putString(KEY_SCREENING_DATE, ticket.selectedDate.toString())
+        outState.putString(KEY_SCREENING_TIME, ticket.selectedTime.toString())
     }
 
     private fun restoreData(
-        movie: Movie,
+        movie: MovieUiModel,
         savedInstanceState: Bundle?,
-    ): BookingResult {
+    ): Ticket {
         val savedCount = savedInstanceState?.getInt(KEY_HEAD_COUNT)
         val savedScreeningDate = savedInstanceState?.getString(KEY_SCREENING_DATE)
         val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_TIME)
@@ -97,7 +101,7 @@ class BookingDetailPresenter(
         val time = savedScreeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now()
 
         val headCount = savedCount ?: 0
-        return BookingResult(movie.title, headCount, date, time)
+        return Ticket(movie.title, HeadCount(headCount), date, time, Seats(emptyList()))
     }
 
     companion object {

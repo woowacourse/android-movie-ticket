@@ -1,16 +1,16 @@
 package woowacourse.movie.booking.detail
 
 import android.os.Bundle
-import woowacourse.movie.model.BookingResult
-import woowacourse.movie.model.Movie
+import woowacourse.movie.model.Ticket
+import woowacourse.movie.movie.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
 
 interface BookingDetailContract {
     interface View {
-        fun showMovieInfo(movie: Movie)
+        fun showMovieInfo(movie: MovieUiModel)
 
-        fun showBookingResult(result: BookingResult)
+        fun showTicket(result: TicketUiModel)
 
         fun showScreeningDates(
             dates: List<LocalDate>,
@@ -22,7 +22,7 @@ interface BookingDetailContract {
             selected: LocalTime,
         )
 
-        fun showBookingResultDialog(result: BookingResult)
+        fun startSeatSelectionActivity(result: TicketUiModel)
 
         fun showToastErrorAndFinish(message: String)
     }
