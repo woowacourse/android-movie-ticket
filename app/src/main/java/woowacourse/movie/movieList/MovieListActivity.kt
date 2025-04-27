@@ -31,7 +31,7 @@ class MovieListActivity :
     override fun changeActivity(item: MovieInfo) {
         val intent =
             Intent(this, BookingActivity::class.java).apply {
-                putExtra("MOVIE_INFO", item)
+                putExtra(MOVIE_INFO_KEY, item)
             }
         startActivity(intent)
     }
@@ -39,5 +39,9 @@ class MovieListActivity :
     override fun showError() {
         ErrorUtils.printError(this)
         finish()
+    }
+
+    companion object {
+        const val MOVIE_INFO_KEY = "MOVIE_INFO"
     }
 }

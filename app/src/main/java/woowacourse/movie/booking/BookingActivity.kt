@@ -10,10 +10,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.bookingResult.BookingResultActivity
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.TicketMaker
 import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.selectSeat.SelectSeatActivity
 import woowacourse.movie.util.DataUtils
 import woowacourse.movie.util.MovieScheduleUtils
 
@@ -91,7 +91,7 @@ class BookingActivity :
                 count = ticketCountValue.count,
             )
         val intent =
-            Intent(this, BookingResultActivity::class.java).apply {
+            Intent(this, SelectSeatActivity::class.java).apply {
                 putExtra(KEY_TICKET, ticketDTO)
             }
         startActivity(intent)
@@ -152,6 +152,6 @@ class BookingActivity :
         private const val KEY_MOVIE_DATE_POSITION = "MOVIE_DATE_POSITION"
         private const val KEY_MOVIE_TIME_POSITION = "MOVIE_TIME_POSITION"
         private const val KEY_MOVIE_INFO = "MOVIE_INFO"
-        private const val KEY_TICKET = "TICKET"
+        const val KEY_TICKET = "TICKET"
     }
 }
