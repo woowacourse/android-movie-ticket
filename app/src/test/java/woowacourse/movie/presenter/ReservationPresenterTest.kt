@@ -26,6 +26,7 @@ class ReservationPresenterTest {
         screening = mockk<Screening>()
         reservationView = mockk(relaxed = true)
 
+        every { screening.capacityOfTheater } returns 20
         every { screeningData.toScreening() } returns screening
         every { reservationView.getScreeningData() } returns screeningData
         every { screening.period.start } returns startDate
