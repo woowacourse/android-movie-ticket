@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_total">0</string>
+    <string name="complete">확인</string>
+    <string name="screen">SCREEN</string>
+</resources>

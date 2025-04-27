@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id = "@+id/seat"
@@ -14,7 +13,7 @@
         android:layout_width="292dp"
         android:layout_height="34dp"
         android:background="@color/gray"
-        android:text="SCREEN"
+        android:text="@string/screen"
         android:gravity="center"
         android:textColor="@android:color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,15 +48,14 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/black"
-            android:text="해리 포터와 마법사의 돌"
             />
         <TextView
             android:layout_marginTop="4dp"
             android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0원"
             android:id="@+id/total"
+            android:text="@string/default_total"
             />
 
     </LinearLayout>
@@ -66,7 +64,7 @@
         android:layout_width="88dp"
         android:layout_height="78dp"
         android:id = "@+id/submit"
-        android:text="확인"
+        android:text="@string/complete"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@color/white"
