@@ -45,18 +45,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val ticket =
-            savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET)
-                ?: run { return }
+        val ticket = savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
         presenter.onInstanceStateRestored(ticket)
-    }
-
-    override fun setDateSpinner(position: Int) {
-        dateSpinner.setSelection(position)
-    }
-
-    override fun setTimeSpinner(position: Int) {
-        timeSpinner.setSelection(position)
     }
 
     private fun initializeView() {
@@ -69,16 +59,53 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
-    private fun initializeTicketCountButtons() {
-        val incrementButton = findViewById<Button>(R.id.increment_button)
-        incrementButton.setOnClickListener {
-            presenter.incrementTicketCount()
-        }
+    override fun showSpinnerDates(dates: List<LocalDate>) {
+        val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
+        dateSpinner.adapter = dateAdapter
 
-        val decrementButton = findViewById<Button>(R.id.decrement_button)
-        decrementButton.setOnClickListener {
-            presenter.decrementTicketCount()
-        }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate: LocalDate = dates[position]
+                    presenter.onDateSelection(selectedDate)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+    }
+
+    override fun showSpinnerTimes(
+        times: List<LocalTime>,
+        savedTime: LocalTime,
+    ) {
+        val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
+        timeSpinner.adapter = timeAdapter
+
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedTime: LocalTime = times[position]
+                    presenter.onTimeSelection(selectedTime)
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
+            }
+
+        savedTime.let { timeSpinner.setSelection(times.indexOf(savedTime)) }
+    }
+
+    override fun setTimeSpinner(position: Int) {
+        timeSpinner.setSelection(position)
     }
 
     private fun initializeReserveButton() {
@@ -111,59 +138,21 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketCountTextView.text = count
     }
 
-    override fun showShowtimeDates(dates: List<LocalDate>) {
-        val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
-        dateSpinner.adapter = dateAdapter
-
-        dateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedDate: LocalDate = dates[position]
-                    presenter.onDateSelection(selectedDate)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-            }
-    }
-
-    override fun showShowtimeTimes(
-        times: List<LocalTime>,
-        savedTime: LocalTime,
-    ) {
-        val timeAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, times)
-        timeSpinner.adapter = timeAdapter
-
-        timeSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedTime: LocalTime = times[position]
-                    presenter.onTimeSelection(selectedTime)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) = Unit
-            }
-
-        savedTime.let { timeSpinner.setSelection(times.indexOf(savedTime)) }
-    }
-
-    override fun showTicketCount(count: Int) {
-        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
-        ticketCountTextView.text = count.toString()
-    }
-
     override fun goToSeatSelection(ticket: TicketUiModel) {
         val intent = SeatSelectionActivity.createIntent(this, ticket)
         startActivity(intent)
+    }
+
+    private fun initializeTicketCountButtons() {
+        val incrementButton = findViewById<Button>(R.id.increment_button)
+        incrementButton.setOnClickListener {
+            presenter.onTicketCountIncrement()
+        }
+
+        val decrementButton = findViewById<Button>(R.id.decrement_button)
+        decrementButton.setOnClickListener {
+            presenter.onTicketCountDecrement()
+        }
     }
 
     companion object {

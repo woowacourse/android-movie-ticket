@@ -24,13 +24,36 @@ class MovieReservationPresenter(
     private val scheduler = Scheduler()
 
     override fun loadReservationInfo() {
-        val movie =
-            view.intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE)
-                ?: run { return }
+        initializeInfo()
+
+        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_format))
+        val screeningDatesTemplate = view.getString(R.string.screening_dates_format)
+        val runningTimeTemplate = view.getString(R.string.running_type_format)
+        val startDate = _ticket.movie.startDate.format(dateTimeFormatter)
+        val endDate = _ticket.movie.endDate.format(dateTimeFormatter)
+
+        view.showMoviePoster(ticket.movie.poster)
+        view.showMovieTitle(ticket.movie.title)
+        view.showScreeningDates(screeningDatesTemplate.format(startDate, endDate))
+        view.showRunningTime(runningTimeTemplate.format(_ticket.movie.runningTime))
+        view.showTicketCount(ticket.count.toString())
+    }
+
+    override fun onInstanceStateRestored(ticket: TicketUiModel) {
+        _ticket = ticket.toDomain()
+        val selectedDate = ticket.showtime.toLocalDate()
+        val screeningTimes: List<LocalTime> =
+            scheduler.getShowtimes(selectedDate, LocalDateTime.now())
+        view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
+        view.showTicketCount(ticket.count.toString())
+    }
+
+    private fun initializeInfo() {
+        val movie = view.intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
 
         val screeningDates: List<LocalDate> =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
-        view.showShowtimeDates(screeningDates)
+        view.showSpinnerDates(screeningDates)
 
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(screeningDates.first(), LocalDateTime.now())
@@ -44,34 +67,11 @@ class MovieReservationPresenter(
                 ),
                 TicketCount.of(TicketCount.MIN_COUNT),
             )
-
-        view.showMoviePoster(ticket.movie.poster)
-        view.showMovieTitle(ticket.movie.title)
-
-        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_format))
-        val startDate = _ticket.movie.startDate.format(dateTimeFormatter)
-        val endDate = _ticket.movie.endDate.format(dateTimeFormatter)
-        val screeningDatesTemplate = view.getString(R.string.screening_dates_format)
-        view.showScreeningDates(screeningDatesTemplate.format(startDate, endDate))
-
-        val runningTimeTemplate = view.getString(R.string.running_type_format)
-        view.showRunningTime(runningTimeTemplate.format(_ticket.movie.runningTime))
-
-        view.showTicketCount(ticket.count)
-    }
-
-    override fun onInstanceStateRestored(ticket: TicketUiModel) {
-        _ticket = ticket.toDomain()
-        val selectedDate = ticket.showtime.toLocalDate()
-        val screeningTimes: List<LocalTime> =
-            scheduler.getShowtimes(selectedDate, LocalDateTime.now())
-        view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
-        view.showTicketCount(ticket.count)
     }
 
     override fun onDateSelection(date: LocalDate) {
         val screeningTimes: List<LocalTime> = scheduler.getShowtimes(date, LocalDateTime.now())
-        view.showShowtimeTimes(screeningTimes, ticket.showtime.toLocalTime())
+        view.showSpinnerTimes(screeningTimes, ticket.showtime.toLocalTime())
         _ticket = _ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
     }
 
@@ -79,14 +79,14 @@ class MovieReservationPresenter(
         _ticket = _ticket.copy(showtime = LocalDateTime.of(ticket.showtime.toLocalDate(), time))
     }
 
-    override fun incrementTicketCount() {
+    override fun onTicketCountIncrement() {
         _ticket = _ticket.increment()
-        view.showTicketCount(ticket.count)
+        view.showTicketCount(ticket.count.toString())
     }
 
-    override fun decrementTicketCount() {
+    override fun onTicketCountDecrement() {
         _ticket = _ticket.decrement()
-        view.showTicketCount(ticket.count)
+        view.showTicketCount(ticket.count.toString())
     }
 
     override fun onConfirmSelection() {

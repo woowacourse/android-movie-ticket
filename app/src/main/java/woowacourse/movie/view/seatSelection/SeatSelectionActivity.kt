@@ -25,7 +25,7 @@ import woowacourse.movie.view.utils.getParcelableCompat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     val presenter = SeatSelectionPresenter(this)
-    private lateinit var seatButtons: List<Button>
+    private val seatButtons = mutableListOf<Button>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,16 +33,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.loadReservationInfo()
         initializeSeats()
         initializeSelectButton()
-    }
-
-    private fun initializeView() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_seat_selection)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -56,20 +46,13 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.onInstanceStateRestored(seats)
     }
 
-    override fun initializeSeats() {
-        val seatsLayout = findViewById<TableLayout>(R.id.seats)
-        seatButtons =
-            seatsLayout.children
-                .filterIsInstance<TableRow>()
-                .flatMap { row -> row.children }
-                .filterIsInstance<Button>()
-                .toList()
-        seatButtons.forEachIndexed { index, button ->
-            val row = index / 4
-            val col = index % 4
-            button.setOnClickListener {
-                presenter.onSeatSelection(row, col)
-            }
+    private fun initializeView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_movie_seat_selection)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 
@@ -138,6 +121,23 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             message,
             Toast.LENGTH_SHORT,
         ).show()
+    }
+
+    override fun initializeSeats() {
+        val seatsLayout = findViewById<TableLayout>(R.id.seats)
+        seatButtons.addAll(
+            seatsLayout.children
+                .filterIsInstance<TableRow>()
+                .flatMap { row -> row.children }
+                .filterIsInstance<Button>(),
+        )
+        seatButtons.forEachIndexed { index, button ->
+            val row = index / 4
+            val col = index % 4
+            button.setOnClickListener {
+                presenter.onSeatSelection(row, col)
+            }
+        }
     }
 
     companion object {

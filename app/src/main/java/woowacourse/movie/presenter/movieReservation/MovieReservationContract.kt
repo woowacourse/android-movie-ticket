@@ -16,18 +16,14 @@ interface MovieReservationContract {
 
         fun showTicketCount(count: String)
 
-        fun showShowtimeDates(dates: List<LocalDate>)
+        fun showSpinnerDates(dates: List<LocalDate>)
 
-        fun showShowtimeTimes(
+        fun showSpinnerTimes(
             times: List<LocalTime>,
             savedTime: LocalTime,
         )
 
-        fun setDateSpinner(position: Int)
-
         fun setTimeSpinner(position: Int)
-
-        fun showTicketCount(count: Int)
 
         fun goToSeatSelection(ticket: TicketUiModel)
     }
@@ -41,9 +37,9 @@ interface MovieReservationContract {
 
         fun onTimeSelection(time: LocalTime)
 
-        fun incrementTicketCount()
+        fun onTicketCountIncrement()
 
-        fun decrementTicketCount()
+        fun onTicketCountDecrement()
 
         fun onConfirmSelection()
     }
