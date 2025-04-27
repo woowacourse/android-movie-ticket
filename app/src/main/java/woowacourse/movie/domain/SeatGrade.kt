@@ -9,8 +9,8 @@ enum class SeatGrade(val price: Int) {
     companion object {
         fun of(seat: Seat) =
             when (seat.row) {
-                1, 2 -> B
-                3, 4 -> S
+                0, 1 -> B
+                2, 3 -> S
                 else -> A
             }
     }
