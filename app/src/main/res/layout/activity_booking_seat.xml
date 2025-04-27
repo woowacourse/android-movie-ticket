@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:paddingVertical="22dp"
                 android:textSize="22sp"
-                tools:text="A1" />
+                android:text="A1" />
 
             <TextView
                 android:layout_width="0dp"
@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="A2" />
+                android:text="A2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -59,7 +59,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="A3" />
+                android:text="A3" />
 
             <TextView
                 android:layout_width="0dp"
@@ -67,7 +67,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="A4" />
+                android:text="A4" />
         </TableRow>
 
         <TableRow>
@@ -79,7 +79,7 @@
                 android:gravity="center"
                 android:paddingVertical="22dp"
                 android:textSize="22sp"
-                tools:text="B1" />
+                android:text="B1" />
 
             <TextView
                 android:layout_width="0dp"
@@ -87,7 +87,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="B2" />
+                android:text="B2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -95,7 +95,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="B3" />
+                android:text="B3" />
 
             <TextView
                 android:layout_width="0dp"
@@ -103,44 +103,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="B4" />
-        </TableRow>
-
-        <TableRow>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-
-                android:paddingVertical="22dp"
-                android:textSize="22sp"
-                tools:text="C1" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="22sp"
-                tools:text="C2" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="22sp"
-                tools:text="C3" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="22sp"
-                tools:text="C4" />
+                android:text="B4" />
         </TableRow>
 
         <TableRow>
@@ -152,7 +115,7 @@
                 android:gravity="center"
                 android:paddingVertical="22dp"
                 android:textSize="22sp"
-                tools:text="D1" />
+                android:text="C1" />
 
             <TextView
                 android:layout_width="0dp"
@@ -160,7 +123,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="D2" />
+                android:text="C2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -168,7 +131,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="D3" />
+                android:text="C3" />
 
             <TextView
                 android:layout_width="0dp"
@@ -176,7 +139,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="D4" />
+                android:text="C4" />
         </TableRow>
 
         <TableRow>
@@ -188,7 +151,7 @@
                 android:gravity="center"
                 android:paddingVertical="22dp"
                 android:textSize="22sp"
-                tools:text="E1" />
+                android:text="D1" />
 
             <TextView
                 android:layout_width="0dp"
@@ -196,7 +159,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="E2" />
+                android:text="D2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -204,7 +167,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="E3" />
+                android:text="D3" />
 
             <TextView
                 android:layout_width="0dp"
@@ -212,7 +175,43 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textSize="22sp"
-                tools:text="E4" />
+                android:text="D4" />
+        </TableRow>
+
+        <TableRow>
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingVertical="22dp"
+                android:textSize="22sp"
+                android:text="E1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:text="E2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:text="E3" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:text="E4" />
         </TableRow>
     </TableLayout>
 
