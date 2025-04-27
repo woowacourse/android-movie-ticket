@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.seatSelection
 
+import woowacourse.movie.view.model.SeatsUiModel
 import woowacourse.movie.view.model.TicketUiModel
 
 interface SeatSelectionContract {
@@ -22,7 +23,10 @@ interface SeatSelectionContract {
 
         fun showAlertDialog()
 
-        fun confirmSelection(ticket: TicketUiModel)
+        fun confirmSelection(
+            ticket: TicketUiModel,
+            seats: SeatsUiModel,
+        )
     }
 
     interface Presenter {

@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultContract
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
+import woowacourse.movie.view.model.SeatsUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import java.time.format.DateTimeFormatter
@@ -48,13 +49,16 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
 
     companion object {
         const val KEY_TICKET = "ticket"
+        const val KEY_SEATS = "seats"
 
         fun createIntent(
             context: Context,
             ticket: TicketUiModel,
+            seats: SeatsUiModel,
         ): Intent {
             val intent = Intent(context, MovieReservationResultActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)
+            intent.putExtra(KEY_SEATS, seats)
             return intent
         }
     }

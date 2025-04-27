@@ -1,8 +1,10 @@
 package woowacourse.movie.presenter.seatSelection
 
 import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 import woowacourse.movie.view.seatSelection.SeatSelectionActivity.Companion.KEY_TICKET
@@ -13,12 +15,15 @@ class SeatSelectionPresenter(
 ) : SeatSelectionContract.Presenter {
     private lateinit var _ticket: Ticket
     val ticket get() = _ticket.toUiModel()
-    private val selectedSeats = mutableSetOf<Seat>()
+
+    private lateinit var _seats: Seats
+    val seats get() = _seats.toUiModel()
 
     override fun loadReservationInfo() {
-        val ticket =
-            view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)
-                ?: run { return }
+        view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)
+            ?.let { ticket -> _ticket = ticket.toDomain() }
+            ?: return
+        _seats = Seats(ticket.count)
 
         view.showMovieTitle(ticket.movie.title)
     }
@@ -28,15 +33,15 @@ class SeatSelectionPresenter(
         col: Int,
     ) {
         val seat = Seat(row, col)
-        if (seat in selectedSeats) {
+        if (seat in _seats.seats) {
             view.deselectSeat(row, col)
-            selectedSeats.remove(seat)
+            _seats.remove(seat)
         } else {
             view.selectSeat(row, col)
-            selectedSeats.add(seat)
+            _seats.add(seat)
         }
 
-        val price = selectedSeats.sumOf { selectedSeat -> selectedSeat.price() }
+        val price = _seats.totalPrice()
         view.showTotalPrice(price)
     }
 
@@ -45,6 +50,6 @@ class SeatSelectionPresenter(
     }
 
     override fun onSelectionConfirmation() {
-        view.confirmSelection(ticket)
+        view.confirmSelection(ticket, seats)
     }
 }
