@@ -1,11 +1,16 @@
 package woowacourse.movie.booking.seat
 
 import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.Ticket
 
 class BookingSeatPresenter(
     private val view: BookingSeatContract.View,
 ) : BookingSeatContract.Presenter {
     private val selectedSeats = mutableSetOf<Seat>()
+
+    override fun loadMovieTitle(ticket: Ticket) {
+        view.showMovieTitle(ticket.movieTitle)
+    }
 
     override fun toggleSeatSelection(seat: Seat) {
         if (selectedSeats.contains(seat)) {

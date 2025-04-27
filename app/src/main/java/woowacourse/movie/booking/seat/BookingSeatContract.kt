@@ -2,9 +2,12 @@ package woowacourse.movie.booking.seat
 
 import woowacourse.movie.booking.complete.BookingCompleteUiModel
 import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.Ticket
 
 interface BookingSeatContract {
     interface Presenter {
+        fun loadMovieTitle(ticket: Ticket)
+
         fun toggleSeatSelection(seat: Seat)
 
         fun onConfirmClicked()

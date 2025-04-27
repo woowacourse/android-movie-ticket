@@ -1,5 +1,6 @@
 package woowacourse.movie.booking.seat
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -19,12 +20,13 @@ import woowacourse.movie.booking.complete.BookingCompleteActivity
 import woowacourse.movie.booking.complete.BookingCompleteUiModel
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.SeatType
+import woowacourse.movie.domain.Ticket
 
 class BookingSeatActivity :
     AppCompatActivity(),
     BookingSeatContract.View {
     private lateinit var presenter: BookingSeatContract.Presenter
-    private lateinit var ticketInfo: BookingCompleteUiModel
+    private lateinit var ticket: Ticket
     private lateinit var seatLayout: TableLayout
     private lateinit var totalPrice: TextView
     private lateinit var confirmButton: TextView
@@ -34,6 +36,11 @@ class BookingSeatActivity :
         setupView()
 
         presenter = BookingSeatPresenter(this)
+
+        ticket = intent.getSerializableExtra(TICKET_INFO_KEY) as? Ticket
+            ?: run {
+                return finish()
+            }
 
         seatLayout = findViewById<TableLayout>(R.id.booking_seat_table)
         seatLayout.children
@@ -52,7 +59,13 @@ class BookingSeatActivity :
                     }
             }
 
+        setMovieTitle()
+
         setupConfirmButton()
+    }
+
+    private fun setMovieTitle() {
+        presenter.loadMovieTitle(ticket)
     }
 
     private fun setupConfirmButton() {
@@ -147,5 +160,17 @@ class BookingSeatActivity :
             }
         startActivity(intent)
         finish()
+    }
+
+    companion object {
+        private const val TICKET_INFO_KEY = "ticket_info"
+
+        fun newIntent(
+            context: Context,
+            ticket: Ticket,
+        ): Intent =
+            Intent(context, BookingSeatActivity::class.java).apply {
+                putExtra(TICKET_INFO_KEY, ticket)
+            }
     }
 }
