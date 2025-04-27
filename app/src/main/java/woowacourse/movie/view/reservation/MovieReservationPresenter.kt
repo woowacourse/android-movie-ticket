@@ -2,6 +2,7 @@ package woowacourse.movie.view.reservation
 
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.view.reservation.model.TicketUiModel
+import woowacourse.movie.view.reservation.model.toDomain
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -11,31 +12,28 @@ class MovieReservationPresenter(
     private var _ticket: TicketUiModel,
     private val scheduler: Scheduler = Scheduler(),
 ) : MovieReservationContract.Presenter {
-    val ticket: TicketUiModel
-        get() = _ticket
+    val ticket get() = _ticket
 
     override fun loadMovieReservationScreen() {
         view.showMovieInfo(ticket.movie)
-        view.showHeadCount(ticket.count)
+        updateHeadCount()
         loadScreeningDates()
         loadShowtimes()
     }
 
     override fun onClickIncrementButton() {
         _ticket = ticket.copy(count = ticket.count + 1)
-        view.showHeadCount(ticket.count)
+        updateHeadCount()
     }
 
     override fun onClickDecrementButton() {
         _ticket = ticket.copy(count = ticket.count - 1)
-        view.showHeadCount(ticket.count)
+        updateHeadCount()
     }
 
     override fun onSelectDate(date: LocalDate) {
         _ticket = ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
-
-        val showtimes = scheduler.getShowtimes(date, LocalDateTime.now())
-        view.updateTimeSpinner(showtimes, ticket.showtime.toLocalTime())
+        loadShowtimes()
     }
 
     override fun onSelectTime(time: LocalTime) {
@@ -44,6 +42,11 @@ class MovieReservationPresenter(
 
     override fun completeReservation() {
         view.navigateToCompleteScreen(ticket)
+    }
+
+    private fun updateHeadCount() {
+        view.showHeadCount(ticket.count)
+        view.updateDecrementButtonState(!ticket.toDomain().isMinimumCount())
     }
 
     private fun loadScreeningDates() {

@@ -21,7 +21,6 @@ import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
-import woowacourse.movie.view.reservation.model.toDomain
 import woowacourse.movie.view.seat.SeatSelectActivity
 import java.time.LocalDate
 import java.time.LocalTime
@@ -79,7 +78,10 @@ class MovieReservationActivity :
 
     override fun showHeadCount(count: Int) {
         ticketCountTextView.text = count.toString()
-        decrementButton.isEnabled = !presenter.ticket.toDomain().isMinimumCount()
+    }
+
+    override fun updateDecrementButtonState(enabled: Boolean) {
+        decrementButton.isEnabled = enabled
     }
 
     override fun updateDateSpinner(
@@ -159,12 +161,8 @@ class MovieReservationActivity :
     }
 
     private fun initButtons() {
-        decrementButton.setOnClickListener {
-            presenter.onClickDecrementButton()
-        }
-        incrementButton.setOnClickListener {
-            presenter.onClickIncrementButton()
-        }
+        decrementButton.setOnClickListener { presenter.onClickDecrementButton() }
+        incrementButton.setOnClickListener { presenter.onClickIncrementButton() }
     }
 
     private fun initSelectButton() {

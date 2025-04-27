@@ -11,6 +11,8 @@ interface MovieReservationContract {
 
         fun showMovieInfo(movie: MovieUiModel)
 
+        fun updateDecrementButtonState(enabled: Boolean)
+
         fun updateDateSpinner(
             screeningDates: List<LocalDate>,
             selectedDate: LocalDate,
