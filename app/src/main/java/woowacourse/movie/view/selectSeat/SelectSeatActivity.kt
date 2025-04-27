@@ -3,6 +3,8 @@ package woowacourse.movie.view.selectSeat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +14,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.model.ticket.seat.Seat
+import woowacourse.movie.model.ticket.seat.SeatCol
+import woowacourse.movie.model.ticket.seat.SeatRow
 import woowacourse.movie.presenter.SelectSeatPresenter
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.ticket.TicketActivity
@@ -21,6 +26,7 @@ class SelectSeatActivity :
     SelectSeatView {
     private val present: SelectSeatPresenter = SelectSeatPresenter(this)
     private var dialog: AlertDialog? = null
+    private val seatTableLayout by lazy { findViewById<TableLayout>(R.id.tl_seat) }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -50,6 +56,7 @@ class SelectSeatActivity :
 //        initCompleteButtonView()
 
         present.initSelectSeatUI()
+        initSeatClickListener()
         // TODO: 임시 버튼 연결
         findViewById<TextView>(R.id.tv_select_seat_confirm).setOnClickListener { present.navigateToTicketUI() }
     }
@@ -61,6 +68,37 @@ class SelectSeatActivity :
     override fun initMovieTitleUI(ticketData: TicketData) {
         val titleView = findViewById<TextView>(R.id.tv_select_seat_movie_title)
         titleView.text = ticketData.screeningData.title
+    }
+
+    override fun initSeatClickListener() {
+        for (i in 0 until seatTableLayout.childCount) {
+            val tableRow = seatTableLayout.getChildAt(i) as TableRow
+
+            for (j in 0 until tableRow.childCount) {
+                val seat = tableRow.getChildAt(j) as TextView
+                seat.setOnClickListener {
+                    present.toggleSeat(Seat(SeatRow(i), SeatCol(j)))
+                }
+            }
+        }
+    }
+
+    override fun seatSelect(seat: Seat) {
+        setSeatBackground(seat, R.color.selected_seat_background)
+    }
+
+    override fun seatUnSelect(seat: Seat) {
+        setSeatBackground(seat, R.color.white)
+    }
+
+    private fun setSeatBackground(
+        seat: Seat,
+        colorRes: Int,
+    ) {
+        val tableRow = seatTableLayout.getChildAt(seat.row.value) as? TableRow
+        val seatView = tableRow?.getChildAt(seat.col.value) as? TextView
+        seatView?.setBackgroundResource(colorRes)
+            ?: throw IllegalStateException("좌석의 좌표가 범위를 벗어났습니다")
     }
 
     override fun printError(message: String) {

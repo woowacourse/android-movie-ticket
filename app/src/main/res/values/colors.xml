@@ -14,4 +14,5 @@
     <color name="select_seat_background">#EAEAEA</color>
     <color name="select_seat_screen_background">#494949</color>
     <color name="disabled_btn_color">#B7B7B7</color>
+    <color name="selected_seat_background">#FAFF00</color>
 </resources>

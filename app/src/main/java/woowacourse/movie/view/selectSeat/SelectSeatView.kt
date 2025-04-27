@@ -1,11 +1,18 @@
 package woowacourse.movie.view.selectSeat
 
+import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.view.model.TicketData
 
 interface SelectSeatView {
     fun getTicketData(): TicketData
 
     fun initMovieTitleUI(ticketData: TicketData)
+
+    fun initSeatClickListener()
+
+    fun seatSelect(seat: Seat)
+
+    fun seatUnSelect(seat: Seat)
 
     fun printError(message: String)
 

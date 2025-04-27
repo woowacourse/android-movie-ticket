@@ -35,7 +35,7 @@
                 android:textSize="22sp" />
 
             <TableLayout
-                android:id="@+id/tl_seat_seat"
+                android:id="@+id/tl_seat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"

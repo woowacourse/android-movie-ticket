@@ -3,6 +3,7 @@ package woowacourse.movie.presenter
 import woowacourse.movie.model.ticket.Ticket
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.model.ticket.getOrDefault
+import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.ticket.TicketView
 import java.time.LocalDateTime
@@ -13,6 +14,7 @@ class TicketPresenter(
     private val ticketData: TicketData by lazy {
         view.getTicketData()
     }
+    private val selectedSeats = mutableListOf<Seat>()
     private val ticket: Ticket by lazy {
         val screening = ticketData.screeningData.toScreening()
         val ticketCount = ticketData.ticketCount
