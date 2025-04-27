@@ -1,0 +1,45 @@
+package woowacourse.movie.presenter
+
+import io.mockk.Runs
+import io.mockk.every
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.verify
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import woowacourse.movie.contract.SeatSelectionContract
+import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.ticket.Ticket
+import java.time.LocalDateTime
+
+class SeatSelectionPresenterTest {
+    private lateinit var view: SeatSelectionContract.View
+    private lateinit var presenter: SeatSelectionContract.Presenter
+
+    @BeforeEach
+    fun setUp() {
+        view = mockk()
+        presenter =
+            SeatSelectionPresenter(
+                view,
+                Ticket(
+                    title = "해리 포터와 마법사의 돌",
+                    count = 2,
+                    showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
+                ),
+                selectedSeats = emptySet(),
+            )
+    }
+
+    @Test
+    fun `좌석들을 보여줄 수 있다`() {
+        // given
+        every { view.setSeats(Seat.seats(), emptySet()) } just Runs
+
+        // when
+        presenter.presentSeats()
+
+        // then
+        verify { view.setSeats(Seat.seats(), emptySet()) }
+    }
+}
