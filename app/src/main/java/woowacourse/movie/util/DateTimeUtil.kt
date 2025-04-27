@@ -11,6 +11,7 @@ object DateTimeUtil {
     const val MOVIE_DATE_FORMAT = "yyyy.M.d"
     const val MOVIE_TIME_FORMAT = "kk:mm"
     private const val SPINNER_DATE_FORMAT = "yyyy-MM-dd"
+    private const val MIDNIGHT_HOUR = 24
 
     fun LocalDate.toFormattedString(pattern: String): String {
         return this.format(DateTimeFormatter.ofPattern(pattern))
@@ -27,6 +28,7 @@ object DateTimeUtil {
 
     fun String.toLocalTime(delimiter: String): LocalTime {
         val (hour, minute) = this.split(delimiter).map { it.toInt() }
+        if (hour == MIDNIGHT_HOUR) return LocalTime.of(0, minute)
         return LocalTime.of(hour, minute)
     }
 
