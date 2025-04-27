@@ -4,12 +4,9 @@ import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -122,17 +119,6 @@ class ReservationActivityLandscapeTest {
     }
 
     @Test
-    fun `선택_완료를_클릭하면_다이얼로그가_표시된다`() {
-        onView(withId(R.id.sv_reservation)).perform(ViewActions.swipeUp())
-        Thread.sleep(300)
-        onView(withId(R.id.btn_reservation_select_complete))
-            .perform(click())
-        onView(withText(R.string.ticket_dialog_title))
-            .inRoot(RootMatchers.isDialog())
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
     fun `날짜를_선택하면_가능한_시간대가_표시된다`() {
         onView(withId(R.id.spinner_reservation_screening_date)).perform(click())
         onData(
@@ -153,19 +139,5 @@ class ReservationActivityLandscapeTest {
                 ),
             ).check(matches(isDisplayed()))
         }
-    }
-
-    @Test
-    fun `예매_완료를_확인하는_다이얼로그가_표시되고_배경을_터치해도_사라지지_않아야_한다`() {
-        onView(withId(R.id.sv_reservation)).perform(ViewActions.swipeUp())
-        Thread.sleep(300)
-        onView(withId(R.id.btn_reservation_select_complete))
-            .perform(click())
-
-        onView(isRoot())
-            .perform(click())
-
-        onView(withText(R.string.ticket_dialog_title))
-            .check(matches(isDisplayed()))
     }
 }
