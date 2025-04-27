@@ -20,4 +20,24 @@ object DialogUtil {
             .setCancelable(false)
             .show()
     }
+
+    fun makeDialog(
+        activity: Activity,
+        title: String,
+        message: String,
+        positiveButtonName: String,
+        negativeButtonName: String,
+        moveTo: () -> Unit,
+    ) {
+        AlertDialog.Builder(activity)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(positiveButtonName) { _, _ ->
+                moveTo()
+            }
+            .setNegativeButton(negativeButtonName) { dialog, _ ->
+                dialog.dismiss()
+            }.setCancelable(false)
+            .show()
+    }
 }
