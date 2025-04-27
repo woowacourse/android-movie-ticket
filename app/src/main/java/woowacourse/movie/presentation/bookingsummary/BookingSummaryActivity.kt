@@ -38,7 +38,7 @@ class BookingSummaryActivity : BaseActivity(), BookingSummaryContract.View {
         title.text = ticket.title
         screeningDateTime.text = formatDateTime(ticket.screeningDateTime)
         headCount.text = formatHeadCount(getString(R.string.headCount_message), ticket.headCount)
-        amount.text = formatAmount(getString(R.string.amount_message), ticket.amount)
+        amount.text = formatAmount(getString(R.string.summary_amount_message), ticket.amount)
     }
 
     private fun fetchTicketFromIntent(): Boolean {

@@ -90,7 +90,7 @@ class BookingPresenterTest {
 
         // Then
         verify {
-            view.navigateToBookingSummary(
+            view.navigateToSeats(
                 match {
                     it.title == testMovie.title &&
                     it.screeningDateTime == LocalDateTime.of(date, time) &&

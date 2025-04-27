@@ -1,6 +1,5 @@
 package woowacourse.movie.presentation.booking
 
-import woowacourse.movie.domain.model.pricingpolicy.DefaultPricingPolicy
 import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.movie.MovieScheduler
@@ -49,9 +48,8 @@ class BookingPresenter(
             title = movie.title,
             screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
             headCount = headCount.value,
-            pricingPolicy = DefaultPricingPolicy()
         )
-        view.navigateToBookingSummary(ticket)
+        view.navigateToSeats(ticket)
     }
 
     override fun onConfigurationChanged(

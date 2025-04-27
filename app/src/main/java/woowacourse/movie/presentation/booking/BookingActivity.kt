@@ -14,7 +14,7 @@ import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.movie.MovieTicket
-import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
+import woowacourse.movie.presentation.seats.SeatsActivity
 import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.PosterMapper
@@ -34,7 +34,6 @@ class BookingActivity : BaseActivity(), BookingContract.View {
     private val dateSpinner: Spinner by lazy { findViewById(R.id.spinner_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.spinner_time) }
     private val headCountView: TextView by lazy { findViewById(R.id.textview_headcount) }
-    private var confirmDialog: AlertDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,12 +60,6 @@ class BookingActivity : BaseActivity(), BookingContract.View {
             dateSpinner.getItemAtPosition(dateItemPosition) as LocalDate?,
             timeSpinner.getItemAtPosition(timeItemPosition) as LocalTime?,
         )
-    }
-
-    override fun onDestroy() {
-        confirmDialog?.dismiss()
-        confirmDialog = null
-        super.onDestroy()
     }
 
     override fun initBooking() {
@@ -139,15 +132,8 @@ class BookingActivity : BaseActivity(), BookingContract.View {
        headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, count)
     }
 
-    override fun showConfirmDialog() {
-        if (confirmDialog == null) {
-            initConfirmDialog()
-        }
-        confirmDialog?.show()
-    }
-
-    override fun navigateToBookingSummary(ticket: MovieTicket) {
-        val intent = Intent(this, BookingSummaryActivity::class.java).apply {
+    override fun navigateToSeats(ticket: MovieTicket) {
+        val intent = Intent(this, SeatsActivity::class.java).apply {
             putExtra(IntentKeys.TICKET, ticket)
         }
         startActivity(intent)
@@ -178,18 +164,8 @@ class BookingActivity : BaseActivity(), BookingContract.View {
     private fun bindSelectButtonListener() {
         val selectBtn = findViewById<Button>(R.id.button_select)
         selectBtn.setOnClickListener {
-            showConfirmDialog()
+            presenter.onConfirmClicked()
         }
-    }
-
-    private fun initConfirmDialog() {
-        confirmDialog = AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_title))
-            .setMessage(getString(R.string.dialog_message))
-            .setPositiveButton(getString(R.string.complete)) { _, _ -> presenter.onConfirmClicked() }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
-            .create()
     }
 
     companion object {

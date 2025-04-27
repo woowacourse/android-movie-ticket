@@ -23,7 +23,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.presentation.bookingsummary.BookingSummaryActivity
+import woowacourse.movie.presentation.seats.SeatsActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -128,51 +128,11 @@ class BookingActivityTest {
     }
 
     @Test
-    fun 선택완료_버튼을_누르면_다이얼로그가_나타난다() {
-        onView(withId(R.id.button_select))
-            .perform(click())
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun 다이얼로그가_출력될때_뒤로가기_버튼을_눌러도_다이얼로그가_사라지지_않는다() {
-        onView(withId(R.id.button_select))
-            .perform(click())
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
-
-        pressBack()
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun 다이얼로그가_출력될때_화면이_회전되면_다이얼로그가_사라진다() {
-        onView(withId(R.id.button_select))
-            .perform(click())
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
-
-        activityScenario.recreate()
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(doesNotExist())
-    }
-
-    @Test
     fun 예매완료_버튼을_누르면_화면이_이동되고_예매_데이터가_전달된다() {
         onView(withId(R.id.button_select))
             .perform(click())
 
-        onView(withText("예매 완료"))
-            .perform(click())
-
-        intended(hasComponent(BookingSummaryActivity::class.java.name))
+        intended(hasComponent(SeatsActivity::class.java.name))
 
         intended(allOf(
             hasExtraWithKey("Ticket")

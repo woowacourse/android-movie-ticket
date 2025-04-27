@@ -4,7 +4,6 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.pricingpolicy.DefaultPricingPolicy
 import woowacourse.movie.domain.model.movie.MovieTicket
 import java.time.LocalDateTime
 
@@ -16,7 +15,6 @@ class BookingSummaryPresenterTest {
         title = "test",
         screeningDateTime = LocalDateTime.of(2025, 4, 30, 12, 0),
         headCount = 2,
-        pricingPolicy = DefaultPricingPolicy()
     )
 
     @BeforeEach

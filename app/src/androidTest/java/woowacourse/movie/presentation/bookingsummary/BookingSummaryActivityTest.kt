@@ -12,7 +12,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.pricingpolicy.DefaultPricingPolicy
 import woowacourse.movie.domain.model.movie.MovieTicket
 import woowacourse.movie.presentation.booking.BookingActivity
 import java.time.LocalDateTime
@@ -23,9 +22,9 @@ class BookingSummaryActivityTest {
     fun setUp() {
         val ticket = MovieTicket(
             "Test",
-            LocalDateTime.of(2025, 4, 18, 12, 0),
+            LocalDateTime.of(2025, 12, 31, 12, 0),
             2,
-            DefaultPricingPolicy()
+            27000
         )
 
         val intent = Intent(
@@ -47,7 +46,7 @@ class BookingSummaryActivityTest {
     @Test
     fun 상영날짜와_시간이_출력된다() {
         onView(withId(R.id.textview_screeningdatetime))
-            .check(matches(withText("2025.04.18 12:00")))
+            .check(matches(withText("2025.12.31 12:00")))
     }
 
     @Test
@@ -59,6 +58,6 @@ class BookingSummaryActivityTest {
     @Test
     fun 총_결제금액이_출력된다() {
         onView(withId(R.id.textview_amount))
-            .check(matches(withText("26,000원 (현장 결제)")))
+            .check(matches(withText("27,000원 (현장 결제)")))
     }
 }

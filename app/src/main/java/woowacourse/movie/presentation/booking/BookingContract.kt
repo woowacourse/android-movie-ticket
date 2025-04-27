@@ -12,8 +12,7 @@ interface BookingContract {
         fun showBookableDates(dates: List<LocalDate>)
         fun showBookableTimes(times: List<LocalTime>)
         fun updateHeadCount(count: Int)
-        fun showConfirmDialog()
-        fun navigateToBookingSummary(ticket: MovieTicket)
+        fun navigateToSeats(ticket: MovieTicket)
     }
 
     interface Presenter {
