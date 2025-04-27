@@ -21,7 +21,6 @@
         android:id="@+id/movie_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="해리 포터와 마법사의 돌"
         android:fontFamily="sans-serif"
         android:textSize="16sp"
         android:textStyle="bold"

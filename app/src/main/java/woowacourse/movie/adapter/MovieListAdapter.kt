@@ -51,6 +51,10 @@ class MovieListAdapter(
         }
     }
 
+    override fun getItemCount(): Int {
+        return if (super.itemCount <= VIEW_MAX_PRINT) super.itemCount else VIEW_MAX_PRINT
+    }
+
     private class MyDataDiffCallback : DiffUtil.ItemCallback<MovieListData>() {
         override fun areItemsTheSame(
             oldItem: MovieListData,
@@ -108,5 +112,6 @@ class MovieListAdapter(
     companion object {
         private const val VIEW_TYPE_MOVIE = 0
         private const val VIEW_TYPE_ADS = 1
+        private const val VIEW_MAX_PRINT = 10_000
     }
 }
