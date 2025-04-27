@@ -2,7 +2,6 @@ package woowacourse.movie.view.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
@@ -12,30 +11,17 @@ import woowacourse.movie.view.movie.MovieClickListener
 
 class MovieAdapter(
     private val clickListener: MovieClickListener,
-) : ListAdapter<Movie, RecyclerView.ViewHolder>(
-        object : DiffUtil.ItemCallback<Movie>() {
-            override fun areItemsTheSame(
-                oldItem: Movie,
-                newItem: Movie,
-            ): Boolean = oldItem.title == newItem.title
-
-            override fun areContentsTheSame(
-                oldItem: Movie,
-                newItem: Movie,
-            ): Boolean = oldItem == newItem
-        },
-    ) {
     private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
 
+) : ListAdapter<Movie, RecyclerView.ViewHolder>(MoviesDiffUtil) {
     override fun getItemCount(): Int {
         val movieCount = super.getItemCount()
-        val adCount = movieCount / 3
+        val adCount = movieCount / MOVIE_COUNT
         return movieCount + adCount
     }
 
     override fun getItemViewType(position: Int): Int =
-        // 3, 7, 11.. 포지션 광고
-        if (position % 4 == 3) {
+        if ((position + POSITION_OFFSET) % AD_INTERVAL == 0) {
             VIEW_TYPE_AD
         } else {
             VIEW_TYPE_MOVIE
@@ -71,7 +57,7 @@ class MovieAdapter(
     }
 
     private fun getMovieItem(position: Int): Movie {
-        val adCount = (position + 1) / 4
+        val adCount = (position + POSITION_OFFSET) / AD_INTERVAL
         val moviePosition = position - adCount
         return getItem(moviePosition)
     }
@@ -79,5 +65,8 @@ class MovieAdapter(
     companion object {
         private const val VIEW_TYPE_MOVIE = 0
         private const val VIEW_TYPE_AD = 1
+        private const val MOVIE_COUNT = 3
+        private const val POSITION_OFFSET = 1
+        private const val AD_INTERVAL = 4
     }
 }
