@@ -42,4 +42,16 @@ class SeatSelectionPresenterTest {
         // then
         verify { view.setSeats(Seat.seats(), emptySet()) }
     }
+
+    @Test
+    fun `영화 제목을 보여줄 수 있다`() {
+        // given
+        every { view.setTitle("해리 포터와 마법사의 돌") } just Runs
+
+        // when
+        presenter.presentTitle()
+
+        // then
+        verify { view.setTitle("해리 포터와 마법사의 돌") }
+    }
 }
