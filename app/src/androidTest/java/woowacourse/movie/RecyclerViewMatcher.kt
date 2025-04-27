@@ -8,37 +8,30 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 
 class RecyclerViewMatcher(private val recyclerViewId: Int) {
-    fun atPosition(position: Int): Matcher<View> {
-        return atPositionOnView(position, -1)
-    }
-
     fun atPositionOnView(
         position: Int,
         targetViewId: Int,
     ): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             var resources: Resources? = null
-            var childView: View? = null
 
             override fun describeTo(description: Description) {
-                var idDescription = Integer.toString(recyclerViewId)
+                var idDescription = recyclerViewId.toString()
                 this.resources?.let {
-                    try {
-                        idDescription = it.getResourceName(recyclerViewId)
-                    } catch (e: Resources.NotFoundException) {
-                        idDescription = String.format("%s (resource name not found)", recyclerViewId)
-                    }
+                    idDescription =
+                        runCatching {
+                            it.getResourceName(recyclerViewId)
+                        }.onFailure { e ->
+                            String.format("%s (resource name not found)", recyclerViewId)
+                        }.getOrThrow()
                 }
                 description.appendText("with id: $idDescription")
             }
 
             override fun matchesSafely(view: View): Boolean {
                 this.resources = view.resources
-
-                if (childView == null) {
-                    val recyclerView = view.rootView.findViewById<RecyclerView>(recyclerViewId)
-                    childView = recyclerView?.findViewHolderForAdapterPosition(position)?.itemView
-                }
+                val recyclerView = view.rootView.findViewById<RecyclerView>(recyclerViewId)
+                val childView = recyclerView?.findViewHolderForAdapterPosition(position)?.itemView
 
                 return if (targetViewId == -1) {
                     view === childView

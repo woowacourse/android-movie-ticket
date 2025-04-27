@@ -37,6 +37,8 @@ class ReservationSeatActivityTest {
         // given
         onView(withText("A1"))
             .perform(click())
+        onView(withText("A2"))
+            .perform(click())
         onView(withId(R.id.submit))
             .perform(click())
 
@@ -53,6 +55,8 @@ class ReservationSeatActivityTest {
     fun 다이얼로그에서_예매완료를_선택하면_예매_내역_화면으로_이동한다() {
         // given
         onView(withText("A1"))
+            .perform(click())
+        onView(withText("A2"))
             .perform(click())
         onView(withId(R.id.submit))
             .perform(click())
@@ -71,6 +75,8 @@ class ReservationSeatActivityTest {
     @Test
     fun 선택_완료_버튼을_누르면_다이얼로그가_표시된다() {
         onView(withText("A1"))
+            .perform(click())
+        onView(withText("A2"))
             .perform(click())
         onView(withId(R.id.submit))
             .perform(click())
