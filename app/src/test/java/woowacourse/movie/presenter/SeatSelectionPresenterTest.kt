@@ -54,4 +54,26 @@ class SeatSelectionPresenterTest {
         // then
         verify { view.setTitle("해리 포터와 마법사의 돌") }
     }
+
+    @Test
+    fun `가격을 보여줄 수 있다`() {
+        // given
+        presenter =
+            SeatSelectionPresenter(
+                view,
+                Ticket(
+                    title = "해리 포터와 마법사의 돌",
+                    count = 2,
+                    showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
+                ),
+                selectedSeats = setOf(Seat(1, 1)),
+            )
+        every { view.setPrice(10000) } just Runs
+
+        // when
+        presenter.presentPrice()
+
+        // then
+        verify { view.setPrice(10000) }
+    }
 }
