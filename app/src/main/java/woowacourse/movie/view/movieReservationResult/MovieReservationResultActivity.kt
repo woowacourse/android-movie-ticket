@@ -45,7 +45,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         val totalPrice = findViewById<TextView>(R.id.total_price)
         val seatsString =
             seats.seats.joinToString { seat ->
-                seat.col.toAlphabet() + (seat.row + 1).toString()
+                seat.row.toAlphabet() + (seat.col + 1).toString()
             }
 
         title.text = ticket.movie.title
