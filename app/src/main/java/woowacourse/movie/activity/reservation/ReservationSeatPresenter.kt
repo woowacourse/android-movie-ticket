@@ -10,8 +10,11 @@ class ReservationSeatPresenter(val view: ReservationSeatContract.View) : Reserva
         view.initSeatTable(seats.map { SeatDto.fromSeat(it) })
     }
 
-    override fun setButtonState(totalPrice: Int) {
-        if (totalPrice > 0) {
+    override fun setButtonState(
+        selectedMember: Int,
+        allMember: Int,
+    ) {
+        if (selectedMember == allMember) {
             view.setButtonState(true)
         } else {
             view.setButtonState(false)

@@ -136,7 +136,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             true -> presenter.setWhenSeatSelected(view, seat)
             false -> presenter.setWhenSeatDisSelected(view, seat)
         }
-        presenter.setButtonState(totalPrice)
+        presenter.setButtonState(selectedMember, reservationDto.memberCount)
     }
 
     private fun getColorResIdForRankTag(

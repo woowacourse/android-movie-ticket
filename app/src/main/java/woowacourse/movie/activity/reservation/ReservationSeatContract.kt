@@ -33,6 +33,9 @@ interface ReservationSeatContract {
             seat: SeatDto,
         )
 
-        fun setButtonState(totalPrice: Int)
+        fun setButtonState(
+            selectedMember: Int,
+            allMember: Int,
+        )
     }
 }

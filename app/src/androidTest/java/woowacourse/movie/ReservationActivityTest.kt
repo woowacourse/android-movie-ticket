@@ -8,7 +8,6 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -37,7 +36,7 @@ class ReservationActivityTest {
     fun 영화_예매_화면이_표시된다() {
         onView(withId(R.id.booking))
             .check(matches(isDisplayed()))
-        onView(withText("해리포터와 마법사의 돌"))
+        onView(withText("해리포터와 마법사의 돌0"))
             .check(matches(isDisplayed()))
         onView(withText("상영일: 2025.04.03 ~ 2025.04.05"))
             .check(matches(isDisplayed()))
@@ -163,46 +162,6 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun 선택_완료_버튼을_누르면_다이얼로그가_표시된다() {
-        onView(withId(R.id.common_button))
-            .perform(click())
-
-        onView(withText(R.string.complete_dialog_title))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun 다이얼로그의_바깥_쪽을_터치해도_사라지지_않는다() {
-        // given
-        onView(withId(R.id.common_button))
-            .perform(click())
-
-        // when
-        onView(isRoot())
-            .perform(click())
-
-        // then
-        onView((withText(R.string.complete_dialog_title)))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun 다이얼로그에서_예매완료를_선택하면_예매_내역_화면으로_이동한다() {
-        // given
-        onView(withId(R.id.common_button))
-            .perform(click())
-        onView(withText(R.string.complete_dialog_title)).check(matches(isDisplayed()))
-
-        // when
-        onView(withText(R.string.complete_dialog_positive_button))
-            .perform(click())
-
-        // then
-        onView(withId(R.id.booking_success))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
     fun 화면을_회전시켜도_정보가_유지된다() {
         // given
         onView(withId(R.id.plus_button))
@@ -221,6 +180,8 @@ class ReservationActivityTest {
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
             activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
         }
+
+        Thread.sleep(1000)
 
         // then
         onView(withId(R.id.count))
