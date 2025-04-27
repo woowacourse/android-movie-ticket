@@ -20,6 +20,7 @@ import woowacourse.movie.helper.BuildVersion
 import woowacourse.movie.helper.LocalDateHelper.toDotFormat
 import woowacourse.movie.presenter.MovieBookingPresenter
 import woowacourse.movie.view.MovieBookedActivity.Companion.movieBookedIntent
+import woowacourse.movie.view.MovieBookingSeatActivity.Companion.movieBookingSeatIntent
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -74,24 +75,9 @@ class MovieBookingActivity : AppCompatActivity(), MovieBooking.View {
         binding.timePicker.adapter = BookedTimeSpinnerAdapter(times)
     }
 
-    override fun showConfirmDialog(bookingStatus: BookingStatus) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.check_movie_booking))
-            .setMessage(getString(R.string.confirm_reservation_message))
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ ->
-                dialog.cancel()
-            }
-            .setPositiveButton(getString(R.string.okay)) { _, _ ->
-                navigateToMovieBooked(bookingStatus)
-            }
-            .show()
-            .setCancelable(false)
-    }
-
-    override fun navigateToMovieBooked(bookingStatus: BookingStatus) {
-        val intent = movieBookedIntent(this, bookingStatus)
+    override fun navigateToMovieBookingSeat(bookingStatus: BookingStatus) {
+        val intent = movieBookingSeatIntent(this@MovieBookingActivity, bookingStatus)
         startActivity(intent)
-        finish()
     }
 
     override fun showError(messageResId: Int) {

@@ -52,6 +52,6 @@ class MovieBookingPresenter(
 
     override fun confirmBooking() {
         val bookingStatus = BookingStatus(movie, count, bookedDate, bookedTime)
-        view.showConfirmDialog(bookingStatus)
+        view.navigateToMovieBookingSeat(bookingStatus)
     }
 }

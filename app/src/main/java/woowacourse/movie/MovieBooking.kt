@@ -11,8 +11,7 @@ interface MovieBooking {
         fun updateMemberCount(count: Int)
         fun showBookingDate(dates: List<LocalDate>)
         fun showBookingTimes(times: List<LocalTime>)
-        fun showConfirmDialog(bookingStatus: BookingStatus)
-        fun navigateToMovieBooked(bookingStatus: BookingStatus)
+        fun navigateToMovieBookingSeat(bookingStatus: BookingStatus)
         fun showError(messageRes: Int)
     }
 
