@@ -76,4 +76,17 @@ class SeatSelectionPresenterTest {
         // then
         verify { view.setPrice(10000) }
     }
+
+    @Test
+    fun `좌석을 선택할 수 있다`() {
+        // given
+        every { view.setSeatIsSelected(Seat(1, 1), true) } just Runs
+        every { view.setPrice(10000) } just Runs
+
+        // when
+        presenter.onSeatClicked(Seat(1, 1))
+
+        // then
+        verify { view.setSeatIsSelected(Seat(1, 1), true) }
+    }
 }
