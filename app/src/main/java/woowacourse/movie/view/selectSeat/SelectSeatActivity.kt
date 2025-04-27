@@ -32,9 +32,6 @@ class SelectSeatActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-//        outState.putInt(TICKET_COUNT, present.ticketCount.value)
-//        outState.putInt(TIME_ITEM_POSITION, present.timeItemPosition)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,17 +43,6 @@ class SelectSeatActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-//
-//        val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
-//        val savedTimeItemPosition =
-//            savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: DEFAULT_TIME_ITEM_POSITION
-
-//        present.initReservationData(savedTicketCount, savedTimeItemPosition)
-//        present.initSelectSeatUI()
-//        initTicketPlusBtnUi()
-//        initTicketMinusBtnUi()
-//        initCompleteButtonView()
-
         present.initSelectSeatUI()
         initSeatClickListener()
         // TODO: 임시 버튼 연결

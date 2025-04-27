@@ -21,21 +21,9 @@ class SelectSeatPresenter(
         Seats(seatGradePolicy = RowBasedSeatGradePolicy())
     }
 
-//    fun initTicketData(
-//        savedTicketCount: Int,
-//        savedTimeItemPosition: Int,
-//    ) {
-//        ticketCount = TicketCount.create(savedTicketCount).getOrDefault()
-//        timeItemPosition = savedTimeItemPosition
-//    }
-
     fun initSelectSeatUI() {
         view.initMovieTitleUI(ticketDataEmptySeat)
         view.setTicketPrice(selectedSeats.totalTicketPrice)
-//        view.initScreeningInfoUI(screeningData)
-//        view.setDateSelectUi(screening)
-//        view.setTimeSelectUi(screening.period.start, screening, timeItemPosition)
-//        view.setTicketCounterUi(ticketCount)
     }
 
     fun toggleSeat(seat: Seat) {
@@ -50,8 +38,4 @@ class SelectSeatPresenter(
     fun navigateToTicketUI() {
         view.navigateToTicketUI(ticketDataEmptySeat) // TODO: 좌석정보 추가 필요
     }
-
-//    companion object {
-//        private const val ERROR_NOT_SELECTED_DATETIME = "예매 정보가 선택되지 않았습니다"
-//    }
 }
