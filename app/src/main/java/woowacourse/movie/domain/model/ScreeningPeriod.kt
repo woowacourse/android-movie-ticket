@@ -32,10 +32,17 @@ data class ScreeningPeriod(
         val currentTime = if (isToday) now.toLocalTime() else LocalTime.MIN
 
         val isWeekend = date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY
-        val startHour = if (isWeekend) 9 else 10
+        val startHour = if (isWeekend) WEEKEND_SCREENING_START else WEEKDAY_SCREENING_START
 
-        return (startHour until 24 step 2)
+        return (startHour until FINISH_HOUR step SCREENING_INTERVAL_TIME)
             .map { LocalTime.of(it, 0) }
             .filter { it.isAfter(currentTime) }
+    }
+
+    companion object {
+        private val WEEKEND_SCREENING_START = 9
+        private val WEEKDAY_SCREENING_START = 10
+        private val FINISH_HOUR = 24
+        private val SCREENING_INTERVAL_TIME = 2
     }
 }
