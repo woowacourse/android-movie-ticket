@@ -5,5 +5,5 @@ value class SeatCol(
     val value: Int,
 ) {
     val colSeatText: String
-        get() = value.toString()
+        get() = (value + 1).toString()
 }
