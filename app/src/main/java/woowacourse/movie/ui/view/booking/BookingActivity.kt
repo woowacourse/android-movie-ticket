@@ -3,12 +3,8 @@ package woowacourse.movie.ui.view.booking
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
@@ -17,17 +13,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
-import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.ScreeningDateSelectListener
 import woowacourse.movie.domain.model.booking.ScreeningDateSpinner
+import woowacourse.movie.domain.model.booking.ScreeningTimeSelectListener
+import woowacourse.movie.domain.model.booking.ScreeningTimeSpinner
 import woowacourse.movie.domain.model.booking.result.BookingResult
-import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.presenter.booking.BookingContract
 import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
-import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
@@ -41,36 +36,21 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     private lateinit var presenter: BookingContract.Presenter
     private lateinit var bookingResult: BookingResult
     private lateinit var screeningDateSpinner: ScreeningDateSpinner
+    private lateinit var screeningTimeSpinner: ScreeningTimeSpinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking)
         applySystemBarInsets()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         presenter = BookingPresenter(view = this@BookingActivity, movieUiModel = movieOrNull())
-        presenter.loadScreeningPeriods()
+        presenter.loadScreeningDateTimes()
 
-        bookingResult = BookingResult("tmp", 0, LocalDate.now(), LocalTime.now())
         setUpHeadCount()
 
         setUpReserveConfirm()
-    }
-
-    private fun applySystemBarInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-
-    private fun movieOrNull(): MovieUiModel? {
-        return IntentCompat.getParcelableExtra(
-            intent,
-            EXTRA_SELECTED_MOVIE_ITEM,
-            MovieUiModel::class.java,
-        )
     }
 
     override fun showMovieInfo(movieUiModel: MovieUiModel) {
@@ -114,66 +94,43 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         screeningDateSpinner.setSelect(position)
     }
 
-    private fun setUpScreeningTimeSpinner(
-        movieData: Movie,
-        booking: Booking,
-    ) {
-        val screeningTimeSpinner = findViewById<Spinner>(R.id.spinner_screening_time)
-        val screeningTimes = booking.screeningTimes(bookingResult.selectedDate)
+    override fun setScreeningTimeSpinner(times: List<String>) {
+        screeningTimeSpinner =
+            ScreeningTimeSpinner(
+                findViewById(R.id.spinner_screening_time),
+            )
+        screeningTimeSpinner.updateAdapter(times)
+        screeningTimeSpinner.setOnItemSelectedListener(
+            ScreeningTimeSelectListener(
+                onSelect = { screeningTime ->
+                    presenter.updateScreeningTime(screeningTime)
+                },
+            ),
+        )
+    }
 
-        if (screeningTimes.isEmpty()) {
-            val nextDate = bookingResult.selectedDate.plusDays(1)
-            val nextDayScreeningTimes =
-                if (movieData.isScreeningEnd(nextDate)) {
-                    emptyList()
-                } else {
-                    bookingResult = bookingResult.updateDate(nextDate)
-                    val nextScreeningTimes = booking.screeningTimes(bookingResult.selectedDate)
-                    bookingResult = bookingResult.updateTime(nextScreeningTimes.first())
-                    nextScreeningTimes
-                }
+    override fun showScreeningTime(position: Int) {
+        screeningTimeSpinner.setSelect(position)
+    }
 
-            screeningTimeSpinner.adapter =
-                ArrayAdapter(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    DateTimeUtil.toSpinnerTimes(nextDayScreeningTimes),
-                )
-        } else {
-            screeningTimeSpinner.adapter =
-                ArrayAdapter(
-                    this,
-                    android.R.layout.simple_spinner_item,
-                    DateTimeUtil.toSpinnerTimes(screeningTimes),
-                )
+    override fun setScreeningTimeAdapter(times: List<String>) {
+        screeningTimeSpinner.updateAdapter(times)
+    }
+
+    private fun applySystemBarInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
+    }
 
-        val position = screeningTimes.indexOf(bookingResult.selectedTime)
-        screeningTimeSpinner.setSelection(position)
-
-        screeningTimeSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedSpinnerTime: String =
-                        screeningTimeSpinner.getItemAtPosition(position).toString()
-                    val selectedTime =
-                        selectedSpinnerTime.toLocalTime(MOVIE_TIME_DELIMITER)
-                    bookingResult = bookingResult.updateTime(selectedTime)
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    val time: String = screeningTimeSpinner.getItemAtPosition(0).toString()
-                    bookingResult =
-                        bookingResult.updateTime(time.toLocalTime(MOVIE_TIME_DELIMITER))
-                }
-            }
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    private fun movieOrNull(): MovieUiModel? {
+        return IntentCompat.getParcelableExtra(
+            intent,
+            EXTRA_SELECTED_MOVIE_ITEM,
+            MovieUiModel::class.java,
+        )
     }
 
     private fun setUpHeadCount() {
@@ -211,20 +168,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
                 showConfirmDialog(BookingResultModelMapper.toUi(bookingResult))
             }
         }
-    }
-
-    private fun showConfirmDialog2(bookingResultUiModel: BookingResultUiModel) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dig_title))
-            .setMessage(getString(R.string.dig_message))
-            .setPositiveButton(getString(R.string.dig_btn_positive_message)) { _, _ ->
-                val intent = BookingCompleteActivity.newIntent(this, bookingResultUiModel)
-                startActivity(intent)
-            }
-            .setNegativeButton(getString(R.string.dig_btn_negative_message)) { dialog, _ ->
-                dialog.dismiss()
-            }.setCancelable(false)
-            .show()
     }
 
     private fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel) {
@@ -279,7 +222,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         private const val EXTRA_SELECTED_MOVIE_ITEM = "extra_selected_movie_item"
         private const val SAVED_BOOKING_HEAD_COUNT = "savedstate_booking_head_count"
         private const val SAVED_BOOKING_SCREENING_DATE = "savedstate_booking_screening_date"
-
         private const val SAVED_BOOKING_SCREENING_TIME = "savedstate_booking_screening_time"
 
         fun newIntent(

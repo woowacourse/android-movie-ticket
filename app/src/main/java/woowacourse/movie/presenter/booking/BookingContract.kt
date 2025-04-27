@@ -6,11 +6,11 @@ interface BookingContract {
     interface Presenter {
         fun loadMovie(movieUiModel: MovieUiModel)
 
-        fun loadScreeningPeriods()
+        fun loadScreeningDateTimes()
 
         fun updateScreeningDate(date: String)
 
-        fun updateScreeningTime(date: String)
+        fun updateScreeningTime(time: String)
     }
 
     interface View {
@@ -22,6 +22,10 @@ interface BookingContract {
 
         fun showScreeningDate(position: Int)
 
-        fun updateScreeningTime()
+        fun setScreeningTimeSpinner(times: List<String>)
+
+        fun showScreeningTime(position: Int)
+
+        fun setScreeningTimeAdapter(times: List<String>)
     }
 }

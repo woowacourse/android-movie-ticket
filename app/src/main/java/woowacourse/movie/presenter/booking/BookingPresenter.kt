@@ -7,7 +7,9 @@ import woowacourse.movie.sample.SampleMovies
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
+import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
+import woowacourse.movie.util.DateTimeUtil.toLocalTime
 import woowacourse.movie.util.mapper.MovieModelMapper
 import java.time.LocalDate
 import java.time.LocalTime
@@ -20,7 +22,7 @@ class BookingPresenter(
     private val bookingMovie: Movie by lazy { MovieModelMapper.toDomain(movieUiModel!!) }
     private val booking: Booking by lazy { Booking(bookingMovie) }
     private var bookingResult: BookingResult = initBookingResult(booking)
-    private val bookableDates: List<LocalDate> get() = booking.screeningPeriods()
+    private val bookableDates: List<LocalDate> = booking.screeningPeriods()
     private val bookableTimes: List<LocalTime> get() = booking.screeningTimes(bookingResult.selectedDate)
 
     init {
@@ -39,24 +41,26 @@ class BookingPresenter(
         }
     }
 
-    override fun loadScreeningPeriods() {
-        val screeningPeriods = booking.screeningPeriods()
-        val screeningDates = DateTimeUtil.toSpinnerDates(screeningPeriods)
+    override fun loadScreeningDateTimes() {
+        adjustScreeningDateTime()
+
+        val screeningDates = DateTimeUtil.toSpinnerDates(bookableDates)
         view.setScreeningDateSpinner(screeningDates)
+        val screeningTimes = DateTimeUtil.toSpinnerTimes(bookableTimes)
+        view.setScreeningTimeSpinner(screeningTimes)
     }
 
     override fun updateScreeningDate(date: String) {
         val screeningDate: LocalDate = date.toLocalDate(MOVIE_SPINNER_DATE_DELIMITER)
         bookingResult = bookingResult.updateDate(screeningDate)
         view.showScreeningDate(bookableDates.indexOf(screeningDate))
-        updateScreeningTime(date)
+        updateScreeningTimes()
     }
 
-    override fun updateScreeningTime(date: String) {
-    }
-
-    private fun isExist(movieUiModel: MovieUiModel): Boolean {
-        return movies.movieUiModels.any { movie -> movie.id == movieUiModel.id }
+    override fun updateScreeningTime(time: String) {
+        val screeningTime: LocalTime = time.toLocalTime(MOVIE_TIME_DELIMITER)
+        bookingResult = bookingResult.updateTime(screeningTime)
+        view.showScreeningTime(bookableTimes.indexOf(screeningTime))
     }
 
     private fun initBookingResult(booking: Booking): BookingResult {
@@ -69,6 +73,23 @@ class BookingPresenter(
             selectedDate = nearestDate,
             selectedTime = nearestTime,
         )
+    }
+
+    private fun isExist(movieUiModel: MovieUiModel): Boolean {
+        return movies.movieUiModels.any { movie -> movie.id == movieUiModel.id }
+    }
+
+    private fun adjustScreeningDateTime() {
+        val nextDay = bookingResult.selectedDate.plusDays(1)
+        if (bookableTimes.isEmpty() && !bookingMovie.isScreeningEnd(nextDay)) {
+            bookingResult = bookingResult.updateDate(nextDay)
+        }
+    }
+
+    private fun updateScreeningTimes() {
+        val screeningTimes = DateTimeUtil.toSpinnerTimes(bookableTimes)
+        bookingResult = bookingResult.updateTime(bookableTimes.first())
+        view.setScreeningTimeAdapter(screeningTimes)
     }
 
     companion object {
