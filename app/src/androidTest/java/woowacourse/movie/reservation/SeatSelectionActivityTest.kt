@@ -43,4 +43,10 @@ class SeatSelectionActivityTest {
         onView(withText("A1"))
             .check(matches(hasTextColor(R.color.seat_grade_b)))
     }
+
+    @Test
+    fun `S등급은_초록색_글자로_표시한다`() {
+        onView(withText("C1"))
+            .check(matches(hasTextColor(R.color.seat_grade_s)))
+    }
 }
