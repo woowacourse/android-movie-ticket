@@ -6,39 +6,61 @@ import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.domain.model.Row
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.SeatRate
-import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.Ticket
+import woowacourse.movie.domain.model.Tickets
 
 class SeatPresenter(private val view: SeatContract.View) : SeatContract.Presenter {
-    private lateinit var seats: Seats
     private lateinit var reservation: Reservation
     private var purchaseCount: PurchaseCount? = null
 
     override fun initData(
-        rowRate: List<String>,
-        columnsSize: List<Int>,
         reservation: Reservation,
         purchaseCount: PurchaseCount,
     ) {
-        initSeats(rowRate, columnsSize)
         initReservation(reservation)
         initPurchaseCount(purchaseCount)
-        view.initView(this.reservation.title, reservation.tickets)
+        val totalPrice = reservation.tickets?.totalPrice() ?: 0
+        view.initView(this.reservation.title, totalPrice)
+        view.setReserveEnabled(reservation.ticketCount == (purchaseCount.value))
     }
 
-    private fun initSeats(
-        rowRate: List<String>,
-        columnsSize: List<Int>,
+    override fun addTicket(
+        rowPosition: Int,
+        columnPosition: Int,
+        rate: String,
+        onSuccess: () -> Unit,
+        onFailure: () -> Unit,
     ) {
-        val seats =
-            rowRate.mapIndexed { rowIndex, rate ->
-                val row = Row(rowIndex)
-                val seatRate = SeatRate.of(rate)
-                if (seatRate == SeatRate.NONE) return
-                List(columnsSize[rowIndex]) { columnIndex ->
-                    Seat(row, Column(columnIndex), seatRate)
-                }
-            }.flatten()
-        this.seats = Seats(seats)
+        val seat = Seat(Row(rowPosition), Column(columnPosition), SeatRate.of(rate) ?: return)
+        val ticket = Ticket(seat)
+        if (reservation.ticketCount >= (purchaseCount?.value ?: 0)) {
+            onFailure()
+            return
+        }
+        onSuccess()
+        reservation =
+            if (reservation.isEmptyTickets()) {
+                reservation.initTickets(Tickets(listOf(ticket)))
+            } else {
+                reservation.addTicket(ticket)
+            }
+        val totalPrice = reservation.tickets?.totalPrice() ?: 0
+        view.updatePrice(totalPrice)
+        view.setReserveEnabled(reservation.ticketCount == (purchaseCount?.value ?: 0))
+    }
+
+    override fun removeTicket(
+        rowPosition: Int,
+        columnPosition: Int,
+        rate: String,
+    ) {
+        val seat = Seat(Row(rowPosition), Column(columnPosition), SeatRate.of(rate) ?: return)
+        val ticket = Ticket(seat)
+        if (reservation.isEmptyTickets()) return
+        reservation = reservation.removeTicket(ticket)
+        val totalPrice = reservation.tickets?.totalPrice() ?: 0
+        view.updatePrice(totalPrice)
+        view.setReserveEnabled(reservation.ticketCount == (purchaseCount?.value ?: 0))
     }
 
     private fun initReservation(reservation: Reservation) {

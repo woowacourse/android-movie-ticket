@@ -192,7 +192,7 @@
         android:layout_marginTop="120dp"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/btn_seat_select_confirm"
+        app:layout_constraintEnd_toStartOf="@id/btn_seat_reserve"
         app:layout_constraintHorizontal_weight="3"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -225,7 +225,7 @@
         tools:text="25,000원" />
 
     <Button
-        android:id="@+id/btn_seat_select_confirm"
+        android:id="@+id/btn_seat_reserve"
         android:layout_width="0dp"
         android:layout_height="88dp"
         android:background="@color/purple_500"

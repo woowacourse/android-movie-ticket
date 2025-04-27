@@ -2,22 +2,37 @@ package woowacourse.movie.ui.seat
 
 import woowacourse.movie.domain.model.PurchaseCount
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Tickets
 
 interface SeatContract {
     interface Presenter {
         fun initData(
-            rowRate: List<String>,
-            columnsSize: List<Int>,
             reservation: Reservation,
             purchaseCount: PurchaseCount,
+        )
+
+        fun addTicket(
+            rowPosition: Int,
+            columnPosition: Int,
+            rate: String,
+            onSuccess: () -> Unit,
+            onFailure: () -> Unit,
+        )
+
+        fun removeTicket(
+            rowPosition: Int,
+            columnPosition: Int,
+            rate: String,
         )
     }
 
     interface View {
         fun initView(
             title: String,
-            tickets: Tickets?,
+            totalPrice: Int,
         )
+
+        fun updatePrice(totalPrice: Int)
+
+        fun setReserveEnabled(isMatchPurchaseCount: Boolean)
     }
 }
