@@ -89,4 +89,28 @@ class SeatSelectionPresenterTest {
         // then
         verify { view.setSeatIsSelected(Seat(1, 1), true) }
     }
+
+    @Test
+    fun `선택된 좌석을 해제할 수 있다`() {
+        // given
+        presenter =
+            SeatSelectionPresenter(
+                view,
+                Ticket(
+                    title = "해리 포터와 마법사의 돌",
+                    count = 2,
+                    showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
+                ),
+                selectedSeats = setOf(Seat(1, 1)),
+            )
+
+        every { view.setSeatIsSelected(Seat(1, 1), false) } just Runs
+        every { view.setPrice(0) } just Runs
+
+        // when
+        presenter.onSeatClicked(Seat(1, 1))
+
+        // then
+        verify { view.setSeatIsSelected(Seat(1, 1), false) }
+    }
 }
