@@ -8,9 +8,9 @@ enum class SeatGrade(val price: Int) {
     companion object {
         fun from(colIndex: Int): SeatGrade {
             return when(colIndex) {
-                0, 1 -> SeatGrade.B
-                2, 3 -> SeatGrade.S
-                4 -> SeatGrade.A
+                0, 1 -> B
+                2, 3 -> S
+                4 -> A
                 else -> throw IllegalArgumentException(GRADE_ERROR)
             }
         }

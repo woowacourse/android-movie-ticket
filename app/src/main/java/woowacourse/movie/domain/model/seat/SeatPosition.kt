@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.seat
 
-data class Position(
+data class SeatPosition(
     val x: Int,
     val y: Int
 )
