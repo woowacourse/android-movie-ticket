@@ -1,10 +1,10 @@
 package woowacourse.movie.activity.main
 
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieListData
 
 interface MainContract {
     interface View {
-        fun initMovieDto(movies: List<MovieDto>)
+        fun initMovieDto(movies: List<MovieListData>)
     }
 
     interface Presenter {

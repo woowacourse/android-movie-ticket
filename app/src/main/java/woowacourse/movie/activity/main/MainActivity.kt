@@ -10,13 +10,13 @@ import woowacourse.movie.R
 import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieListData
 import woowacourse.movie.global.ServiceLocator
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private lateinit var movieDto: List<MovieDto>
+    private lateinit var movieDto: List<MovieListData>
 
-    override fun initMovieDto(movies: List<MovieDto>) {
+    override fun initMovieDto(movies: List<MovieListData>) {
         movieDto = movies
     }
 
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
 
         binding.movies.layoutManager = LinearLayoutManager(this)
         binding.movies.adapter =
-            MovieListAdapter(movieDto) { movieDto ->
+            MovieListAdapter { movieDto ->
                 val intent = ReservationActivity.Companion.newIntent(this, movieDto)
                 startActivity(intent)
             }.apply { submitList(movieDto) }

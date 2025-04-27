@@ -1,6 +1,6 @@
 package woowacourse.movie.activity.reservation
 
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieListData.MovieDto
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

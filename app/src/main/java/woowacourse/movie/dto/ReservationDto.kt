@@ -4,6 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.PriceRule
+import woowacourse.movie.dto.MovieListData.MovieDto
 import java.time.LocalDateTime
 
 @Parcelize

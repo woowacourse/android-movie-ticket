@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.adapter.ReservationDaySpinnerAdapter
 import woowacourse.movie.adapter.RunningTimeSpinnerAdapter
 import woowacourse.movie.databinding.ActivityReservationBinding
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieListData.MovieDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.getObjectFromIntent

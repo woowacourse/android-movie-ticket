@@ -10,19 +10,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieListData
 import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
 
 class MovieListAdapter(
-    private val movies: List<MovieDto>,
-    private val onReservationClick: (selectedMovie: MovieDto) -> Unit,
-) : ListAdapter<MovieDto, RecyclerView.ViewHolder>(MyDataDiffCallback()) {
+    private val onReservationClick: (selectedMovie: MovieListData.MovieDto) -> Unit,
+) : ListAdapter<MovieListData, RecyclerView.ViewHolder>(MyDataDiffCallback()) {
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        (holder as? ViewHolder)?.setData(getItem(position), onReservationClick) ?: (holder as? AdvertiseViewHolder)?.setData()
+        when (holder) {
+            is ViewHolder -> holder.setData(getItem(position) as MovieListData.MovieDto, onReservationClick)
+            is AdvertiseViewHolder -> holder.setData(getItem(position) as MovieListData.AdsDto)
+        }
     }
 
     override fun onCreateViewHolder(
@@ -43,24 +45,23 @@ class MovieListAdapter(
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if ((position + 1) % 4 == 0) {
-            VIEW_TYPE_ADS
-        } else {
-            VIEW_TYPE_MOVIE
+        return when (getItem(position)) {
+            is MovieListData.MovieDto -> VIEW_TYPE_MOVIE
+            is MovieListData.AdsDto -> VIEW_TYPE_ADS
         }
     }
 
-    private class MyDataDiffCallback : DiffUtil.ItemCallback<MovieDto>() {
+    private class MyDataDiffCallback : DiffUtil.ItemCallback<MovieListData>() {
         override fun areItemsTheSame(
-            oldItem: MovieDto,
-            newItem: MovieDto,
+            oldItem: MovieListData,
+            newItem: MovieListData,
         ): Boolean {
-            return oldItem.title == newItem.title
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: MovieDto,
-            newItem: MovieDto,
+            oldItem: MovieListData,
+            newItem: MovieListData,
         ): Boolean {
             return oldItem == newItem
         }
@@ -74,8 +75,8 @@ class MovieListAdapter(
         val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
 
         fun setData(
-            movie: MovieDto,
-            onReservationClick: (selectedMovie: MovieDto) -> Unit,
+            movie: MovieListData.MovieDto,
+            onReservationClick: (selectedMovie: MovieListData.MovieDto) -> Unit,
         ) {
             titleTextView.text = movie.title
             runningTimeTextView.text =
@@ -99,8 +100,8 @@ class MovieListAdapter(
     class AdvertiseViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         val ads: ImageView = view.findViewById<ImageView>(R.id.ads)
 
-        fun setData() {
-            ads.setImage("ads/광고.png")
+        fun setData(adsDto: MovieListData.AdsDto) {
+            ads.setImage(adsDto.uri)
         }
     }
 
