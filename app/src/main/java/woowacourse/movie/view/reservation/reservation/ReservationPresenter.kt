@@ -17,7 +17,6 @@ class ReservationPresenter(
     private var timeTable: List<Int> = emptyList()
     private val movieTime = MovieTime()
     private var ticketCount = TicketCount()
-    private var selectedDatePosition: Int = 0
 
     override fun fetchData(getMovie: () -> Movie?) {
         val result = getMovie()
@@ -42,16 +41,12 @@ class ReservationPresenter(
         if (duration.isEmpty()) duration = listOf(movie.startDate)
 
         view.updateDateAdapter(duration, 0)
-        onDateSelected(duration[0], selectedDatePosition)
+        onDateSelected(duration[0])
     }
 
-    override fun onDateSelected(
-        date: LocalDate,
-        position: Int,
-    ) {
+    override fun onDateSelected(date: LocalDate) {
         movieDate.updateDate(date)
         timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
-        selectedDatePosition = position
         view.updateTimeAdapter(timeTable.map { ReservationUiFormatter.movieTimeToUI(it) })
     }
 
@@ -79,8 +74,6 @@ class ReservationPresenter(
             )
         onCreated(ticket)
     }
-
-    fun currentDatePosition(): Int = selectedDatePosition
 
     fun restoreTicketCount(count: Int) {
         ticketCount = TicketCount(count)

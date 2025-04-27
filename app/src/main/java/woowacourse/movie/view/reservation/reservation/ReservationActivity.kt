@@ -105,7 +105,7 @@ class ReservationActivity :
                         position: Int,
                         id: Long,
                     ) {
-                        presenter.onDateSelected(duration[position], position)
+                        presenter.onDateSelected(duration[position])
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -212,7 +212,6 @@ class ReservationActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(Extras.ReservationData.TICKET_COUNT_KEY, presenter.currentTicketCount())
-        outState.putInt(Extras.ReservationData.DATE_POSITION_KEY, presenter.currentDatePosition())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {

@@ -33,10 +33,7 @@ interface ReservationContract {
 
         fun initDateAdapter()
 
-        fun onDateSelected(
-            date: LocalDate,
-            position: Int,
-        )
+        fun onDateSelected(date: LocalDate)
 
         fun onTimeSelected(position: Int)
 
