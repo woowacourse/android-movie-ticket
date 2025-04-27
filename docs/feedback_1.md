@@ -73,3 +73,6 @@ private fun seatToLabel(): String {
 ```
 - [x] SeatsPresenter에 존재하는 UI 로직 제거
 - [x] 이외의 Presenter에 UI 로직이 존재하는지 확인
+
+## 5. 테이블 레이아웃 코드 개선
+- 좌석의 전체 뷰와 각 row를 관리하도록 수정

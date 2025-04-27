@@ -2,19 +2,15 @@ package woowacourse.movie.view.seat
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TableLayout
-import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.seat.Seat
@@ -24,13 +20,14 @@ import woowacourse.movie.presenter.seat.SeatPresenter
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.complete.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
-import woowacourse.movie.view.seat.model.coord.Column
+import woowacourse.movie.view.seat.manager.SeatView
 import woowacourse.movie.view.seat.model.coord.Coordination
-import woowacourse.movie.view.seat.model.coord.Row
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
     private val presenter: SeatContract.Presenter by lazy { SeatPresenter(this, Seats()) }
-    private val seat by lazy { findViewById<TableLayout>(R.id.seatTable) }
+    private lateinit var seatView: SeatView
+
+    private val seatTable by lazy { findViewById<TableLayout>(R.id.seatTable) }
     private val priceText by lazy { findViewById<TextView>(R.id.tv_price) }
     private val bookingBtn by lazy { findViewById<TextView>(R.id.btn_booking) }
 
@@ -38,7 +35,6 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_seat)
         defaultBooking = intent.getSerializable(KEY_BOOKING, Booking::class.java)
 
@@ -64,33 +60,17 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     }
 
     private fun initSeat() {
-        seat
-            .children
-            .filterIsInstance<TableRow>()
-            .forEachIndexed { rowIndex, row ->
-                setRowListener(row, rowIndex, defaultBooking.count.value)
+        seatView =
+            SeatView(seatTable) { coordination ->
+                onClickSeat(coordination, defaultBooking.count.value)
             }
+        seatView.initSeats()
     }
 
     private fun initBookingBtn() {
         bookingBtn.setOnClickListener {
             showDialog()
         }
-    }
-
-    private fun setRowListener(
-        row: TableRow,
-        rowIndex: Int,
-        count: Int,
-    ) {
-        row.children
-            .forEachIndexed { col, view ->
-                val newTag = Coordination(Column(rowIndex + 1), Row(col + 1))
-                view.tag = newTag
-                view.setOnClickListener {
-                    onClickSeat(it.tag as Coordination, count)
-                }
-            }
     }
 
     override fun onClickSeat(
@@ -100,22 +80,8 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         presenter.changeSeat(position, peopleCount)
     }
 
-    override fun showSeat(seat: Set<Seat>) {
-        val seatToCoordination = seatToCoordination(seat)
-        this.seat.children
-            .filterIsInstance<TableRow>()
-            .forEach { row ->
-                row.children
-                    .filterIsInstance<TextView>()
-                    .forEach { textView ->
-                        val seatCoord = textView.tag as? Coordination
-                        if (seatCoord != null && seatToCoordination.contains(seatCoord)) {
-                            textView.setBackgroundColor(Color.YELLOW)
-                        } else {
-                            textView.setBackgroundColor(0)
-                        }
-                    }
-            }
+    override fun showSeat(seats: Set<Seat>) {
+        seatView.updateSeats(seats)
     }
 
     override fun showToast(peopleCount: Int) {
@@ -149,30 +115,11 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         startActivity(intent)
     }
 
-    private fun seatToCoordination(seats: Set<Seat>): List<Coordination> {
-        return seats
-            .map {
-                Coordination(Column(it.x), Row(it.y))
-            }
-    }
-
     private fun seatToLabel(seats: Set<Seat>): String {
-        return seats
-            .joinToString {
-                val rowLetter = ('A' + it.x - 1)
-                val columnNumber = it.y
-                "$rowLetter$columnNumber"
-            }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
+        return seats.joinToString {
+            val rowLetter = ('A' + it.x - 1)
+            val columnNumber = it.y
+            "$rowLetter$columnNumber"
         }
     }
 
@@ -188,6 +135,17 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
             }
             .setCancelable(false)
             .show()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {
