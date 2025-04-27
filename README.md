@@ -50,3 +50,13 @@
 
 - [x] 영화 제목과 상영일을 표시한다
 - [x] `영화 예매 내역 화면`에서 뒤로 가기 버튼을 누르면 `영화 목록 화면`으로 전환된다
+
+### TODO
+- [ ] MainActivity 네이밍 고밍
+- [ ] Point 네이밍 고민
+- [ ] Item 네이밍 고민
+- [ ] IntentExtensions | 에러가 난 키를 에러 메시지에 명시해 주기
+- [ ] ViewType | ViewType을 리소스 ID로 변경
+- [ ] ReserveContract | initView가 Presenter에 있어야 할지 고민
+- [ ] ReserveContract initReservation | view 해야 할 동작들을 presenter를 거쳐야 할지 고민
+- [ ] PresenterTest | 네이밍 고민
