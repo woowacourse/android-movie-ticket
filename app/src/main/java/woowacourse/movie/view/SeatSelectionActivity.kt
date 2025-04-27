@@ -81,7 +81,7 @@ class SeatSelectionActivity :
                     LinkedHashSet::class.java,
                 ) as Set<Seat>
 
-            else -> (getSerializable(KEY_SEATS) as? LinkedHashSet<Seat>)
+            else -> (getSerializable(KEY_SEATS) as? Set<Seat>)
         }
     }
 
