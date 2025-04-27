@@ -27,7 +27,7 @@ interface MovieReservationContract {
 
         fun showRunningTime(runningTime: Int)
 
-        fun showTicketCount(count: String)
+        fun showTicketCount(count: Int)
 
         fun setIncrementEnabled(canIncrement: Boolean)
 

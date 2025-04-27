@@ -24,7 +24,7 @@ class MovieReservationPresenter(
         view.showMovieTitle(ticket.movie.title)
         view.showScreeningDates(ticket.movie.startDate, ticket.movie.endDate)
         view.showRunningTime(ticket.movie.runningTime)
-        view.showTicketCount(ticket.count.toString())
+        view.showTicketCount(ticket.count)
     }
 
     private fun initializeInfo(movie: MovieUiModel) {
@@ -52,7 +52,7 @@ class MovieReservationPresenter(
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(selectedDate, LocalDateTime.now())
         view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
-        view.showTicketCount(ticket.count.toString())
+        view.showTicketCount(ticket.count)
     }
 
     override fun onDateSelection(date: LocalDate) {
@@ -67,12 +67,12 @@ class MovieReservationPresenter(
 
     override fun onTicketCountIncrement() {
         _ticket = _ticket.increment()
-        view.showTicketCount(ticket.count.toString())
+        view.showTicketCount(ticket.count)
     }
 
     override fun onTicketCountDecrement() {
         _ticket = _ticket.decrement()
-        view.showTicketCount(ticket.count.toString())
+        view.showTicketCount(ticket.count)
     }
 
     override fun onTicketCountChange() {

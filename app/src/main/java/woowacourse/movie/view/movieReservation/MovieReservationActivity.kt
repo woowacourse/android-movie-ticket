@@ -158,9 +158,9 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         runningTimeTextView.text = getString(R.string.template_running_type).format(runningTime)
     }
 
-    override fun showTicketCount(count: String) {
+    override fun showTicketCount(count: Int) {
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
-        ticketCountTextView.text = count
+        ticketCountTextView.text = count.toString()
     }
 
     override fun setIncrementEnabled(canIncrement: Boolean) {
