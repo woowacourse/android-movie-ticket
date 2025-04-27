@@ -25,6 +25,7 @@
             android:background="#494949"
             android:gravity="center"
             android:text="SCREEN"
+            android:textColor="@color/white"
             android:textSize="24sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/table_layout_seating"
@@ -356,7 +357,7 @@
             android:id="@+id/seating_total_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/movieTotalPrice"
+            android:text="@string/ticketTotalPrice"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -364,7 +365,7 @@
             app:layout_constraintTop_toBottomOf="@+id/seating_movie_title" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/seating_confirm"
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:background="#B7B7B7"

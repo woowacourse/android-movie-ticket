@@ -4,7 +4,7 @@ import android.os.Bundle
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ScreeningTime
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.ReservationInfo
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -58,8 +58,8 @@ class DetailBookingPresenter(private val view: DetailBookingContract.View) : Det
     override fun clickedButton() {
         val selectedDate = movieSchedule[selectedDatePosition]
         val selectedTime = screeningTime[selectedTimePosition]
-        val ticket = Ticket(movie.title, LocalDateTime.of(selectedDate, selectedTime), personnel)
-        view.showDialog(ticket)
+        val reservationInfo = ReservationInfo(movie.title, LocalDateTime.of(selectedDate, selectedTime), personnel)
+        view.showNextActivity(reservationInfo)
     }
 
     override fun saveState(outState: Bundle) {

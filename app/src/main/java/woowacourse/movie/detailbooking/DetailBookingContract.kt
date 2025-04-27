@@ -2,7 +2,7 @@ package woowacourse.movie.detailbooking
 
 import android.os.Bundle
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.ReservationInfo
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -40,6 +40,6 @@ interface DetailBookingContract {
 
         fun showCount(count: Int)
 
-        fun showDialog(ticket: Ticket)
+        fun showNextActivity(reservationInfo: ReservationInfo)
     }
 }

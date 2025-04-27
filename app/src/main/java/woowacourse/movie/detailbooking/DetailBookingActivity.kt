@@ -11,14 +11,13 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.completedbooking.CompletedBookingActivity
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.ReservationInfo
+import woowacourse.movie.seating.SeatingActivity
 import woowacourse.movie.utils.DateFormatter
 import woowacourse.movie.utils.parcelableCompat
 import java.time.LocalDate
@@ -82,11 +81,11 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
 
     override fun showMovieSchedule(
         movieSchedule: List<LocalDate>,
-        selectedIndex: Int,
+        selectedDatePosition: Int,
     ) {
         spinnerDate.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, movieSchedule)
-        spinnerDate.setSelection(selectedIndex)
+        spinnerDate.setSelection(selectedDatePosition)
         spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -104,13 +103,13 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
 
     override fun showMovieScreeningTime(
         screeningTime: List<LocalTime>,
-        selectedIndex: Int,
+        selectedTimePosition: Int,
     ) {
         spinnerTime.adapter =
             ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningTime).apply {
                 setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             }
-        spinnerTime.setSelection(selectedIndex)
+        spinnerTime.setSelection(selectedTimePosition)
         spinnerTime.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -130,18 +129,8 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
         findViewById<TextView>(R.id.detail_personnel).text = count.toString()
     }
 
-    override fun showDialog(ticket: Ticket) {
-        AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_reservation_title))
-            .setMessage(getString(R.string.dialog_reservation_message))
-            .setPositiveButton(getString(R.string.dialog_reservation_positive_text)) { _, _ ->
-                startActivity(CompletedBookingActivity.newIntent(this, ticket))
-            }
-            .setNegativeButton(getString(R.string.dialog_reservation_negative_text)) { dialog, _ ->
-                dialog.dismiss()
-            }
-            .setCancelable(false)
-            .show()
+    override fun showNextActivity(reservationInfo: ReservationInfo) {
+        startActivity(SeatingActivity.newIntent(this@DetailBookingActivity, reservationInfo))
     }
 
     companion object {
