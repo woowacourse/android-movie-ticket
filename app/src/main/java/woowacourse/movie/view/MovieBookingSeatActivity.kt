@@ -13,7 +13,9 @@ import woowacourse.movie.databinding.MovieBookingSeatBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.helper.BuildVersion
+import woowacourse.movie.helper.CustomClickListenerHelper.setOnSingleClickListener
 import woowacourse.movie.presenter.MovieBookingSeatPresenter
+import woowacourse.movie.view.MovieBookedActivity.Companion.movieBookedIntent
 
 class MovieBookingSeatActivity : AppCompatActivity(), MovieBookingSeat.View {
     private lateinit var binding: MovieBookingSeatBinding
@@ -45,6 +47,7 @@ class MovieBookingSeatActivity : AppCompatActivity(), MovieBookingSeat.View {
             R.string.booking_seat_price,
             price
         )
+        binding.confirmButton.setOnSingleClickListener { showConfirmDialog(bookingStatus) }
         binding.confirmButton.text = getString(R.string.booking_seat_okay)
     }
 
@@ -67,7 +70,9 @@ class MovieBookingSeatActivity : AppCompatActivity(), MovieBookingSeat.View {
     }
 
     override fun navigateToMovieBooked(bookingStatus: BookingStatus) {
-        TODO("Not yet implemented")
+        val intent =  movieBookedIntent(this@MovieBookingSeatActivity, bookingStatus)
+        startActivity(intent)
+        finish()
     }
 
     override fun showError(messageRes: Int) {

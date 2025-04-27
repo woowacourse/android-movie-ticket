@@ -19,6 +19,6 @@ class MovieBookingSeatPresenter(
     }
 
     override fun confirmBooking() {
-        TODO("Not yet implemented")
+        view.showConfirmDialog(bookingStatus)
     }
 }
