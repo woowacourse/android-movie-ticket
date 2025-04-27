@@ -1,11 +1,9 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatToggleResult
 import woowacourse.movie.model.ticket.seat.Seats
 import woowacourse.movie.model.ticket.seat.grade.RowBasedSeatGradePolicy
-import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.SeatsData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.selectSeat.SelectSeatView
@@ -13,11 +11,10 @@ import woowacourse.movie.view.selectSeat.SelectSeatView
 class SelectSeatPresenter(
     private val view: SelectSeatView,
 ) {
-    private val screeningData: ScreeningData by lazy { ticketDataEmptySeat.screeningData }
-    private val screening: Screening by lazy { screeningData.toScreening() }
     private val ticketDataEmptySeat: TicketData by lazy {
         view.getTicketData()
     }
+
     val selectedSeats: Seats by lazy {
         Seats(seatGradePolicy = RowBasedSeatGradePolicy())
     }

@@ -25,11 +25,11 @@ class TicketPresenter(
         )
     }
 
-    fun getSortedSeatsCodes(): List<String> = ticketData.seatsData.seatsCodes.sorted()
-
-    fun getTotalPrice(): TicketPrice = TicketPrice(ticketData.seatsData.totalSeatsPrice)
-
     fun initTicketUi() {
         view.initTicketUI(ticket)
     }
+
+    fun getSortedSeatsCodes(): List<String> = ticketData.seatsData.seatsCodes.sorted()
+
+    fun getTotalPrice(): TicketPrice = TicketPrice(ticketData.seatsData.totalSeatsPrice)
 }

@@ -34,14 +34,14 @@ class Seats(
             SeatToggleResult.Added(seat)
         }
 
-    private fun addSeat(seat: Seat) {
-        selectedSeats.add(seat)
-        _totalTicketPrice = _totalTicketPrice.plusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
-    }
-
     private fun removeSeat(seat: Seat) {
         selectedSeats.remove(seat)
         _totalTicketPrice = _totalTicketPrice.minusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
+    }
+
+    private fun addSeat(seat: Seat) {
+        selectedSeats.add(seat)
+        _totalTicketPrice = _totalTicketPrice.plusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
     }
 
     fun size() = selectedSeats.size
