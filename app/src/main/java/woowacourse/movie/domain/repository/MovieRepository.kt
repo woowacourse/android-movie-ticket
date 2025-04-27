@@ -29,7 +29,7 @@ class MovieRepository {
             ),
             Movie(
                 "범죄도시",
-                LocalDate.of(2025, 5, 1),
+                LocalDate.of(2025, 5, 2),
                 LocalDate.of(2025, 5, 29),
                 135,
                 4,

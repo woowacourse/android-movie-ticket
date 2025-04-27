@@ -27,7 +27,8 @@ class BookingSummaryActivityTest {
                 1,
                 LocalDateTime.of(2025, 4, 18, 12, 0),
                 2,
-                26000,
+                20000,
+                mutableListOf("A1", "A2"),
             )
 
         val intent =
@@ -59,13 +60,13 @@ class BookingSummaryActivityTest {
     @Test
     fun headCountTest() {
         onView(withId(R.id.headCount))
-            .check(matches(withText("일반 2명")))
+            .check(matches(withText("일반 2명 | A1, A2")))
     }
 
     @DisplayName("총 결제 금액이 출력된다")
     @Test
     fun amountTest() {
         onView(withId(R.id.amount))
-            .check(matches(withText("26,000원 (현장 결제)")))
+            .check(matches(withText("20,000원 (현장 결제)")))
     }
 }
