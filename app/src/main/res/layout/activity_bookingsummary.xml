@@ -70,7 +70,8 @@
                 android:gravity="center"
                 android:textSize="20sp"
                 android:paddingBottom="20dp"
-                android:paddingStart="10dp"/>
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"/>
 
         </LinearLayout>
 

@@ -40,7 +40,7 @@ class BookingSummaryActivity : BaseActivity(), BookingSummaryContract.View {
         title.text = ticket.title
         screeningDateTime.text = formatDateTime(ticket.screeningDateTime)
         headCount.text = formatHeadCount(getString(R.string.headCount_message), ticket.headCount)
-        seats.text = ticket.seats.toUi()
+        seats.text = String.format(getString(R.string.delimiter), ticket.seats.toUi())
         amount.text = formatAmount(getString(R.string.summary_amount_message), ticket.amount)
     }
 
