@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter.seatSelection
 
-import android.util.Log
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.model.TicketUiModel
@@ -28,7 +27,6 @@ class SeatSelectionPresenter(
         row: Int,
         col: Int,
     ) {
-        Log.wtf("asdf", "$row, $col")
         val seat = Seat(row, col)
         if (seat in selectedSeats) {
             view.deselectSeat(row, col)
@@ -37,6 +35,9 @@ class SeatSelectionPresenter(
             view.selectSeat(row, col)
             selectedSeats.add(seat)
         }
+
+        val price = selectedSeats.sumOf { selectedSeat -> selectedSeat.price() }
+        view.showTotalPrice(price)
     }
 
     override fun onSelection() {
