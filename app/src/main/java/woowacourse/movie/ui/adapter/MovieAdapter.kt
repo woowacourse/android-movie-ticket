@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.mapper.PosterMapper
@@ -15,35 +16,55 @@ import woowacourse.movie.ui.view.utils.setImage
 class MovieAdapter(
     private val movies: List<Movie>,
     private val onReservationClickListener: (Int) -> Unit,
-) : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): MovieViewHolder {
-        val itemView =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-        return MovieViewHolder(itemView, onReservationClickListener)
-    }
-
-    override fun getItemCount(): Int = movies.size
+    ): ViewHolder =
+        if (viewType == ADVERTISEMENT_TYPE) {
+            val itemView =
+                LayoutInflater
+                    .from(parent.context)
+                    .inflate(R.layout.item_advertisement, parent, false)
+            AdvertisementViewHolder(itemView)
+        } else {
+            val itemView =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+            MovieViewHolder(itemView, onReservationClickListener)
+        }
 
     override fun onBindViewHolder(
-        holder: MovieViewHolder,
+        holder: ViewHolder,
         position: Int,
     ) {
-        holder.bind(movies[position])
+        when (holder) {
+            is MovieViewHolder -> {
+                val realPosition = position - (position / 4)
+                holder.bind(movies[realPosition])
+            }
+
+            is AdvertisementViewHolder -> {
+                holder.bindAdvertisement()
+            }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int = if ((position + 1) % 4 == 0) ADVERTISEMENT_TYPE else MOVIE_TYPE
+
+    override fun getItemCount(): Int {
+        val adCount = movies.size / 3
+        return movies.size + adCount
     }
 
     class MovieViewHolder(
         itemView: View,
         private val onReservationClickListener: (Int) -> Unit,
-    ) : RecyclerView.ViewHolder(itemView) {
+    ) : ViewHolder(itemView) {
         private val reservation: Button = itemView.findViewById(R.id.reservation)
         private val imagePoster: ImageView = itemView.findViewById(R.id.poster)
         private val title: TextView = itemView.findViewById(R.id.title)
         private val screeningDate: TextView = itemView.findViewById(R.id.screeningDate)
         private val runningTime: TextView = itemView.findViewById(R.id.runningTime)
-//        private val advertisement: ImageView = itemView.findViewById(R.id.advertisement)
 
         fun bind(movie: Movie) {
             reservation.setOnClickListener {
@@ -65,8 +86,21 @@ class MovieAdapter(
 
             val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
             imagePoster.setImage(posterRes)
-
-//            advertisement.setImage(advertisement.id)
         }
+    }
+
+    class AdvertisementViewHolder(
+        itemView: View,
+    ) : ViewHolder(itemView) {
+        private val advertisement = itemView.findViewById<ImageView>(R.id.advertisement)
+
+        fun bindAdvertisement() {
+            advertisement.setImageResource(R.drawable.advertisement)
+        }
+    }
+
+    companion object {
+        private const val ADVERTISEMENT_TYPE = 1
+        private const val MOVIE_TYPE = 0
     }
 }

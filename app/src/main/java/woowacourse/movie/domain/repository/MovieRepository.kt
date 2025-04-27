@@ -20,6 +20,20 @@ class MovieRepository {
                 137,
                 2,
             ),
+            Movie(
+                "야당",
+                LocalDate.of(2025, 5, 1),
+                LocalDate.of(2025, 5, 29),
+                123,
+                3,
+            ),
+            Movie(
+                "범죄도시",
+                LocalDate.of(2025, 5, 1),
+                LocalDate.of(2025, 5, 29),
+                135,
+                4,
+            ),
         )
 
     fun getMovieById(movieId: Int): Movie = getAllMovies()[movieId - 1]
