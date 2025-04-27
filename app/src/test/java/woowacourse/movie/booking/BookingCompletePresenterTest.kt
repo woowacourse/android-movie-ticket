@@ -11,7 +11,6 @@ import woowacourse.movie.booking.detail.TicketUiModel
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.HeadCount
 import woowacourse.movie.model.Seat
-import woowacourse.movie.model.SeatGrade
 import woowacourse.movie.model.Seats
 import woowacourse.movie.model.Ticket
 import java.time.LocalDate
@@ -23,7 +22,6 @@ class BookingCompletePresenterTest {
     private lateinit var mockTicket: Ticket
     private lateinit var mockTicketUiData: TicketUiModel
 
-
     @BeforeEach
     fun setUp() {
         mockView = mockk(relaxed = true)
@@ -32,8 +30,8 @@ class BookingCompletePresenterTest {
             listOf(
                 Seat("A1", true),
                 Seat("C2", true),
-                Seat("E1", true)
-        )
+                Seat("E1", true),
+            )
 
         mockTicket =
             Ticket(
@@ -41,7 +39,7 @@ class BookingCompletePresenterTest {
                 headCount = HeadCount(3),
                 selectedDate = LocalDate.of(2028, 10, 13),
                 selectedTime = LocalTime.of(11, 0),
-                seats = Seats(seats)
+                seats = Seats(seats),
             )
 
         mockTicketUiData = mockTicket.toUiModel()
@@ -66,9 +64,14 @@ class BookingCompletePresenterTest {
         presenter.initializeData(null)
 
         verify { mockView.showBookingCompleteResult(mockTicketUiData) }
-        verify { mockView.showBookingCompleteResult(
-            match { it.headCount == 3  && it.selectedDateText == "2028.10.13"
-                    && it.selectedTimeText == "11:00" && it.seats == "A1,C2,E1"
-                    && it.totalPrice == "37,000"})}
+        verify {
+            mockView.showBookingCompleteResult(
+                match {
+                    it.headCount == 3 && it.selectedDateText == "2028.10.13" &&
+                        it.selectedTimeText == "11:00" && it.seats == "A1,C2,E1" &&
+                        it.totalPrice == "37,000"
+                },
+            )
+        }
     }
 }

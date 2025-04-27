@@ -41,9 +41,10 @@ class MoviePresenterTest {
 
     @Test
     fun `영화 리스트가 null이면 기본 메시지를 띄운다`() {
-        val mockIntent = mockk<Intent> {
-            every { getParcelableExtra<MovieUiModel>(any()) } returns null
-        }
+        val mockIntent =
+            mockk<Intent> {
+                every { getParcelableExtra<MovieUiModel>(any()) } returns null
+            }
 
         val presenter = MoviePresenter(view = mockView)
 
@@ -52,7 +53,6 @@ class MoviePresenterTest {
         verify { mockView.showToast("기본 영화 목록을 불러왔습니다.") }
         verify { mockView.showMovies(any()) }
     }
-
 
     @Test
     fun `지금 예매 버튼을 누르면 다음 화면으로 넘어간다`() {

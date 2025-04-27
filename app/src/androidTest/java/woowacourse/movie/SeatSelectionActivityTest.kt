@@ -1,7 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import androidx.core.content.ContextCompat
 import androidx.test.core.app.ActivityScenario
@@ -16,7 +15,6 @@ import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import com.google.android.material.textview.MaterialTextView
 import org.hamcrest.CoreMatchers.allOf
 import org.junit.After
 import org.junit.Before
@@ -40,7 +38,7 @@ class SeatSelectionActivityTest {
         val intent =
             Intent(
                 ApplicationProvider.getApplicationContext(),
-                SeatSelectionActivity::class.java
+                SeatSelectionActivity::class.java,
             ).apply {
                 putExtra("ticketUiData", movie)
             }
@@ -83,23 +81,27 @@ class SeatSelectionActivityTest {
     @Test
     fun `화면의_좌석을_선택하면_가격이_오른다`() {
         onView(withId(R.id.tv_seat_amount))
-            .check ( matches(
-                allOf(
-                    withText("0원"),
-                    isDisplayed(),
+            .check(
+                matches(
+                    allOf(
+                        withText("0원"),
+                        isDisplayed(),
+                    ),
                 ),
-            ) )
+            )
 
         onView(withText("A1"))
             .perform(click())
 
         onView(withId(R.id.tv_seat_amount))
-            .check ( matches(
-                allOf(
-                    withText("10,000원"),
-                    isDisplayed(),
+            .check(
+                matches(
+                    allOf(
+                        withText("10,000원"),
+                        isDisplayed(),
+                    ),
                 ),
-            ) )
+            )
     }
 
     @Test
@@ -135,12 +137,14 @@ class SeatSelectionActivityTest {
             assertEquals(expectedColor, color)
         }
 
-        onView(withId(R.id.tv_seat_amount)).check ( matches(
-            allOf(
-                withText("25,000원"),
-                isDisplayed(),
+        onView(withId(R.id.tv_seat_amount)).check(
+            matches(
+                allOf(
+                    withText("25,000원"),
+                    isDisplayed(),
+                ),
             ),
-        ) )
+        )
     }
 
     @Test
@@ -263,16 +267,19 @@ class SeatSelectionActivityTest {
             .check(matches(allOf(withText("A1,C1"), isDisplayed())))
 
         onView(withId(R.id.tv_booking_amount))
-            .check(matches(
-                allOf(withText("25,000원 (현장 결제)"), isDisplayed())))
+            .check(
+                matches(
+                    allOf(withText("25,000원 (현장 결제)"), isDisplayed()),
+                ),
+            )
     }
 
     private fun mockTicket(): Ticket {
         return Ticket(
             title = "해리 포터와 마법사의 돌",
             headCount = HeadCount(2),
-            selectedDate = LocalDate.of(2028,10,13),
-            selectedTime = LocalTime.of(11,0),
+            selectedDate = LocalDate.of(2028, 10, 13),
+            selectedTime = LocalTime.of(11, 0),
             seats = Seats(emptyList()),
         )
     }

@@ -45,7 +45,7 @@ class BookingDetailPresenterTest {
                 headCount = HeadCount(2),
                 selectedDate = LocalDate.of(2028, 10, 13),
                 selectedTime = LocalTime.of(11, 0),
-                seats = Seats(emptyList())
+                seats = Seats(emptyList()),
             )
 
         mockMovieUiData = mockMovie.toUiModel()
@@ -199,9 +199,9 @@ class BookingDetailPresenterTest {
             mockView.startSeatSelectionActivity(
                 match {
                     it.selectedDateText == formattedDate &&
-                            it.selectedTimeText == formattedTime &&
-                            it.headCount == 1
-                }
+                        it.selectedTimeText == formattedTime &&
+                        it.headCount == 1
+                },
             )
         }
     }
@@ -257,13 +257,12 @@ class BookingDetailPresenterTest {
             mockView.showTicket(
                 match {
                     it.selectedDateText == "2028.10.13" &&
-                            it.selectedTimeText == "11:00" &&
-                            it.headCount == 3
-                }
+                        it.selectedTimeText == "11:00" &&
+                        it.headCount == 3
+                },
             )
         }
     }
-
 
     @Test
     fun `저장된 인원 수가 있으면 복원된다`() {

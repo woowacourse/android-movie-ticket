@@ -1,9 +1,6 @@
 package woowacourse.movie
 
 import android.content.Intent
-import org.hamcrest.Matcher
-import org.hamcrest.Description
-import org.hamcrest.TypeSafeMatcher
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -23,6 +20,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -65,14 +65,19 @@ class MainActivityTest {
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
 
         onView(withId(R.id.recyclerView_layout))
-            .check(matches(
-                atPosition(0, hasDescendant(
-                    allOf(
-                        withId(R.id.img_poster),
-                        isDisplayed()
-                    )
-                ))
-            ))
+            .check(
+                matches(
+                    atPosition(
+                        0,
+                        hasDescendant(
+                            allOf(
+                                withId(R.id.img_poster),
+                                isDisplayed(),
+                            ),
+                        ),
+                    ),
+                ),
+            )
     }
 
     @Test
@@ -81,12 +86,19 @@ class MainActivityTest {
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
 
         onView(withId(R.id.recyclerView_layout))
-            .check(matches(
-                atPosition(0, hasDescendant(allOf(
-                    withId(R.id.tv_movie_title),
-                    withText("해리 포터와 마법사의 돌")
-                )))
-            ))
+            .check(
+                matches(
+                    atPosition(
+                        0,
+                        hasDescendant(
+                            allOf(
+                                withId(R.id.tv_movie_title),
+                                withText("해리 포터와 마법사의 돌"),
+                            ),
+                        ),
+                    ),
+                ),
+            )
     }
 
     @Test
@@ -95,12 +107,19 @@ class MainActivityTest {
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
 
         onView(withId(R.id.recyclerView_layout))
-            .check(matches(
-                atPosition(0, hasDescendant(allOf(
-                    withId(R.id.tv_movie_screening_date),
-                    withText("2025.4.1 ~ 2025.4.25")
-                )))
-            ))
+            .check(
+                matches(
+                    atPosition(
+                        0,
+                        hasDescendant(
+                            allOf(
+                                withId(R.id.tv_movie_screening_date),
+                                withText("2025.4.1 ~ 2025.4.25"),
+                            ),
+                        ),
+                    ),
+                ),
+            )
     }
 
     @Test
@@ -109,12 +128,19 @@ class MainActivityTest {
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
 
         onView(withId(R.id.recyclerView_layout))
-            .check(matches(
-                atPosition(0, hasDescendant(allOf(
-                    withId(R.id.tv_movie_running_time),
-                    withText("152분")
-                )))
-            ))
+            .check(
+                matches(
+                    atPosition(
+                        0,
+                        hasDescendant(
+                            allOf(
+                                withId(R.id.tv_movie_running_time),
+                                withText("152분"),
+                            ),
+                        ),
+                    ),
+                ),
+            )
     }
 
     @Test
@@ -122,16 +148,18 @@ class MainActivityTest {
         onView(withId(R.id.recyclerView_layout))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
 
-        onView(allOf(
-            withId(R.id.btn_reserve),
-            isDescendantOfA(nthChildOf(withId(R.id.recyclerView_layout), 0))
-        )).perform(click())
+        onView(
+            allOf(
+                withId(R.id.btn_reserve),
+                isDescendantOfA(nthChildOf(withId(R.id.recyclerView_layout), 0)),
+            ),
+        ).perform(click())
 
         intended(
             allOf(
                 hasComponent(BookingDetailActivity::class.java.name),
                 hasExtraWithKey("movieData"),
-            )
+            ),
         )
     }
 
@@ -140,16 +168,18 @@ class MainActivityTest {
         onView(withId(R.id.recyclerView_layout))
             .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
 
-        onView(allOf(
-            withId(R.id.btn_reserve),
-            isDescendantOfA(nthChildOf(withId(R.id.recyclerView_layout), 0))
-        )).perform(click())
+        onView(
+            allOf(
+                withId(R.id.btn_reserve),
+                isDescendantOfA(nthChildOf(withId(R.id.recyclerView_layout), 0)),
+            ),
+        ).perform(click())
 
         intended(
             allOf(
                 hasComponent(BookingDetailActivity::class.java.name),
                 hasExtraWithKey("movieData"),
-            )
+            ),
         )
 
         onView(withId(R.id.tv_booking_title))
@@ -181,8 +211,8 @@ class MainActivityTest {
         onView(
             allOf(
                 withId(R.id.img_banner),
-                isDescendantOfA(withId(R.id.recyclerView_layout))
-            )
+                isDescendantOfA(withId(R.id.recyclerView_layout)),
+            ),
         ).check(matches(isDisplayed()))
     }
 
@@ -226,7 +256,10 @@ class MainActivityTest {
         )
     }
 
-    private fun atPosition(position: Int, itemMatcher: Matcher<View>): Matcher<View> {
+    private fun atPosition(
+        position: Int,
+        itemMatcher: Matcher<View>,
+    ): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("has item at position $position: ")
@@ -240,7 +273,10 @@ class MainActivityTest {
         }
     }
 
-    fun nthChildOf(parentMatcher: Matcher<View>, childPosition: Int): Matcher<View> {
+    fun nthChildOf(
+        parentMatcher: Matcher<View>,
+        childPosition: Int,
+    ): Matcher<View> {
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
                 description.appendText("Nth child of parent")
@@ -249,10 +285,9 @@ class MainActivityTest {
             override fun matchesSafely(view: View): Boolean {
                 val parent = view.parent
                 return parent is ViewGroup &&
-                        parentMatcher.matches(parent) &&
-                        parent.getChildAt(childPosition) == view
+                    parentMatcher.matches(parent) &&
+                    parent.getChildAt(childPosition) == view
             }
         }
     }
-
 }

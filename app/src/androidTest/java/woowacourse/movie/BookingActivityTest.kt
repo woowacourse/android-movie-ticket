@@ -39,7 +39,7 @@ class BookingActivityTest {
         val intent =
             Intent(
                 ApplicationProvider.getApplicationContext(),
-                BookingDetailActivity::class.java
+                BookingDetailActivity::class.java,
             ).apply {
                 putExtra("movieData", movie)
             }

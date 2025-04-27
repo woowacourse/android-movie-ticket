@@ -1,7 +1,6 @@
 package woowacourse.movie.booking.detail
 
 import android.os.Bundle
-import woowacourse.movie.model.Ticket
 import woowacourse.movie.movie.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime

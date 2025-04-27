@@ -18,7 +18,7 @@ class TicketTest {
                 HeadCount(0),
                 LocalDate.of(2025, 4, 17),
                 LocalTime.of(11, 0),
-                Seats(emptyList())
+                Seats(emptyList()),
             )
         }
 
@@ -28,20 +28,21 @@ class TicketTest {
                 HeadCount(0),
                 LocalDate.of(2025, 4, 17),
                 LocalTime.of(11, 0),
-                Seats(emptyList())
+                Seats(emptyList()),
             )
         }
     }
 
     @Test
     fun `예매 인원에 맞는 금액을 계산한다`() {
-        val ticket = Ticket(
-            "해리포터",
-            HeadCount(0),
-            LocalDate.of(2025, 4, 17),
-            LocalTime.of(11, 0),
-            Seats(emptyList())
-        )
+        val ticket =
+            Ticket(
+                "해리포터",
+                HeadCount(0),
+                LocalDate.of(2025, 4, 17),
+                LocalTime.of(11, 0),
+                Seats(emptyList()),
+            )
         val expected = 0
 
         val actual = ticket.amount
@@ -87,13 +88,14 @@ class TicketTest {
 
     @Test
     fun `예매 인원이 0보다 큰 지 비교한다`() {
-        val ticket = Ticket(
-            "해리포터",
-            HeadCount(1),
-            LocalDate.of(2025, 4, 17),
-            LocalTime.of(11, 0),
-            Seats(emptyList())
-        )
+        val ticket =
+            Ticket(
+                "해리포터",
+                HeadCount(1),
+                LocalDate.of(2025, 4, 17),
+                LocalTime.of(11, 0),
+                Seats(emptyList()),
+            )
 
         val actual = ticket.isHeadCountValid()
         assertTrue(actual)
@@ -104,7 +106,7 @@ class TicketTest {
                 HeadCount(0),
                 LocalDate.of(2025, 4, 17),
                 LocalTime.of(11, 0),
-                Seats(emptyList())
+                Seats(emptyList()),
             )
         val actual2 = ticket2.isHeadCountValid()
         assertFalse(actual2)
@@ -113,13 +115,14 @@ class TicketTest {
     @Test
     fun `좌석이 선택되면, 해당하는 좌석이 이전에 선택되어있지 않은 경우 티켓의 좌석에 추가된다`() {
         val seat = Seat("A1")
-        val ticket = Ticket(
-            "해리포터",
-            HeadCount(2),
-            LocalDate.of(2025, 4, 17),
-            LocalTime.of(11, 0),
-            Seats(emptyList())
-        )
+        val ticket =
+            Ticket(
+                "해리포터",
+                HeadCount(2),
+                LocalDate.of(2025, 4, 17),
+                LocalTime.of(11, 0),
+                Seats(emptyList()),
+            )
 
         val newTicket = ticket.toggleSeat(seat)
 
@@ -132,13 +135,14 @@ class TicketTest {
     @Test
     fun `선택되어있던 좌석을 다시 선택하는 경우 티켓의 좌석에서 제거된다`() {
         val seat = Seat("A1")
-        val ticket = Ticket(
-            "해리포터",
-            HeadCount(2),
-            LocalDate.of(2025, 4, 17),
-            LocalTime.of(11, 0),
-            Seats(listOf(seat.copy(isSelected = true)))
-        )
+        val ticket =
+            Ticket(
+                "해리포터",
+                HeadCount(2),
+                LocalDate.of(2025, 4, 17),
+                LocalTime.of(11, 0),
+                Seats(listOf(seat.copy(isSelected = true))),
+            )
 
         val newTicket = ticket.toggleSeat(seat)
 

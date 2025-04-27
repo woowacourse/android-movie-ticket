@@ -28,7 +28,7 @@ class BookingCompleteActivityTest {
         val intent =
             Intent(
                 ApplicationProvider.getApplicationContext(),
-                BookingCompleteActivity::class.java
+                BookingCompleteActivity::class.java,
             ).apply {
                 putExtra("bookingResult", mockBookingResult().toUiModel())
             }
@@ -119,7 +119,7 @@ class BookingCompleteActivityTest {
             headCount = HeadCount(2),
             selectedDate = LocalDate.of(2028, 10, 13),
             selectedTime = LocalTime.of(11, 0),
-            seats = Seats(listOf(Seat("A1", true), Seat("C1", true)))
+            seats = Seats(listOf(Seat("A1", true), Seat("C1", true))),
         )
     }
 }

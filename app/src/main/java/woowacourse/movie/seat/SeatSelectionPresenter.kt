@@ -6,7 +6,6 @@ import woowacourse.movie.booking.detail.TicketUiModel
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Seat
-import woowacourse.movie.model.SeatGrade
 import woowacourse.movie.model.Ticket
 
 class SeatSelectionPresenter(
