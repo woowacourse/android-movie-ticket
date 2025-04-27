@@ -6,8 +6,6 @@ class TicketCount(
     var value: Int = initialCount
         private set
 
-    operator fun times(other: Int): Int = value * other
-
     fun increase(count: Int) {
         value += count
     }
