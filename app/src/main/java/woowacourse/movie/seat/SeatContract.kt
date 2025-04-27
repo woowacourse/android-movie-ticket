@@ -6,24 +6,20 @@ import woowacourse.movie.domain.Seat
 
 interface SeatContract {
     interface View {
-        fun initSeat()
-
         fun showMovieInfo(movie: Movie)
 
-        fun updateTotalPrice(price: Int)
-
-        fun initSelectButtonClick()
+        fun showTotalPrice(price: Int)
     }
 
     interface Presenter {
         fun initReservation(reservation: Reservation)
 
+        fun updateReservationInfo()
+
         fun getSeat(
             row: Int,
             col: Int,
         ): Seat
-
-        fun initView()
 
         fun isOccupied(seat: Seat): Boolean
 

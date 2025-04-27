@@ -24,6 +24,8 @@ import java.text.DecimalFormat
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
     private val selectButton: Button by lazy { findViewById(R.id.btn_select) }
+    private val totalPrice: TextView by lazy { findViewById(R.id.tv_total_price) }
+
     private val presenter = SeatPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,15 +39,29 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
 
         presenter.initReservation(getReservation())
-        presenter.initView()
-        initSelectButtonClick()
+        initView()
     }
 
     private fun getReservation(): Reservation {
         return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
     }
 
-    override fun initSeat() {
+    private fun initView() {
+        presenter.updateReservationInfo()
+        initSeat()
+        initSelectButtonClick()
+    }
+
+    override fun showMovieInfo(movie: Movie) {
+        val title = findViewById<TextView>(R.id.tv_title)
+        title.text = movie.title
+    }
+
+    override fun showTotalPrice(price: Int) {
+        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(price))
+    }
+
+    private fun initSeat() {
         val seatTable = findViewById<TableLayout>(R.id.tl_seat)
 
         seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
@@ -86,12 +102,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
     }
 
-    override fun showMovieInfo(movie: Movie) {
-        val title = findViewById<TextView>(R.id.tv_title)
-        title.text = movie.title
-    }
-
-    override fun initSelectButtonClick() {
+    private fun initSelectButtonClick() {
         selectButton.setOnClickListener {
             showSelectDialog()
         }
@@ -110,11 +121,6 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
             }
             .setCancelable(false)
             .show()
-    }
-
-    override fun updateTotalPrice(price: Int) {
-        val totalPrice = findViewById<TextView>(R.id.tv_total_price)
-        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(price))
     }
 
     companion object {

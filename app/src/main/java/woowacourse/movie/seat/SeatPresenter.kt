@@ -12,18 +12,16 @@ class SeatPresenter(
         this.reservation = reservation
     }
 
+    override fun updateReservationInfo() {
+        view.showMovieInfo(reservation.movie)
+        view.showTotalPrice(reservation.seats.totalPrice())
+    }
+
     override fun getSeat(
         row: Int,
         col: Int,
     ): Seat {
         return Seat(row, col)
-    }
-
-    override fun initView() {
-        view.showMovieInfo(reservation.movie)
-        view.initSeat()
-        view.initSelectButtonClick()
-        view.updateTotalPrice(reservation.seats.totalPrice())
     }
 
     override fun isOccupied(seat: Seat): Boolean {
@@ -32,12 +30,12 @@ class SeatPresenter(
 
     override fun cancelSelection(seat: Seat) {
         reservation.seats - seat
-        view.updateTotalPrice(reservation.seats.totalPrice())
+        view.showTotalPrice(reservation.seats.totalPrice())
     }
 
     override fun selectSeat(seat: Seat) {
         reservation.seats + seat
-        view.updateTotalPrice(reservation.seats.totalPrice())
+        view.showTotalPrice(reservation.seats.totalPrice())
     }
 
     override fun canReserve(): Boolean {

@@ -26,18 +26,6 @@ class SeatPresenterTest {
     }
 
     @Test
-    fun `initView는 View의 showMovieInfo, initSeat, initSelectButtonClick, updateTotalPrice를 호출한다`() {
-        // when
-        presenter.initView()
-
-        // then
-        verify { view.showMovieInfo(reservation.movie) }
-        verify { view.initSeat() }
-        verify { view.initSelectButtonClick() }
-        verify { view.updateTotalPrice(any()) }
-    }
-
-    @Test
     fun `좌석을 선택하면 추가되고 총 가격을 업데이트 한다`() {
         // given
         val seat = B_CLASS
@@ -48,7 +36,7 @@ class SeatPresenterTest {
 
         // then
         assertTrue(actual)
-        verify { view.updateTotalPrice(any()) }
+        verify { view.showTotalPrice(any()) }
     }
 
     @Test
@@ -63,7 +51,7 @@ class SeatPresenterTest {
 
         // then
         assertFalse(actual)
-        verify { view.updateTotalPrice(any()) }
+        verify { view.showTotalPrice(any()) }
     }
 
     @Test
