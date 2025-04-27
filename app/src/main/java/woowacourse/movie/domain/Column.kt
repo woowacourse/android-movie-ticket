@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 @JvmInline
 value class Column(
-    private val value: Int,
+    val value: Int,
 ) {
     init {
         require(value in COLUMN_VALUE_MIN..COLUMN_VALUE_MAX) {

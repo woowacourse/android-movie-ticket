@@ -20,8 +20,8 @@ import woowacourse.movie.R
 import woowacourse.movie.contract.screening.ReservationContract
 import woowacourse.movie.domain.screening.Screening
 import woowacourse.movie.presenter.screening.ReservationPresenter
+import woowacourse.movie.view.SeatSelectionActivity
 import woowacourse.movie.view.screening.Poster.posterId
-import woowacourse.movie.view.ticket.TicketActivity
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -264,7 +264,7 @@ class ReservationActivity :
 
     override fun navigateToTicketScreen(title: String) {
         val intent =
-            TicketActivity.newIntent(
+            SeatSelectionActivity.newIntent(
                 this,
                 title,
                 ticketCount,
