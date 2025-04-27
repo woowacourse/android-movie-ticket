@@ -20,7 +20,6 @@ import woowacourse.movie.R
 import woowacourse.movie.contract.reservation.ReservationContract
 import woowacourse.movie.domain.reservation.Screening
 import woowacourse.movie.presenter.reservation.ReservationPresenter
-import woowacourse.movie.view.SeatSelectionActivity
 import woowacourse.movie.view.reservation.Poster.posterId
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate

@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.reservation
 
 import io.kotest.matchers.throwable.shouldHaveMessage
 import org.junit.jupiter.api.Test

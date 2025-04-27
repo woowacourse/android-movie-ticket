@@ -1,4 +1,4 @@
-package woowacourse.movie.view
+package woowacourse.movie.view.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -18,12 +18,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.setPadding
 import woowacourse.movie.R
-import woowacourse.movie.contract.SeatSelectionContract
-import woowacourse.movie.domain.Row
-import woowacourse.movie.domain.Seat
-import woowacourse.movie.domain.SeatGrade
+import woowacourse.movie.contract.reservation.SeatSelectionContract
+import woowacourse.movie.domain.reservation.Row
+import woowacourse.movie.domain.reservation.Seat
+import woowacourse.movie.domain.reservation.SeatGrade
 import woowacourse.movie.domain.ticket.Ticket
-import woowacourse.movie.presenter.SeatSelectionPresenter
+import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
 import woowacourse.movie.view.util.ErrorMessage
 import java.io.Serializable
 import java.time.LocalDateTime

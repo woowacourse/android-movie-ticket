@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.reservation
 
 enum class SeatGrade(
     val price: Int,

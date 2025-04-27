@@ -1,6 +1,6 @@
-package woowacourse.movie.contract
+package woowacourse.movie.contract.reservation
 
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.reservation.Seat
 
 interface SeatSelectionContract {
     interface Presenter {

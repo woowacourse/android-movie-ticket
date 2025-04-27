@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.reservation
 
 @JvmInline
 value class Column(

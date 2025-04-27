@@ -1,7 +1,7 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presenter.reservation
 
-import woowacourse.movie.contract.SeatSelectionContract
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.contract.reservation.SeatSelectionContract
+import woowacourse.movie.domain.reservation.Seat
 import woowacourse.movie.domain.ticket.Ticket
 
 class SeatSelectionPresenter(
@@ -9,7 +9,7 @@ class SeatSelectionPresenter(
     private val ticket: Ticket,
     selectedSeats: Set<Seat>?,
 ) : SeatSelectionContract.Presenter {
-    private val seats: Set<Seat> = Seat.seats()
+    private val seats: Set<Seat> = Seat.Companion.seats()
     private var selectedSeats = selectedSeats?.toSet() ?: emptySet()
     private val price: Int get() = selectedSeats.sumOf(Seat::price)
 

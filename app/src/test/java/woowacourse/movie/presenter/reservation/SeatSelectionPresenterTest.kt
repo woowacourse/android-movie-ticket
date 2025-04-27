@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.presenter.reservation
 
 import io.mockk.Runs
 import io.mockk.every
@@ -7,8 +7,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.contract.SeatSelectionContract
-import woowacourse.movie.domain.Seat
+import woowacourse.movie.contract.reservation.SeatSelectionContract
+import woowacourse.movie.domain.reservation.Seat
 import woowacourse.movie.domain.ticket.Ticket
 import java.time.LocalDateTime
 
@@ -34,13 +34,13 @@ class SeatSelectionPresenterTest {
     @Test
     fun `좌석들을 보여줄 수 있다`() {
         // given
-        every { view.setSeats(Seat.seats(), emptySet()) } just Runs
+        every { view.setSeats(Seat.Companion.seats(), emptySet()) } just Runs
 
         // when
         presenter.presentSeats()
 
         // then
-        verify { view.setSeats(Seat.seats(), emptySet()) }
+        verify { view.setSeats(Seat.Companion.seats(), emptySet()) }
     }
 
     @Test
@@ -66,7 +66,7 @@ class SeatSelectionPresenterTest {
                     count = 2,
                     showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
                 ),
-                selectedSeats = setOf(Seat(1, 1)),
+                selectedSeats = setOf(Seat.Companion(1, 1)),
             )
         every { view.setPrice(10000) } just Runs
 
@@ -80,14 +80,14 @@ class SeatSelectionPresenterTest {
     @Test
     fun `좌석을 선택할 수 있다`() {
         // given
-        every { view.setSeatIsSelected(Seat(1, 1), true) } just Runs
+        every { view.setSeatIsSelected(Seat.Companion(1, 1), true) } just Runs
         every { view.setPrice(10000) } just Runs
 
         // when
-        presenter.onSeatSelect(Seat(1, 1))
+        presenter.onSeatSelect(Seat.Companion(1, 1))
 
         // then
-        verify { view.setSeatIsSelected(Seat(1, 1), true) }
+        verify { view.setSeatIsSelected(Seat.Companion(1, 1), true) }
     }
 
     @Test
@@ -101,16 +101,16 @@ class SeatSelectionPresenterTest {
                     count = 2,
                     showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
                 ),
-                selectedSeats = setOf(Seat(1, 1)),
+                selectedSeats = setOf(Seat.Companion(1, 1)),
             )
 
-        every { view.setSeatIsSelected(Seat(1, 1), false) } just Runs
+        every { view.setSeatIsSelected(Seat.Companion(1, 1), false) } just Runs
         every { view.setPrice(0) } just Runs
 
         // when
-        presenter.onSeatSelect(Seat(1, 1))
+        presenter.onSeatSelect(Seat.Companion(1, 1))
 
         // then
-        verify { view.setSeatIsSelected(Seat(1, 1), false) }
+        verify { view.setSeatIsSelected(Seat.Companion(1, 1), false) }
     }
 }
