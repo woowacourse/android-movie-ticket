@@ -23,6 +23,8 @@ class Seats(
     val totalTicketPrice
         get() = _totalTicketPrice
 
+    fun isSelectedSeat(seat: Seat): Boolean = seat in selectedSeats
+
     fun toggleSeat(seat: Seat): SeatToggleResult =
         if (seat in selectedSeats) {
             removeSeat(seat)
@@ -41,6 +43,8 @@ class Seats(
         selectedSeats.remove(seat)
         _totalTicketPrice = _totalTicketPrice.minusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
     }
+
+    fun size() = selectedSeats.size
 
     fun getSeatsString(): String {
         val seatCodes = selectedSeats.map { it.seatCode }

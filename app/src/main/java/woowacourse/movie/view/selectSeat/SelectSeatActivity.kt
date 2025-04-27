@@ -29,6 +29,7 @@ class SelectSeatActivity :
     private var dialog: AlertDialog? = null
     private val seatTableView by lazy { findViewById<TableLayout>(R.id.tl_seat) }
     private val ticketPriceTextView by lazy { findViewById<TextView>(R.id.tv_select_seat_selected_ticket_price) }
+    private val confirmButtonView by lazy { findViewById<TextView>(R.id.tv_select_seat_confirm) }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -45,23 +46,7 @@ class SelectSeatActivity :
         }
         present.initSelectSeatUI()
         initSeatClickListener()
-        initCompleteButtonView()
-    }
-
-    private fun initCompleteButtonView() {
-        findViewById<TextView>(R.id.tv_select_seat_confirm).setOnClickListener {
-            dialog =
-                AlertDialog
-                    .Builder(this)
-                    .setTitle(getString(R.string.ticket_dialog_title))
-                    .setMessage(getString(R.string.ticket_dialog_message))
-                    .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                        present.navigateToTicketUI()
-                    }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
-                        dialog.dismiss()
-                    }.setCancelable(false)
-                    .show()
-        }
+        updateSubmitButton()
     }
 
     override fun getTicketData(): TicketData =
@@ -80,7 +65,7 @@ class SelectSeatActivity :
             for (j in 0 until tableRow.childCount) {
                 val seat = tableRow.getChildAt(j) as TextView
                 seat.setOnClickListener {
-                    present.toggleSeat(Seat(SeatRow(i), SeatCol(j)))
+                    present.seatInputProcess(Seat(SeatRow(i), SeatCol(j)))
                 }
             }
         }
@@ -115,6 +100,32 @@ class SelectSeatActivity :
 
     override fun navigateToTicketUI(ticketData: TicketData) {
         startActivity(TicketActivity.newIntent(this, ticketData))
+    }
+
+    override fun updateSubmitButton() {
+        if (present.isMaximumSelectedSeat()) {
+            setSubmitButtonOnClickListener()
+            confirmButtonView.setBackgroundResource(R.color.purple_500)
+        } else {
+            confirmButtonView.setOnClickListener(null)
+            confirmButtonView.setBackgroundResource(R.color.disabled_btn_color)
+        }
+    }
+
+    private fun setSubmitButtonOnClickListener() {
+        confirmButtonView.setOnClickListener {
+            dialog =
+                AlertDialog
+                    .Builder(this)
+                    .setTitle(getString(R.string.ticket_dialog_title))
+                    .setMessage(getString(R.string.ticket_dialog_message))
+                    .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
+                        present.navigateToTicketUI()
+                    }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.setCancelable(false)
+                    .show()
+        }
     }
 
     override fun onDestroy() {

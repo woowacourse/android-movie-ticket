@@ -20,4 +20,6 @@ interface SelectSeatView {
     fun printError(message: String)
 
     fun navigateToTicketUI(ticketData: TicketData)
+
+    fun updateSubmitButton()
 }

@@ -26,7 +26,18 @@ class SelectSeatPresenter(
         view.setTicketPrice(selectedSeats.totalTicketPrice)
     }
 
-    fun toggleSeat(seat: Seat) {
+    fun seatInputProcess(seat: Seat) {
+        if (isMaximumSelectedSeat() && !selectedSeats.isSelectedSeat(seat)) {
+            view.printError(ERROR_OVER_TICKET_SIZE)
+            return
+        }
+        toggleSeat(seat)
+        view.updateSubmitButton()
+    }
+
+    fun isMaximumSelectedSeat(): Boolean = selectedSeats.size() == ticketDataEmptySeat.ticketCount
+
+    private fun toggleSeat(seat: Seat) {
         val toggleResult = selectedSeats.toggleSeat(seat)
         when (toggleResult) {
             is SeatToggleResult.Added -> view.seatSelect(seat)
@@ -37,5 +48,9 @@ class SelectSeatPresenter(
 
     fun navigateToTicketUI() {
         view.navigateToTicketUI(ticketDataEmptySeat) // TODO: 좌석정보 추가 필요
+    }
+
+    companion object {
+        private const val ERROR_OVER_TICKET_SIZE = "관람 인원을 초과하여\n좌석을 선택할 수 없습니다"
     }
 }
