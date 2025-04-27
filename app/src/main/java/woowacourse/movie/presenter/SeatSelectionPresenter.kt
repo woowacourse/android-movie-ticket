@@ -18,7 +18,5 @@ class SeatSelectionPresenter(
         view.setTitle(ticket.title)
     }
 
-    override fun presentPrice(price: Int) {
-        view.setPrice(price)
-    }
+    override fun canSelectSeat(selectedSeatsCount: Int): Boolean = selectedSeatsCount < ticket.count
 }

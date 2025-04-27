@@ -33,6 +33,7 @@ class SeatSelectionActivity :
     SeatSelectionContract.View {
     private var presenter: SeatSelectionContract.Presenter? = null
     private var selectedSeats: Set<Seat> = setOf()
+    private val price get() = selectedSeats.sumOf(Seat::price)
     private lateinit var seatsLayout: TableLayout
     private lateinit var titleView: TextView
     private lateinit var priceView: TextView
@@ -46,6 +47,7 @@ class SeatSelectionActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         savedInstanceState.getSelectedSeats()?.let { selectedSeats = it }
         initPresenter()
         findViews()
@@ -56,8 +58,8 @@ class SeatSelectionActivity :
         presenter?.let {
             it.presentSeats()
             it.presentTitle()
-            it.presentPrice(selectedSeats.sumOf { seat -> seat.price })
         }
+        priceView.text = getString(R.string.seat_selection_price, price)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -117,7 +119,7 @@ class SeatSelectionActivity :
 
     private fun seatView(seat: Seat): TextView =
         TextView(this).apply {
-            text = "${seat.row.prettyString}${seat.column.value}"
+            text = seat.prettyString
             @ColorRes val colorResId: Int =
                 when (seat.grade) {
                     SeatGrade.S -> R.color.seat_grade_s
@@ -136,16 +138,20 @@ class SeatSelectionActivity :
                 )
             isSelected = seat in selectedSeats
             setOnClickListener { view: View ->
-                view.isSelected = !view.isSelected
-                selectedSeats =
-                    if (view.isSelected) {
-                        selectedSeats + seat
-                    } else {
-                        selectedSeats - seat
-                    }
-                presenter?.presentPrice(selectedSeats.sumOf { seat -> seat.price })
+                if (view.isSelected) {
+                    selectedSeats -= seat
+                } else {
+                    val canSelectSeat: Boolean =
+                        presenter?.canSelectSeat(selectedSeats.size) == true
+                    if (!canSelectSeat) return@setOnClickListener
+                    selectedSeats += seat
+                }
+                isSelected = !isSelected
+                priceView.text = getString(R.string.seat_selection_price, price)
             }
         }
+
+    private val Seat.prettyString: String get() = "${row.prettyString}${column.value}"
 
     private val Row.prettyString: String get() = ('A' + this.value - 1).toString()
 
@@ -155,14 +161,12 @@ class SeatSelectionActivity :
         titleView.text = title
     }
 
-    override fun setPrice(price: Int) {
-        priceView.text = getString(R.string.seat_selection_price, price)
-    }
-
     companion object {
         private const val KEY_SEATS = "KEY_SEATS"
 
         private const val CAUSE_TICKET = "ticket"
+        private const val CAUSE_SEAT_VIEW = "seatView"
+        private const val IN_SEAT_LAYOUT = "seatLayout"
 
         private const val EXTRA_TICKET = "woowacourse.movie.EXTRA_TICKET"
 

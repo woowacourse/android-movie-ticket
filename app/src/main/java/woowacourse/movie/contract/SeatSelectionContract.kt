@@ -8,14 +8,12 @@ interface SeatSelectionContract {
 
         fun presentTitle()
 
-        fun presentPrice(price: Int)
+        fun canSelectSeat(selectedSeatCount: Int): Boolean
     }
 
     interface View {
         fun setSeats(seats: Set<Seat>)
 
         fun setTitle(title: String)
-
-        fun setPrice(price: Int)
     }
 }
