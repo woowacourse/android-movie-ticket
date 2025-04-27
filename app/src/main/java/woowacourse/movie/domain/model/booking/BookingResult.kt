@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model.booking.result
+package woowacourse.movie.domain.model.booking
 
 import java.time.LocalDate
 import java.time.LocalTime
@@ -25,7 +25,7 @@ data class BookingResult(
         return this.copy(headCount = headCount - 1)
     }
 
-    fun updateCount(count : Int) : BookingResult {
+    fun updateCount(count: Int): BookingResult {
         return this.copy(headCount = count)
     }
 

@@ -1,7 +1,7 @@
 package woowacourse.movie.presenter.booking
 
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.domain.model.booking.result.BookingResult
+import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.sample.SampleMovies
 import woowacourse.movie.ui.model.movie.MovieUiModel
