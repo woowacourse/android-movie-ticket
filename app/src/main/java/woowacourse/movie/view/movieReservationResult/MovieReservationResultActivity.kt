@@ -35,16 +35,27 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         }
     }
 
-    override fun showReservationInfo(ticket: TicketUiModel) {
+    override fun showReservationInfo(
+        ticket: TicketUiModel,
+        seats: SeatsUiModel,
+    ) {
         val title = findViewById<TextView>(R.id.movie_title)
         val showtime = findViewById<TextView>(R.id.showtime)
         val ticketCount = findViewById<TextView>(R.id.ticket_count)
         val totalPrice = findViewById<TextView>(R.id.total_price)
+        val seatsString =
+            seats.seats.joinToString { seat ->
+                seat.col.toAlphabet() + (seat.row + 1).toString()
+            }
 
         title.text = ticket.movie.title
         showtime.text = ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
-        ticketCount.text = getString(R.string.ticket_count_format).format(ticket.count)
-        totalPrice.text = getString(R.string.ticket_price_format).format(ticket.toDomain().totalPrice())
+        ticketCount.text = getString(R.string.ticket_count_format).format(seats.capacity) + " | " + seatsString
+        totalPrice.text = getString(R.string.ticket_price_format).format(seats.toDomain().totalPrice())
+    }
+
+    private fun Int.toAlphabet(): Char {
+        return (this + 'A'.code).toChar()
     }
 
     companion object {
