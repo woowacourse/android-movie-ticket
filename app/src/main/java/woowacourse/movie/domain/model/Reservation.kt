@@ -6,15 +6,19 @@ import java.time.LocalDateTime
 class Reservation(
     val title: String,
     val reservedTime: LocalDateTime,
-    private var tickets: Tickets?,
+    val tickets: Tickets?,
     purchaseType: PurchaseType = PurchaseType.DEFAULT,
 ) : Serializable {
-    val ticketCount get() = requireNotNull(tickets?.count) { INVALID_TICKETS_NOT_NULL }
+    val ticketCount get() = tickets?.count ?: 0
     val cancelMinute = purchaseType.cancelTime.minute
 
-    fun initTickets(tickets: Tickets) {
-        this.tickets = tickets
-    }
+    fun initTickets(tickets: Tickets) = Reservation(title, reservedTime, tickets)
+
+    fun isEmptyTickets(): Boolean = tickets == null || tickets.isEmpty()
+
+    fun addTicket(ticket: Ticket) = Reservation(title, reservedTime, tickets?.addTicket(ticket))
+
+    fun removeTicket(ticket: Ticket) = Reservation(title, reservedTime, tickets?.removeTicket(ticket))
 
     fun totalPrice(): Int = requireNotNull(tickets?.totalPrice()) { INVALID_TICKETS_NOT_NULL }
 
