@@ -90,9 +90,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         titleTextView.text = title
     }
 
-    override fun showTotalPrice(price: Int) {
+    override fun showTotalPrice(price: String) {
         val priceTextView = findViewById<TextView>(R.id.total_price)
-        priceTextView.text = getString(R.string.ticket_price_format).format(price)
+        priceTextView.text = price
     }
 
     override fun showAlertDialog() {

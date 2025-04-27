@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.movieReservation
 
+import woowacourse.movie.R
 import woowacourse.movie.domain.Scheduler
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
@@ -13,6 +14,7 @@ import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MovieReservationPresenter(
     private val view: MovieReservationActivity,
@@ -28,7 +30,7 @@ class MovieReservationPresenter(
 
         val screeningDates: List<LocalDate> =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
-        view.showScreeningDates(screeningDates)
+        view.showShowtimeDates(screeningDates)
 
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(screeningDates.first(), LocalDateTime.now())
@@ -43,7 +45,19 @@ class MovieReservationPresenter(
                 TicketCount.of(TicketCount.MIN_COUNT),
             )
 
-        view.showReservationInfo(_ticket.toUiModel())
+        view.showMoviePoster(ticket.movie.poster)
+        view.showMovieTitle(ticket.movie.title)
+
+        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_format))
+        val startDate = _ticket.movie.startDate.format(dateTimeFormatter)
+        val endDate = _ticket.movie.endDate.format(dateTimeFormatter)
+        val screeningDatesTemplate = view.getString(R.string.screening_dates_format)
+        view.showScreeningDates(screeningDatesTemplate.format(startDate, endDate))
+
+        val runningTimeTemplate = view.getString(R.string.running_type_format)
+        view.showRunningTime(runningTimeTemplate.format(_ticket.movie.runningTime))
+
+        view.showTicketCount(ticket.count)
     }
 
     override fun onInstanceStateRestored(ticket: TicketUiModel) {
@@ -52,12 +66,12 @@ class MovieReservationPresenter(
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(selectedDate, LocalDateTime.now())
         view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
-        view.showReservationInfo(_ticket.toUiModel())
+        view.showTicketCount(ticket.count)
     }
 
     override fun onDateSelection(date: LocalDate) {
         val screeningTimes: List<LocalTime> = scheduler.getShowtimes(date, LocalDateTime.now())
-        view.showScreeningTimes(screeningTimes, ticket.showtime.toLocalTime())
+        view.showShowtimeTimes(screeningTimes, ticket.showtime.toLocalTime())
         _ticket = _ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
     }
 

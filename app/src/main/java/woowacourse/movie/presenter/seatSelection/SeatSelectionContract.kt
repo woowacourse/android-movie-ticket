@@ -7,6 +7,14 @@ interface SeatSelectionContract {
     interface View {
         fun initializeSeats()
 
+        fun showMovieTitle(title: String)
+
+        fun showTotalPrice(price: String)
+
+        fun showAlertDialog()
+
+        fun showToast()
+
         fun selectSeat(
             row: Int,
             col: Int,
@@ -16,14 +24,6 @@ interface SeatSelectionContract {
             row: Int,
             col: Int,
         )
-
-        fun showMovieTitle(title: String)
-
-        fun showTotalPrice(price: Int)
-
-        fun showAlertDialog()
-
-        fun showToast()
 
         fun goToReservationResult(
             ticket: TicketUiModel,

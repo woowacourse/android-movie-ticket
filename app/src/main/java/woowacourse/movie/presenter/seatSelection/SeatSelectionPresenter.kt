@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.seatSelection
 
+import woowacourse.movie.R
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
@@ -20,12 +21,12 @@ class SeatSelectionPresenter(
     val seats get() = _seats.toUiModel()
 
     override fun loadReservationInfo() {
-        view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)
-            ?.let { ticket -> _ticket = ticket.toDomain() }
-            ?: return
+        _ticket =
+            view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)?.toDomain() ?: return
         _seats = Seats(ticket.count)
 
         view.showMovieTitle(ticket.movie.title)
+        view.showTotalPrice(formatterPrice())
     }
 
     override fun onSeatSelection(
@@ -45,8 +46,7 @@ class SeatSelectionPresenter(
             }
         }
 
-        val price = _seats.totalPrice()
-        view.showTotalPrice(price)
+        view.showTotalPrice(formatterPrice())
     }
 
     override fun onConfirmation() {
@@ -55,5 +55,10 @@ class SeatSelectionPresenter(
 
     override fun onAlertConfirmation() {
         view.goToReservationResult(ticket, seats)
+    }
+
+    private fun formatterPrice(): String {
+        val priceTemplate = view.getString(R.string.ticket_price_format)
+        return priceTemplate.format(_seats.totalPrice())
     }
 }

@@ -24,7 +24,6 @@ import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private val presenter = MovieReservationPresenter(this)
@@ -87,24 +86,32 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         selectButton.setOnClickListener { presenter.onConfirmSelection() }
     }
 
-    override fun showReservationInfo(ticket: TicketUiModel) {
-        val poster = findViewById<ImageView>(R.id.poster)
-        val title = findViewById<TextView>(R.id.movie_title)
-        val screeningDate = findViewById<TextView>(R.id.screening_date)
-        val runningTime = findViewById<TextView>(R.id.running_time)
-        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
-
-        poster.setImageResource(ticket.movie.poster)
-        title.text = ticket.movie.title
-        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
-        val startDate = ticket.movie.startDate.format(formatter)
-        val endDate = ticket.movie.endDate.format(formatter)
-        screeningDate.text = getString(R.string.screening_dates_format).format(startDate, endDate)
-        runningTime.text = getString(R.string.running_type_format).format(ticket.movie.runningTime)
-        ticketCountTextView.text = ticket.count.toString()
+    override fun showMoviePoster(posterImage: Int) {
+        val posterImageView = findViewById<ImageView>(R.id.poster)
+        posterImageView.setImageResource(posterImage)
     }
 
-    override fun showScreeningDates(dates: List<LocalDate>) {
+    override fun showMovieTitle(title: String) {
+        val titleTextView = findViewById<TextView>(R.id.movie_title)
+        titleTextView.text = title
+    }
+
+    override fun showScreeningDates(dateRange: String) {
+        val screeningDateTextView = findViewById<TextView>(R.id.screening_date)
+        screeningDateTextView.text = dateRange
+    }
+
+    override fun showRunningTime(runningTime: String) {
+        val runningTimeTextView = findViewById<TextView>(R.id.running_time)
+        runningTimeTextView.text = runningTime
+    }
+
+    override fun showTicketCount(count: String) {
+        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
+        ticketCountTextView.text = count
+    }
+
+    override fun showShowtimeDates(dates: List<LocalDate>) {
         val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
         dateSpinner.adapter = dateAdapter
 
@@ -124,7 +131,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             }
     }
 
-    override fun showScreeningTimes(
+    override fun showShowtimeTimes(
         times: List<LocalTime>,
         savedTime: LocalTime,
     ) {

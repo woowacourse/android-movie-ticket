@@ -13,8 +13,6 @@ import woowacourse.movie.presenter.movieReservationResult.MovieReservationResult
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
 import woowacourse.movie.view.model.SeatsUiModel
 import woowacourse.movie.view.model.TicketUiModel
-import woowacourse.movie.view.model.toDomain
-import java.time.format.DateTimeFormatter
 
 class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResultContract.View {
     private val presenter = MovieReservationResultPresenter(this)
@@ -27,7 +25,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
 
     private fun initializeView() {
         enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_reservation_completion)
+        setContentView(R.layout.activity_movie_reservation_result)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -35,27 +33,29 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         }
     }
 
-    override fun showReservationInfo(
-        ticket: TicketUiModel,
-        seats: SeatsUiModel,
-    ) {
-        val title = findViewById<TextView>(R.id.movie_title)
-        val showtime = findViewById<TextView>(R.id.showtime)
-        val ticketCount = findViewById<TextView>(R.id.ticket_count)
-        val totalPrice = findViewById<TextView>(R.id.total_price)
-        val seatsString =
-            seats.seats.joinToString { seat ->
-                seat.row.toAlphabet() + (seat.col + 1).toString()
-            }
-
-        title.text = ticket.movie.title
-        showtime.text = ticket.showtime.format(DateTimeFormatter.ofPattern(getString(R.string.date_time_format)))
-        ticketCount.text = getString(R.string.ticket_count_format).format(seats.capacity) + " | " + seatsString
-        totalPrice.text = getString(R.string.ticket_price_format).format(seats.toDomain().totalPrice())
+    override fun showMovieTitle(title: String) {
+        val titleTextView = findViewById<TextView>(R.id.movie_title)
+        titleTextView.text = title
     }
 
-    private fun Int.toAlphabet(): Char {
-        return (this + 'A'.code).toChar()
+    override fun showMovieDateTime(showtime: String) {
+        val showtimeTextView = findViewById<TextView>(R.id.showtime)
+        showtimeTextView.text = showtime
+    }
+
+    override fun showTicketCount(count: String) {
+        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
+        ticketCountTextView.text = count
+    }
+
+    override fun showSelectedSeats(seats: String) {
+        val selectedSeatsTextView = findViewById<TextView>(R.id.selected_seats)
+        selectedSeatsTextView.text = seats
+    }
+
+    override fun showTotalPrice(price: String) {
+        val totalPriceTextView = findViewById<TextView>(R.id.total_price)
+        totalPriceTextView.text = price
     }
 
     companion object {

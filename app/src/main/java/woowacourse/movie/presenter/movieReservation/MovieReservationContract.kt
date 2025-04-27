@@ -6,11 +6,19 @@ import java.time.LocalTime
 
 interface MovieReservationContract {
     interface View {
-        fun showReservationInfo(ticket: TicketUiModel)
+        fun showMoviePoster(posterImage: Int)
 
-        fun showScreeningDates(dates: List<LocalDate>)
+        fun showMovieTitle(title: String)
 
-        fun showScreeningTimes(
+        fun showScreeningDates(dateRange: String)
+
+        fun showRunningTime(runningTime: String)
+
+        fun showTicketCount(count: String)
+
+        fun showShowtimeDates(dates: List<LocalDate>)
+
+        fun showShowtimeTimes(
             times: List<LocalTime>,
             savedTime: LocalTime,
         )
