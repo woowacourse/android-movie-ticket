@@ -1,7 +1,6 @@
 package woowacourse.movie.movies
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -46,7 +45,6 @@ class MoviesActivity :
 
     override fun navigateToBookingDetail(movieUiModel: MovieUiModel) {
         val intent = BookingDetailActivity.newIntent(this, movieUiModel)
-        Log.d("MoviesActivity", "navigateToBookingDetail called with ${movieUiModel.title}")
 
         startActivity(intent)
     }
