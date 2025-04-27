@@ -16,10 +16,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.presenter.booking.BookingContract
-import woowacourse.movie.presenter.booking.BookingContract.PresenterFactory
+import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.seat.SeatActivity
@@ -28,12 +30,11 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
+    private val presenter by lazy { BookingPresenter(this, MovieStore(), PeopleCount()) }
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_title) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val peopleCountTextView: TextView by lazy { findViewById(R.id.tv_people_count) }
-
-    private val presenter by lazy { PresenterFactory.providePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -122,7 +123,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             title = movieTitleTextView.text.toString(),
             bookingDate = dateSpinner.selectedItem.toString(),
             bookingTime = timeSpinner.selectedItem.toString(),
-            peopleCount = peopleCountTextView.text.toString(),
+            count = peopleCountTextView.text.toString(),
         )
     }
 

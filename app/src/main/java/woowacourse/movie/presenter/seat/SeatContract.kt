@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter.seat
 
-import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.view.seat.model.coord.Coordination
 
 interface SeatContract {
@@ -31,12 +30,5 @@ interface SeatContract {
         )
 
         fun onConfirmClicked(limit: Int)
-    }
-
-    companion object PresenterFactory {
-        fun providePresenter(view: View): Presenter {
-            val seats = Seats()
-            return SeatPresenter(view, seats)
-        }
     }
 }

@@ -33,3 +33,15 @@ override fun onSelectMovie(movieIdx: Int) {
 
 ### 💡Solution
 + 저장소에서 영화의 Id를 Key로 갖는 map 자료구조를 사용해 탐색 시간이 O(1)이 들도록 최적화하자
+
+### 2. Presenter의 DIP 위반 수정
+```
+companion object PresenterFactory {
+    fun providePresenter(view: View): Presenter {
+        val seats = Seats()
+        return SeatPresenter(view, seats)
+    }
+}
+```
+### ⛔️ Warning
+- 인터페이스가 구현체를 알게 되어 DIP를 위반하는 형태가 되어 제거

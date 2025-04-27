@@ -1,8 +1,6 @@
 package woowacourse.movie.presenter.booking
 
-import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.movies.Movie
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -61,13 +59,5 @@ interface BookingContract {
         fun increasePeopleCount(limit: Int)
 
         fun restorePeopleCount(savedCount: Int)
-    }
-
-    companion object PresenterFactory {
-        fun providePresenter(view: View): Presenter {
-            val movies = MovieStore()
-            val peopleCount = PeopleCount()
-            return BookingPresenter(view, movies, peopleCount)
-        }
     }
 }

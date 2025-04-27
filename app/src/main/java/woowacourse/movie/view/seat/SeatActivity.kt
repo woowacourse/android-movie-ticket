@@ -17,8 +17,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.presenter.seat.SeatContract
-import woowacourse.movie.presenter.seat.SeatContract.PresenterFactory
+import woowacourse.movie.presenter.seat.SeatPresenter
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.complete.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
@@ -27,19 +28,17 @@ import woowacourse.movie.view.seat.model.coord.Coordination
 import woowacourse.movie.view.seat.model.coord.Row
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
-    private lateinit var presenter: SeatContract.Presenter
-    private lateinit var defaultBooking: Booking
-
+    private val presenter: SeatContract.Presenter by lazy { SeatPresenter(this, Seats()) }
     private val seat by lazy { findViewById<TableLayout>(R.id.seatTable) }
     private val priceText by lazy { findViewById<TextView>(R.id.tv_price) }
     private val bookingBtn by lazy { findViewById<TextView>(R.id.btn_booking) }
+
+    private lateinit var defaultBooking: Booking
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_seat)
-
-        presenter = PresenterFactory.providePresenter(this)
         defaultBooking = intent.getSerializable(KEY_BOOKING, Booking::class.java)
 
         initView()

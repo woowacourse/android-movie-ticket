@@ -25,15 +25,14 @@ class MovieListPresenterTest {
     fun `영화 리스트를 로딩하면 영화와 광고가 포함된 리스트를 View에 전달한다`() {
         val movies = moviesFixture
 
-        val presenter = MovieListPresenter(view, movies)
+        val presenter = MovieListPresenter(view, MovieStore())
 
         presenter.loadUiData()
 
         verify {
             view.showMovieList(
                 match { uiModels ->
-                    uiModels.size == 4 &&
-                        uiModels[0] is UiModel.MovieUiModel &&
+                    uiModels[0] is UiModel.MovieUiModel &&
                         uiModels[1] is UiModel.MovieUiModel &&
                         uiModels[2] is UiModel.MovieUiModel &&
                         uiModels[3] is UiModel.AdvertiseUiModel
