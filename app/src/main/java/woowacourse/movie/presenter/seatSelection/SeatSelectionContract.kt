@@ -23,6 +23,8 @@ interface SeatSelectionContract {
 
         fun showAlertDialog()
 
+        fun showToast()
+
         fun confirmSelection(
             ticket: TicketUiModel,
             seats: SeatsUiModel,

@@ -23,6 +23,7 @@
     <string name="confirm_reservation_alert_yes">예매 완료</string>
 
     <string name="no_screening_date_available_toast_message">예매 가능한 날짜가 없습니다.</string>
+    <string name="cannot_select_more_seats_toast_message">더이상 좌석을 선택할 수 없습니다.</string>
 
     <string name="decrement_button">-</string>
     <string name="increment_button">+</string>

@@ -37,8 +37,12 @@ class SeatSelectionPresenter(
             view.deselectSeat(row, col)
             _seats.remove(seat)
         } else {
-            view.selectSeat(row, col)
-            _seats.add(seat)
+            if (!_seats.isSelectionFinished()) {
+                view.selectSeat(row, col)
+                _seats.add(seat)
+            } else {
+                view.showToast()
+            }
         }
 
         val price = _seats.totalPrice()

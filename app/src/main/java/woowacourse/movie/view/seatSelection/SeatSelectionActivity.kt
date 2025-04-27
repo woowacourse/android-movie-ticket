@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.toColorInt
@@ -117,6 +118,14 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         selectButton.setOnClickListener {
             presenter.onSelection()
         }
+    }
+
+    override fun showToast() {
+        Toast.makeText(
+            this,
+            getString(R.string.cannot_select_more_seats_toast_message),
+            Toast.LENGTH_SHORT,
+        ).show()
     }
 
     companion object {
