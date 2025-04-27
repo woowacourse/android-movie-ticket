@@ -54,7 +54,7 @@ class SeatSelectionPresenter(
         if (_theater.isSelectionFinished()) {
             view.showAlertDialog()
         } else {
-            view.showSelectionNotFinishedToast(theater.capacity)
+            view.showSelectionNotFinishedToast(ticket.count.value)
         }
     }
 

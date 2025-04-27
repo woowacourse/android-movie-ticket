@@ -21,7 +21,7 @@ interface SeatSelectionContract {
 
         fun goToReservationResult(
             ticket: TicketUiModel,
-            seats: TheaterUiModel,
+            theater: TheaterUiModel,
         )
     }
 
