@@ -18,7 +18,9 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.Booking
-import woowacourse.movie.domain.model.booking.BookingResult
+import woowacourse.movie.domain.model.booking.ScreeningDateSelectListener
+import woowacourse.movie.domain.model.booking.ScreeningDateSpinner
+import woowacourse.movie.domain.model.booking.result.BookingResult
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.presenter.booking.BookingContract
 import woowacourse.movie.presenter.booking.BookingPresenter
@@ -27,7 +29,6 @@ import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
-import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
@@ -39,6 +40,7 @@ import java.time.LocalTime
 class BookingActivity : AppCompatActivity(), BookingContract.View {
     private lateinit var presenter: BookingContract.Presenter
     private lateinit var bookingResult: BookingResult
+    private lateinit var screeningDateSpinner: ScreeningDateSpinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         applySystemBarInsets()
 
         presenter = BookingPresenter(view = this@BookingActivity, movieUiModel = movieOrNull())
+        presenter.loadScreeningPeriods()
 
         bookingResult = BookingResult("tmp", 0, LocalDate.now(), LocalTime.now())
         setUpHeadCount()
@@ -92,45 +95,23 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         )
     }
 
-    private fun setUpScreeningDateSpinner(booking: Booking) {
-        val screeningDateSpinner = findViewById<Spinner>(R.id.spinner_screening_date)
-        val screeningPeriods = booking.screeningPeriods()
-
-        screeningDateSpinner.adapter =
-            ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                DateTimeUtil.toSpinnerDates(screeningPeriods),
+    override fun setScreeningDateSpinner(dates: List<String>) {
+        screeningDateSpinner =
+            ScreeningDateSpinner(
+                findViewById(R.id.spinner_screening_date),
+                dates,
             )
+        screeningDateSpinner.setOnItemSelectedListener(
+            ScreeningDateSelectListener(
+                onSelect = { screeningDate ->
+                    presenter.updateScreeningDate(screeningDate)
+                },
+            ),
+        )
+    }
 
-        val position = screeningPeriods.indexOf(bookingResult.selectedDate)
-        screeningDateSpinner.setSelection(position)
-
-        screeningDateSpinner.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long,
-                ) {
-                    val selectedSpinnerDate: String =
-                        screeningDateSpinner.getItemAtPosition(position).toString()
-                    val selectedDate =
-                        selectedSpinnerDate.toLocalDate(MOVIE_SPINNER_DATE_DELIMITER)
-                    bookingResult = bookingResult.updateDate(selectedDate)
-                    setUpScreeningTimeSpinner(
-                        Movie(1L, "d", LocalDate.now(), LocalDate.now(), 0),
-                        booking,
-                    )
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    val date: String = screeningDateSpinner.getItemAtPosition(0).toString()
-                    bookingResult =
-                        bookingResult.updateDate(date.toLocalDate(MOVIE_SPINNER_DATE_DELIMITER))
-                }
-            }
+    override fun showScreeningDate(position: Int) {
+        screeningDateSpinner.setSelect(position)
     }
 
     private fun setUpScreeningTimeSpinner(
