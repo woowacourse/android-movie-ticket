@@ -86,7 +86,7 @@ class BookingPresenter(
     override fun reserve() {
         if (bookingResult.isHeadCountValid()) {
             val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
-            view.showConfirmDialog(bookingResultUiModel)
+            view.moveTo(bookingResultUiModel)
         }
     }
 

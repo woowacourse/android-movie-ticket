@@ -56,6 +56,6 @@ interface BookingContract {
 
         fun setButtonClickListener()
 
-        fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel)
+        fun moveTo(bookingResultUiModel: BookingResultUiModel)
     }
 }

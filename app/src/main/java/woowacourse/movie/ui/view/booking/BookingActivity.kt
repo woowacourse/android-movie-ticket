@@ -14,7 +14,7 @@ import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
-import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
+import woowacourse.movie.ui.view.booking.seat.BookingSeatActivity
 import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DialogUtil
 
@@ -107,17 +107,21 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         viewHolder.btnReserveConfirm.setOnClickListener { presenter.reserve() }
     }
 
-    override fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel) {
-        DialogUtil.makeDialog(
-            activity = this@BookingActivity,
-            title = getString(R.string.dig_title),
-            message = getString(R.string.dig_message),
-            positiveButtonName = getString(R.string.dig_btn_positive_message),
-            negativeButtonName = getString(R.string.dig_btn_negative_message),
-            moveTo = {
-                startActivity(BookingCompleteActivity.newIntent(this, bookingResultUiModel))
-            },
-        )
+//    override fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel) {
+//        DialogUtil.makeDialog(
+//            activity = this@BookingActivity,
+//            title = getString(R.string.dig_title),
+//            message = getString(R.string.dig_message),
+//            positiveButtonName = getString(R.string.dig_btn_positive_message),
+//            negativeButtonName = getString(R.string.dig_btn_negative_message),
+//            moveTo = {
+//                startActivity(BookingSeatActivity.newIntent(this, bookingResultUiModel))
+//            },
+//        )
+//    }
+
+    override fun moveTo(bookingResultUiModel: BookingResultUiModel) {
+        startActivity(BookingSeatActivity.newIntent(this, bookingResultUiModel))
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

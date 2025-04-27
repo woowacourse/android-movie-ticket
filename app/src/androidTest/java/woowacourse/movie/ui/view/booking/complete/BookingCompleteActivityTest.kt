@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view.booking
+package woowacourse.movie.ui.view.booking.complete
 
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -14,7 +14,6 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
-import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>
