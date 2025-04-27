@@ -179,17 +179,7 @@ class ReservationActivity :
     private fun initCompleteButtonView() {
         val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
         completeButton.setOnClickListener {
-            dialog =
-                AlertDialog
-                    .Builder(this)
-                    .setTitle(getString(R.string.ticket_dialog_title))
-                    .setMessage(getString(R.string.ticket_dialog_message))
-                    .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                        present.navigateToSelectSeatUI()
-                    }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
-                        dialog.dismiss()
-                    }.setCancelable(false)
-                    .show()
+            present.navigateToSelectSeatUI()
         }
     }
 
@@ -199,16 +189,6 @@ class ReservationActivity :
 
     override fun navigateToSelectSeatUI(ticketData: TicketData) {
         startActivity(SelectSeatActivity.newIntent(this, ticketData))
-    }
-
-    override fun onDestroy() {
-        dialog?.let {
-            if (it.isShowing) {
-                it.dismiss()
-            }
-        }
-        dialog = null
-        super.onDestroy()
     }
 
     companion object {

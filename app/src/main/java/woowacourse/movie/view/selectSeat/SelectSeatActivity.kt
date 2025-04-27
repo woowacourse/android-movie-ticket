@@ -45,8 +45,23 @@ class SelectSeatActivity :
         }
         present.initSelectSeatUI()
         initSeatClickListener()
-        // TODO: 임시 버튼 연결
-        findViewById<TextView>(R.id.tv_select_seat_confirm).setOnClickListener { present.navigateToTicketUI() }
+        initCompleteButtonView()
+    }
+
+    private fun initCompleteButtonView() {
+        findViewById<TextView>(R.id.tv_select_seat_confirm).setOnClickListener {
+            dialog =
+                AlertDialog
+                    .Builder(this)
+                    .setTitle(getString(R.string.ticket_dialog_title))
+                    .setMessage(getString(R.string.ticket_dialog_message))
+                    .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
+                        present.navigateToTicketUI()
+                    }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
+                        dialog.dismiss()
+                    }.setCancelable(false)
+                    .show()
+        }
     }
 
     override fun getTicketData(): TicketData =
