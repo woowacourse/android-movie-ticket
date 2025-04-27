@@ -10,16 +10,18 @@ class BookingSeatPresenter(
     private val selectedSeats = mutableListOf<Seat>()
     private lateinit var bookingCompleteUiModel: BookingCompleteUiModel
     private var totalPrice: Int = 0
+    private var ticketCount: Int = 0
 
     override fun loadMovieTitle(ticket: Ticket) {
         view.showMovieTitle(ticket.movieTitle)
+        ticketCount = ticket.quantity.value
     }
 
     override fun toggleSeatSelection(seat: Seat) {
         if (selectedSeats.contains(seat)) {
             selectedSeats.remove(seat)
             view.updateSeatState(seat, isSelected = false)
-        } else {
+        } else if (selectedSeats.size < ticketCount) {
             selectedSeats.add(seat)
             view.updateSeatState(seat, isSelected = true)
         }
