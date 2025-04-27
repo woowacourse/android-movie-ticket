@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
@@ -26,7 +27,8 @@ class SelectSeatActivity :
     SelectSeatView {
     private val present: SelectSeatPresenter = SelectSeatPresenter(this)
     private var dialog: AlertDialog? = null
-    private val seatTableLayout by lazy { findViewById<TableLayout>(R.id.tl_seat) }
+    private val seatTableView by lazy { findViewById<TableLayout>(R.id.tl_seat) }
+    private val ticketPriceTextView by lazy { findViewById<TextView>(R.id.tv_select_seat_selected_ticket_price) }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -71,8 +73,8 @@ class SelectSeatActivity :
     }
 
     override fun initSeatClickListener() {
-        for (i in 0 until seatTableLayout.childCount) {
-            val tableRow = seatTableLayout.getChildAt(i) as TableRow
+        for (i in 0 until seatTableView.childCount) {
+            val tableRow = seatTableView.getChildAt(i) as TableRow
 
             for (j in 0 until tableRow.childCount) {
                 val seat = tableRow.getChildAt(j) as TextView
@@ -91,11 +93,16 @@ class SelectSeatActivity :
         setSeatBackground(seat, R.color.white)
     }
 
+    override fun setTicketPrice(totalTicketPrice: TicketPrice) {
+        ticketPriceTextView.text =
+            getString(R.string.select_seat_total_ticket_price, totalTicketPrice.value)
+    }
+
     private fun setSeatBackground(
         seat: Seat,
         colorRes: Int,
     ) {
-        val tableRow = seatTableLayout.getChildAt(seat.row.value) as? TableRow
+        val tableRow = seatTableView.getChildAt(seat.row.value) as? TableRow
         val seatView = tableRow?.getChildAt(seat.col.value) as? TextView
         seatView?.setBackgroundResource(colorRes)
             ?: throw IllegalStateException("좌석의 좌표가 범위를 벗어났습니다")

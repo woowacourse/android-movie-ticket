@@ -53,7 +53,7 @@ class TicketActivity :
         countView.text = getString(R.string.ticket_count, ticket.ticketCount.value)
 
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
-        priceView.text = getString(R.string.ticket_price, ticket.price)
+        priceView.text = getString(R.string.ticket_price, 0) // TODO: 전체 티켓 가격 가져오기 필요
     }
 
     companion object {

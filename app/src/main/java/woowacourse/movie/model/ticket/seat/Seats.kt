@@ -1,5 +1,8 @@
 package woowacourse.movie.model.ticket.seat
 
+import woowacourse.movie.model.ticket.TicketPrice
+import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
+
 sealed class SeatToggleResult {
     data class Added(
         val seat: Seat,
@@ -12,8 +15,13 @@ sealed class SeatToggleResult {
 
 class Seats(
     initSeats: Collection<Seat> = setOf<Seat>(),
+    private val seatGradePolicy: SeatGradePolicy,
 ) {
     val selectedSeats: MutableSet<Seat> = initSeats.toMutableSet()
+    private var _totalTicketPrice: TicketPrice =
+        TicketPrice(initSeats.sumOf { seatGradePolicy.getGrade(it).ticketPrice.value })
+    val totalTicketPrice
+        get() = _totalTicketPrice
 
     fun toggleSeat(seat: Seat): SeatToggleResult =
         if (seat in selectedSeats) {
@@ -26,10 +34,12 @@ class Seats(
 
     private fun addSeat(seat: Seat) {
         selectedSeats.add(seat)
+        _totalTicketPrice = _totalTicketPrice.plusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
     }
 
     private fun removeSeat(seat: Seat) {
         selectedSeats.remove(seat)
+        _totalTicketPrice = _totalTicketPrice.minusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
     }
 
     fun getSeatsString(): String {

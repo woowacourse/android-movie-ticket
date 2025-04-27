@@ -27,4 +27,5 @@
 
     <!--select_seat.xml-->
     <string name="btn_select_seat_submit">확인</string>
+    <string name="select_seat_total_ticket_price">%1$,d원</string>
 </resources>

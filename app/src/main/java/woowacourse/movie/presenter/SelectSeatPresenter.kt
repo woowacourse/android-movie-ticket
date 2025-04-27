@@ -4,6 +4,7 @@ import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatToggleResult
 import woowacourse.movie.model.ticket.seat.Seats
+import woowacourse.movie.model.ticket.seat.grade.RowBasedSeatGradePolicy
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.selectSeat.SelectSeatView
@@ -17,7 +18,7 @@ class SelectSeatPresenter(
         view.getTicketData()
     }
     private val selectedSeats: Seats by lazy {
-        Seats()
+        Seats(seatGradePolicy = RowBasedSeatGradePolicy())
     }
 
 //    fun initTicketData(
@@ -30,7 +31,7 @@ class SelectSeatPresenter(
 
     fun initSelectSeatUI() {
         view.initMovieTitleUI(ticketDataEmptySeat)
-
+        view.setTicketPrice(selectedSeats.totalTicketPrice)
 //        view.initScreeningInfoUI(screeningData)
 //        view.setDateSelectUi(screening)
 //        view.setTimeSelectUi(screening.period.start, screening, timeItemPosition)
@@ -43,6 +44,7 @@ class SelectSeatPresenter(
             is SeatToggleResult.Added -> view.seatSelect(seat)
             is SeatToggleResult.Removed -> view.seatUnSelect(seat)
         }
+        view.setTicketPrice(selectedSeats.totalTicketPrice)
     }
 
     fun navigateToTicketUI() {
