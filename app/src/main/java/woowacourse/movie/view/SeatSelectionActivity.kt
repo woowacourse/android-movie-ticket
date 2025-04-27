@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
@@ -26,6 +25,7 @@ import woowacourse.movie.domain.SeatGrade
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.presenter.SeatSelectionPresenter
 import woowacourse.movie.view.util.ErrorMessage
+import java.io.Serializable
 import java.time.LocalDateTime
 
 class SeatSelectionActivity :
@@ -47,15 +47,22 @@ class SeatSelectionActivity :
             insets
         }
         savedInstanceState.getSelectedSeats()?.let { selectedSeats = it }
-        Log.e("selectedSeats", selectedSeats.toString())
         initPresenter()
         findViews()
-        presenter?.presentSeats()
+        presentModel()
+    }
+
+    private fun presentModel() {
+        presenter?.let {
+            it.presentSeats()
+            it.presentTitle()
+            it.presentPrice(selectedSeats.sumOf { seat -> seat.price })
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_SEATS, ArrayList(selectedSeats))
+        outState.putSerializable(KEY_SEATS, selectedSeats as Serializable)
     }
 
     private fun initPresenter() {
@@ -71,10 +78,10 @@ class SeatSelectionActivity :
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
                 getSerializable(
                     KEY_SEATS,
-                    ArrayList::class.java,
-                )?.let { (it as ArrayList<Seat>).toSet() }
+                    LinkedHashSet::class.java,
+                ) as Set<Seat>
 
-            else -> (getSerializable(KEY_SEATS) as? ArrayList<Seat>)?.toSet()
+            else -> (getSerializable(KEY_SEATS) as? LinkedHashSet<Seat>)
         }
     }
 
@@ -136,6 +143,7 @@ class SeatSelectionActivity :
                     } else {
                         selectedSeats - seat
                     }
+                presenter?.presentPrice(selectedSeats.sumOf { seat -> seat.price })
             }
         }
 
