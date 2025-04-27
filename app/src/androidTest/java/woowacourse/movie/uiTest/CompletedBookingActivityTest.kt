@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.R
 import woowacourse.movie.completedbooking.CompletedBookingActivity
 import woowacourse.movie.detailbooking.DetailBookingActivity
+import woowacourse.movie.domain.ReservationInfo
 import woowacourse.movie.domain.Ticket
 import java.time.LocalDateTime
 
@@ -20,9 +21,12 @@ class CompletedBookingActivityTest {
     fun setUp() {
         val ticket =
             Ticket(
-                "해리 포터와 마법사의 돌",
-                LocalDateTime.of(2025, 4, 25, 11, 0),
-                2,
+                ReservationInfo(
+                    "해리 포터와 마법사의 돌",
+                    LocalDateTime.of(2025,4,25,11,0),
+                    2),
+                setOf("A1", "B1"),
+                20_000,
             )
 
         val intent = CompletedBookingActivity.newIntent(ApplicationProvider.getApplicationContext(), ticket)

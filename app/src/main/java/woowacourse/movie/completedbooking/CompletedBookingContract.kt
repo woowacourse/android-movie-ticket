@@ -14,7 +14,7 @@ interface CompletedBookingContract {
 
         fun showMovieDateTime(dateTime: String)
 
-        fun showPersonnel(personnel: Int)
+        fun showPersonnel(personnel: Int, seats: String)
 
         fun showTicketTotalPrice(price: String)
     }

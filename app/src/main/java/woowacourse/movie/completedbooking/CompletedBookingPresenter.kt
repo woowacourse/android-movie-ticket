@@ -10,21 +10,22 @@ class CompletedBookingPresenter(private val view: CompletedBookingContract.View)
     override fun set(ticket: Ticket) {
         this.ticket = ticket
         view.showCancelDeadLine(CANCEL_DEADLINE)
-        view.showMovieTitle(ticket.title)
+        view.showMovieTitle(ticket.reservationInfo.title)
 
         val dateFormatter = DateFormatter()
-        val formattedDateTime = dateFormatter.format(ticket.date)
+        val formattedDateTime = dateFormatter.format(ticket.reservationInfo.date)
         view.showMovieDateTime(formattedDateTime)
 
-        view.showPersonnel(ticket.personnel)
+        val seats: String = ticket.seat.joinToString()
+
+        view.showPersonnel(ticket.reservationInfo.personnel, seats)
 
         val priceFormatter = PriceFormatter()
-        val formattedPrice = priceFormatter.format(DEFAULT_PRICE * ticket.personnel)
+        val formattedPrice = priceFormatter.format(ticket.totalPrice)
         view.showTicketTotalPrice(formattedPrice)
     }
 
     companion object {
-        private const val DEFAULT_PRICE = 13_000
         private const val CANCEL_DEADLINE = 15
     }
 }
