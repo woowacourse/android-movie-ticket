@@ -82,7 +82,7 @@ class SeatSelectActivity :
     override fun updateTotalPrice(totalPrice: Int) {
         priceTextView.text =
             getString(R.string.seat_select_ticket_price).format(
-                ReservationUiFormatter().priceToUI(totalPrice),
+                ReservationUiFormatter.priceToUI(totalPrice),
             )
     }
 

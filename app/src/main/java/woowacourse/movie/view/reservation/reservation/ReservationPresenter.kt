@@ -16,7 +16,6 @@ class ReservationPresenter(
     private lateinit var movieDate: MovieDate
     private var timeTable: List<Int> = emptyList()
     private val movieTime = MovieTime()
-    private val formatter = ReservationUiFormatter()
     private var ticketCount = TicketCount()
     private var selectedDatePosition: Int = 0
 
@@ -32,8 +31,8 @@ class ReservationPresenter(
         view.updateMovieInfo(
             posterResId = movie.poster,
             title = movie.title,
-            startDate = formatter.localDateToUI(movie.startDate),
-            endDate = formatter.localDateToUI(movie.endDate),
+            startDate = ReservationUiFormatter.localDateToUI(movie.startDate),
+            endDate = ReservationUiFormatter.localDateToUI(movie.endDate),
             runningTime = movie.runningTime,
         )
     }
@@ -53,7 +52,7 @@ class ReservationPresenter(
         movieDate.updateDate(date)
         timeTable = movieTime.getTimeTable(LocalDateTime.now(), date)
         selectedDatePosition = position
-        view.updateTimeAdapter(timeTable.map { ReservationUiFormatter().movieTimeToUI(it) })
+        view.updateTimeAdapter(timeTable.map { ReservationUiFormatter.movieTimeToUI(it) })
     }
 
     override fun onTimeSelected(position: Int) {
@@ -75,7 +74,7 @@ class ReservationPresenter(
             MovieTicket(
                 title = movie.title,
                 date = movieDate.value,
-                time = formatter.movieTimeToUI(movieTime.value),
+                time = ReservationUiFormatter.movieTimeToUI(movieTime.value),
                 count = ticketCount.value,
             )
         onCreated(ticket)

@@ -11,8 +11,6 @@ import woowacourse.movie.view.movie.MovieClickListener
 
 class MovieAdapter(
     private val clickListener: MovieClickListener,
-    private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
-
 ) : ListAdapter<Movie, RecyclerView.ViewHolder>(MoviesDiffUtil) {
     override fun getItemCount(): Int {
         val movieCount = super.getItemCount()
@@ -36,7 +34,7 @@ class MovieAdapter(
         return when (viewType) {
             VIEW_TYPE_MOVIE -> {
                 val view = inflater.inflate(R.layout.item_movie, parent, false)
-                MovieViewHolder(view, clickListener, reservationUiFormatter)
+                MovieViewHolder(view, clickListener, ReservationUiFormatter)
             }
 
             else -> {

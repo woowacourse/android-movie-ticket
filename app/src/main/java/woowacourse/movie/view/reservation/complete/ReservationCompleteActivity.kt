@@ -23,7 +23,6 @@ class ReservationCompleteActivity :
         findViewById(R.id.tv_reservation_complete_count_seats)
     }
     private val ticketPriceTextView: TextView by lazy { findViewById<TextView>(R.id.tv_reservation_complete_ticket_price) }
-    private val reservationUiFormatter: ReservationUiFormatter by lazy { ReservationUiFormatter() }
     private val presenter: ReservationCompletePresenter by lazy { ReservationCompletePresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,7 +53,7 @@ class ReservationCompleteActivity :
         reservationDateTimeTextView.text =
             resources.getString(
                 R.string.reservation_complete_date_time,
-                reservationUiFormatter.localDateToUI(reservationInfo.date),
+                ReservationUiFormatter.localDateToUI(reservationInfo.date),
                 reservationInfo.time,
             )
         ticketCountTextView.text =
@@ -66,7 +65,7 @@ class ReservationCompleteActivity :
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,
-                reservationUiFormatter.priceToUI(reservationInfo.price),
+                ReservationUiFormatter.priceToUI(reservationInfo.price),
             )
     }
 }
