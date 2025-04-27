@@ -1,12 +1,12 @@
 package woowacourse.movie.ui.view.movie
 
 import android.os.Bundle
-import android.widget.ListView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movie.MovieContract
 import woowacourse.movie.presenter.movie.MoviePresenter
@@ -34,8 +34,8 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
                 },
             )
 
-        val listView = findViewById<ListView>(R.id.listview_layout)
-        listView.adapter = movieAdapter
+        val recyclerView = findViewById<RecyclerView>(R.id.recyclerview_layout)
+        recyclerView.adapter = movieAdapter
     }
 
     override fun showErrorMessage(message: String) {
