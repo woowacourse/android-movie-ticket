@@ -22,6 +22,9 @@
     <string name="empty_movie_title">영화 정보 없음 안내</string>
     <string name="empty_movie_message">영화 정보가 없어 이전 화면으로 돌아갑니다.</string>
     <string name="confirm">확인</string>
+    <string name="s_class">s</string>
+    <string name="a_class">a</string>
+    <string name="b_class">b</string>
     <string name="cancel">취소</string>
     <string name="date_format">yyyy.MM.dd</string>
     <string name="date_time_format">yyyy.MM.dd HH:mm</string>
