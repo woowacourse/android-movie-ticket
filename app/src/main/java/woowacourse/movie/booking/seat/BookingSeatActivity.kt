@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -64,6 +65,13 @@ class BookingSeatActivity :
         setupConfirmButton()
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setMovieTitle() {
         presenter.loadMovieTitle(ticket)
     }
@@ -103,6 +111,8 @@ class BookingSeatActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         seatLayout = findViewById(R.id.booking_seat_table)
         totalPrice = findViewById(R.id.booking_seat_price_textview)
         confirmButton = findViewById(R.id.booking_seat_confirm_textview)
