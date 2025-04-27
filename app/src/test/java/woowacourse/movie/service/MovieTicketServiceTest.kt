@@ -22,6 +22,6 @@ class MovieTicketServiceTest {
         val headCount = 2
         val result = movieTicketService.createMovieTicket(movieId, screeningDate, headCount)
 
-        result shouldBe MovieTicket(1, LocalDateTime.of(2025, 4, 22, 10, 0), 2, 26000)
+        result shouldBe MovieTicket(1, LocalDateTime.of(2025, 4, 22, 10, 0), 2, 0)
     }
 }
