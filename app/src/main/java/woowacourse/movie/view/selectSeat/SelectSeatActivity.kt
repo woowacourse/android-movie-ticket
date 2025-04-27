@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.BundleCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
@@ -19,6 +20,7 @@ import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
 import woowacourse.movie.presenter.SelectSeatPresenter
+import woowacourse.movie.view.model.SeatIndexData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.ticket.TicketActivity
 
@@ -33,6 +35,17 @@ class SelectSeatActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(
+            SEAT_INDEXES_DATA,
+            ArrayList(
+                present.selectedSeats.selectedSeats.map {
+                    SeatIndexData(
+                        col = it.col.value,
+                        row = it.row.value,
+                    )
+                },
+            ),
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,9 +57,31 @@ class SelectSeatActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        restoreSelectedSeat(savedInstanceState)
         present.initSelectSeatUI()
         initSeatClickListener()
         updateSubmitButton()
+    }
+
+    private fun restoreSelectedSeat(savedInstanceState: Bundle?) {
+        savedInstanceState?.let { bundle ->
+            val seatIndexList =
+                BundleCompat.getParcelableArrayList(
+                    bundle,
+                    SEAT_INDEXES_DATA,
+                    SeatIndexData::class.java,
+                )
+
+            seatIndexList?.forEach { seatIndexData ->
+                val seat =
+                    Seat(
+                        row = SeatRow(seatIndexData.row),
+                        col = SeatCol(seatIndexData.col),
+                    )
+                present.toggleSeat(seat)
+            }
+        }
     }
 
     override fun getTicketData(): TicketData =
@@ -142,6 +177,7 @@ class SelectSeatActivity :
         private const val ERROR_CANT_READ_TICKET_INFO = "티켓 정보가 전달되지 않았습니다"
 
         private const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
+        private const val SEAT_INDEXES_DATA = "seatIndexesData"
 
         fun newIntent(
             context: Context,

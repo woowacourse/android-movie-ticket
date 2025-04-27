@@ -18,7 +18,7 @@ class SelectSeatPresenter(
     private val ticketDataEmptySeat: TicketData by lazy {
         view.getTicketData()
     }
-    private val selectedSeats: Seats by lazy {
+    val selectedSeats: Seats by lazy {
         Seats(seatGradePolicy = RowBasedSeatGradePolicy())
     }
 
@@ -38,7 +38,7 @@ class SelectSeatPresenter(
 
     fun isMaximumSelectedSeat(): Boolean = selectedSeats.size() == ticketDataEmptySeat.ticketCount
 
-    private fun toggleSeat(seat: Seat) {
+    fun toggleSeat(seat: Seat) {
         val toggleResult = selectedSeats.toggleSeat(seat)
         when (toggleResult) {
             is SeatToggleResult.Added -> view.seatSelect(seat)
