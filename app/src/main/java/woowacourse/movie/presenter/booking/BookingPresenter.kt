@@ -6,7 +6,7 @@ import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.sample.SampleMovies
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.util.DateTimeUtil
-import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
+import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
@@ -51,11 +51,15 @@ class BookingPresenter(
         view.setScreeningTimeSpinner(screeningTimes)
     }
 
-    override fun updateScreeningDate(date: String) {
-        val screeningDate: LocalDate = date.toLocalDate(MOVIE_SPINNER_DATE_DELIMITER)
+    override fun updateScreeningDate(
+        date: String,
+        delimiter: String,
+    ) {
+        val screeningDate: LocalDate = date.toLocalDate(delimiter)
         bookingResult = bookingResult.updateDate(screeningDate)
         view.showScreeningDate(bookableDates.indexOf(screeningDate))
-        updateScreeningTimes()
+        view.setScreeningTimeAdapter(DateTimeUtil.toSpinnerTimes(bookableTimes))
+        view.showScreeningTime(bookableTimes.indexOf(bookingResult.selectedTime))
     }
 
     override fun updateScreeningTime(time: String) {
@@ -86,6 +90,35 @@ class BookingPresenter(
         }
     }
 
+    override fun saveHeadCount(onReceived: (Int) -> Unit) {
+        onReceived(bookingResult.headCount)
+    }
+
+    override fun saveScreeningDate(onReceived: (String) -> Unit) {
+        val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
+        onReceived(bookingResultUiModel.selectedDate)
+    }
+
+    override fun saveScreeningTime(onReceived: (String) -> Unit) {
+        val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
+        onReceived(bookingResultUiModel.selectedTime)
+    }
+
+    override fun restoreBookingResult(
+        count: Int,
+        date: String?,
+        time: String?,
+    ) {
+        bookingResult =
+            bookingResult.updateDate(date?.toLocalDate(MOVIE_DATE_DELIMITER) ?: LocalDate.now())
+        bookingResult =
+            bookingResult.updateTime(time?.toLocalTime(MOVIE_TIME_DELIMITER) ?: LocalTime.now())
+        bookingResult = bookingResult.updateCount(count)
+
+        val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
+        view.showHeadCount(bookingResultUiModel.headCount)
+    }
+
     private fun initBookingResult(booking: Booking): BookingResult {
         val nearestDate = booking.screeningPeriods()[0]
         val availBookingTimes = booking.screeningTimes(nearestDate)
@@ -107,12 +140,6 @@ class BookingPresenter(
         if (bookableTimes.isEmpty() && !bookingMovie.isScreeningEnd(nextDay)) {
             bookingResult = bookingResult.updateDate(nextDay)
         }
-    }
-
-    private fun updateScreeningTimes() {
-        val screeningTimes = DateTimeUtil.toSpinnerTimes(bookableTimes)
-        bookingResult = bookingResult.updateTime(bookableTimes.first())
-        view.setScreeningTimeAdapter(screeningTimes)
     }
 
     companion object {

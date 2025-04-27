@@ -9,7 +9,10 @@ interface BookingContract {
 
         fun loadScreeningDateTimes()
 
-        fun updateScreeningDate(date: String)
+        fun updateScreeningDate(
+            date: String,
+            delimiter: String,
+        )
 
         fun updateScreeningTime(time: String)
 
@@ -20,6 +23,18 @@ interface BookingContract {
         fun decreaseHeadCount()
 
         fun reserve()
+
+        fun saveHeadCount(onReceived: (Int) -> Unit)
+
+        fun saveScreeningDate(onReceived: (String) -> Unit)
+
+        fun saveScreeningTime(onReceived: (String) -> Unit)
+
+        fun restoreBookingResult(
+            count: Int,
+            date: String?,
+            time: String?,
+        )
     }
 
     interface View {
