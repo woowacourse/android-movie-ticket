@@ -152,7 +152,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     }
 
     override fun navigateToReservationComplete(ticket: Ticket) {
-        val intent = ReservationSeat.newIntent(this@ReservationActivity)
+        val intent = ReservationSeat.newIntent(this@ReservationActivity, ticket)
         startActivity(intent)
     }
 
