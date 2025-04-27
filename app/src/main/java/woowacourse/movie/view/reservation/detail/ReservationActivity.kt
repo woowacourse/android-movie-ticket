@@ -31,10 +31,16 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class ReservationActivity : AppCompatActivity() {
-    private var count = DEFAULT_PERSONNEL
-    private var selectedDatePosition = DEFAULT_DATE_POSITION
-    private var selectedTimePosition = DEFAULT_TIME_POSITION
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
+    private val present: ReservationContract.Presenter by lazy {
+        ReservationPresent(this)
+    }
+
+    private lateinit var spinnerDate: Spinner
+    private lateinit var spinnerTime: Spinner
+    private lateinit var counterTextView: TextView
+    private lateinit var plusButton: Button
+    private lateinit var minusButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,27 +51,23 @@ class ReservationActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val spinnerDate = findViewById<Spinner>(R.id.spinner_date)
-        val spinnerTime = findViewById<Spinner>(R.id.spinner_time)
+
+        spinnerDate = findViewById(R.id.spinner_date)
+        spinnerTime = findViewById(R.id.spinner_time)
+        counterTextView = findViewById(R.id.tv_personnel)
+        plusButton = findViewById(R.id.btn_plus_button)
+        minusButton = findViewById(R.id.btn_minus_button)
+
         val movie: Movie? =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 intent.getSerializableExtra(KEY_MOVIE, Movie::class.java)
             } else {
                 intent.getSerializableExtra(KEY_MOVIE) as? Movie
             }
-        if (movie == null) {
-            handleInvalidMovie()
-        } else {
-            setMovieInfo(movie)
-            setCountButtons()
-            setReservationButton(movie, spinnerDate, spinnerTime) { ticket ->
-                askReservationDialog(ticket)
-            }
-            setSpinnerInfo(movie, spinnerDate, spinnerTime)
-        }
+        present.fetchData(movie)
     }
 
-    private fun handleInvalidMovie() {
+    override fun showErrorInvalidMovie() {
         DialogFactory().showError(this) {
             MainActivity.returnToMain(this)
         }
@@ -73,37 +75,24 @@ class ReservationActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        outState.putInt(KEY_PERSONNEL_COUNT, count)
-        outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
-        outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
+        present.onSaveState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-
-        count = savedInstanceState.getInt(KEY_PERSONNEL_COUNT)
-        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION)
-        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION)
-        updateCounterText()
+        present.onRestoreState(savedInstanceState)
     }
 
-    private fun updateCounterText() {
-        val counterTextView = findViewById<TextView>(R.id.tv_personnel)
-        counterTextView.text = count.toString()
-    }
-
-    private fun setSpinnerInfo(
+    override fun showSpinnerData(
         movie: Movie,
-        spinnerDate: Spinner,
-        spinnerTime: Spinner,
+        selectedDatePosition: Int,
     ) {
-        setDateSpinner(movie, LocalDate.now(), spinnerDate, spinnerTime)
+        setDateSpinner(movie, LocalDate.now(), spinnerTime)
 
         spinnerDate.setSelection(selectedDatePosition)
     }
 
-    private fun setMovieInfo(movie: Movie) {
+    override fun showMovieReservationScreen(movie: Movie) {
         val movieTitleTextView = findViewById<TextView>(R.id.tv_movie_title)
         val movieDateTextView = findViewById<TextView>(R.id.tv_movie_date)
         val movieTimeTextView = findViewById<TextView>(R.id.tv_movie_time)
@@ -119,29 +108,21 @@ class ReservationActivity : AppCompatActivity() {
         moviePosterImageView.setImageResource(movie.image)
     }
 
-    private fun setCountButtons() {
-        val minusButton = findViewById<Button>(R.id.btn_minus_button)
-        val plusButton = findViewById<Button>(R.id.btn_plus_button)
-
-        minusButton.setOnClickListener {
-            if (count > DEFAULT_PERSONNEL) count--
-            updateCounterText()
-        }
-
-        plusButton.setOnClickListener {
-            count++
-            updateCounterText()
-        }
-
-        updateCounterText()
+    override fun showCount(count: Int) {
+        counterTextView.text = count.toString()
     }
 
-    private fun setReservationButton(
-        movie: Movie,
-        spinnerDate: Spinner,
-        spinnerTime: Spinner,
-        onConfirm: (Ticket) -> Unit,
-    ) {
+    override fun setCountButtons() {
+        plusButton.setOnClickListener {
+            present.increasedCount()
+        }
+
+        minusButton.setOnClickListener {
+            present.decreasedCount()
+        }
+    }
+
+    override fun setReservationButton() {
         val reservationButton = findViewById<Button>(R.id.btn_reservation)
 
         reservationButton.setOnClickListener {
@@ -151,12 +132,11 @@ class ReservationActivity : AppCompatActivity() {
                 Toast.makeText(this, getString(R.string.message_not_allowed_time), Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            val ticket = Ticket(movie.title, LocalDateTime.of(selectedDate, selectedTime), count)
-            onConfirm(ticket)
+            present.createTicket(LocalDateTime.of(selectedDate, selectedTime))
         }
     }
 
-    private fun askReservationDialog(ticket: Ticket) {
+    override fun showReservationDialog(ticket: Ticket) {
         DialogFactory().show(
             DialogInfo(
                 this,
@@ -171,7 +151,7 @@ class ReservationActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateToReservationComplete(ticket: Ticket) {
+    override fun navigateToReservationComplete(ticket: Ticket) {
         val intent = ReservationCompleteActivity.newIntent(this@ReservationActivity, ticket)
         startActivity(intent)
     }
@@ -179,19 +159,18 @@ class ReservationActivity : AppCompatActivity() {
     private fun setDateSpinner(
         movie: Movie,
         localDate: LocalDate,
-        spinner: Spinner,
         spinnerTime: Spinner,
     ) {
         val movieSchedule = MovieSchedule(movie.date)
         val currentDateSpinner = movieSchedule.selectableDates(localDate)
 
-        spinner.adapter =
+        spinnerDate.adapter =
             ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
                 currentDateSpinner,
             )
-        spinner.onItemSelectedListener =
+        spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
@@ -199,9 +178,9 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedDatePosition = position
-                    val selectedDate = currentDateSpinner[selectedDatePosition]
+                    val selectedDate = currentDateSpinner[position]
                     setTimeSpinner(spinnerTime, selectedDate)
+                    present.selectedDate(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -223,8 +202,6 @@ class ReservationActivity : AppCompatActivity() {
                 spinner.adapter = adapter
             }
 
-        spinner.setSelection(selectedTimePosition)
-
         spinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -233,22 +210,20 @@ class ReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    selectedTimePosition = position
+                    present.selectedTime(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
     }
 
+    override fun setTimeSelection(position: Int) {
+        spinnerTime.setSelection(position)
+    }
+
     companion object {
-        private const val KEY_PERSONNEL_COUNT = "personnel_count"
-        private const val KEY_DATE_POSITION = "movieDate_position"
-        private const val KEY_TIME_POSITION = "timeTable_position"
         private const val KEY_MOVIE = "movie"
         private const val DATE_PATTERN = "yyyy.M.d"
-        private const val DEFAULT_PERSONNEL = 1
-        private const val DEFAULT_DATE_POSITION = 0
-        private const val DEFAULT_TIME_POSITION = 0
 
         fun newIntent(
             context: Context,

@@ -23,11 +23,11 @@ class MainPresenterTest {
     @Test
     fun `데이터를 가져오면 화면에 띄워진다`() {
         // given
-        every { view.showMoviesScreen(any()) } just Runs
+        every { view.showMoviesScreen(any(), any()) } just Runs
 
         presenter.fetchData()
 
         // when & then
-        verify { view.showMoviesScreen(any()) }
+        verify { view.showMoviesScreen(any(), any()) }
     }
 }

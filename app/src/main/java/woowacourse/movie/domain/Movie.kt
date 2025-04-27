@@ -17,7 +17,7 @@ data class Movie(
                 Movie(
                     R.drawable.harry,
                     "해리 포터와 마법사의 돌",
-                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 30)),
                     152,
                 ),
             )
