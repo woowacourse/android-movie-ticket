@@ -16,7 +16,6 @@ import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.domain.service.MovieTicketService
 import woowacourse.movie.ui.view.booking.BookingContract
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class BookingPresenterTest {
     private lateinit var view: BookingContract.View
@@ -85,27 +84,24 @@ class BookingPresenterTest {
     }
 
     @Test
-    fun `onConfirm 호출 시 티켓을 생성하고 예매 상세 화면으로 이동한다`() {
+    fun `onConfirm 호출 시 티켓을 생성하고 좌석 선택 화면으로 이동한다`() {
         // given
         every { movieRepository.getMovieById(movieId) } returns movie
         every {
             movieTicketService.createMovieTicket(
                 movieId,
-                LocalDateTime.now(),
+                any(),
                 2,
             )
         } returns movieTicket
         every { headCount.getCount() } returns 2
-
-        presenter.saveDate(presenter.selectedDate)
-        presenter.saveTime(presenter.selectedTime)
 
         // when
         presenter.onConfirm()
 
         // then
         verify {
-            movieTicketService.createMovieTicket(movieId, LocalDateTime.now(), 2)
+            movieTicketService.createMovieTicket(movieId, any(), 2)
             view.navigateToSeatsSelection(movieTicket)
         }
     }
