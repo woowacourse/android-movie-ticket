@@ -20,6 +20,8 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.presenter.booking.BookingContract
+import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
@@ -29,12 +31,13 @@ import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
+import woowacourse.movie.util.DialogUtil
 import woowacourse.movie.util.mapper.BookingResultModelMapper
-import woowacourse.movie.util.mapper.MovieModelMapper
 import java.time.LocalDate
 import java.time.LocalTime
 
-class BookingActivity : AppCompatActivity() {
+class BookingActivity : AppCompatActivity(), BookingContract.View {
+    private lateinit var presenter: BookingContract.Presenter
     private lateinit var bookingResult: BookingResult
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,32 +46,12 @@ class BookingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_booking)
         applySystemBarInsets()
 
-        val movieUiData: MovieUiModel = movieOrNull() ?: return
-        setUpMovieInfo(movieUiData)
+        presenter = BookingPresenter(view = this@BookingActivity, movieUiModel = movieOrNull())
 
-        val movieData = MovieModelMapper.toDomain(movieUiData)
-        val booking = Booking(movieData)
-        initBookingResult(movieData, booking)
-
-        setUpScreeningDateSpinner(movieData, booking)
-        setUpScreeningTimeSpinner(movieData, booking)
+        bookingResult = BookingResult("tmp", 0, LocalDate.now(), LocalTime.now())
         setUpHeadCount()
 
         setUpReserveConfirm()
-    }
-
-    private fun initBookingResult(
-        movieData: Movie,
-        booking: Booking,
-    ) {
-        val selectedDate = booking.screeningPeriods()[0]
-        bookingResult =
-            BookingResult(
-                title = movieData.title,
-                headCount = 0,
-                selectedDate = selectedDate,
-                selectedTime = booking.screeningTimes(selectedDate)[0],
-            )
     }
 
     private fun applySystemBarInsets() {
@@ -87,7 +70,7 @@ class BookingActivity : AppCompatActivity() {
         )
     }
 
-    private fun setUpMovieInfo(movieUiModel: MovieUiModel) {
+    override fun showMovieInfo(movieUiModel: MovieUiModel) {
         val poster: ImageView = findViewById(R.id.img_booking_poster)
         val bookingTitle: TextView = findViewById(R.id.tv_booking_title)
         val bookingScreenDate: TextView = findViewById(R.id.tv_booking_screening_date)
@@ -102,10 +85,14 @@ class BookingActivity : AppCompatActivity() {
         bookingRunningTime.text = getString(R.string.minute_text, movieUiModel.runningTime)
     }
 
-    private fun setUpScreeningDateSpinner(
-        movieData: Movie,
-        booking: Booking,
-    ) {
+    override fun showErrorMessage(message: String) {
+        DialogUtil.showError(
+            this@BookingActivity,
+            message = message,
+        )
+    }
+
+    private fun setUpScreeningDateSpinner(booking: Booking) {
         val screeningDateSpinner = findViewById<Spinner>(R.id.spinner_screening_date)
         val screeningPeriods = booking.screeningPeriods()
 
@@ -132,7 +119,10 @@ class BookingActivity : AppCompatActivity() {
                     val selectedDate =
                         selectedSpinnerDate.toLocalDate(MOVIE_SPINNER_DATE_DELIMITER)
                     bookingResult = bookingResult.updateDate(selectedDate)
-                    setUpScreeningTimeSpinner(movieData, booking)
+                    setUpScreeningTimeSpinner(
+                        Movie(1L, "d", LocalDate.now(), LocalDate.now(), 0),
+                        booking,
+                    )
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -242,6 +232,20 @@ class BookingActivity : AppCompatActivity() {
         }
     }
 
+    private fun showConfirmDialog2(bookingResultUiModel: BookingResultUiModel) {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.dig_title))
+            .setMessage(getString(R.string.dig_message))
+            .setPositiveButton(getString(R.string.dig_btn_positive_message)) { _, _ ->
+                val intent = BookingCompleteActivity.newIntent(this, bookingResultUiModel)
+                startActivity(intent)
+            }
+            .setNegativeButton(getString(R.string.dig_btn_negative_message)) { dialog, _ ->
+                dialog.dismiss()
+            }.setCancelable(false)
+            .show()
+    }
+
     private fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel) {
         AlertDialog.Builder(this)
             .setTitle(getString(R.string.dig_title))
@@ -294,6 +298,7 @@ class BookingActivity : AppCompatActivity() {
         private const val EXTRA_SELECTED_MOVIE_ITEM = "extra_selected_movie_item"
         private const val SAVED_BOOKING_HEAD_COUNT = "savedstate_booking_head_count"
         private const val SAVED_BOOKING_SCREENING_DATE = "savedstate_booking_screening_date"
+
         private const val SAVED_BOOKING_SCREENING_TIME = "savedstate_booking_screening_time"
 
         fun newIntent(
