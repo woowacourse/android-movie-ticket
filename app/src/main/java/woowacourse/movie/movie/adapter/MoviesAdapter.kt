@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.movie.Item
+import woowacourse.movie.movie.MovieListItem
 
 class MoviesAdapter(
-    private val items: List<Item>,
+    private val items: List<MovieListItem>,
     private val onClick: (Movie) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
@@ -26,7 +26,7 @@ class MoviesAdapter(
 
                 holder.reserveBtn.setOnClickListener {
                     val position = holder.getAdapterPosition()
-                    onClick((items[position] as Item.MovieItem).movie)
+                    onClick((items[position] as MovieListItem.MovieItem).movie)
                 }
             }
             ViewType.TYPE_ADVERTISEMENT -> {
@@ -42,8 +42,8 @@ class MoviesAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is Item.MovieItem -> ViewType.TYPE_MOVIE.ordinal
-            is Item.AdvertisementItem -> ViewType.TYPE_ADVERTISEMENT.ordinal
+            is MovieListItem.MovieItem -> ViewType.TYPE_MOVIE.ordinal
+            is MovieListItem.AdvertisementItem -> ViewType.TYPE_ADVERTISEMENT.ordinal
         }
     }
 
@@ -54,8 +54,8 @@ class MoviesAdapter(
         val item = items[position]
 
         when (holder) {
-            is MoviesViewHolder -> holder.binding((item as Item.MovieItem).movie)
-            is AdViewHolder -> holder.binding(item as Item.AdvertisementItem)
+            is MoviesViewHolder -> holder.binding((item as MovieListItem.MovieItem).movie)
+            is AdViewHolder -> holder.binding(item as MovieListItem.AdvertisementItem)
         }
     }
 

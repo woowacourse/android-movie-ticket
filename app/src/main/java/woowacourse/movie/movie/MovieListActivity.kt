@@ -28,7 +28,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         presenter.initMovies()
     }
 
-    override fun showMovies(movies: List<Item>) {
+    override fun showMovies(movies: List<MovieListItem>) {
         moviesView.layoutManager = LinearLayoutManager(this)
         moviesView.adapter =
             MoviesAdapter(movies) { movie ->

@@ -5,13 +5,13 @@ import woowacourse.movie.R
 
 class MovieListPresenter(private val view: MovieListContract.View) : MovieListContract.Presenter {
     override fun initMovies() {
-        val movies = DefaultDatas.movies.map { Item.MovieItem(it) }
-        val result = mutableListOf<Item>()
+        val movies = DefaultDatas.movies.map { MovieListItem.MovieItem(it) }
+        val result = mutableListOf<MovieListItem>()
 
         movies.forEachIndexed { index, movieItem ->
             result.add(movieItem)
             if ((index + INDEX_OFFSET) % AD_INSERT_INTERVAL == 0) {
-                result.add(Item.AdvertisementItem(R.drawable.advertisement))
+                result.add(MovieListItem.AdvertisementItem(R.drawable.advertisement))
             }
         }
 

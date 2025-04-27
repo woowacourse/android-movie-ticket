@@ -3,8 +3,8 @@ package woowacourse.movie.presenter
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
-import woowacourse.movie.movie.Item
 import woowacourse.movie.movie.MovieListContract
+import woowacourse.movie.movie.MovieListItem
 import woowacourse.movie.movie.MovieListPresenter
 import kotlin.test.Test
 
@@ -29,7 +29,7 @@ class MovieListPresenterTest {
                 match {
                     it.withIndex().all { (index, item) ->
                         if ((index + 1) % 4 == 0) {
-                            item is Item.AdvertisementItem
+                            item is MovieListItem.AdvertisementItem
                         } else {
                             true
                         }

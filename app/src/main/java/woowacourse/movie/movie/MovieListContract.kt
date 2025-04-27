@@ -2,7 +2,7 @@ package woowacourse.movie.movie
 
 interface MovieListContract {
     interface View {
-        fun showMovies(movies: List<Item>)
+        fun showMovies(movies: List<MovieListItem>)
     }
 
     interface Presenter {
