@@ -20,6 +20,7 @@ import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.complete.BookingCompleteActivity
+import woowacourse.movie.utils.StringFormatter.thousandFormat
 import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDateTime
 
@@ -58,7 +59,7 @@ class BookingSeatActivity :
 
     override fun setTotalPriceTextView(totalPrice: Int) {
         val totalPriceView: TextView = findViewById(R.id.tv_price)
-        totalPriceView.text = getString(R.string.text_korean_won).format(totalPrice)
+        totalPriceView.text = getString(R.string.text_korean_won).format(thousandFormat(totalPrice))
     }
 
     override fun setMovieTitleTextView(movieTitle: String) {

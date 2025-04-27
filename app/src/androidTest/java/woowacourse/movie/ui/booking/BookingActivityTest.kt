@@ -119,29 +119,6 @@ class BookingActivityTest {
             .check(ViewAssertions.matches(ViewMatchers.withText("1")))
     }
 
-//    @Test
-//    fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_나타난다`() {
-//        onView(withId(R.id.btn_booking_complete)).perform(click())
-//
-//        onView(withText("예매 확인")).check(matches(isDisplayed()))
-//        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-//        onView(withText("취소")).check(matches(isDisplayed()))
-//        onView(withText("예매 완료")).check(matches(isDisplayed()))
-//    }
-//
-//    @Test
-//    fun `다이얼로그_외부_영역을_클릭해도_다이얼로그가_유지된다`() {
-//        onView(withId(R.id.btn_booking_complete))
-//            .perform(click())
-//
-//        pressBack()
-//
-//        onView(withText("예매 확인")).check(matches(isDisplayed()))
-//        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-//        onView(withText("취소")).check(matches(isDisplayed()))
-//        onView(withText("예매 완료")).check(matches(isDisplayed()))
-//    }
-
     @Test
     fun `화면이_회전되어도_인원수가_유지된다`() {
         Espresso.onView(ViewMatchers.withId(R.id.btn_increase)).perform(ViewActions.click())
