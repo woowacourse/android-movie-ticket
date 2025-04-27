@@ -36,6 +36,8 @@ interface SeatSelectionContract {
     interface Presenter {
         fun loadReservationInfo()
 
+        fun onInstanceStateRestored(seats: SeatsUiModel)
+
         fun onSeatSelection(
             row: Int,
             col: Int,

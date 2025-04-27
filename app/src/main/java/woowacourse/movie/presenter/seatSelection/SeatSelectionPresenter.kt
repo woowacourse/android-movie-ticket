@@ -4,6 +4,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.view.model.SeatsUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
@@ -16,7 +17,6 @@ class SeatSelectionPresenter(
 ) : SeatSelectionContract.Presenter {
     private lateinit var _ticket: Ticket
     val ticket get() = _ticket.toUiModel()
-
     private lateinit var _seats: Seats
     val seats get() = _seats.toUiModel()
 
@@ -26,6 +26,14 @@ class SeatSelectionPresenter(
         _seats = Seats(ticket.count)
 
         view.showMovieTitle(ticket.movie.title)
+        view.showTotalPrice(formatterPrice())
+    }
+
+    override fun onInstanceStateRestored(seats: SeatsUiModel) {
+        _seats = seats.toDomain()
+        _seats.seats.forEach { seat ->
+            view.selectSeat(seat.row, seat.col)
+        }
         view.showTotalPrice(formatterPrice())
     }
 
