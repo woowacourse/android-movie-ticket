@@ -147,17 +147,15 @@ class BookingSeatActivity :
             .setTitle(getString(R.string.booking_detail_booking_check))
             .setMessage(getString(R.string.booking_detail_booking_check_description))
             .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
-                // 화면 이동
+                presenter.onConfirmDialogClicked(ticket)
             }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
             .setCancelable(false)
             .show()
     }
 
     override fun navigateToBookingComplete(bookingCompleteUiModel: BookingCompleteUiModel) {
-        val intent =
-            Intent(this, BookingCompleteActivity::class.java).apply {
-                putExtra("bookingComplete", bookingCompleteUiModel)
-            }
+        val intent = BookingCompleteActivity.newIntent(this, bookingCompleteUiModel)
+
         startActivity(intent)
         finish()
     }

@@ -9,6 +9,7 @@ data class BookingCompleteUiModel(
     val title: String,
     val date: String,
     val time: String,
+    val seats: List<String>,
     val ticketQuantity: Int,
     val ticketTotalPrice: Int,
 ) : Parcelable {

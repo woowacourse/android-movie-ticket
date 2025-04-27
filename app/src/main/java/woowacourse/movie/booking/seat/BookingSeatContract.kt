@@ -11,6 +11,8 @@ interface BookingSeatContract {
         fun toggleSeatSelection(seat: Seat)
 
         fun onConfirmClicked()
+
+        fun onConfirmDialogClicked(ticket: Ticket)
     }
 
     interface View {
