@@ -25,7 +25,7 @@ interface SeatSelectionContract {
 
         fun showToast()
 
-        fun confirmSelection(
+        fun goToReservationResult(
             ticket: TicketUiModel,
             seats: SeatsUiModel,
         )
@@ -39,8 +39,8 @@ interface SeatSelectionContract {
             col: Int,
         )
 
-        fun onSelection()
+        fun onConfirmation()
 
-        fun onSelectionConfirmation()
+        fun onAlertConfirmation()
     }
 }

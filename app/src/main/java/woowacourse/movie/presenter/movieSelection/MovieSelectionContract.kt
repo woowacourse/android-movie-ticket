@@ -7,7 +7,7 @@ interface MovieSelectionContract {
     interface View {
         fun showMovies(movies: List<MovieListItem>)
 
-        fun selectMovie(movie: MovieUiModel)
+        fun goToReservation(movie: MovieUiModel)
     }
 
     interface Presenter {

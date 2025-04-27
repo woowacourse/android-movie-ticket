@@ -49,11 +49,11 @@ class SeatSelectionPresenter(
         view.showTotalPrice(price)
     }
 
-    override fun onSelection() {
+    override fun onConfirmation() {
         view.showAlertDialog()
     }
 
-    override fun onSelectionConfirmation() {
-        view.confirmSelection(ticket, seats)
+    override fun onAlertConfirmation() {
+        view.goToReservationResult(ticket, seats)
     }
 }

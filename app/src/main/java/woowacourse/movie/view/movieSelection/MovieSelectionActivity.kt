@@ -41,7 +41,7 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
         adapter.submitList(movies)
     }
 
-    override fun selectMovie(movie: MovieUiModel) {
+    override fun goToReservation(movie: MovieUiModel) {
         val intent = MovieReservationActivity.createIntent(this, movie)
         startActivity(intent)
     }

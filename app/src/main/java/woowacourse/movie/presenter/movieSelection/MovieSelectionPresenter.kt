@@ -29,6 +29,6 @@ class MovieSelectionPresenter(
     }
 
     override fun onMovieSelection(movie: MovieUiModel) {
-        view.selectMovie(movie)
+        view.goToReservation(movie)
     }
 }

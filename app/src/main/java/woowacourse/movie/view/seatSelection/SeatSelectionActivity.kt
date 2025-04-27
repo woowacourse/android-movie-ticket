@@ -101,11 +101,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 title = R.string.confirm_reservation_alert_title,
                 message = R.string.confirm_reservation_alert_message,
                 yes = R.string.confirm_reservation_alert_yes,
-            ) { presenter.onSelectionConfirmation() }
+            ) { presenter.onAlertConfirmation() }
         alertDialog.show()
     }
 
-    override fun confirmSelection(
+    override fun goToReservationResult(
         ticket: TicketUiModel,
         seats: SeatsUiModel,
     ) {
@@ -116,7 +116,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private fun initializeSelectButton() {
         val selectButton = findViewById<Button>(R.id.select_button)
         selectButton.setOnClickListener {
-            presenter.onSelection()
+            presenter.onConfirmation()
         }
     }
 
