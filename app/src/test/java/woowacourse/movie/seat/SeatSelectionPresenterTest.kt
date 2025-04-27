@@ -40,7 +40,7 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `티켓데이터가 null이면 오류 메시지를 띄우고 종료한다`() {
+    fun `티켓데이터가_null이면_오류_메시지를_띄우고_종료한다`() {
         presenter = SeatSelectionPresenter(view = mockView, ticket = null)
 
         presenter.initializeData(null)
@@ -50,7 +50,7 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `티켓을 바탕으로 View에 초기 데이터를 보여준다`() {
+    fun `티켓을_바탕으로_View에_초기_데이터를_보여준다`() {
         presenter = SeatSelectionPresenter(view = mockView, ticket = mockTicketUiData)
 
         presenter.initializeData(null)
@@ -60,15 +60,12 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `좌석을_클릭하면_좌석_상태와_버튼_활성화_상태를_갱신한다`() {
-        // given
         val seatTextView = mockk<TextView>(relaxed = true)
         every { seatTextView.text.toString() } returns "A1"
 
-        // when
-        presenter.initializeData(null) // 도메인 ticket 초기화
+        presenter.initializeData(null)
         presenter.onSeatClicked(seatTextView)
 
-        // then
         verify { mockView.showSeatState(seatTextView, isSelected = true) }
         verify { mockView.setButtonEnabled(any()) }
         verify { mockView.showTicket(match { it.seats == "A1" && it.totalPrice == "10,000" }) }
