@@ -62,7 +62,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
     }
 
-    override fun setSeatNumber() {
+    override fun setSeatInit() {
         getAllSeatTextViews().forEach { textView ->
             val position = textView.tag as Position
             textView.text = getSeatName(position)

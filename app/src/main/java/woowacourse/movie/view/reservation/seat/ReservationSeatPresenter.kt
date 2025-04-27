@@ -13,7 +13,7 @@ class ReservationSeatPresenter(
             view.handleInvalidTicket()
         } else {
             view.setSeatTag()
-            view.setSeatNumber()
+            view.setSeatInit()
             view.showMovieName(ticket.title)
             updateMoney()
         }
