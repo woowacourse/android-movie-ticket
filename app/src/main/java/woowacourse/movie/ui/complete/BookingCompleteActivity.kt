@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -12,6 +13,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.ui.movielist.view.MovieListActivity
 import woowacourse.movie.utils.StringFormatter
 import woowacourse.movie.utils.intentSerializable
 
@@ -29,12 +31,14 @@ class BookingCompleteActivity :
         applyWindowInsets()
         bookingCompletePresenter.fetchBookedTicket()
         bookingCompletePresenter.updateViews()
+
+        setOnBackPressedCallback()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
         when (item.itemId) {
             android.R.id.home -> {
-                finish()
+                moveToMovieListActivity()
                 true
             }
 
@@ -74,6 +78,26 @@ class BookingCompleteActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+    }
+
+    private fun moveToMovieListActivity() {
+        val intent =
+            Intent(this, MovieListActivity::class.java).apply {
+                addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            }
+        startActivity(intent)
+        finish()
+    }
+
+    private fun setOnBackPressedCallback() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    moveToMovieListActivity()
+                }
+            },
+        )
     }
 
     private fun Seat.toText(): String = Char(row + ASCII_A.code) + col.toString()
