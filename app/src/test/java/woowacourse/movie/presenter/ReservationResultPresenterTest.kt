@@ -31,7 +31,7 @@ class ReservationResultPresenterTest {
 
         // then
         verify { view.bindReservation(reservation) }
-        verify { view.bindTicket(reservation.points.points) }
-        verify { view.bindTotalPrice(reservation.points.totalPrice()) }
+        verify { view.bindTicket(reservation.seats.seats) }
+        verify { view.bindTotalPrice(reservation.seats.totalPrice()) }
     }
 }

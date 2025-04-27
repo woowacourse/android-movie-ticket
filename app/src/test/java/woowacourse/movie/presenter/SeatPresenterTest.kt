@@ -40,11 +40,11 @@ class SeatPresenterTest {
     @Test
     fun `좌석을 선택하면 추가되고 총 가격을 업데이트 한다`() {
         // given
-        val point = B_CLASS
+        val seat = B_CLASS
 
         // when
-        presenter.selectSeat(point)
-        val actual = reservation.points.has(point)
+        presenter.selectSeat(seat)
+        val actual = reservation.seats.has(seat)
 
         // then
         assertTrue(actual)
@@ -54,12 +54,12 @@ class SeatPresenterTest {
     @Test
     fun `좌석을 다시 선택하면 제거되고 총 가격을 업데이트 한다`() {
         // given
-        val point = B_CLASS
-        reservation.points + point
+        val seat = B_CLASS
+        reservation.seats + seat
 
         // when
-        presenter.cancelSelection(point)
-        val actual = reservation.points.has(point)
+        presenter.cancelSelection(seat)
+        val actual = reservation.seats.has(seat)
 
         // then
         assertFalse(actual)
@@ -69,10 +69,10 @@ class SeatPresenterTest {
     @Test
     fun `인원 수와 선택한 좌석 수가 같으면 true를 반환한다`() {
         // given
-        val point = B_CLASS
+        val seat = B_CLASS
 
         // when
-        reservation.points + point
+        reservation.seats + seat
         val actual = presenter.canReserve()
 
         // then
@@ -87,11 +87,11 @@ class SeatPresenterTest {
     @Test
     fun `선택한 좌석이 이미 선택되어 있으면 true를 반환한다`() {
         // given
-        val point = B_CLASS
-        reservation.points + point
+        val seat = B_CLASS
+        reservation.seats + seat
 
         // when
-        val actual = presenter.isOccupied(point)
+        val actual = presenter.isOccupied(seat)
 
         // then
         assertTrue(actual)
@@ -100,10 +100,10 @@ class SeatPresenterTest {
     @Test
     fun `선택한 좌석이 선택되어 있지 않으면 false를 반환한다`() {
         // given
-        val point = B_CLASS
+        val seat = B_CLASS
 
         // when
-        val actual = presenter.isOccupied(point)
+        val actual = presenter.isOccupied(seat)
 
         // then
         assertFalse(actual)

@@ -1,8 +1,8 @@
 package woowacourse.movie.seat
 
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
 
 interface SeatContract {
     interface View {
@@ -18,18 +18,18 @@ interface SeatContract {
     interface Presenter {
         fun initReservation(reservation: Reservation)
 
-        fun getPoint(
+        fun getSeat(
             row: Int,
             col: Int,
-        ): Point
+        ): Seat
 
         fun initView()
 
-        fun isOccupied(point: Point): Boolean
+        fun isOccupied(seat: Seat): Boolean
 
-        fun cancelSelection(point: Point)
+        fun cancelSelection(seat: Seat)
 
-        fun selectSeat(point: Point)
+        fun selectSeat(seat: Seat)
 
         fun canReserve(): Boolean
     }

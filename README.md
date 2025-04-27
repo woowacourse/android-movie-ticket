@@ -53,7 +53,7 @@
 
 ### TODO
 - [x] MainActivity 네이밍 고밍
-- [ ] Point 네이밍 고민
+- [x] Point 네이밍 고민
 - [ ] Item 네이밍 고민
 - [ ] IntentExtensions | 에러가 난 키를 에러 메시지에 명시해 주기
 - [ ] ViewType | ViewType을 리소스 ID로 변경

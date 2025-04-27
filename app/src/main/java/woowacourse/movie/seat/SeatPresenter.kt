@@ -1,7 +1,7 @@
 package woowacourse.movie.seat
 
-import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
 
 class SeatPresenter(
     private val view: SeatContract.View,
@@ -12,35 +12,35 @@ class SeatPresenter(
         this.reservation = reservation
     }
 
-    override fun getPoint(
+    override fun getSeat(
         row: Int,
         col: Int,
-    ): Point {
-        return Point(row, col)
+    ): Seat {
+        return Seat(row, col)
     }
 
     override fun initView() {
         view.showMovieInfo(reservation.movie)
         view.initSeat()
         view.initSelectButtonClick()
-        view.updateTotalPrice(reservation.points.totalPrice())
+        view.updateTotalPrice(reservation.seats.totalPrice())
     }
 
-    override fun isOccupied(point: Point): Boolean {
-        return reservation.points.has(point)
+    override fun isOccupied(seat: Seat): Boolean {
+        return reservation.seats.has(seat)
     }
 
-    override fun cancelSelection(point: Point) {
-        reservation.points - point
-        view.updateTotalPrice(reservation.points.totalPrice())
+    override fun cancelSelection(seat: Seat) {
+        reservation.seats - seat
+        view.updateTotalPrice(reservation.seats.totalPrice())
     }
 
-    override fun selectSeat(point: Point) {
-        reservation.points + point
-        view.updateTotalPrice(reservation.points.totalPrice())
+    override fun selectSeat(seat: Seat) {
+        reservation.seats + seat
+        view.updateTotalPrice(reservation.seats.totalPrice())
     }
 
     override fun canReserve(): Boolean {
-        return reservation.points.points.size == reservation.count
+        return reservation.seats.seats.size == reservation.count
     }
 }

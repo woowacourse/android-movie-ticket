@@ -1,15 +1,15 @@
 package woowacourse.movie
 
-import woowacourse.movie.domain.Point
-import woowacourse.movie.domain.Points
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.TicketCount
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-val B_CLASS: Point = Point(0, 0)
-val A_CLASS: Point = Point(2, 0)
-val S_CLASS: Point = Point(4, 0)
+val B_CLASS: Seat = Seat(0, 0)
+val A_CLASS: Seat = Seat(2, 0)
+val S_CLASS: Seat = Seat(4, 0)
 
 val RESERVATION_WITH_POINTS =
     Reservation(
@@ -20,8 +20,8 @@ val RESERVATION_WITH_POINTS =
                 APRIL_THIRTIETH,
                 LocalTime.of(12, 0),
             ),
-        points =
-            Points(
+        seats =
+            Seats(
                 setOf(
                     B_CLASS,
                     A_CLASS,

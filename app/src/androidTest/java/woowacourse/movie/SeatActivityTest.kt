@@ -15,14 +15,14 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
-import woowacourse.movie.domain.Points
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.fixture.MOVIE_NAME
 import woowacourse.movie.fixture.createReservation
 import woowacourse.movie.seat.SeatActivity
 
 class SeatActivityTest {
     private lateinit var intent: Intent
-    private val reservation = createReservation(MOVIE_NAME, Points())
+    private val reservation = createReservation(MOVIE_NAME, Seats())
     private lateinit var scenario: ActivityScenario<SeatActivity>
 
     @Before

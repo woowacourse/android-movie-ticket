@@ -16,8 +16,8 @@ import androidx.core.view.children
 import woowacourse.movie.KeyIdentifiers
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
 import woowacourse.movie.ext.getSerializableCompat
 import woowacourse.movie.result.ReservationResultActivity
 import java.text.DecimalFormat
@@ -46,12 +46,12 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     }
 
     override fun initSeat() {
-        val seat = findViewById<TableLayout>(R.id.tl_seat)
+        val seatTable = findViewById<TableLayout>(R.id.tl_seat)
 
-        seat.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
+        seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
             row.children.filterIsInstance<TextView>()
                 .forEachIndexed { colIndex, view ->
-                    val point = presenter.getPoint(rowIndex, colIndex)
+                    val point = presenter.getSeat(rowIndex, colIndex)
                     view.tag = point
 
                     view.text = getString(R.string.seat_point).format('A' + point.x, point.y + 1)
@@ -62,14 +62,14 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
     private fun initSeatClickAction(
         view: TextView,
-        point: Point,
+        seat: Seat,
     ) {
         view.setOnClickListener {
-            if (presenter.isOccupied(point)) {
-                presenter.cancelSelection(point)
+            if (presenter.isOccupied(seat)) {
+                presenter.cancelSelection(seat)
                 view.setBackgroundColor(getColor(R.color.white))
             } else {
-                presenter.selectSeat(point)
+                presenter.selectSeat(seat)
                 view.setBackgroundColor(getColor(R.color.yellow))
             }
             updateButtonState()

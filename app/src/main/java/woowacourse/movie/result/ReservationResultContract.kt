@@ -1,7 +1,7 @@
 package woowacourse.movie.result
 
-import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
 
 interface ReservationResultContract {
     interface View {
@@ -9,7 +9,7 @@ interface ReservationResultContract {
 
         fun bindTotalPrice(price: Int)
 
-        fun bindTicket(seats: Set<Point>)
+        fun bindTicket(seats: Set<Seat>)
     }
 
     interface Presenter {

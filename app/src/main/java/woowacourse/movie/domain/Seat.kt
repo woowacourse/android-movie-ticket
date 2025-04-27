@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 import java.io.Serializable
 
-data class Point(
+data class Seat(
     val x: Int,
     val y: Int,
 ) : Serializable {

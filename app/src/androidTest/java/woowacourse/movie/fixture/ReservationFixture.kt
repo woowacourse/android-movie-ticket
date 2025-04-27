@@ -1,8 +1,8 @@
 package woowacourse.movie.fixture
 
-import woowacourse.movie.domain.Point
-import woowacourse.movie.domain.Points
 import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.TicketCount
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -12,7 +12,7 @@ val APRIL_THIRTIETH: LocalDate = LocalDate.of(2025, 4, 30)
 
 fun createReservation(
     movieName: String,
-    points: Points = POINTS,
+    seats: Seats = SEATS,
 ): Reservation =
     Reservation(
         movie = createMovie(movieName),
@@ -22,15 +22,15 @@ fun createReservation(
                 APRIL_THIRTIETH,
                 LocalTime.of(12, 0),
             ),
-        points = points,
+        seats = seats,
     )
 
-val POINTS =
-    Points(
+val SEATS =
+    Seats(
         setOf(
-            Point(0, 0),
-            Point(2, 0),
-            Point(4, 0),
+            Seat(0, 0),
+            Seat(2, 0),
+            Seat(4, 0),
         ),
     )
 
