@@ -1,9 +1,9 @@
-package woowacourse.movie.main
+package woowacourse.movie.movie
 
 import woowacourse.movie.DefaultDatas
 import woowacourse.movie.R
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
+class MovieListPresenter(private val view: MovieListContract.View) : MovieListContract.Presenter {
     override fun initMovies() {
         val movies = DefaultDatas.movies.map { Item.MovieItem(it) }
         val result = mutableListOf<Item>()

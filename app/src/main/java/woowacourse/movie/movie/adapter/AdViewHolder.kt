@@ -1,10 +1,10 @@
-package woowacourse.movie.main.adapter
+package woowacourse.movie.movie.adapter
 
 import android.view.View
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.main.Item
+import woowacourse.movie.movie.Item
 
 class AdViewHolder(
     itemView: View,

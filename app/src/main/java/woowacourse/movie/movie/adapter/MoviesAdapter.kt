@@ -1,4 +1,4 @@
-package woowacourse.movie.main.adapter
+package woowacourse.movie.movie.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.main.Item
+import woowacourse.movie.movie.Item
 
 class MoviesAdapter(
     private val items: List<Item>,

@@ -52,7 +52,7 @@
 - [x] `영화 예매 내역 화면`에서 뒤로 가기 버튼을 누르면 `영화 목록 화면`으로 전환된다
 
 ### TODO
-- [ ] MainActivity 네이밍 고밍
+- [x] MainActivity 네이밍 고밍
 - [ ] Point 네이밍 고민
 - [ ] Item 네이밍 고민
 - [ ] IntentExtensions | 에러가 난 키를 에러 메시지에 명시해 주기

@@ -3,19 +3,19 @@ package woowacourse.movie.presenter
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
-import woowacourse.movie.main.Item
-import woowacourse.movie.main.MainContract
-import woowacourse.movie.main.MainPresenter
+import woowacourse.movie.movie.Item
+import woowacourse.movie.movie.MovieListContract
+import woowacourse.movie.movie.MovieListPresenter
 import kotlin.test.Test
 
-class MainPresenterTest {
-    private lateinit var view: MainContract.View
-    private lateinit var presenter: MainPresenter
+class MovieListPresenterTest {
+    private lateinit var view: MovieListContract.View
+    private lateinit var presenter: MovieListPresenter
 
     @BeforeEach
     fun setUp() {
-        view = mockk<MainContract.View>(relaxed = true)
-        presenter = MainPresenter(view)
+        view = mockk<MovieListContract.View>(relaxed = true)
+        presenter = MovieListPresenter(view)
     }
 
     @Test

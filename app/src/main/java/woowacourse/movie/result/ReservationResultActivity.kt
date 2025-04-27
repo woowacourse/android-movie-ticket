@@ -14,7 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Point
 import woowacourse.movie.domain.Reservation
 import woowacourse.movie.ext.getSerializableCompat
-import woowacourse.movie.main.MainActivity
+import woowacourse.movie.movie.MovieListActivity
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -74,7 +74,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MovieListActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 true

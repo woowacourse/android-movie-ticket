@@ -18,12 +18,12 @@
         <activity
             android:name=".reserve.ReserveActivity"
             android:exported="false"
-            android:parentActivityName=".main.MainActivity" />
+            android:parentActivityName=".movie.MovieListActivity" />
         <activity
             android:name=".result.ReservationResultActivity"
             android:exported="false" />
         <activity
-            android:name=".main.MainActivity"
+            android:name=".movie.MovieListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

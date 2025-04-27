@@ -1,6 +1,6 @@
-package woowacourse.movie.main
+package woowacourse.movie.movie
 
-interface MainContract {
+interface MovieListContract {
     interface View {
         fun showMovies(movies: List<Item>)
     }
