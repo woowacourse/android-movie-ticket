@@ -2,7 +2,6 @@ package woowacourse.movie.ui.view.booking.complete
 
 import android.content.Context
 import android.content.Intent
-import android.icu.text.DecimalFormat
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -12,21 +11,23 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.domain.model.booking.BookingResult
-import woowacourse.movie.domain.model.booking.TicketPrice
+import woowacourse.movie.presenter.booking.complete.BookingCompleteContract
+import woowacourse.movie.presenter.booking.complete.BookingCompletePresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
-import woowacourse.movie.util.mapper.BookingResultModelMapper
+import woowacourse.movie.util.DialogUtil
 
-class BookingCompleteActivity : AppCompatActivity() {
+class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
+    private lateinit var presenter: BookingCompleteContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
         applySystemBarInsets()
 
-        val bookingResultUi = bookingResultUiOrNull() ?: return
-        setUpBookingResult(bookingResultUi)
-
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        presenter = BookingCompletePresenter(this@BookingCompleteActivity, bookingResultUiOrNull())
     }
 
     private fun applySystemBarInsets() {
@@ -44,13 +45,12 @@ class BookingCompleteActivity : AppCompatActivity() {
             BookingResultUiModel::class.java,
         )
 
-    private fun setUpBookingResult(bookingResultUiModel: BookingResultUiModel) {
+    override fun showBookingResult(bookingResultUiModel: BookingResultUiModel) {
         val cancellationMessage = findViewById<TextView>(R.id.tv_cancellation_guide)
         val completeTitle = findViewById<TextView>(R.id.tv_complete_title)
         val completeScreenDate = findViewById<TextView>(R.id.tv_complete_screening_date)
         val completeScreenTime = findViewById<TextView>(R.id.tv_complete_screening_time)
         val completeHeadCount = findViewById<TextView>(R.id.tv_head_count)
-        val completeBookingAmount = findViewById<TextView>(R.id.tv_booking_amount)
 
         cancellationMessage.text =
             getString(R.string.screening_info, BookingResult.CANCELLATION_LIMIT_MINUTES)
@@ -59,18 +59,24 @@ class BookingCompleteActivity : AppCompatActivity() {
         completeScreenTime.text = bookingResultUiModel.selectedTime
         completeHeadCount.text =
             getString(R.string.screening_complete_headCount, bookingResultUiModel.headCount)
+    }
 
-        val bookingResult = BookingResultModelMapper.toDomain(bookingResultUiModel)
-        val ticketPrice = TicketPrice()
-        val money = bookingResult.calculateAmount(ticketPrice)
-        val bookingAmount: String = DecimalFormat("#,###").format(money)
+    override fun showBookingAmount(totalPrice: String) {
+        val completeBookingAmount = findViewById<TextView>(R.id.tv_booking_amount)
         completeBookingAmount.text =
-            getString(R.string.screening_complete_booking_amount, bookingAmount)
+            getString(R.string.screening_complete_booking_amount, totalPrice)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun showErrorMessage(message: String) {
+        DialogUtil.showError(
+            activity = this@BookingCompleteActivity,
+            message = message,
+        )
     }
 
     companion object {
