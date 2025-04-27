@@ -19,7 +19,7 @@ class MovieAdapter(
     }
 
     override fun getItemViewType(position: Int): Int =
-        if ((position + POSITION_OFFSET) % AD_INTERVAL == 0) {
+        if ((position + 1) % AD_INTERVAL == 0) {
             VIEW_TYPE_AD
         } else {
             VIEW_TYPE_MOVIE
@@ -49,22 +49,15 @@ class MovieAdapter(
         position: Int,
     ) {
         when (holder) {
-            is MovieViewHolder -> holder.bind(getMovieItem(position))
+            is MovieViewHolder -> holder.bind(getItem(position))
             is AdViewHolder -> holder.bind()
         }
-    }
-
-    private fun getMovieItem(position: Int): Movie {
-        val adCount = (position + POSITION_OFFSET) / AD_INTERVAL
-        val moviePosition = position - adCount
-        return getItem(moviePosition)
     }
 
     companion object {
         private const val VIEW_TYPE_MOVIE = 0
         private const val VIEW_TYPE_AD = 1
         private const val MOVIE_COUNT = 3
-        private const val POSITION_OFFSET = 1
         private const val AD_INTERVAL = 4
     }
 }
