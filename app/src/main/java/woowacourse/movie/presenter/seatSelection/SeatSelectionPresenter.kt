@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter.seatSelection
 
-import woowacourse.movie.R
 import woowacourse.movie.domain.movie.Ticket
 import woowacourse.movie.domain.theater.Seat
 import woowacourse.movie.domain.theater.Theater
@@ -8,25 +7,19 @@ import woowacourse.movie.view.model.movie.TicketUiModel
 import woowacourse.movie.view.model.theater.TheaterUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
-import woowacourse.movie.view.seatSelection.SeatSelectionActivity
-import woowacourse.movie.view.seatSelection.SeatSelectionActivity.Companion.KEY_TICKET
-import woowacourse.movie.view.utils.getParcelableCompat
 
 class SeatSelectionPresenter(
-    val view: SeatSelectionActivity,
+    val view: SeatSelectionContract.View,
 ) : SeatSelectionContract.Presenter {
-    private lateinit var _ticket: Ticket
-    val ticket get() = _ticket.toUiModel()
+    private lateinit var ticket: Ticket
     private lateinit var _theater: Theater
     val theater get() = _theater.toUiModel()
 
-    override fun onViewCreated() {
-        _ticket =
-            view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)?.toDomain() ?: return
-        _theater = Theater(ticket.count)
-
-        view.showMovieTitle(ticket.movie.title)
-        view.showTotalPrice(formattedPrice())
+    override fun onViewCreated(ticketUiModel: TicketUiModel) {
+        ticket = ticketUiModel.toDomain()
+        _theater = Theater(ticketUiModel.count)
+        view.showMovieTitle(ticketUiModel.movie.title)
+        view.showTotalPrice(_theater.totalPrice())
     }
 
     override fun onInstanceStateRestored(seats: TheaterUiModel) {
@@ -35,7 +28,7 @@ class SeatSelectionPresenter(
             val index = seat.row * Theater.COL_SIZE + seat.col
             view.selectSeat(index)
         }
-        view.showTotalPrice(formattedPrice())
+        view.showTotalPrice(_theater.totalPrice())
     }
 
     override fun onSeatSelection(index: Int) {
@@ -54,24 +47,18 @@ class SeatSelectionPresenter(
             }
         }
 
-        view.showTotalPrice(formattedPrice())
-    }
-
-    private fun formattedPrice(): String {
-        val priceTemplate = view.getString(R.string.template_price)
-        return priceTemplate.format(_theater.totalPrice())
+        view.showTotalPrice(_theater.totalPrice())
     }
 
     override fun onConfirmation() {
         if (_theater.isSelectionFinished()) {
             view.showAlertDialog()
         } else {
-            val message = view.getString(R.string.toast_message_need_to_select_more_seats).format(theater.capacity)
-            view.showSelectionNotFinishedToast(message)
+            view.showSelectionNotFinishedToast(theater.capacity)
         }
     }
 
     override fun onAlertConfirmation() {
-        view.goToReservationResult(ticket, theater)
+        view.goToReservationResult(ticket.toUiModel(), theater)
     }
 }

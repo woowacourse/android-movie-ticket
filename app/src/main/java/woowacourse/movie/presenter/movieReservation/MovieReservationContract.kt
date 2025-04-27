@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.movieReservation
 
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.movie.TicketUiModel
 import java.time.LocalDate
 import java.time.LocalTime
@@ -19,9 +20,12 @@ interface MovieReservationContract {
 
         fun showMovieTitle(title: String)
 
-        fun showScreeningDates(dateRange: String)
+        fun showScreeningDates(
+            startDate: LocalDate,
+            endDate: LocalDate,
+        )
 
-        fun showRunningTime(runningTime: String)
+        fun showRunningTime(runningTime: Int)
 
         fun showTicketCount(count: String)
 
@@ -33,7 +37,7 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun onViewCreated(movie: MovieUiModel)
 
         fun onInstanceStateRestored(ticket: TicketUiModel)
 

@@ -13,6 +13,9 @@ import woowacourse.movie.presenter.movieReservationResult.MovieReservationResult
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
 import woowacourse.movie.view.model.movie.TicketUiModel
 import woowacourse.movie.view.model.theater.TheaterUiModel
+import woowacourse.movie.view.utils.getParcelableCompat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResultContract.View {
     private val presenter = MovieReservationResultPresenter(this)
@@ -20,7 +23,9 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.onViewCreated()
+        val ticket = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
+        val theater = intent.extras?.getParcelableCompat<TheaterUiModel>(KEY_THEATER) ?: return
+        presenter.onViewCreated(ticket, theater)
     }
 
     private fun initializeView() {
@@ -38,14 +43,14 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         titleTextView.text = title
     }
 
-    override fun showMovieDateTime(showtime: String) {
+    override fun showMovieDateTime(showtime: LocalDateTime) {
         val showtimeTextView = findViewById<TextView>(R.id.showtime)
-        showtimeTextView.text = showtime
+        showtimeTextView.text = DateTimeFormatter.ofPattern(getString(R.string.format_date_time)).format(showtime)
     }
 
-    override fun showTicketCount(count: String) {
+    override fun showTicketCount(count: Int) {
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
-        ticketCountTextView.text = count
+        ticketCountTextView.text = getString(R.string.template_ticket_count).format(count)
     }
 
     override fun showSelectedSeats(seats: String) {
@@ -53,14 +58,14 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         selectedSeatsTextView.text = seats
     }
 
-    override fun showTotalPrice(price: String) {
+    override fun showTotalPrice(price: Int) {
         val totalPriceTextView = findViewById<TextView>(R.id.total_price)
-        totalPriceTextView.text = price
+        totalPriceTextView.text = getString(R.string.template_price).format(price)
     }
 
     companion object {
         const val KEY_TICKET = "ticket"
-        const val KEY_SEATS = "seats"
+        const val KEY_THEATER = "seats"
 
         fun createIntent(
             context: Context,
@@ -69,7 +74,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         ): Intent {
             val intent = Intent(context, MovieReservationResultActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)
-            intent.putExtra(KEY_SEATS, seats)
+            intent.putExtra(KEY_THEATER, seats)
             return intent
         }
     }

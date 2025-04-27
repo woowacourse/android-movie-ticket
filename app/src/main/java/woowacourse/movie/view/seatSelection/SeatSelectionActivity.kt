@@ -30,7 +30,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.onViewCreated()
+        val ticket = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
+        presenter.onViewCreated(ticket)
         initializeSeats()
         initializeSelectButton()
     }
@@ -91,9 +92,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         titleTextView.text = title
     }
 
-    override fun showTotalPrice(price: String) {
+    override fun showTotalPrice(price: Int) {
         val priceTextView = findViewById<TextView>(R.id.total_price)
-        priceTextView.text = price
+        priceTextView.text = getString(R.string.template_price).format(price)
     }
 
     override fun showAlertDialog() {
@@ -122,10 +123,10 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         ).show()
     }
 
-    override fun showSelectionNotFinishedToast(message: String) {
+    override fun showSelectionNotFinishedToast(required: Int) {
         Toast.makeText(
             this,
-            message,
+            getString(R.string.toast_message_need_to_select_more_seats).format(required),
             Toast.LENGTH_SHORT,
         ).show()
     }

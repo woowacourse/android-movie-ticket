@@ -7,13 +7,13 @@ interface SeatSelectionContract {
     interface View {
         fun showMovieTitle(title: String)
 
-        fun showTotalPrice(price: String)
+        fun showTotalPrice(price: Int)
 
         fun showAlertDialog()
 
         fun showSelectionFinishedToast()
 
-        fun showSelectionNotFinishedToast(message: String)
+        fun showSelectionNotFinishedToast(required: Int)
 
         fun selectSeat(index: Int)
 
@@ -26,7 +26,7 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun onViewCreated(ticketUiModel: TicketUiModel)
 
         fun onInstanceStateRestored(seats: TheaterUiModel)
 

@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter.movieReservation
 
-import woowacourse.movie.R
 import woowacourse.movie.domain.movie.Ticket
 import woowacourse.movie.domain.movie.TicketCount
 import woowacourse.movie.domain.schedule.Scheduler
@@ -8,40 +7,27 @@ import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.movie.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
-import woowacourse.movie.view.movieReservation.MovieReservationActivity
-import woowacourse.movie.view.movieReservation.MovieReservationActivity.Companion.KEY_MOVIE
-import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationPresenter(
-    private val view: MovieReservationActivity,
+    private val view: MovieReservationContract.View,
 ) : MovieReservationContract.Presenter {
     private lateinit var _ticket: Ticket
     val ticket get() = _ticket.toUiModel()
     private val scheduler = Scheduler()
 
-    override fun onViewCreated() {
-        initializeInfo()
-
-        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.format_date))
-        val screeningDatesTemplate = view.getString(R.string.template_screening_dates)
-        val runningTimeTemplate = view.getString(R.string.template_running_type)
-        val startDate = _ticket.movie.startDate.format(dateTimeFormatter)
-        val endDate = _ticket.movie.endDate.format(dateTimeFormatter)
-
+    override fun onViewCreated(movie: MovieUiModel) {
+        initializeInfo(movie)
         view.showMoviePoster(ticket.movie.poster)
         view.showMovieTitle(ticket.movie.title)
-        view.showScreeningDates(screeningDatesTemplate.format(startDate, endDate))
-        view.showRunningTime(runningTimeTemplate.format(_ticket.movie.runningTime))
+        view.showScreeningDates(ticket.movie.startDate, ticket.movie.endDate)
+        view.showRunningTime(ticket.movie.runningTime)
         view.showTicketCount(ticket.count.toString())
     }
 
-    private fun initializeInfo() {
-        val movie = view.intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
-
+    private fun initializeInfo(movie: MovieUiModel) {
         val screeningDates: List<LocalDate> =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
         view.showSpinnerDates(screeningDates)

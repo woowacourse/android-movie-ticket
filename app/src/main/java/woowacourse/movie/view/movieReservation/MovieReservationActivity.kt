@@ -24,6 +24,7 @@ import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private val presenter = MovieReservationPresenter(this)
@@ -33,7 +34,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.onViewCreated()
+        val movie: MovieUiModel = intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
+        presenter.onViewCreated(movie)
         initializeTicketCountButtons()
         initializeReserveButton()
     }
@@ -139,14 +141,21 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         titleTextView.text = title
     }
 
-    override fun showScreeningDates(dateRange: String) {
+    override fun showScreeningDates(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ) {
+        val dateTimeFormatter = DateTimeFormatter.ofPattern(getString(R.string.format_date))
         val screeningDateTextView = findViewById<TextView>(R.id.screening_date)
-        screeningDateTextView.text = dateRange
+        screeningDateTextView.text =
+            getString(R.string.template_screening_dates).format(
+                dateTimeFormatter.format(startDate), dateTimeFormatter.format(endDate),
+            )
     }
 
-    override fun showRunningTime(runningTime: String) {
+    override fun showRunningTime(runningTime: Int) {
         val runningTimeTextView = findViewById<TextView>(R.id.running_time)
-        runningTimeTextView.text = runningTime
+        runningTimeTextView.text = getString(R.string.template_running_type).format(runningTime)
     }
 
     override fun showTicketCount(count: String) {
