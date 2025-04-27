@@ -4,6 +4,7 @@ class Seat(
     val row: Row,
     val column: Column,
 ) {
+    val grade: SeatGrade = row.grade
     val price: Int = row.price
 }
 
@@ -24,7 +25,7 @@ value class Row(
 
     val price: Int get() = grade.price
 
-    private val grade: SeatGrade
+    val grade: SeatGrade
         get() =
             when (value) {
                 in 1..2 -> SeatGrade.B
