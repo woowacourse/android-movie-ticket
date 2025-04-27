@@ -1,5 +1,6 @@
 package woowacourse.movie.domain.model
 
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
 class TicketPriceTest {
@@ -12,7 +13,7 @@ class TicketPriceTest {
         val ticketPrice = TicketPrice.from(seatType)
 
         // then
-        assert(ticketPrice.value == 15_000)
+        assertThat(ticketPrice.value).isEqualTo(15_000)
     }
 
     @Test
@@ -24,7 +25,7 @@ class TicketPriceTest {
         val ticketPrice = TicketPrice.from(seatType)
 
         // then
-        assert(ticketPrice.value == 12_000)
+        assertThat(ticketPrice.value).isEqualTo(12_000)
     }
 
     @Test
@@ -36,6 +37,6 @@ class TicketPriceTest {
         val ticketPrice = TicketPrice.from(seatType)
 
         // then
-        assert(ticketPrice.value == 10_000)
+        assertThat(ticketPrice.value).isEqualTo(10_000)
     }
 }
