@@ -17,15 +17,9 @@ interface SeatSelectionContract {
 
         fun showSelectionNotFinishedToast(message: String)
 
-        fun selectSeat(
-            row: Int,
-            col: Int,
-        )
+        fun selectSeat(index: Int)
 
-        fun deselectSeat(
-            row: Int,
-            col: Int,
-        )
+        fun deselectSeat(index: Int)
 
         fun goToReservationResult(
             ticket: TicketUiModel,
@@ -38,10 +32,7 @@ interface SeatSelectionContract {
 
         fun onInstanceStateRestored(seats: TheaterUiModel)
 
-        fun onSeatSelection(
-            row: Int,
-            col: Int,
-        )
+        fun onSeatSelection(index: Int)
 
         fun onConfirmation()
 

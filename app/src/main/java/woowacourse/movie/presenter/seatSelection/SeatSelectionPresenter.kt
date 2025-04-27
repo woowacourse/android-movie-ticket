@@ -32,22 +32,22 @@ class SeatSelectionPresenter(
     override fun onInstanceStateRestored(seats: TheaterUiModel) {
         _theater = seats.toDomain()
         _theater.seats.forEach { seat ->
-            view.selectSeat(seat.row, seat.col)
+            val index = seat.row * Theater.COL_SIZE + seat.col
+            view.selectSeat(index)
         }
         view.showTotalPrice(formatterPrice())
     }
 
-    override fun onSeatSelection(
-        row: Int,
-        col: Int,
-    ) {
+    override fun onSeatSelection(index: Int) {
+        val row = index / Theater.COL_SIZE
+        val col = index % Theater.COL_SIZE
         val seat = Seat(row, col)
         if (seat in _theater.seats) {
-            view.deselectSeat(row, col)
+            view.deselectSeat(index)
             _theater.remove(seat)
         } else {
             if (!_theater.isSelectionFinished()) {
-                view.selectSeat(row, col)
+                view.selectSeat(index)
                 _theater.add(seat)
             } else {
                 view.showSelectionFinishedToast()

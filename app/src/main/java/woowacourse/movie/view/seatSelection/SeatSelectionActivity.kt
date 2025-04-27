@@ -56,19 +56,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun selectSeat(
-        row: Int,
-        col: Int,
-    ) {
-        val index = row * 4 + col
+    override fun selectSeat(index: Int) {
         seatButtons[index].setBackgroundColor("#FAFF00".toColorInt())
     }
 
-    override fun deselectSeat(
-        row: Int,
-        col: Int,
-    ) {
-        val index = row * 4 + col
+    override fun deselectSeat(index: Int) {
         seatButtons[index].setBackgroundColor("#FFFFFF".toColorInt())
     }
 
@@ -132,10 +124,8 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 .filterIsInstance<Button>(),
         )
         seatButtons.forEachIndexed { index, button ->
-            val row = index / 4
-            val col = index % 4
             button.setOnClickListener {
-                presenter.onSeatSelection(row, col)
+                presenter.onSeatSelection(index)
             }
         }
     }
