@@ -18,12 +18,14 @@ import woowacourse.movie.domain.Position
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.reservation.detail.ReservationActivity
+import java.text.DecimalFormat
 
 class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val presenter: ReservationSeatContract.Present by lazy {
         ReservationSeatPresenter(this)
     }
     private lateinit var seat: TableLayout
+    private val moviePriceTextView by lazy { findViewById<TextView>(R.id.reservation_movie_money) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,12 +71,13 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     override fun showMovieName(movieName: String) {
-        val textView = findViewById<TextView>(R.id.reservation_movie_title)
-        textView.text = movieName
+        val movieTitleTextView = findViewById<TextView>(R.id.reservation_movie_title)
+        movieTitleTextView.text = movieName
     }
 
-    override fun showTicketMoney() {
-        TODO("Not yet implemented")
+    override fun showTicketMoney(moviePrice: Int) {
+        val priceFormatter = DecimalFormat(PRICE_PATTERN)
+        moviePriceTextView.text = getString(R.string.movie_money, priceFormatter.format(moviePrice))
     }
 
     private fun getSeatName(position: Position): String {
@@ -101,12 +104,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
     }
 
-    override fun showReservationSeatScreen() {
-        // TODO("Not yet implemented")
-    }
-
     companion object {
         private const val KEY_TICKET = "ticket"
+        private const val PRICE_PATTERN = "#,###"
 
         fun newIntent(
             context: Context,

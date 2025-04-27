@@ -5,12 +5,12 @@ import woowacourse.movie.domain.Ticket
 interface ReservationSeatContract {
     interface Present {
         fun fetchData(ticket: Ticket?)
+
+        fun updateMoney()
     }
 
     interface View {
         fun handleInvalidTicket()
-
-        fun showReservationSeatScreen()
 
         fun setSeatTag()
 
@@ -18,6 +18,6 @@ interface ReservationSeatContract {
 
         fun showMovieName(movieName: String)
 
-        fun showTicketMoney()
+        fun showTicketMoney(moviePrice: Int)
     }
 }
