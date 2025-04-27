@@ -82,8 +82,9 @@ class ReservationPresenter(
 
     fun currentDatePosition(): Int = selectedDatePosition
 
-    fun restoreTicketCount(saved: Int) {
-        ticketCount = TicketCount(saved)
+    fun restoreTicketCount(count: Int) {
+        ticketCount = TicketCount(count)
+        view.setTicketCount(ticketCount.value)
     }
 
     fun currentTicketCount(): Int = ticketCount.value

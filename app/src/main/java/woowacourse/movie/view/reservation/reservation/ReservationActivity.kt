@@ -207,7 +207,6 @@ class ReservationActivity :
     private fun setupSavedData(savedInstanceState: Bundle?) {
         val savedCount = savedInstanceState?.getInt(Extras.ReservationData.TICKET_COUNT_KEY) ?: 1
         presenter.restoreTicketCount(savedCount)
-        setTicketCount(savedCount)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
