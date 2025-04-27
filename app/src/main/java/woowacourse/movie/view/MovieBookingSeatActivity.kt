@@ -51,8 +51,12 @@ class MovieBookingSeatActivity : AppCompatActivity(), MovieBookingSeat.View {
             R.string.booking_seat_price,
             price
         )
-        binding.confirmButton.setOnSingleClickListener { showConfirmDialog(bookingStatus) }
         binding.confirmButton.text = getString(R.string.booking_seat_okay)
+    }
+
+    override fun updateButton() {
+        binding.confirmButton.setBackgroundResource(R.color.purple_500)
+        binding.confirmButton.setOnSingleClickListener { showConfirmDialog(bookingStatus) }
     }
 
     override fun updateSeat(seat: Seat, isSelected: Boolean) {
