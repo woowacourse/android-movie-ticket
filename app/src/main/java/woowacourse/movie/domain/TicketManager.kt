@@ -25,21 +25,16 @@ class TicketManager(
         ticketCountValue = ticketCount
     }
 
-    fun createTicket(): Ticket {
-        val dateString = movieSchedule.getDates()[movieSchedule.getDatePosition()]
-        val timeString = movieSchedule.getTimes(dateString)[movieSchedule.getTimePosition()]
-
-        val date = LocalDate.parse(dateString, dateFormatter)
-        val hour = timeString.substringBefore(":").toInt()
-        val time = LocalTime.of(hour, 0)
-
-        return Ticket(
+    fun createTicket(
+        date: LocalDate,
+        time: LocalTime,
+    ): Ticket =
+        Ticket(
             title = movie.title,
             date = date,
             time = time,
             count = ticketCountValue,
         )
-    }
 
     companion object {
         private const val DATE_PATTERN = "yyyy.M.d"

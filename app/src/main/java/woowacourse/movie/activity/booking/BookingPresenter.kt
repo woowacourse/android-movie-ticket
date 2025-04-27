@@ -5,6 +5,9 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.TicketManager
 import woowacourse.movie.ui.MovieUiModel
+import java.time.LocalDate
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 
 class BookingPresenter(
     private val view: BookingContract.View,
@@ -32,7 +35,13 @@ class BookingPresenter(
 
     override fun onConfirmButtonClicked() {
         if (ticketManager.getTicketCount() > MINIMUM_TICKET_COUNT) {
-            view.moveToSeatSelection(ticketManager.createTicket())
+            val selectedDateString = movieSchedule.getDates()[movieSchedule.getDatePosition()]
+            val selectedTimeString = movieSchedule.getTimes(selectedDateString)[movieSchedule.getTimePosition()]
+            val date = LocalDate.parse(selectedDateString, DateTimeFormatter.ofPattern("yyyy.M.d"))
+            val hour = selectedTimeString.substringBefore(":").toInt()
+            val time = LocalTime.of(hour, 0)
+
+            view.moveToSeatSelection(ticketManager.createTicket(date, time))
         }
     }
 
