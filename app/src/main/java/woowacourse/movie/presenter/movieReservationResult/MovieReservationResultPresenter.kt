@@ -24,13 +24,13 @@ class MovieReservationResultPresenter(
         theater = view.intent.extras?.getParcelableCompat<TheaterUiModel>(KEY_SEATS)
             ?.toDomain() ?: return
 
-        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_time_format))
-        val ticketCountTemplate = view.getString(R.string.ticket_count_format)
+        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.format_date_time))
+        val ticketCountTemplate = view.getString(R.string.template_ticket_count)
         val selectedSeats =
             theater.seats.joinToString { seat ->
                 seat.row.toRowAlphabet() + seat.col.toColNumber()
             }
-        val totalPriceTemplate = view.getString(R.string.ticket_price_format)
+        val totalPriceTemplate = view.getString(R.string.template_price)
 
         view.showMovieDateTime(ticket.showtime.format(dateTimeFormatter))
         view.showTicketCount(ticketCountTemplate.format(ticket.count.value))

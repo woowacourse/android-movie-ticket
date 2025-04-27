@@ -26,9 +26,9 @@ class MovieReservationPresenter(
     override fun onViewCreated() {
         initializeInfo()
 
-        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_format))
-        val screeningDatesTemplate = view.getString(R.string.screening_dates_format)
-        val runningTimeTemplate = view.getString(R.string.running_type_format)
+        val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.format_date))
+        val screeningDatesTemplate = view.getString(R.string.template_screening_dates)
+        val runningTimeTemplate = view.getString(R.string.template_running_type)
         val startDate = _ticket.movie.startDate.format(dateTimeFormatter)
         val endDate = _ticket.movie.endDate.format(dateTimeFormatter)
 

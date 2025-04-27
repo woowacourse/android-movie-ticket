@@ -58,7 +58,7 @@ class SeatSelectionPresenter(
     }
 
     private fun formattedPrice(): String {
-        val priceTemplate = view.getString(R.string.ticket_price_format)
+        val priceTemplate = view.getString(R.string.template_price)
         return priceTemplate.format(_theater.totalPrice())
     }
 
@@ -66,7 +66,7 @@ class SeatSelectionPresenter(
         if (_theater.isSelectionFinished()) {
             view.showAlertDialog()
         } else {
-            val message = view.getString(R.string.need_to_select_more_seats_toast_message).format(theater.capacity)
+            val message = view.getString(R.string.toast_message_need_to_select_more_seats).format(theater.capacity)
             view.showSelectionNotFinishedToast(message)
         }
     }

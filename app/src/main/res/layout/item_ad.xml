@@ -6,5 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:adjustViewBounds="true"
-    android:contentDescription="@string/ad_description"
+    android:contentDescription="@string/description_ad"
     tools:src="@drawable/ad" />

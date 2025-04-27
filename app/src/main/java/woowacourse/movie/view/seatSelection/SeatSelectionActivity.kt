@@ -99,9 +99,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun showAlertDialog() {
         val alertDialog =
             buildAlertDialog(
-                title = R.string.confirm_reservation_alert_title,
-                message = R.string.confirm_reservation_alert_message,
-                yes = R.string.confirm_reservation_alert_yes,
+                title = R.string.alert_title_confirm_reservation,
+                message = R.string.alert_message_confirm_reservation,
+                yes = R.string.alert_confirm_reservation_yes,
             ) { presenter.onAlertConfirmation() }
         alertDialog.show()
     }
@@ -117,7 +117,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun showSelectionFinishedToast() {
         Toast.makeText(
             this,
-            getString(R.string.cannot_select_more_seats_toast_message),
+            getString(R.string.toast_message_cannot_select_more_seats),
             Toast.LENGTH_SHORT,
         ).show()
     }

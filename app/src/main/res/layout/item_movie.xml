@@ -10,7 +10,7 @@
         android:id="@+id/poster"
         android:layout_width="76dp"
         android:layout_height="108dp"
-        android:contentDescription="@string/poster_description"
+        android:contentDescription="@string/description_poster"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/screening_dates_label"
+                android:text="@string/label_screening_dates"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -70,7 +70,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/running_time_label"
+                android:text="@string/label_running_time"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -90,7 +90,7 @@
         android:id="@+id/reserve_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/reserve_now_button"
+        android:text="@string/button_reserve"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

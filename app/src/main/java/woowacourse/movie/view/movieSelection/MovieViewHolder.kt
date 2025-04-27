@@ -25,16 +25,16 @@ class MovieViewHolder(
 
     fun bind(movie: MovieUiModel) {
         val formatter =
-            DateTimeFormatter.ofPattern(view.context.getString(R.string.date_format))
+            DateTimeFormatter.ofPattern(view.context.getString(R.string.format_date))
         val startDate = movie.startDate.format(formatter)
         val endDate = movie.endDate.format(formatter)
 
         poster.setImageResource(movie.poster)
         title.text = movie.title
         screeningDate.text =
-            view.context.getString(R.string.screening_dates_format, startDate, endDate)
+            view.context.getString(R.string.template_screening_dates, startDate, endDate)
         runningTime.text =
-            view.context.getString(R.string.running_type_format, movie.runningTime)
+            view.context.getString(R.string.template_running_type, movie.runningTime)
         reserveButton.setOnClickListener { onReservationClick(movie) }
     }
 }
