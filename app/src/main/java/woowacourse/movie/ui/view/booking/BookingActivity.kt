@@ -3,9 +3,6 @@ package woowacourse.movie.ui.view.booking
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -28,10 +25,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     private lateinit var presenter: BookingContract.Presenter
     private lateinit var screeningDateSpinner: ScreeningDateSpinner
     private lateinit var screeningTimeSpinner: ScreeningTimeSpinner
-    private val headCountView: TextView by lazy { findViewById(R.id.tv_people_count) }
-    private val btnPlus: Button by lazy { findViewById(R.id.btn_plus) }
-    private val btnMinus: Button by lazy { findViewById(R.id.btn_minus) }
-    private val btnReserveConfirm: Button by lazy { findViewById(R.id.btn_reserve_confirm) }
+    private lateinit var viewHolder: BookingViewHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +33,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         setContentView(R.layout.activity_booking)
         applySystemBarInsets()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        viewHolder = BookingViewHolder(findViewById(R.id.main))
 
         presenter = BookingPresenter(view = this@BookingActivity, movieUiModel = movieOrNull())
         presenter.loadScreeningDateTimes()
@@ -46,18 +41,14 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     override fun showMovieInfo(movieUiModel: MovieUiModel) {
-        val poster: ImageView = findViewById(R.id.img_booking_poster)
-        val bookingTitle: TextView = findViewById(R.id.tv_booking_title)
-        val bookingScreenDate: TextView = findViewById(R.id.tv_booking_screening_date)
-        val bookingRunningTime: TextView = findViewById(R.id.tv_booking_running_time)
-
-        poster.setPosterImage(movieUiModel.poster)
-        bookingTitle.text = movieUiModel.title
+        viewHolder.poster.setPosterImage(movieUiModel.poster)
+        viewHolder.bookingTitle.text = movieUiModel.title
         val screeningStartDate = movieUiModel.screeningStartDate
         val screeningEndDate = movieUiModel.screeningEndDate
-        bookingScreenDate.text =
+        viewHolder.bookingScreenDate.text =
             getString(R.string.screening_date_period, screeningStartDate, screeningEndDate)
-        bookingRunningTime.text = getString(R.string.minute_text, movieUiModel.runningTime)
+        viewHolder.bookingRunningTime.text =
+            getString(R.string.minute_text, movieUiModel.runningTime)
     }
 
     override fun showErrorMessage(message: String) {
@@ -70,7 +61,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     override fun setScreeningDateSpinner(dates: List<String>) {
         screeningDateSpinner =
             ScreeningDateSpinner(
-                findViewById(R.id.spinner_screening_date),
+                viewHolder.spinnerScreeningDate,
                 dates,
             )
         screeningDateSpinner.setOnItemSelectedListener(
@@ -89,7 +80,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     override fun setScreeningTimeSpinner(times: List<String>) {
         screeningTimeSpinner =
             ScreeningTimeSpinner(
-                findViewById(R.id.spinner_screening_time),
+                viewHolder.spinnerScreeningTime,
             )
         setScreeningTimeAdapter(times)
         screeningTimeSpinner.setOnItemSelectedListener(
@@ -110,13 +101,13 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     override fun showHeadCount(count: String) {
-        headCountView.text = count
+        viewHolder.headCountView.text = count
     }
 
     override fun setButtonClickListener() {
-        btnPlus.setOnClickListener { presenter.increaseHeadCount() }
-        btnMinus.setOnClickListener { presenter.decreaseHeadCount() }
-        btnReserveConfirm.setOnClickListener { presenter.reserve() }
+        viewHolder.btnPlus.setOnClickListener { presenter.increaseHeadCount() }
+        viewHolder.btnMinus.setOnClickListener { presenter.decreaseHeadCount() }
+        viewHolder.btnReserveConfirm.setOnClickListener { presenter.reserve() }
     }
 
     override fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel) {
