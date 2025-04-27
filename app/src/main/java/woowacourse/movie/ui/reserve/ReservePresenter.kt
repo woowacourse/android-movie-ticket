@@ -6,8 +6,6 @@ import woowacourse.movie.domain.date.scheduler.ReservationScheduler
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.PurchaseCount
 import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.TicketMachine
-import woowacourse.movie.domain.model.TicketType
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -16,7 +14,6 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
     private val reservationScheduler =
         ReservationScheduler(CurrentDateScheduler(), CurrentTimeScheduler())
     private var purchaseCount = PurchaseCount(1)
-    private val ticketMachine = TicketMachine()
     private lateinit var reservation: Reservation
     private lateinit var movie: Movie
 
@@ -70,8 +67,6 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
     }
 
     override fun reserve() {
-        val tickets = ticketMachine.tickets(List(purchaseCount.value) { TicketType.DEFAULT })
-        reservation.initTickets(tickets)
         view.reserve(reservation, purchaseCount.value)
     }
 
