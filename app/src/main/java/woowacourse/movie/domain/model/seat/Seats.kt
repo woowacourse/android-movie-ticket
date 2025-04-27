@@ -15,4 +15,21 @@ class Seats {
     fun bookingPrice() = _item.sumOf { it.seatPrice() }
 
     fun isNotSelectDone(limit: Int) = _item.size != limit
+
+    fun toggleSeat(
+        newSeat: Seat,
+        limit: Int,
+    ): Boolean {
+        return when (isSelected(newSeat)) {
+            true -> {
+                removeSeat(newSeat)
+                true
+            }
+            false -> {
+                if (canSelect(limit).not()) return false
+                addSeat(newSeat)
+                true
+            }
+        }
+    }
 }

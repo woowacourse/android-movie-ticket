@@ -55,6 +55,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         initMovieTitle()
         initSeat()
         initBookingBtn()
+        showPrice(0)
     }
 
     private fun initMovieTitle() {

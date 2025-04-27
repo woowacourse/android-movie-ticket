@@ -45,3 +45,16 @@ companion object PresenterFactory {
 ```
 ### ⛔️ Warning
 - 인터페이스가 구현체를 알게 되어 DIP를 위반하는 형태가 되어 제거
+
+### 3. Presenter의 비즈니스 로직 제거
+```
+when (seats.isSelected(newSeat)) {
+    true -> seats.removeSeat(newSeat)
+    false -> {
+        if (canSelect(limit).not()) return
+        seats.addSeat(newSeat)
+    }
+}
+```
+- [x] SeatsPresenter에 존재하는 비즈니스 로직 제거
+- [x] 이외의 Presenter에 비즈니스 로직이 존재하는지 확인

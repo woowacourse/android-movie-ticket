@@ -10,30 +10,20 @@ class SeatPresenter(
     private val view: SeatContract.View,
     private val seats: Seats,
 ) : SeatContract.Presenter {
-    init {
-        view.showPrice(0)
-    }
-
     override fun changeSeat(
         position: Coordination,
         limit: Int,
     ) {
-        val newSeat =
-            Seat(
-                x = position.x.value,
-                y = position.y.value,
-            )
+        val newSeat = Seat(x = position.x.value, y = position.y.value)
+        val changed = seats.toggleSeat(newSeat, limit)
 
-        when (seats.isSelected(newSeat)) {
-            true -> seats.removeSeat(newSeat)
-            false -> {
-                if (canSelect(limit).not()) return
-                seats.addSeat(newSeat)
-            }
+        if (changed) {
+            view.showSeat(seatToCoordination())
+            view.showPrice(seats.bookingPrice())
+            updateConfirmButtonState(limit)
+        } else {
+            view.showToast(limit)
         }
-        view.showSeat(seatToCoordination())
-        view.showPrice(seats.bookingPrice())
-        updateConfirmButtonState(limit)
     }
 
     override fun onConfirmClicked(limit: Int) {
@@ -47,14 +37,6 @@ class SeatPresenter(
     private fun updateConfirmButtonState(peopleCount: Int) {
         val isEnabled = seats.item.size == peopleCount
         view.setConfirmButtonEnabled(isEnabled)
-    }
-
-    private fun canSelect(limit: Int): Boolean {
-        if (seats.canSelect(limit).not()) {
-            view.showToast(limit)
-            return false
-        }
-        return true
     }
 
     private fun seatToCoordination(): List<Coordination> {
