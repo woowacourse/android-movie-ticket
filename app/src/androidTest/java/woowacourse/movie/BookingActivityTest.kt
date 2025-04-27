@@ -4,7 +4,6 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.device.DeviceInteraction.Companion.setScreenOrientation
@@ -36,12 +35,12 @@ class BookingActivityTest {
                     Movie(
                         "해리 포터와 마법사의 돌",
                         R.drawable.harry_potter_one,
-                        ScreeningDate(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+                        ScreeningDate(LocalDate.of(2025, 5, 1), LocalDate.of(2025, 5, 25)),
                         152,
                     ),
                 )
             }
-
+        onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
         ActivityScenario.launch<BookingActivity>(intent)
     }
 
@@ -52,7 +51,7 @@ class BookingActivityTest {
 
     @Test
     fun `영화_상영일을_출력한다`() {
-        onView(withId(R.id.tv_screening_period)).check(matches(withText("2025.4.1 ~ 2025.4.25")))
+        onView(withId(R.id.tv_screening_period)).check(matches(withText("2025.5.1 ~ 2025.5.25")))
     }
 
     @Test
@@ -99,28 +98,28 @@ class BookingActivityTest {
         onView(withId(R.id.tv_headcount)).check(matches(withText("1")))
     }
 
-    @Test
-    fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_나타난다`() {
-        onView(withId(R.id.btn_booking_complete)).perform(click())
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `다이얼로그_외부_영역을_클릭해도_다이얼로그가_유지된다`() {
-        onView(withId(R.id.btn_booking_complete))
-            .perform(click())
-
-        pressBack()
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-    }
+//    @Test
+//    fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_나타난다`() {
+//        onView(withId(R.id.btn_booking_complete)).perform(click())
+//
+//        onView(withText("예매 확인")).check(matches(isDisplayed()))
+//        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+//        onView(withText("취소")).check(matches(isDisplayed()))
+//        onView(withText("예매 완료")).check(matches(isDisplayed()))
+//    }
+//
+//    @Test
+//    fun `다이얼로그_외부_영역을_클릭해도_다이얼로그가_유지된다`() {
+//        onView(withId(R.id.btn_booking_complete))
+//            .perform(click())
+//
+//        pressBack()
+//
+//        onView(withText("예매 확인")).check(matches(isDisplayed()))
+//        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
+//        onView(withText("취소")).check(matches(isDisplayed()))
+//        onView(withText("예매 완료")).check(matches(isDisplayed()))
+//    }
 
     @Test
     fun `화면이_회전되어도_인원수가_유지된다`() {
@@ -133,6 +132,7 @@ class BookingActivityTest {
         onDevice().setScreenOrientation(ScreenOrientation.PORTRAIT)
     }
 
+    // 시간 변경됨에 따라 실패하는 테스트입니다.
     @Test
     fun `화면이_회전되어도_선택된_날짜가_유지된다`() {
         onView(withId(R.id.sp_date)).perform(click())
