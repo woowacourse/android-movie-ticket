@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-class Seats(val capacity: Int) {
+class Theater(val capacity: Int) {
     private val _seats = mutableSetOf<Seat>()
     val seats get() = _seats.toList()
 
@@ -15,4 +15,9 @@ class Seats(val capacity: Int) {
     fun totalPrice(): Int = seats.sumOf { seat -> seat.price() }
 
     fun isSelectionFinished(): Boolean = seats.size == capacity
+
+    companion object {
+        const val ROW_SIZE = 5
+        const val COL_SIZE = 4
+    }
 }

@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.seatSelection
 
-import woowacourse.movie.view.model.SeatsUiModel
+import woowacourse.movie.view.model.TheaterUiModel
 import woowacourse.movie.view.model.TicketUiModel
 
 interface SeatSelectionContract {
@@ -29,14 +29,14 @@ interface SeatSelectionContract {
 
         fun goToReservationResult(
             ticket: TicketUiModel,
-            seats: SeatsUiModel,
+            seats: TheaterUiModel,
         )
     }
 
     interface Presenter {
         fun loadReservationInfo()
 
-        fun onInstanceStateRestored(seats: SeatsUiModel)
+        fun onInstanceStateRestored(seats: TheaterUiModel)
 
         fun onSeatSelection(
             row: Int,

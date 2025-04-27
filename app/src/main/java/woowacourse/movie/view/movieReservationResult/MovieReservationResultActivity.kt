@@ -11,7 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultContract
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
-import woowacourse.movie.view.model.SeatsUiModel
+import woowacourse.movie.view.model.TheaterUiModel
 import woowacourse.movie.view.model.TicketUiModel
 
 class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResultContract.View {
@@ -65,7 +65,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         fun createIntent(
             context: Context,
             ticket: TicketUiModel,
-            seats: SeatsUiModel,
+            seats: TheaterUiModel,
         ): Intent {
             val intent = Intent(context, MovieReservationResultActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)

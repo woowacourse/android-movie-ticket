@@ -17,7 +17,7 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.presenter.seatSelection.SeatSelectionContract
 import woowacourse.movie.presenter.seatSelection.SeatSelectionPresenter
-import woowacourse.movie.view.model.SeatsUiModel
+import woowacourse.movie.view.model.TheaterUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.utils.buildAlertDialog
@@ -37,12 +37,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(KEY_SEATS, presenter.seats)
+        outState.putParcelable(KEY_SEATS, presenter.theater)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val seats = savedInstanceState.getParcelableCompat<SeatsUiModel>(KEY_SEATS) ?: return
+        val seats = savedInstanceState.getParcelableCompat<TheaterUiModel>(KEY_SEATS) ?: return
         presenter.onInstanceStateRestored(seats)
     }
 
@@ -94,7 +94,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun goToReservationResult(
         ticket: TicketUiModel,
-        seats: SeatsUiModel,
+        seats: TheaterUiModel,
     ) {
         val intent = MovieReservationResultActivity.createIntent(this, ticket, seats)
         startActivity(intent)

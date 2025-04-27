@@ -3,7 +3,7 @@ package woowacourse.movie.view.model
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Seat
-import woowacourse.movie.domain.Seats
+import woowacourse.movie.domain.Theater
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.view.model.MovieListItem.MovieUiModel
@@ -32,12 +32,12 @@ fun SeatUiModel.toDomain(): Seat {
     return Seat(row, col)
 }
 
-fun Seats.toUiModel(): SeatsUiModel {
-    return SeatsUiModel(seats.size, seats.map { seat -> seat.toUiModel() })
+fun Theater.toUiModel(): TheaterUiModel {
+    return TheaterUiModel(seats.size, seats.map { seat -> seat.toUiModel() })
 }
 
-fun SeatsUiModel.toDomain(): Seats {
-    val seats = Seats(seats.size)
-    this.seats.forEach { seat -> seats.add(seat.toDomain()) }
-    return seats
+fun TheaterUiModel.toDomain(): Theater {
+    val theater = Theater(seats.size)
+    this.seats.forEach { seat -> theater.add(seat.toDomain()) }
+    return theater
 }

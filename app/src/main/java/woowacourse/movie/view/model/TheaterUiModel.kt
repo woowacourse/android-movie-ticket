@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class SeatsUiModel(
+class TheaterUiModel(
     val capacity: Int,
     val seats: List<SeatUiModel>,
 ) : Parcelable
