@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA">
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TableLayout
-        android:id="@+id/tableLayout"
+        android:id="@+id/seats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -32,154 +33,199 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/screen">
 
-        <TableRow>
-            <TextView
+        <TableRow style="?android:attr/buttonBarStyle">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="A1"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="A2"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="A3"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="A4"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
         </TableRow>
 
-        <TableRow>
-            <TextView
+        <TableRow style="?android:attr/buttonBarStyle">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="B1"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="B2"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="B3"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="B4"
                 android:textColor="#8E13EF"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
         </TableRow>
 
-        <TableRow>
-            <TextView
+        <TableRow style="?android:attr/buttonBarStyle">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="C1"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="C2"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="C3"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="C4"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
         </TableRow>
 
-        <TableRow>
-            <TextView
+        <TableRow style="?android:attr/buttonBarStyle">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="D1"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="D2"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="D3"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="D4"
                 android:textColor="#19D358"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
         </TableRow>
 
-        <TableRow>
-            <TextView
+        <TableRow style="?android:attr/buttonBarStyle">
+
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="E1"
                 android:textColor="#1B48E9"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="E2"
                 android:textColor="#1B48E9"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="E3"
                 android:textColor="#1B48E9"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
 
-            <TextView
+            <Button
+                style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="E4"
                 android:textColor="#1B48E9"
                 android:textSize="22sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:cornerRadius="0dp" />
         </TableRow>
     </TableLayout>
 
@@ -224,7 +270,7 @@
 
 
         <Button
-            android:id="@+id/decrement_button"
+            android:id="@+id/select_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="확인"

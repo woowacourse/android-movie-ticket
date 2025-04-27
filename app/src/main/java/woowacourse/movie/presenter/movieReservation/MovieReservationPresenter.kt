@@ -80,6 +80,6 @@ class MovieReservationPresenter(
     }
 
     override fun onReservationConfirmation() {
-        view.confirmReservation(_ticket.toUiModel())
+        view.confirmReservation(ticket)
     }
 }
