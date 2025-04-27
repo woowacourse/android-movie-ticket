@@ -4,11 +4,12 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
 class MovieItemViewHolder(
     view: View,
-) {
+) : RecyclerView.ViewHolder(view) {
     private val title: TextView = view.findViewById(R.id.tv_movie_title)
     private val poster: ImageView = view.findViewById(R.id.iv_movie_poster)
     private val date: TextView = view.findViewById(R.id.tv_movie_date)

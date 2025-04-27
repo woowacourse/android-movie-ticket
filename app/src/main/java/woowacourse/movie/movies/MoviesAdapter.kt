@@ -1,42 +1,51 @@
 package woowacourse.movie.movies
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 
 class MoviesAdapter(
     private val movies: List<MovieUiModel>,
     private val onBookingClick: (MovieUiModel) -> Unit,
-) : BaseAdapter() {
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        val viewHolder: MovieItemViewHolder
-
-        if (convertView == null) {
-            view = LayoutInflater.from(parent?.context).inflate(R.layout.item_movie, parent, false)
-            viewHolder = MovieItemViewHolder(view)
-            view.tag = viewHolder
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder =
+        if (viewType == VIEW_TYPE_MOVIE) {
+            val view =
+                LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
+            MovieItemViewHolder(view)
         } else {
-            view = convertView
-            viewHolder = view.tag as MovieItemViewHolder
+            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_ad, parent, false)
+            AdItemViewHolder(view)
         }
 
-        val movie = getItem(position)
-
-        viewHolder.bind(movie, onBookingClick)
-
-        return view
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
+        if (getItemViewType(position) == VIEW_TYPE_MOVIE) {
+            val realMoviePosition = position - position / 4
+            val movie = movies[realMoviePosition]
+            (holder as MovieItemViewHolder).bind(movie, onBookingClick)
+        } else {
+            (holder as AdItemViewHolder).bind()
+        }
     }
 
-    override fun getItem(position: Int): MovieUiModel = movies[position]
+    override fun getItemViewType(position: Int): Int =
+        if ((position + 1) % 4 == 0) {
+            VIEW_TYPE_AD
+        } else {
+            VIEW_TYPE_MOVIE
+        }
 
-    override fun getItemId(position: Int): Long = 0
+    override fun getItemCount(): Int = movies.size + movies.size / 3
 
-    override fun getCount(): Int = movies.size
+    companion object {
+        private const val VIEW_TYPE_MOVIE = 0
+        private const val VIEW_TYPE_AD = 1
+    }
 }

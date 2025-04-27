@@ -2,25 +2,26 @@ package woowacourse.movie.movies
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.booking.detail.BookingDetailActivity
-import woowacourse.movie.domain.movies
 
 class MoviesActivity :
     AppCompatActivity(),
     MoviesContract.View {
     private lateinit var presenter: MoviesContract.Presenter
+    private lateinit var moviesRecyclerView: RecyclerView
+    private lateinit var moviesAdapter: MoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setupView()
 
         presenter = MoviesPresenter(this)
-        setupView()
         presenter.loadMovies()
     }
 
@@ -32,14 +33,15 @@ class MoviesActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        moviesRecyclerView = findViewById(R.id.movies_view)
     }
 
     override fun showMovies(uiModels: List<MovieUiModel>) {
-        val moviesAdapter =
+        moviesAdapter =
             MoviesAdapter(uiModels) { movieUiModel ->
                 presenter.onMovieSelected(movieUiModel)
             }
-        findViewById<ListView>(R.id.lv_movies).adapter = moviesAdapter
+        moviesRecyclerView.adapter = moviesAdapter
     }
 
     override fun navigateToBookingDetail(movieUiModel: MovieUiModel) {
