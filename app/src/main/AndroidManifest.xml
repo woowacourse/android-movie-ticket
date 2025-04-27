@@ -16,13 +16,13 @@
             android:name=".view.SeatSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".view.screening.ReservationActivity"
+            android:name=".view.reservation.ReservationActivity"
             android:exported="false" />
         <activity
             android:name=".view.ticket.TicketActivity"
             android:exported="false" />
         <activity
-            android:name=".view.screening.ScreeningActivity"
+            android:name=".view.reservation.ScreeningActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

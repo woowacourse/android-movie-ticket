@@ -4,5 +4,5 @@
     android:id="@+id/lv_screening_movies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.screening.ScreeningActivity"
+    tools:context=".view.reservation.ScreeningActivity"
     tools:listitem="@layout/item_screening" />
