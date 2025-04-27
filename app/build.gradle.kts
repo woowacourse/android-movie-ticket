@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.androidTestImplementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.android.junit5)
@@ -55,6 +57,7 @@ dependencies {
     testImplementation(libs.junit.jupiter)
     testImplementation(libs.kotest.runner.junit5)
     testImplementation(libs.mockk)
+    androidTestImplementation (libs.androidx.espresso.contrib)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.espresso.intents)
     androidTestImplementation(libs.androidx.test.ext.junit)
