@@ -10,6 +10,9 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.ui.complete.BookingCompleteActivity
 import java.time.LocalDateTime
@@ -20,16 +23,17 @@ class BookingCompleteActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(
-                fakeContext,
-                BookingCompleteActivity::class.java,
-            ).apply {
+            Intent(fakeContext, BookingCompleteActivity::class.java).apply {
                 putExtra(
                     "bookedTicket",
                     BookedTicket(
                         "해리 포터와 마법사의 돌",
                         Headcount(2),
                         LocalDateTime.of(2025, 4, 1, 12, 0),
+                        Seats().apply {
+                            add(Seat(0, 0, TicketType.B_GRADE))
+                            add(Seat(2, 3, TicketType.S_GRADE))
+                        },
                     ),
                 )
             }
@@ -48,11 +52,11 @@ class BookingCompleteActivityTest {
 
     @Test
     fun `예매_인원을_출력한다`() {
-        onView(withId(R.id.tv_headcount)).check(matches(withText("일반 2명")))
+        onView(withId(R.id.tv_headcount)).check(matches(withText("일반 2명 | A1, C4")))
     }
 
     @Test
     fun `예매_가격을_출력한다`() {
-        onView(withId(R.id.tv_price)).check(matches(withText("26,000원 (현장 결제)")))
+        onView(withId(R.id.tv_price)).check(matches(withText("25,000원 (현장 결제)")))
     }
 }
