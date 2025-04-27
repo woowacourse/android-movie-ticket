@@ -24,22 +24,19 @@ class ReservePresenter(
         )
     }
 
-    override fun initView() {
-        view.initMovieInfo(reservation.movie)
-        updateDateSpinner()
-        view.initTimeSpinner()
-        view.updateTicketCount(reservation.count.toString())
-        view.initButtonClickListeners()
+    override fun updateReservationInfo() {
+        view.showMovieInfo(reservation.movie)
+        view.showTicketCount(reservation.count)
     }
 
-    override fun updateDateSpinner() {
+    override fun updateReservableDates() {
         view.initDateSpinner(
             reservation.movie.screeningDate.reservableDates(LocalDate.now()),
             reservation.reservedTime.toLocalDate(),
         )
     }
 
-    override fun updateTimeSpinner(selectedDate: LocalDate) {
+    override fun updateReservableTimes(selectedDate: LocalDate) {
         val times =
             TimeScheduler.reservableTimes(
                 selectedDate,
@@ -48,15 +45,15 @@ class ReservePresenter(
         view.updateTimeSpinner(times, reservation.reservedTime.toLocalTime())
     }
 
-    override fun onPlusButtonClick() {
+    override fun increaseTicketCount() {
         reservation = reservation.plusCount()
-        view.updateTicketCount(reservation.count.toString())
+        view.showTicketCount(reservation.count)
     }
 
-    override fun onMinusButtonClick() {
+    override fun decreaseTicketCount() {
         if (reservation.canMinus()) {
             reservation = reservation.minusCount()
-            view.updateTicketCount(reservation.count.toString())
+            view.showTicketCount(reservation.count)
         }
     }
 

@@ -45,9 +45,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         presenter.initReservation(getReservation(savedInstanceState), getMovie())
-        presenter.initView()
-
-        initButtonClickListeners()
+        initView()
     }
 
     private fun getMovie(): Movie {
@@ -58,7 +56,14 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         return savedInstanceState?.getSerializable(KeyIdentifiers.KEY_RESERVATION) as? Reservation?
     }
 
-    override fun initMovieInfo(movie: Movie) {
+    private fun initView() {
+        presenter.updateReservationInfo()
+        presenter.updateReservableDates()
+        initTimeSpinner()
+        initButtonClickListeners()
+    }
+
+    override fun showMovieInfo(movie: Movie) {
         val poster = findViewById<ImageView>(R.id.iv_poster)
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
@@ -91,7 +96,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
                     id: Long,
                 ) {
                     val selectedDate = dates[position]
-                    presenter.updateTimeSpinner(selectedDate)
+                    presenter.updateReservableTimes(selectedDate)
                     presenter.updateReservedTime(getSelectedDateTime())
                 }
 
@@ -100,10 +105,10 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
             }
     }
 
-    override fun initTimeSpinner() {
+    private fun initTimeSpinner() {
         val selectedDate = dateSpinner.selectedItem as LocalDate
 
-        presenter.updateTimeSpinner(selectedDate)
+        presenter.updateReservableTimes(selectedDate)
 
         timeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -143,17 +148,17 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         )
     }
 
-    override fun initButtonClickListeners() {
+    private fun initButtonClickListeners() {
         val minusBtn = findViewById<Button>(R.id.btn_minus)
         val plusBtn = findViewById<Button>(R.id.btn_plus)
         val selectBtn = findViewById<Button>(R.id.btn_select)
 
         minusBtn.setOnClickListener {
-            presenter.onMinusButtonClick()
+            presenter.decreaseTicketCount()
         }
 
         plusBtn.setOnClickListener {
-            presenter.onPlusButtonClick()
+            presenter.increaseTicketCount()
         }
 
         selectBtn.setOnClickListener {
@@ -162,8 +167,8 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         }
     }
 
-    override fun updateTicketCount(count: String) {
-        ticketCount.text = count
+    override fun showTicketCount(count: Int) {
+        ticketCount.text = count.toString()
     }
 
     private fun formatting(screeningDate: ScreeningDate): String {
@@ -185,7 +190,6 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
         outState.putSerializable(KeyIdentifiers.KEY_RESERVATION, presenter.reservation)
     }
 

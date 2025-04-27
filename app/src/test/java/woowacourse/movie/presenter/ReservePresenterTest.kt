@@ -1,7 +1,6 @@
 package woowacourse.movie.presenter
 
 import io.mockk.mockk
-import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import woowacourse.movie.RESERVATION
@@ -22,25 +21,12 @@ class ReservePresenterTest {
     }
 
     @Test
-    fun `initView를 호출하면 view 메서드들이 호출된다`() {
-        // when
-        presenter.initView()
-
-        // then
-        verify { view.initMovieInfo(any()) }
-        verify { view.initDateSpinner(any(), any()) }
-        verify { view.initTimeSpinner() }
-        verify { view.updateTicketCount(any()) }
-        verify { view.initButtonClickListeners() }
-    }
-
-    @Test
     fun `onPlusButtonClick 호출 시 티켓 수가 증가한다`() {
         // given
         val beforeCount = presenter.reservation.count
 
         // when
-        presenter.onPlusButtonClick()
+        presenter.increaseTicketCount()
         val actual = presenter.reservation.count
 
         // then
@@ -50,11 +36,11 @@ class ReservePresenterTest {
     @Test
     fun `onMinusButtonClick 호출 시 티켓 수가 감소한다`() {
         // given
-        presenter.onPlusButtonClick()
+        presenter.increaseTicketCount()
         val beforeCount = presenter.reservation.count
 
         // when
-        presenter.onMinusButtonClick()
+        presenter.decreaseTicketCount()
         val actual = presenter.reservation.count
 
         // then

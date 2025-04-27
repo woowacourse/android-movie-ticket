@@ -57,6 +57,6 @@
 - [x] Item 네이밍 고민
 - [x] IntentExtensions | 에러가 난 키를 에러 메시지에 명시해 주기
 - [x] ViewType | ViewType을 리소스 ID로 변경
-- [ ] ReserveContract | initView가 Presenter에 있어야 할지 고민
+- [x] ReserveContract | initView가 Presenter에 있어야 할지 고민
 - [ ] ReserveContract initReservation | view 해야 할 동작들을 presenter를 거쳐야 할지 고민
 - [ ] PresenterTest | 네이밍 고민

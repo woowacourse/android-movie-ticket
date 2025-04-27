@@ -8,23 +8,19 @@ import java.time.LocalTime
 
 interface ReserveContract {
     interface View {
-        fun initMovieInfo(movie: Movie)
+        fun showMovieInfo(movie: Movie)
 
-        fun initTimeSpinner()
-
-        fun updateTimeSpinner(
-            times: List<LocalTime>,
-            reservedTime: LocalTime,
-        )
+        fun showTicketCount(count: Int)
 
         fun initDateSpinner(
             dates: List<LocalDate>,
             reservedDate: LocalDate,
         )
 
-        fun updateTicketCount(count: String)
-
-        fun initButtonClickListeners()
+        fun updateTimeSpinner(
+            times: List<LocalTime>,
+            reservedTime: LocalTime,
+        )
     }
 
     interface Presenter {
@@ -33,15 +29,15 @@ interface ReserveContract {
             movie: Movie,
         )
 
-        fun initView()
+        fun updateReservationInfo()
 
-        fun updateDateSpinner()
+        fun updateReservableDates()
 
-        fun updateTimeSpinner(selectedDate: LocalDate)
+        fun updateReservableTimes(selectedDate: LocalDate)
 
-        fun onPlusButtonClick()
+        fun increaseTicketCount()
 
-        fun onMinusButtonClick()
+        fun decreaseTicketCount()
 
         fun updateReservedTime(dateTime: LocalDateTime)
     }
