@@ -12,12 +12,12 @@ interface SeatSelectContract {
 
         fun showConfirmAlertDialog()
 
-        fun updateSeatSelection(
+        fun updateSeatSelectionState(
             seat: SeatUiModel,
             isSelected: Boolean,
         )
 
-        fun updateConfirmButton(isEnabled: Boolean)
+        fun updateConfirmButtonState(isEnabled: Boolean)
 
         fun navigateToCompleteScreen(ticket: TicketUiModel)
     }

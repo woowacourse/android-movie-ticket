@@ -43,9 +43,9 @@ class SeatSelectPresenterTest {
         presenter.onClickSeat(seat) // 같은 좌석을 다시 클릭
 
         // then
-        verify(exactly = 1) { view.updateSeatSelection(seat, true) } // 첫 클릭 -> 선택됨
-        verify(exactly = 1) { view.updateSeatSelection(seat, false) } // 두 번째 클릭 -> 해제됨
-        verify(atLeast = 2) { view.updateConfirmButton(any()) }
+        verify(exactly = 1) { view.updateSeatSelectionState(seat, true) } // 첫 클릭 -> 선택됨
+        verify(exactly = 1) { view.updateSeatSelectionState(seat, false) } // 두 번째 클릭 -> 해제됨
+        verify(atLeast = 2) { view.updateConfirmButtonState(any()) }
         verify(atLeast = 2) { view.showTotalPrice(any()) }
     }
 

@@ -62,7 +62,7 @@ class SeatSelectActivity :
             .show()
     }
 
-    override fun updateSeatSelection(
+    override fun updateSeatSelectionState(
         seat: SeatUiModel,
         isSelected: Boolean,
     ) {
@@ -70,7 +70,7 @@ class SeatSelectActivity :
         seatTextView.setBackgroundResource(if (isSelected) R.color.yellow else R.color.white)
     }
 
-    override fun updateConfirmButton(isEnabled: Boolean) {
+    override fun updateConfirmButtonState(isEnabled: Boolean) {
         confirmButton.isEnabled = isEnabled
     }
 

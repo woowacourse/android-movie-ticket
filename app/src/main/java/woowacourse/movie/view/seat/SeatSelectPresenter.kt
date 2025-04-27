@@ -1,6 +1,5 @@
 package woowacourse.movie.view.seat
 
-import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.reservation.model.toDomain
 import woowacourse.movie.view.seat.model.SeatUiModel
@@ -18,11 +17,11 @@ class SeatSelectPresenter(
     }
 
     override fun onClickSeat(seat: SeatUiModel) {
-        val seatDomain = seat.toDomain()
-        toggleSeat(seatDomain)
+        toggleSeat(seat)
         val ticketDomain = ticket.toDomain()
-        view.updateSeatSelection(seat, ticketDomain.contains(seatDomain))
-        view.updateConfirmButton(ticketDomain.isSeatsAllSelected())
+        val isSelected = ticketDomain.contains(seat.toDomain())
+        view.updateSeatSelectionState(seat, isSelected)
+        view.updateConfirmButtonState(ticketDomain.isSeatsAllSelected())
         view.showTotalPrice(ticketDomain.totalPrice())
     }
 
@@ -34,12 +33,13 @@ class SeatSelectPresenter(
         view.navigateToCompleteScreen(ticket)
     }
 
-    private fun toggleSeat(seat: Seat) {
+    private fun toggleSeat(seat: SeatUiModel) {
+        val seatDomain = seat.toDomain()
         _ticket =
-            if (ticket.toDomain().contains(seat)) {
-                ticket.copy(seats = ticket.seats - seat)
+            if (ticket.toDomain().contains(seatDomain)) {
+                ticket.copy(seats = ticket.seats - seatDomain)
             } else {
-                ticket.copy(seats = ticket.seats + seat)
+                ticket.copy(seats = ticket.seats + seatDomain)
             }
     }
 }
