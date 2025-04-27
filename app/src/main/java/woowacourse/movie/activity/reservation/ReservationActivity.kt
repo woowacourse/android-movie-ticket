@@ -129,10 +129,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         val reservationDto =
             ReservationDto(
                 movie = movie,
-                isBooked = true,
                 memberCount = memberCount,
                 bookedTime = LocalDateTime.of(reservationDay, runningDateTime),
-                totalPrice = movie.priceRuleDto[0].price * memberCount,
             )
         val intent =
             ReservationSeatActivity

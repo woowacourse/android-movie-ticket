@@ -9,7 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivityReservationCompleteBinding
-import woowacourse.movie.dto.ReservationDto
+import woowacourse.movie.dto.ReservationSeatDto
 import woowacourse.movie.global.getObjectFromIntent
 import woowacourse.movie.global.toFormattedString
 
@@ -24,19 +24,20 @@ class ReservationCompleteActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val reservationDto = intent.getObjectFromIntent<ReservationDto>(BOOKING_STATUS_KEY)
+        val reservationDto = intent.getObjectFromIntent<ReservationSeatDto>(BOOKING_STATUS_KEY)
 
-        binding.bookedMovieTitleText.text = reservationDto.movie.title
-        binding.bookedMovieRunningDayText.text = reservationDto.bookedTime.toFormattedString()
+        binding.bookedMovieTitleText.text = reservationDto.reservationDto.movie.title
+        binding.bookedMovieRunningDayText.text = reservationDto.reservationDto.bookedTime.toFormattedString()
         binding.memberCountText.text =
             getString(
                 R.string.member_count,
-                reservationDto.memberCount,
+                reservationDto.reservationDto.memberCount,
             )
         binding.bookedMovieTicketPriceText.text =
             getString(
                 R.string.total_price,
                 reservationDto.totalPrice,
+                reservationDto.seats.joinToString(", ") { it.location },
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -52,7 +53,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
 
         fun newIntent(
             from: Context,
-            dto: ReservationDto,
+            dto: ReservationSeatDto,
         ): Intent {
             return Intent(from, ReservationCompleteActivity::class.java).apply {
                 putExtra(BOOKING_STATUS_KEY, dto)

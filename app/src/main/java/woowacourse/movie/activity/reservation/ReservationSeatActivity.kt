@@ -14,6 +14,7 @@ import woowacourse.movie.R
 import woowacourse.movie.databinding.ActivitySeatBinding
 import woowacourse.movie.dto.PriceRuleDto
 import woowacourse.movie.dto.ReservationDto
+import woowacourse.movie.dto.ReservationSeatDto
 import woowacourse.movie.dto.SeatDto
 import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.getObjectFromIntent
@@ -25,6 +26,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     private val presenter: ReservationSeatContract.Presenter = ServiceLocator.reservationSeatPresenter(this)
     private var totalPrice = 0
     private var selectedMember = 0
+    private var seats = mutableListOf<SeatDto>()
     private lateinit var reservationDto: ReservationDto
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,9 +38,10 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        presenter.initSeatTable()
-        setSubmitButtonEventListener()
         reservationDto = intent.getObjectFromIntent<ReservationDto>(RESERVATION_DTO_KEY)
+        presenter.initSeatTable()
+        bindText()
+        setSubmitButtonEventListener()
     }
 
     override fun setButtonState(state: Boolean) {
@@ -69,14 +72,20 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             }
     }
 
+    private fun bindText() {
+        binding.title.text = reservationDto.movie.title
+    }
+
     private fun navigate() {
-        val reservationDto =
-            reservationDto.copy(
-                totalPrice = totalPrice,
+        val reservationSeatDto =
+            ReservationSeatDto(
+                reservationDto,
+                totalPrice,
+                seats.toList(),
             )
         val intent =
             ReservationCompleteActivity
-                .newIntent(this, reservationDto)
+                .newIntent(this, reservationSeatDto)
         startActivity(intent)
     }
 
@@ -103,6 +112,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                 view.isSelected = false
                 totalPrice -= seat.price.price
                 selectedMember--
+                seats.remove(seat)
                 view.setBackgroundColor(getColor(R.color.white))
             }
             false -> {
@@ -110,6 +120,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                 view.isSelected = true
                 totalPrice += seat.price.price
                 selectedMember++
+                seats.add(seat)
                 view.setBackgroundColor(getColor(R.color.seat_selected))
             }
         }
