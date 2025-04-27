@@ -55,6 +55,12 @@ class MovieBookedActivity : AppCompatActivity(), MovieBooked.View {
             R.string.total_price,
             bookingStatus.calculateTicketPrices()
         )
+        val seatsText = bookingStatus.seat.seats.joinToString(", ") { seat ->
+            val rowChar = 'A' + seat.row.value
+            val colNumber = seat.col.value + 1
+            "$rowChar$colNumber"
+        }
+        binding.bookingSeat.text = seatsText
     }
 
     companion object {
