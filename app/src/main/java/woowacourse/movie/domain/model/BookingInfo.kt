@@ -18,7 +18,7 @@ data class BookingInfo(
 
     fun updateDate(date: MovieDate) {
         this.date = date
-        time = getMovieTimes(DateType.from(date)).first()
+        this.time = getMovieTimes(DateType.from(date)).first()
     }
 
     fun updateMovieTime(movieTime: MovieTime) {
@@ -33,6 +33,14 @@ data class BookingInfo(
         ticketCount.decrease(count)
     }
 
+    fun updateSeat(seat: MovieSeat): SeatSelectionResult =
+        if (seats.value.contains(seat)) {
+            removeSeat(seat)
+            SeatSelectionResult.Success(seat.copy(isSelected = false))
+        } else {
+            addSeat(seat.copy(isSelected = true))
+        }
+
     fun addSeat(seat: MovieSeat): SeatSelectionResult =
         if (ticketCount.value > selectedSeats.size) {
             seats.add(seat)
@@ -41,15 +49,7 @@ data class BookingInfo(
             SeatSelectionResult.ExceedCountFailure
         }
 
-    fun removeSeat(seat: MovieSeat) {
+    private fun removeSeat(seat: MovieSeat) {
         seats.remove(seat)
     }
-
-    fun updateSeat(seat: MovieSeat): SeatSelectionResult =
-        if (seats.value.contains(seat)) {
-            removeSeat(seat)
-            SeatSelectionResult.Success(seat.copy(isSelected = false))
-        } else {
-            addSeat(seat.copy(isSelected = true))
-        }
 }
