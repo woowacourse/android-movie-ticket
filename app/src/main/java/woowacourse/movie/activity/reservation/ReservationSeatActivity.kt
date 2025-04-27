@@ -72,6 +72,31 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             }
     }
 
+    override fun setWhenSeatSelected(
+        view: TextView,
+        seat: SeatDto,
+    ) {
+        view.isSelected = false
+        totalPrice -= seat.price.price
+        selectedMember--
+        seats.remove(seat)
+        view.setBackgroundColor(getColor(R.color.white))
+        binding.total.text = getString(R.string.total_price_general, totalPrice)
+    }
+
+    override fun setWhenSeatDisSelected(
+        view: TextView,
+        seat: SeatDto,
+    ) {
+        if (reservationDto.memberCount == selectedMember) return
+        view.isSelected = true
+        totalPrice += seat.price.price
+        selectedMember++
+        seats.add(seat)
+        view.setBackgroundColor(getColor(R.color.seat_selected))
+        binding.total.text = getString(R.string.total_price_general, totalPrice)
+    }
+
     private fun bindText() {
         binding.title.text = reservationDto.movie.title
     }
@@ -108,23 +133,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         view: TextView,
     ) {
         when (view.isSelected) {
-            true -> {
-                view.isSelected = false
-                totalPrice -= seat.price.price
-                selectedMember--
-                seats.remove(seat)
-                view.setBackgroundColor(getColor(R.color.white))
-            }
-            false -> {
-                if (reservationDto.memberCount == selectedMember) return
-                view.isSelected = true
-                totalPrice += seat.price.price
-                selectedMember++
-                seats.add(seat)
-                view.setBackgroundColor(getColor(R.color.seat_selected))
-            }
+            true -> presenter.setWhenSeatSelected(view, seat)
+            false -> presenter.setWhenSeatDisSelected(view, seat)
         }
-        binding.total.text = getString(R.string.total_price_general, totalPrice)
         presenter.setButtonState(totalPrice)
     }
 
