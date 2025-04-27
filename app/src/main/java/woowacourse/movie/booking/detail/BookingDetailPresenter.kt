@@ -1,7 +1,7 @@
 package woowacourse.movie.booking.detail
 
-import woowacourse.movie.booking.complete.BookingCompleteUiModel
 import woowacourse.movie.domain.DateType
+import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketQuantity
 import woowacourse.movie.movies.MovieUiModel
@@ -13,6 +13,7 @@ class BookingDetailPresenter(
 ) : BookingDetailContract.Presenter {
     private lateinit var movie: MovieUiModel
     private lateinit var ticket: Ticket
+    private var seats: List<Seat> = emptyList()
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private var ticketQuantity: TicketQuantity = TicketQuantity(1)
@@ -79,18 +80,10 @@ class BookingDetailPresenter(
                 date = selectedDate,
                 time = selectedTime,
                 quantity = ticketQuantity,
+                seats = seats,
             )
 
-        val uiModel =
-            BookingCompleteUiModel(
-                title = ticket.movieTitle,
-                date = ticket.date.toString(),
-                time = ticket.time.toString(),
-                ticketQuantity = ticket.quantity.value,
-                ticketTotalPrice = ticket.quantity.totalPrice(),
-            )
-
-        view.showConfirmationDialog(uiModel)
+        view.navigateToBookingSeat(ticket)
     }
 
     override fun getTicketCount(): Int = ticketQuantity.value

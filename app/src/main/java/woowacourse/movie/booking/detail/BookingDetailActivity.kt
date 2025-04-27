@@ -11,13 +11,12 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.booking.complete.BookingCompleteActivity
-import woowacourse.movie.booking.complete.BookingCompleteUiModel
+import woowacourse.movie.booking.seat.BookingSeatActivity
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.movies.MovieUiModel
 import woowacourse.movie.movies.periodText
 import woowacourse.movie.util.parcelableExtraWithVersion
@@ -136,20 +135,8 @@ class BookingDetailActivity :
         findViewById<TextView>(R.id.tv_booking_detail_count).text = count.toString()
     }
 
-    override fun showConfirmationDialog(bookingCompleteUiModel: BookingCompleteUiModel) {
-        AlertDialog
-            .Builder(this)
-            .setTitle(getString(R.string.booking_detail_booking_check))
-            .setMessage(getString(R.string.booking_detail_booking_check_description))
-            .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
-                navigateToBookingComplete(bookingCompleteUiModel)
-            }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
-            .setCancelable(false)
-            .show()
-    }
-
-    override fun navigateToBookingComplete(bookingCompleteUiModel: BookingCompleteUiModel) {
-        val intent = BookingCompleteActivity.newIntent(this, bookingCompleteUiModel)
+    override fun navigateToBookingSeat(ticket: Ticket) {
+        val intent = BookingSeatActivity.newIntent(this, ticket)
 
         startActivity(intent)
         finish()

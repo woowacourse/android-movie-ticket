@@ -1,6 +1,6 @@
 package woowacourse.movie.booking.detail
 
-import woowacourse.movie.booking.complete.BookingCompleteUiModel
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.movies.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
@@ -39,8 +39,6 @@ interface BookingDetailContract {
 
         fun showTicketCount(count: Int)
 
-        fun showConfirmationDialog(bookingCompleteUiModel: BookingCompleteUiModel)
-
-        fun navigateToBookingComplete(bookingCompleteUiModel: BookingCompleteUiModel)
+        fun navigateToBookingSeat(ticket: Ticket)
     }
 }
