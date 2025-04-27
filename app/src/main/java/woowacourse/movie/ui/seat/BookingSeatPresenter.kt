@@ -12,6 +12,17 @@ class BookingSeatPresenter(
     private val movieTitle: String by lazy { fetchMovieTitle() }
     private var seats: Seats = Seats()
 
+    fun fetchData() {
+        fetchHeadcount()
+        fetchMovieTitle()
+    }
+
+    fun updateViews() {
+        updateMovieTitle()
+        updateTotalPrice()
+        updateConfirmButton()
+    }
+
     override fun fetchHeadcount(): Headcount = bookingSeatView.getHeadcount() ?: Headcount()
 
     override fun fetchMovieTitle(): String = bookingSeatView.getMovieTitle() ?: "EMPTY"

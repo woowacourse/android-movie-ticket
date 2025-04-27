@@ -38,7 +38,10 @@
         app:layout_constraintStart_toStartOf="@id/screen"
         app:layout_constraintTop_toBottomOf="@id/screen">
 
-        <TableRow android:layout_weight="1">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
 
             <include layout="@layout/seat_item" />
 

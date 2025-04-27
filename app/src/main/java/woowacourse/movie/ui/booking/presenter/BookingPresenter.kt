@@ -22,6 +22,11 @@ class BookingPresenter(
 
     fun restoreMovie(): Movie = fetchMovie()
 
+    fun updateViews() {
+        updateMovieInfoViews()
+        updateDateSpinner()
+    }
+
     override fun increaseHeadcount() {
         _headcount.increase()
         bookingView.setHeadcountTextView(_headcount)

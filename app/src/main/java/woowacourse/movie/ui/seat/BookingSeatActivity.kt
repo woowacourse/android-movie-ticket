@@ -38,12 +38,9 @@ class BookingSeatActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applyWindowInsets()
-        setSeatsId()
-        bookingSeatPresenter.fetchHeadcount()
-        bookingSeatPresenter.fetchMovieTitle()
-        bookingSeatPresenter.updateMovieTitle()
-        bookingSeatPresenter.updateTotalPrice()
-        bookingSeatPresenter.updateConfirmButton()
+        initializeSeatTextViews()
+        bookingSeatPresenter.fetchData()
+        bookingSeatPresenter.updateViews()
         setConfirmButtonClickListener()
     }
 
@@ -79,25 +76,17 @@ class BookingSeatActivity :
         seatView?.setBackgroundColor(getColor(R.color.white))
     }
 
-    private fun setSeatsId() {
+    private fun initializeSeatTextViews() {
         val tableLayout: TableLayout = findViewById(R.id.table_layout_seats)
         tableLayout
             .children
             .filterIsInstance<TableRow>()
             .forEachIndexed { rowIndex, tableRow ->
                 tableRow.forEachIndexed { colIndex, textView ->
-                    val seatText = "${ASCII_A + rowIndex}${colIndex + 1}"
-                    textView.setTag(R.id.seat_tag, seatText)
-                    seatTextViews[seatText] = textView as TextView
-                    textView.text = seatText
-
-                    when {
-                        rowIndex < 2 -> textView.setTextColor(getColor(R.color.seat_b_grade))
-                        rowIndex < 4 -> textView.setTextColor(getColor(R.color.seat_s_grade))
-                        rowIndex < 5 -> textView.setTextColor(getColor(R.color.seat_a_grade))
-                    }
+                    setSeatTag(textView as TextView, rowIndex, colIndex)
+                    setSeatColor(textView, rowIndex)
                     textView.setOnClickListener {
-                        bookingSeatPresenter.updateSeat(seatText)
+                        bookingSeatPresenter.updateSeat(textView.getTag(R.id.seat_tag).toString())
                     }
                 }
             }
@@ -144,6 +133,28 @@ class BookingSeatActivity :
         }
     }
 
+    private fun setSeatTag(
+        textView: TextView,
+        rowIndex: Int,
+        colIndex: Int,
+    ) {
+        val seatText = "${ASCII_A + rowIndex}${colIndex + 1}"
+        textView.setTag(R.id.seat_tag, seatText)
+        seatTextViews[seatText] = textView
+        textView.text = seatText
+    }
+
+    private fun setSeatColor(
+        textView: TextView,
+        rowIndex: Int,
+    ) {
+        when {
+            rowIndex < B_LINE -> textView.setTextColor(getColor(R.color.seat_b_grade))
+            rowIndex < S_LINE -> textView.setTextColor(getColor(R.color.seat_s_grade))
+            rowIndex < A_LINE -> textView.setTextColor(getColor(R.color.seat_a_grade))
+        }
+    }
+
     private fun showDialog(
         title: String,
         description: String,
@@ -178,5 +189,9 @@ class BookingSeatActivity :
         private const val EXTRA_DATETIME = "dateTime"
         private const val EXTRA_HEADCOUNT = "headcount"
         private const val ASCII_A = 'A'
+
+        private const val B_LINE = 2
+        private const val S_LINE = 4
+        private const val A_LINE = 5
     }
 }

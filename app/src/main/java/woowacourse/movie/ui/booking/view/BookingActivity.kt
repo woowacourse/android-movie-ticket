@@ -44,8 +44,7 @@ class BookingActivity :
         applyWindowInsets()
 
         bookingPresenter.fetchMovie()
-        bookingPresenter.updateMovieInfoViews()
-        bookingPresenter.updateDateSpinner()
+        bookingPresenter.updateViews()
         setButtonClickListeners()
     }
 
