@@ -2,7 +2,7 @@ package woowacourse.movie.booking.detail
 
 import woowacourse.movie.booking.complete.BookingCompleteUiModel
 import woowacourse.movie.domain.DateType
-import woowacourse.movie.domain.TicketInfo
+import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.TicketQuantity
 import woowacourse.movie.movies.MovieUiModel
 import java.time.LocalDate
@@ -12,7 +12,7 @@ class BookingDetailPresenter(
     private val view: BookingDetailContract.View,
 ) : BookingDetailContract.Presenter {
     private lateinit var movie: MovieUiModel
-    private lateinit var ticketInfo: TicketInfo
+    private lateinit var ticket: Ticket
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private var ticketQuantity: TicketQuantity = TicketQuantity(1)
@@ -73,8 +73,8 @@ class BookingDetailPresenter(
 
         if (selectedDate == null || selectedTime == null) return
 
-        val ticketInfo =
-            TicketInfo(
+        ticket =
+            Ticket(
                 movieTitle = movie.title,
                 date = selectedDate,
                 time = selectedTime,
@@ -83,11 +83,11 @@ class BookingDetailPresenter(
 
         val uiModel =
             BookingCompleteUiModel(
-                title = ticketInfo.movieTitle,
-                date = ticketInfo.date.toString(),
-                time = ticketInfo.time.toString(),
-                ticketQuantity = ticketInfo.quantity.value,
-                ticketTotalPrice = ticketInfo.quantity.totalPrice(),
+                title = ticket.movieTitle,
+                date = ticket.date.toString(),
+                time = ticket.time.toString(),
+                ticketQuantity = ticket.quantity.value,
+                ticketTotalPrice = ticket.quantity.totalPrice(),
             )
 
         view.showConfirmationDialog(uiModel)
