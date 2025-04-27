@@ -9,10 +9,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.compat.IntentCompat
-import woowacourse.movie.domain.model.booking.ScreeningDateSelectListener
-import woowacourse.movie.domain.model.booking.ScreeningDateSpinner
-import woowacourse.movie.domain.model.booking.ScreeningTimeSelectListener
-import woowacourse.movie.domain.model.booking.ScreeningTimeSpinner
 import woowacourse.movie.presenter.booking.BookingContract
 import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel

@@ -1,9 +1,9 @@
-package woowacourse.movie.domain.model.booking
+package woowacourse.movie.ui.view.booking
 
 import android.view.View
 import android.widget.AdapterView
 
-class ScreeningTimeSelectListener(
+class ScreeningDateSelectListener(
     val onSelect: (String) -> Unit,
 ) : AdapterView.OnItemSelectedListener {
     override fun onItemSelected(

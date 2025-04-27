@@ -1,19 +1,18 @@
-package woowacourse.movie.domain.model.booking
+package woowacourse.movie.ui.view.booking
 
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 
-class ScreeningDateSpinner(
+class ScreeningTimeSpinner(
     private val spinner: Spinner,
-    dates: List<String>,
 ) {
-    init {
+    fun updateAdapter(times: List<String>) {
         spinner.adapter =
             ArrayAdapter(
                 spinner.context,
                 android.R.layout.simple_spinner_item,
-                dates,
+                times,
             )
     }
 
