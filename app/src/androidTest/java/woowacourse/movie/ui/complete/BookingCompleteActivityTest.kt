@@ -3,8 +3,9 @@ package woowacourse.movie.ui.complete
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
@@ -40,28 +41,28 @@ class BookingCompleteActivityTest {
     @Test
     fun `영화_이름을_출력한다`() {
         Espresso
-            .onView(ViewMatchers.withId(R.id.tv_title))
-            .check(ViewAssertions.matches(ViewMatchers.withText("해리 포터와 마법사의 돌")))
+            .onView(withId(R.id.tv_title))
+            .check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
     fun `상영_시간을_출력한다`() {
         Espresso
-            .onView(ViewMatchers.withId(R.id.tv_release_date))
-            .check(ViewAssertions.matches(ViewMatchers.withText("2025.4.1 12:00")))
+            .onView(withId(R.id.tv_release_date))
+            .check(matches(withText("2025.4.1 12:00")))
     }
 
     @Test
     fun `예매_인원을_출력한다`() {
         Espresso
-            .onView(ViewMatchers.withId(R.id.tv_headcount))
-            .check(ViewAssertions.matches(ViewMatchers.withText("일반 2명 | A1, C4")))
+            .onView(withId(R.id.tv_headcount))
+            .check(matches(withText("일반 2명 | A1, C4")))
     }
 
     @Test
     fun `예매_가격을_출력한다`() {
         Espresso
-            .onView(ViewMatchers.withId(R.id.tv_price))
-            .check(ViewAssertions.matches(ViewMatchers.withText("25,000원 (현장 결제)")))
+            .onView(withId(R.id.tv_price))
+            .check(matches(withText("25,000원 (현장 결제)")))
     }
 }
