@@ -12,6 +12,7 @@ class Screening(
     val movieId: String = movie.movieId
     val title: String = movie.title
     val runningTime: Int = movie.runningTime
+    val capacityOfTheater: Int = DEFAULT_THEATER_CAPACITY
 
     fun showtimes(date: LocalDate): List<LocalTime> = showTimePolicy.showtimes(date)
 
@@ -27,6 +28,7 @@ class Screening(
 
     companion object {
         const val HARRY_POTTER_1_MOVIE_ID = "HarryPotter1"
+        private const val DEFAULT_THEATER_CAPACITY = 20
 
         fun getDefaultScreenings(): List<Screening> =
             List(10000) {

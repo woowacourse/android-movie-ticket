@@ -45,6 +45,10 @@ class ReservationPresenter(
     }
 
     fun increaseTicketCount() {
+        if (ticketCount.value >= screening.capacityOfTheater) {
+            view.printError(ERROR_OVER_CAPACITY_THEATER)
+            return
+        }
         ticketCount = ticketCount.increase().getOrDefault()
         view.setTicketCounterUi(ticketCount)
     }
@@ -71,5 +75,6 @@ class ReservationPresenter(
 
     companion object {
         private const val ERROR_NOT_SELECTED_DATETIME = "예매 정보가 선택되지 않았습니다"
+        private const val ERROR_OVER_CAPACITY_THEATER = "극장의 최대 관람 가능 인원을 넘어섰습니다"
     }
 }
