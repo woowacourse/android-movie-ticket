@@ -9,11 +9,13 @@ class ReservationSeatPresenter(
     val view: ReservationSeatContract.View,
 ) : ReservationSeatContract.Present {
     private val seats = Seats(mutableListOf())
+    private lateinit var ticket: Ticket
 
     override fun fetchData(ticket: Ticket?) {
         if (ticket == null) {
             view.handleInvalidTicket()
         } else {
+            this.ticket = ticket
             view.setSeatTag()
             view.setSeatInit()
             view.showMovieName(ticket.title)
@@ -22,12 +24,18 @@ class ReservationSeatPresenter(
         }
     }
 
-    override fun addSeat(position: Position) {
-        seats.addSeat(Seat(position))
+    override fun selectSeat(position: Position) {
+        if (seats.selectedLimit(ticket.personnel).not()) {
+            seats.addSeat(Seat(position))
+            view.selectSeatView(position)
+            updateMoney()
+        }
     }
 
-    override fun removeSeat(position: Position) {
+    override fun deselectSeat(position: Position) {
         seats.removeSeat(Seat(position))
+        view.deselectSeatView(position)
+        updateMoney()
     }
 
     override fun updateMoney() {

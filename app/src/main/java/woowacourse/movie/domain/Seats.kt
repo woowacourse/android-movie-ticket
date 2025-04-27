@@ -7,5 +7,7 @@ class Seats(private val seats: MutableList<Seat>) {
 
     fun removeSeat(seat: Seat) = seats.remove(seat)
 
+    fun selectedLimit(limit: Int): Boolean = seats.size >= limit
+
     fun reservationPrice() = seats.sumOf { it.seatPrice() }
 }

@@ -89,19 +89,28 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     private fun toggleSeatSelection(textView: TextView) {
-        val isSelected = textView.isSelected
-
-        if (isSelected) {
-            textView.setBackgroundColor(Color.WHITE)
-            presenter.removeSeat(textView.tag as Position)
-            presenter.updateMoney()
+        val position = textView.tag as Position
+        if (textView.isSelected) {
+            presenter.deselectSeat(position)
         } else {
-            textView.setBackgroundColor(Color.YELLOW)
-            presenter.addSeat(textView.tag as Position)
-            presenter.updateMoney()
+            presenter.selectSeat(position)
         }
+    }
 
-        textView.isSelected = !isSelected
+    override fun selectSeatView(position: Position) {
+        val textView = findTextViewByPosition(position)
+        textView.setBackgroundColor(Color.YELLOW)
+        textView.isSelected = true
+    }
+
+    override fun deselectSeatView(position: Position) {
+        val textView = findTextViewByPosition(position)
+        textView.setBackgroundColor(Color.WHITE)
+        textView.isSelected = false
+    }
+
+    private fun findTextViewByPosition(position: Position): TextView {
+        return getAllSeatTextViews().first { it.tag == position }
     }
 
     private fun getSeatName(position: Position): String {

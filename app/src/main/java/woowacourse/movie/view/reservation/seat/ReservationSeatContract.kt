@@ -9,9 +9,9 @@ interface ReservationSeatContract {
 
         fun updateMoney()
 
-        fun addSeat(position: Position)
+        fun selectSeat(position: Position)
 
-        fun removeSeat(position: Position)
+        fun deselectSeat(position: Position)
     }
 
     interface View {
@@ -26,5 +26,9 @@ interface ReservationSeatContract {
         fun showTicketMoney(moviePrice: Int)
 
         fun setSeatClickListener()
+
+        fun selectSeatView(position: Position)
+
+        fun deselectSeatView(position: Position)
     }
 }
