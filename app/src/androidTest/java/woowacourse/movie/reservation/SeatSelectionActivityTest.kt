@@ -3,6 +3,7 @@ package woowacourse.movie.reservation
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.hasTextColor
 import androidx.test.espresso.matcher.ViewMatchers.withChild
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -35,5 +36,11 @@ class SeatSelectionActivityTest {
     fun `각_행은_알파벳_열은_숫자로_표현한다`() {
         onView(withId(R.id.layout_seat_selection_seats))
             .check(matches(withChild(withChild(withText("A1")))))
+    }
+
+    @Test
+    fun `B등급은_보라색_글자로_표시한다`() {
+        onView(withText("A1"))
+            .check(matches(hasTextColor(R.color.seat_grade_b)))
     }
 }
