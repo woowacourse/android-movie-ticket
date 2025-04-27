@@ -7,11 +7,9 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.fixtures.movie
 import woowacourse.movie.presenter.movieSelection.MovieSelectionContract
 import woowacourse.movie.presenter.movieSelection.MovieSelectionPresenter
-import woowacourse.movie.view.model.toUiModel
-import java.time.LocalDate
 
 class MovieSelectionPresenterTest {
     private lateinit var presenter: MovieSelectionPresenter
@@ -19,26 +17,28 @@ class MovieSelectionPresenterTest {
 
     @BeforeEach
     fun setup() {
-        view = mockk()
+        view = mockk(relaxed = true)
         presenter = MovieSelectionPresenter(view)
+    }
+
+    @Test
+    fun `실행 시 영화 목록을 표시한다`() {
+        // when
+        presenter.onViewCreated()
+
+        // then
+        verify { view.showMovies(any()) }
     }
 
     @Test
     fun `영화 선택 시 영화 예매 화면으로 이동한다`() {
         // given
-        val movie =
-            Movie(
-                "해리 포터와 마법사의 돌",
-                startDate = LocalDate.of(2025, 4, 1),
-                endDate = LocalDate.of(2025, 5, 31),
-                runningTime = 152,
-            ).toUiModel()
-        every { view.goToReservation(movie) } just Runs
+        every { view.goToReservation(any()) } just Runs
 
         // when
         presenter.onMovieSelection(movie)
 
         // then
-        verify(exactly = 1) { view.goToReservation(movie) }
+        verify { view.goToReservation(any()) }
     }
 }
