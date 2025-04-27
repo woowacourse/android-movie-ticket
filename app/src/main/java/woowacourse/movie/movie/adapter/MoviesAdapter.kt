@@ -18,8 +18,8 @@ class MoviesAdapter(
     ): ViewHolder {
         val holder: ViewHolder
 
-        when (ViewType.entries[viewType]) {
-            ViewType.TYPE_MOVIE -> {
+        when (viewType) {
+            R.layout.movie_item -> {
                 val view =
                     LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
                 holder = MoviesViewHolder(view)
@@ -29,12 +29,13 @@ class MoviesAdapter(
                     onClick((items[position] as MovieListItem.MovieItem).movie)
                 }
             }
-            ViewType.TYPE_ADVERTISEMENT -> {
+            R.layout.advertisement_item -> {
                 val view =
                     LayoutInflater.from(parent.context)
                         .inflate(R.layout.advertisement_item, parent, false)
                 holder = AdViewHolder(view)
             }
+            else -> throw IllegalArgumentException(INVALID_VIEW_TYPE)
         }
 
         return holder
@@ -42,8 +43,8 @@ class MoviesAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
-            is MovieListItem.MovieItem -> ViewType.TYPE_MOVIE.ordinal
-            is MovieListItem.AdvertisementItem -> ViewType.TYPE_ADVERTISEMENT.ordinal
+            is MovieListItem.MovieItem -> R.layout.movie_item
+            is MovieListItem.AdvertisementItem -> R.layout.advertisement_item
         }
     }
 
@@ -60,4 +61,8 @@ class MoviesAdapter(
     }
 
     override fun getItemCount(): Int = items.count()
+
+    companion object {
+        private const val INVALID_VIEW_TYPE: String = "지원하지 않는 아이템 타입입니다"
+    }
 }
