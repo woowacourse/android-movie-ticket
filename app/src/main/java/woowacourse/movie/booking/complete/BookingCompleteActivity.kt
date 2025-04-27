@@ -33,10 +33,13 @@ class BookingCompleteActivity :
 
     override fun showTicketInfo(uiModel: BookingCompleteUiModel) {
         findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = uiModel.title
-        findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text = uiModel.formattedDateTme
+        findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
+            uiModel.formattedDateTme
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
-            uiModel.ticketQuantity.toString()
-        findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text = uiModel.formattedPrice
+            uiModel.formattedQuantity
+        findViewById<TextView>(R.id.booking_complete_seat_textview).text = uiModel.formattedSeats
+        findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
+            uiModel.formattedPrice
     }
 
     private fun setupView() {

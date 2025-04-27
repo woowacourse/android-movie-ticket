@@ -41,16 +41,26 @@ class BookingSeatPresenter(
     }
 
     override fun onConfirmDialogClicked(ticket: Ticket) {
+        ticket.seats = selectedSeats.toList()
+
         bookingCompleteUiModel =
             BookingCompleteUiModel(
                 title = ticket.movieTitle,
                 date = ticket.date.toString(),
                 time = ticket.time.toString(),
-                seats = selectedSeats.map { it.toString() },
+                seats = selectedSeats.map { "${rowToLetter(it.row)}${it.col}" },
                 ticketQuantity = ticket.quantity.value,
                 ticketTotalPrice = totalPrice,
             )
 
         view.navigateToBookingComplete(bookingCompleteUiModel = bookingCompleteUiModel)
+    }
+
+    private fun rowToLetter(row: Int): String {
+        if (row in 1..26) {
+            return ('A' + row - 1).toString()
+        } else {
+            throw IllegalArgumentException("존재하지 않는 자리입니다.")
+        }
     }
 }

@@ -14,5 +14,7 @@ data class BookingCompleteUiModel(
     val ticketTotalPrice: Int,
 ) : Parcelable {
     val formattedDateTme = "$date $time"
+    val formattedQuantity = "일반 ${ticketQuantity}명"
     val formattedPrice = "${StringFormatter.formatMoney(ticketTotalPrice)}원 (현장 결제)"
+    val formattedSeats = seats.joinToString()
 }

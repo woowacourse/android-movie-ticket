@@ -9,5 +9,5 @@ data class Ticket(
     val date: LocalDate,
     val time: LocalTime,
     val quantity: TicketQuantity,
-    val seats: List<Seat>,
+    var seats: List<Seat>,
 ) : Serializable
