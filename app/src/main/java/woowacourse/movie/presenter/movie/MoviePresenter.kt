@@ -12,9 +12,9 @@ class MoviePresenter(
 
     override fun loadMovies() {
         runCatching {
-            validateMovie(sampleMovies.uiMovieModels)
+            validateMovie(sampleMovies.movieUiModels)
         }.onSuccess {
-            view.showMovies(sampleMovies.uiMovieModels)
+            view.showMovies(sampleMovies.movieUiModels)
         }.onFailure { exception ->
             // 내부에서는 exception의 메시지를 활용해서 원인 분석
             Log.d("MoviePresenter", exception.message ?: "예외 발생 원인을 찾아야 합니다.")

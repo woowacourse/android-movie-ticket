@@ -5,7 +5,7 @@ import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
 
 class SampleMovies {
-    val uiMovieModels: List<MovieUiModel> by lazy {
+    val movieUiModels: List<MovieUiModel> by lazy {
         generateSampleMovieUiModels()
     }
 
