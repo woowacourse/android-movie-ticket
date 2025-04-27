@@ -15,7 +15,7 @@ interface MovieBookingSeat {
     }
 
     interface Presenter {
-        fun loadMovie(bookingStatus: BookingStatus)
+        fun loadBookingStatus(bookingStatus: BookingStatus)
         fun selectSeat()
         fun confirmBooking()
     }

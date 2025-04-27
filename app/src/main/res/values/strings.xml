@@ -14,4 +14,7 @@
     <string name="error_people_over_one">영화 예매 인원은 1명이상 선택해야 합니다.</string>
     <string name="error_over_end_date">이 영화 상영 기간이 끝났습니다.\n다른 영화를 선택해 주세요.</string>
     <string name="error_dialog_okay">확인</string>
+    <string name="booking_seat_okay">확인</string>
+    <string name="screen">SCREEN</string>
+    <string name="booking_seat_price">%,d원</string>
 </resources>

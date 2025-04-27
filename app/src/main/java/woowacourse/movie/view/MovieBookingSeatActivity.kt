@@ -13,10 +13,13 @@ import woowacourse.movie.databinding.MovieBookingSeatBinding
 import woowacourse.movie.domain.BookingStatus
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.helper.BuildVersion
+import woowacourse.movie.presenter.MovieBookingSeatPresenter
 
 class MovieBookingSeatActivity : AppCompatActivity(), MovieBookingSeat.View {
     private lateinit var binding: MovieBookingSeatBinding
+    private lateinit var presenter: MovieBookingSeatPresenter
     private lateinit var bookingStatus: BookingStatus
+    private var price: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,12 +31,21 @@ class MovieBookingSeatActivity : AppCompatActivity(), MovieBookingSeat.View {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         bookingStatus =
             BuildVersion().getParcelableClass(intent, KEY_BOOKING_SEAT, BookingStatus::class)
+        presenter = MovieBookingSeatPresenter(this@MovieBookingSeatActivity)
+        presenter.loadBookingStatus(bookingStatus)
     }
 
     override fun showBookingStatusInfo() {
-        TODO("Not yet implemented")
+        binding.screenText.text = getString(R.string.screen)
+        binding.movieTitle.text = bookingStatus.movie.title
+        binding.moviePrice.text = binding.moviePrice.context.getString(
+            R.string.booking_seat_price,
+            price
+        )
+        binding.confirmButton.text = getString(R.string.booking_seat_okay)
     }
 
     override fun updateSeatCount(count: Int) {
