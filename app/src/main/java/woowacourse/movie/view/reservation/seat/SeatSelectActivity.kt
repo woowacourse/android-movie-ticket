@@ -157,11 +157,11 @@ class SeatSelectActivity :
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putStringArrayList(
             Extras.SeatsData.SEATS_KEY,
             ArrayList(presenter.getSelectedSeatIds()),
         )
+        super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
