@@ -26,6 +26,7 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
+import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>

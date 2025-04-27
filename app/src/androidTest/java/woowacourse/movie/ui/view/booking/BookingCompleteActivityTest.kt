@@ -14,6 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
+import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
 
 class BookingCompleteActivityTest {
     private lateinit var scenario: ActivityScenario<BookingCompleteActivity>

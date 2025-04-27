@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.view.booking
+package woowacourse.movie.ui.view.booking.complete
 
 import android.content.Context
 import android.content.Intent

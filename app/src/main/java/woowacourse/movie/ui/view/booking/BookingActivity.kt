@@ -14,6 +14,7 @@ import woowacourse.movie.presenter.booking.BookingPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.setPosterImage
+import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
 import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DialogUtil
 
