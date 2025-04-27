@@ -19,6 +19,9 @@
             android:name=".view.ticket.TicketActivity"
             android:exported="false" />
         <activity
+            android:name=".view.selectSeat.SelectSeatActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.main.MainActivity"
             android:exported="true">
             <intent-filter>

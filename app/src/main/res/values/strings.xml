@@ -24,4 +24,7 @@
     <string name="ticket_dialog_message">정말 예매하시겠습니까?</string>
     <string name="ticket_dialog_positive_button">예매 완료</string>
     <string name="ticket_dialog_nagative_button">취소</string>
+
+    <!--select_seat.xml-->
+    <string name="btn_select_seat_submit">확인</string>
 </resources>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_select_seat"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/select_seat_background"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toTopOf="@+id/lv_select_seat_bottom_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="34dp"
+            android:layout_marginEnd="34dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/select_seat_screen_background"
+                android:gravity="center"
+                android:padding="9dp"
+                android:text="SCREEN"
+                android:textColor="@color/white"
+                android:textSize="22sp" />
+
+            <TableLayout
+                android:id="@+id/tl_seat_seat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:stretchColumns="*">
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/seat_A1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="A1"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_A2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="A2"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_A3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="A3"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_A4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="A4"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/seat_B1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="B1"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_B2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="B2"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_B3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="B3"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_B4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="B4"
+                        android:textColor="@color/b_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/seat_C1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="C1"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_C2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="C2"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_C3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="C3"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_C4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="C4"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/seat_D1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="D1"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_D2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="D2"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_D3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="D3"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_D4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="D4"
+                        android:textColor="@color/s_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </TableRow>
+
+                <TableRow>
+
+                    <TextView
+                        android:id="@+id/seat_E1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="E1"
+                        android:textColor="@color/a_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_E2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="E2"
+                        android:textColor="@color/a_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_E3"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="E3"
+                        android:textColor="@color/a_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seat_E4"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:paddingTop="26dp"
+                        android:paddingBottom="26dp"
+                        android:text="E4"
+                        android:textColor="@color/a_seat_color"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/lv_select_seat_bottom_info"
+        android:layout_width="match_parent"
+        android:layout_height="78dp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp">
+
+            <TextView
+                android:id="@+id/tv_select_seat_movie_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="해리 포터와 마법사의 돌" />
+
+            <TextView
+                android:id="@+id/tv_select_seat_selected_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textStyle="normal"
+                tools:text="25,000원" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_select_seat_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/disabled_btn_color"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingStart="27dp"
+            android:paddingEnd="27dp"
+            android:text="@string/btn_select_seat_submit"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
