@@ -19,5 +19,6 @@
     <string name="error">오류가 생겼습니다.</string>
     <string name="wrong_approach">잘못된 접근입니다.</string>
     <string name="confirm">확인</string>
+    <string name="screen">SCREEN</string>
 
 </resources>
