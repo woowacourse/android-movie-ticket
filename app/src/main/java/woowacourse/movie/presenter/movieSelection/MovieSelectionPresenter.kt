@@ -1,9 +1,9 @@
 package woowacourse.movie.presenter.movieSelection
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.view.model.MovieListItem.Ad
-import woowacourse.movie.view.model.MovieListItem.MovieUiModel
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.view.model.movie.MovieListItem.Ad
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.toUiModel
 import java.time.LocalDate
 

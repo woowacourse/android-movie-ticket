@@ -1,6 +1,6 @@
 package woowacourse.movie.presenter.movieReservation
 
-import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.movie.TicketUiModel
 import java.time.LocalDate
 import java.time.LocalTime
 

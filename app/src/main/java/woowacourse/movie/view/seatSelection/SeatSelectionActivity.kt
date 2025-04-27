@@ -17,8 +17,8 @@ import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.presenter.seatSelection.SeatSelectionContract
 import woowacourse.movie.presenter.seatSelection.SeatSelectionPresenter
-import woowacourse.movie.view.model.TheaterUiModel
-import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.movie.TicketUiModel
+import woowacourse.movie.view.model.theater.TheaterUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat

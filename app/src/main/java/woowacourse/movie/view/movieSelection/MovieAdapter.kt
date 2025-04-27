@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.view.model.MovieListItem
-import woowacourse.movie.view.model.MovieListItem.Ad
-import woowacourse.movie.view.model.MovieListItem.MovieUiModel
+import woowacourse.movie.view.model.movie.MovieListItem
+import woowacourse.movie.view.model.movie.MovieListItem.Ad
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 
 class MovieAdapter(
     private val onReservationClick: (MovieUiModel) -> Unit,

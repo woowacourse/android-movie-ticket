@@ -1,7 +1,7 @@
 package woowacourse.movie.presenter.seatSelection
 
-import woowacourse.movie.view.model.TheaterUiModel
-import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.movie.TicketUiModel
+import woowacourse.movie.view.model.theater.TheaterUiModel
 
 interface SeatSelectionContract {
     interface View {

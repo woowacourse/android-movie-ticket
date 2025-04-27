@@ -1,11 +1,11 @@
 package woowacourse.movie.presenter.movieReservation
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Scheduler
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.view.model.MovieListItem.MovieUiModel
-import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.domain.movie.Ticket
+import woowacourse.movie.domain.movie.TicketCount
+import woowacourse.movie.domain.schedule.Scheduler
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
+import woowacourse.movie.view.model.movie.TicketUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity

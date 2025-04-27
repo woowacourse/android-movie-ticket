@@ -1,4 +1,4 @@
-package woowacourse.movie.view.model
+package woowacourse.movie.view.model.theater
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

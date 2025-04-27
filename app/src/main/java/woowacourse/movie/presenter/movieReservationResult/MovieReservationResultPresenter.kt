@@ -1,10 +1,10 @@
 package woowacourse.movie.presenter.movieReservationResult
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Theater
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.view.model.TheaterUiModel
-import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.domain.movie.Ticket
+import woowacourse.movie.domain.theater.Theater
+import woowacourse.movie.view.model.movie.TicketUiModel
+import woowacourse.movie.view.model.theater.TheaterUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_SEATS

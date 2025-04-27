@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieSelection.MovieSelectionContract
 import woowacourse.movie.presenter.movieSelection.MovieSelectionPresenter
-import woowacourse.movie.view.model.MovieListItem
-import woowacourse.movie.view.model.MovieListItem.MovieUiModel
+import woowacourse.movie.view.model.movie.MovieListItem
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity
 
 class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View {

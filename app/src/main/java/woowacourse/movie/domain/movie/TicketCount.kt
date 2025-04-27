@@ -1,4 +1,6 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.movie
+
+import woowacourse.movie.domain.theater.Theater
 
 @JvmInline
 value class TicketCount private constructor(val value: Int) {

@@ -6,7 +6,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.view.model.MovieListItem.MovieUiModel
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(

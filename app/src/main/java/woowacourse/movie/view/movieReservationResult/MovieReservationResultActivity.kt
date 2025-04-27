@@ -11,8 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultContract
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
-import woowacourse.movie.view.model.TheaterUiModel
-import woowacourse.movie.view.model.TicketUiModel
+import woowacourse.movie.view.model.movie.TicketUiModel
+import woowacourse.movie.view.model.theater.TheaterUiModel
 
 class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResultContract.View {
     private val presenter = MovieReservationResultPresenter(this)

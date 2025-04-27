@@ -2,9 +2,9 @@ package woowacourse.movie.fixtures
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.movie.Ticket
+import woowacourse.movie.domain.movie.TicketCount
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import java.time.LocalDate

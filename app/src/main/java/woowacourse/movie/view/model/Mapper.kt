@@ -1,12 +1,15 @@
 package woowacourse.movie.view.model
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Seat
-import woowacourse.movie.domain.Theater
-import woowacourse.movie.domain.Ticket
-import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.view.model.MovieListItem.MovieUiModel
+import woowacourse.movie.domain.movie.Movie
+import woowacourse.movie.domain.movie.Ticket
+import woowacourse.movie.domain.movie.TicketCount
+import woowacourse.movie.domain.theater.Seat
+import woowacourse.movie.domain.theater.Theater
+import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
+import woowacourse.movie.view.model.movie.TicketUiModel
+import woowacourse.movie.view.model.theater.SeatUiModel
+import woowacourse.movie.view.model.theater.TheaterUiModel
 
 fun Movie.toUiModel(): MovieUiModel {
     return MovieUiModel(title, startDate, endDate, runningTime, R.drawable.harry_potter_poster)
