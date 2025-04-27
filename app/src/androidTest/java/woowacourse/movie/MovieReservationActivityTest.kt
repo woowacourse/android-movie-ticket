@@ -6,9 +6,6 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers.isDialog
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -67,13 +64,6 @@ class MovieReservationActivityTest {
         onView(withId(R.id.increment_button)).perform(click())
         onView(withId(R.id.decrement_button)).perform(click())
         onView(withId(R.id.ticket_count)).check(matches(withText("1")))
-    }
-
-    @Test
-    @DisplayName("선택 완료 버튼을 클릭하면 다이얼로그가 표시된다")
-    fun displayAlertDialogOnSelectButtonClickTest() {
-        onView(withId(R.id.select_button)).perform(click())
-        onView(isRoot()).inRoot(isDialog()).check(matches(isDisplayed()))
     }
 
     @Test

@@ -36,6 +36,7 @@
         <TableRow style="?android:attr/buttonBarStyle">
 
             <Button
+                android:id="@+id/a1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="A1"
@@ -114,6 +115,7 @@
         <TableRow style="?android:attr/buttonBarStyle">
 
             <Button
+                android:id="@+id/c1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="C1"
@@ -192,6 +194,7 @@
         <TableRow style="?android:attr/buttonBarStyle">
 
             <Button
+                android:id="@+id/e1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:padding="25dp"
                 android:text="E1"

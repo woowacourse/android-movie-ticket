@@ -65,16 +65,16 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
 
     companion object {
         const val KEY_TICKET = "ticket"
-        const val KEY_THEATER = "seats"
+        const val KEY_THEATER = "theater"
 
         fun createIntent(
             context: Context,
             ticket: TicketUiModel,
-            seats: TheaterUiModel,
+            theater: TheaterUiModel,
         ): Intent {
             val intent = Intent(context, MovieReservationResultActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)
-            intent.putExtra(KEY_THEATER, seats)
+            intent.putExtra(KEY_THEATER, theater)
             return intent
         }
     }

@@ -109,9 +109,9 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun goToReservationResult(
         ticket: TicketUiModel,
-        seats: TheaterUiModel,
+        theater: TheaterUiModel,
     ) {
-        val intent = MovieReservationResultActivity.createIntent(this, ticket, seats)
+        val intent = MovieReservationResultActivity.createIntent(this, ticket, theater)
         startActivity(intent)
     }
 
