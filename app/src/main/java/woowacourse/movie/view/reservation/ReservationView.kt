@@ -27,5 +27,5 @@ interface ReservationView {
 
     fun printError(message: String)
 
-    fun navigateToTicketUI(ticketData: TicketData)
+    fun navigateToSelectSeatUI(ticketData: TicketData)
 }

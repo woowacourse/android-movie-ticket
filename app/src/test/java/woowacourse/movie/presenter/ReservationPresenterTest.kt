@@ -104,19 +104,19 @@ class ReservationPresenterTest {
         reservationPresenter.onChangedTime(selectedTime)
 
         // When
-        reservationPresenter.navigateToTicketUI()
+        reservationPresenter.navigateToSelectSeatUI()
 
         // Then
-        verify { reservationView.navigateToTicketUI(any()) }
+        verify { reservationView.navigateToSelectSeatUI(any()) }
     }
 
     @Test
     fun `날짜나 시간이 선택되지 않은 경우 오류 메시지를 표시한다`() {
         // When
-        reservationPresenter.navigateToTicketUI()
+        reservationPresenter.navigateToSelectSeatUI()
 
         // Then
         verify { reservationView.printError("예매 정보가 선택되지 않았습니다") }
-        verify(exactly = 0) { reservationView.navigateToTicketUI(any()) }
+        verify(exactly = 0) { reservationView.navigateToSelectSeatUI(any()) }
     }
 }

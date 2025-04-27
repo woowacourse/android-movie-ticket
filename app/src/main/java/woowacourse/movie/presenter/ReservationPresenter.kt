@@ -54,7 +54,7 @@ class ReservationPresenter(
         view.setTicketCounterUi(ticketCount)
     }
 
-    fun navigateToTicketUI() {
+    fun navigateToSelectSeatUI() {
         if (selectedDate == null || selectedTime == null) {
             view.printError(ERROR_NOT_SELECTED_DATETIME)
             return
@@ -66,7 +66,7 @@ class ReservationPresenter(
                 showtime = LocalDateTime.of(selectedDate, selectedTime),
                 ticketCount = ticketCount.value,
             )
-        view.navigateToTicketUI(ticketData)
+        view.navigateToSelectSeatUI(ticketData)
     }
 
     companion object {

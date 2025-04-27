@@ -24,7 +24,7 @@ import woowacourse.movie.presenter.ReservationPresenter
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.model.setImageResource
-import woowacourse.movie.view.ticket.TicketActivity
+import woowacourse.movie.view.selectSeat.SelectSeatActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -185,7 +185,7 @@ class ReservationActivity :
                     .setTitle(getString(R.string.ticket_dialog_title))
                     .setMessage(getString(R.string.ticket_dialog_message))
                     .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                        present.navigateToTicketUI()
+                        present.navigateToSelectSeatUI()
                     }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
                         dialog.dismiss()
                     }.setCancelable(false)
@@ -197,8 +197,8 @@ class ReservationActivity :
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun navigateToTicketUI(ticketData: TicketData) {
-        startActivity(TicketActivity.newIntent(this, ticketData))
+    override fun navigateToSelectSeatUI(ticketData: TicketData) {
+        startActivity(SelectSeatActivity.newIntent(this, ticketData))
     }
 
     override fun onDestroy() {
