@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="SeatBRank">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:paddingVertical">40dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/booking_seat_b_rank</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="SeatARank">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">40dp</item>
+        <item name="android:textColor">@color/booking_seat_a_rank</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="SeatSRank">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">40dp</item>
+        <item name="android:textColor">@color/booking_seat_s_rank</item>
+        <item name="android:background">@color/white</item>
+    </style>
+</resources>
