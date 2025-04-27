@@ -50,10 +50,15 @@ class TicketActivity :
             getString(R.string.ticket_cancelable_minute_info, ticket.cancelableMinute)
 
         val countView = findViewById<TextView>(R.id.tv_ticket_count)
-        countView.text = getString(R.string.ticket_count, ticket.ticketCount.value)
+        countView.text =
+            getString(
+                R.string.ticket_count,
+                ticket.ticketCount.value,
+                present.getSortedSeatsCodes().joinToString(),
+            )
 
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
-        priceView.text = getString(R.string.ticket_price, 0) // TODO: 전체 티켓 가격 가져오기 필요
+        priceView.text = getString(R.string.ticket_price, present.getTotalPrice().value)
     }
 
     companion object {

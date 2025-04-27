@@ -46,8 +46,5 @@ class Seats(
 
     fun size() = selectedSeats.size
 
-    fun getSeatsString(): String {
-        val seatCodes = selectedSeats.map { it.seatCode }
-        return seatCodes.sorted().joinToString()
-    }
+    fun getSeatCodes(): List<String> = selectedSeats.map { it.seatCode }
 }

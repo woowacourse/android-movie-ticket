@@ -9,4 +9,7 @@ data class TicketData(
     val screeningData: ScreeningData,
     val showtime: LocalDateTime,
     val ticketCount: Int,
-) : Parcelable
+    val seatsData: SeatsData = SeatsData.getEmptySeatsData(),
+) : Parcelable {
+    fun seatsAddedTicketData(seatsData: SeatsData): TicketData = TicketData(this.screeningData, this.showtime, this.ticketCount, seatsData)
+}

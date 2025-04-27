@@ -6,6 +6,7 @@ import woowacourse.movie.model.ticket.seat.SeatToggleResult
 import woowacourse.movie.model.ticket.seat.Seats
 import woowacourse.movie.model.ticket.seat.grade.RowBasedSeatGradePolicy
 import woowacourse.movie.view.model.ScreeningData
+import woowacourse.movie.view.model.SeatsData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.selectSeat.SelectSeatView
 
@@ -47,7 +48,15 @@ class SelectSeatPresenter(
     }
 
     fun navigateToTicketUI() {
-        view.navigateToTicketUI(ticketDataEmptySeat) // TODO: 좌석정보 추가 필요
+        view.navigateToTicketUI(
+            ticketDataEmptySeat.seatsAddedTicketData(
+                SeatsData(
+                    seatsLength = selectedSeats.size(),
+                    totalSeatsPrice = selectedSeats.totalTicketPrice.value,
+                    seatsCodes = selectedSeats.getSeatCodes(),
+                ),
+            ),
+        )
     }
 
     companion object {
