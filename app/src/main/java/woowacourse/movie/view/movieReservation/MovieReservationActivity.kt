@@ -108,11 +108,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         timeSpinner.setSelection(position)
     }
 
-    private fun initializeReserveButton() {
-        val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener { presenter.onConfirmSelection() }
-    }
-
     override fun showMoviePoster(posterImage: Int) {
         val posterImageView = findViewById<ImageView>(R.id.poster)
         posterImageView.setImageResource(posterImage)
@@ -138,21 +133,40 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketCountTextView.text = count
     }
 
+    override fun setIncrementEnabled(canIncrement: Boolean) {
+        val incrementButton = findViewById<Button>(R.id.increment_button)
+        incrementButton.isEnabled = canIncrement
+    }
+
+    override fun setDecrementEnabled(canDecrement: Boolean) {
+        val decrementButton = findViewById<Button>(R.id.decrement_button)
+        decrementButton.isEnabled = canDecrement
+    }
+
     override fun goToSeatSelection(ticket: TicketUiModel) {
         val intent = SeatSelectionActivity.createIntent(this, ticket)
         startActivity(intent)
     }
 
     private fun initializeTicketCountButtons() {
+        presenter.onTicketCountChange()
+
         val incrementButton = findViewById<Button>(R.id.increment_button)
         incrementButton.setOnClickListener {
             presenter.onTicketCountIncrement()
+            presenter.onTicketCountChange()
         }
 
         val decrementButton = findViewById<Button>(R.id.decrement_button)
         decrementButton.setOnClickListener {
             presenter.onTicketCountDecrement()
+            presenter.onTicketCountChange()
         }
+    }
+
+    private fun initializeReserveButton() {
+        val selectButton = findViewById<Button>(R.id.select_button)
+        selectButton.setOnClickListener { presenter.onConfirmSelection() }
     }
 
     companion object {

@@ -6,6 +6,10 @@ value class TicketCount private constructor(val value: Int) {
 
     fun decrement(): TicketCount = of(value - 1)
 
+    fun canIncrement(): Boolean = value < Theater.ROW_SIZE * Theater.COL_SIZE
+
+    fun canDecrement(): Boolean = value > MIN_COUNT
+
     companion object {
         const val MIN_COUNT = 1
 

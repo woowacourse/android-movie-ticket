@@ -89,6 +89,11 @@ class MovieReservationPresenter(
         view.showTicketCount(ticket.count.toString())
     }
 
+    override fun onTicketCountChange() {
+        view.setIncrementEnabled(_ticket.count.canIncrement())
+        view.setDecrementEnabled(_ticket.count.canDecrement())
+    }
+
     override fun onConfirmSelection() {
         view.goToSeatSelection(_ticket.toUiModel())
     }
