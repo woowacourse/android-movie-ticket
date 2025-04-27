@@ -11,5 +11,9 @@ interface ReservationSeatContract {
         fun handleInvalidTicket()
 
         fun showReservationSeatScreen()
+
+        fun setSeatTag()
+
+        fun setSeatNumber()
     }
 }

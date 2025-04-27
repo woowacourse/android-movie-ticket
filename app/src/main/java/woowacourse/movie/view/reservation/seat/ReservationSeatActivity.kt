@@ -2,21 +2,28 @@ package woowacourse.movie.view.reservation.seat
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.domain.Position
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.reservation.detail.ReservationActivity
 
-class ReservationSeat : AppCompatActivity(), ReservationSeatContract.View {
+class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val presenter: ReservationSeatContract.Present by lazy {
         ReservationSeatPresenter(this)
     }
+    private lateinit var seat: TableLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +40,50 @@ class ReservationSeat : AppCompatActivity(), ReservationSeatContract.View {
             } else {
                 intent.getSerializableExtra(KEY_TICKET) as? Ticket
             }
+        seat = findViewById<TableLayout>(R.id.tv_seat)
         presenter.fetchData(ticket)
+    }
+
+    private fun getAllSeatTextViews(): Sequence<TextView> {
+        return seat
+            .children
+            .filterIsInstance<TableRow>()
+            .flatMap { it.children }
+            .filterIsInstance<TextView>()
+    }
+
+    override fun setSeatTag() {
+        getAllSeatTextViews().forEachIndexed { index, textView ->
+            val row = index / 4
+            val column = index % 4
+            textView.tag = Position(row, column)
+        }
+    }
+
+    override fun setSeatNumber() {
+        getAllSeatTextViews().forEach { textView ->
+            val position = textView.tag as Position
+            textView.text = getSeatName(position)
+            setSeatColor(textView, position)
+        }
+    }
+
+    private fun getSeatName(position: Position): String {
+        val columnChar = 'A' + position.row
+        return "$columnChar${position.column + 1}"
+    }
+
+    private fun setSeatColor(
+        textView: TextView,
+        position: Position,
+    ) {
+        val color =
+            when (position.row) {
+                0, 1 -> Color.MAGENTA
+                2, 3 -> Color.BLUE
+                else -> Color.GREEN
+            }
+        textView.setTextColor(color)
     }
 
     override fun handleInvalidTicket() {
@@ -53,7 +103,7 @@ class ReservationSeat : AppCompatActivity(), ReservationSeatContract.View {
             context: Context,
             ticket: Ticket,
         ): Intent =
-            Intent(context, ReservationSeat::class.java).putExtra(
+            Intent(context, ReservationSeatActivity::class.java).putExtra(
                 KEY_TICKET,
                 ticket,
             )

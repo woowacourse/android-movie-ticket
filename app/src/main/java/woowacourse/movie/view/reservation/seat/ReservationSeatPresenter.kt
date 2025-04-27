@@ -10,6 +10,8 @@ class ReservationSeatPresenter(
             view.handleInvalidTicket()
         } else {
             view.showReservationSeatScreen()
+            view.setSeatTag()
+            view.setSeatNumber()
         }
     }
 }
