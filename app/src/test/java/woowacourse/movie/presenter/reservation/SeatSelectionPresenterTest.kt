@@ -113,4 +113,40 @@ class SeatSelectionPresenterTest {
         // then
         verify { view.setSeatIsSelected(Seat.Companion(1, 1), false) }
     }
+
+    @Test
+    fun `예매 확인 다이얼로그를 띄울 수 있다`() {
+        // given
+        every { view.askFinalReservation() } just Runs
+
+        // when
+        presenter.tryReservation()
+
+        // then
+        verify { view.askFinalReservation() }
+    }
+
+    @Test
+    fun `예매를 완료할 수 있다`() {
+        // given
+        every {
+            view.navigateToTicketScreen(
+                "해리 포터와 마법사의 돌",
+                2,
+                LocalDateTime.of(2025, 4, 15, 11, 0),
+            )
+        } just Runs
+
+        // when
+        presenter.confirmReservation()
+
+        // then
+        verify {
+            view.navigateToTicketScreen(
+                "해리 포터와 마법사의 돌",
+                2,
+                LocalDateTime.of(2025, 4, 15, 11, 0),
+            )
+        }
+    }
 }
