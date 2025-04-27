@@ -20,8 +20,9 @@ import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.ui.extensions.serializableData
 import woowacourse.movie.ui.factory.CustomAlertDialog
 import woowacourse.movie.ui.factory.DialogInfo
-import woowacourse.movie.ui.reservationResult.ReservationResultActivity
-import woowacourse.movie.ui.reservationResult.ReservationResultActivity.Companion.KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION
+import woowacourse.movie.ui.seat.SeatActivity
+import woowacourse.movie.ui.seat.SeatActivity.Companion.KEY_SEAT_ACTIVITY_PURCHASE_COUNT
+import woowacourse.movie.ui.seat.SeatActivity.Companion.KEY_SEAT_ACTIVITY_RESERVATION
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -258,10 +259,14 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         ticketCountTextView.text = purchaseCount.toString()
     }
 
-    override fun reserve(reservation: Reservation) {
+    override fun reserve(
+        reservation: Reservation,
+        purchaseCount: Int,
+    ) {
         startActivity(
-            Intent(this, ReservationResultActivity::class.java).apply {
-                putExtra(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
+            Intent(this, SeatActivity::class.java).apply {
+                putExtra(KEY_SEAT_ACTIVITY_RESERVATION, reservation)
+                putExtra(KEY_SEAT_ACTIVITY_PURCHASE_COUNT, purchaseCount)
             },
         )
     }

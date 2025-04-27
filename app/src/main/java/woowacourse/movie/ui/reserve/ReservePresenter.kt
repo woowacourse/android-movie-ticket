@@ -72,7 +72,7 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
     override fun reserve() {
         val tickets = ticketMachine.tickets(List(purchaseCount.value) { TicketType.DEFAULT })
         reservation.initTickets(tickets)
-        view.reserve(reservation)
+        view.reserve(reservation, purchaseCount.value)
     }
 
     override fun dateOnClick(

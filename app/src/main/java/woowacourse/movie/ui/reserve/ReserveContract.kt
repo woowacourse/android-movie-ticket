@@ -48,7 +48,10 @@ interface ReserveContract {
 
         fun fetchPurchaseCount(purchaseCount: Int)
 
-        fun reserve(reservation: Reservation)
+        fun reserve(
+            reservation: Reservation,
+            purchaseCount: Int,
+        )
 
         fun showToast()
 
