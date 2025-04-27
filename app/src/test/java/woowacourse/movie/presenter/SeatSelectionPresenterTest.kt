@@ -84,7 +84,7 @@ class SeatSelectionPresenterTest {
         every { view.setPrice(10000) } just Runs
 
         // when
-        presenter.onSeatClicked(Seat(1, 1))
+        presenter.onSeatSelect(Seat(1, 1))
 
         // then
         verify { view.setSeatIsSelected(Seat(1, 1), true) }
@@ -108,7 +108,7 @@ class SeatSelectionPresenterTest {
         every { view.setPrice(0) } just Runs
 
         // when
-        presenter.onSeatClicked(Seat(1, 1))
+        presenter.onSeatSelect(Seat(1, 1))
 
         // then
         verify { view.setSeatIsSelected(Seat(1, 1), false) }

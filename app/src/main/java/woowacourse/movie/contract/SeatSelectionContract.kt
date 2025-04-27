@@ -10,7 +10,7 @@ interface SeatSelectionContract {
 
         fun presentPrice()
 
-        fun onSeatClicked(seat: Seat)
+        fun onSeatSelect(seat: Seat)
 
         fun getSelectedSeats(): Set<Seat>
     }

@@ -25,7 +25,7 @@ class SeatSelectionPresenter(
         view.setPrice(price)
     }
 
-    override fun onSeatClicked(seat: Seat) {
+    override fun onSeatSelect(seat: Seat) {
         if (seat in selectedSeats) {
             selectedSeats -= seat
         } else {

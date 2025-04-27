@@ -146,7 +146,7 @@ class SeatSelectionActivity :
                 )
             isSelected = seat in selectedSeats
             setOnClickListener { view: View ->
-                presenter?.onSeatClicked(seat)
+                presenter?.onSeatSelect(seat)
             }
         }
 
