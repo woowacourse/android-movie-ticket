@@ -48,4 +48,14 @@ class SeatTest {
         // then
         assertThat(seatGrade.price).isEqualTo(10_000)
     }
+
+    @ParameterizedTest
+    @ValueSource(ints = [3, 4])
+    fun `3, 4행은 S등급이다`(row: Int) {
+        // when
+        val seat = Seat(row, 1)
+
+        // then
+        assertThat(seat.grade).isEqualTo(SeatGrade.S)
+    }
 }
