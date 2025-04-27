@@ -5,7 +5,7 @@ data class Seat(
 ) {
     val price: Int
         get() =
-            when (label.first()) {
+            when (label.first().uppercaseChar()) {
                 'A', 'B' -> 10000
                 'C', 'D' -> 15000
                 'E' -> 12000
