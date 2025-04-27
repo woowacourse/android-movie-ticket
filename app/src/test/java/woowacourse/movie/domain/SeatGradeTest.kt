@@ -53,4 +53,13 @@ class SeatGradeTest {
         // then
         assertThat(seat.grade).isEqualTo(SeatGrade.A)
     }
+
+    @Test
+    fun `A등급 좌석의 가격은 12,000원이다`() {
+        // when
+        val seatGrade = SeatGrade.A
+
+        // then
+        assertThat(seatGrade.price).isEqualTo(12_000)
+    }
 }
