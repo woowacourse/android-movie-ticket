@@ -19,8 +19,8 @@ import woowacourse.movie.presenter.movieReservation.MovieReservationContract
 import woowacourse.movie.presenter.movieReservation.MovieReservationPresenter
 import woowacourse.movie.view.model.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
-import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_TICKET
+import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
@@ -165,20 +165,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         alertDialog.show()
     }
 
-    override fun reserveMovie() {
-        val alertDialog =
-            buildAlertDialog(
-                title = R.string.confirm_reservation_alert_title,
-                message = R.string.confirm_reservation_alert_message,
-                yes = R.string.confirm_reservation_alert_yes,
-            ) { presenter.onReservationConfirmation() }
-
-        val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener { alertDialog.show() }
-    }
-
     override fun confirmReservation(ticket: TicketUiModel) {
-        val intent = MovieReservationResultActivity.createIntent(this, ticket)
+        val intent = SeatSelectionActivity.createIntent(this, ticket)
         startActivity(intent)
     }
 

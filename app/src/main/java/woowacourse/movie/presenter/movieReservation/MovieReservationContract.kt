@@ -23,8 +23,6 @@ interface MovieReservationContract {
 
         fun showAlertDialog()
 
-        fun reserveMovie()
-
         fun confirmReservation(ticket: TicketUiModel)
     }
 
