@@ -58,3 +58,18 @@ when (seats.isSelected(newSeat)) {
 ```
 - [x] SeatsPresenter에 존재하는 비즈니스 로직 제거
 - [x] 이외의 Presenter에 비즈니스 로직이 존재하는지 확인
+
+### 4. Presenter의 UI 로직 제거
+```
+private fun seatToLabel(): String {
+    return seats
+        .item
+        .joinToString {
+            val rowLetter = ('A' + it.x - 1)
+            val columnNumber = it.y
+            "$rowLetter$columnNumber"
+        }
+}
+```
+- [x] SeatsPresenter에 존재하는 UI 로직 제거
+- [x] 이외의 Presenter에 UI 로직이 존재하는지 확인

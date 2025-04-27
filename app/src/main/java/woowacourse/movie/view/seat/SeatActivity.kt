@@ -17,6 +17,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.presenter.seat.SeatContract
 import woowacourse.movie.presenter.seat.SeatPresenter
@@ -99,7 +100,8 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         presenter.changeSeat(position, peopleCount)
     }
 
-    override fun showSeat(seat: List<Coordination>) {
+    override fun showSeat(seat: Set<Seat>) {
+        val seatToCoordination = seatToCoordination(seat)
         this.seat.children
             .filterIsInstance<TableRow>()
             .forEach { row ->
@@ -107,7 +109,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
                     .filterIsInstance<TextView>()
                     .forEach { textView ->
                         val seatCoord = textView.tag as? Coordination
-                        if (seatCoord != null && seat.contains(seatCoord)) {
+                        if (seatCoord != null && seatToCoordination.contains(seatCoord)) {
                             textView.setBackgroundColor(Color.YELLOW)
                         } else {
                             textView.setBackgroundColor(0)
@@ -131,7 +133,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     }
 
     override fun moveToBookingComplete(
-        seats: String,
+        seats: Set<Seat>,
         price: Int,
     ) {
         val intent =
@@ -142,9 +144,25 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
                 defaultBooking.bookingTime,
                 defaultBooking.count.value,
                 price,
-                seats,
+                seatToLabel(seats),
             )
         startActivity(intent)
+    }
+
+    private fun seatToCoordination(seats: Set<Seat>): List<Coordination> {
+        return seats
+            .map {
+                Coordination(Column(it.x), Row(it.y))
+            }
+    }
+
+    private fun seatToLabel(seats: Set<Seat>): String {
+        return seats
+            .joinToString {
+                val rowLetter = ('A' + it.x - 1)
+                val columnNumber = it.y
+                "$rowLetter$columnNumber"
+            }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
