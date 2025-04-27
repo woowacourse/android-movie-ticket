@@ -13,6 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.anything
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
@@ -97,5 +98,10 @@ class ReserveActivityTest {
         // then
         onView(withId(R.id.sp_date)).check(matches(withSpinnerText(FIRST_DATE)))
         onView(withId(R.id.sp_time)).check(matches(withSpinnerText(FIRST_TIME)))
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 }

@@ -11,6 +11,7 @@ import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isNotEnabled
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
@@ -82,5 +83,10 @@ class SeatActivityTest {
         // then
         onView(withId(R.id.btn_select))
             .check(matches(isEnabled()))
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 }
