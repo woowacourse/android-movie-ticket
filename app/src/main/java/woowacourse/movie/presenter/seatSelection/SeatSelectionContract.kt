@@ -13,7 +13,9 @@ interface SeatSelectionContract {
 
         fun showAlertDialog()
 
-        fun showToast()
+        fun showSelectionFinishedToast()
+
+        fun showSelectionNotFinishedToast(message: String)
 
         fun selectSeat(
             row: Int,

@@ -120,10 +120,18 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    override fun showToast() {
+    override fun showSelectionFinishedToast() {
         Toast.makeText(
             this,
             getString(R.string.cannot_select_more_seats_toast_message),
+            Toast.LENGTH_SHORT,
+        ).show()
+    }
+
+    override fun showSelectionNotFinishedToast(message: String) {
+        Toast.makeText(
+            this,
+            message,
             Toast.LENGTH_SHORT,
         ).show()
     }

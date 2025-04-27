@@ -42,7 +42,7 @@ class SeatSelectionPresenter(
                 view.selectSeat(row, col)
                 _seats.add(seat)
             } else {
-                view.showToast()
+                view.showSelectionFinishedToast()
             }
         }
 
@@ -50,7 +50,12 @@ class SeatSelectionPresenter(
     }
 
     override fun onConfirmation() {
-        view.showAlertDialog()
+        if (_seats.isSelectionFinished()) {
+            view.showAlertDialog()
+        } else {
+            val message = view.getString(R.string.need_to_select_more_seats_toast_message).format(_seats.capacity)
+            view.showSelectionNotFinishedToast(message)
+        }
     }
 
     override fun onAlertConfirmation() {
