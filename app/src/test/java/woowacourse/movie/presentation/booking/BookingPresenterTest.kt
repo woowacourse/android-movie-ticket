@@ -78,7 +78,7 @@ class BookingPresenterTest {
     }
 
     @Test
-    fun `예매 버튼을 누르면 티켓을 생성하고 화면을 이동한다`() {
+    fun `선택 완료 버튼을 누르면 티켓을 생성하고 화면을 이동한다`() {
         // Given
         val date = LocalDate.of(2025, 4, 29)
         val time = LocalTime.of(12, 0)
