@@ -6,7 +6,7 @@ import woowacourse.movie.domain.Movie
 import java.time.LocalDate
 
 object DummyData {
-    val movies: Map<Movie, Int> =
+    private val movieData: Map<Movie, Int> =
         mapOf(
             Movie(
                 title = "해리 포터와 마법사의 돌",
@@ -57,6 +57,16 @@ object DummyData {
                 runningTime = 131,
             ) to R.drawable.harry_potter_08,
         )
+
+    val movies: Map<Movie, Int> =
+        buildMap {
+            repeat(10) { round ->
+                movieData.forEach { (movie, drawableResId) ->
+                    val newMovie = movie.copy(title = "${movie.title} ${round + 1}")
+                    put(newMovie, drawableResId)
+                }
+            }
+        }
 
     @DrawableRes
     val adImage: Int = R.drawable.woowacourse_ad

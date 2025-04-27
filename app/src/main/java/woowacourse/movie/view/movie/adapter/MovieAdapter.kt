@@ -38,13 +38,8 @@ class MovieAdapter(
         position: Int,
     ) {
         when (val item = items[position]) {
-            is MovieListItem.MovieItem -> {
-                (holder as MovieViewHolder).bind(item.movie)
-            }
-
-            is MovieListItem.AdItem -> {
-                (holder as AdsViewHolder).bind(item.ad)
-            }
+            is MovieListItem.MovieItem -> (holder as MovieViewHolder).bind(item.movie)
+            is MovieListItem.AdItem -> (holder as AdsViewHolder).bind(item.ad)
         }
     }
 
