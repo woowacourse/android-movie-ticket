@@ -22,7 +22,7 @@
             android:name=".view.booking.BookingActivity"
             android:exported="false" />
         <activity
-            android:name=".view.booking.BookingCompleteActivity"
+            android:name=".view.complete.BookingCompleteActivity"
             android:exported="false" />
         <activity
             android:name=".view.movies.MovieListActivity"

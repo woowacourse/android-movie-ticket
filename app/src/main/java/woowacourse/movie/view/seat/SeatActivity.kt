@@ -20,7 +20,7 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.presenter.seat.SeatContract
 import woowacourse.movie.presenter.seat.SeatContract.PresenterFactory
 import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.booking.BookingCompleteActivity
+import woowacourse.movie.view.complete.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.seat.model.coord.Column
 import woowacourse.movie.view.seat.model.coord.Coordination

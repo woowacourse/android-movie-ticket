@@ -9,6 +9,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.fixture.fakeContext
+import woowacourse.movie.view.complete.BookingCompleteActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
