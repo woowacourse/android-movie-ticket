@@ -5,19 +5,17 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.booking.ScreeningTime
-import woowacourse.movie.view.movies.model.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class BookingPresenter(
     private val view: BookingContract.View,
     private val movies: MovieStore,
     private var count: PeopleCount,
 ) : BookingContract.Presenter {
-    override fun loadMovieDetail(index: Int) {
-        view.showMovieDetail(movies[index].toUiModel())
+    override fun loadMovieDetail(id: Int) {
+        view.showMovieDetail(movies[id])
     }
 
     override fun loadPeopleCount() {
@@ -25,29 +23,26 @@ class BookingPresenter(
     }
 
     override fun loadScreeningDate(
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
         now: LocalDateTime,
     ) {
-        val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
-
-        val screeningBookingDates: List<String> =
+        val screeningBookingDates: List<LocalDate> =
             ScreeningDate(
-                LocalDate.parse(startDate, formatter),
-                LocalDate.parse(endDate, formatter),
+                startDate,
+                endDate,
             )
                 .bookingDates(now.toLocalDate())
-                .map { it.toString() }
 
         view.showScreeningDate(screeningBookingDates)
     }
 
     override fun loadScreeningTime(
-        selectedDate: String,
+        selectedDate: LocalDate,
         now: LocalDateTime,
     ) {
-        val screeningTime = ScreeningTime(now, LocalDate.parse(selectedDate))
-        val availableTimes = screeningTime.getAvailableScreeningTimes().map { it.toString() }
+        val screeningTime = ScreeningTime(now, selectedDate)
+        val availableTimes = screeningTime.getAvailableScreeningTimes()
 
         if (availableTimes.isEmpty()) {
             view.showToast()

@@ -5,26 +5,40 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieStore
+import woowacourse.movie.domain.fixture.moviesFixture
 import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.presenter.movies.MovieListContract
 import woowacourse.movie.presenter.movies.MovieListPresenter
+import woowacourse.movie.view.movies.model.UiModel
 
 class MovieListPresenterTest {
     private lateinit var view: MovieListContract.View
     private lateinit var model: List<Movie>
-    private lateinit var presenter: MovieListPresenter
 
     @BeforeEach
     fun setUp() {
         view = mockk<MovieListContract.View>(relaxed = true)
         model = MovieStore().getAll()
-        presenter = MovieListPresenter(view, model)
     }
 
     @Test
-    fun `화면 전환시 선택된 영화의 인덱스를 전달한다`() {
-        presenter.onSelectMovie(1)
+    fun `영화 리스트를 로딩하면 영화와 광고가 포함된 리스트를 View에 전달한다`() {
+        val movies = moviesFixture
 
-        verify(exactly = 1) { view.moveToBookingComplete(1) }
+        val presenter = MovieListPresenter(view, movies)
+
+        presenter.loadUiData()
+
+        verify {
+            view.showMovieList(
+                match { uiModels ->
+                    uiModels.size == 4 &&
+                        uiModels[0] is UiModel.MovieUiModel &&
+                        uiModels[1] is UiModel.MovieUiModel &&
+                        uiModels[2] is UiModel.MovieUiModel &&
+                        uiModels[3] is UiModel.AdvertiseUiModel
+                },
+            )
+        }
     }
 }

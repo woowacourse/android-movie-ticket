@@ -17,12 +17,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.presenter.booking.BookingContract
 import woowacourse.movie.presenter.booking.BookingContract.PresenterFactory
+import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.ext.toDrawableResourceId
-import woowacourse.movie.view.movies.model.UiModel
 import woowacourse.movie.view.seat.SeatActivity
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_title) }
@@ -45,7 +48,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         }
     }
 
-    private fun initView(movieIdx: Int) {
+    private fun initView(movieId: Int) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -53,21 +56,21 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.loadMovieDetail(movieIdx)
+        presenter.loadMovieDetail(movieId)
         presenter.loadPeopleCount()
 
         initButtonListener()
     }
 
-    override fun showMovieDetail(movie: UiModel.MovieUiModel) {
+    override fun showMovieDetail(movie: Movie) {
         with(movie) {
+            val (startDate, endDate) = releaseDate
             initTitleView(title)
-            initPosterView(imgName)
-            initPosterView(imgName)
-            initReleaseDateView(releaseStartDate, releaseEndDate)
+            initPosterView(posterResource)
+            initReleaseDateView(startDate, endDate)
             initRunningTimeView(runningTime)
-            presenter.loadScreeningDate(releaseStartDate, releaseEndDate, LocalDateTime.now())
-            presenter.loadScreeningTime(dateSpinner.selectedItem.toString(), LocalDateTime.now())
+            presenter.loadScreeningDate(startDate, endDate, LocalDateTime.now())
+            presenter.loadScreeningTime(dateSpinner.selectedItem as LocalDate, LocalDateTime.now())
         }
     }
 
@@ -75,7 +78,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         peopleCountTextView.text = count.toString()
     }
 
-    override fun showScreeningDate(screeningBookingDates: List<String>) {
+    override fun showScreeningDate(screeningBookingDates: List<LocalDate>) {
         with(dateSpinner) {
             adapter =
                 ArrayAdapter(
@@ -91,7 +94,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         }
     }
 
-    override fun showScreeningTime(screeningBookingTimes: List<String>) {
+    override fun showScreeningTime(screeningBookingTimes: List<LocalTime>) {
         with(timeSpinner) {
             adapter =
                 ArrayAdapter(
@@ -123,7 +126,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         )
     }
 
-    override fun onSelectDate(selectedDate: String) {
+    override fun onSelectDate(selectedDate: LocalDate) {
         presenter.loadScreeningTime(selectedDate, LocalDateTime.now())
     }
 
@@ -146,11 +149,15 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     private fun initReleaseDateView(
-        startDate: String,
-        endDate: String,
+        startDate: LocalDate,
+        endDate: LocalDate,
     ) {
         val movieReleaseDateView = findViewById<TextView>(R.id.tv_screening_period)
-        movieReleaseDateView.text = getString(R.string.text_date_period).format(startDate, endDate)
+        movieReleaseDateView.text =
+            getString(R.string.text_date_period).format(
+                StringFormatter.dotDateFormat(startDate),
+                StringFormatter.dotDateFormat(endDate),
+            )
     }
 
     private fun initRunningTimeView(runningTime: Int) {
@@ -199,7 +206,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     companion object {
-        const val KEY_MOVIE = "MOVIE"
+        const val KEY_MOVIE = "MOVIE_ID"
 
         private const val NO_MOVIE = -1
         private const val MAX_SEAT = 20
@@ -209,10 +216,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
         fun newIntent(
             context: Context,
-            movieIdx: Int,
+            movieId: Int,
         ): Intent =
             Intent(context, BookingActivity::class.java).apply {
-                putExtra(KEY_MOVIE, movieIdx)
+                putExtra(KEY_MOVIE, movieId)
             }
     }
 }

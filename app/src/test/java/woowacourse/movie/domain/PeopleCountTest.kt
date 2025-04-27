@@ -11,7 +11,7 @@ class PeopleCountTest {
         val peopleCount = PeopleCount(1)
 
         // when
-        val expected = peopleCount.increase().value
+        val expected = peopleCount.increase(10).value
 
         // then
         assertEquals(expected, 2)

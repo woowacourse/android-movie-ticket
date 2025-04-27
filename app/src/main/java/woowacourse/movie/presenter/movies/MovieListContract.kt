@@ -6,14 +6,10 @@ import woowacourse.movie.view.movies.model.UiModel
 interface MovieListContract {
     interface View {
         fun showMovieList(movieList: List<UiModel>)
-
-        fun moveToBookingComplete(movieIdx: Int)
     }
 
     interface Presenter {
         fun loadUiData()
-
-        fun onSelectMovie(movieIdx: Int)
     }
 
     companion object PresenterFactory {

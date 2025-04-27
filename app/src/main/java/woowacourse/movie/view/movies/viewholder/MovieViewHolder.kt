@@ -13,6 +13,7 @@ class MovieViewHolder(
     itemView: View,
     onClickBooking: (Int) -> Unit,
 ) : RecyclerView.ViewHolder(itemView) {
+    private var mId: Int = NO_ID
     private val context = itemView.context
 
     private val moviePoster = itemView.findViewById<ImageView>(R.id.img_poster)
@@ -22,11 +23,12 @@ class MovieViewHolder(
     private val bookingBtn = itemView.findViewById<Button>(R.id.btn_booking)
 
     init {
-        bookingBtn.setOnClickListener { onClickBooking(bindingAdapterPosition) }
+        bookingBtn.setOnClickListener { onClickBooking(mId) }
     }
 
     fun bind(item: MovieUiModel) {
         with(item) {
+            mId = id
             moviePoster.setImageResource(imgName.toDrawableResourceId(context))
 
             movieTitle.text = title
@@ -43,5 +45,9 @@ class MovieViewHolder(
                     .getString(R.string.text_running_time_ㅡminute_unit)
                     .format(runningTime)
         }
+    }
+
+    companion object {
+        private const val NO_ID: Int = -1
     }
 }

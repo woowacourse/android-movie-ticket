@@ -17,14 +17,14 @@ class MovieStore {
             "해리 포터와 죽음의 성물 2부",
         )
 
-    private val movies: List<Movie> by lazy {
-        val screeningDate =
-            ScreeningDate(
-                LocalDate.of(2025, 5, 1),
-                LocalDate.of(2025, 5, 25),
-            )
+    private val screeningDate =
+        ScreeningDate(
+            LocalDate.of(2025, 5, 1),
+            LocalDate.of(2025, 5, 25),
+        )
 
-        List(10_000) { index ->
+    private val movies: Map<Int, Movie> =
+        (0 until 10_000).associateWith { index ->
             val titleIndex = index % movieTitles.size
             Movie(
                 id = index,
@@ -34,9 +34,12 @@ class MovieStore {
                 runningTime = 152,
             )
         }
+
+    operator fun get(id: Int): Movie = movies[id] ?: throw IllegalStateException(NOT_FOUND_MOVIE)
+
+    fun getAll(): List<Movie> = movies.values.toList()
+
+    companion object {
+        private const val NOT_FOUND_MOVIE = "영화를 찾을 수 없습니다."
     }
-
-    operator fun get(index: Int): Movie = movies[index]
-
-    fun getAll(): List<Movie> = movies.toList()
 }

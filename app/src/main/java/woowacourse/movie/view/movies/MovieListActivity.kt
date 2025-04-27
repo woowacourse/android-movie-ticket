@@ -40,13 +40,13 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         val adapter =
             MovieAdapter(
                 itemsList = movieList,
-                onClickBooking = { presenter.onSelectMovie(it) },
+                onClickBooking = { moveToBookingComplete(it) },
             )
         rv.layoutManager = LinearLayoutManager(this)
         rv.adapter = adapter
     }
 
-    override fun moveToBookingComplete(movieIdx: Int) {
-        startActivity(BookingActivity.newIntent(this, movieIdx))
+    private fun moveToBookingComplete(movieId: Int) {
+        startActivity(BookingActivity.newIntent(this, movieId))
     }
 }

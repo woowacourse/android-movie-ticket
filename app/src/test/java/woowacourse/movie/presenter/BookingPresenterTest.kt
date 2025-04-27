@@ -11,8 +11,6 @@ import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.presenter.booking.BookingContract
 import woowacourse.movie.presenter.booking.BookingPresenter
-import woowacourse.movie.view.StringFormatter
-import woowacourse.movie.view.movies.model.UiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -41,14 +39,13 @@ class BookingPresenterTest {
         // then
         verify {
             view.showMovieDetail(
-                UiModel.MovieUiModel(
-                    movie.id,
-                    movie.title,
-                    movie.posterResource,
-                    StringFormatter.dotDateFormat(movie.releaseDate.startDate),
-                    StringFormatter.dotDateFormat(movie.releaseDate.endDate),
-                    movie.runningTime,
-                ),
+                match {
+                    it.id == movie.id &&
+                        it.title == movie.title &&
+                        it.posterResource == movie.posterResource &&
+                        it.releaseDate == movie.releaseDate &&
+                        it.runningTime == movie.runningTime
+                },
             )
         }
     }
@@ -82,7 +79,7 @@ class BookingPresenterTest {
         every { view.showPeopleCount(count) } just Runs
 
         // when
-        presenter.increasePeopleCount()
+        presenter.increasePeopleCount(2)
 
         // then
         verify { view.showPeopleCount(2) }
@@ -130,44 +127,54 @@ class BookingPresenterTest {
     @Test
     fun `영화 상열 시작일과 종료일, 현재 날짜를 전달하면 상영 시작일과 종료일 사이의 날짜를 출력한다 `() {
         // given
-        val start = "2025.4.26"
-        val end = "2025.4.28"
+        val start = LocalDate.of(2025, 4, 26)
+        val end = LocalDate.of(2025, 4, 28)
         val now = LocalDateTime.of(2025, 4, 25, 12, 0, 0)
 
         // when
         presenter.loadScreeningDate(start, end, now)
 
         // then
-        val expected = listOf("2025-04-26", "2025-04-27", "2025-04-28")
+        val expected =
+            listOf(
+                LocalDate.of(2025, 4, 26),
+                LocalDate.of(2025, 4, 27),
+                LocalDate.of(2025, 4, 28),
+            )
         verify { view.showScreeningDate(expected) }
     }
 
     @Test
     fun `오늘 날짜가 상영 시작을 지났다면 오늘 날짜부터 상영 종료일까지 출력한다`() {
         // given
-        val start = "2025.4.24"
-        val end = "2025.4.28"
+        val start = LocalDate.of(2025, 4, 26)
+        val end = LocalDate.of(2025, 4, 28)
         val now = LocalDateTime.of(2025, 4, 25, 12, 0, 0)
 
         // when
         presenter.loadScreeningDate(start, end, now)
 
         // then
-        val excepted = listOf("2025-04-25", "2025-04-26", "2025-04-27", "2025-04-28")
-        verify { view.showScreeningDate(excepted) }
+        val expected =
+            listOf(
+                LocalDate.of(2025, 4, 26),
+                LocalDate.of(2025, 4, 27),
+                LocalDate.of(2025, 4, 28),
+            )
+        verify { view.showScreeningDate(expected) }
     }
 
     @Test
     fun `현재 시간 이후의 상영 시간을 출력한다`() {
         // given
-        val date = "2025-04-25"
+        val date = LocalDate.of(2025, 4, 25)
         val now = LocalDateTime.of(2025, 4, 25, 20, 0, 0)
 
         // when
         presenter.loadScreeningTime(date, now)
 
         // then
-        val expected = listOf("22:00")
+        val expected = listOf(LocalTime.of(22, 0))
         verify { view.showScreeningTime(expected) }
     }
 }
