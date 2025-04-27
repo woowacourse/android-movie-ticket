@@ -15,5 +15,9 @@ interface ReservationSeatContract {
         fun setSeatTag()
 
         fun setSeatNumber()
+
+        fun showMovieName(movieName: String)
+
+        fun showTicketMoney()
     }
 }

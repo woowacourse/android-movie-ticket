@@ -68,6 +68,15 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
     }
 
+    override fun showMovieName(movieName: String) {
+        val textView = findViewById<TextView>(R.id.reservation_movie_title)
+        textView.text = movieName
+    }
+
+    override fun showTicketMoney() {
+        TODO("Not yet implemented")
+    }
+
     private fun getSeatName(position: Position): String {
         val columnChar = 'A' + position.row
         return "$columnChar${position.column + 1}"

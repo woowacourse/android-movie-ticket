@@ -12,6 +12,7 @@ class ReservationSeatPresenter(
             view.showReservationSeatScreen()
             view.setSeatTag()
             view.setSeatNumber()
+            view.showMovieName(ticket.title)
         }
     }
 }
