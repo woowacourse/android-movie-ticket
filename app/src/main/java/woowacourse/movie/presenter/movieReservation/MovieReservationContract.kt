@@ -33,7 +33,7 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun loadReservationInfo()
+        fun onViewCreated()
 
         fun onInstanceStateRestored(ticket: TicketUiModel)
 

@@ -20,13 +20,13 @@ class SeatSelectionPresenter(
     private lateinit var _theater: Theater
     val theater get() = _theater.toUiModel()
 
-    override fun loadReservationInfo() {
+    override fun onViewCreated() {
         _ticket =
             view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)?.toDomain() ?: return
         _theater = Theater(ticket.count)
 
         view.showMovieTitle(ticket.movie.title)
-        view.showTotalPrice(formatterPrice())
+        view.showTotalPrice(formattedPrice())
     }
 
     override fun onInstanceStateRestored(seats: TheaterUiModel) {
@@ -35,7 +35,7 @@ class SeatSelectionPresenter(
             val index = seat.row * Theater.COL_SIZE + seat.col
             view.selectSeat(index)
         }
-        view.showTotalPrice(formatterPrice())
+        view.showTotalPrice(formattedPrice())
     }
 
     override fun onSeatSelection(index: Int) {
@@ -54,7 +54,12 @@ class SeatSelectionPresenter(
             }
         }
 
-        view.showTotalPrice(formatterPrice())
+        view.showTotalPrice(formattedPrice())
+    }
+
+    private fun formattedPrice(): String {
+        val priceTemplate = view.getString(R.string.ticket_price_format)
+        return priceTemplate.format(_theater.totalPrice())
     }
 
     override fun onConfirmation() {
@@ -68,10 +73,5 @@ class SeatSelectionPresenter(
 
     override fun onAlertConfirmation() {
         view.goToReservationResult(ticket, theater)
-    }
-
-    private fun formatterPrice(): String {
-        val priceTemplate = view.getString(R.string.ticket_price_format)
-        return priceTemplate.format(_theater.totalPrice())
     }
 }

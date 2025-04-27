@@ -18,25 +18,23 @@ class MovieReservationResultPresenter(
     private lateinit var ticket: Ticket
     private lateinit var theater: Theater
 
-    override fun loadReservationInfo() {
+    override fun onViewCreated() {
         ticket = view.intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET)
             ?.toDomain() ?: return
         theater = view.intent.extras?.getParcelableCompat<TheaterUiModel>(KEY_SEATS)
             ?.toDomain() ?: return
 
         val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_time_format))
-        view.showMovieDateTime(ticket.showtime.format(dateTimeFormatter))
-
         val ticketCountTemplate = view.getString(R.string.ticket_count_format)
-        view.showTicketCount(ticketCountTemplate.format(ticket.count.value))
-
         val selectedSeats =
             theater.seats.joinToString { seat ->
                 seat.row.toRowAlphabet() + seat.col.toColNumber()
             }
-        view.showSelectedSeats(selectedSeats)
-
         val totalPriceTemplate = view.getString(R.string.ticket_price_format)
+
+        view.showMovieDateTime(ticket.showtime.format(dateTimeFormatter))
+        view.showTicketCount(ticketCountTemplate.format(ticket.count.value))
+        view.showSelectedSeats(selectedSeats)
         view.showTotalPrice(totalPriceTemplate.format(theater.totalPrice()))
     }
 

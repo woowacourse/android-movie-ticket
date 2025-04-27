@@ -5,8 +5,6 @@ import woowacourse.movie.view.model.TicketUiModel
 
 interface SeatSelectionContract {
     interface View {
-        fun initializeSeats()
-
         fun showMovieTitle(title: String)
 
         fun showTotalPrice(price: String)
@@ -28,7 +26,7 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadReservationInfo()
+        fun onViewCreated()
 
         fun onInstanceStateRestored(seats: TheaterUiModel)
 

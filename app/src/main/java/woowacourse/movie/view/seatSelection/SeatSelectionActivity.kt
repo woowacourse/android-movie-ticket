@@ -30,9 +30,41 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.loadReservationInfo()
+        presenter.onViewCreated()
         initializeSeats()
         initializeSelectButton()
+    }
+
+    private fun initializeView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_movie_seat_selection)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun initializeSeats() {
+        val seatsLayout = findViewById<TableLayout>(R.id.seats)
+        seatButtons.addAll(
+            seatsLayout.children
+                .filterIsInstance<TableRow>()
+                .flatMap { row -> row.children }
+                .filterIsInstance<Button>(),
+        )
+        seatButtons.forEachIndexed { index, button ->
+            button.setOnClickListener {
+                presenter.onSeatSelection(index)
+            }
+        }
+    }
+
+    private fun initializeSelectButton() {
+        val selectButton = findViewById<Button>(R.id.select_button)
+        selectButton.setOnClickListener {
+            presenter.onConfirmation()
+        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -44,16 +76,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onRestoreInstanceState(savedInstanceState)
         val seats = savedInstanceState.getParcelableCompat<TheaterUiModel>(KEY_SEATS) ?: return
         presenter.onInstanceStateRestored(seats)
-    }
-
-    private fun initializeView() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_seat_selection)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     override fun selectSeat(index: Int) {
@@ -92,13 +114,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         startActivity(intent)
     }
 
-    private fun initializeSelectButton() {
-        val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener {
-            presenter.onConfirmation()
-        }
-    }
-
     override fun showSelectionFinishedToast() {
         Toast.makeText(
             this,
@@ -113,21 +128,6 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             message,
             Toast.LENGTH_SHORT,
         ).show()
-    }
-
-    override fun initializeSeats() {
-        val seatsLayout = findViewById<TableLayout>(R.id.seats)
-        seatButtons.addAll(
-            seatsLayout.children
-                .filterIsInstance<TableRow>()
-                .flatMap { row -> row.children }
-                .filterIsInstance<Button>(),
-        )
-        seatButtons.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                presenter.onSeatSelection(index)
-            }
-        }
     }
 
     companion object {

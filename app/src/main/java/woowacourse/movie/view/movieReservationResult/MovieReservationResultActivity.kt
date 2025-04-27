@@ -20,7 +20,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.loadReservationInfo()
+        presenter.onViewCreated()
     }
 
     private fun initializeView() {

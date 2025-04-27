@@ -14,6 +14,6 @@ interface MovieReservationResultContract {
     }
 
     interface Presenter {
-        fun loadReservationInfo()
+        fun onViewCreated()
     }
 }

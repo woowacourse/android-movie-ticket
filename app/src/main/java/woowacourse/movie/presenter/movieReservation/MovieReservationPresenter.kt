@@ -23,7 +23,7 @@ class MovieReservationPresenter(
     val ticket get() = _ticket.toUiModel()
     private val scheduler = Scheduler()
 
-    override fun loadReservationInfo() {
+    override fun onViewCreated() {
         initializeInfo()
 
         val dateTimeFormatter = DateTimeFormatter.ofPattern(view.getString(R.string.date_format))
@@ -36,15 +36,6 @@ class MovieReservationPresenter(
         view.showMovieTitle(ticket.movie.title)
         view.showScreeningDates(screeningDatesTemplate.format(startDate, endDate))
         view.showRunningTime(runningTimeTemplate.format(_ticket.movie.runningTime))
-        view.showTicketCount(ticket.count.toString())
-    }
-
-    override fun onInstanceStateRestored(ticket: TicketUiModel) {
-        _ticket = ticket.toDomain()
-        val selectedDate = ticket.showtime.toLocalDate()
-        val screeningTimes: List<LocalTime> =
-            scheduler.getShowtimes(selectedDate, LocalDateTime.now())
-        view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
         view.showTicketCount(ticket.count.toString())
     }
 
@@ -67,6 +58,15 @@ class MovieReservationPresenter(
                 ),
                 TicketCount.of(TicketCount.MIN_COUNT),
             )
+    }
+
+    override fun onInstanceStateRestored(ticket: TicketUiModel) {
+        _ticket = ticket.toDomain()
+        val selectedDate = ticket.showtime.toLocalDate()
+        val screeningTimes: List<LocalTime> =
+            scheduler.getShowtimes(selectedDate, LocalDateTime.now())
+        view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
+        view.showTicketCount(ticket.count.toString())
     }
 
     override fun onDateSelection(date: LocalDate) {

@@ -11,7 +11,7 @@ interface MovieSelectionContract {
     }
 
     interface Presenter {
-        fun loadMovies()
+        fun onViewCreated()
 
         fun onMovieSelection(movie: MovieUiModel)
     }

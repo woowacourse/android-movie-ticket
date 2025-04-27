@@ -33,9 +33,40 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.loadReservationInfo()
+        presenter.onViewCreated()
         initializeTicketCountButtons()
         initializeReserveButton()
+    }
+
+    private fun initializeView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_movie_reservation)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun initializeTicketCountButtons() {
+        presenter.onTicketCountChange()
+
+        val incrementButton = findViewById<Button>(R.id.increment_button)
+        incrementButton.setOnClickListener {
+            presenter.onTicketCountIncrement()
+            presenter.onTicketCountChange()
+        }
+
+        val decrementButton = findViewById<Button>(R.id.decrement_button)
+        decrementButton.setOnClickListener {
+            presenter.onTicketCountDecrement()
+            presenter.onTicketCountChange()
+        }
+    }
+
+    private fun initializeReserveButton() {
+        val selectButton = findViewById<Button>(R.id.select_button)
+        selectButton.setOnClickListener { presenter.onConfirmSelection() }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -47,16 +78,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onRestoreInstanceState(savedInstanceState)
         val ticket = savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
         presenter.onInstanceStateRestored(ticket)
-    }
-
-    private fun initializeView() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_reservation)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
     }
 
     override fun showSpinnerDates(dates: List<LocalDate>) {
@@ -146,27 +167,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun goToSeatSelection(ticket: TicketUiModel) {
         val intent = SeatSelectionActivity.createIntent(this, ticket)
         startActivity(intent)
-    }
-
-    private fun initializeTicketCountButtons() {
-        presenter.onTicketCountChange()
-
-        val incrementButton = findViewById<Button>(R.id.increment_button)
-        incrementButton.setOnClickListener {
-            presenter.onTicketCountIncrement()
-            presenter.onTicketCountChange()
-        }
-
-        val decrementButton = findViewById<Button>(R.id.decrement_button)
-        decrementButton.setOnClickListener {
-            presenter.onTicketCountDecrement()
-            presenter.onTicketCountChange()
-        }
-    }
-
-    private fun initializeReserveButton() {
-        val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener { presenter.onConfirmSelection() }
     }
 
     companion object {
