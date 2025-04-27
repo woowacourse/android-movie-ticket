@@ -37,7 +37,7 @@ fun Seats.toUiModel(): SeatsUiModel {
 }
 
 fun SeatsUiModel.toDomain(): Seats {
-    return Seats(seats.size).apply {
-        seats.forEach { seat -> add(seat) }
-    }
+    val seats = Seats(seats.size)
+    this.seats.forEach { seat -> seats.add(seat.toDomain()) }
+    return seats
 }
