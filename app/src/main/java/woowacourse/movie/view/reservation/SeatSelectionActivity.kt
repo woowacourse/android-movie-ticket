@@ -1,12 +1,14 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -24,6 +26,7 @@ import woowacourse.movie.domain.reservation.Seat
 import woowacourse.movie.domain.reservation.SeatGrade
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.presenter.reservation.SeatSelectionPresenter
+import woowacourse.movie.view.ticket.TicketActivity
 import woowacourse.movie.view.util.ErrorMessage
 import java.io.Serializable
 import java.time.LocalDateTime
@@ -31,10 +34,15 @@ import java.time.LocalDateTime
 class SeatSelectionActivity :
     AppCompatActivity(),
     SeatSelectionContract.View {
+    private val showConfirmDialog by lazy { ShowReservationConfirmDialog(this) }
+
     private var presenter: SeatSelectionContract.Presenter? = null
+
     private lateinit var seatsLayout: TableLayout
     private lateinit var titleView: TextView
     private lateinit var priceView: TextView
+    private lateinit var completeView: Button
+
     private var seatViewMap: Map<Seat, TextView> = emptyMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,10 +58,17 @@ class SeatSelectionActivity :
         val selectedSeats: Set<Seat>? = savedInstanceState.getSelectedSeats()
         initPresenter(selectedSeats)
         findViews()
-        presentModel()
+        presentModels()
+        setEventListeners()
     }
 
-    private fun presentModel() {
+    private fun setEventListeners() {
+        completeView.setOnClickListener {
+            presenter?.tryReservation()
+        }
+    }
+
+    private fun presentModels() {
         presenter?.let {
             it.presentSeats()
             it.presentTitle()
@@ -104,6 +119,7 @@ class SeatSelectionActivity :
         seatsLayout = findViewById(R.id.layout_seat_selection_seats)
         titleView = findViewById(R.id.tv_seat_selection_title)
         priceView = findViewById(R.id.tv_seat_selection_price)
+        completeView = findViewById(R.id.btn_seat_selection_complete)
     }
 
     override fun setSeats(
@@ -170,6 +186,37 @@ class SeatSelectionActivity :
     ) {
         val seatView: TextView = seatViewMap[seat] ?: error(ErrorMessage("seat").noSuch())
         seatView.isSelected = isSelected
+    }
+
+    override fun askFinalReservation() {
+        showConfirmDialog(
+            title = getString(R.string.ticket_dialog_title),
+            message = getString(R.string.ticket_dialog_message),
+            positiveButtonText = getString(R.string.ticket_dialog_positive_button),
+            positiveButtonAction = { _, _ ->
+                presenter?.confirmReservation() ?: error(
+                    ErrorMessage("presenter").notProvided(),
+                )
+            },
+            negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
+            negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
+        )
+    }
+
+    override fun navigateToTicketScreen(
+        title: String,
+        count: Int,
+        showtime: LocalDateTime,
+    ) {
+        val intent =
+            TicketActivity.newIntent(
+                this,
+                title,
+                count,
+                showtime,
+            )
+        startActivity(intent)
+        finish()
     }
 
     companion object {

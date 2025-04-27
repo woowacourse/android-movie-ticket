@@ -38,6 +38,16 @@ class SeatSelectionPresenter(
         view.setPrice(price)
     }
 
+    override fun tryReservation() {
+        view.askFinalReservation()
+    }
+
+    override fun confirmReservation() {
+        ticket.run {
+            view.navigateToTicketScreen(title, count, showtime)
+        }
+    }
+
     private fun canSelectSeat(): Boolean = selectedSeats.size < ticket.count
 
     override fun getSelectedSeats(): Set<Seat> = selectedSeats.toSet()

@@ -1,7 +1,6 @@
 package woowacourse.movie.view.reservation
 
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -30,7 +29,6 @@ class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
     private var presenter: ReservationContract.Presenter? = null
-    private val showConfirmDialog by lazy { ShowReservationConfirmDialog(this) }
 
     private var ticketCount = DEFAULT_TICKET_COUNT
     private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
@@ -174,7 +172,8 @@ class ReservationActivity :
 
     private fun initCompleteButtonClickEvent() {
         completeButton.setOnClickListener {
-            presenter?.tryReservation() ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
+            presenter?.confirm()
+                ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
 
@@ -244,24 +243,7 @@ class ReservationActivity :
         ticketCountView.text = ticketCount.toString()
     }
 
-    override fun showConfirmDialog() {
-        showConfirmDialog(
-            title = getString(R.string.ticket_dialog_title),
-            message = getString(R.string.ticket_dialog_message),
-            positiveButtonText = getString(R.string.ticket_dialog_positive_button),
-            positiveButtonAction = { _, _ ->
-                presenter?.confirmReservation() ?: error(
-                    ErrorMessage(
-                        CAUSE_SCREENING,
-                    ).notProvided(),
-                )
-            },
-            negativeButtonText = getString(R.string.ticket_dialog_nagative_button),
-            negativeButtonAction = { dialog: DialogInterface, _ -> dialog.dismiss() },
-        )
-    }
-
-    override fun navigateToTicketScreen(title: String) {
+    override fun navigateSeatSelectionScreen(title: String) {
         val intent =
             SeatSelectionActivity.newIntent(
                 this,
@@ -273,7 +255,6 @@ class ReservationActivity :
                 ),
             )
         startActivity(intent)
-        finish()
     }
 
     companion object {

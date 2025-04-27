@@ -21,9 +21,7 @@ interface ReservationContract {
 
         fun minusTicketCount(currentCount: Int)
 
-        fun tryReservation()
-
-        fun confirmReservation()
+        fun confirm()
     }
 
     interface View {
@@ -48,8 +46,6 @@ interface ReservationContract {
 
         fun setTicketCount(count: Int)
 
-        fun showConfirmDialog()
-
-        fun navigateToTicketScreen(title: String)
+        fun navigateSeatSelectionScreen(title: String)
     }
 }

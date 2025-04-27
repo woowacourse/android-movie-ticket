@@ -2,8 +2,11 @@ package woowacourse.movie.reservation
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.hasTextColor
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withChild
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -54,5 +57,17 @@ class SeatSelectionActivityTest {
     fun `A등급은_파란색_글자로_표시한다`() {
         onView(withText("E1"))
             .check(matches(hasTextColor(R.color.seat_grade_a)))
+    }
+
+    @Test
+    fun `예매_완료를_확인하는_다이얼로그가_표시되고_배경을_터치해도_사라지지_않아야_한다`() {
+        onView(withId(R.id.btn_seat_selection_complete))
+            .perform(click())
+
+        onView(isRoot())
+            .perform(click())
+
+        onView(withText(R.string.ticket_dialog_title))
+            .check(matches(isDisplayed()))
     }
 }

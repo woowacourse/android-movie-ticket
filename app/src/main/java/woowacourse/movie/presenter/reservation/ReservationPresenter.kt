@@ -49,11 +49,7 @@ class ReservationPresenter(
         view.setTicketCount(currentCount.minus(1).coerceAtLeast(1))
     }
 
-    override fun tryReservation() {
-        view.showConfirmDialog()
-    }
-
-    override fun confirmReservation() {
-        view.navigateToTicketScreen(screening.title)
+    override fun confirm() {
+        view.navigateSeatSelectionScreen(screening.title)
     }
 }

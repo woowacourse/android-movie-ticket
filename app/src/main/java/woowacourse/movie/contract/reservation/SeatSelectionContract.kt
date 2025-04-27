@@ -1,6 +1,7 @@
 package woowacourse.movie.contract.reservation
 
 import woowacourse.movie.domain.reservation.Seat
+import java.time.LocalDateTime
 
 interface SeatSelectionContract {
     interface Presenter {
@@ -11,6 +12,10 @@ interface SeatSelectionContract {
         fun presentPrice()
 
         fun onSeatSelect(seat: Seat)
+
+        fun tryReservation()
+
+        fun confirmReservation()
 
         fun getSelectedSeats(): Set<Seat>
     }
@@ -28,6 +33,14 @@ interface SeatSelectionContract {
         fun setSeatIsSelected(
             seat: Seat,
             selected: Boolean,
+        )
+
+        fun askFinalReservation()
+
+        fun navigateToTicketScreen(
+            title: String,
+            count: Int,
+            showtime: LocalDateTime,
         )
     }
 }

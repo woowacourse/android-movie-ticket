@@ -194,12 +194,12 @@ class ReservationPresenterTest {
     @Test
     fun `예매를 완료할 수 있다`() {
         // given
-        every { view.navigateToTicketScreen("해리 포터와 마법사의 돌") } just Runs
+        every { view.navigateSeatSelectionScreen("해리 포터와 마법사의 돌") } just Runs
 
         // when
         presenter.confirmReservation()
 
         // then
-        verify { view.navigateToTicketScreen("해리 포터와 마법사의 돌") }
+        verify { view.navigateSeatSelectionScreen("해리 포터와 마법사의 돌") }
     }
 }
