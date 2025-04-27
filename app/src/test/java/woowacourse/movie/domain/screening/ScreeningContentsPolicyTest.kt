@@ -1,19 +1,12 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.screening
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.screening.Advertisement
-import woowacourse.movie.domain.screening.Advertisements
-import woowacourse.movie.domain.screening.DefaultScreeningContentsPolicy
-import woowacourse.movie.domain.screening.Movie
-import woowacourse.movie.domain.screening.Screening
-import woowacourse.movie.domain.screening.ScreeningContent
-import woowacourse.movie.domain.screening.ScreeningContentsPolicy
 import java.time.DateTimeException
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ContentItemPolicyTest {
+class ScreeningContentsPolicyTest {
     private val harryPotterPhilosopersStone = Movie(0, "해리 포터와 마법사의 돌", 152)
     private val harryPotterChamberOfSecrets = Movie(1, "해리 포터와 비밀의 방", 162)
     private val harryPotterPrisonerOfAzkaban = Movie(2, "해리 포터와 아즈카반의 죄수", 141)
@@ -60,7 +53,7 @@ class ContentItemPolicyTest {
         val screeningContents: List<ScreeningContent> = screeningContentsPolicy.screeningContents()
 
         // then
-        assertThat(screeningContents).isEqualTo(
+        Assertions.assertThat(screeningContents).isEqualTo(
             listOf(
                 Screening(
                     harryPotterPhilosopersStone,
@@ -111,6 +104,6 @@ class ContentItemPolicyTest {
         val screeningContents: List<ScreeningContent> = screeningContentsPolicy.screeningContents()
 
         // then
-        assertThat(screeningContents.size).isEqualTo(10_000)
+        Assertions.assertThat(screeningContents.size).isEqualTo(10_000)
     }
 }
