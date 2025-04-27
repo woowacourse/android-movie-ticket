@@ -100,7 +100,7 @@ class BookingCompleteActivity :
         )
     }
 
-    private fun Seat.toText(): String = Char(row + ASCII_A.code) + col.toString()
+    private fun Seat.toText(): String = Char(row + ASCII_A.code) + (col + 1).toString()
 
     companion object {
         fun newIntent(

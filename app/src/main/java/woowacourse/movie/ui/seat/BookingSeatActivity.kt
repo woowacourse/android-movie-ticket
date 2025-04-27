@@ -171,7 +171,7 @@ class BookingSeatActivity :
             .show()
     }
 
-    private fun Pair<Int, Int>.toSeatTag(): String = "${ASCII_A + first}$second"
+    private fun Pair<Int, Int>.toSeatTag(): String = "${ASCII_A + first}${second + 1}"
 
     companion object {
         fun newIntent(

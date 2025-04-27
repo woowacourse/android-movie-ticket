@@ -37,7 +37,7 @@ class BookingSeatPresenter(
 
     override fun updateSeat(seatTag: String) {
         val row = seatTag[0] - 'A'
-        val col = seatTag[1].digitToInt()
+        val col = seatTag[1].digitToInt() - 1
         val seat = Seat(row, col, ticketTypeByRow(row))
 
         if (seats.contains(seat)) {
