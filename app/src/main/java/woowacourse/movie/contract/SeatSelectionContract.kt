@@ -8,12 +8,26 @@ interface SeatSelectionContract {
 
         fun presentTitle()
 
-        fun canSelectSeat(selectedSeatCount: Int): Boolean
+        fun presentPrice()
+
+        fun onSeatClicked(seat: Seat)
+
+        fun getSelectedSeats(): Set<Seat>
     }
 
     interface View {
-        fun setSeats(seats: Set<Seat>)
+        fun setSeats(
+            seats: Set<Seat>,
+            selectedSeats: Set<Seat>,
+        )
 
         fun setTitle(title: String)
+
+        fun setPrice(price: Int)
+
+        fun setSeatIsSelected(
+            seat: Seat,
+            selected: Boolean,
+        )
     }
 }

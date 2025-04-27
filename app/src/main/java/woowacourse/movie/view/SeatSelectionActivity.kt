@@ -32,11 +32,10 @@ class SeatSelectionActivity :
     AppCompatActivity(),
     SeatSelectionContract.View {
     private var presenter: SeatSelectionContract.Presenter? = null
-    private var selectedSeats: Set<Seat> = setOf()
-    private val price get() = selectedSeats.sumOf(Seat::price)
     private lateinit var seatsLayout: TableLayout
     private lateinit var titleView: TextView
     private lateinit var priceView: TextView
+    private var seatViewMap: Map<Seat, TextView> = emptyMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,8 +47,8 @@ class SeatSelectionActivity :
             insets
         }
 
-        savedInstanceState.getSelectedSeats()?.let { selectedSeats = it }
-        initPresenter()
+        val selectedSeats: Set<Seat>? = savedInstanceState.getSelectedSeats()
+        initPresenter(selectedSeats)
         findViews()
         presentModel()
     }
@@ -58,19 +57,21 @@ class SeatSelectionActivity :
         presenter?.let {
             it.presentSeats()
             it.presentTitle()
+            it.presentPrice()
         }
-        priceView.text = getString(R.string.seat_selection_price, price)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_SEATS, selectedSeats as Serializable)
+        presenter?.getSelectedSeats()?.let { selectedSeats: Set<Seat> ->
+            outState.putSerializable(KEY_SEATS, selectedSeats as Serializable)
+        }
     }
 
-    private fun initPresenter() {
+    private fun initPresenter(selectedSeats: Set<Seat>?) {
         val ticket =
             intent.getTicketExtra(EXTRA_TICKET) ?: error(ErrorMessage(CAUSE_TICKET).notProvided())
-        presenter = SeatSelectionPresenter(this, ticket)
+        presenter = SeatSelectionPresenter(this, ticket, selectedSeats)
     }
 
     @Suppress("DEPRECATION")
@@ -105,19 +106,26 @@ class SeatSelectionActivity :
         priceView = findViewById(R.id.tv_seat_selection_price)
     }
 
-    override fun setSeats(seats: Set<Seat>) {
+    override fun setSeats(
+        seats: Set<Seat>,
+        selectedSeats: Set<Seat>,
+    ) {
         val seats: Map<Row, List<Seat>> = seats.groupBy { seat: Seat -> seat.row }
         seats.forEach { row: Row, seats: List<Seat> ->
             val seatsRow = TableRow(this)
             seats.forEach { seat: Seat ->
-                val seatView: TextView = seatView(seat)
+                val seatView: TextView = seatView(seat, selectedSeats)
+                seatViewMap += seat to seatView
                 seatsRow.addView(seatView)
             }
             seatsLayout.addView(seatsRow)
         }
     }
 
-    private fun seatView(seat: Seat): TextView =
+    private fun seatView(
+        seat: Seat,
+        selectedSeats: Set<Seat>,
+    ): TextView =
         TextView(this).apply {
             text = seat.prettyString
             @ColorRes val colorResId: Int =
@@ -138,16 +146,8 @@ class SeatSelectionActivity :
                 )
             isSelected = seat in selectedSeats
             setOnClickListener { view: View ->
-                if (view.isSelected) {
-                    selectedSeats -= seat
-                } else {
-                    val canSelectSeat: Boolean =
-                        presenter?.canSelectSeat(selectedSeats.size) == true
-                    if (!canSelectSeat) return@setOnClickListener
-                    selectedSeats += seat
-                }
-                isSelected = !isSelected
-                priceView.text = getString(R.string.seat_selection_price, price)
+                presenter?.onSeatClicked(seat)
+                presenter?.getSelectedSeats()
             }
         }
 
@@ -159,6 +159,18 @@ class SeatSelectionActivity :
 
     override fun setTitle(title: String) {
         titleView.text = title
+    }
+
+    override fun setPrice(price: Int) {
+        priceView.text = getString(R.string.seat_selection_price, price)
+    }
+
+    override fun setSeatIsSelected(
+        seat: Seat,
+        isSelected: Boolean,
+    ) {
+        val seatView: TextView = seatViewMap[seat] ?: error(ErrorMessage("seat").noSuch())
+        seatView.isSelected = isSelected
     }
 
     companion object {
