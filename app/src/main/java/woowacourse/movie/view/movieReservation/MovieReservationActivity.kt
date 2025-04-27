@@ -21,7 +21,6 @@ import woowacourse.movie.view.model.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.TicketUiModel
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_TICKET
 import woowacourse.movie.view.seatSelection.SeatSelectionActivity
-import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalTime
@@ -85,7 +84,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
 
     private fun initializeReserveButton() {
         val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener { presenter.onReservation() }
+        selectButton.setOnClickListener { presenter.onConfirmSelection() }
     }
 
     override fun showReservationInfo(ticket: TicketUiModel) {
@@ -155,28 +154,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         ticketCountTextView.text = count.toString()
     }
 
-    override fun showAlertDialog() {
-        val alertDialog =
-            buildAlertDialog(
-                title = R.string.confirm_reservation_alert_title,
-                message = R.string.confirm_reservation_alert_message,
-                yes = R.string.confirm_reservation_alert_yes,
-            ) { presenter.onReservationConfirmation() }
-        alertDialog.show()
-    }
-
-    override fun confirmReservation(ticket: TicketUiModel) {
+    override fun goToSeatSelection(ticket: TicketUiModel) {
         val intent = SeatSelectionActivity.createIntent(this, ticket)
         startActivity(intent)
     }
-
-//    private fun showToast() {
-//        Toast.makeText(
-//            this,
-//            getString(R.string.no_screening_date_available_toast_message),
-//            Toast.LENGTH_SHORT,
-//        ).show()
-//    }
 
     companion object {
         const val KEY_MOVIE = "movie"

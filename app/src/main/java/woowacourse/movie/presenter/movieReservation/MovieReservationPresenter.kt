@@ -75,11 +75,7 @@ class MovieReservationPresenter(
         view.showTicketCount(ticket.count)
     }
 
-    override fun onReservation() {
-        view.showAlertDialog()
-    }
-
-    override fun onReservationConfirmation() {
-        view.confirmReservation(ticket)
+    override fun onConfirmSelection() {
+        view.goToSeatSelection(_ticket.toUiModel())
     }
 }

@@ -21,9 +21,7 @@ interface MovieReservationContract {
 
         fun showTicketCount(count: Int)
 
-        fun showAlertDialog()
-
-        fun confirmReservation(ticket: TicketUiModel)
+        fun goToSeatSelection(ticket: TicketUiModel)
     }
 
     interface Presenter {
@@ -39,8 +37,6 @@ interface MovieReservationContract {
 
         fun decrementTicketCount()
 
-        fun onReservation()
-
-        fun onReservationConfirmation()
+        fun onConfirmSelection()
     }
 }
