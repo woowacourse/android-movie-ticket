@@ -10,6 +10,7 @@ import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_TIME_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
+import woowacourse.movie.util.mapper.BookingResultModelMapper
 import woowacourse.movie.util.mapper.MovieModelMapper
 import java.time.LocalDate
 import java.time.LocalTime
@@ -61,6 +62,28 @@ class BookingPresenter(
         val screeningTime: LocalTime = time.toLocalTime(MOVIE_TIME_DELIMITER)
         bookingResult = bookingResult.updateTime(screeningTime)
         view.showScreeningTime(bookableTimes.indexOf(screeningTime))
+    }
+
+    override fun loadHeadCount() {
+        val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
+        view.showHeadCount(bookingResultUiModel.headCount)
+    }
+
+    override fun increaseHeadCount() {
+        bookingResult = bookingResult.plusHeadCount()
+        loadHeadCount()
+    }
+
+    override fun decreaseHeadCount() {
+        if (bookingResult.isHeadCountValid()) bookingResult = bookingResult.minusHeadCount()
+        loadHeadCount()
+    }
+
+    override fun reserve() {
+        if (bookingResult.isHeadCountValid()) {
+            val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
+            view.showConfirmDialog(bookingResultUiModel)
+        }
     }
 
     private fun initBookingResult(booking: Booking): BookingResult {

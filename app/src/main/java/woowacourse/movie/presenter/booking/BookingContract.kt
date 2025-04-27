@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.booking
 
+import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 
 interface BookingContract {
@@ -11,6 +12,14 @@ interface BookingContract {
         fun updateScreeningDate(date: String)
 
         fun updateScreeningTime(time: String)
+
+        fun loadHeadCount()
+
+        fun increaseHeadCount()
+
+        fun decreaseHeadCount()
+
+        fun reserve()
     }
 
     interface View {
@@ -27,5 +36,11 @@ interface BookingContract {
         fun showScreeningTime(position: Int)
 
         fun setScreeningTimeAdapter(times: List<String>)
+
+        fun showHeadCount(count: String)
+
+        fun setButtonClickListener()
+
+        fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel)
     }
 }
