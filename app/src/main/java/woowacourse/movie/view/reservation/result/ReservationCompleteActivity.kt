@@ -16,7 +16,11 @@ import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.reservation.detail.ReservationActivity
 import java.time.format.DateTimeFormatter
 
-class ReservationCompleteActivity : AppCompatActivity() {
+class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteContract.View {
+    private val presenter by lazy {
+        ReservationCompletePresenter(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -32,21 +36,16 @@ class ReservationCompleteActivity : AppCompatActivity() {
             } else {
                 intent.getSerializableExtra(KEY_TICKET) as? Ticket
             }
-
-        if (ticket == null) {
-            handleInvalidTicket()
-        } else {
-            setTicketInfo(ticket)
-        }
+        presenter.fetchData(ticket)
     }
 
-    private fun handleInvalidTicket() {
+    override fun handleInvalidTicket() {
         DialogFactory().showError(this) {
             ReservationActivity.returnToReserve(this)
         }
     }
 
-    private fun setTicketInfo(ticket: Ticket) {
+    override fun showTicketInfo(ticket: Ticket) {
         val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val dateTimeFormat = ticket.date.format(formatter)
 

@@ -22,8 +22,6 @@ interface ReservationContract {
         fun selectedTime(position: Int)
 
         fun createTicket(selectedDateTime: LocalDateTime)
-
-        fun getSelectedTimePosition(): Int
     }
 
     interface View {

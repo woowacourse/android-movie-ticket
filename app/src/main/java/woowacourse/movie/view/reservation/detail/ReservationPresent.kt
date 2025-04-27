@@ -13,8 +13,6 @@ class ReservationPresent(
     private var selectedTimePosition = DEFAULT_TIME_POSITION
     private lateinit var movie: Movie
 
-    override fun getSelectedTimePosition(): Int = selectedTimePosition
-
     override fun fetchData(movie: Movie?) {
         if (movie == null) {
             view.showErrorInvalidMovie()

@@ -72,4 +72,4 @@
 - [ ] dialog 인스턴스 전역으로 따로 생성
 - [x] MainActivity | MVP구조로 분리
 - [x] ReservationActivity | MVP구조로 분리
-- [ ] ReservationCompleteActivity | MVP구조로 분리
+- [x] ReservationCompleteActivity | MVP구조로 분리
