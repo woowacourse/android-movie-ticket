@@ -117,7 +117,11 @@ class ReservationActivityTest {
 
     @Test
     fun `사용자는_인원_날짜_선택_후에_좌석을_고를_수_있다`() {
-        TODO("Not yet implemented")
+        onView(withId(R.id.btn_reservation_select_complete))
+            .perform(click())
+
+        onView(withId(R.id.layout_seat_selection))
+            .check(matches(isDisplayed()))
     }
 
     @Test
