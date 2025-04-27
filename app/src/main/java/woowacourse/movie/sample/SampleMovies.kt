@@ -55,7 +55,7 @@ class SampleMovies {
         )
 
     private fun generateSampleMovieUiModels(): List<MovieUiModel> {
-        return (1..100).map { index ->
+        return (1..10_000).map { index ->
             val insertIndex = (index + 4) % 5
             MovieUiModel(
                 id = index.toLong(),
