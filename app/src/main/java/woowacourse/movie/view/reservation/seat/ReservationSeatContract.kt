@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
+import woowacourse.movie.domain.Position
 import woowacourse.movie.domain.Ticket
 
 interface ReservationSeatContract {
@@ -7,6 +8,10 @@ interface ReservationSeatContract {
         fun fetchData(ticket: Ticket?)
 
         fun updateMoney()
+
+        fun addSeat(position: Position)
+
+        fun removeSeat(position: Position)
     }
 
     interface View {
@@ -19,5 +24,7 @@ interface ReservationSeatContract {
         fun showMovieName(movieName: String)
 
         fun showTicketMoney(moviePrice: Int)
+
+        fun setSeatClickListener()
     }
 }

@@ -70,6 +70,14 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
     }
 
+    override fun setSeatClickListener() {
+        getAllSeatTextViews().forEachIndexed { _, textView ->
+            textView.setOnClickListener {
+                toggleSeatSelection(textView)
+            }
+        }
+    }
+
     override fun showMovieName(movieName: String) {
         val movieTitleTextView = findViewById<TextView>(R.id.reservation_movie_title)
         movieTitleTextView.text = movieName
@@ -78,6 +86,22 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     override fun showTicketMoney(moviePrice: Int) {
         val priceFormatter = DecimalFormat(PRICE_PATTERN)
         moviePriceTextView.text = getString(R.string.movie_money, priceFormatter.format(moviePrice))
+    }
+
+    private fun toggleSeatSelection(textView: TextView) {
+        val isSelected = textView.isSelected
+
+        if (isSelected) {
+            textView.setBackgroundColor(Color.WHITE)
+            presenter.removeSeat(textView.tag as Position)
+            presenter.updateMoney()
+        } else {
+            textView.setBackgroundColor(Color.YELLOW)
+            presenter.addSeat(textView.tag as Position)
+            presenter.updateMoney()
+        }
+
+        textView.isSelected = !isSelected
     }
 
     private fun getSeatName(position: Position): String {
