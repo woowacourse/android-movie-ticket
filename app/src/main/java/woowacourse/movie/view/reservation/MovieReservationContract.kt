@@ -29,6 +29,8 @@ interface MovieReservationContract {
     interface Presenter {
         fun loadMovieReservationScreen()
 
+        fun restoreTicket(ticket: TicketUiModel)
+
         fun onClickIncrementButton()
 
         fun onClickDecrementButton()

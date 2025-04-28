@@ -22,6 +22,11 @@ class MovieReservationPresenter(
         loadShowtimes()
     }
 
+    override fun restoreTicket(ticket: TicketUiModel) {
+        _ticket = ticket
+        loadMovieReservationScreen()
+    }
+
     override fun onClickIncrementButton() {
         _ticket = ticket.copy(count = ticket.count + 1)
         updateHeadCount()

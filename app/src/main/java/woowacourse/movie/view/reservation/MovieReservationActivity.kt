@@ -46,20 +46,25 @@ class MovieReservationActivity :
         val movie =
             intent.parcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
                 ?: finish().run { return }
-        val ticket =
-            savedInstanceState?.parcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
-                ?: TicketUiModel.from(movie)
-        presenter = MovieReservationPresenter(this, ticket, DefaultScheduler)
+        presenter = MovieReservationPresenter(this, TicketUiModel.from(movie), DefaultScheduler)
 
         initView()
         presenter.loadMovieReservationScreen()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
         if (!dateAdapter.isEmpty && !timeAdapter.isEmpty) {
             outState.putParcelable(EXTRA_TICKET, presenter.ticket)
+        }
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val restoredTicket =
+            savedInstanceState.parcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
+        restoredTicket?.let { restored ->
+            presenter.restoreTicket(restored)
         }
     }
 
