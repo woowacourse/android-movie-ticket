@@ -115,6 +115,19 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
+    fun `좌석을 선택하면 하단에 선택한 좌석 수를 반영한 최종 가격이 표시된다`() {
+        // given
+        every { view.setSeatIsSelected(Seat.Companion(1, 1), true) } just Runs
+        every { view.setPrice(10_000) } just Runs
+
+        // when
+        presenter.onSeatSelect(Seat.Companion(1, 1))
+
+        // then
+        verify { view.setPrice(10_000) }
+    }
+
+    @Test
     fun `예매 확인 다이얼로그를 띄울 수 있다`() {
         // given
         every { view.askFinalReservation() } just Runs
