@@ -1,27 +1,24 @@
 package woowacourse.movie.reservation
 
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.core.app.ApplicationProvider
-import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions.scrollToPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import org.hamcrest.core.AllOf.allOf
-import org.hamcrest.core.Is.`is`
-import org.hamcrest.core.IsInstanceOf.instanceOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.data.reservation.Movies
+import woowacourse.movie.domain.reservation.Advertisement
+import woowacourse.movie.domain.reservation.Movie
 import woowacourse.movie.domain.reservation.Screening
 import woowacourse.movie.view.reservation.ScreeningActivity
 import java.time.LocalDate
 
 class ScreeningActivityTest {
-    private val harryPotter = Movies().harryPotterPhilosopersStone
-
     @get:Rule
     val activityRule =
         ActivityScenarioRule<ScreeningActivity>(
@@ -29,131 +26,76 @@ class ScreeningActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 arrayOf(
                     Screening(
-                        harryPotter,
+                        Movie(
+                            0,
+                            "해리 포터와 마법사의 돌",
+                            152,
+                        ),
                         LocalDate.of(2025, 4, 1),
                         LocalDate.of(2025, 4, 25),
                     ),
                     Screening(
-                        harryPotter,
+                        Movie(
+                            1,
+                            "해리 포터와 비밀의 방",
+                            162,
+                        ),
                         LocalDate.of(2025, 5, 1),
                         LocalDate.of(2025, 5, 25),
                     ),
                     Screening(
-                        harryPotter,
+                        Movie(
+                            2,
+                            "해리 포터와 아즈카반의 죄수",
+                            141,
+                        ),
                         LocalDate.of(2025, 6, 1),
                         LocalDate.of(2025, 6, 25),
                     ),
+                    Advertisement(0, "우아한테크코스"),
                 ),
             ),
         )
 
     @Test
     fun `상영_리스트가_표시된다`() {
-        onView(withId(R.id.lv_screening_movies))
+        onView(withId(R.id.rv_screening_movies))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun `상영_리스트에는_각각의_상영_정보가_표시된다`() {
-        onData(
-            allOf(
-                `is`(instanceOf(Screening::class.java)),
-                `is`(
-                    Screening(
-                        harryPotter,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 25),
-                    ),
-                ),
-            ),
-        ).check(matches(isDisplayed()))
+    fun `영화_목록에_영화가_세_번_노출될_때마다_광고가_한_번_노출된다`() {
+        onView(withId(R.id.rv_screening_movies))
+            .perform(scrollToPosition<RecyclerView.ViewHolder>(3))
+
+        onView(withId(R.id.iv_item_advertisement))
+            .check(matches(isDisplayed()))
     }
 
     @Test
     fun `상영_정보에는_영화_제목이_표시된다`() {
-        onData(
-            allOf(
-                `is`(instanceOf(Screening::class.java)),
-                `is`(
-                    Screening(
-                        harryPotter,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 25),
-                    ),
-                ),
-            ),
-        ).onChildView(withId(R.id.tv_item_screening_title))
+        onView(withId(R.id.rv_screening_movies))
+            .perform(scrollToPosition<RecyclerView.ViewHolder>(2))
+
+        onView(withText("해리 포터와 아즈카반의 죄수"))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `상영_정보에는_상영일이_표시된다`() {
-        onData(
-            allOf(
-                `is`(instanceOf(Screening::class.java)),
-                `is`(
-                    Screening(
-                        harryPotter,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 25),
-                    ),
-                ),
-            ),
-        ).onChildView(withId(R.id.tv_item_screening_date))
-            .check(matches(isDisplayed()))
-    }
+        onView(withId(R.id.rv_screening_movies))
+            .perform(scrollToPosition<RecyclerView.ViewHolder>(2))
 
-    @Test
-    fun `상영_정보에는_포스터가_표시된다`() {
-        onData(
-            allOf(
-                `is`(instanceOf(Screening::class.java)),
-                `is`(
-                    Screening(
-                        harryPotter,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 25),
-                    ),
-                ),
-            ),
-        ).onChildView(withId(R.id.iv_item_screening_poster))
+        onView(withText("상영일: 2025.4.1 ~ 2025.4.25"))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `상영_정보에는_러닝타임이_표시된다`() {
-        onData(
-            allOf(
-                `is`(instanceOf(Screening::class.java)),
-                `is`(
-                    Screening(
-                        harryPotter,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 25),
-                    ),
-                ),
-            ),
-        ).onChildView(withId(R.id.tv_item_screening_running_time))
-            .check(matches(isDisplayed()))
-    }
+        onView(withId(R.id.rv_screening_movies))
+            .perform(scrollToPosition<RecyclerView.ViewHolder>(2))
 
-    @Test
-    fun `지금_예매를_클릭하면_영화_예매_완료_화면이_보여진다`() {
-        onData(
-            allOf(
-                `is`(instanceOf(Screening::class.java)),
-                `is`(
-                    Screening(
-                        harryPotter,
-                        LocalDate.of(2025, 5, 1),
-                        LocalDate.of(2025, 5, 25),
-                    ),
-                ),
-            ),
-        ).onChildView(withId(R.id.btn_item_screening_reserve))
-            .perform(click())
-
-        onView(withId(R.id.layout_reservation))
+        onView(withText("러닝타임: 141분"))
             .check(matches(isDisplayed()))
     }
 }

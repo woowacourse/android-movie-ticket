@@ -1,3 +1,5 @@
 package woowacourse.movie.domain.reservation
 
-sealed interface ScreeningContent
+import java.io.Serializable
+
+sealed interface ScreeningContent : Serializable

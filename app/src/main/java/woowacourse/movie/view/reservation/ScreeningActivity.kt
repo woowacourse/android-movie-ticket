@@ -25,7 +25,7 @@ class ScreeningActivity :
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_screening)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.lv_screening_movies)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.rv_screening_movies)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -46,7 +46,7 @@ class ScreeningActivity :
     private fun initListView(screeningContents: List<ScreeningContent>) {
         val screenings: List<ScreeningContent> =
             intent?.getScreeningsExtra()?.toList() ?: screeningContents
-        val moviesView = findViewById<RecyclerView>(R.id.lv_screening_movies)
+        val moviesView = findViewById<RecyclerView>(R.id.rv_screening_movies)
         val movieAdapter = ScreeningAdapter(screenings, presenter::selectScreening)
         moviesView.adapter = movieAdapter
     }
@@ -55,21 +55,21 @@ class ScreeningActivity :
     private fun Intent.getScreeningsExtra(): Array<Screening>? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-                getSerializableExtra(EXTRA_SCREENINGS, Array<Screening>::class.java)
+                getSerializableExtra(EXTRA_SCREENING_CONTENTS, Array<Screening>::class.java)
 
-            else -> getSerializableExtra(EXTRA_SCREENINGS) as? Array<Screening>
+            else -> getSerializableExtra(EXTRA_SCREENING_CONTENTS) as? Array<Screening>
         }
 
     companion object {
-        private const val EXTRA_SCREENINGS = "woowacourse.movie.EXTRA_SCREENINGS"
+        private const val EXTRA_SCREENING_CONTENTS = "woowacourse.movie.EXTRA_SCREENING_CONTENTS"
 
         fun testIntent(
             context: Context,
-            screenings: Array<Screening>,
+            screeningContents: Array<ScreeningContent>,
         ): Intent =
             Intent(context, ScreeningActivity::class.java).putExtra(
-                EXTRA_SCREENINGS,
-                screenings,
+                EXTRA_SCREENING_CONTENTS,
+                screeningContents,
             )
     }
 }
