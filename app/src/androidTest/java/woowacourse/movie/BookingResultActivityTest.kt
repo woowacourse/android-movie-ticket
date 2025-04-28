@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.bookingResult.BookingResultActivity
-import woowacourse.movie.dto.Ticket
+import woowacourse.movie.uiModel.Ticket
 
 class BookingResultActivityTest {
     private lateinit var intent: Intent

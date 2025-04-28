@@ -1,11 +1,11 @@
-package woowacourse.movie.dto
+package woowacourse.movie.uiModel
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MovieInfo(
-    val poster: Int,
+    val posterKey: String,
     val title: String,
     val startDate: String,
     val endDate: String,
