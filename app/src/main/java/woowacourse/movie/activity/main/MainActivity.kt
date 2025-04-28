@@ -15,8 +15,8 @@ import woowacourse.movie.global.ServiceLocator
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var movieDto: List<MovieListDataDto>
+    private lateinit var presenter: MainContract.Presenter
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    lateinit var presenter: MainContract.Presenter
 
     override fun initMovieDto(movies: List<MovieListDataDto>) {
         movieDto = movies
