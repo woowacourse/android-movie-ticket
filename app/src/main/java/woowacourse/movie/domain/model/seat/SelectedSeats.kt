@@ -1,5 +1,7 @@
 package woowacourse.movie.domain.model.seat
 
+import java.util.Locale
+
 class SelectedSeats(
     private val headCount: Int,
     private val _seats: MutableSet<Seat> = mutableSetOf()
@@ -13,7 +15,7 @@ class SelectedSeats(
             return
         } else {
             require(_seats.size < headCount) {
-                SELECT_MESSAGE
+                String.format(Locale.getDefault(), SELECT_MESSAGE, headCount)
             }
             _seats.add(seat)
         }
@@ -26,6 +28,6 @@ class SelectedSeats(
     fun isSelected(seat: Seat): Boolean = _seats.contains(seat)
 
     companion object {
-        private const val SELECT_MESSAGE = "[ERROR] 더 이상 좌석을 선택할 수 없습니다."
+        private const val SELECT_MESSAGE = "좌석은 %d개만 선택할 수 있습니다."
     }
 }

@@ -55,7 +55,7 @@ class SelectedSeatsTest {
 
         // Then
         shouldThrow<IllegalArgumentException> { selectedSeats.updateSelection(seat3) }
-            .message shouldBe "[ERROR] 더 이상 좌석을 선택할 수 없습니다."
+            .message shouldBe "좌석은 2개만 선택할 수 있습니다."
     }
 
     @Test
