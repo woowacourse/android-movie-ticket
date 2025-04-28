@@ -29,7 +29,7 @@ class BookingCompleteActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applyWindowInsets()
-        bookingCompletePresenter.fetchBookedTicket()
+        bookingCompletePresenter.loadBookedTicket()
         bookingCompletePresenter.updateViews()
 
         setOnBackPressedCallback()
@@ -47,7 +47,7 @@ class BookingCompleteActivity :
 
     override fun getBookedTicket(): BookedTicket? = intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java)
 
-    override fun setBookedTicketInfoViews(bookedTicket: BookedTicket) {
+    override fun setBookedTicket(bookedTicket: BookedTicket) {
         val movieNameTextView: TextView = findViewById(R.id.tv_title)
         val releaseDateTextView: TextView = findViewById(R.id.tv_release_date)
         val headcountTextView: TextView = findViewById(R.id.tv_headcount)
@@ -66,7 +66,7 @@ class BookingCompleteActivity :
         }
     }
 
-    override fun setBookedTicketPriceTextView(price: Int) {
+    override fun setBookedTicketPrice(price: Int) {
         val priceFormat: String = StringFormatter.thousandFormat(price)
         val priceTextView: TextView = findViewById(R.id.tv_price)
         priceTextView.text = getString(R.string.text_on_site_payment).format(priceFormat)

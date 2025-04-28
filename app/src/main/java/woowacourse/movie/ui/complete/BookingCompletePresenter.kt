@@ -8,14 +8,14 @@ import java.time.LocalDateTime
 class BookingCompletePresenter(
     private val bookingCompleteView: BookingCompleteContract.View,
 ) : BookingCompleteContract.Presenter {
-    private val bookedTicket: BookedTicket by lazy { fetchBookedTicket() }
+    private val bookedTicket: BookedTicket by lazy { loadBookedTicket() }
 
     fun updateViews() {
-        updateBookedTicketInfoViews()
-        updateBookedTicketPrice()
+        refreshBookedTicketDisplay()
+        refreshTicketPrice()
     }
 
-    override fun fetchBookedTicket(): BookedTicket =
+    override fun loadBookedTicket(): BookedTicket =
         bookingCompleteView.getBookedTicket() ?: BookedTicket(
             "NULL",
             Headcount(),
@@ -23,12 +23,12 @@ class BookingCompletePresenter(
             Seats(),
         )
 
-    override fun updateBookedTicketPrice() {
+    override fun refreshTicketPrice() {
         val price = bookedTicket.totalPrice()
-        bookingCompleteView.setBookedTicketPriceTextView(price)
+        bookingCompleteView.setBookedTicketPrice(price)
     }
 
-    override fun updateBookedTicketInfoViews() {
-        bookingCompleteView.setBookedTicketInfoViews(bookedTicket)
+    override fun refreshBookedTicketDisplay() {
+        bookingCompleteView.setBookedTicket(bookedTicket)
     }
 }

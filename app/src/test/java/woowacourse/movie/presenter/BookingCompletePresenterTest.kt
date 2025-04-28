@@ -32,13 +32,13 @@ class BookingCompletePresenterTest {
 
     @Test
     fun `티켓의 가격이 뷰에 반영된다`() {
-        presenter.updateBookedTicketPrice()
-        verify { view.setBookedTicketPriceTextView(any()) }
+        presenter.refreshTicketPrice()
+        verify { view.setBookedTicketPrice(any()) }
     }
 
     @Test
     fun `티켓의 정보가 업데이트되면 뷰에 반영된다`() {
-        presenter.updateBookedTicketInfoViews()
-        verify { view.setBookedTicketInfoViews(any()) }
+        presenter.refreshBookedTicketDisplay()
+        verify { view.setBookedTicket(any()) }
     }
 }

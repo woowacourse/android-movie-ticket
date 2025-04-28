@@ -4,18 +4,18 @@ import woowacourse.movie.domain.model.BookedTicket
 
 interface BookingCompleteContract {
     interface Presenter {
-        fun fetchBookedTicket(): BookedTicket
+        fun loadBookedTicket(): BookedTicket
 
-        fun updateBookedTicketInfoViews()
+        fun refreshBookedTicketDisplay()
 
-        fun updateBookedTicketPrice()
+        fun refreshTicketPrice()
     }
 
     interface View {
         fun getBookedTicket(): BookedTicket?
 
-        fun setBookedTicketInfoViews(bookedTicket: BookedTicket)
+        fun setBookedTicket(bookedTicket: BookedTicket)
 
-        fun setBookedTicketPriceTextView(price: Int)
+        fun setBookedTicketPrice(price: Int)
     }
 }
