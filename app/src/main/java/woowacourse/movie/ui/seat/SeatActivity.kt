@@ -60,7 +60,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     }
 
     private fun initSeatOnClick() {
-        val toast = Toast.makeText(this, "예매 개수가 초과 했습니다.", Toast.LENGTH_SHORT)
+        val toast = Toast.makeText(this, getString(R.string.toast_over_purchase_count), Toast.LENGTH_SHORT)
         table.children.forEachIndexed { rowPosition, view ->
             val tableRow = view as TableRow
             tableRow.children.forEachIndexed { columnPosition, seat ->

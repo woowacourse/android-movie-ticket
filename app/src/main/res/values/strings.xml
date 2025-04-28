@@ -34,4 +34,5 @@
     <string name="purchase_result_price">%s (현장 결제)</string>
     <string name="screen">SCREEN</string>
     <string name="advertisement_description">advertisement_image</string>
+    <string name="toast_over_purchase_count">구매 개수가 초과 했습니다.</string>
 </resources>
