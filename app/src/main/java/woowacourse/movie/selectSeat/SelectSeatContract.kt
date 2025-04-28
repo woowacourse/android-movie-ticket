@@ -1,6 +1,6 @@
 package woowacourse.movie.selectSeat
 
-import woowacourse.movie.dto.Ticket
+import woowacourse.movie.uiModel.Ticket
 
 interface SelectSeatContract {
     interface View {

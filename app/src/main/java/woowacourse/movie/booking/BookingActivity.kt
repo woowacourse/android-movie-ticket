@@ -14,8 +14,9 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.MovieScheduleGenerator
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.TicketMaker
-import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.selectSeat.SelectSeatActivity
+import woowacourse.movie.uiModel.MovieInfo
+import woowacourse.movie.uiModel.PosterMapper
 
 class BookingActivity :
     AppCompatActivity(),
@@ -64,7 +65,7 @@ class BookingActivity :
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
 
-        poster.setImageResource(movieInfo.poster)
+        poster.setImageResource(PosterMapper.getPosterResourceId(movieInfo.posterKey))
         title.text = movieInfo.title
         movieDate.text =
             this.getString(

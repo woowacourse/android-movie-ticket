@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.dto.Ticket
+import woowacourse.movie.uiModel.Ticket
 import java.time.LocalDate
 import java.time.LocalTime
 
