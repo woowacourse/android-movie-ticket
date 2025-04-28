@@ -6,7 +6,10 @@ import woowacourse.movie.feature.model.SeatSelectionUiState
 
 interface BookingSeatContract {
     interface View {
-        fun showSeats()
+        fun showSeats(
+            rowCount: Int,
+            columnCount: Int,
+        )
 
         fun showBookingInfo(bookingInfo: BookingInfoUiModel)
 

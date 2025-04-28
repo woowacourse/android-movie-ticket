@@ -2,7 +2,9 @@ package woowacourse.movie.feature.bookingseat.view
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Typeface
 import android.os.Bundle
+import android.view.Gravity
 import android.view.MenuItem
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -10,9 +12,9 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.children
 import com.google.android.material.snackbar.Snackbar
 import woowacourse.movie.R
 import woowacourse.movie.feature.bookingcomplete.view.BookingCompleteActivity
@@ -39,13 +41,28 @@ class BookingSeatActivity :
         presenter.prepareBookingInfo(bookingInfo = intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel())
     }
 
-    override fun showSeats() {
-        findViewById<TableLayout>(R.id.tl_booking_seat).children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
-            row.children.filterIsInstance<TextView>().forEachIndexed { columnIndex, view ->
-                seats[view] = presenter.prepareSeats(rowIndex + SEAT_POSITION_OFFSET, columnIndex + SEAT_POSITION_OFFSET)
-                val seat = seats[view] ?: return@forEachIndexed
-                setupSeatSelectButton(view, seat)
+    override fun showSeats(
+        rowCount: Int,
+        columnCount: Int,
+    ) {
+        val tableLayout = findViewById<TableLayout>(R.id.tl_booking_seat)
+
+        for (rowIndex in 0 until rowCount) {
+            val tableRow =
+                TableRow(this).apply {
+                    gravity = Gravity.CENTER
+                }
+
+            for (columnIndex in 0 until columnCount) {
+                val movieSeat = presenter.prepareSeats(rowIndex + SEAT_POSITION_OFFSET, columnIndex + SEAT_POSITION_OFFSET)
+                val seatView = createSeatTextView(movieSeat.toLabel())
+
+                tableRow.addView(seatView)
+                seats[seatView] = movieSeat
+                setupSeatView(seatView, movieSeat)
             }
+
+            tableLayout.addView(tableRow)
         }
     }
 
@@ -100,20 +117,28 @@ class BookingSeatActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    private fun setupSeatSelectCompleteClickListener() {
-        seatSelectionCompleteView.setOnClickListener {
-            presenter.completeSeatSelection()
+    private fun createSeatTextView(seatName: String): TextView =
+        TextView(this).apply {
+            text = seatName
+            width = 74.dpToPx()
+            height = 80.dpToPx()
+            gravity = Gravity.CENTER
+            textSize = 22f
+            setTypeface(typeface, Typeface.BOLD)
+            background = ContextCompat.getDrawable(context, R.drawable.selector_movie_seat_background)
         }
-    }
 
-    private fun setupSeatSelectButton(
-        button: TextView,
-        seat: MovieSeatUiModel,
+    private fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
+
+    private fun setupSeatView(
+        seatView: TextView,
+        movieSeat: MovieSeatUiModel,
     ) {
-        button.text = seat.toLabel()
-        button.setTextColor(getSeatLabelColor(seat.seatType))
-        button.setOnClickListener {
-            handleSeatSelection(it as TextView)
+        seatView.text = movieSeat.toLabel()
+        seatView.isSelected = movieSeat.isSelected
+        seatView.setTextColor(getSeatLabelColor(movieSeat.seatType))
+        seatView.setOnClickListener {
+            handleSeatSelection(seatView)
         }
     }
 
@@ -141,6 +166,12 @@ class BookingSeatActivity :
             is SeatSelectionUiState.ExceedCountFailure -> {
                 Snackbar.make(button, getString(R.string.booking_seat_exceed_count_failure), Snackbar.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun setupSeatSelectCompleteClickListener() {
+        seatSelectionCompleteView.setOnClickListener {
+            presenter.completeSeatSelection()
         }
     }
 
