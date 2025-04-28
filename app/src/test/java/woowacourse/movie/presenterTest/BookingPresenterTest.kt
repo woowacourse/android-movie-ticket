@@ -11,6 +11,7 @@ import woowacourse.movie.booking.BookingPresenter
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.MovieScheduleGenerator
 import woowacourse.movie.model.TicketCount
+import woowacourse.movie.uiModel.TicketUIModel
 import java.time.Duration
 import java.time.LocalDate
 
@@ -37,15 +38,41 @@ class BookingPresenterTest {
 
     @Test
     fun `예매_버튼을 클릭하면_카운트가_0이_아닐_경우_화면이_이동한다`() {
-        presenter.onBookButtonClick(TicketCount(5))
+        val title = "샘플"
+        val date = "2024.1.1"
+        val time = "12:00"
+        val ticketCount = TicketCount(5)
+        presenter.onBookButtonClick(title, date, time, ticketCount)
+        val exceptedUIModel =
+            TicketUIModel(
+                title,
+                date,
+                time,
+                listOf(),
+                ticketCount.count,
+                0,
+            )
         verifySequence {
-            view.moveActivity()
+            view.moveActivity(exceptedUIModel)
         }
     }
 
     @Test
     fun `예매_버튼을 클릭하면_카운트가_0이_아닐_경우_화면이_이동하지_않는다`() {
-        presenter.onBookButtonClick(TicketCount(0))
+        val title = "샘플"
+        val date = "2024.1.1"
+        val time = "12:00"
+        val ticketCount = TicketCount(0)
+        presenter.onBookButtonClick(title, date, time, ticketCount)
+        val exceptedUIModel =
+            TicketUIModel(
+                title,
+                date,
+                time,
+                listOf(),
+                ticketCount.count,
+                0,
+            )
         verifySequence { view wasNot called }
     }
 
