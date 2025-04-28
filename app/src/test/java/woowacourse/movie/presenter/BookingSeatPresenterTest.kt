@@ -1,7 +1,9 @@
 package woowacourse.movie.presenter
 
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.BookingInfo
@@ -45,16 +47,23 @@ class BookingSeatPresenterTest {
 
     @Test
     fun `onCreateView 호출 시 좌석과 예약 정보, 가격, 버튼 상태를 표시한다`() {
-        // given & when
+        // given
+        val price = slot<Int>()
+        val isButtonEnabled = slot<Boolean>()
+
+        // when
         presenter.onCreateView(bookingInfoUiModel)
 
         // then
         verify {
             view.showSeats()
             view.showBookingInfo(bookingInfoUiModel)
-            view.updatePrice(any())
-            view.updateSeatSelectionCompleteButton(any())
+            view.updatePrice(capture(price))
+            view.updateSeatSelectionCompleteButton(capture(isButtonEnabled))
         }
+
+        assertThat(price.captured).isEqualTo(0)
+        assertThat(isButtonEnabled.captured).isFalse
     }
 
     @Test
@@ -62,16 +71,18 @@ class BookingSeatPresenterTest {
         // given
         presenter.onCreateView(bookingInfoUiModel)
         val seat = MovieSeat(1, 1).toUi()
+        val prices = mutableListOf<Int>()
 
         // when
         val result = presenter.onSeatClicked(seat)
 
         // then
         verify {
+            view.updatePrice(capture(prices))
             view.updateSeatSelectionCompleteButton(any())
-            view.updatePrice(any())
         }
-        assert(result is SeatSelectionUiState.Success)
+        assertThat(result).isInstanceOf(SeatSelectionUiState.Success::class.java)
+        assertThat(prices.last()).isEqualTo(10_000)
     }
 
     @Test
@@ -86,13 +97,15 @@ class BookingSeatPresenterTest {
     @Test
     fun `onSeatSelectionCompleteConfirmed 호출 시 예약 완료 화면으로 이동한다`() {
         // given
+        val bookingInfo = slot<BookingInfoUiModel>()
         presenter.onCreateView(bookingInfoUiModel)
 
         // when
         presenter.onSeatSelectionCompleteConfirmed()
 
         // then
-        verify { view.navigateToBookingComplete(any()) }
+        verify { view.navigateToBookingComplete(capture(bookingInfo)) }
+        assertThat(bookingInfo.captured).isEqualTo(bookingInfoUiModel)
     }
 
     @Test

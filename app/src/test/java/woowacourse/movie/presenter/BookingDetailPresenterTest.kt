@@ -1,9 +1,12 @@
 package woowacourse.movie.presenter
 
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.DateType
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieDate
 import woowacourse.movie.domain.model.MovieTime
@@ -11,6 +14,7 @@ import woowacourse.movie.feature.bookingdetail.contract.BookingDetailContract
 import woowacourse.movie.feature.bookingdetail.presenter.BookingDetailPresenter
 import woowacourse.movie.feature.mapper.toUi
 import woowacourse.movie.feature.model.BookingInfoUiModel
+import woowacourse.movie.feature.model.MovieDateUiModel
 import woowacourse.movie.feature.model.MovieUiModel
 
 class BookingDetailPresenterTest {
@@ -37,7 +41,7 @@ class BookingDetailPresenterTest {
             BookingInfoUiModel(
                 movie = movieUiModel,
                 date = movieUiModel.startDate,
-                movieTime = MovieTime(9, 0).toUi(),
+                movieTime = MovieTime(10, 0).toUi(),
             )
     }
 
@@ -45,62 +49,78 @@ class BookingDetailPresenterTest {
     fun `onCreateView 호출 시 날짜, 시간, 예약정보를 갱신한다`() {
         // given & when
         presenter.onCreateView(movieUiModel)
+        val dates = slot<List<MovieDateUiModel>>()
+        val times = slot<List<String>>()
+        val bookingInfo = slot<BookingInfoUiModel>()
 
         // then
         verify {
-            view.setupDateView(any())
-            view.setupTimeView(any())
-            view.updateView(any())
+            view.setupDateView(capture(dates))
+            view.setupTimeView(capture(times))
+            view.updateView(capture(bookingInfo))
         }
+
+        assertThat(dates.captured.first()).isEqualTo(movieUiModel.startDate)
+        assertThat(times.captured.first()).isEqualTo("10:00")
+        assertThat(bookingInfo.captured).isEqualTo(bookingInfoUiModel)
     }
 
     @Test
     fun `onDateSelected 호출 시 영화 시간을 갱신한다`() {
         // given
+        val date = movieUiModel.startDate
+        val time = slot<List<String>>()
+        val expectedTimes = MovieTime.getMovieTimes(DateType.WEEKDAY).map { it.toUi().toString() }
         presenter.onCreateView(movieUiModel)
-        val dateString = movieUiModel.startDate.toString()
 
         // when
-        presenter.onDateSelected(dateString)
+        presenter.onDateSelected(date.toString())
 
         // then
-        verify { view.updateTimeSpinnerItems(any()) }
+        verify { view.updateTimeSpinnerItems(capture(time)) }
+        assertThat(time.captured).isEqualTo(expectedTimes)
     }
 
     @Test
     fun `onTicketCountIncreased 호출 시 티켓 수 증가 후 뷰의 출력을 갱신한다`() {
         // given
+        val ticketCount = slot<Int>()
         presenter.onCreateView(movieUiModel)
 
         // when
         presenter.onTicketCountIncreased()
 
         // then
-        verify { view.updateTicketCount(any()) }
+        verify { view.updateTicketCount(capture(ticketCount)) }
+        assertThat(ticketCount.captured).isEqualTo(2)
     }
 
     @Test
     fun `onTicketCountDecreased 호출 시 티켓 수 감소 후 뷰의 출력을 갱신한다`() {
         // given
+        val ticketCount = slot<Int>()
         presenter.onCreateView(movieUiModel)
 
         // when
         presenter.onTicketCountDecreased()
 
         // then
-        verify { view.updateTicketCount(any()) }
+        verify { view.updateTicketCount(capture(ticketCount)) }
+        assertThat(ticketCount.captured).isEqualTo(1)
     }
 
     @Test
     fun `onBookingCompleteButtonClicked 호출 시 좌석 선택 화면으로 이동한다`() {
         // given
+        val bookingInfo = slot<BookingInfoUiModel>()
         presenter.onCreateView(movieUiModel)
 
         // when
         presenter.onBookingCompleteButtonClicked()
 
         // then
-        verify { view.navigateToBookingSeat(any()) }
+        verify { view.navigateToBookingSeat(capture(bookingInfo)) }
+        assertThat(bookingInfo.captured).isEqualTo(bookingInfoUiModel)
     }
 
     @Test
@@ -121,7 +141,7 @@ class BookingDetailPresenterTest {
         val savedState = presenter.onSaveInstanceState()
 
         // then
-        assert(savedState.movie.title == movieUiModel.title)
+        assertThat(savedState.movie).isEqualTo(movieUiModel)
     }
 
     @Test
