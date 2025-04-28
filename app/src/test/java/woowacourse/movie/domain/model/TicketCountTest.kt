@@ -13,6 +13,25 @@ class TicketCountTest {
     }
 
     @Test
+    fun `티켓의 초기 수량은 1장이다`() {
+        // given & when & then
+        assertThat(ticketCount.value).isEqualTo(1)
+        assertThat(TicketCount.INITIAL_TICKET_COUNT).isEqualTo(1)
+    }
+
+    @Test
+    fun `티켓 수량이 1보다 작아질 수는 없다`() {
+        // given
+        ticketCount.increase(1)
+
+        // when
+        ticketCount.decrease(10)
+
+        // then
+        assertThat(ticketCount.value).isEqualTo(1)
+    }
+
+    @Test
     fun `increaseTicketCount 호출 시 티켓 수량을 증가시킨다`() {
         // given & when
         ticketCount.increase(1)
@@ -29,18 +48,6 @@ class TicketCountTest {
 
         // when
         ticketCount.decrease(1)
-
-        // then
-        assertThat(ticketCount.value).isEqualTo(1)
-    }
-
-    @Test
-    fun `티켓 수량이 1보다 작아질 수는 없다`() {
-        // given
-        ticketCount.increase(1)
-
-        // when
-        ticketCount.decrease(10)
 
         // then
         assertThat(ticketCount.value).isEqualTo(1)
