@@ -27,7 +27,7 @@ class CompletedBookingActivityTest {
                     2,
                 ),
                 setOf("A1", "B1"),
-                20_000,
+                24_000,
             )
 
         val intent = CompletedBookingActivity.newIntent(ApplicationProvider.getApplicationContext(), ticket)
@@ -60,13 +60,13 @@ class CompletedBookingActivityTest {
     @DisplayName("예매한 영화 인원 수가 보여야 한다")
     fun moviePersonnelIs2() {
         onView(withId(R.id.ticket_movie_personnel))
-            .check(matches(withText("일반 2명")))
+            .check(matches(withText("일반 2명 | A1, B1")))
     }
 
     @Test
     @DisplayName("예매한 영화 티켓 가격이 보여야 한다")
     fun ticketTotalPriceIsDisplayed() {
         onView(withId(R.id.ticket_total_price))
-            .check(matches(withText("26,000원 (현장 결제)")))
+            .check(matches(withText("24,000원 (현장 결제)")))
     }
 }

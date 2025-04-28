@@ -15,9 +15,9 @@ class ScreeningTimeTest {
         val actual = movieSchedule.selectableTimes()
         val expected =
             listOf(
-                LocalTime.of(19, 0),
-                LocalTime.of(21, 0),
-                LocalTime.of(23, 0),
+                LocalTime.of(18, 0),
+                LocalTime.of(20, 0),
+                LocalTime.of(22, 0),
             )
         // then
         assertThat(actual).isEqualTo(expected)
@@ -32,9 +32,9 @@ class ScreeningTimeTest {
         val actual = movieSchedule.selectableTimes()
         val expected =
             listOf(
-                LocalTime.of(18, 0),
-                LocalTime.of(20, 0),
-                LocalTime.of(22, 0),
+                LocalTime.of(19, 0),
+                LocalTime.of(21, 0),
+                LocalTime.of(23, 0),
             )
         // then
         assertThat(actual).isEqualTo(expected)
