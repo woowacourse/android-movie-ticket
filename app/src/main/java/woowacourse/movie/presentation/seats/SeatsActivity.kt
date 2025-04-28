@@ -148,6 +148,5 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
     companion object {
         private const val TICKET_INTENT_ERROR = "[ERROR] 예매 정보에 대한 키 값이 올바르지 않습니다."
         private const val SEATS_KEY = "Seats"
-        private const val AMOUNT_KEY = "Amount"
     }
 }
