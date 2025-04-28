@@ -1,6 +1,8 @@
 package woowacourse.movie.domain.model
 
-enum class SeatRate {
+import java.io.Serializable
+
+enum class SeatRate : Serializable {
     S,
     A,
     B,

@@ -1,7 +1,9 @@
 package woowacourse.movie.domain.model
 
+import java.io.Serializable
+
 @JvmInline
-value class Column(val value: Int) {
+value class Column(val value: Int) : Serializable {
     init {
         require(value >= 0) { INVALID_VALUE_RANGE }
     }
