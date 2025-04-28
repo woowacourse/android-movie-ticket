@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.ErrorHandler
 import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity
-import woowacourse.movie.uiModel.MovieInfo
+import woowacourse.movie.uiModel.MovieInfoUIModel
 
 class MovieListActivity :
     AppCompatActivity(),
@@ -23,14 +23,14 @@ class MovieListActivity :
         presenter.onViewCreated()
     }
 
-    override fun showMovies(items: List<MovieInfo>) {
+    override fun showMovies(items: List<MovieInfoUIModel>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movie_list)
-        recyclerView.layoutManager = LinearLayoutManager(this) // 🔥 레이아웃 매니저 추가
+        recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = MovieListAdapter(items, presenter)
         recyclerView.adapter = adapter
     }
 
-    override fun changeActivity(item: MovieInfo) {
+    override fun changeActivity(item: MovieInfoUIModel) {
         val intent =
             Intent(this, BookingActivity::class.java).apply {
                 putExtra(MOVIE_INFO_KEY, item)

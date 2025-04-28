@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.uiModel.MovieInfo
+import woowacourse.movie.uiModel.MovieInfoUIModel
 import woowacourse.movie.uiModel.PosterMapper
 
 class MovieListAdapter(
-    private val items: List<MovieInfo>,
+    private val items: List<MovieInfoUIModel>,
     private val presenter: MovieListContract.Presenter,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
@@ -75,19 +75,19 @@ class MovieListAdapter(
         private val runningTime: TextView = view.findViewById(R.id.running_time)
         val button: Button = view.findViewById(R.id.reservation_button)
 
-        fun bind(movieInfo: MovieInfo) {
-            image.setImageResource(PosterMapper.getPosterResourceId(movieInfo.posterKey))
-            title.text = movieInfo.title
+        fun bind(movieInfoUIModel: MovieInfoUIModel) {
+            image.setImageResource(PosterMapper.getPosterResourceId(movieInfoUIModel.posterKey))
+            title.text = movieInfoUIModel.title
             movieDate.text =
                 itemView.context.getString(
                     R.string.movie_date,
-                    movieInfo.startDate,
-                    movieInfo.endDate,
+                    movieInfoUIModel.startDate,
+                    movieInfoUIModel.endDate,
                 )
             runningTime.text =
                 itemView.context.getString(
                     R.string.running_time,
-                    movieInfo.runningTime,
+                    movieInfoUIModel.runningTime,
                 )
         }
     }

@@ -1,20 +1,20 @@
 package woowacourse.movie.movieList
 
-import woowacourse.movie.uiModel.MovieInfo
+import woowacourse.movie.uiModel.MovieInfoUIModel
 
 interface MovieListContract {
     interface View {
-        fun showMovies(items: List<MovieInfo>)
+        fun showMovies(items: List<MovieInfoUIModel>)
 
         fun showError()
 
-        fun changeActivity(item: MovieInfo)
+        fun changeActivity(item: MovieInfoUIModel)
     }
 
     interface Presenter {
         fun onViewCreated()
 
-        fun onButtonClicked(item: MovieInfo)
+        fun onButtonClicked(item: MovieInfoUIModel)
 
         fun onError()
     }
