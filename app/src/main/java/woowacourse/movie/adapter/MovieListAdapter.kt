@@ -72,11 +72,11 @@ class MovieListAdapter(
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
-        val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
-        val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
-        val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
-        val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
+        private val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
+        private val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
+        private val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
+        private val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
+        private val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
 
         fun setData(
             movie: MovieListDataDto.MovieDto,
@@ -102,7 +102,7 @@ class MovieListAdapter(
     }
 
     class AdvertiseViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val ads: ImageView = view.findViewById<ImageView>(R.id.ads)
+        private val ads: ImageView = view.findViewById<ImageView>(R.id.ads)
 
         fun setData(adsDto: MovieListDataDto.AdsDto) {
             ads.setImage(adsDto.uri)
