@@ -4,14 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.contract.reservation.ScreeningContract
 import woowacourse.movie.domain.reservation.Screening
+import woowacourse.movie.domain.reservation.ScreeningContent
 import woowacourse.movie.presenter.reservation.ScreeningPresenter
 import woowacourse.movie.view.reservation.adapter.ScreeningAdapter
 
@@ -33,8 +34,8 @@ class ScreeningActivity :
         presenter.presentScreenings()
     }
 
-    override fun setScreenings(screenings: List<Screening>) {
-        initListView(screenings)
+    override fun setScreenings(screeningContents: List<ScreeningContent>) {
+        initListView(screeningContents)
     }
 
     override fun navigateToReservationScreen(screening: Screening) {
@@ -42,12 +43,12 @@ class ScreeningActivity :
         startActivity(intent)
     }
 
-    private fun initListView(screenings: List<Screening>) {
-        val screenings: List<Screening> =
-            intent?.getScreeningsExtra()?.toList() ?: screenings
-        val movieListView = findViewById<ListView>(R.id.lv_screening_movies)
+    private fun initListView(screeningContents: List<ScreeningContent>) {
+        val screenings: List<ScreeningContent> =
+            intent?.getScreeningsExtra()?.toList() ?: screeningContents
+        val moviesView = findViewById<RecyclerView>(R.id.lv_screening_movies)
         val movieAdapter = ScreeningAdapter(screenings, presenter::selectScreening)
-        movieListView.adapter = movieAdapter
+        moviesView.adapter = movieAdapter
     }
 
     @Suppress("DEPRECATION")

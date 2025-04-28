@@ -1,38 +1,57 @@
 package woowacourse.movie.view.reservation.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.reservation.Advertisement
 import woowacourse.movie.domain.reservation.Screening
+import woowacourse.movie.domain.reservation.ScreeningContent
+import woowacourse.movie.view.util.ErrorMessage
 
 class ScreeningAdapter(
-    screenings: List<Screening>,
+    private val items: List<ScreeningContent>,
     private val onClickReserveButton: (Screening) -> Unit,
-) : BaseAdapter() {
-    private val screenings: List<Screening> = screenings.toList()
-    private val viewHolderCache: MutableMap<Screening, ScreeningItemViewHolder> = mutableMapOf()
+) : RecyclerView.Adapter<ScreeningContentViewHolder>() {
+    override fun getItemViewType(position: Int): Int {
+        val screeningContent = items[position]
+        return when (screeningContent) {
+            is Screening -> VIEW_TYPE_SCREENING
+            is Advertisement -> VIEW_TYPE_ADVERTISEMENT
+        }
+    }
 
-    override fun getCount(): Int = screenings.size
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ScreeningContentViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            VIEW_TYPE_SCREENING -> {
+                val view = layoutInflater.inflate(R.layout.item_screening, parent, false)
+                ScreeningViewHolder(view, onClickReserveButton)
+            }
 
-    override fun getItem(position: Int): Screening = screenings[position]
+            VIEW_TYPE_ADVERTISEMENT -> {
+                val view = layoutInflater.inflate(R.layout.item_advertisement, parent, false)
+                AdvertisementViewHolder(view)
+            }
 
-    override fun getItemId(position: Int): Long = position.toLong()
+            else -> error(ErrorMessage("viewType").noSuch())
+        }
+    }
 
-    override fun getView(
+    override fun onBindViewHolder(
+        holder: ScreeningContentViewHolder,
         position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val screening: Screening = screenings[position]
-        val view =
-            convertView ?: LayoutInflater
-                .from(parent?.context)
-                .inflate(R.layout.item_screening, parent, false)
-        val viewHolder: ScreeningItemViewHolder =
-            viewHolderCache.getOrPut(screening) { ScreeningItemViewHolder(view) }
-        viewHolder.bind(screening, onClickReserveButton)
-        return view
+    ) {
+        holder.bind(items[position])
+    }
+
+    override fun getItemCount(): Int = items.size
+
+    companion object {
+        const val VIEW_TYPE_SCREENING = 0
+        const val VIEW_TYPE_ADVERTISEMENT = 1
     }
 }
