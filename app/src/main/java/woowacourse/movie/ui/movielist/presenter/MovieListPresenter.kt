@@ -6,7 +6,7 @@ import woowacourse.movie.domain.model.MovieListItem
 import woowacourse.movie.ui.movielist.contract.MovieListContract
 
 class MovieListPresenter(
-    val movieListView: MovieListContract.View,
+    private val movieListView: MovieListContract.View,
 ) : MovieListContract.Presenter {
     override fun getMovieList(): List<MovieListItem.MovieItem> =
         Movie.Companion.DUMMY_MOVIES.map {

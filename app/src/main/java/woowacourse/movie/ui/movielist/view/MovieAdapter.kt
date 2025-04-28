@@ -13,7 +13,7 @@ import woowacourse.movie.domain.model.MovieListItem.AdItem
 import woowacourse.movie.domain.model.MovieListItem.MovieItem
 
 class MovieAdapter(
-    val onClickBooking: (Movie) -> Unit,
+    private val onClickBooking: (Movie) -> Unit,
 ) : ListAdapter<MovieListItem, RecyclerView.ViewHolder>(
         object : DiffUtil.ItemCallback<MovieListItem>() {
             override fun areItemsTheSame(

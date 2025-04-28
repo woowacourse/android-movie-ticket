@@ -26,7 +26,7 @@ class Headcount(
     }
 
     companion object {
-        const val MIN_HEADCOUNT = 1
-        const val MAX_HEADCOUNT = 100
+        private const val MIN_HEADCOUNT = 1
+        private const val MAX_HEADCOUNT = 100
     }
 }

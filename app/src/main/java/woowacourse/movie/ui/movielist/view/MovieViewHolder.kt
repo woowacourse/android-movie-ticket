@@ -15,11 +15,11 @@ class MovieViewHolder(
 ) : RecyclerView.ViewHolder(itemView) {
     private var currentMovieItem: Movie? = null
 
-    val moviePoster: ImageView = itemView.findViewById<ImageView>(R.id.img_advertisement)
-    val movieTitle: TextView = itemView.findViewById<TextView>(R.id.tv_title)
-    val movieReleaseDate: TextView = itemView.findViewById<TextView>(R.id.tv_release_date)
-    val movieRunningTime: TextView = itemView.findViewById<TextView>(R.id.tv_running_time)
-    val bookingBtn: Button = itemView.findViewById<Button>(R.id.btn_booking)
+    private val moviePoster: ImageView = itemView.findViewById<ImageView>(R.id.img_advertisement)
+    private val movieTitle: TextView = itemView.findViewById<TextView>(R.id.tv_title)
+    private val movieReleaseDate: TextView = itemView.findViewById<TextView>(R.id.tv_release_date)
+    private val movieRunningTime: TextView = itemView.findViewById<TextView>(R.id.tv_running_time)
+    private val bookingBtn: Button = itemView.findViewById<Button>(R.id.btn_booking)
 
     init {
         bookingBtn.setOnClickListener {

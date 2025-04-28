@@ -6,7 +6,7 @@ import woowacourse.movie.domain.model.Seats
 import java.time.LocalDateTime
 
 class BookingCompletePresenter(
-    val bookingCompleteView: BookingCompleteContract.View,
+    private val bookingCompleteView: BookingCompleteContract.View,
 ) : BookingCompleteContract.Presenter {
     private val bookedTicket: BookedTicket by lazy { fetchBookedTicket() }
 

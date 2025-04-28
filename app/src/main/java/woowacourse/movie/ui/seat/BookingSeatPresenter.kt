@@ -6,7 +6,7 @@ import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TicketType
 
 class BookingSeatPresenter(
-    val bookingSeatView: BookingSeatContract.View,
+    private val bookingSeatView: BookingSeatContract.View,
 ) : BookingSeatContract.Presenter {
     private val headcount: Headcount by lazy { fetchHeadcount() }
     private val movieTitle: String by lazy { fetchMovieTitle() }

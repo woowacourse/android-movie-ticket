@@ -9,7 +9,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class BookingPresenter(
-    val bookingView: BookingContract.View,
+    private val bookingView: BookingContract.View,
 ) : BookingContract.Presenter {
     private var _headcount: Headcount = Headcount()
     val headcount get() = _headcount.deepCopy()
