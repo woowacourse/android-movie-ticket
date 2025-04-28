@@ -68,4 +68,5 @@ dependencies {
     androidTestImplementation(libs.mannodermaus.junit5.core)
     androidTestRuntimeOnly(libs.mannodermaus.junit5.runner)
     androidTestImplementation("androidx.test.espresso:espresso-device:1.0.1")
+    testImplementation(kotlin("test"))
 }
