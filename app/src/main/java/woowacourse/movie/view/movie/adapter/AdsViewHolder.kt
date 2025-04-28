@@ -8,10 +8,19 @@ import woowacourse.movie.view.movie.model.AdUiModel
 
 class AdsViewHolder(
     view: View,
+    onClickAd: (AdUiModel) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
+    private var currentItem: AdUiModel? = null
     private val image: ImageView = view.findViewById(R.id.ad_image)
 
+    init {
+        view.setOnClickListener {
+            currentItem?.let { onClickAd(it) }
+        }
+    }
+
     fun bind(item: AdUiModel) {
+        currentItem = item
         image.setImageResource(item.imageResId)
     }
 }

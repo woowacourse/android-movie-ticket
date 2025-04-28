@@ -11,8 +11,10 @@ import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
     private val view: View,
-    onButtonClick: (Int) -> Unit,
+    onClickButton: (MovieUiModel) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
+    private var currentItem: MovieUiModel? = null
+
     private val poster: ImageView = view.findViewById(R.id.poster)
     private val title: TextView = view.findViewById(R.id.movie_title)
     private val screeningDate: TextView = view.findViewById(R.id.screening_date)
@@ -20,10 +22,13 @@ class MovieViewHolder(
     private val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
     init {
-        reserveButton.setOnClickListener { onButtonClick(adapterPosition) }
+        reserveButton.setOnClickListener {
+            currentItem?.let { onClickButton(it) }
+        }
     }
 
     fun bind(item: MovieUiModel) {
+        currentItem = item
         poster.setImageResource(item.posterResId)
         title.text = item.title
         screeningDate.text =

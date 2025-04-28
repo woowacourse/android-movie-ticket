@@ -5,10 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
+import woowacourse.movie.view.movie.model.AdUiModel
+import woowacourse.movie.view.movie.model.MovieUiModel
 
 class MovieAdapter(
     private val items: List<MovieListItem>,
-    private val onClickButton: (Int) -> Unit,
+    private val onClickButton: (MovieUiModel) -> Unit,
+    private val onClickAd: (AdUiModel) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -28,6 +31,7 @@ class MovieAdapter(
                     LayoutInflater
                         .from(parent.context)
                         .inflate(R.layout.item_ads, parent, false),
+                    onClickAd,
                 )
         }
 

@@ -29,14 +29,13 @@ class MovieListActivity :
 
     override fun showMovieList(movies: List<MovieListItem>) {
         val movieAdapter =
-            MovieAdapter(movies) { position ->
-                when (val item = movies[position]) {
-                    is MovieListItem.MovieItem ->
-                        startActivity(MovieReservationActivity.newIntent(this, item.movie))
-
-                    is MovieListItem.AdItem -> Unit
-                }
-            }
+            MovieAdapter(
+                items = movies,
+                onClickButton = { movie ->
+                    startActivity(MovieReservationActivity.newIntent(this, movie))
+                },
+                onClickAd = {},
+            )
         movieListView.adapter = movieAdapter
     }
 
