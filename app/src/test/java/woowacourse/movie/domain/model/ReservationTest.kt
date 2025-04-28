@@ -20,7 +20,11 @@ class ReservationTest {
                     APRIL_THIRTIETH,
                     LocalTime.of(12, 0),
                 ),
-                Tickets(listOf(Ticket(Price(1_3000)))),
+                Tickets(
+                    listOf(
+                        Ticket(Seat(Row(0), Column(0), SeatRate.S)),
+                    ),
+                ),
             )
     }
 
@@ -28,7 +32,7 @@ class ReservationTest {
     fun `총 가격을 계산한다`() {
         // given & when
         val actual = reservation.totalPrice()
-        val expected = 1_3000
+        val expected = 1_5000
 
         // then
         assertThat(actual).isEqualTo(expected)

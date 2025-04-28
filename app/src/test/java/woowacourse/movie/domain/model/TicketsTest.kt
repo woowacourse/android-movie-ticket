@@ -7,7 +7,7 @@ class TicketsTest {
     @Test
     fun `예매 개수가 총 가격을 계산한다`() {
         // given
-        val tickets = Tickets(listOf(Ticket(Price(1_3000)), Ticket(Price(1_2000))))
+        val tickets = Tickets(listOf(Ticket(Seat(Row(0), Column(0), SeatRate.S)), Ticket(Seat(Row(0), Column(0), SeatRate.B))))
 
         // when
         val actual = tickets.totalPrice()
