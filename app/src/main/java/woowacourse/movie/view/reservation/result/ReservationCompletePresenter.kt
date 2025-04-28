@@ -19,6 +19,7 @@ class ReservationCompletePresenter(
             this.seats = seats
             view.showTicketInfo(ticket, seats)
             view.showSeatsInfo(seats.toSeatString())
+            view.showTicketMoney(seats.reservationPrice())
         }
     }
 

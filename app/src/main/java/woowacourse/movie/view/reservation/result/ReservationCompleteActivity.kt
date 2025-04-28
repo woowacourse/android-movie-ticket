@@ -64,13 +64,11 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
         val movieCancelInfoTextView = findViewById<TextView>(R.id.tv_cancel_info)
         val movieDateTextView = findViewById<TextView>(R.id.tv_movie_date)
         val moviePersonnel = findViewById<TextView>(R.id.tv_movie_personnel)
-        val movieTotalPrice = findViewById<TextView>(R.id.tv_movie_total_price)
 
         movieTitleTextView.text = ticket.title
         movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, Ticket.CANCEL_DEADLINE)
         movieDateTextView.text = dateTimeFormat
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
-        movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(personnel = ticket.personnel))
     }
 
     override fun showSeatsInfo(seats: String) {
@@ -78,12 +76,10 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
         movieSeatsTextView.text = getString(R.string.seat_list, seats)
     }
 
-    private fun totalPrice(
-        price: Int = Ticket.DEFAULT_PRICE,
-        personnel: Int,
-    ): String {
-        val priceFormatter = DecimalFormat(PRICE_PATTERN)
-        return priceFormatter.format(price * personnel).toString()
+    override fun showTicketMoney(moviePrice: Int) {
+        val priceFormatter = java.text.DecimalFormat(PRICE_PATTERN)
+        val movieTotalPrice = findViewById<TextView>(R.id.tv_movie_total_price)
+        movieTotalPrice.text = getString(R.string.movie_money, priceFormatter.format(moviePrice))
     }
 
     companion object {
