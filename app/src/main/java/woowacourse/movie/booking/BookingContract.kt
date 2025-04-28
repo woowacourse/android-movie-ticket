@@ -1,8 +1,8 @@
 package woowacourse.movie.booking
 
 import android.os.Bundle
-import woowacourse.movie.domain.MovieInfo
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.TicketCount
 import java.time.LocalTime
 
 interface BookingContract {

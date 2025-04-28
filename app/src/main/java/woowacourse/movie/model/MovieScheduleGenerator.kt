@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model
 
 import java.time.DayOfWeek
 import java.time.LocalDate
