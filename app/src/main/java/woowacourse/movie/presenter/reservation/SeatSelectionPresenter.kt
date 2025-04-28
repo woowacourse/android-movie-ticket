@@ -36,6 +36,7 @@ class SeatSelectionPresenter(
 
         view.setSeatIsSelected(seat, seat in selectedSeats)
         view.setPrice(price)
+        view.setConfirmEnabled(ticket.count == selectedSeats.size)
     }
 
     override fun tryReservation() {

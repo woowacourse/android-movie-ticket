@@ -188,6 +188,10 @@ class SeatSelectionActivity :
         seatView.isSelected = isSelected
     }
 
+    override fun setConfirmEnabled(enabled: Boolean) {
+        completeView.isEnabled = enabled
+    }
+
     override fun askFinalReservation() {
         showConfirmDialog(
             title = getString(R.string.ticket_dialog_title),

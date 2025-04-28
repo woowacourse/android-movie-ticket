@@ -35,6 +35,8 @@ interface SeatSelectionContract {
             selected: Boolean,
         )
 
+        fun setConfirmEnabled(isEnabled: Boolean)
+
         fun askFinalReservation()
 
         fun navigateToTicketScreen(
