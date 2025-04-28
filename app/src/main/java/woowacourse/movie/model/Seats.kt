@@ -19,11 +19,20 @@ value class Seats private constructor(
 
     fun labels(): List<String> = _seats.map { it.label }
 
-    fun contains(label: String): Boolean = _seats.any { it.label == label }
-
     fun add(label: String): Boolean = _seats.add(Seat(label))
 
-    fun remove(label: String): Boolean = _seats.removeIf { it.label == label }
+    fun click(label: String): Boolean =
+        if (contains(label)) {
+            remove(label)
+            false
+        } else {
+            add(label)
+            true
+        }
+
+    private fun contains(label: String): Boolean = _seats.any { it.label == label }
+
+    private fun remove(label: String): Boolean = _seats.removeIf { it.label == label }
 
     companion object {
         fun create(): Seats = Seats(mutableListOf())

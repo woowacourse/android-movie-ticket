@@ -25,16 +25,16 @@ class SeatSelectPresenter(
     }
 
     override fun onSeatClicked(seatId: String) {
-        if (selectedSeats.contains(seatId)) {
-            selectedSeats.remove(seatId)
-            view.updateSeatDeselected(seatId)
-        } else {
-            if (selectedSeats.size >= movieTicket.count) {
-                view.showSeatCountError(movieTicket.count)
-                return
-            }
-            selectedSeats.add(seatId)
+        if (selectedSeats.size >= movieTicket.count) {
+            view.showSeatCountError(movieTicket.count)
+            return
+        }
+
+        val isSelected = selectedSeats.click(seatId)
+        if (isSelected) {
             view.updateSeatSelected(seatId)
+        } else {
+            view.updateSeatDeselected(seatId)
         }
 
         view.updateTotalPrice(selectedSeats.totalPrice)
