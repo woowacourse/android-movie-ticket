@@ -6,17 +6,17 @@ import woowacourse.movie.domain.model.Seats
 
 interface BookingSeatContract {
     interface Presenter {
-        fun fetchHeadcount(): Headcount
+        fun loadHeadcount(): Headcount
 
-        fun fetchMovieTitle(): String
+        fun loadMovieTitle(): String
 
-        fun updateTotalPrice()
+        fun refreshTotalPrice()
 
-        fun updateMovieTitle()
+        fun refreshMovieTitle()
 
-        fun updateSeat(seatTag: String)
+        fun selectSeat(seatTag: String)
 
-        fun updateConfirmButton()
+        fun refreshConfirmButton()
 
         fun completeBookingSeat()
     }
@@ -26,9 +26,9 @@ interface BookingSeatContract {
 
         fun getMovieTitle(): String?
 
-        fun setTotalPriceTextView(totalPrice: Int)
+        fun setTotalPrice(totalPrice: Int)
 
-        fun setMovieTitleTextView(movieTitle: String)
+        fun setMovieTitle(movieTitle: String)
 
         fun toggleSeat(
             seatPosition: Seat,
@@ -37,7 +37,7 @@ interface BookingSeatContract {
 
         fun setConfirmButton(isEnabled: Boolean)
 
-        fun moveToBookingCompleteActivity(
+        fun startBookingCompleteActivity(
             movieTitle: String,
             headcount: Headcount,
             seats: Seats,

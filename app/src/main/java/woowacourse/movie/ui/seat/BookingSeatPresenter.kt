@@ -7,34 +7,34 @@ import woowacourse.movie.domain.model.Seats
 class BookingSeatPresenter(
     private val bookingSeatView: BookingSeatContract.View,
 ) : BookingSeatContract.Presenter {
-    private val headcount: Headcount by lazy { fetchHeadcount() }
-    private val movieTitle: String by lazy { fetchMovieTitle() }
+    private val headcount: Headcount by lazy { loadHeadcount() }
+    private val movieTitle: String by lazy { loadMovieTitle() }
     private var seats: Seats = Seats()
 
     fun fetchData() {
-        fetchHeadcount()
-        fetchMovieTitle()
+        loadHeadcount()
+        loadMovieTitle()
     }
 
     fun updateViews() {
-        updateMovieTitle()
-        updateTotalPrice()
-        updateConfirmButton()
+        refreshMovieTitle()
+        refreshTotalPrice()
+        refreshConfirmButton()
     }
 
-    override fun fetchHeadcount(): Headcount = bookingSeatView.getHeadcount() ?: Headcount()
+    override fun loadHeadcount(): Headcount = bookingSeatView.getHeadcount() ?: Headcount()
 
-    override fun fetchMovieTitle(): String = bookingSeatView.getMovieTitle() ?: "EMPTY"
+    override fun loadMovieTitle(): String = bookingSeatView.getMovieTitle() ?: "EMPTY"
 
-    override fun updateTotalPrice() {
-        bookingSeatView.setTotalPriceTextView(seats.totalPrice())
+    override fun refreshTotalPrice() {
+        bookingSeatView.setTotalPrice(seats.totalPrice())
     }
 
-    override fun updateMovieTitle() {
-        bookingSeatView.setMovieTitleTextView(movieTitle)
+    override fun refreshMovieTitle() {
+        bookingSeatView.setMovieTitle(movieTitle)
     }
 
-    override fun updateSeat(seatTag: String) {
+    override fun selectSeat(seatTag: String) {
         val seat = Seat.fromSeatTag(seatTag)
 
         if (seats.contains(seat)) {
@@ -44,11 +44,11 @@ class BookingSeatPresenter(
             seats.add(seat)
             bookingSeatView.toggleSeat(seat, true)
         }
-        updateTotalPrice()
-        updateConfirmButton()
+        refreshTotalPrice()
+        refreshConfirmButton()
     }
 
-    override fun updateConfirmButton() {
+    override fun refreshConfirmButton() {
         if (seats.size != headcount.count) {
             bookingSeatView.setConfirmButton(false)
         } else {
@@ -57,6 +57,6 @@ class BookingSeatPresenter(
     }
 
     override fun completeBookingSeat() {
-        bookingSeatView.moveToBookingCompleteActivity(movieTitle, headcount, seats)
+        bookingSeatView.startBookingCompleteActivity(movieTitle, headcount, seats)
     }
 }

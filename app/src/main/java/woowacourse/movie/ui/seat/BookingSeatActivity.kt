@@ -58,12 +58,12 @@ class BookingSeatActivity :
 
     override fun getMovieTitle(): String? = intent.getStringExtra(EXTRA_MOVIE_TITLE)
 
-    override fun setTotalPriceTextView(totalPrice: Int) {
+    override fun setTotalPrice(totalPrice: Int) {
         val totalPriceView: TextView = findViewById(R.id.tv_price)
         totalPriceView.text = getString(R.string.text_korean_won).format(thousandFormat(totalPrice))
     }
 
-    override fun setMovieTitleTextView(movieTitle: String) {
+    override fun setMovieTitle(movieTitle: String) {
         val movieTitleView: TextView = findViewById(R.id.tv_movie_title)
         movieTitleView.text = movieTitle
     }
@@ -89,7 +89,7 @@ class BookingSeatActivity :
                     setSeatTag(textView as TextView, rowIndex, colIndex)
                     setSeatColor(textView, rowIndex)
                     textView.setOnClickListener {
-                        bookingSeatPresenter.updateSeat(textView.getTag(R.id.seat_tag).toString())
+                        bookingSeatPresenter.selectSeat(textView.getTag(R.id.seat_tag).toString())
                     }
                 }
             }
@@ -99,7 +99,7 @@ class BookingSeatActivity :
         confirmButton.isEnabled = isEnabled
     }
 
-    override fun moveToBookingCompleteActivity(
+    override fun startBookingCompleteActivity(
         movieTitle: String,
         headcount: Headcount,
         seats: Seats,
