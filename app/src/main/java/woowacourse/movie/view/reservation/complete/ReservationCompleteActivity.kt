@@ -45,10 +45,6 @@ class ReservationCompleteActivity :
     }
 
     override fun showReservationInfo(reservationInfo: ReservationInfo) {
-        setupReservationInfo(reservationInfo)
-    }
-
-    private fun setupReservationInfo(reservationInfo: ReservationInfo) {
         movieTitleTextView.text = reservationInfo.title
         reservationDateTimeTextView.text =
             resources.getString(
@@ -60,7 +56,10 @@ class ReservationCompleteActivity :
             resources.getString(
                 R.string.reservation_complete_ticket_count,
                 reservationInfo.seats.size,
-                reservationInfo.seats.labels().joinToString(),
+                reservationInfo.seats
+                    .labels()
+                    .sorted()
+                    .joinToString(),
             )
         ticketPriceTextView.text =
             resources.getString(
