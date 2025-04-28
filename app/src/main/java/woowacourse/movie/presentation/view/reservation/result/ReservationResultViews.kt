@@ -30,7 +30,7 @@ class ReservationResultViews(
                 tvMovieDate.text = ticketBundle.dateTime.format(formatter)
             }
         tvReservationCountInfo.text =
-            activity.getString(R.string.reservation_count_info, ticketBundle.size, ticketBundle.labels.joinToString())
+            activity.getString(R.string.reservation_count_info, ticketBundle.size, ticketBundle.labels.joinToString { it.toLabel() })
         tvTotalPrice.text =
             activity.getString(R.string.reservation_total_price).format(ticketBundle.totalPrice)
         tvCancelDescription.text =

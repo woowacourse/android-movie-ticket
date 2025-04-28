@@ -95,7 +95,7 @@ class ReservationSeatViews(
         }
 
     private fun TextView.setupSeatText(seat: SeatUiModel) {
-        text = "${'A' + seat.row}${seat.col}"
+        text = seat.toLabel()
         gravity = Gravity.CENTER
         textSize = 22f
     }
