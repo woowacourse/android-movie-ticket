@@ -1,5 +1,10 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.ticket
 
+import woowacourse.movie.domain.model.reservation.Price
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatRate
 import java.io.Serializable
 
 class Ticket(val seat: Seat) : Serializable {

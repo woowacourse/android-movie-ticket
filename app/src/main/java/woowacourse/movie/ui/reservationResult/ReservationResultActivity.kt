@@ -10,9 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Column
-import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Row
+import woowacourse.movie.domain.model.reservation.Reservation
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
 import woowacourse.movie.ui.extensions.serializableData
 import woowacourse.movie.ui.factory.CustomAlertDialog
 import woowacourse.movie.ui.factory.DialogInfo

@@ -1,5 +1,7 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.ticket
 
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
 import java.io.Serializable
 
 class Tickets(private val tickets: List<Ticket>) : Serializable {

@@ -1,7 +1,11 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.ticket
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatRate
 
 class TicketsTest {
     @Test

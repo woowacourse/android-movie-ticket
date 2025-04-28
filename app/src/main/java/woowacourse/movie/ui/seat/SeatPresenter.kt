@@ -1,13 +1,13 @@
 package woowacourse.movie.ui.seat
 
-import woowacourse.movie.domain.model.Column
-import woowacourse.movie.domain.model.PurchaseCount
-import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.Row
-import woowacourse.movie.domain.model.Seat
-import woowacourse.movie.domain.model.SeatRate
-import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.domain.model.Tickets
+import woowacourse.movie.domain.model.reservation.PurchaseCount
+import woowacourse.movie.domain.model.reservation.Reservation
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatRate
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.domain.model.ticket.Tickets
 
 class SeatPresenter(private val view: SeatContract.View) : SeatContract.Presenter {
     private lateinit var reservation: Reservation

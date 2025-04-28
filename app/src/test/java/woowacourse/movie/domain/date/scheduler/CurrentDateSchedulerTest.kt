@@ -6,7 +6,7 @@ import woowacourse.movie.APRIL_THIRTIETH
 import woowacourse.movie.MAY_FIRST
 import woowacourse.movie.MAY_SECOND
 import woowacourse.movie.MAY_THIRD
-import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.movie.ScreeningDate
 import java.time.LocalDate
 
 class CurrentDateSchedulerTest {

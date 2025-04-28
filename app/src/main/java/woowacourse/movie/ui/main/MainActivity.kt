@@ -8,7 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.main.adapter.MoviesAdapter
 import woowacourse.movie.ui.reserve.ReserveActivity
 import woowacourse.movie.ui.reserve.ReserveActivity.Companion.KEY_RESERVE_ACTIVITY_MOVIE

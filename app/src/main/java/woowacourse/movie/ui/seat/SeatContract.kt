@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.seat
 
-import woowacourse.movie.domain.model.PurchaseCount
-import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.reservation.PurchaseCount
+import woowacourse.movie.domain.model.reservation.Reservation
 
 interface SeatContract {
     interface Presenter {

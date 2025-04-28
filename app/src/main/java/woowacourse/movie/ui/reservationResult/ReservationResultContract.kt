@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.reservationResult
 
-import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.reservation.Reservation
 
 interface ReservationResultContract {
     interface Presenter {

@@ -1,10 +1,16 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.APRIL_THIRTIETH
 import woowacourse.movie.MAY_FIRST
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatRate
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.domain.model.ticket.Tickets
 import java.time.LocalDateTime
 import java.time.LocalTime
 

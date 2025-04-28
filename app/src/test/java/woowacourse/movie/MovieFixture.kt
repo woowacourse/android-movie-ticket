@@ -1,8 +1,8 @@
 package woowacourse.movie
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.ScreeningDate
 
 const val HARRY_POTTER_TITLE = "해리포터"
 const val HARRY_POTTER_RUNNING_TIME = 152

@@ -1,5 +1,9 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation
 
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.domain.model.ticket.Tickets
 import java.io.Serializable
 import java.time.LocalDateTime
 

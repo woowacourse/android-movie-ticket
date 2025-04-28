@@ -15,8 +15,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.PurchaseCount
-import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.reservation.PurchaseCount
+import woowacourse.movie.domain.model.reservation.Reservation
 import woowacourse.movie.ui.extensions.serializableData
 import woowacourse.movie.ui.factory.CustomAlertDialog
 import woowacourse.movie.ui.factory.DialogInfo

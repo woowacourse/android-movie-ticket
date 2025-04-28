@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.reserve
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.reservation.Reservation
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

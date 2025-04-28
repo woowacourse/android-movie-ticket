@@ -1,9 +1,9 @@
 package woowacourse.movie.ui.main
 
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.ScreeningDate
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 

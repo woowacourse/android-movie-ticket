@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.seat
 
 import java.io.Serializable
 

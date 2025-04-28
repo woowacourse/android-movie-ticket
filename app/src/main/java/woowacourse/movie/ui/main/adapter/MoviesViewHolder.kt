@@ -6,8 +6,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.ScreeningDate
 import java.time.format.DateTimeFormatter
 
 sealed class MoviesViewHolder(itemView: View) : ViewHolder(itemView) {

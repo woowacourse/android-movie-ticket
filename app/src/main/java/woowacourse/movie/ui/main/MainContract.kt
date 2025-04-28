@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.main
 
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.movie.Movie
 
 interface MainContract {
     interface Presenter {
