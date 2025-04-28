@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.MovieListData
 import woowacourse.movie.dto.MovieListDataDto
 import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
@@ -52,7 +53,7 @@ class MovieListAdapter(
     }
 
     override fun getItemCount(): Int {
-        return if (super.itemCount <= VIEW_MAX_PRINT) super.itemCount else VIEW_MAX_PRINT
+        return if (super.itemCount <= MovieListData.MAX_VIEW_SIZE) super.itemCount else MovieListData.MAX_VIEW_SIZE
     }
 
     private class MyDataDiffCallback : DiffUtil.ItemCallback<MovieListDataDto>() {
@@ -112,6 +113,5 @@ class MovieListAdapter(
     companion object {
         private const val VIEW_TYPE_MOVIE = 0
         private const val VIEW_TYPE_ADS = 1
-        private const val VIEW_MAX_PRINT = 10_000
     }
 }

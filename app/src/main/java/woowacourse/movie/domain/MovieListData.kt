@@ -33,6 +33,7 @@ sealed class MovieListData {
 
     companion object {
         private val isAds = { position: Int -> (position + 1) % 4 == 0 }
+        const val MAX_VIEW_SIZE = 10_000
 
         fun flatten(
             movies: List<Movie>,
