@@ -3,7 +3,6 @@ package woowacourse.movie.activity.movielist
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.activity.booking.BookingActivity
@@ -28,7 +27,6 @@ class MovieListActivity :
                 presenter.onMovieClicked(movie)
             }
         movieList.adapter = adapter
-        movieList.layoutManager = LinearLayoutManager(this)
 
         presenter.loadMovies()
     }
