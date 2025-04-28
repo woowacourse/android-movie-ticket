@@ -76,7 +76,7 @@ class SeatsPresenterTest {
 
         // Then
         presenter.isSelectedSeat(seat2) shouldBe false
-        verify { view.showToast("[ERROR] 더 이상 좌석을 선택할 수 없습니다.") }
+        verify { view.showToast("좌석은 1개만 선택할 수 있습니다.") }
     }
 
     @Test
