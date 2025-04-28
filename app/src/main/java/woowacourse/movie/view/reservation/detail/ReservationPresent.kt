@@ -58,6 +58,12 @@ class ReservationPresent(
         this.selectedTimePosition = position
     }
 
+    override fun resetSelectedTimePosition(position: Int) {
+        if (selectedDatePosition != position) {
+            selectedTimePosition = 0
+        }
+    }
+
     override fun createTicket(selectedDateTime: LocalDateTime) {
         val ticket =
             Ticket(

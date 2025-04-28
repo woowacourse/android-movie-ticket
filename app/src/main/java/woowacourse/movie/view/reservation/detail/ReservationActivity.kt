@@ -168,6 +168,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 android.R.layout.simple_spinner_item,
                 currentDateSpinner,
             )
+
         spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -177,6 +178,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                     id: Long,
                 ) {
                     val selectedDate = currentDateSpinner[position]
+                    present.resetSelectedTimePosition(position)
                     setTimeSpinner(spinnerTime, selectedDate)
                     present.selectedDate(position)
                 }
