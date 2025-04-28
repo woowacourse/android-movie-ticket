@@ -24,7 +24,7 @@ class SeatPresenter(
         }
     }
 
-    override fun onConfirmClicked(limit: Int) {
+    override fun attemptConfirmBooking(limit: Int) {
         if (seats.isNotSelectDone(limit)) {
             view.showToast(limit)
             return

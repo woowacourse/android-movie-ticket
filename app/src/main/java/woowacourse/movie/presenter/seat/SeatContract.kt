@@ -25,6 +25,6 @@ interface SeatContract {
             limit: Int,
         )
 
-        fun onConfirmClicked(limit: Int)
+        fun attemptConfirmBooking(limit: Int)
     }
 }

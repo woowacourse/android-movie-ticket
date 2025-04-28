@@ -83,3 +83,17 @@ private fun seatToLabel(): String {
 ### ⛔️ Warning
 - View 인터페이스(BookingContract.View)에 onClickIncrease(), onClickDecrease() 등 중간 전달 전용 메서드가 존재
 - 해당 메서드들은 별도의 추가 로직 없이 단순히 Presenter 메서드를 호출하는 역할만 수행
+
+### 💡Solution
+Button 클릭 이벤트에서 Presenter 메서드를 직접 호출하도록 수정
+
+### 6-2. View와 Presenter의 관심사 분리
+- [X] 프레젠터의 존재하는 onXXX 메서드 제거
+  - 유저와 상호작용하여 이벤트를 발생 시키는 역할은 View의 책임이므로 제거
+
+### 6-3. 구체적인 이벤트를 명시하는 메서드명 수정
+- XXClick 이란 이름을 가진 메서드가 더블클릭이나 롱클릭 드래그로 이벤트가 시작된다면 인터페이스 이름도 변경
+- [x] View와 Presenter의 인터페이스는 기능 관점에서 작명
+- 의문점 : 만약 "클릭"에 관한 이벤트일 경우 "클릭"이란 단어로 롱클릭, 더블클릭 같은 행위를 추상화할 수 있지않을까 ?
+    + 메서드의 네이밍을 추상화하는 것은 큰 이점이 없어보인다.
+    + 하지만 UI에서 트리거되는 이벤트가 변경되어 Presenter의 메서드명이 수정된다면 이는 SRP를 위반한다
