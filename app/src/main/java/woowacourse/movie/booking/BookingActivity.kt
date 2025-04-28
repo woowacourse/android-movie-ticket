@@ -31,7 +31,7 @@ class BookingActivity :
     private lateinit var ticketCount: TextView
     private lateinit var movieDate: TextView
     private var ticketCountValue = TicketCount()
-    private var presenter = BookingPresenter()
+    private var presenter = BookingPresenter(this)
     private lateinit var movieInfo: MovieInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +43,7 @@ class BookingActivity :
         movieDate = findViewById(R.id.movie_date)
         movieInfoUIModel = intent.fetchExtraOrNull<MovieInfoUIModel>(KEY_MOVIE_INFO) ?: return
         movieInfo = MovieInfo.fromUiModel(movieInfoUIModel)
-        presenter.onCreateView(this, savedInstanceState)
+        presenter.onCreateView(savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -136,7 +136,6 @@ class BookingActivity :
                     id: Long,
                 ) {
                     presenter.dateSpinnerSelect(
-                        this@BookingActivity,
                         MovieInfo.fromUiModel(movieInfoUIModel),
                         position,
                     )
@@ -149,7 +148,7 @@ class BookingActivity :
     override fun confirmButtonHandler() {
         val confirmButton = findViewById<Button>(R.id.confirm_button)
         confirmButton.setOnClickListener {
-            presenter.onBookButtonClick(this@BookingActivity, ticketCountValue)
+            presenter.onBookButtonClick(ticketCountValue)
         }
     }
 
@@ -158,11 +157,11 @@ class BookingActivity :
         val plusButton = findViewById<Button>(R.id.plus_button)
 
         minusButton.setOnClickListener {
-            presenter.onDownButtonClick(this@BookingActivity, ticketCountValue)
+            presenter.onDownButtonClick(ticketCountValue)
         }
 
         plusButton.setOnClickListener {
-            presenter.onUpButtonClick(this@BookingActivity, ticketCountValue)
+            presenter.onUpButtonClick(ticketCountValue)
         }
     }
 
