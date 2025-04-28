@@ -35,7 +35,7 @@ class MainPresenterTest {
     }
 
     @Test
-    fun `초기화한 영화와 광고를 보여주는 기능 테스트`() {
+    fun `초기화한 영화와 광고를 보여준다`() {
         presenter.showMovies()
         verify {
             view.showMovies(

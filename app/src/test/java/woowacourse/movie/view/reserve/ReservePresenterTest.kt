@@ -31,19 +31,19 @@ class ReservePresenterTest {
     }
 
     @Test
-    fun `initMovie 호출 시 view의 initScreen에 Movie 객체가 전달된다`() {
+    fun `initMovie 호출 시 받은 movie 그대로 view의 전달된다`() {
         verify { view.initScreen(mockMovie) }
     }
 
     @Test
-    fun `initDateSpinner 호출 시 view의 fetchDates에 예상되는 날짜 목록이 전달된다`() {
+    fun `initDateSpinner 호출 시 view의 fetchDates에 예약 가능 날짜 목록을 전달`() {
         presenter.initDateSpinner(MAY_FIRST)
 
         verify { view.fetchDates(mockDates) }
     }
 
     @Test
-    fun `initTimeSpinner 호출 시 view의 fetchTimes에 특정 날짜에 대한 예상 시간 목록이 전달된다`() {
+    fun `initTimeSpinner 호출 시 view의 fetchTimes에 해당 날짜의 예약 가능 시간 목록을 전달`() {
         presenter.initTimeSpinner(
             MAY_FIRST,
             LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME),
@@ -53,14 +53,14 @@ class ReservePresenterTest {
     }
 
     @Test
-    fun `increasePurchaseCount 호출 시 view의 fetchPurchaseCount에 증가된 구매 수량이 전달된다`() {
+    fun `increasePurchaseCount 호출 시 view의 fetchPurchaseCount에 증가된 구매 수량을 전달`() {
         presenter.increasePurchaseCount()
 
         verify { view.fetchPurchaseCount(increasedPurchaseCount) }
     }
 
     @Test
-    fun `decreasePurchaseCount 호출 후 view의 fetchPurchaseCount에 감소된 구매 수량이 전달된다`() {
+    fun `decreasePurchaseCount 호출 후 view의 fetchPurchaseCount에 감소된 구매 수량을 전달`() {
         presenter.increasePurchaseCount()
         presenter.decreasePurchaseCount()
 
@@ -68,7 +68,7 @@ class ReservePresenterTest {
     }
 
     @Test
-    fun `dateOnClick 호출 시 view의 dateOnClick에 정확한 Date와 예상되는 상영 시간 크기가 전달된다`() {
+    fun `dateOnClick 호출 시 view의 dateOnClick에 정확한 Date와 예상되는 상영 시간 크기를 전달`() {
         presenter.dateOnClick(MAY_FIRST, LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME), mockDateTime)
 
         verify {
@@ -81,7 +81,7 @@ class ReservePresenterTest {
     }
 
     @Test
-    fun `timeOnClick 호출 시 view의 timeOnClick에 정확한 Position이 전달된다`() {
+    fun `timeOnClick 호출 시 view의 timeOnClick에 정확한 Position을 전달`() {
         // Given
         val selectedPosition = 1
 

@@ -49,7 +49,7 @@ class SeatPresenterTest {
     }
 
     @Test
-    fun `예약 정보 전달`() {
+    fun `현재 예약 정보 전달`() {
         presenter.reserve()
         verify {
             view.reserve(HARRY_POTTER_RESERVATION)
