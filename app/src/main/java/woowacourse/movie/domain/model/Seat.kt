@@ -7,6 +7,7 @@ import kotlinx.parcelize.Parcelize
 data class Seat(
     val row: Int,
     val column: Int,
+    var isSelected: Boolean = false,
 ) : Parcelable {
     fun price() = SeatGrade.of(this).price
 }
