@@ -11,6 +11,8 @@ interface SeatSelectionContract {
 
         fun presentPrice()
 
+        fun presentCompleteButton()
+
         fun onSeatSelect(seat: Seat)
 
         fun tryReservation()

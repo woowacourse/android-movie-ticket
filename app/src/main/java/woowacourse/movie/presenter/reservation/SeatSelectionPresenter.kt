@@ -11,6 +11,7 @@ class SeatSelectionPresenter(
 ) : SeatSelectionContract.Presenter {
     private val seats: Set<Seat> = Seat.Companion.seats()
     private var selectedSeats = selectedSeats?.toSet() ?: emptySet()
+    private val completable get() = ticket.count == selectedSeats?.size
     private val price: Int get() = selectedSeats.sumOf(Seat::price)
 
     override fun presentSeats() {
@@ -25,6 +26,10 @@ class SeatSelectionPresenter(
         view.setPrice(price)
     }
 
+    override fun presentCompleteButton() {
+        view.setConfirmEnabled(completable)
+    }
+
     override fun onSeatSelect(seat: Seat) {
         if (seat in selectedSeats) {
             selectedSeats -= seat
@@ -36,7 +41,7 @@ class SeatSelectionPresenter(
 
         view.setSeatIsSelected(seat, seat in selectedSeats)
         view.setPrice(price)
-        view.setConfirmEnabled(ticket.count == selectedSeats.size)
+        view.setConfirmEnabled(completable)
     }
 
     override fun tryReservation() {

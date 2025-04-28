@@ -73,6 +73,7 @@ class SeatSelectionActivity :
             it.presentSeats()
             it.presentTitle()
             it.presentPrice()
+            it.presentCompleteButton()
         }
     }
 
