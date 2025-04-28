@@ -51,7 +51,7 @@ class ReservationPresenterTest {
         every { view.updateTimeAdapter(any()) } just Runs
 
         presenter.fetchData { Fixture.dummyMovie }
-        presenter.onDateSelected(now, 0)
+        presenter.onDateSelected(now)
 
         verifySequence {
             view.updateMovieInfo(any(), any(), any(), any(), any())
