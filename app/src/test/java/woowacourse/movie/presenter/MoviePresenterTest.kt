@@ -23,12 +23,12 @@ class MoviePresenterTest {
     @Test
     fun `영화 목록을 불러온다`() {
         // given
-        every { view.updateView(any()) } just Runs
+        every { view.showMovies(any()) } just Runs
 
         // when: 영화 목록을 조회하면
         presenter.fetchMovies()
 
         // then: 뷰에 반영된다.
-        verify { view.updateView(any()) }
+        verify { view.showMovies(any()) }
     }
 }

@@ -7,6 +7,6 @@ class MoviePresenter(
 ) : MovieContract.Presenter {
     override fun fetchMovies() {
         val movies = Movie.values
-        view.updateView(movies)
+        view.showMovies(movies)
     }
 }
