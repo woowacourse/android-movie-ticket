@@ -34,7 +34,7 @@ class ScreeningActivity :
         presenter.presentScreenings()
     }
 
-    override fun setScreenings(screeningContents: List<ScreeningContent>) {
+    override fun setScreeningContents(screeningContents: List<ScreeningContent>) {
         initListView(screeningContents)
     }
 

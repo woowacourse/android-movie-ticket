@@ -43,7 +43,7 @@ class ScreeningPresenterTest {
     fun `영화 목록을 보여줄 수 있다`() {
         // given
         every {
-            view.setScreenings(
+            view.setScreeningContents(
                 listOf(
                     Screening(
                         Movie(
@@ -63,7 +63,7 @@ class ScreeningPresenterTest {
 
         // then
         verify {
-            view.setScreenings(
+            view.setScreeningContents(
                 listOf(
                     Screening(
                         Movie(

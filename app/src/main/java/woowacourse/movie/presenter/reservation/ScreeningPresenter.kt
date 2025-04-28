@@ -17,7 +17,7 @@ class ScreeningPresenter(
     override fun presentScreenings() {
         val screeningContentsPolicy: ScreeningContentsPolicy =
             DefaultScreeningContentsPolicy(screeningData.value, advertisementData.value)
-        view.setScreenings(screeningContentsPolicy.screeningContents())
+        view.setScreeningContents(screeningContentsPolicy.screeningContents())
     }
 
     override fun selectScreening(screening: Screening) {
