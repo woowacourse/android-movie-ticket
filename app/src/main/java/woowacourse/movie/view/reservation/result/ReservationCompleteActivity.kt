@@ -37,7 +37,14 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
             } else {
                 intent.getSerializableExtra(KEY_TICKET) as? Ticket
             }
-        presenter.fetchData(ticket)
+
+        val seats =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getSerializableExtra(KET_SEATS, Seats::class.java)
+            } else {
+                intent.getSerializableExtra(KET_SEATS) as? Seats
+            }
+        presenter.fetchData(ticket, seats)
     }
 
     override fun handleInvalidTicket() {
@@ -46,7 +53,10 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
         }
     }
 
-    override fun showTicketInfo(ticket: Ticket) {
+    override fun showTicketInfo(
+        ticket: Ticket,
+        seats: Seats,
+    ) {
         val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val dateTimeFormat = ticket.date.format(formatter)
 
@@ -61,6 +71,11 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
         movieDateTextView.text = dateTimeFormat
         moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
         movieTotalPrice.text = getString(R.string.movieTotalPrice, totalPrice(personnel = ticket.personnel))
+    }
+
+    override fun showSeatsInfo(seats: String) {
+        val movieSeatsTextView = findViewById<TextView>(R.id.tv_seat_list)
+        movieSeatsTextView.text = getString(R.string.seat_list, seats)
     }
 
     private fun totalPrice(
