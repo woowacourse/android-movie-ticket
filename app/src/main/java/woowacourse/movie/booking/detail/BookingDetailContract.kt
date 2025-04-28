@@ -27,7 +27,11 @@ interface BookingDetailContract {
     }
 
     interface Presenter {
-        fun initializeData(savedInstanceState: Bundle?)
+        fun initializeData()
+
+        fun createDefaultTicket()
+
+        fun restoreTicketData(headCount: Int, screeningDate: String?, screeningTime: String?)
 
         fun onDateSelected(date: LocalDate)
 
@@ -39,6 +43,7 @@ interface BookingDetailContract {
 
         fun onConfirmReservation()
 
-        fun onSaveState(outState: Bundle)
+        fun getCurrentTicketUiModel(): TicketUiModel
+
     }
 }

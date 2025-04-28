@@ -1,6 +1,5 @@
 package woowacourse.movie.booking.detail
 
-import android.os.Bundle
 import woowacourse.movie.mapper.toDomain
 import woowacourse.movie.mapper.toUiModel
 import woowacourse.movie.model.Booking
@@ -13,18 +12,12 @@ import java.time.LocalTime
 
 class BookingDetailPresenter(
     private val view: BookingDetailContract.View,
-    private val movie: MovieUiModel?,
+    private val movie: MovieUiModel,
 ) : BookingDetailContract.Presenter {
     private lateinit var ticket: Ticket
     private lateinit var booking: Booking
 
-    override fun initializeData(savedInstanceState: Bundle?) {
-        if (movie == null) {
-            view.showToastErrorAndFinish("영화 정보를 불러올 수 없습니다.")
-            return
-        }
-
-        ticket = restoreData(movie, savedInstanceState)
+    override fun initializeData() {
         booking = Booking(movie.toDomain())
 
         view.showMovieInfo(movie)
@@ -83,30 +76,31 @@ class BookingDetailPresenter(
         }
     }
 
-    override fun onSaveState(outState: Bundle) {
-        outState.putInt(KEY_HEAD_COUNT, ticket.headCount.value)
-        outState.putString(KEY_SCREENING_DATE, ticket.selectedDate.toString())
-        outState.putString(KEY_SCREENING_TIME, ticket.selectedTime.toString())
+    override fun getCurrentTicketUiModel(): TicketUiModel {
+        return ticket.toUiModel()
     }
 
-    private fun restoreData(
-        movie: MovieUiModel,
-        savedInstanceState: Bundle?,
-    ): Ticket {
-        val savedCount = savedInstanceState?.getInt(KEY_HEAD_COUNT)
-        val savedScreeningDate = savedInstanceState?.getString(KEY_SCREENING_DATE)
-        val savedScreeningTime = savedInstanceState?.getString(KEY_SCREENING_TIME)
-
-        val date = savedScreeningDate?.let { LocalDate.parse(it) } ?: LocalDate.now()
-        val time = savedScreeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now()
-
-        val headCount = savedCount ?: 0
-        return Ticket(movie.title, HeadCount(headCount), date, time, Seats(emptyList()))
+    override fun restoreTicketData(
+        headCount: Int,
+        screeningDate: String?,
+        screeningTime: String?,
+    ) {
+        ticket = Ticket(
+            title = movie.title,
+            headCount = HeadCount(headCount),
+            selectedDate = screeningDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
+            selectedTime = screeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now(),
+            seats = Seats(emptyList())
+        )
     }
 
-    companion object {
-        private const val KEY_HEAD_COUNT = "HEAD_COUNT"
-        private const val KEY_SCREENING_DATE = "SCREENING_DATE"
-        private const val KEY_SCREENING_TIME = "SCREENING_TIME"
+    override fun createDefaultTicket() {
+        ticket = Ticket(
+            title = movie.title,
+            headCount = HeadCount(0),
+            selectedDate = LocalDate.now(),
+            selectedTime = LocalTime.now(),
+            seats = Seats(emptyList())
+        )
     }
 }
