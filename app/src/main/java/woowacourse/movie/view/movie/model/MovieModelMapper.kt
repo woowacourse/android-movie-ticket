@@ -1,6 +1,6 @@
 package woowacourse.movie.view.movie.model
 
-import woowacourse.movie.common.DummyData
+import woowacourse.movie.data.DummyData
 import woowacourse.movie.domain.Movie
 
 fun Movie.toUiModel(): MovieUiModel =

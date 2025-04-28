@@ -9,6 +9,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.data.DefaultMovieRepository
 import woowacourse.movie.view.movie.adapter.MovieAdapter
 import woowacourse.movie.view.movie.adapter.MovieListItem
 import woowacourse.movie.view.reservation.MovieReservationActivity
@@ -23,7 +24,7 @@ class MovieListActivity :
         super.onCreate(savedInstanceState)
         setUpView()
 
-        presenter = MovieListPresenter(this)
+        presenter = MovieListPresenter(this, DefaultMovieRepository())
         presenter.loadMovieListScreen()
     }
 

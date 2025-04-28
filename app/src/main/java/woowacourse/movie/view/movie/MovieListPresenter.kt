@@ -1,6 +1,6 @@
 package woowacourse.movie.view.movie
 
-import woowacourse.movie.common.DummyData
+import woowacourse.movie.data.MovieRepository
 import woowacourse.movie.view.movie.adapter.MovieListItem
 import woowacourse.movie.view.movie.model.AdUiModel
 import woowacourse.movie.view.movie.model.MovieUiModel
@@ -8,9 +8,10 @@ import woowacourse.movie.view.movie.model.toUiModel
 
 class MovieListPresenter(
     private val view: MovieListContract.View,
+    private val repository: MovieRepository,
 ) : MovieListContract.Presenter {
     override fun loadMovieListScreen() {
-        val movies = DummyData.movies.map { it.key.toUiModel() }
+        val movies = repository.fetchMovies().map { it.toUiModel() }
         val listWithAds = buildListWithAds(movies)
         view.showMovieList(listWithAds)
     }
