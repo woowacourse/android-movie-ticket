@@ -6,9 +6,9 @@ class SeatsFactoryImpl : SeatsFactory {
     override fun get(): List<Seat> =
         Seat.Companion.ROWS.flatMap { row ->
             Seat.Companion.COLUMNS.map { column ->
-                val locationString = "$row$column"
                 Seat(
-                    locationString,
+                    row,
+                    column,
                     ROW_TO_PRICE_RULE_MAP[row]
                         ?: throw IllegalArgumentException(ERR_UNKNOWN_RULE),
                 )

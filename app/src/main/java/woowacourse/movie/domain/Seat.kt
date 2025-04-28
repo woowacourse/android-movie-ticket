@@ -3,16 +3,14 @@ package woowacourse.movie.domain
 import woowacourse.movie.domain.rules.PriceRule
 
 data class Seat(
-    val location: String,
+    val row: String,
+    val column: Int,
     val price: PriceRule,
 ) {
-    val row = location.substring(0, 1)
-    val column = location.substring(1).toInt()
-
     init {
         runCatching {
-            require(location.substring(0, 1) in ROWS) { ERR_OUT_OF_ROW }
-            require(location.substring(1).toInt() in COLUMNS) { ERR_OUT_OF_COLUMN }
+            require(row in ROWS) { ERR_OUT_OF_ROW }
+            require(column in COLUMNS) { ERR_OUT_OF_COLUMN }
         }.onFailure {
             throw IllegalArgumentException(ERR_INVALID_FORMAT)
         }

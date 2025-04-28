@@ -37,7 +37,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             getString(
                 R.string.total_price,
                 reservationDto.totalPrice,
-                reservationDto.seats.joinToString(", ") { it.location },
+                reservationDto.seats.joinToString(", ") { it.row + it.column.toString() },
             )
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)

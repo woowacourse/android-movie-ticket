@@ -6,7 +6,6 @@ import woowacourse.movie.domain.Seat
 
 @Parcelize
 data class SeatDto(
-    val location: String,
     val price: PriceRuleDto,
     val row: String,
     val column: Int,
@@ -14,7 +13,6 @@ data class SeatDto(
     companion object {
         fun fromSeat(seat: Seat): SeatDto {
             return SeatDto(
-                seat.location,
                 PriceRuleDto.fromPriceRule(seat.price),
                 seat.row,
                 seat.column,

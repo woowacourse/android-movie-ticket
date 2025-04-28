@@ -59,9 +59,10 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             .forEach { row ->
                 val tableRow = layoutInflater.inflate(R.layout.seat_table_row, binding.root, false) as TableRow
                 rows[row]?.forEach { seat ->
+                    val seatLocation = seat.row + seat.column.toString()
                     (layoutInflater.inflate(R.layout.seat_item, tableRow, false) as TextView)
                         .apply {
-                            text = seat.location
+                            text = seatLocation
                             getColorResIdForRankTag(seat, this)
                             setOnClickListener {
                                 whenSeatClicked(seat, this)
