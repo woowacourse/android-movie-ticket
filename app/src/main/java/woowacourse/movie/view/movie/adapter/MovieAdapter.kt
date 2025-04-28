@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
-import woowacourse.movie.view.ReservationUiFormatter
 import woowacourse.movie.view.movie.MovieClickListener
 
 class MovieAdapter(
@@ -34,13 +33,15 @@ class MovieAdapter(
         return when (viewType) {
             VIEW_TYPE_MOVIE -> {
                 val view = inflater.inflate(R.layout.item_movie, parent, false)
-                MovieViewHolder(view, clickListener, ReservationUiFormatter)
+                MovieViewHolder(view, clickListener)
             }
 
-            else -> {
+            VIEW_TYPE_AD -> {
                 val view = inflater.inflate(R.layout.item_advertisement, parent, false)
                 AdViewHolder(view)
             }
+
+            else -> throw IllegalArgumentException(ERROR_INVALID_VIEWTYPE)
         }
     }
 
@@ -59,5 +60,6 @@ class MovieAdapter(
         private const val VIEW_TYPE_AD = 1
         private const val MOVIE_COUNT = 3
         private const val AD_INTERVAL = 4
+        private const val ERROR_INVALID_VIEWTYPE = "지원하지 않는 viewType입니다."
     }
 }

@@ -13,7 +13,6 @@ import woowacourse.movie.view.movie.MovieClickListener
 class MovieViewHolder(
     view: View,
     private val clickListener: MovieClickListener,
-    private val reservationUiFormatter: ReservationUiFormatter,
 ) : RecyclerView.ViewHolder(view) {
     private val titleTextView: TextView = view.findViewById(R.id.tv_movie_title)
     private val posterImageView: ImageView = view.findViewById(R.id.iv_movie_poster)
@@ -28,8 +27,8 @@ class MovieViewHolder(
         screeningDateTextView.text =
             itemView.context.getString(
                 R.string.movie_screening_date,
-                reservationUiFormatter.localDateToUI(movie.startDate),
-                reservationUiFormatter.localDateToUI(movie.endDate),
+                ReservationUiFormatter.localDateToUI(movie.startDate),
+                ReservationUiFormatter.localDateToUI(movie.endDate),
             )
         runningTimeTextView.text =
             itemView.context.getString(R.string.movie_running_time, movie.runningTime)
