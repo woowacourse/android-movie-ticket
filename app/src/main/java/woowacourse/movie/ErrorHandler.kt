@@ -1,9 +1,9 @@
-package woowacourse.movie.util
+package woowacourse.movie
 
 import android.content.Context
 import android.widget.Toast
 
-object ErrorUtils {
+object ErrorHandler {
     private const val ERROR_MESSAGE = "에러가 발생했습니다."
 
     fun printError(context: Context) {

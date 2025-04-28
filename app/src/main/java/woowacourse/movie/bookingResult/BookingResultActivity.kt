@@ -1,11 +1,12 @@
 package woowacourse.movie.bookingResult
 
+import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
 import woowacourse.movie.dto.Ticket
-import woowacourse.movie.util.DataUtils
 
 class BookingResultActivity : AppCompatActivity() {
     lateinit var ticket: Ticket
@@ -14,7 +15,7 @@ class BookingResultActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking_result)
 
-        ticket = DataUtils.getExtraOrFinish<Ticket>(intent, this, "TICKET") ?: return
+        ticket = intent.fetchExtraOrNull<Ticket>("TICKET") ?: return
 
         findViewById<TextView>(R.id.title).text = ticket.title
         findViewById<TextView>(R.id.date).text = ticket.date
@@ -37,4 +38,6 @@ class BookingResultActivity : AppCompatActivity() {
         val seatView = findViewById<TextView>(R.id.seats)
         seatView.text = ticket.seats.joinToString(", ")
     }
+
+    inline fun <reified T : Parcelable> Intent.fetchExtraOrNull(key: String): T? = getParcelableExtra(key)
 }
