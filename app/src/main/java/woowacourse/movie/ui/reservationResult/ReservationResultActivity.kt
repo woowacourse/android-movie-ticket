@@ -122,8 +122,10 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
     }
 
     private fun formattedPositions(positions: List<Pair<Row, Column>>): String {
-        return positions.joinToString(",") { (row, column) ->
-            formattedRow(row) + column.value.toString()
+        val sortedPositions =
+            positions.sortedWith(compareBy<Pair<Row, Column>> { (row, _) -> row.value }.thenComparing { (_, column) -> column.value })
+        return sortedPositions.joinToString(",") { (row, column) ->
+            formattedRow(row) + (column.value + 1).toString()
         }
     }
 
