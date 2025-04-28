@@ -2,6 +2,7 @@ package woowacourse.movie.selectSeat
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -9,12 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.booking.BookingActivity.Companion.KEY_TICKET
 import woowacourse.movie.booking.ConfirmDialog
 import woowacourse.movie.bookingResult.BookingResultActivity
 import woowacourse.movie.dto.Ticket
-import woowacourse.movie.util.DataUtils
 import java.text.DecimalFormat
 
 class SelectSeatActivity :
@@ -27,7 +26,7 @@ class SelectSeatActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_seat)
         ticket =
-            DataUtils.getExtraOrFinish<Ticket>(intent, this, BookingActivity.KEY_TICKET) ?: return
+            intent.fetchExtraOrNull<Ticket>(KEY_TICKET) ?: return
         presenter.onViewCreated(ticket)
     }
 
@@ -96,6 +95,8 @@ class SelectSeatActivity :
     override fun showFullSeat() {
         Toast.makeText(this, getString(R.string.full_seat), Toast.LENGTH_SHORT).show()
     }
+
+    inline fun <reified T : Parcelable> Intent.fetchExtraOrNull(key: String): T? = getParcelableExtra(key)
 
     companion object {
         const val TICKET_KEY = "TICKET"

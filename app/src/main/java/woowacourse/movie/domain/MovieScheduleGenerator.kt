@@ -1,10 +1,10 @@
-package woowacourse.movie.util
+package woowacourse.movie.domain
 
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-object MovieScheduleUtils {
+object MovieScheduleGenerator {
     private const val DATE_PATTERN = "yyyy.M.d"
 
     private const val WEEKEND_START_HOUR = 9

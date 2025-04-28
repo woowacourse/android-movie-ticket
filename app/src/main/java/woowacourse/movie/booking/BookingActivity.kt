@@ -2,6 +2,7 @@ package woowacourse.movie.booking
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Button
@@ -10,12 +11,11 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.MovieScheduleGenerator
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.TicketMaker
 import woowacourse.movie.dto.MovieInfo
 import woowacourse.movie.selectSeat.SelectSeatActivity
-import woowacourse.movie.util.DataUtils
-import woowacourse.movie.util.MovieScheduleUtils
 
 class BookingActivity :
     AppCompatActivity(),
@@ -36,7 +36,7 @@ class BookingActivity :
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
         movieDate = findViewById(R.id.movie_date)
-        movieInfo = DataUtils.getExtraOrFinish<MovieInfo>(intent, this, KEY_MOVIE_INFO) ?: return
+        movieInfo = intent.fetchExtraOrNull<MovieInfo>(KEY_MOVIE_INFO) ?: return
 
         presenter.onCreateView(this, savedInstanceState)
     }
@@ -77,9 +77,9 @@ class BookingActivity :
         SpinnerAdapter.bind(
             this,
             selectedDate,
-            MovieScheduleUtils.generateScreeningDates(movieInfo.startDate, movieInfo.endDate),
+            MovieScheduleGenerator.generateScreeningDates(movieInfo.startDate, movieInfo.endDate),
         )
-        SpinnerAdapter.bind(this, movieTime, MovieScheduleUtils.generateScreeningTimesFor(movieInfo.startDate))
+        SpinnerAdapter.bind(this, movieTime, MovieScheduleGenerator.generateScreeningTimesFor(movieInfo.startDate))
     }
 
     override fun moveActivity() {
@@ -146,6 +146,8 @@ class BookingActivity :
     override fun timeSpinnerSet(times: List<String>) {
         SpinnerAdapter.bind(this@BookingActivity, movieTime, times)
     }
+
+    inline fun <reified T : Parcelable> Intent.fetchExtraOrNull(key: String): T? = getParcelableExtra(key)
 
     companion object {
         private const val KEY_TICKET_COUNT = "TICKET_COUNT"

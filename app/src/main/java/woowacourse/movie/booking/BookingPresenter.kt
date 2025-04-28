@@ -1,9 +1,9 @@
 package woowacourse.movie.booking
 
 import android.os.Bundle
+import woowacourse.movie.domain.MovieScheduleGenerator
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.dto.MovieInfo
-import woowacourse.movie.util.MovieScheduleUtils
 
 class BookingPresenter : BookingContract.Presenter {
     override fun onCreateView(
@@ -54,11 +54,11 @@ class BookingPresenter : BookingContract.Presenter {
         position: Int,
     ) {
         val selectedDate =
-            MovieScheduleUtils
+            MovieScheduleGenerator
                 .generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
                 .getOrNull(position)
         selectedDate?.let {
-            val selectedTimes = MovieScheduleUtils.generateScreeningTimesFor(it)
+            val selectedTimes = MovieScheduleGenerator.generateScreeningTimesFor(it)
             view.timeSpinnerSet(selectedTimes)
         }
     }

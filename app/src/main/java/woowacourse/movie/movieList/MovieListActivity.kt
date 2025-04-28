@@ -4,10 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import woowacourse.movie.ErrorHandler
 import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.dto.MovieInfo
-import woowacourse.movie.util.ErrorUtils
 
 class MovieListActivity :
     AppCompatActivity(),
@@ -37,7 +37,7 @@ class MovieListActivity :
     }
 
     override fun showError() {
-        ErrorUtils.printError(this)
+        ErrorHandler.printError(this)
         finish()
     }
 
