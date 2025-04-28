@@ -28,8 +28,9 @@ class BookingSeatActivity :
     AppCompatActivity(),
     BookingSeatContract.View {
     private val presenter: BookingSeatContract.Presenter by lazy { BookingSeatPresenter(this) }
-    private val priceView: TextView by lazy { findViewById<TextView>(R.id.tv_booking_seat_movie_price) }
     private val seats: MutableMap<TextView, MovieSeatUiModel> = mutableMapOf()
+    private val priceView: TextView by lazy { findViewById<TextView>(R.id.tv_booking_seat_movie_price) }
+    private val seatSelectionCompleteView: TextView by lazy { findViewById<TextView>(R.id.tv_booking_seat_select_complete) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,7 +76,7 @@ class BookingSeatActivity :
     }
 
     override fun updateSeatSelectionCompleteButton(enabled: Boolean) {
-        findViewById<TextView>(R.id.tv_booking_seat_select_complete).isEnabled = enabled
+        seatSelectionCompleteView.isEnabled = enabled
     }
 
     override fun navigateToBookingComplete(bookingInfo: BookingInfoUiModel) {
@@ -100,7 +101,7 @@ class BookingSeatActivity :
     }
 
     private fun setupSeatSelectCompleteClickListener() {
-        findViewById<TextView>(R.id.tv_booking_seat_select_complete).setOnClickListener {
+        seatSelectionCompleteView.setOnClickListener {
             presenter.onSeatSelectionCompleteClicked()
         }
     }
