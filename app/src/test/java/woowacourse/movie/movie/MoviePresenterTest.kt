@@ -51,7 +51,7 @@ class MoviePresenterTest {
         presenter.initializeData(mockIntent)
 
         verify { mockView.showToast("기본 영화 목록을 불러왔습니다.") }
-        verify { mockView.showMovies(any()) }
+        verify { mockView.setupMovieList(any()) }
     }
 
     @Test

@@ -1,7 +1,6 @@
 package woowacourse.movie.seat
 
 import android.widget.TextView
-import io.mockk.confirmVerified
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
@@ -40,20 +39,10 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `티켓데이터가_null이면_오류_메시지를_띄우고_종료한다`() {
-        presenter = SeatSelectionPresenter(view = mockView, ticket = null)
-
-        presenter.initializeData(null)
-
-        verify { mockView.showToastErrorAndFinish("영화 정보를 불러올 수 없습니다.") }
-        confirmVerified(mockView)
-    }
-
-    @Test
     fun `티켓을_바탕으로_View에_초기_데이터를_보여준다`() {
         presenter = SeatSelectionPresenter(view = mockView, ticket = mockTicketUiData)
 
-        presenter.initializeData(null)
+        presenter.initializeData()
 
         verify { mockView.showTicket(mockTicketUiData) }
     }
@@ -63,7 +52,7 @@ class SeatSelectionPresenterTest {
         val seatTextView = mockk<TextView>(relaxed = true)
         every { seatTextView.text.toString() } returns "A1"
 
-        presenter.initializeData(null)
+        presenter.initializeData()
         presenter.onSeatClicked(seatTextView)
 
         verify { mockView.showSeatState(seatTextView, isSelected = true) }
@@ -73,7 +62,7 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `예약버튼_클릭시_예약_다이얼로그를_표시한다`() {
-        presenter.initializeData(null)
+        presenter.initializeData()
 
         presenter.onButtonClicked()
 

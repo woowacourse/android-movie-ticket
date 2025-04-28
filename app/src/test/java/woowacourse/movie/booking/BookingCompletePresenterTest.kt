@@ -1,6 +1,5 @@
 package woowacourse.movie.booking
 
-import io.mockk.confirmVerified
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
@@ -48,20 +47,10 @@ class BookingCompletePresenterTest {
     }
 
     @Test
-    fun `영화 예매 정보가 null이면 오류 메시지를 띄우고 종료한다`() {
-        presenter = BookingCompletePresenter(view = mockView, ticket = null)
-
-        presenter.initializeData(null)
-
-        verify { mockView.showToastErrorAndFinish("영화 정보를 불러올 수 없습니다.") }
-        confirmVerified(mockView)
-    }
-
-    @Test
     fun `영화 예매 정보를 화면에 표시할 수 있다`() {
         presenter = BookingCompletePresenter(view = mockView, ticket = mockTicketUiData)
 
-        presenter.initializeData(null)
+        presenter.initializeData()
 
         verify { mockView.showBookingCompleteResult(mockTicketUiData) }
         verify {

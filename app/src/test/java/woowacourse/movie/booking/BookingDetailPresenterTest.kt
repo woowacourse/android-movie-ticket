@@ -1,8 +1,5 @@
 package woowacourse.movie.booking
 
-import android.os.Bundle
-import io.mockk.confirmVerified
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
@@ -49,24 +46,15 @@ class BookingDetailPresenterTest {
             )
 
         mockMovieUiData = mockMovie.toUiModel()
+
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-    }
-
-    @Test
-    fun `영화가 null이면 오류 메시지를 띄우고 종료한다`() {
-        presenter = BookingDetailPresenter(view = mockView, movie = null)
-
-        presenter.initializeData(null)
-
-        verify { mockView.showToastErrorAndFinish("영화 정보를 불러올 수 없습니다.") }
-        confirmVerified(mockView)
     }
 
     @Test
     fun `영화가 주어지면 View에 초기 데이터를 보여준다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         verify { mockView.showMovieInfo(mockMovieUiData) }
         verify { mockView.showTicket(any()) }
@@ -78,10 +66,11 @@ class BookingDetailPresenterTest {
     @Test
     fun `영화가 주어졌을 때 날짜를 선택하면 Ticket에 해당 날짜가 반영되어 화면에 표시된다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         val selectedDate = LocalDate.of(2028, 10, 13)
-        presenter.onDateSelected(selectedDate)
+        presenter.selectDate(selectedDate)
 
         val formattedDate = formatDateDotSeparated(selectedDate)
 
@@ -91,11 +80,12 @@ class BookingDetailPresenterTest {
     @Test
     fun `평일 날짜를 선택하면 해당하는 날짜에 맞는 시간대가 화면에 표시된다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         // 평일임
         val selectedDate = LocalDate.of(2028, 10, 13)
-        presenter.onDateSelected(selectedDate)
+        presenter.selectDate(selectedDate)
 
         val formattedDate = formatDateDotSeparated(selectedDate)
 
@@ -106,11 +96,12 @@ class BookingDetailPresenterTest {
     @Test
     fun `주말 날짜를 선택하면 해당하는 날짜에 맞는 시간대가 화면에 표시된다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         // 주말임
         val selectedDate = LocalDate.of(2028, 10, 14)
-        presenter.onDateSelected(selectedDate)
+        presenter.selectDate(selectedDate)
 
         val formattedDate = formatDateDotSeparated(selectedDate)
 
@@ -121,13 +112,14 @@ class BookingDetailPresenterTest {
     @Test
     fun `날짜와 시간을 선택하면 해당하는 내용이 화면에 표시된다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         // 평일임
         val selectedDate = LocalDate.of(2028, 10, 13)
         val selectedTime = LocalTime.of(23, 0)
-        presenter.onDateSelected(selectedDate)
-        presenter.onTimeSelected(selectedTime)
+        presenter.selectDate(selectedDate)
+        presenter.selectTime(selectedTime)
 
         val formattedDate = formatDateDotSeparated(selectedDate)
         val formattedTime = formatTimeWithMidnight24(selectedTime)
@@ -139,18 +131,19 @@ class BookingDetailPresenterTest {
     @Test
     fun `+버튼을 누르면 인원수가 0인 경우에 1명씩 추가됨을 화면에 표시한다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         // 평일임
         val selectedDate = LocalDate.of(2028, 10, 13)
         val selectedTime = LocalTime.of(23, 0)
-        presenter.onDateSelected(selectedDate)
-        presenter.onTimeSelected(selectedTime)
+        presenter.selectDate(selectedDate)
+        presenter.selectTime(selectedTime)
 
         val formattedDate = formatDateDotSeparated(selectedDate)
         val formattedTime = formatTimeWithMidnight24(selectedTime)
 
-        presenter.onHeadCountIncreased()
+        presenter.increaseHeadCount()
 
         verify { mockView.showTicket(match { it.selectedDateText == formattedDate }) }
         verify { mockView.showTicket(match { it.selectedTimeText == formattedTime }) }
@@ -161,18 +154,19 @@ class BookingDetailPresenterTest {
     @Test
     fun `-버튼을 누르면 인원수가 0인 경우에 버튼을 눌러도 인원수가 변경되지 않는다`() {
         presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
         // 평일임
         val selectedDate = LocalDate.of(2028, 10, 13)
         val selectedTime = LocalTime.of(23, 0)
 
-        presenter.onDateSelected(selectedDate)
-        presenter.onTimeSelected(selectedTime)
+        presenter.selectDate(selectedDate)
+        presenter.selectTime(selectedTime)
 
         val formattedDate = formatDateDotSeparated(selectedDate)
         val formattedTime = formatTimeWithMidnight24(selectedTime)
-        presenter.onHeadCountDecreased()
+        presenter.decreaseHeadCount()
 
         verify { mockView.showTicket(match { it.selectedDateText == formattedDate }) }
         verify { mockView.showTicket(match { it.selectedTimeText == formattedTime }) }
@@ -184,13 +178,14 @@ class BookingDetailPresenterTest {
     fun `예매 확인버튼을 누르면 좌석 선택 화면으로 넘어간다`() {
         val selectedDate = LocalDate.of(2028, 10, 13)
         val selectedTime = LocalTime.of(23, 0)
-        presenter.initializeData(null)
+        presenter.createDefaultTicket()
+        presenter.initializeData()
 
-        presenter.onDateSelected(selectedDate)
-        presenter.onTimeSelected(selectedTime)
+        presenter.selectDate(selectedDate)
+        presenter.selectTime(selectedTime)
 
-        presenter.onHeadCountIncreased()
-        presenter.onConfirmReservation()
+        presenter.increaseHeadCount()
+        presenter.confirmReservation()
 
         val formattedDate = formatDateDotSeparated(selectedDate)
         val formattedTime = formatTimeWithMidnight24(selectedTime)
@@ -199,86 +194,44 @@ class BookingDetailPresenterTest {
             mockView.startSeatSelectionActivity(
                 match {
                     it.selectedDateText == formattedDate &&
-                        it.selectedTimeText == formattedTime &&
-                        it.headCount == 1
+                            it.selectedTimeText == formattedTime &&
+                            it.headCount == 1
                 },
             )
         }
     }
 
     @Test
-    fun `인원수가 10명인 경우 -버튼을 눌렀을때 인원수가 줄어드는 것을 화면에서 볼 수 있다`() {
-        val mockBundle =
-            mockk<Bundle> {
-                every { getString("SCREENING_DATE") } returns "2028-10-13"
-                every { getString("SCREENING_TIME") } returns "11:00"
-                every { getInt("HEAD_COUNT") } returns 10
-            }
+    fun `인원수가 10명인 경우 -버튼을 누르면 인원수가 줄어든다`() {
+        presenter.restoreTicketData(10, "2028-10-13", "11:00")
+        presenter.initializeData()
 
-        presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-        presenter.initializeData(mockBundle)
-
-        presenter.onHeadCountDecreased()
+        presenter.decreaseHeadCount()
 
         verify { mockView.showTicket(match { it.headCount == 9 }) }
     }
 
     @Test
-    fun `상태 저장 시 예상한 값들이 Bundle에 저장된다`() {
-        val presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-
-        presenter.initializeData(null)
-        presenter.onDateSelected(LocalDate.of(2028, 10, 13))
-        presenter.onTimeSelected(LocalTime.of(11, 0))
-        presenter.onHeadCountIncreased()
-
-        val mockBundle = mockk<Bundle>(relaxed = true)
-        presenter.onSaveState(mockBundle)
-
-        verify { mockBundle.putString("SCREENING_DATE", "2028-10-13") }
-        verify { mockBundle.putString("SCREENING_TIME", "11:00") }
-        verify { mockBundle.putInt("HEAD_COUNT", 1) }
-    }
-
-    @Test
     fun `상태를 복원했을 때 화면에 이전 값이 그대로 표시된다`() {
-        val savedBundle =
-            mockk<Bundle> {
-                every { getString("SCREENING_DATE") } returns "2028-10-13"
-                every { getString("SCREENING_TIME") } returns "11:00"
-                every { getInt("HEAD_COUNT") } returns 3
-            }
-
-        presenter = BookingDetailPresenter(view = mockView, movie = mockMovieUiData)
-
-        presenter.initializeData(savedBundle)
+        presenter.restoreTicketData(3, "2028-10-13", "11:00")
+        presenter.initializeData()
 
         verify {
-            mockView.showTicket(
-                match {
-                    it.selectedDateText == "2028.10.13" &&
+            mockView.showTicket(match {
+                it.selectedDateText == "2028.10.13" &&
                         it.selectedTimeText == "11:00" &&
                         it.headCount == 3
-                },
-            )
+            })
         }
     }
 
     @Test
     fun `저장된 인원 수가 있으면 복원된다`() {
-        val mockBundle =
-            mockk<Bundle> {
-                every { getString("SCREENING_DATE") } returns "2028-10-13"
-                every { getString("SCREENING_TIME") } returns "11:00"
-                every { getInt("HEAD_COUNT") } returns 10
-            }
+        presenter.restoreTicketData(10, "2028-10-13", "11:00")
+        presenter.initializeData()
 
-        presenter.initializeData(mockBundle)
-
-        verify {
-            mockView.showTicket(match { it.selectedTimeText == "11:00" })
-            mockView.showTicket(match { it.selectedDateText == "2028.10.13" })
-            mockView.showTicket(match { it.headCount == 10 })
-        }
+        verify { mockView.showTicket(match { it.selectedDateText == "2028.10.13" }) }
+        verify { mockView.showTicket(match { it.selectedTimeText == "11:00" }) }
+        verify { mockView.showTicket(match { it.headCount == 10 }) }
     }
 }
