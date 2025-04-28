@@ -22,7 +22,8 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                     R.drawable.harrypotter,
                 )
             }
-        view.showMovies(movies)
+        val advertisements = listOf(R.drawable.baemin, R.drawable.baemina)
+        view.showMovies(movies, advertisements)
     }
 
     private companion object {

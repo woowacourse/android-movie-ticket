@@ -8,6 +8,9 @@ interface MainContract {
     }
 
     interface View {
-        fun showMovies(movies: List<Movie>)
+        fun showMovies(
+            movies: List<Movie>,
+            advertisements: List<Int>,
+        )
     }
 }

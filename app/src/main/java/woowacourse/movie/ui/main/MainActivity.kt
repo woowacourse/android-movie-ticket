@@ -2,11 +2,11 @@ package woowacourse.movie.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.main.adapter.MoviesAdapter
@@ -14,7 +14,7 @@ import woowacourse.movie.ui.reserve.ReserveActivity
 import woowacourse.movie.ui.reserve.ReserveActivity.Companion.KEY_RESERVE_ACTIVITY_MOVIE
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private val moviesView: ListView by lazy { findViewById(R.id.lv_movies) }
+    private val moviesView: RecyclerView by lazy { findViewById(R.id.rv_movies) }
     private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +33,19 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun showMovies(movies: List<Movie>) {
-        initMoviesView(movies)
+    override fun showMovies(
+        movies: List<Movie>,
+        advertisements: List<Int>,
+    ) {
+        initMoviesView(movies, advertisements)
     }
 
-    private fun initMoviesView(movies: List<Movie>) {
+    private fun initMoviesView(
+        movies: List<Movie>,
+        advertisements: List<Int>,
+    ) {
         val adapter =
-            MoviesAdapter(movies) { movie ->
+            MoviesAdapter(movies, advertisements) { movie ->
                 val intent = Intent(this, ReserveActivity::class.java)
                 intent.putExtra(KEY_RESERVE_ACTIVITY_MOVIE, movie)
                 startActivity(intent)

@@ -33,4 +33,5 @@
     <string name="won_format">#,###원</string>
     <string name="purchase_result_price">%s (현장 결제)</string>
     <string name="screen">SCREEN</string>
+    <string name="advertisement_description">advertisement_image</string>
 </resources>
