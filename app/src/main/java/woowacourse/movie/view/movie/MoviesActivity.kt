@@ -31,7 +31,7 @@ class MoviesActivity :
         presenter.fetchMovies()
     }
 
-    override fun updateView(movies: List<Movie>) {
+    override fun showMovies(movies: List<Movie>) {
         setupMovieAdapter(movies)
     }
 
