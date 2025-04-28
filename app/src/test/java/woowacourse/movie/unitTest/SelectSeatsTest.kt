@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.unitTest
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
