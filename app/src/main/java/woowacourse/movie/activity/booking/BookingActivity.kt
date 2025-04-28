@@ -49,19 +49,19 @@ class BookingActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        presenter.onSaveState(outState)
+        presenter.saveState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        presenter.onRestoreState(savedInstanceState)
+        presenter.restoreState(savedInstanceState)
     }
 
     private fun setupDateChangeDateListener() {
         movieDate.onItemSelectedListener =
             SpinnerSelectedListener(
                 currentPositionProvider = { presenter.getSelectedDate() },
-                onChanged = { position -> presenter.onDateSelected(position) },
+                onChanged = { position -> presenter.selectDate(position) },
             )
     }
 
@@ -69,7 +69,7 @@ class BookingActivity :
         movieTime.onItemSelectedListener =
             SpinnerSelectedListener(
                 currentPositionProvider = { presenter.getSelectedTime() },
-                onChanged = { position -> presenter.onTimeSelected(position) },
+                onChanged = { position -> presenter.selectTime(position) },
             )
     }
 
@@ -77,7 +77,7 @@ class BookingActivity :
         val confirmButton: Button = findViewById(R.id.confirm_button)
 
         confirmButton.setOnClickListener {
-            presenter.onConfirmButtonClicked()
+            presenter.confirmBooking()
         }
     }
 
@@ -86,11 +86,11 @@ class BookingActivity :
         val minusButton: Button = findViewById(R.id.minus_button)
 
         plusButton.setOnClickListener {
-            presenter.onPlusButtonClicked()
+            presenter.increaseTicketCount()
         }
 
         minusButton.setOnClickListener {
-            presenter.onMinusButtonClicked()
+            presenter.decreaseTicketCount()
         }
     }
 

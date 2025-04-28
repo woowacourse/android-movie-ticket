@@ -46,74 +46,74 @@ class BookingPresenterTest {
     }
 
     @Test
-    fun `onPlusButtonClicked 호출 시 티켓 수 증가 후 뷰 업데이트된다`() {
+    fun `increaseTicketCount 호출 시 티켓 수 증가 후 뷰 업데이트된다`() {
         // given
         presenter.initData(dummyMovie)
 
         // when
-        presenter.onPlusButtonClicked()
+        presenter.increaseTicketCount()
 
         // then
         verify { view.showTicketCount(1) }
     }
 
     @Test
-    fun `onMinusButtonClicked 호출 시 티켓 수 감소 후 뷰 업데이트된다`() {
+    fun `decreaseTicketCount 호출 시 티켓 수 감소 후 뷰 업데이트된다`() {
         // given
         presenter.initData(dummyMovie)
-        presenter.onPlusButtonClicked() // 티켓 1장 추가
+        presenter.increaseTicketCount() // 티켓 1장 추가
 
         // when
-        presenter.onMinusButtonClicked()
+        presenter.decreaseTicketCount()
 
         // then
         verify { view.showTicketCount(0) }
     }
 
     @Test
-    fun `onConfirmButtonClicked 호출 시 티켓 수가 1 이상이면 좌석 선택 화면으로 이동한다`() {
+    fun `confirmBooking 호출 시 티켓 수가 1 이상이면 좌석 선택 화면으로 이동한다`() {
         // given
         presenter.initData(dummyMovie)
-        presenter.onPlusButtonClicked() // 티켓 1장 추가
+        presenter.increaseTicketCount() // 티켓 1장 추가
 
         // when
-        presenter.onConfirmButtonClicked()
+        presenter.confirmBooking()
 
         // then
         verify { view.moveToSeatSelection(any()) }
     }
 
     @Test
-    fun `onConfirmButtonClicked 호출 시 티켓 수가 0이면 아무 동작 안 한다`() {
+    fun `confirmBooking 호출 시 티켓 수가 0이면 아무 동작 안 한다`() {
         // given
         presenter.initData(dummyMovie)
 
         // when
-        presenter.onConfirmButtonClicked()
+        presenter.confirmBooking()
 
         // then
         verify(exactly = 0) { view.moveToSeatSelection(any()) }
     }
 
     @Test
-    fun `onDateSelected 호출 시 선택한 날짜에 맞는 시간 리스트를 갱신한다`() {
+    fun `selectDate 호출 시 선택한 날짜에 맞는 시간 리스트를 갱신한다`() {
         // given
         presenter.initData(dummyMovie)
 
         // when
-        presenter.onDateSelected(0)
+        presenter.selectDate(0)
 
         // then
         verify { view.updateTimeSpinner(any(), 0) }
     }
 
     @Test
-    fun `onTimeSelected 호출 시 시간 포지션을 저장한다`() {
+    fun `selectTime 호출 시 시간 포지션을 저장한다`() {
         // given
         presenter.initData(dummyMovie)
 
         // when
-        presenter.onTimeSelected(1)
+        presenter.selectTime(1)
 
         // then
         assertEquals(1, presenter.getSelectedTime())

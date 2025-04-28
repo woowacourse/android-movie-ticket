@@ -33,7 +33,7 @@ class BookingPresenter(
 
     override fun getSelectedTime(): Int = movieSchedule.getTimePosition()
 
-    override fun onConfirmButtonClicked() {
+    override fun confirmBooking() {
         if (ticketManager.getTicketCount() > MINIMUM_TICKET_COUNT) {
             val selectedDateString = movieSchedule.getDates()[movieSchedule.getDatePosition()]
             val selectedTimeString = movieSchedule.getTimes(selectedDateString)[movieSchedule.getTimePosition()]
@@ -45,34 +45,34 @@ class BookingPresenter(
         }
     }
 
-    override fun onMinusButtonClicked() {
+    override fun decreaseTicketCount() {
         ticketManager.decrementTicketCount()
         view.showTicketCount(ticketManager.getTicketCount())
     }
 
-    override fun onPlusButtonClicked() {
+    override fun increaseTicketCount() {
         ticketManager.incrementTicketCount()
         view.showTicketCount(ticketManager.getTicketCount())
     }
 
-    override fun onDateSelected(position: Int) {
+    override fun selectDate(position: Int) {
         movieSchedule.setDatePosition(position)
         val selectedDate = movieSchedule.getDates()[position]
         val times = movieSchedule.getTimes(selectedDate)
         view.updateTimeSpinner(times, 0)
     }
 
-    override fun onTimeSelected(position: Int) {
+    override fun selectTime(position: Int) {
         movieSchedule.setTimePosition(position)
     }
 
-    override fun onSaveState(outState: Bundle) {
+    override fun saveState(outState: Bundle) {
         outState.putInt(KEY_TICKET_COUNT, ticketManager.getTicketCount())
         outState.putInt(KEY_MOVIE_DATE_POSITION, movieSchedule.getDatePosition())
         outState.putInt(KEY_MOVIE_TIME_POSITION, movieSchedule.getTimePosition())
     }
 
-    override fun onRestoreState(savedState: Bundle) {
+    override fun restoreState(savedState: Bundle) {
         ticketManager.setTicketCount(savedState.getInt(KEY_TICKET_COUNT))
         val savedDatePosition = savedState.getInt(KEY_MOVIE_DATE_POSITION)
         movieSchedule.setDatePosition(savedDatePosition)

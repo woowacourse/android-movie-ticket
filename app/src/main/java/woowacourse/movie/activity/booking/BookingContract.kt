@@ -31,18 +31,18 @@ interface BookingContract {
 
         fun getSelectedTime(): Int
 
-        fun onConfirmButtonClicked()
+        fun confirmBooking()
 
-        fun onMinusButtonClicked()
+        fun decreaseTicketCount()
 
-        fun onPlusButtonClicked()
+        fun increaseTicketCount()
 
-        fun onDateSelected(position: Int)
+        fun selectDate(position: Int)
 
-        fun onTimeSelected(position: Int)
+        fun selectTime(position: Int)
 
-        fun onSaveState(state: Bundle)
+        fun saveState(state: Bundle)
 
-        fun onRestoreState(state: Bundle)
+        fun restoreState(state: Bundle)
     }
 }
