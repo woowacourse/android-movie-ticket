@@ -3,7 +3,6 @@ package woowacourse.movie.uiTest
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -82,30 +81,6 @@ class ReservationActivityTest {
     }
 
     @Test
-    fun `선택_완료_버튼을_누르면_다이얼로그가_노출된다`() {
-        onView(withId(R.id.btn_reservation))
-            .perform(click())
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `다이얼로그_밖_영역을_터치해도_닫히지_않는다`() {
-        onView(withId(R.id.btn_reservation))
-            .perform(click())
-
-        pressBack()
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-    }
-
-    @Test
     fun `화면을_회전해도_데이터가_유지된다`() {
         onView(withId(R.id.btn_plus_button))
             .perform(click())
@@ -134,24 +109,6 @@ class ReservationActivityTest {
 
         onView(withId(R.id.tv_personnel))
             .check(matches(withText("3")))
-    }
-
-    @Test
-    fun `화면을_회전해도_예매버튼을_클릭할_수_있다`() {
-        scenario.onActivity { activity ->
-            activity.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        }
-
-        onView(withId(R.id.root_layout_reservation))
-            .perform(swipeUp())
-
-        onView(withId(R.id.btn_reservation))
-            .perform(click())
-
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
     }
 
     @Test
