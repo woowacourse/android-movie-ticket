@@ -22,7 +22,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
-                android:layout_marginBottom="40dp"
                 android:background="@color/dark_gray"
                 android:gravity="center"
                 android:padding="10dp"
@@ -33,15 +32,15 @@
             <TableLayout
                 android:id="@+id/tv_seat"
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_margin="30dp"
                 android:background="@color/white"
                 android:stretchColumns="*">
 
                 <TableRow
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <include layout="@layout/seat_item" />
 
@@ -53,8 +52,8 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <include layout="@layout/seat_item" />
 
@@ -66,8 +65,8 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <include layout="@layout/seat_item" />
 
@@ -79,8 +78,8 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <include layout="@layout/seat_item" />
 
@@ -92,8 +91,8 @@
                 </TableRow>
 
                 <TableRow
-                    android:layout_height="0dp"
-                    android:layout_weight="1">
+                    android:layout_height="match_parent"
+                    android:gravity="center">
 
                     <include layout="@layout/seat_item" />
 
