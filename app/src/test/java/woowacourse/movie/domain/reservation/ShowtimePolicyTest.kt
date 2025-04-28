@@ -37,4 +37,24 @@ class ShowtimePolicyTest {
             ),
         )
     }
+
+    @Test
+    fun `평일에는 오전 10시부터 자정(24시)까지 두 시간 간격으로 상영한다`() {
+        // when
+        val showtimes: List<LocalTime> =
+            showtimePolicy.showtimes(workday, LocalDateTime.of(holiday, LocalTime.of(8, 0)))
+
+        // then
+        assertThat(showtimes).isEqualTo(
+            listOf(
+                LocalTime.of(10, 0),
+                LocalTime.of(12, 0),
+                LocalTime.of(14, 0),
+                LocalTime.of(16, 0),
+                LocalTime.of(18, 0),
+                LocalTime.of(20, 0),
+                LocalTime.of(22, 0),
+            ),
+        )
+    }
 }
