@@ -22,16 +22,13 @@ class ReservationResultPresenterTest {
     }
 
     @Test
-    fun `showReservation 호출 시 View의 bind 메서드를 호출한다`() {
-        // given
-        presenter.setUpReservation(reservation)
-
-        // when
-        presenter.showReservation()
+    fun `initReservation 호출 시 예매 내역을 보여준다`() {
+        // given & when
+        presenter.initReservation(reservation)
 
         // then
-        verify { view.bindReservation(reservation) }
-        verify { view.bindTicket(reservation.seats.seats) }
-        verify { view.bindTotalPrice(reservation.seats.totalPrice()) }
+        verify { view.showReservation(reservation) }
+        verify { view.showTicket(reservation.seats.seats) }
+        verify { view.showTotalPrice(reservation.seats.totalPrice()) }
     }
 }
