@@ -16,7 +16,7 @@ import woowacourse.movie.adapter.RunningTimeSpinnerAdapter
 import woowacourse.movie.databinding.ActivityReservationBinding
 import woowacourse.movie.dto.MovieListDataDto.MovieDto
 import woowacourse.movie.dto.ReservationDto
-import woowacourse.movie.global.ServiceLocator
+import woowacourse.movie.global.PresenterProvider
 import woowacourse.movie.global.getObjectFromIntent
 import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
@@ -31,7 +31,9 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
-    private val reservationPresenter = ServiceLocator.reservationPresenter(this)
+    private val reservationPresenter by lazy {
+        PresenterProvider.reservationPresenter(this)
+    }
     private val binding: ActivityReservationBinding by lazy {
         ActivityReservationBinding.inflate(layoutInflater)
     }

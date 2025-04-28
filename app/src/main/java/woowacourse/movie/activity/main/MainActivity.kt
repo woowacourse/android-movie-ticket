@@ -11,7 +11,7 @@ import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
 import woowacourse.movie.dto.MovieListDataDto
-import woowacourse.movie.global.ServiceLocator
+import woowacourse.movie.global.PresenterProvider
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var movieDto: List<MovieListDataDto>
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        presenter = ServiceLocator.mainPresenter(this)
+        presenter = PresenterProvider.mainPresenter(this)
         presenter.initMovieDto()
     }
 }

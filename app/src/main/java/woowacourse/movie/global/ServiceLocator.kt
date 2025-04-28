@@ -1,11 +1,5 @@
 package woowacourse.movie.global
 
-import woowacourse.movie.activity.main.MainContract
-import woowacourse.movie.activity.main.MainPresenter
-import woowacourse.movie.activity.reservation.ReservationContract
-import woowacourse.movie.activity.reservation.ReservationPresenter
-import woowacourse.movie.activity.reservation.ReservationSeatContract
-import woowacourse.movie.activity.reservation.ReservationSeatPresenter
 import woowacourse.movie.domain.MovieListData
 import woowacourse.movie.domain.MovieListData.Movie
 import woowacourse.movie.domain.rules.RunningTimeRuleImpl
@@ -34,10 +28,4 @@ object ServiceLocator {
     val runningTimeRule = RunningTimeRuleImpl()
 
     val seats = SeatsFactoryImpl().get()
-
-    fun mainPresenter(view: MainContract.View): MainContract.Presenter = MainPresenter(view)
-
-    fun reservationPresenter(view: ReservationContract.View): ReservationContract.Presenter = ReservationPresenter(view)
-
-    fun reservationSeatPresenter(view: ReservationSeatContract.View): ReservationSeatContract.Presenter = ReservationSeatPresenter(view)
 }

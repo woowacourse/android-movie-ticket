@@ -16,14 +16,16 @@ import woowacourse.movie.dto.PriceRuleDto
 import woowacourse.movie.dto.ReservationDto
 import woowacourse.movie.dto.ReservationSeatDto
 import woowacourse.movie.dto.SeatDto
-import woowacourse.movie.global.ServiceLocator
+import woowacourse.movie.global.PresenterProvider
 import woowacourse.movie.global.getObjectFromIntent
 
 class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
     private val binding: ActivitySeatBinding by lazy {
         ActivitySeatBinding.inflate(layoutInflater)
     }
-    private val presenter: ReservationSeatContract.Presenter = ServiceLocator.reservationSeatPresenter(this)
+    private val presenter: ReservationSeatContract.Presenter by lazy {
+        PresenterProvider.reservationSeatPresenter(this)
+    }
     private var totalPrice = 0
     private var selectedMember = 0
     private var seats = mutableListOf<SeatDto>()
