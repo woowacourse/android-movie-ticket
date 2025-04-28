@@ -16,7 +16,7 @@ data class Seat(val seat: String) {
     }
 
     private fun validateRow() {
-        if (row !in '1'..'5') {
+        if (row !in '1'..'4') {
             throw IllegalArgumentException("존재하지 않는 열의 좌석입니다.")
         }
     }
