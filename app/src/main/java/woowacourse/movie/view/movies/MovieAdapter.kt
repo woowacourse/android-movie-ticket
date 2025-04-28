@@ -12,7 +12,7 @@ class MovieAdapter(
     private val advertisementClickListener: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemViewType(position: Int): Int =
-        if ((position + 1) % 4 == 0) MovieItemType.TYPE_ADVERTISEMENT.ordinal else MovieItemType.TYPE_MOVIE.ordinal
+        if ((position + 1) % AD_POSITION_MULTIPLE == 0) MovieItemType.TYPE_ADVERTISEMENT.ordinal else MovieItemType.TYPE_MOVIE.ordinal
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -35,7 +35,7 @@ class MovieAdapter(
         position: Int,
     ) {
         if (holder is MovieViewHolder) {
-            val adjustedPosition = position - position / 4
+            val adjustedPosition = position - position / AD_POSITION_MULTIPLE
             val item = movies[adjustedPosition]
             holder.bind(item)
         }
@@ -43,11 +43,16 @@ class MovieAdapter(
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getItemCount(): Int = movies.size + (movies.size / 3)
+    override fun getItemCount(): Int = movies.size + (movies.size / AD_POSITION_INTERVAL)
 
     fun updateMovies(newMovies: List<Movie>) {
         movies.clear()
         movies.addAll(newMovies)
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val AD_POSITION_INTERVAL = 3
+        private const val AD_POSITION_MULTIPLE = 4
     }
 }
