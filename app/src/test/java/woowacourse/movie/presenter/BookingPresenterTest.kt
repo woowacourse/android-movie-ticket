@@ -31,50 +31,50 @@ class BookingPresenterTest {
     @Test
     fun `인원 수가 증가하면 인원 수 텍스트가 업데이트 된다`() {
         presenter.increaseHeadcount()
-        verify { view.setHeadcountTextView(any()) }
+        verify { view.updateHeadcountDisplay(any()) }
     }
 
     @Test
     fun `인원 수가 감소하면 인원 수 텍스트가 업데이트 된다`() {
         presenter.decreaseHeadcount()
-        verify { view.setHeadcountTextView(any()) }
+        verify { view.updateHeadcountDisplay(any()) }
     }
 
     @Test
     fun `뷰에서 영화를 받아올 수 있다`() {
-        presenter.fetchMovie()
+        presenter.loadMovie()
         verify { view.getMovie() }
     }
 
     @Test
     fun `날짜 스피너를 업데이트하면 뷰에 반영된다`() {
-        presenter.updateDateSpinner()
+        presenter.setupDateSpinner()
         verify { view.setDateSpinner(any(), any()) }
     }
 
     @Test
     fun `시간 스피너를 업데이트하면 뷰에 반영된다`() {
-        presenter.updateTimeSpinner()
+        presenter.setupTimeSpinner()
         verify { view.setTimeSpinner(any(), any()) }
     }
 
     @Test
     fun `날짜 스피너를 업데이트하면 선택된 시간에 따라 시간 스피너가 업데이트 된다`() {
-        presenter.updateDateSpinner()
+        presenter.setupDateSpinner()
         verify { view.setDateSpinner(any(), any()) }
     }
 
     @Test
     fun `날짜 스피너의 목록 포지션이 바뀌면 날짜 스피너가 업데이트 된다`() {
         val position = 1
-        presenter.updateSelectedDatePosition(position)
+        presenter.setSelectedDatePosition(position)
         verify { view.setDateSpinner(any(), position) }
     }
 
     @Test
     fun `시간 스피너의 목록 포지션이 바뀌면 시간 스피너가 업데이트 된다`() {
         val position = 2
-        presenter.updateSelectedTimePosition(position)
+        presenter.setSelectedTimePosition(position)
         verify { view.setTimeSpinner(any(), position) }
     }
 }

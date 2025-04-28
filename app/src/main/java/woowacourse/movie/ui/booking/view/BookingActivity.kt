@@ -43,7 +43,7 @@ class BookingActivity :
 
         applyWindowInsets()
 
-        bookingPresenter.fetchMovie()
+        bookingPresenter.loadMovie()
         bookingPresenter.updateViews()
         setButtonClickListeners()
     }
@@ -73,10 +73,10 @@ class BookingActivity :
             getString(R.string.text_date_period)
                 .format(dotDateFormat(startDate), dotDateFormat(endDate))
         movieRunningTimeView.text = getString(R.string.text_minute).format(movie.runningTime)
-        bookingPresenter.updateHeadcountTextView()
+        bookingPresenter.refreshHeadcountDisplay()
     }
 
-    override fun setHeadcountTextView(headcount: Headcount) {
+    override fun updateHeadcountDisplay(headcount: Headcount) {
         peopleCountView.text = headcount.count.toString()
     }
 
@@ -95,10 +95,10 @@ class BookingActivity :
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-                    bookingPresenter.updateTimeSpinner()
+                    bookingPresenter.setupTimeSpinner()
                 }
         }
-        bookingPresenter.updateTimeSpinner()
+        bookingPresenter.setupTimeSpinner()
     }
 
     override fun setTimeSpinner(
@@ -121,7 +121,7 @@ class BookingActivity :
         }
     }
 
-    override fun moveToBookingSeatActivity(
+    override fun startBookingSeatActivity(
         movieTitle: String,
         dateTime: LocalDateTime,
         headcount: Headcount,
@@ -157,9 +157,9 @@ class BookingActivity :
         val selectedDatePosition: Int = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION)
         val selectedTimePosition: Int = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
 
-        bookingPresenter.updateHeadcount(headcount)
-        bookingPresenter.updateSelectedDatePosition(selectedDatePosition)
-        bookingPresenter.updateSelectedTimePosition(selectedTimePosition)
+        bookingPresenter.setHeadcount(headcount)
+        bookingPresenter.setSelectedDatePosition(selectedDatePosition)
+        bookingPresenter.setSelectedTimePosition(selectedTimePosition)
     }
 
     private fun applyWindowInsets() {
@@ -180,7 +180,7 @@ class BookingActivity :
         val increaseBtn: Button = findViewById(R.id.btn_increase)
         increaseBtn.setOnClickListener {
             bookingPresenter.increaseHeadcount()
-            bookingPresenter.updateHeadcountTextView()
+            bookingPresenter.refreshHeadcountDisplay()
         }
     }
 
@@ -188,7 +188,7 @@ class BookingActivity :
         val decreaseBtn: Button = findViewById(R.id.btn_decrease)
         decreaseBtn.setOnClickListener {
             bookingPresenter.decreaseHeadcount()
-            bookingPresenter.updateHeadcountTextView()
+            bookingPresenter.refreshHeadcountDisplay()
         }
     }
 

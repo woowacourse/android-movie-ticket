@@ -12,23 +12,23 @@ interface BookingContract {
 
         fun increaseHeadcount()
 
-        fun fetchMovie(): Movie
+        fun loadMovie(): Movie
 
         fun completeBooking()
 
-        fun updateMovieInfoViews()
+        fun refreshMovieInfo()
 
-        fun updateHeadcount(headcount: Headcount)
+        fun setHeadcount(headcount: Headcount)
 
-        fun updateHeadcountTextView()
+        fun refreshHeadcountDisplay()
 
-        fun updateDateSpinner()
+        fun setupDateSpinner()
 
-        fun updateTimeSpinner()
+        fun setupTimeSpinner()
 
-        fun updateSelectedDatePosition(position: Int)
+        fun setSelectedDatePosition(position: Int)
 
-        fun updateSelectedTimePosition(position: Int)
+        fun setSelectedTimePosition(position: Int)
     }
 
     interface View {
@@ -42,7 +42,7 @@ interface BookingContract {
 
         fun setMovieInfoViews(movie: Movie)
 
-        fun setHeadcountTextView(headcount: Headcount)
+        fun updateHeadcountDisplay(headcount: Headcount)
 
         fun setDateSpinner(
             spinnerItems: List<LocalDate>,
@@ -54,7 +54,7 @@ interface BookingContract {
             position: Int,
         )
 
-        fun moveToBookingSeatActivity(
+        fun startBookingSeatActivity(
             movieTitle: String,
             dateTime: LocalDateTime,
             headcount: Headcount,

@@ -14,42 +14,42 @@ class BookingPresenter(
     private var _headcount: Headcount = Headcount()
     val headcount get() = _headcount.deepCopy()
 
-    private val movie: Movie by lazy { fetchMovie() }
+    private val movie: Movie by lazy { loadMovie() }
 
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
     private val selectedDateTime: LocalDateTime get() = bookingView.getSelectedDateTime()
 
     fun updateViews() {
-        updateMovieInfoViews()
-        updateDateSpinner()
+        refreshMovieInfo()
+        setupDateSpinner()
     }
 
     override fun increaseHeadcount() {
         _headcount.increase()
-        bookingView.setHeadcountTextView(_headcount)
+        bookingView.updateHeadcountDisplay(_headcount)
     }
 
     override fun decreaseHeadcount() {
         _headcount.decrease()
-        bookingView.setHeadcountTextView(_headcount)
+        bookingView.updateHeadcountDisplay(_headcount)
     }
 
-    override fun fetchMovie(): Movie = bookingView.getMovie() ?: Movie.Companion.DUMMY_MOVIES.first()
+    override fun loadMovie(): Movie = bookingView.getMovie() ?: Movie.Companion.DUMMY_MOVIES.first()
 
-    override fun updateMovieInfoViews() {
+    override fun refreshMovieInfo() {
         bookingView.setMovieInfoViews(movie)
     }
 
-    override fun updateHeadcount(headcount: Headcount) {
+    override fun setHeadcount(headcount: Headcount) {
         this._headcount = headcount
     }
 
-    override fun updateHeadcountTextView() {
-        bookingView.setHeadcountTextView(_headcount)
+    override fun refreshHeadcountDisplay() {
+        bookingView.updateHeadcountDisplay(_headcount)
     }
 
-    override fun updateDateSpinner() {
+    override fun setupDateSpinner() {
         val (startDate, endDate) = movie.releaseDate
         val screeningBookingDates: List<LocalDate> =
             ScreeningDate(startDate, endDate).bookingDates(LocalDate.now())
@@ -57,7 +57,7 @@ class BookingPresenter(
         bookingView.setDateSpinner(screeningBookingDates, selectedDatePosition)
     }
 
-    override fun updateTimeSpinner() {
+    override fun setupTimeSpinner() {
         val selectedDate = bookingView.getSelectedDate()
         val screeningTimes =
             ScreeningTime().getAvailableScreeningTimes(LocalDateTime.now(), selectedDate)
@@ -65,17 +65,17 @@ class BookingPresenter(
         bookingView.setTimeSpinner(screeningTimes, selectedTimePosition)
     }
 
-    override fun updateSelectedDatePosition(position: Int) {
+    override fun setSelectedDatePosition(position: Int) {
         selectedDatePosition = position
-        updateDateSpinner()
+        setupDateSpinner()
     }
 
-    override fun updateSelectedTimePosition(position: Int) {
+    override fun setSelectedTimePosition(position: Int) {
         selectedTimePosition = position
-        updateTimeSpinner()
+        setupTimeSpinner()
     }
 
     override fun completeBooking() {
-        bookingView.moveToBookingSeatActivity(movie.title, selectedDateTime, headcount)
+        bookingView.startBookingSeatActivity(movie.title, selectedDateTime, headcount)
     }
 }
