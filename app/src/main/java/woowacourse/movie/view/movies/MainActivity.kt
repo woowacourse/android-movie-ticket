@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.movies.adapter.MovieAdapter
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         movies: List<Movie>,
         navigate: (Movie) -> Unit,
     ) {
-        val listView: ListView = findViewById(R.id.list_view)
+        val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(
                 movies,
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     }
                 },
             )
-        listView.adapter = movieAdapter
+        recyclerView.adapter = movieAdapter
     }
 
     override fun navigateToReservation(movie: Movie) {

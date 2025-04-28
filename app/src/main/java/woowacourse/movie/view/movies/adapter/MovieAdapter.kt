@@ -1,9 +1,8 @@
 package woowacourse.movie.view.movies.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.view.movies.OnMovieEventListener
@@ -11,41 +10,23 @@ import woowacourse.movie.view.movies.OnMovieEventListener
 class MovieAdapter(
     private val items: List<Movie>,
     private val eventListener: OnMovieEventListener,
-) : BaseAdapter() {
-    override fun getCount(): Int {
-        return items.size
+) : RecyclerView.Adapter<MovieViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): MovieViewHolder {
+        val view =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.movie_item, parent, false)
+        return MovieViewHolder(view, eventListener)
     }
 
-    override fun getItem(position: Int): Any {
-        return items[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(
+    override fun onBindViewHolder(
+        holder: MovieViewHolder,
         position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        val viewHolder: MovieViewHolder
-
-        if (convertView == null) {
-            view =
-                LayoutInflater
-                    .from(parent?.context)
-                    .inflate(R.layout.movie_item, parent, false)
-            viewHolder = MovieViewHolder(view, eventListener)
-            view.tag = viewHolder
-        } else {
-            view = convertView
-            viewHolder = convertView.tag as MovieViewHolder
-        }
-
-        viewHolder.bind(items[position])
-
-        return view
+    ) {
+        holder.bind(items[position])
     }
+
+    override fun getItemCount(): Int = items.size
 }
