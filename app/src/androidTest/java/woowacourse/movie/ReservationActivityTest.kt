@@ -201,7 +201,7 @@ class ReservationActivityTest {
             .perform(click())
         onView(withId(R.id.time_picker_actions))
             .perform(click())
-        onView(withText("15:00"))
+        onView(withText("16:00"))
             .perform(click())
 
         // when

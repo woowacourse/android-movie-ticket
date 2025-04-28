@@ -31,6 +31,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
+    private var isInitialized = 0
     private val reservationPresenter by lazy {
         PresenterProvider.reservationPresenter(this)
     }
@@ -123,6 +124,10 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     override fun changeRunningTimes(runningTimes: List<LocalTime>) {
         screeningTimeAdapter.changeItems(runningTimes)
         runningTimePosition = DEFAULT_POSITION
+        if (!isTimeSpinnerInitialized()) {
+            return
+        }
+        binding.timePickerActions.setSelection(DEFAULT_POSITION)
     }
 
     private fun navigate(movie: MovieDto) {
@@ -180,6 +185,11 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         }
     }
 
+    private fun isTimeSpinnerInitialized(): Boolean {
+        isInitialized++
+        return isInitialized > TIME_SPINNER_INITIAL_COUNT
+    }
+
     companion object {
         private const val MOVIE_KEY = "movie"
         private const val MEMBER_COUNT_KEY = "memberCount"
@@ -187,6 +197,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         private const val RESERVATION_DAY_KEY = "reservationDay"
         private const val MEMBER_COUNT_DEFAULT = 1
         private const val DEFAULT_POSITION = 0
+        private const val TIME_SPINNER_INITIAL_COUNT = 2
 
         fun newIntent(
             from: Context,
