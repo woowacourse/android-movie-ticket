@@ -11,30 +11,38 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.presenter.complete.BookingCompleteContract
+import woowacourse.movie.presenter.complete.BookingCompletePresenter
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.ext.getSerializable
 import java.time.LocalDate
 import java.time.LocalTime
 
-class BookingCompleteActivity : AppCompatActivity() {
+class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
+    private lateinit var presenter: BookingCompleteContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
 
         val ticket = intent.getSerializable(KEY_TICKET, Ticket::class.java)
+        presenter = BookingCompletePresenter(this, ticket)
 
-        initView(ticket)
+        initView()
     }
 
-    private fun initView(ticket: Ticket) {
+    private fun initView() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        presenter.loadTicket()
+    }
 
+    override fun showTicket(ticket: Ticket) {
         with(ticket) {
             initBookingMovieTitleView(title)
             initBookingScheduleView(bookingDate, bookingTime)
