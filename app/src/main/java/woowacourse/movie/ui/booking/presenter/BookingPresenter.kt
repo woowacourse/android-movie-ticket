@@ -14,13 +14,11 @@ class BookingPresenter(
     private var _headcount: Headcount = Headcount()
     val headcount get() = _headcount.deepCopy()
 
-    private val movie: Movie by lazy { restoreMovie() }
+    private val movie: Movie by lazy { fetchMovie() }
 
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
     private val selectedDateTime: LocalDateTime get() = bookingView.getSelectedDateTime()
-
-    fun restoreMovie(): Movie = fetchMovie()
 
     fun updateViews() {
         updateMovieInfoViews()
