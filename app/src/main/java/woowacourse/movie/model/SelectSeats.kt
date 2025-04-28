@@ -34,11 +34,11 @@ class SelectSeats {
         ticket.seats.add(seatTag)
     }
 
-    fun minusMoney(seatTag: String) {
+    private fun minusMoney(seatTag: String) {
         ticket.money -= SeatPrice.getPrice(seatTag)
     }
 
-    fun plusMoney(seatTag: String) {
+    private fun plusMoney(seatTag: String) {
         ticket.money += SeatPrice.getPrice(seatTag)
     }
 
