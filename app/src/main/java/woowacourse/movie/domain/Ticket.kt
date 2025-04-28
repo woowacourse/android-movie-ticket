@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.uiModel.Ticket
+import woowacourse.movie.uiModel.TicketUIModel
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -11,5 +11,5 @@ class Ticket(
     val seats: MutableList<String>,
     var money: Int,
 ) {
-    fun toDto(): Ticket = Ticket(title, date.toString(), time.toString(), seats, seats.size, money)
+    fun toUIModel(): TicketUIModel = TicketUIModel(title, date.toString(), time.toString(), seats, seats.size, money)
 }

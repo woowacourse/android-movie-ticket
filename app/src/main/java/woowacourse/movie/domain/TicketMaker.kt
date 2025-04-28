@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.uiModel.Ticket
+import woowacourse.movie.uiModel.TicketUIModel
 
 object TicketMaker {
     fun generator(
@@ -8,10 +8,10 @@ object TicketMaker {
         date: String,
         time: String,
         count: Int,
-    ): Ticket {
+    ): TicketUIModel {
         require(count > 0) { "발권 인원이 0명일 수 없습니다." }
 
-        return Ticket(
+        return TicketUIModel(
             title = title,
             date = date,
             time = time,

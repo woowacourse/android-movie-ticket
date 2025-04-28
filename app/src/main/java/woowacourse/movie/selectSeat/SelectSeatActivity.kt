@@ -12,26 +12,26 @@ import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity.Companion.KEY_TICKET
 import woowacourse.movie.booking.ConfirmDialog
 import woowacourse.movie.bookingResult.BookingResultActivity
-import woowacourse.movie.uiModel.Ticket
+import woowacourse.movie.uiModel.TicketUIModel
 import java.text.DecimalFormat
 
 class SelectSeatActivity :
     AppCompatActivity(),
     SelectSeatContract.View {
     private var presenter: SelectSeatPresenter = SelectSeatPresenter(this)
-    lateinit var ticket: Ticket
+    lateinit var ticketUIModel: TicketUIModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_seat)
-        ticket =
-            intent.fetchExtraOrNull<Ticket>(KEY_TICKET) ?: return
-        presenter.onViewCreated(ticket)
+        ticketUIModel =
+            intent.fetchExtraOrNull<TicketUIModel>(KEY_TICKET) ?: return
+        presenter.onViewCreated(ticketUIModel)
     }
 
-    override fun setTitle(ticket: Ticket) {
+    override fun setTitle(ticketUIModel: TicketUIModel) {
         val titleView = findViewById<TextView>(R.id.title)
-        titleView.text = ticket.title
+        titleView.text = ticketUIModel.title
     }
 
     override fun setMoney(money: Int) {
@@ -53,7 +53,7 @@ class SelectSeatActivity :
                 val seatNumber = j + 1
                 seat.tag = "$rowChar$seatNumber"
                 seat.setOnClickListener {
-                    presenter.onSeatClicked(seat.tag.toString(), ticket.count)
+                    presenter.onSeatClicked(seat.tag.toString(), ticketUIModel.count)
                 }
             }
         }
@@ -73,10 +73,10 @@ class SelectSeatActivity :
         }
     }
 
-    override fun changeView(ticket: Ticket) {
+    override fun changeView(ticketUIModel: TicketUIModel) {
         val intent =
             Intent(this, BookingResultActivity::class.java).apply {
-                putExtra(KEY_TICKET, ticket)
+                putExtra(KEY_TICKET, ticketUIModel)
             }
         startActivity(intent)
     }

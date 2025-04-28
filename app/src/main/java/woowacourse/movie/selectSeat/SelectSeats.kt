@@ -8,12 +8,12 @@ import java.time.format.DateTimeFormatter
 class SelectSeats {
     lateinit var ticket: Ticket
 
-    fun setTicket(ticketDTO: woowacourse.movie.uiModel.Ticket) {
+    fun setTicket(ticketUIModelDTO: woowacourse.movie.uiModel.TicketUIModel) {
         ticket =
             Ticket(
-                ticketDTO.title,
-                parserDate(ticketDTO.date),
-                parserTime(ticketDTO.time),
+                ticketUIModelDTO.title,
+                parserDate(ticketUIModelDTO.date),
+                parserTime(ticketUIModelDTO.time),
                 mutableListOf(),
                 0,
             )
