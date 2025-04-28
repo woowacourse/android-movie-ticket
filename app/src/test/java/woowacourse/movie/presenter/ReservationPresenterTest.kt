@@ -8,11 +8,11 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.activity.reservation.ReservationContract
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.activity.reservation.ReservationPresenter
+import woowacourse.movie.dto.MovieListDataDto.MovieDto
 import woowacourse.movie.fixture.DomainFixture
 import woowacourse.movie.global.ServiceLocator
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class ReservationPresenterTest {
     private val view = mockk<ReservationContract.View>()
@@ -20,7 +20,7 @@ class ReservationPresenterTest {
 
     @BeforeEach
     fun setUp() {
-        presenter = ServiceLocator.reservationPresenter(view)
+        presenter = ReservationPresenter(view)
     }
 
     @Test
@@ -69,7 +69,6 @@ class ReservationPresenterTest {
         every { view.initRunningDates(any()) } just runs
 
         presenter.initRunningDates(
-            LocalDate.of(2025, 4, 3),
             ServiceLocator.movies.map { MovieDto.fromMovie(it) }[0],
         )
         verify {
@@ -88,7 +87,6 @@ class ReservationPresenterTest {
         every { view.initRunningTimes(any()) } just runs
 
         presenter.initRunningTimes(
-            LocalDateTime.of(2025, 4, 3, 9, 0, 0),
             LocalDate.of(2025, 4, 5),
         )
         verify { view.initRunningTimes(DomainFixture.weekEndRule) }
@@ -99,7 +97,6 @@ class ReservationPresenterTest {
         every { view.changeRunningTimes(any()) } just runs
 
         presenter.changeRunningTimes(
-            LocalDateTime.of(2025, 4, 3, 9, 0, 0),
             LocalDate.of(2025, 4, 5),
         )
         verify { view.changeRunningTimes(DomainFixture.weekEndRule) }
