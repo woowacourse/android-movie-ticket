@@ -1,11 +1,10 @@
 package woowacourse.movie.booking.complete
 
-import android.os.Bundle
 import woowacourse.movie.booking.detail.TicketUiModel
 
 interface BookingCompleteContract {
     interface Presenter {
-        fun initializeData(savedInstanceState: Bundle?)
+        fun initializeData()
     }
 
     interface View {

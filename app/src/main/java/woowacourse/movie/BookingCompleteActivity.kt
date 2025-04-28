@@ -24,7 +24,7 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
 
         val bookingResult = requireResultOrFinish()
         presenter = BookingCompletePresenter(this, bookingResult)
-        presenter.initializeData(savedInstanceState)
+        presenter.initializeData()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
@@ -37,7 +37,7 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
         }
     }
 
-    private fun requireResultOrFinish(): TicketUiModel? {
+    private fun requireResultOrFinish(): TicketUiModel {
         return IntentCompat.getParcelableExtra(
             intent,
             KEY_BOOKING_RESULT,
@@ -46,7 +46,7 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
             ?: run {
                 Log.e(TAG, "인텐트에 영화 예매 정보(KEY_BOOKING_RESULT)가 없습니다.")
                 showToastErrorAndFinish(getString(R.string.booking_toast_message))
-                null
+                throw IllegalStateException("Movie 데이터가 없어서 Activity를 종료했습니다")
             }
     }
 
