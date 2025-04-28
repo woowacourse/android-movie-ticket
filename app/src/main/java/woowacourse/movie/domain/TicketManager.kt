@@ -2,13 +2,10 @@ package woowacourse.movie.domain
 
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class TicketManager(
     private val movie: Movie,
 ) {
-    private val movieSchedule: MovieSchedule = MovieSchedule(movie.startDate, movie.endDate)
-    private val dateFormatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
     private var ticketCountValue = 0
 
     fun incrementTicketCount() {
@@ -35,8 +32,4 @@ class TicketManager(
             time = time,
             count = ticketCountValue,
         )
-
-    companion object {
-        private const val DATE_PATTERN = "yyyy.M.d"
-    }
 }
