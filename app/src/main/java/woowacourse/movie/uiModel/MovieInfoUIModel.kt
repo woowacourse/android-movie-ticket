@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MovieInfo(
+data class MovieInfoUIModel(
     val posterKey: String,
     val title: String,
     val startDate: String,
