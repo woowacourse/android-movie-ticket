@@ -3,7 +3,6 @@ package woowacourse.movie.selectSeat
 import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
@@ -13,7 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity.Companion.KEY_TICKET
 import woowacourse.movie.booking.ConfirmDialog
 import woowacourse.movie.bookingResult.BookingResultActivity
-import woowacourse.movie.dto.Ticket
+import woowacourse.movie.uiModel.Ticket
 import java.text.DecimalFormat
 
 class SelectSeatActivity :

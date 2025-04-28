@@ -18,7 +18,7 @@ import org.hamcrest.Matchers.anything
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.booking.BookingActivity
-import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.uiModel.MovieInfo
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>

@@ -2,7 +2,7 @@ package woowacourse.movie.booking
 
 import android.os.Bundle
 import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.uiModel.MovieInfo
 
 interface BookingContract {
     interface View {

@@ -1,6 +1,6 @@
 package woowacourse.movie.movieList
 
-import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.uiModel.MovieInfo
 
 interface MovieListContract {
     interface View {

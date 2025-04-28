@@ -6,7 +6,7 @@ import android.os.Parcelable
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.dto.Ticket
+import woowacourse.movie.uiModel.Ticket
 
 class BookingResultActivity : AppCompatActivity() {
     lateinit var ticket: Ticket

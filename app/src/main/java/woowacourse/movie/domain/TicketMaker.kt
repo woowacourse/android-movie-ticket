@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-import woowacourse.movie.dto.Ticket
+import woowacourse.movie.uiModel.Ticket
 
 object TicketMaker {
     fun generator(
