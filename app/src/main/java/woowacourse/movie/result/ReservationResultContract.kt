@@ -5,16 +5,14 @@ import woowacourse.movie.domain.Seat
 
 interface ReservationResultContract {
     interface View {
-        fun bindReservation(reservation: Reservation)
+        fun showReservation(reservation: Reservation)
 
-        fun bindTotalPrice(price: Int)
+        fun showTotalPrice(price: Int)
 
-        fun bindTicket(seats: Set<Seat>)
+        fun showTicket(seats: Set<Seat>)
     }
 
     interface Presenter {
-        fun setUpReservation(reservation: Reservation)
-
-        fun showReservation()
+        fun initReservation(reservation: Reservation)
     }
 }

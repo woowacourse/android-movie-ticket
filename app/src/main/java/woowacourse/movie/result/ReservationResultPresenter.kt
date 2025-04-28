@@ -7,13 +7,11 @@ class ReservationResultPresenter(
 ) : ReservationResultContract.Presenter {
     private lateinit var reservation: Reservation
 
-    override fun setUpReservation(reservation: Reservation) {
+    override fun initReservation(reservation: Reservation) {
         this.reservation = reservation
-    }
 
-    override fun showReservation() {
-        view.bindReservation(reservation)
-        view.bindTicket(reservation.seats.seats)
-        view.bindTotalPrice(reservation.seats.totalPrice())
+        view.showReservation(reservation)
+        view.showTicket(reservation.seats.seats)
+        view.showTotalPrice(reservation.seats.totalPrice())
     }
 }

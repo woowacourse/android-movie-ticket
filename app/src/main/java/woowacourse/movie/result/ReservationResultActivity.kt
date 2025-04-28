@@ -32,15 +32,14 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
             insets
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.setUpReservation(extractReservation())
-        presenter.showReservation()
+        presenter.initReservation(extractReservation())
     }
 
     private fun extractReservation(): Reservation {
         return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
     }
 
-    override fun bindReservation(reservation: Reservation) {
+    override fun showReservation(reservation: Reservation) {
         val title = findViewById<TextView>(R.id.tv_title)
         val screeningDate = findViewById<TextView>(R.id.tv_screening_date)
 
@@ -50,7 +49,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         screeningDate.text = formattedScreeningDate
     }
 
-    override fun bindTicket(seats: Set<Seat>) {
+    override fun showTicket(seats: Set<Seat>) {
         val ticketCount = findViewById<TextView>(R.id.tv_ticket)
 
         val reservedSeats =
@@ -61,7 +60,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         ticketCount.text = getString(R.string.formatted_ticket).format(seats.size, reservedSeats)
     }
 
-    override fun bindTotalPrice(price: Int) {
+    override fun showTotalPrice(price: Int) {
         val totalPrice = findViewById<TextView>(R.id.tv_total_price)
 
         totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(price))
