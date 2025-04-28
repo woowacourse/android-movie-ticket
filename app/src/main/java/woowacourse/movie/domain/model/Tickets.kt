@@ -5,6 +5,8 @@ import java.io.Serializable
 class Tickets(private val tickets: List<Ticket>) : Serializable {
     val count get() = tickets.size
 
+    fun positions(): List<Pair<Row, Column>> = tickets.map { it.position }
+
     fun isEmpty() = tickets.isEmpty()
 
     fun addTicket(ticket: Ticket): Tickets = Tickets(tickets + ticket)

@@ -5,6 +5,8 @@ import java.io.Serializable
 class Ticket(val seat: Seat) : Serializable {
     val price = seatRatePrice(seat.seatRate).value
 
+    val position: Pair<Row, Column> = Pair(seat.row, seat.column)
+
     private fun seatRatePrice(seatRate: SeatRate): Price {
         return when (seatRate) {
             SeatRate.S -> Price(S_CLASS_PRICE)

@@ -11,6 +11,7 @@ class Reservation(
 ) : Serializable {
     val ticketCount get() = tickets?.count ?: 0
     val cancelMinute = purchaseType.cancelTime.minute
+    val ticketsPositions: List<Pair<Row, Column>>? = tickets?.positions()
 
     fun initTickets(tickets: Tickets) = Reservation(title, reservedTime, tickets)
 
