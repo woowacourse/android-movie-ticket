@@ -41,7 +41,7 @@ class BookingSeatActivity :
     override fun showSeats() {
         findViewById<TableLayout>(R.id.tl_booking_seat).children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
             row.children.filterIsInstance<TextView>().forEachIndexed { columnIndex, button ->
-                seats[button] = presenter.onSeatSetup(rowIndex + 1, columnIndex + 1)
+                seats[button] = presenter.onSeatSetup(rowIndex + SEAT_POSITION_OFFSET, columnIndex + SEAT_POSITION_OFFSET)
                 val seat = seats[button] ?: return@forEachIndexed
                 setupSeatSelectButton(button, seat)
             }
@@ -144,6 +144,7 @@ class BookingSeatActivity :
 
     companion object {
         private const val BOOKING_INFO_KEY = "BOOKING_INFO"
+        private const val SEAT_POSITION_OFFSET = 1
 
         fun newIntent(
             context: Context,
