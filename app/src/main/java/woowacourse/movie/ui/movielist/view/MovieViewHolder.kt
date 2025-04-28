@@ -38,9 +38,6 @@ class MovieViewHolder(
                 periodFormat(releaseDate.startDate, releaseDate.endDate)
             movieRunningTime.text =
                 itemView.context.getString(R.string.text_minute).format(runningTime)
-            bookingBtn.setOnClickListener {
-                onClickBooking(this)
-            }
         }
     }
 }
