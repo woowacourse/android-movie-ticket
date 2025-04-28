@@ -32,7 +32,7 @@ class ReservationPresenterTest {
 
         // given
         every {
-            view.updateMovieInfo(
+            view.showMovieInfo(
                 any(),
                 capture(titleSlot),
                 any(),
@@ -45,7 +45,7 @@ class ReservationPresenterTest {
         presenter.fetchData { dummyMovie }
 
         // then: 영화 정보를 설정한다
-        verify { view.updateMovieInfo(any(), any(), any(), any(), any()) }
+        verify { view.showMovieInfo(any(), any(), any(), any(), any()) }
 
         assertThat(titleSlot.captured).isEqualTo("라라랜드")
         assertThat(runningTimeSlot.captured).isEqualTo(120)
@@ -65,16 +65,16 @@ class ReservationPresenterTest {
         // given
         val timetableSlot = slot<List<String>>()
         val now = LocalDate.of(2025, 4, 25)
-        every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
+        every { view.showMovieInfo(any(), any(), any(), any(), any()) } just Runs
         every { view.updateTimeAdapter(capture(timetableSlot)) } just Runs
 
         // when
         presenter.fetchData { dummyMovie }
-        presenter.onDateSelected(now)
+        presenter.selectDate(now)
 
         // then
         verifySequence {
-            view.updateMovieInfo(any(), any(), any(), any(), any())
+            view.showMovieInfo(any(), any(), any(), any(), any())
             view.updateTimeAdapter(any())
         }
 
@@ -87,13 +87,13 @@ class ReservationPresenterTest {
     fun `티켓 개수를 증가시키면 뷰에 반영된다`() {
         val countSlot = slot<Int>()
 
-        every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
-        every { view.setTicketCount(capture(countSlot)) } just Runs
+        every { view.showMovieInfo(any(), any(), any(), any(), any()) } just Runs
+        every { view.showTicketCount(capture(countSlot)) } just Runs
 
         presenter.fetchData { dummyMovie }
         presenter.plusTicketCount()
 
-        verify { view.setTicketCount(any()) }
+        verify { view.showTicketCount(any()) }
         assertThat(countSlot.captured).isEqualTo(2)
     }
 
@@ -101,14 +101,14 @@ class ReservationPresenterTest {
     fun `티켓 개수를 감소시키면 뷰에 반영된다`() {
         val countSlot = slot<Int>()
 
-        every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
-        every { view.setTicketCount(capture(countSlot)) } just Runs
+        every { view.showMovieInfo(any(), any(), any(), any(), any()) } just Runs
+        every { view.showTicketCount(capture(countSlot)) } just Runs
 
         presenter.fetchData { dummyMovie }
         presenter.plusTicketCount()
         presenter.minusTicketCount()
 
-        verify { view.setTicketCount(any()) }
+        verify { view.showTicketCount(any()) }
 
         assertThat(countSlot.captured).isEqualTo(1)
     }

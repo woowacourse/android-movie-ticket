@@ -15,6 +15,6 @@ class ReservationCompletePresenter(
         }
 
         reservationInfo = result
-        view.updateReservationInfo(reservationInfo)
+        view.showReservationInfo(reservationInfo)
     }
 }

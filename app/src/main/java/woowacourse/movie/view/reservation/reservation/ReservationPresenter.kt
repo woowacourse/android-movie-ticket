@@ -38,10 +38,10 @@ class ReservationPresenter(
         if (duration.isEmpty()) duration = listOf(reservationState.movie.startDate)
 
         view.updateDateAdapter(duration, 0)
-        onDateSelected(duration[0])
+        selectDate(duration[0])
     }
 
-    override fun onDateSelected(date: LocalDate) {
+    override fun selectDate(date: LocalDate) {
         val timeTable = reservationState.movieTime.getTimeTable(LocalDateTime.now(), date)
         reservationState.movieDate.updateDate(date)
         updateReservationState(movieDate = reservationState.movieDate)
@@ -52,7 +52,7 @@ class ReservationPresenter(
         )
     }
 
-    override fun onTimeSelected(position: Int) {
+    override fun selectTime(position: Int) {
         val timeTable =
             reservationState.movieTime.getTimeTable(
                 LocalDateTime.now(),
@@ -66,14 +66,14 @@ class ReservationPresenter(
         updateReservationState(
             ticketCount = reservationState.ticketCount.plus(1),
         )
-        view.setTicketCount(reservationState.ticketCount.value)
+        view.showTicketCount(reservationState.ticketCount.value)
     }
 
     override fun minusTicketCount() {
         updateReservationState(
             ticketCount = reservationState.ticketCount.minus(1),
         )
-        view.setTicketCount(reservationState.ticketCount.value)
+        view.showTicketCount(reservationState.ticketCount.value)
     }
 
     override fun createTicket(onCreated: (MovieTicket) -> Unit) {
@@ -91,14 +91,14 @@ class ReservationPresenter(
         updateReservationState(
             ticketCount = TicketCount(count),
         )
-        view.setTicketCount(reservationState.ticketCount.value)
+        view.showTicketCount(reservationState.ticketCount.value)
     }
 
     fun currentTicketCount(): Int = reservationState.ticketCount.value
 
     private fun updateMovieInfo() {
         val movie = reservationState.movie
-        view.updateMovieInfo(
+        view.showMovieInfo(
             posterResId = movie.poster,
             title = movie.title,
             startDate = ReservationUiFormatter.localDateToUI(movie.startDate),

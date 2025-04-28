@@ -18,13 +18,13 @@ class SeatSelectPresenter(
         }
 
         movieTicket = result
-        view.initReservationInfo(
+        view.showReservationInfo(
             movieTicket.title,
             DEFAULT_PRICE,
         )
     }
 
-    override fun onSeatClicked(seatId: String) {
+    override fun seatSelect(seatId: String) {
         if (selectedSeats.size >= movieTicket.count) {
             view.showSeatCountError(movieTicket.count)
             return
@@ -32,13 +32,13 @@ class SeatSelectPresenter(
 
         val isSelected = selectedSeats.click(seatId)
         if (isSelected) {
-            view.updateSeatSelected(seatId)
+            view.showSelectedSeat(seatId)
         } else {
-            view.updateSeatDeselected(seatId)
+            view.showDeselectedSeat(seatId)
         }
 
-        view.updateTotalPrice(selectedSeats.totalPrice)
-        view.updateConfirmButtonState(selectedSeats.size == movieTicket.count)
+        view.showTotalPrice(selectedSeats.totalPrice)
+        view.updateConfirmButtonEnabled(selectedSeats.size == movieTicket.count)
     }
 
     override fun createReservationInfo(onCreated: (ReservationInfo) -> Unit) {
@@ -62,18 +62,18 @@ class SeatSelectPresenter(
 
     fun getSelectedSeatIds(): List<String> = selectedSeats.labels()
 
-    fun restoreSelectedSeats(ids: List<String>) {
-        for (id in ids) {
-            selectedSeats.add(id)
-            view.updateSeatSelected(id)
+    fun restoreSelectedSeats(seatIds: List<String>) {
+        for (seatId in seatIds) {
+            selectedSeats.add(seatId)
+            view.showSelectedSeat(seatId)
         }
-        view.updateTotalPrice(selectedSeats.totalPrice)
-        view.updateConfirmButtonState(selectedSeats.size == movieTicket.count)
+        view.showTotalPrice(selectedSeats.totalPrice)
+        view.updateConfirmButtonEnabled(selectedSeats.size == movieTicket.count)
     }
 
     fun restoreButtonState() {
         val isEnabled = selectedSeats.size == movieTicket.count
-        view.updateConfirmButtonState(isEnabled)
+        view.updateConfirmButtonEnabled(isEnabled)
     }
 
     companion object {

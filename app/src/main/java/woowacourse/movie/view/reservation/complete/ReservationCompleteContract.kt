@@ -6,7 +6,7 @@ interface ReservationCompleteContract {
     interface View {
         fun showErrorDialog()
 
-        fun updateReservationInfo(reservationInfo: ReservationInfo)
+        fun showReservationInfo(reservationInfo: ReservationInfo)
     }
 
     interface Presenter {

@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.google.android.material.R.layout
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.model.MovieTicket
@@ -55,7 +54,7 @@ class ReservationActivity :
         setupCompleteButtonClick()
     }
 
-    override fun updateMovieInfo(
+    override fun showMovieInfo(
         posterResId: Int,
         title: String,
         startDate: String,
@@ -79,7 +78,7 @@ class ReservationActivity :
         }
     }
 
-    override fun setTicketCount(count: Int) {
+    override fun showTicketCount(count: Int) {
         ticketCountTextView.text = count.toString()
     }
 
@@ -105,7 +104,7 @@ class ReservationActivity :
                         position: Int,
                         id: Long,
                     ) {
-                        presenter.onDateSelected(duration[position])
+                        presenter.selectDate(duration[position])
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -132,7 +131,7 @@ class ReservationActivity :
                         position: Int,
                         id: Long,
                     ) {
-                        presenter.onTimeSelected(position)
+                        presenter.selectTime(position)
                     }
 
                     override fun onNothingSelected(parent: AdapterView<*>?) {

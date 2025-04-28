@@ -6,7 +6,7 @@ import java.time.LocalDate
 
 interface ReservationContract {
     interface View {
-        fun updateMovieInfo(
+        fun showMovieInfo(
             posterResId: Int,
             title: String,
             startDate: String,
@@ -16,7 +16,7 @@ interface ReservationContract {
 
         fun showErrorDialog()
 
-        fun setTicketCount(count: Int)
+        fun showTicketCount(count: Int)
 
         fun updateDateAdapter(
             duration: List<LocalDate>,
@@ -33,9 +33,9 @@ interface ReservationContract {
 
         fun initDateAdapter()
 
-        fun onDateSelected(date: LocalDate)
+        fun selectDate(date: LocalDate)
 
-        fun onTimeSelected(position: Int)
+        fun selectTime(position: Int)
 
         fun plusTicketCount()
 

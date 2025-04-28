@@ -7,20 +7,20 @@ interface SeatSelectContract {
     interface View {
         fun showErrorDialog()
 
-        fun initReservationInfo(
+        fun showReservationInfo(
             title: String,
             price: Int,
         )
 
         fun showSeatCountError(count: Int)
 
-        fun updateSeatSelected(seatId: String)
+        fun showSelectedSeat(seatId: String)
 
-        fun updateSeatDeselected(seatId: String)
+        fun showDeselectedSeat(seatId: String)
 
-        fun updateTotalPrice(totalPrice: Int)
+        fun showTotalPrice(totalPrice: Int)
 
-        fun updateConfirmButtonState(isEnabled: Boolean)
+        fun updateConfirmButtonEnabled(isEnabled: Boolean)
 
         fun showReservationDialog(
             title: String,
@@ -33,7 +33,7 @@ interface SeatSelectContract {
     interface Presenter {
         fun fetchData(getMovieTicket: () -> MovieTicket?)
 
-        fun onSeatClicked(seatId: String)
+        fun seatSelect(seatId: String)
 
         fun createReservationInfo(onCreated: (ReservationInfo) -> Unit)
 

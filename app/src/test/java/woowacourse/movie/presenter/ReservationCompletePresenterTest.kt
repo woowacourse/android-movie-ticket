@@ -29,13 +29,13 @@ class ReservationCompletePresenterTest {
         val reservationInfoSlot = slot<ReservationInfo>()
 
         // given
-        every { view.updateReservationInfo(capture(reservationInfoSlot)) } just Runs
+        every { view.showReservationInfo(capture(reservationInfoSlot)) } just Runs
 
         // when
         presenter.fetchData { dummyReservationInfo }
 
         // then
-        verify { view.updateReservationInfo(any()) }
+        verify { view.showReservationInfo(any()) }
 
         assertThat(reservationInfoSlot.captured.title).isEqualTo("라라랜드")
         assertThat(reservationInfoSlot.captured.time).isEqualTo("14:00")

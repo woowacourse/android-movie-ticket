@@ -53,7 +53,7 @@ class SeatSelectActivity :
     override fun showErrorDialog() {
     }
 
-    override fun initReservationInfo(
+    override fun showReservationInfo(
         title: String,
         price: Int,
     ) {
@@ -71,22 +71,22 @@ class SeatSelectActivity :
         return
     }
 
-    override fun updateSeatSelected(seatId: String) {
+    override fun showSelectedSeat(seatId: String) {
         seatViews[seatId]?.setBackgroundResource(R.color.yellow)
     }
 
-    override fun updateSeatDeselected(seatId: String) {
+    override fun showDeselectedSeat(seatId: String) {
         seatViews[seatId]?.setBackgroundResource(R.color.white)
     }
 
-    override fun updateTotalPrice(totalPrice: Int) {
+    override fun showTotalPrice(totalPrice: Int) {
         priceTextView.text =
             getString(R.string.seat_select_ticket_price).format(
                 ReservationUiFormatter.priceToUI(totalPrice),
             )
     }
 
-    override fun updateConfirmButtonState(isEnabled: Boolean) {
+    override fun updateConfirmButtonEnabled(isEnabled: Boolean) {
         confirmButton.isClickable = isEnabled
         confirmButton.alpha = if (isEnabled) 1f else 0.1f
     }
@@ -127,7 +127,7 @@ class SeatSelectActivity :
                         val seatId = seatView.text.toString()
                         seatViews[seatId] = seatView
                         seatView.setOnClickListener {
-                            presenter.onSeatClicked(seatId)
+                            presenter.seatSelect(seatId)
                         }
                     }
                 }

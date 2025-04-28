@@ -44,7 +44,7 @@ class ReservationCompleteActivity :
     override fun showErrorDialog() {
     }
 
-    override fun updateReservationInfo(reservationInfo: ReservationInfo) {
+    override fun showReservationInfo(reservationInfo: ReservationInfo) {
         setupReservationInfo(reservationInfo)
     }
 
