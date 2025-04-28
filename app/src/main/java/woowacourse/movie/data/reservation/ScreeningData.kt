@@ -3,11 +3,11 @@ package woowacourse.movie.data.reservation
 import woowacourse.movie.domain.reservation.Screening
 import java.time.LocalDate
 
-interface Screenings {
+interface ScreeningData {
     val value: List<Screening>
 }
 
-class LocalScreenings : Screenings {
+class LocalScreeningData : ScreeningData {
     private val movies = Movies()
     override val value: List<Screening> =
         listOf(
@@ -54,6 +54,6 @@ class LocalScreenings : Screenings {
         )
 }
 
-class FakeScreenings(
+class FakeScreeningData(
     override val value: List<Screening>,
-) : Screenings
+) : ScreeningData
