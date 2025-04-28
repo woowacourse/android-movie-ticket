@@ -4,7 +4,7 @@ import android.content.Intent
 
 interface MovieContract {
     interface View {
-        fun showMovies(movies: List<MovieUiModel>)
+        fun setupMovieList(movies: List<MovieUiModel>)
 
         fun showToast(message: String)
 

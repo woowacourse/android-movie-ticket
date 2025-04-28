@@ -36,7 +36,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         }
     }
 
-    override fun showMovies(movies: List<MovieUiModel>) {
+    override fun setupMovieList(movies: List<MovieUiModel>) {
         val adapter =
             MovieAdapter(movies) { movie ->
                 presenter.onReserveClicked(movie)

@@ -27,7 +27,7 @@ class MoviePresenter(
                 ?: List(10) { mockMovieList() }
                     .flatten()
                     .map { it.toUiModel() }
-        view.showMovies(movies)
+        view.setupMovieList(movies)
     }
 
     fun getMockMovieList(): List<Movie> = mockMovieList()
