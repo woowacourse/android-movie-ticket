@@ -7,7 +7,7 @@ import java.time.LocalDate
 
 class MovieFactory {
     fun getAll(): List<Movie> {
-        return createMovies(2500)
+        return createMovies(100)
     }
 
     private fun createMovies(number: Int): List<Movie> {
