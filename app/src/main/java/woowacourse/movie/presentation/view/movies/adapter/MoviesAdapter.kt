@@ -9,7 +9,7 @@ import woowacourse.movie.presentation.model.MovieUiModel
 
 class MoviesAdapter(
     private val eventListener: OnMovieEventListener,
-) : ListAdapter<MovieUiModel, RecyclerView.ViewHolder>(MoviesDiffUtil()) {
+) : ListAdapter<MovieUiModel, RecyclerView.ViewHolder>(MoviesDiffUtil) {
     override fun getItemViewType(position: Int): Int = if (isAdPosition(position)) AD_VIEW_TYPE else MOVIE_VIEW_TYPE
 
     override fun onCreateViewHolder(
