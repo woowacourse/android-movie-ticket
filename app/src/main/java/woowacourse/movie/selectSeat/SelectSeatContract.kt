@@ -1,6 +1,6 @@
 package woowacourse.movie.selectSeat
 
-import woowacourse.movie.uiModel.Ticket
+import woowacourse.movie.uiModel.TicketUIModel
 
 interface SelectSeatContract {
     interface View {
@@ -14,17 +14,17 @@ interface SelectSeatContract {
 
         fun onSeatUnSelected(tag: String)
 
-        fun setTitle(ticket: Ticket)
+        fun setTitle(ticketUIModel: TicketUIModel)
 
         fun setMoney(money: Int)
 
         fun showFullSeat()
 
-        fun changeView(ticket: Ticket)
+        fun changeView(ticketUIModel: TicketUIModel)
     }
 
     interface Presenter {
-        fun onViewCreated(ticket: Ticket)
+        fun onViewCreated(ticketUIModel: TicketUIModel)
 
         fun onSeatClicked(
             tag: String,

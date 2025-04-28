@@ -11,34 +11,38 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
+import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.domain.MovieScheduleGenerator
 import woowacourse.movie.domain.TicketCount
 import woowacourse.movie.domain.TicketMaker
 import woowacourse.movie.selectSeat.SelectSeatActivity
-import woowacourse.movie.uiModel.MovieInfo
+import woowacourse.movie.uiModel.MovieInfoUIModel
 import woowacourse.movie.uiModel.PosterMapper
+import java.time.LocalTime
+import java.time.format.DateTimeFormatter
+import java.time.temporal.TemporalAccessor
 
 class BookingActivity :
     AppCompatActivity(),
     BookingContract.View {
-    private lateinit var movieInfo: MovieInfo
+    private lateinit var movieInfoUIModel: MovieInfoUIModel
     private lateinit var movieTime: Spinner
     private lateinit var selectedDate: Spinner
     private lateinit var ticketCount: TextView
     private lateinit var movieDate: TextView
     private var ticketCountValue = TicketCount()
     private var presenter = BookingPresenter()
+    private lateinit var movieInfo: MovieInfo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
-
         selectedDate = findViewById(R.id.selected_date)
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
         movieDate = findViewById(R.id.movie_date)
-        movieInfo = intent.fetchExtraOrNull<MovieInfo>(KEY_MOVIE_INFO) ?: return
-
+        movieInfoUIModel = intent.fetchExtraOrNull<MovieInfoUIModel>(KEY_MOVIE_INFO) ?: return
+        movieInfo = MovieInfo.fromUiModel(movieInfoUIModel)
         presenter.onCreateView(this, savedInstanceState)
     }
 
@@ -65,26 +69,50 @@ class BookingActivity :
         val runningTime = findViewById<TextView>(R.id.running_time)
         val poster = findViewById<ImageView>(R.id.movie_poster)
 
-        poster.setImageResource(PosterMapper.getPosterResourceId(movieInfo.posterKey))
-        title.text = movieInfo.title
+        poster.setImageResource(PosterMapper.getPosterResourceId(movieInfoUIModel.posterKey))
+        title.text = movieInfoUIModel.title
         movieDate.text =
             this.getString(
                 R.string.movie_date,
-                movieInfo.startDate,
-                movieInfo.endDate,
+                movieInfoUIModel.startDate,
+                movieInfoUIModel.endDate,
             )
-        runningTime.text = this.getString(R.string.running_time, movieInfo.runningTime)
+        runningTime.text = this.getString(R.string.running_time, movieInfoUIModel.runningTime)
 
         SpinnerAdapter.bind(
             this,
             selectedDate,
-            MovieScheduleGenerator.generateScreeningDates(movieInfo.startDate, movieInfo.endDate),
+            MovieScheduleGenerator
+                .generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
+                .toFormattedStringList("yyyy.M.d"),
         )
-        SpinnerAdapter.bind(this, movieTime, MovieScheduleGenerator.generateScreeningTimesFor(movieInfo.startDate))
+        SpinnerAdapter.bind(
+            this,
+            movieTime,
+            MovieScheduleGenerator
+                .generateScreeningTimesFor(movieInfo.startDate)
+                .toFormattedStringList("HH:mm"),
+        )
+    }
+
+    inline fun <reified T : TemporalAccessor> List<T>.toFormattedStringList(pattern: String): List<String> {
+        val formatter = DateTimeFormatter.ofPattern(pattern)
+        return map { ta ->
+            when (ta) {
+                is LocalTime -> {
+                    if (ta.hour == 0 && ta.minute == 0) {
+                        "24:00"
+                    } else {
+                        ta.format(formatter)
+                    }
+                }
+                else -> formatter.format(ta)
+            }
+        }
     }
 
     override fun moveActivity() {
-        val ticketDTO =
+        val ticketUIModel =
             TicketMaker.generator(
                 title = findViewById<TextView>(R.id.title).text.toString(),
                 date = selectedDate.selectedItem.toString(),
@@ -93,7 +121,7 @@ class BookingActivity :
             )
         val intent =
             Intent(this, SelectSeatActivity::class.java).apply {
-                putExtra(KEY_TICKET, ticketDTO)
+                putExtra(KEY_TICKET, ticketUIModel)
             }
         startActivity(intent)
     }
@@ -107,7 +135,11 @@ class BookingActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    presenter.dateSpinnerSelect(this@BookingActivity, movieInfo, position)
+                    presenter.dateSpinnerSelect(
+                        this@BookingActivity,
+                        MovieInfo.fromUiModel(movieInfoUIModel),
+                        position,
+                    )
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -144,8 +176,8 @@ class BookingActivity :
         }
     }
 
-    override fun timeSpinnerSet(times: List<String>) {
-        SpinnerAdapter.bind(this@BookingActivity, movieTime, times)
+    override fun timeSpinnerSet(times: List<LocalTime>) {
+        SpinnerAdapter.bind(this@BookingActivity, movieTime, times.toFormattedStringList("HH:mm"))
     }
 
     inline fun <reified T : Parcelable> Intent.fetchExtraOrNull(key: String): T? = getParcelableExtra(key)

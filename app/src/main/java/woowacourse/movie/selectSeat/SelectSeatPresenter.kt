@@ -1,19 +1,19 @@
 package woowacourse.movie.selectSeat
 
-import woowacourse.movie.uiModel.Ticket
+import woowacourse.movie.uiModel.TicketUIModel
 
 class SelectSeatPresenter(
     var view: SelectSeatContract.View,
 ) : SelectSeatContract.Presenter {
     val selectSeat = SelectSeats()
 
-    override fun onViewCreated(ticket: Ticket) {
-        view.setTitle(ticket)
-        view.setMoney(ticket.money)
+    override fun onViewCreated(ticketUIModel: TicketUIModel) {
+        view.setTitle(ticketUIModel)
+        view.setMoney(ticketUIModel.money)
         view.setSeatClicker()
         view.setButton()
 
-        selectSeat.setTicket(ticket)
+        selectSeat.setTicket(ticketUIModel)
     }
 
     override fun onSeatClicked(
@@ -36,7 +36,7 @@ class SelectSeatPresenter(
     }
 
     override fun onBookButtonClicked() {
-        view.changeView(selectSeat.ticket.toDto())
+        view.changeView(selectSeat.ticket.toUIModel())
     }
 
     override fun onYesClick() {

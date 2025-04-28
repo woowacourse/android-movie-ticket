@@ -11,18 +11,18 @@ import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.bookingResult.BookingResultActivity
-import woowacourse.movie.uiModel.Ticket
+import woowacourse.movie.uiModel.TicketUIModel
 
 class BookingResultActivityTest {
     private lateinit var intent: Intent
 
     @Before
     fun setupIntent() {
-        val ticketDTO = Ticket("해리 포터와 마법사의 돌", "2025.4.17", "10:00", 2, 26000)
+        val ticketUIModel = TicketUIModel("해리 포터와 마법사의 돌", "2025.4.17", "10:00", 2, 26000)
 
         intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingResultActivity::class.java).apply {
-                putExtra("TICKET", ticketDTO)
+                putExtra("TICKET", ticketUIModel)
             }
     }
 

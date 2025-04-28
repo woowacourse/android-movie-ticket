@@ -4,7 +4,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.TicketCount
 
-class TicketCountDTOCountTest {
+class TicketCountTest {
     @Test
     fun `티켓_수량을_1씩_증가시킬_수_있다`() {
         // given
