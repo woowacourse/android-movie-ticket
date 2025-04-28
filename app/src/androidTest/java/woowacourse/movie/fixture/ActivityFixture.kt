@@ -19,7 +19,6 @@ object ActivityFixture {
     val seatsDto =
         listOf(
             SeatDto(
-                "A1",
                 PriceRuleDto.fromPriceRule(
                     PriceRule.RANK_B,
                 ),
@@ -27,7 +26,6 @@ object ActivityFixture {
                 1,
             ),
             SeatDto(
-                "A2",
                 PriceRuleDto.fromPriceRule(
                     PriceRule.RANK_B,
                 ),

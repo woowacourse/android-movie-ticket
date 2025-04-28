@@ -8,12 +8,8 @@ data class Seat(
     val price: PriceRule,
 ) {
     init {
-        runCatching {
-            require(row in ROWS) { ERR_OUT_OF_ROW }
-            require(column in COLUMNS) { ERR_OUT_OF_COLUMN }
-        }.onFailure {
-            throw IllegalArgumentException(ERR_INVALID_FORMAT)
-        }
+        require(row in ROWS) { ERR_OUT_OF_ROW }
+        require(column in COLUMNS) { ERR_OUT_OF_COLUMN }
     }
 
     companion object {
