@@ -107,9 +107,8 @@ class SeatSelectionActivity :
         seat: Seat,
         view: TextView,
     ) {
-        val key = "${rowToUI(seat.row.value)}${columnToUI(seat.column.value)}"
-        view.setTag(R.id.seat_cell_key, key)
-        view.text = key
+        val seatText = "${rowToUI(seat.row.value)}${columnToUI(seat.column.value)}"
+        view.text = seatText
     }
 
     private fun setupSeatTextColor(
