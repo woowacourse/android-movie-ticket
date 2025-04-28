@@ -6,7 +6,7 @@ import kotlinx.parcelize.Parcelize
 @JvmInline
 @Parcelize
 value class Seats private constructor(
-    private val _seats: MutableList<Seat>,
+    private val _seats: MutableSet<Seat>,
 ) : Parcelable {
     val value: List<Seat>
         get() = _seats.toList()
@@ -35,6 +35,6 @@ value class Seats private constructor(
     private fun remove(label: String): Boolean = _seats.removeIf { it.label == label }
 
     companion object {
-        fun create(): Seats = Seats(mutableListOf())
+        fun create(): Seats = Seats(mutableSetOf())
     }
 }
