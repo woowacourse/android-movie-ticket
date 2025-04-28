@@ -21,12 +21,13 @@ interface ReservationSeatContract {
         fun setScreen(
             reservationInfo: ReservationInfoUiModel,
             screen: ScreenUiModel,
+            selectedSeats: List<SeatUiModel>,
             totalPrice: Int,
             canPublish: Boolean,
         )
 
         fun updateSeatStatus(
-            seats: List<SeatUiModel>,
+            selectedSeat: SeatUiModel,
             totalPrice: Int,
             canPublish: Boolean,
         )

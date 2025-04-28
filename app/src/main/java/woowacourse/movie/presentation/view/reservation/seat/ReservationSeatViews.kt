@@ -5,7 +5,6 @@ import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
-import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.presentation.model.ReservationInfoUiModel
 import woowacourse.movie.presentation.model.ScreenUiModel
@@ -21,35 +20,29 @@ class ReservationSeatViews(
     private val tableLayout: TableLayout by lazy { activity.findViewById(R.id.tb_seats) }
     private val btnConfirm: Button by lazy { activity.findViewById(R.id.btn_confirm) }
 
+    private val cachedSeatViews: MutableMap<SeatUiModel, TextView> = mutableMapOf()
+
     val dialog: CustomAlertDialog by lazy { CustomAlertDialog(activity) }
 
     fun bind(
         reservationInfo: ReservationInfoUiModel,
         screen: ScreenUiModel,
+        selectedSeats: List<SeatUiModel>,
         onClickConfirm: () -> Unit,
         onClickSeat: (SeatUiModel) -> Unit,
     ) {
         tvTitle.text = reservationInfo.title
-        renderSeatLayout(screen, onClickSeat)
+        renderSeatLayout(screen, selectedSeats, onClickSeat)
         btnConfirm.setOnClickListener { onClickConfirm() }
     }
 
     fun updateTotalPrice(price: Int) {
-        tvTotalPrice.text = activity.getString(R.string.reservation_select_total_price_format, price)
+        tvTotalPrice.text =
+            activity.getString(R.string.reservation_select_total_price_format, price)
     }
 
-    fun updateSeatsView(seats: List<SeatUiModel>) {
-        val tableRows = tableLayout.children.map { it as TableRow }
-        tableRows.forEach { tableRow ->
-            val seatViews = tableRow.children.map { it as TextView }
-            seatViews.forEach {
-                if (seats.contains(it.tag)) {
-                    it.setBackgroundResource(R.color.yellow_fa)
-                } else {
-                    it.setBackgroundResource(R.color.white)
-                }
-            }
-        }
+    fun updateSeatsView(seat: SeatUiModel) {
+        cachedSeatViews[seat]?.setSeatBackgroundColor()
     }
 
     fun updateConfirmButton(canPublish: Boolean) {
@@ -62,6 +55,7 @@ class ReservationSeatViews(
 
     private fun renderSeatLayout(
         screen: ScreenUiModel,
+        selectedSeats: List<SeatUiModel>,
         onClickSeat: (SeatUiModel) -> Unit,
     ) {
         var currentRow = -1
@@ -73,8 +67,9 @@ class ReservationSeatViews(
                 tableRow = createTableRow()
                 currentRow = seat.row
             }
-
-            val seatView = createSeatView(seat, onClickSeat)
+            val isSelected = selectedSeats.contains(seat)
+            val seatView = createSeatView(seat, isSelected, onClickSeat)
+            cachedSeatViews[seat] = seatView
             tableRow?.addView(seatView)
         }
 
@@ -85,6 +80,7 @@ class ReservationSeatViews(
 
     private fun createSeatView(
         seat: SeatUiModel,
+        isSelected: Boolean,
         onClickSeat: (SeatUiModel) -> Unit,
     ): TextView =
         TextView(activity).apply {
@@ -92,6 +88,7 @@ class ReservationSeatViews(
             gravity = Gravity.CENTER
             textSize = 22f
             setTextColor(seat.type.getSeatColor())
+            if (isSelected) this.setSeatBackgroundColor()
             layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
             tag = seat
 
@@ -112,4 +109,18 @@ class ReservationSeatViews(
             SeatTypeUiModel.A_CLASS -> activity.getColor(R.color.green_19)
             SeatTypeUiModel.B_CLASS -> activity.getColor(R.color.blue_1b)
         }
+
+    private fun TextView.setSeatBackgroundColor() {
+        val currentColorTag = this.getTag(id) as? Boolean ?: false
+        val newColor =
+            if (!currentColorTag) {
+                setTag(id, true)
+                R.color.yellow_fa
+            } else {
+                setTag(id, false)
+                R.color.white
+            }
+
+        this.setBackgroundResource(newColor)
+    }
 }

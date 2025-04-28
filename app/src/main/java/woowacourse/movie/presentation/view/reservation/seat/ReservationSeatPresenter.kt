@@ -27,6 +27,7 @@ class ReservationSeatPresenter(
             view.setScreen(
                 uiModel,
                 screen ?: Screen.DEFAULT_SCREEN.toUiModel(),
+                _reservationInfo?.seats?.map { it.toUiModel() } ?: emptyList(),
                 publishTicketBundle()?.totalPrice ?: 0,
                 canPublish(),
             )
@@ -44,7 +45,7 @@ class ReservationSeatPresenter(
         }
 
         view.updateSeatStatus(
-            reservationInfo?.seats?.map { it } ?: emptyList(),
+            seat,
             publishTicketBundle()?.totalPrice ?: TicketBundle.DEFAULT_TOTAL_PRICE,
             canPublish(),
         )

@@ -76,29 +76,30 @@ class ReservationSeatActivity :
     override fun setScreen(
         reservationInfo: ReservationInfoUiModel,
         screen: ScreenUiModel,
+        selectedSeats: List<SeatUiModel>,
         totalPrice: Int,
         canPublish: Boolean,
     ) {
         views.bind(
             reservationInfo,
             screen,
+            selectedSeats,
             { views.dialog.show(publishTicketConfirmationDialogInfo) },
             { seat -> presenter.updateSeat(seat) },
         )
         views.updateConfirmButton(canPublish)
 
         reservationInfo.seats.let {
-            views.updateSeatsView(it)
             views.updateTotalPrice(totalPrice)
         }
     }
 
     override fun updateSeatStatus(
-        seats: List<SeatUiModel>,
+        selectedSeat: SeatUiModel,
         totalPrice: Int,
         canPublish: Boolean,
     ) {
-        views.updateSeatsView(seats)
+        views.updateSeatsView(selectedSeat)
         views.updateTotalPrice(totalPrice)
         views.updateConfirmButton(canPublish)
     }
