@@ -38,6 +38,13 @@ class SeatSelectionActivity :
         super.onCreate(savedInstanceState)
         reservationInfo = intent.getParcelableExtra(BUNDLE_KEY_RESERVATION_INFO)!!
         presenter = SeatSelectionPresenter(this, reservationInfo)
+        (intent?.getParcelableExtra(BUNDLE_KEY_RESERVATION_INFO) as? ReservationInfo)?.let {
+            presenter.loadSeats(it)
+            setupViews(it.title)
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
         setupViews()
         presenter.loadSeats()

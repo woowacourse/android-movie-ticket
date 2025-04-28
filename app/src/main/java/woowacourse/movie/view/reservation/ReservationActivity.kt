@@ -148,7 +148,6 @@ class ReservationActivity :
     override fun navigateToSeatSelectionScreen(reservationInfo: ReservationInfo) {
         val intent = SeatSelectionActivity.newIntent(this, reservationInfo)
         startActivity(intent)
-        finish()
     }
 
     private fun setupListener() {
