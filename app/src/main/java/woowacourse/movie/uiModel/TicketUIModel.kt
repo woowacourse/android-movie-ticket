@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Ticket(
+data class TicketUIModel(
     val title: String,
     val date: String,
     val time: String,

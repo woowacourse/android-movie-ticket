@@ -18,18 +18,18 @@ import org.hamcrest.Matchers.anything
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.booking.BookingActivity
-import woowacourse.movie.uiModel.MovieInfo
+import woowacourse.movie.uiModel.MovieInfoUIModel
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
 
     @Before
     fun setupIntent() {
-        val movieInfo = MovieInfo(R.drawable.harry_potter_poster_1, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", 152)
+        val movieInfoUIModel = MovieInfoUIModel(R.drawable.harry_potter_poster_1, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", 152)
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
-                putExtra("MOVIE_INFO", movieInfo)
+                putExtra("MOVIE_INFO", movieInfoUIModel)
             }
 
         scenario = ActivityScenario.launch<BookingActivity>(intent)
