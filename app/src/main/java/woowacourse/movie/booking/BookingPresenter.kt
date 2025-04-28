@@ -25,10 +25,6 @@ class BookingPresenter : BookingContract.Presenter {
         count: TicketCount,
     ) {
         if (count.count == 0) return
-        view.askToConfirmBook()
-    }
-
-    override fun onYesClick(view: BookingContract.View) {
         view.moveActivity()
     }
 
