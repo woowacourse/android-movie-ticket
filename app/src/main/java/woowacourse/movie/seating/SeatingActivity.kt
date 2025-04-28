@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.toColorInt
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
@@ -44,7 +44,7 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
             intent.parcelableCompat(KEY_SEATING, ReservationInfo::class.java)
         seatingPresenter.set(reservationInfo)
 
-        val selectedColor = "#FAFF00".toColorInt()
+        val selectedColor = ContextCompat.getColor(this, R.color.seat_selected)
         val defaultColor = Color.WHITE
 
         tableLayout.children
@@ -79,14 +79,16 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
     }
 
     override fun showActivateButton(ticket: Ticket) {
-        confirmTextView.setBackgroundColor("#6200EE".toColorInt())
+        val color = ContextCompat.getColor(this, R.color.seat_activate_reservation_button)
+        confirmTextView.setBackgroundColor(color)
         confirmTextView.setOnClickListener {
             showDialog(ticket)
         }
     }
 
     override fun showDeactivateButton() {
-        confirmTextView.setBackgroundColor("#6200EE".toColorInt())
+        val color = ContextCompat.getColor(this, R.color.seat_deactivate_reservation_button)
+        confirmTextView.setBackgroundColor(color)
     }
 
     override fun showActivateSeat() {
