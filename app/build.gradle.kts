@@ -69,4 +69,5 @@ dependencies {
     androidTestRuntimeOnly(libs.mannodermaus.junit5.runner)
     androidTestImplementation("androidx.test.espresso:espresso-device:1.0.1")
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.14.0")
 }
