@@ -39,13 +39,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
-                android:layout_marginTop="70dp"
                 android:layout_marginEnd="34dp"
                 android:gravity="center"
                 android:stretchColumns="1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tv_screen">
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TableRow
                     android:layout_width="match_parent"
@@ -107,22 +106,22 @@
 
                     <TextView
                         android:id="@+id/seat_3_1"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="C1" />
 
                     <TextView
                         android:id="@+id/seat_3_2"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="C2" />
 
                     <TextView
                         android:id="@+id/seat_3_3"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="C3" />
 
                     <TextView
                         android:id="@+id/seat_3_4"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="C4" />
 
                 </TableRow>
@@ -134,22 +133,22 @@
 
                     <TextView
                         android:id="@+id/seat_4_1"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="D1" />
 
                     <TextView
                         android:id="@+id/seat_4_2"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="D2" />
 
                     <TextView
                         android:id="@+id/seat_4_3"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="D3" />
 
                     <TextView
                         android:id="@+id/seat_4_4"
-                        style="@style/SeatARank"
+                        style="@style/SeatSRank"
                         android:text="D4" />
                 </TableRow>
 
@@ -160,22 +159,22 @@
 
                     <TextView
                         android:id="@+id/seat_5_1"
-                        style="@style/SeatSRank"
+                        style="@style/SeatARank"
                         android:text="E1" />
 
                     <TextView
                         android:id="@+id/seat_5_2"
-                        style="@style/SeatSRank"
+                        style="@style/SeatARank"
                         android:text="E2" />
 
                     <TextView
                         android:id="@+id/seat_5_3"
-                        style="@style/SeatSRank"
+                        style="@style/SeatARank"
                         android:text="E3" />
 
                     <TextView
                         android:id="@+id/seat_5_4"
-                        style="@style/SeatSRank"
+                        style="@style/SeatARank"
                         android:text="E4" />
 
                 </TableRow>

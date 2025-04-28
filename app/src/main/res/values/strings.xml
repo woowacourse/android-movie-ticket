@@ -16,5 +16,6 @@
     <string name="init_people_count">0</string>
     <string name="btn_minus">-</string>
     <string name="btn_plus">+</string>
+    <string name="seat_total_price">%s원</string>
     <string name="select_complete">선택 완료</string>
 </resources>
