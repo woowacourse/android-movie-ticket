@@ -124,17 +124,8 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
     }
 
     private fun reserveButtonInit() {
-        val dialogInfo =
-            DialogInfo(
-                getString(R.string.reserve_dialog_title),
-                getString(R.string.reserve_dialog_message),
-                getString(R.string.reserve_dialog_positive_button),
-                getString(R.string.cancel),
-                ::moveToReservationResult,
-            )
-
         reserveButton.setOnClickListener {
-            customAlertDialog.show(dialogInfo)
+            moveToReservationResult()
         }
     }
 
@@ -218,7 +209,11 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
                 position: Int,
                 id: Long,
             ) {
-                presenter.updateSelectedDate(dates[position], LocalDateTime.now(), ::getSelectedDateTime)
+                presenter.updateSelectedDate(
+                    dates[position],
+                    LocalDateTime.now(),
+                    ::getSelectedDateTime,
+                )
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
