@@ -9,9 +9,8 @@ class ReservationInfo(
     val title: String,
     val reservationDateTime: LocalDateTime,
     val reservationCount: ReservationCount,
+    private val _seats: MutableList<Seat> = mutableListOf(),
 ) : Parcelable {
-    //    fun totalPrice(): Int = reservationCount.value * TICKET_PRICE
-    private val _seats: MutableList<Seat> = mutableListOf()
     val seats: List<Seat> get() = _seats.toList()
 
     // 좌석 선택/해제
