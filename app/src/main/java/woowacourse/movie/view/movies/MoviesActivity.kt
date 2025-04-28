@@ -8,7 +8,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.movie.Movie
@@ -53,10 +52,7 @@ class MoviesActivity :
                         )
                     },
                 )
-            movieListView.apply {
-                adapter = movieAdapter
-                layoutManager = LinearLayoutManager(this@MoviesActivity)
-            }
+            movieListView.adapter = movieAdapter
         }
         movieAdapter.updateMovies(movies)
     }
