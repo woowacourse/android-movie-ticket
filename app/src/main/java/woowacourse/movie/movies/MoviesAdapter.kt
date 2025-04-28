@@ -16,7 +16,7 @@ class MoviesAdapter(
         if (viewType == VIEW_TYPE_MOVIE) {
             val view =
                 LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-            MovieItemViewHolder(view)
+            MovieItemViewHolder(view, onBookingClick)
         } else {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.item_ad, parent, false)
             AdItemViewHolder(view)
@@ -29,7 +29,7 @@ class MoviesAdapter(
         if (getItemViewType(position) == VIEW_TYPE_MOVIE) {
             val realMoviePosition = position - position / 4
             val movie = movies[realMoviePosition]
-            (holder as MovieItemViewHolder).bind(movie, onBookingClick)
+            (holder as MovieItemViewHolder).bind(movie)
         } else {
             (holder as AdItemViewHolder).bind()
         }
