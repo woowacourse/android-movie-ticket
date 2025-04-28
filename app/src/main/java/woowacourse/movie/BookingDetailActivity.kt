@@ -152,7 +152,7 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
     }
 
     override fun showToastErrorAndFinish(message: String) {
-        Log.d("BookingActivity", message)
+        Log.d(TAG, message)
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
         finish()
     }
