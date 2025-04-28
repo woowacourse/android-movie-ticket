@@ -125,7 +125,6 @@ class SeatSelectActivity :
                     val seatView = row.getChildAt(j)
                     if (seatView is TextView) {
                         val seatId = seatView.text.toString()
-                        seatView.tag = seatId
                         seatViews[seatId] = seatView
                         seatView.setOnClickListener {
                             presenter.onSeatClicked(seatId)

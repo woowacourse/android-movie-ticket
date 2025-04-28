@@ -60,7 +60,7 @@ class ReservationCompleteActivity :
             resources.getString(
                 R.string.reservation_complete_ticket_count,
                 reservationInfo.seats.size,
-                reservationInfo.seats.joinToString(),
+                reservationInfo.seats.labels().joinToString(),
             )
         ticketPriceTextView.text =
             resources.getString(

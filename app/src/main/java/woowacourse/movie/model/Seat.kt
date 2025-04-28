@@ -1,8 +1,12 @@
 package woowacourse.movie.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Seat(
     val label: String,
-) {
+) : Parcelable {
     val price: Int
         get() =
             when (label.first().uppercaseChar()) {

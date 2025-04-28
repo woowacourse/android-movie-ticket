@@ -47,7 +47,7 @@ class SeatSelectPresenter(
                 title = movieTicket.title,
                 date = movieTicket.date,
                 time = movieTicket.time,
-                seats = selectedSeats.labels(),
+                seats = selectedSeats,
                 price = selectedSeats.totalPrice,
             )
         onCreated(reservationInfo)

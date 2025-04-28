@@ -1,9 +1,13 @@
 package woowacourse.movie.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
 @JvmInline
+@Parcelize
 value class Seats private constructor(
     private val _seats: MutableList<Seat>,
-) {
+) : Parcelable {
     val value: List<Seat>
         get() = _seats.toList()
 

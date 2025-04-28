@@ -9,6 +9,6 @@ data class ReservationInfo(
     val title: String,
     val date: LocalDate,
     val time: String,
-    val seats: List<String>,
+    val seats: Seats,
     val price: Int,
 ) : Parcelable
