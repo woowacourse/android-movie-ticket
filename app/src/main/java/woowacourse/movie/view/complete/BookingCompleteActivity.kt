@@ -12,8 +12,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.ticket.Ticket
-import woowacourse.movie.presenter.complete.BookingCompleteContract
-import woowacourse.movie.presenter.complete.BookingCompletePresenter
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.ext.getSerializable
 import java.time.LocalDate

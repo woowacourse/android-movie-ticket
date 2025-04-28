@@ -9,8 +9,8 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
-import woowacourse.movie.presenter.seat.SeatContract
-import woowacourse.movie.presenter.seat.SeatPresenter
+import woowacourse.movie.view.seat.SeatContract
+import woowacourse.movie.view.seat.SeatPresenter
 import woowacourse.movie.view.seat.model.coord.Column
 import woowacourse.movie.view.seat.model.coord.Coordination
 import woowacourse.movie.view.seat.model.coord.Row

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.fixture.moviesFixture
 import woowacourse.movie.domain.model.movies.Movie
-import woowacourse.movie.presenter.movies.MovieListContract
-import woowacourse.movie.presenter.movies.MovieListPresenter
+import woowacourse.movie.view.movies.MovieListContract
+import woowacourse.movie.view.movies.MovieListPresenter
 import woowacourse.movie.view.movies.model.UiModel
 
 class MovieListPresenterTest {

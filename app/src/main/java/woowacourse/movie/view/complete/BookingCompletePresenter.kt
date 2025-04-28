@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter.complete
+package woowacourse.movie.view.complete
 
 import woowacourse.movie.domain.model.ticket.Ticket
 
