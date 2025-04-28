@@ -2,13 +2,15 @@ package woowacourse.movie.dto
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieListData
+import woowacourse.movie.domain.MovieListData.Ads
+import woowacourse.movie.domain.MovieListData.Movie
 import woowacourse.movie.domain.rules.PriceRule
 import java.time.LocalDateTime
 import java.util.UUID
 import kotlin.time.Duration
 
-sealed class MovieListData(
+sealed class MovieListDataDto(
     val id: UUID = UUID.randomUUID(),
 ) {
     @Parcelize
@@ -19,7 +21,7 @@ sealed class MovieListData(
         val endDateTime: LocalDateTime,
         val runningTime: Duration,
         val priceRuleDto: List<PriceRuleDto>,
-    ) : Parcelable, MovieListData() {
+    ) : Parcelable, MovieListDataDto() {
         fun toMovie(): Movie {
             return Movie(
                 title = title,
@@ -47,24 +49,14 @@ sealed class MovieListData(
     @Parcelize
     data class AdsDto(
         val uri: String,
-    ) : Parcelable, MovieListData()
+    ) : Parcelable, MovieListDataDto()
 
     companion object {
-        private val isAds = { position: Int -> (position + 1) % 4 == 0 }
-
-        fun flatten(
-            movieDtos: List<MovieDto>,
-            adsDto: List<AdsDto>,
-        ): List<MovieListData> =
-            buildList {
-                var currentAdIndex = 0
-                movieDtos.forEachIndexed { index, movieDto ->
-                    if (isAds(index)) {
-                        add(adsDto[currentAdIndex % adsDto.size])
-                        currentAdIndex++
-                    } else {
-                        add(movieDto)
-                    }
+        fun fromDomain(data: List<MovieListData>): List<MovieListDataDto> =
+            data.map {
+                when (it) {
+                    is Movie -> MovieDto.fromMovie(it)
+                    is Ads -> AdsDto(it.uri)
                 }
             }
     }

@@ -17,7 +17,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.activity.reservation.ReservationActivity
-import woowacourse.movie.dto.MovieListData.MovieDto
+import woowacourse.movie.dto.MovieListDataDto.MovieDto
 import woowacourse.movie.global.ServiceLocator
 
 @RunWith(AndroidJUnit4::class)

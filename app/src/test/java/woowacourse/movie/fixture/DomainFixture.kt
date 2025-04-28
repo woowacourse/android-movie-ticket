@@ -1,6 +1,6 @@
 package woowacourse.movie.fixture
 
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieListData.Movie
 import java.time.LocalDateTime
 import java.time.LocalTime
 import kotlin.time.Duration.Companion.minutes

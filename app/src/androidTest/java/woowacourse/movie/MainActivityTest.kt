@@ -18,7 +18,8 @@ import woowacourse.movie.RecyclerViewMatcher.Companion.withRecyclerView
 import woowacourse.movie.activity.main.MainActivity
 import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.adapter.MovieListAdapter
-import woowacourse.movie.dto.MovieListData
+import woowacourse.movie.domain.MovieListData
+import woowacourse.movie.dto.MovieListDataDto
 import woowacourse.movie.global.ServiceLocator
 
 @RunWith(AndroidJUnit4::class)
@@ -68,9 +69,9 @@ class MainActivityTest {
     @Test
     fun 영화_목록의_요소는_10_000개까지_추가될_수_있다() {
         activityRule.scenario.onActivity {
-            val movies = mutableListOf<MovieListData.MovieDto>()
+            val movies = mutableListOf<MovieListData.Movie>()
             (0..100).forEach {
-                movies.addAll(ServiceLocator.movies.map { MovieListData.MovieDto.fromMovie(it) })
+                movies.addAll(ServiceLocator.movies)
             }
 
             val ads = ServiceLocator.ads
@@ -83,7 +84,7 @@ class MainActivityTest {
                     it.startActivity(intent)
                 }.apply {
                     submitList(
-                        flatten,
+                        MovieListDataDto.fromDomain(flatten),
                     )
                 }
 

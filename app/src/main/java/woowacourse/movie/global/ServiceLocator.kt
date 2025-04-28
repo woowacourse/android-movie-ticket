@@ -6,10 +6,10 @@ import woowacourse.movie.activity.reservation.ReservationContract
 import woowacourse.movie.activity.reservation.ReservationPresenter
 import woowacourse.movie.activity.reservation.ReservationSeatContract
 import woowacourse.movie.activity.reservation.ReservationSeatPresenter
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieListData
+import woowacourse.movie.domain.MovieListData.Movie
 import woowacourse.movie.domain.rules.RunningTimeRuleImpl
 import woowacourse.movie.domain.rules.SeatsFactoryImpl
-import woowacourse.movie.dto.MovieListData
 import java.time.LocalDate
 import java.time.LocalDateTime
 import kotlin.time.Duration.Companion.minutes
@@ -25,9 +25,9 @@ object ServiceLocator {
                 125.minutes,
             )
         }
-    val ads: List<MovieListData.AdsDto> =
+    val ads: List<MovieListData.Ads> =
         listOf(
-            MovieListData.AdsDto("ads/광고.png"),
+            MovieListData.Ads("ads/광고.png"),
         )
     val today: LocalDate = LocalDate.of(2025, 4, 3)
     val now: LocalDateTime = LocalDateTime.of(2025, 4, 3, 14, 0, 0)

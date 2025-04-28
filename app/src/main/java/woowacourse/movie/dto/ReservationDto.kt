@@ -2,7 +2,7 @@ package woowacourse.movie.dto
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.dto.MovieListData.MovieDto
+import woowacourse.movie.dto.MovieListDataDto.MovieDto
 import java.time.LocalDateTime
 
 @Parcelize

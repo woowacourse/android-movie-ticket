@@ -10,13 +10,13 @@ import woowacourse.movie.R
 import woowacourse.movie.activity.reservation.ReservationActivity
 import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.databinding.ActivityMainBinding
-import woowacourse.movie.dto.MovieListData
+import woowacourse.movie.dto.MovieListDataDto
 import woowacourse.movie.global.ServiceLocator
 
 class MainActivity : AppCompatActivity(), MainContract.View {
-    private lateinit var movieDto: List<MovieListData>
+    private lateinit var movieDto: List<MovieListDataDto>
 
-    override fun initMovieDto(movies: List<MovieListData>) {
+    override fun initMovieDto(movies: List<MovieListDataDto>) {
         movieDto = movies
     }
 

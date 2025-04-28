@@ -8,7 +8,7 @@ import woowacourse.movie.fixture.DomainFixture
 import java.time.LocalDate
 
 class MovieTest {
-    private lateinit var movie: Movie
+    private lateinit var movie: MovieListData.Movie
 
     @BeforeEach
     fun setUp() {
