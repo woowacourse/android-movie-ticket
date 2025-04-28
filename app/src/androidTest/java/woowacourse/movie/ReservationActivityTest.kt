@@ -191,4 +191,27 @@ class ReservationActivityTest {
         onView(withText("15:00"))
             .check(matches(isDisplayed()))
     }
+
+    @Test
+    fun 다른_상영일을_선택하면_러닝타임의_가장_첫_번쨰_항목이_선택된다() {
+        // given
+        onView(withId(R.id.date_picker_actions))
+            .perform(click())
+        onView(withText("04.04"))
+            .perform(click())
+        onView(withId(R.id.time_picker_actions))
+            .perform(click())
+        onView(withText("15:00"))
+            .perform(click())
+
+        // when
+        onView(withId(R.id.date_picker_actions))
+            .perform(click())
+        onView(withText("04.05"))
+            .perform(click())
+
+        // then
+        onView(withText("09:00"))
+            .check(matches(isDisplayed()))
+    }
 }
