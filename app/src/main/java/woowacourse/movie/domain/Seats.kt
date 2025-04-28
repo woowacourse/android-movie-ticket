@@ -9,5 +9,7 @@ class Seats(private val seats: MutableList<Seat>) {
 
     fun selectedLimit(limit: Int): Boolean = seats.size >= limit
 
+    fun canSelect(limit: Int): Boolean = seats.size == limit
+
     fun reservationPrice() = seats.sumOf { it.seatPrice() }
 }

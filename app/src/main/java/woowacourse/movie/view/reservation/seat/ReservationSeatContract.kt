@@ -30,5 +30,13 @@ interface ReservationSeatContract {
         fun selectSeatView(position: Position)
 
         fun deselectSeatView(position: Position)
+
+        fun navigateToReservationComplete(ticket: Ticket)
+
+        fun showReservationDialog(ticket: Ticket)
+
+        fun selectableButton()
+
+        fun deSelectableButton()
     }
 }

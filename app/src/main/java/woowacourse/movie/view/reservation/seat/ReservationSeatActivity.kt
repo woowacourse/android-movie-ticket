@@ -17,7 +17,9 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Position
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.dialog.DialogFactory
+import woowacourse.movie.view.dialog.DialogInfo
 import woowacourse.movie.view.reservation.detail.ReservationActivity
+import woowacourse.movie.view.reservation.result.ReservationCompleteActivity
 import java.text.DecimalFormat
 
 class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.View {
@@ -26,6 +28,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
     private lateinit var seat: TableLayout
     private val moviePriceTextView by lazy { findViewById<TextView>(R.id.reservation_movie_money) }
+    private val movieSelectableButton by lazy { findViewById<TextView>(R.id.btn_confirm) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,6 +110,36 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         val textView = findTextViewByPosition(position)
         textView.setBackgroundColor(Color.WHITE)
         textView.isSelected = false
+    }
+
+    override fun selectableButton() {
+        movieSelectableButton.setBackgroundColor(getColor(R.color.purple_500))
+        movieSelectableButton.isEnabled = true
+    }
+
+    override fun deSelectableButton() {
+        movieSelectableButton.setBackgroundColor(getColor(R.color.gray))
+        movieSelectableButton.isEnabled = false
+    }
+
+    override fun showReservationDialog(ticket: Ticket) {
+        DialogFactory().show(
+            DialogInfo(
+                this,
+                R.string.reserve_confirm,
+                R.string.askFor_reserve,
+                R.string.complete,
+                R.string.cancel,
+            ),
+        ) {
+            navigateToReservationComplete(ticket)
+            finish()
+        }
+    }
+
+    override fun navigateToReservationComplete(ticket: Ticket) {
+        val intent = ReservationCompleteActivity.newIntent(this@ReservationSeatActivity, ticket)
+        startActivity(intent)
     }
 
     private fun findTextViewByPosition(position: Position): TextView {

@@ -29,6 +29,7 @@ class ReservationSeatPresenter(
             seats.addSeat(Seat(position))
             view.selectSeatView(position)
             updateMoney()
+            canSelectedButton()
         }
     }
 
@@ -36,9 +37,18 @@ class ReservationSeatPresenter(
         seats.removeSeat(Seat(position))
         view.deselectSeatView(position)
         updateMoney()
+        canSelectedButton()
     }
 
     override fun updateMoney() {
         view.showTicketMoney(seats.reservationPrice())
+    }
+
+    private fun canSelectedButton() {
+        if (seats.canSelect(ticket.personnel)) {
+            view.selectableButton()
+        } else {
+            view.deSelectableButton()
+        }
     }
 }
