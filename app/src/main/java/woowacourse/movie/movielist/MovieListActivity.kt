@@ -1,11 +1,11 @@
 package woowacourse.movie.movielist
 
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.detailbooking.DetailBookingActivity
 import woowacourse.movie.domain.Movie
@@ -17,7 +17,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie_list)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.layout_movie_list_root)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.movie_recyclerview)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -25,18 +25,18 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         movieListPresenter.updateMovies()
     }
 
-    override fun showMovieList(movies: List<Movie>) {
-        val listView: ListView = findViewById(R.id.movie_listview)
+    override fun showMovieList(movies: List<ItemType>) {
+        val recyclerView: RecyclerView = findViewById(R.id.movie_recyclerview)
         val movieListAdapter =
             MovieListAdapter(
-                movies,
                 object : ClickListener {
                     override fun onReserveClick(movie: Movie) {
                         clickedButton(movie)
                     }
                 },
+                movies,
             )
-        listView.adapter = movieListAdapter
+        recyclerView.adapter = movieListAdapter
     }
 
     override fun clickedButton(movie: Movie) {

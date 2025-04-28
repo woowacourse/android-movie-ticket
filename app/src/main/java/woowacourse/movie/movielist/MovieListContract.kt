@@ -8,7 +8,7 @@ interface MovieListContract {
     }
 
     interface View {
-        fun showMovieList(movies: List<Movie>)
+        fun showMovieList(movies: List<ItemType>)
 
         fun clickedButton(movie: Movie)
     }
