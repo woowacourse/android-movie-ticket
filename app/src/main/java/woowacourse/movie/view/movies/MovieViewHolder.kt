@@ -20,7 +20,7 @@ class MovieViewHolder(
     private val posterImageView: ImageView by lazy { view.findViewById(R.id.iv_movie_poster) }
     private val screeningDateTextView: TextView by lazy { view.findViewById(R.id.tv_movie_screening_date) }
     private val runningTimeTextView: TextView by lazy { view.findViewById(R.id.tv_movie_running_time) }
-    private val button: Button by lazy { view.findViewById(R.id.btn_movie_reservation) }
+    val button: Button by lazy { view.findViewById(R.id.btn_movie_reservation) }
 
     fun bind(item: Movie) {
         setupTitle(item)
