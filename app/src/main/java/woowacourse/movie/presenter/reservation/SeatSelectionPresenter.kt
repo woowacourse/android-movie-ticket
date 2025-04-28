@@ -45,7 +45,7 @@ class SeatSelectionPresenter(
 
     override fun confirmReservation() {
         ticket.run {
-            view.navigateToTicketScreen(title, count, showtime)
+            view.navigateToTicketScreen(title, count, showtime, selectedSeats)
         }
     }
 

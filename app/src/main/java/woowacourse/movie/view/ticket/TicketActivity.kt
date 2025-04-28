@@ -11,9 +11,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.contract.ticket.TicketContract
+import woowacourse.movie.domain.reservation.Row
+import woowacourse.movie.domain.reservation.Seat
 import woowacourse.movie.domain.ticket.Ticket
 import woowacourse.movie.presenter.ticket.TicketPresenter
 import woowacourse.movie.view.util.ErrorMessage
+import java.io.Serializable
 import java.time.LocalDateTime
 
 class TicketActivity :
@@ -41,12 +44,28 @@ class TicketActivity :
         findViews()
         initModel()
         val ticket =
-            intent.getTicketExtra(EXTRA_TICKET) ?: error(
+            intent?.getTicketExtra(EXTRA_TICKET) ?: error(
                 ErrorMessage(CAUSE_TICKET).notProvided(),
             )
-        presenter = TicketPresenter(this, ticket)
+        val seats: Set<Seat> =
+            intent.getSeatsExtra() ?: error(
+                ErrorMessage(CAUSE_SEATS).notProvided(),
+            )
+        presenter = TicketPresenter(this, ticket, seats)
         initViews()
     }
+
+    @Suppress("DEPRECATION")
+    private fun Intent.getSeatsExtra(): Set<Seat>? =
+        when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
+                getSerializableExtra(
+                    EXTRA_SEATS,
+                    LinkedHashSet::class.java,
+                ) as Set<Seat>
+
+            else -> (getSerializableExtra(EXTRA_SEATS) as? Set<Seat>)
+        }
 
     private fun findViews() {
         cancelDescriptionView = findViewById<TextView>(R.id.tv_ticket_cancel_description)
@@ -103,9 +122,17 @@ class TicketActivity :
             }
     }
 
-    override fun setCount(count: Int) {
-        countView.text = getString(R.string.ticket_count, count)
+    override fun setCount(
+        count: Int,
+        seats: Set<Seat>,
+    ) {
+        countView.text =
+            getString(R.string.ticket_count, count, seats.joinToString { it.prettyString })
     }
+
+    private val Seat.prettyString: String get() = "${row.prettyString}${column.value}"
+
+    private val Row.prettyString: String get() = ('A' + this.value - 1).toString()
 
     override fun setPrice(price: Int) {
         priceView.text = getString(R.string.ticket_price, price)
@@ -113,19 +140,23 @@ class TicketActivity :
 
     companion object {
         private const val CAUSE_TICKET = "ticket"
+        private const val CAUSE_SEATS = "seats"
 
         private const val EXTRA_TICKET = "woowacourse.movie.EXTRA_TICKET"
+        private const val EXTRA_SEATS = "woowacourse.movie.EXTRA_SEATS"
 
         fun newIntent(
             context: Context,
             title: String,
             count: Int,
             showtime: LocalDateTime,
+            seats: Set<Seat>,
         ): Intent =
             run {
                 val ticket = Ticket(title, count, showtime)
                 Intent(context, TicketActivity::class.java)
                     .putExtra(EXTRA_TICKET, ticket)
+                    .putExtra(EXTRA_SEATS, seats as? Serializable)
             }
     }
 }

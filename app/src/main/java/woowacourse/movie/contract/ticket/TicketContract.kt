@@ -1,5 +1,6 @@
 package woowacourse.movie.contract.ticket
 
+import woowacourse.movie.domain.reservation.Seat
 import java.time.LocalDateTime
 
 interface TicketContract {
@@ -22,7 +23,10 @@ interface TicketContract {
 
         fun setShowtime(showtime: LocalDateTime)
 
-        fun setCount(count: Int)
+        fun setCount(
+            count: Int,
+            seats: Set<Seat>,
+        )
 
         fun setPrice(price: Int)
     }
