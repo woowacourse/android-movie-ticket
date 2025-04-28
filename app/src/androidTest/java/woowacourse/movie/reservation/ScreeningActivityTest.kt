@@ -54,7 +54,7 @@ class ScreeningActivityTest {
     }
 
     @Test
-    fun `상영_리스트에는_각각의_상영_정보가_표시된디`() {
+    fun `상영_리스트에는_각각의_상영_정보가_표시된다`() {
         onData(
             allOf(
                 `is`(instanceOf(Screening::class.java)),

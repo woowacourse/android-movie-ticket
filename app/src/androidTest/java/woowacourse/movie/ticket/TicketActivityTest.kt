@@ -8,6 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.domain.reservation.Seat
 import woowacourse.movie.view.ticket.TicketActivity
 import java.time.LocalDateTime
 
@@ -20,6 +21,7 @@ class TicketActivityTest {
                 title = "해리 포터와 마법사의 돌",
                 count = 2,
                 showtime = LocalDateTime.of(2025, 4, 15, 12, 0),
+                seats = setOf(Seat(1, 1), Seat(2, 2)),
             ),
         )
 
@@ -41,7 +43,7 @@ class TicketActivityTest {
     fun `인원_수가_표시된다`() {
         Espresso
             .onView(ViewMatchers.withId(R.id.tv_ticket_count))
-            .check(ViewAssertions.matches(ViewMatchers.withText("일반 2명")))
+            .check(ViewAssertions.matches(ViewMatchers.withText("일반 2명 | A1, B2")))
     }
 
     @Test

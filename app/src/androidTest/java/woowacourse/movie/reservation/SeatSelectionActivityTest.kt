@@ -24,7 +24,7 @@ class SeatSelectionActivityTest {
             SeatSelectionActivity.newIntent(
                 ApplicationProvider.getApplicationContext(),
                 "해리 포터와 마법사의 돌",
-                3,
+                1,
                 LocalDateTime.of(2025, 4, 15, 11, 0),
             ),
         )
@@ -61,11 +61,16 @@ class SeatSelectionActivityTest {
 
     @Test
     fun `예매_완료를_확인하는_다이얼로그가_표시되고_배경을_터치해도_사라지지_않아야_한다`() {
+        // given
+        onView(withText("D1"))
+            .perform(click())
         onView(withId(R.id.btn_seat_selection_complete))
             .perform(click())
 
+        // when
         onView(isRoot())
             .perform(click())
+        // then
 
         onView(withText(R.string.ticket_dialog_title))
             .check(matches(isDisplayed()))
