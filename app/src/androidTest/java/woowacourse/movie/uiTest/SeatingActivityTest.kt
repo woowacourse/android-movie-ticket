@@ -54,5 +54,4 @@ class SeatingActivityTest {
         onView(withText("예매 완료"))
             .check(matches(isDisplayed()))
     }
-
 }
