@@ -17,6 +17,7 @@ class MoviesActivity :
     AppCompatActivity(),
     MovieContract.View {
     private val presenter: MoviePresenter by lazy { MoviePresenter(this) }
+    private lateinit var moviesAdapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,16 +29,17 @@ class MoviesActivity :
             insets
         }
 
+        setupMovieAdapter()
         presenter.fetchMovies()
     }
 
     override fun showMovies(movies: List<Movie>) {
-        setupMovieAdapter(movies)
+        moviesAdapter.submitList(movies)
     }
 
-    private fun setupMovieAdapter(movies: List<Movie>) {
+    private fun setupMovieAdapter() {
         val recyclerView = findViewById<RecyclerView>(R.id.rv_movies)
-        val movieAdapter =
+        moviesAdapter =
             MovieAdapter(
                 object : MovieClickListener {
                     override fun onReservationClick(movie: Movie) {
@@ -45,8 +47,7 @@ class MoviesActivity :
                     }
                 },
             )
-        recyclerView.adapter = movieAdapter
-        movieAdapter.submitList(movies)
+        recyclerView.adapter = moviesAdapter
     }
 
     override fun navigateToReservation(movie: Movie) {
