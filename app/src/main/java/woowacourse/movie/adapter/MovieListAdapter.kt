@@ -35,7 +35,7 @@ class MovieListAdapter(
         val binding =
             LayoutInflater.from(parent.context)
                 .inflate(R.layout.movie_item, parent, false)
-        return if (viewType == VIEW_TYPE_ADS) {
+        return if (ViewType.ADS.value == viewType) {
             val adsBinding =
                 LayoutInflater.from(parent.context)
                     .inflate(R.layout.movie_item_ads, parent, false)
@@ -47,8 +47,8 @@ class MovieListAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when (getItem(position)) {
-            is MovieListDataDto.MovieDto -> VIEW_TYPE_MOVIE
-            is MovieListDataDto.AdsDto -> VIEW_TYPE_ADS
+            is MovieListDataDto.MovieDto -> ViewType.MOVIE.value
+            is MovieListDataDto.AdsDto -> ViewType.ADS.value
         }
     }
 
@@ -109,9 +109,9 @@ class MovieListAdapter(
             ads.setImage(adsDto.uri)
         }
     }
+}
 
-    companion object {
-        private const val VIEW_TYPE_MOVIE = 0
-        private const val VIEW_TYPE_ADS = 1
-    }
+private enum class ViewType(val value: Int) {
+    MOVIE(0),
+    ADS(1),
 }
