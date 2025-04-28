@@ -14,7 +14,7 @@
     <string name="purchase_type">(현장 결제)</string>
     <string name="formatted_minute">%d분</string>
     <string name="formatted_screening_date">%s ~ %s</string>
-    <string name="formatted_ticket_count">%d명</string>
+    <string name="formatted_tickets">%d명 | %s</string>
     <string name="reserve_dialog_title">예매 확인</string>
     <string name="reserve_dialog_message">정말 예매하시겠습니까?</string>
     <string name="reserve_dialog_positive_button">예매 완료</string>
@@ -31,5 +31,6 @@
     <string name="error_reservation_title">예매 문제 발생</string>
     <string name="error_reservation_message">예매 내역에 문제가 생겨서 예매를 할 수 없습니다.</string>
     <string name="won_format">#,###원</string>
+    <string name="purchase_result_price">%s (현장 결제)</string>
     <string name="screen">SCREEN</string>
 </resources>
