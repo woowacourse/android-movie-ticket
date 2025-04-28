@@ -21,6 +21,10 @@ interface SelectSeatContract {
         fun showFullSeat()
 
         fun changeView(ticketUIModel: TicketUIModel)
+
+        fun activeButton()
+
+        fun disActiveButton()
     }
 
     interface Presenter {

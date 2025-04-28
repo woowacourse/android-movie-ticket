@@ -20,12 +20,16 @@ class SelectSeatActivity :
     SelectSeatContract.View {
     private var presenter: SelectSeatPresenter = SelectSeatPresenter(this)
     lateinit var ticketUIModel: TicketUIModel
+    lateinit var button: Button
+    lateinit var moneyView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.select_seat)
         ticketUIModel =
             intent.fetchExtraOrNull<TicketUIModel>(KEY_TICKET) ?: return
+        button = findViewById<Button>(R.id.seat_select_button)
+        moneyView = findViewById<TextView>(R.id.money)
         presenter.onViewCreated(ticketUIModel)
     }
 
@@ -35,7 +39,6 @@ class SelectSeatActivity :
     }
 
     override fun setMoney(money: Int) {
-        val moneyView = findViewById<TextView>(R.id.money)
         val formatter = DecimalFormat("#,###")
         val moneyWithComma = formatter.format(money)
         moneyView.text = getString(R.string.price_format, moneyWithComma)
@@ -81,6 +84,14 @@ class SelectSeatActivity :
         startActivity(intent)
     }
 
+    override fun activeButton() {
+        button.setEnabled(true)
+    }
+
+    override fun disActiveButton() {
+        button.setEnabled(false)
+    }
+
     override fun onSeatSelected(tag: String) {
         val viewGroup = findViewById<ViewGroup>(R.id.seat_set)
         viewGroup.findViewWithTag<TextView>(tag).setBackgroundColor(resources.getColor(R.color.yellow))
@@ -96,8 +107,4 @@ class SelectSeatActivity :
     }
 
     inline fun <reified T : Parcelable> Intent.fetchExtraOrNull(key: String): T? = getParcelableExtra(key)
-
-    companion object {
-        const val TICKET_KEY = "TICKET"
-    }
 }

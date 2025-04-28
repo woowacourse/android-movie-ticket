@@ -12,6 +12,7 @@ class SelectSeatPresenter(
         view.setMoney(ticketUIModel.money)
         view.setSeatClicker()
         view.setButton()
+        view.disActiveButton()
 
         selectSeat.setTicket(ticketUIModel)
     }
@@ -33,13 +34,18 @@ class SelectSeatPresenter(
                 view.setMoney(selectSeat.ticket.money)
             }
         }
+        if (selectSeat.isFullSeat(fullCount)) {
+            view.activeButton()
+        } else {
+            view.disActiveButton()
+        }
     }
 
     override fun onBookButtonClicked() {
-        view.changeView(selectSeat.ticket.toUIModel())
+        view.askToConfirmBook()
     }
 
     override fun onYesClick() {
-        TODO("Not yet implemented")
+        view.changeView(selectSeat.ticket.toUIModel())
     }
 }
