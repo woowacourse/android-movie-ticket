@@ -2,7 +2,8 @@ package woowacourse.movie.view.reservation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import woowacourse.movie.R
 import woowacourse.movie.domain.reservation.Advertisement
 import woowacourse.movie.domain.reservation.Screening
@@ -12,7 +13,19 @@ import woowacourse.movie.view.util.ErrorMessage
 class ScreeningAdapter(
     private val items: List<ScreeningContent>,
     private val onClickReserveButton: (Screening) -> Unit,
-) : RecyclerView.Adapter<ScreeningContentViewHolder>() {
+) : ListAdapter<ScreeningContent, ScreeningContentViewHolder>(
+        object : DiffUtil.ItemCallback<ScreeningContent>() {
+            override fun areItemsTheSame(
+                oldItem: ScreeningContent,
+                newItem: ScreeningContent,
+            ): Boolean = oldItem === newItem
+
+            override fun areContentsTheSame(
+                oldItem: ScreeningContent,
+                newItem: ScreeningContent,
+            ): Boolean = oldItem == newItem
+        },
+    ) {
     override fun getItemViewType(position: Int): Int {
         val screeningContent = items[position]
         return when (screeningContent) {

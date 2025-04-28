@@ -86,7 +86,7 @@ class ScreeningActivityTest {
         onView(withId(R.id.rv_screening_movies))
             .perform(scrollToPosition<RecyclerView.ViewHolder>(2))
 
-        onView(withText("상영일: 2025.4.1 ~ 2025.4.25"))
+        onView(withText("상영일: 2025.6.1 ~ 2025.6.25"))
             .check(matches(isDisplayed()))
     }
 

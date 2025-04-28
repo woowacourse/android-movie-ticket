@@ -52,12 +52,12 @@ class ScreeningActivity :
     }
 
     @Suppress("DEPRECATION")
-    private fun Intent.getScreeningsExtra(): Array<Screening>? =
+    private fun Intent.getScreeningsExtra(): Array<ScreeningContent>? =
         when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU ->
-                getSerializableExtra(EXTRA_SCREENING_CONTENTS, Array<Screening>::class.java)
+                getSerializableExtra(EXTRA_SCREENING_CONTENTS, Array<ScreeningContent>::class.java)
 
-            else -> getSerializableExtra(EXTRA_SCREENING_CONTENTS) as? Array<Screening>
+            else -> getSerializableExtra(EXTRA_SCREENING_CONTENTS) as? Array<ScreeningContent>
         }
 
     companion object {
