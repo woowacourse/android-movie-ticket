@@ -2,12 +2,13 @@ package woowacourse.movie.movieList
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.ErrorHandler
 import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity
-import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.uiModel.MovieInfo
 
 class MovieListActivity :
     AppCompatActivity(),
@@ -23,9 +24,10 @@ class MovieListActivity :
     }
 
     override fun showMovies(items: List<MovieInfo>) {
-        val listView = findViewById<ListView>(R.id.movie_list)
-        adapter = MovieListAdapter(this, items, presenter)
-        listView.adapter = adapter
+        val recyclerView = findViewById<RecyclerView>(R.id.movie_list)
+        recyclerView.layoutManager = LinearLayoutManager(this) // 🔥 레이아웃 매니저 추가
+        adapter = MovieListAdapter(items, presenter)
+        recyclerView.adapter = adapter
     }
 
     override fun changeActivity(item: MovieInfo) {

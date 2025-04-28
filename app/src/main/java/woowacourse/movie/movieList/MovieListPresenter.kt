@@ -1,7 +1,6 @@
 package woowacourse.movie.movieList
 
-import woowacourse.movie.R
-import woowacourse.movie.dto.MovieInfo
+import woowacourse.movie.uiModel.MovieInfo
 
 class MovieListPresenter(
     val view: MovieListContract.View,
@@ -10,28 +9,28 @@ class MovieListPresenter(
         val item =
             mutableListOf(
                 MovieInfo(
-                    R.drawable.harry_potter_poster_1,
+                    "harry_potter_poster_1",
                     "해리 포터와 마법사의 돌",
                     "2025.4.1",
                     "2025.4.25",
                     152,
                 ),
                 MovieInfo(
-                    R.drawable.harry_potter_poster_2,
+                    "harry_potter_poster_2",
                     "해리 포터와 비밀의 방",
                     "2025.4.1",
                     "2025.4.28",
                     162,
                 ),
                 MovieInfo(
-                    R.drawable.harry_potter_poster_3,
+                    "harry_potter_poster_3",
                     "해리 포터와 아즈카반의 죄수",
                     "2025.5.1",
                     "2025.5.31",
                     141,
                 ),
                 MovieInfo(
-                    R.drawable.harry_potter_poster_4,
+                    "harry_potter_poster_4",
                     "해리 포터와 불의 잔",
                     "2025.6.1",
                     "2025.6.30",
