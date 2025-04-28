@@ -12,7 +12,7 @@ data class Ticket(
     val seats: Seats = Seats(),
 ) {
     init {
-        require(count >= MINIMUM_TICKET_COUNT)
+        require(count >= MINIMUM_TICKET_COUNT) { ERROR_INVALID_TICKET_COUNT }
     }
 
     fun isMinimumCount(): Boolean = count == MINIMUM_TICKET_COUNT
@@ -25,5 +25,6 @@ data class Ticket(
 
     companion object {
         private const val MINIMUM_TICKET_COUNT = 1
+        private const val ERROR_INVALID_TICKET_COUNT = "티켓은 최소 1개여야 합니다."
     }
 }
