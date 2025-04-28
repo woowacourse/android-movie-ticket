@@ -1,3 +1,3 @@
 package woowacourse.movie.domain.reservation
 
-interface ScreeningContent
+sealed interface ScreeningContent
