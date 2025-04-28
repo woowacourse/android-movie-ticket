@@ -2,7 +2,7 @@ package woowacourse.movie.booking.complete
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.StringFormatter
+import woowacourse.movie.MoneyFormatter
 
 @Parcelize
 data class BookingCompleteUiModel(
@@ -15,6 +15,6 @@ data class BookingCompleteUiModel(
 ) : Parcelable {
     val formattedDateTme = "$date $time"
     val formattedQuantity = "일반 ${ticketQuantity}명"
-    val formattedPrice = "${StringFormatter.formatMoney(ticketTotalPrice)}원 (현장 결제)"
+    val formattedPrice = "${MoneyFormatter.formatMoney(ticketTotalPrice)}원 (현장 결제)"
     val formattedSeats = seats.joinToString()
 }

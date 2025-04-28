@@ -15,8 +15,8 @@ import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
+import woowacourse.movie.MoneyFormatter
 import woowacourse.movie.R
-import woowacourse.movie.StringFormatter
 import woowacourse.movie.booking.complete.BookingCompleteActivity
 import woowacourse.movie.booking.complete.BookingCompleteUiModel
 import woowacourse.movie.domain.Seat
@@ -140,7 +140,7 @@ class BookingSeatActivity :
     }
 
     override fun updateTotalPrice(price: Int) {
-        totalPrice.text = StringFormatter.formatMoney(price)
+        totalPrice.text = MoneyFormatter.formatMoney(price)
     }
 
     override fun setConfirmEnabled(enabled: Boolean) {
