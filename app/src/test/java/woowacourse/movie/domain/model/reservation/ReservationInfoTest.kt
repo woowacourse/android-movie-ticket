@@ -46,4 +46,16 @@ class ReservationInfoTest {
             fakeReservationInfo.updateSeats(seat.copy(2))
         }
     }
+
+    @Test
+    fun `canPublish 호출 시 좌석 수와 예약 인원 수가 일치하면 true 를 반환한다`() {
+        fakeReservationInfo.updateSeats(Seat(0, 1, SeatType.B_CLASS))
+        fakeReservationInfo.updateSeats(Seat(0, 2, SeatType.B_CLASS))
+        assertThat(fakeReservationInfo.canPublish()).isTrue()
+    }
+
+    @Test
+    fun `canPublish 호출 시 좌석 수와 예약 인원 수가 다르면 false 를 반환한다`() {
+        assertThat(fakeReservationInfo.canPublish()).isFalse()
+    }
 }

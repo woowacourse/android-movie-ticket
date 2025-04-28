@@ -47,15 +47,4 @@ class TicketMachineTest {
             { assertThat(ticketBundle.labels).containsExactlyElementsOf(seats) },
         )
     }
-
-    @Test
-    fun `canPublish 호출 시 좌석 수와 예약 인원 수가 일치하면 true 를 반환한다`() {
-        assertThat(ticketMachine.canPublish(fakeReservationInfo)).isTrue()
-    }
-
-    @Test
-    fun `canPublish 호출 시 좌석 수와 예약 인원 수가 다르면 false 를 반환한다`() {
-        fakeReservationInfo.updateSeats(seats.first())
-        assertThat(ticketMachine.canPublish(fakeReservationInfo)).isFalse()
-    }
 }

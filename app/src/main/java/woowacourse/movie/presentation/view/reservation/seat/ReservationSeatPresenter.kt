@@ -58,7 +58,7 @@ class ReservationSeatPresenter(
         }
     }
 
-    private fun canPublish(): Boolean = _reservationInfo?.let { machine.canPublish(it) } ?: false
+    private fun canPublish(): Boolean = _reservationInfo?.canPublish() ?: false
 
     private fun publishTicketBundle(): TicketBundle? {
         runCatching {
