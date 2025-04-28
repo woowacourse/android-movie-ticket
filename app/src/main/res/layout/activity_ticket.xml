@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:paddingHorizontal="20dp"
         tools:context=".view.ticket.TicketActivity">
 
         <TextView
