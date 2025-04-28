@@ -58,7 +58,7 @@ class BookingActivity :
 
     override fun getSelectedDate(): LocalDate = dateSpinner.selectedItem as LocalDate
 
-    override fun getSelectedTimePosition(): Int = timeSpinner.id
+    override fun getSelectedTimePosition(): Int = timeSpinner.selectedItemPosition
 
     override fun setMovieInfoViews(movie: Movie) {
         val movieTitleView: TextView = findViewById(R.id.tv_title)
