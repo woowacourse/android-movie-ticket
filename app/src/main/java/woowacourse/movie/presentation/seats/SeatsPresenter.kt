@@ -9,7 +9,7 @@ class SeatsPresenter(
     private val view: SeatsContract.View,
     private val movieTicket: MovieTicket,
 ) : SeatsContract.Presenter {
-    private val selectedSeats = SelectedSeats(movieTicket.headCount)
+    private var selectedSeats = SelectedSeats(movieTicket.headCount)
 
     override fun onViewCreated() {
         view.initSeats()
@@ -21,6 +21,8 @@ class SeatsPresenter(
         val seatPosition = SeatPosition(x, y)
         return Seat(seatPosition)
     }
+
+    override fun getSelectedSeats(): List<Seat> = selectedSeats.value
 
     override fun isSelectedSeat(seat: Seat): Boolean = selectedSeats.isSelected(seat)
 
@@ -43,5 +45,12 @@ class SeatsPresenter(
             seats = selectedSeats.value
         )
         view.navigateToSummary(movieTicket)
+    }
+
+    override fun onConfigurationChanged(seats: List<Seat>) {
+        selectedSeats = SelectedSeats(movieTicket.headCount, seats.toMutableSet())
+        view.updateSelectedSeats(selectedSeats.value)
+        view.updateAmount(selectedSeats.getTotalPrice())
+        view.updateConfirmButtonEnabled(selectedSeats.isFull())
     }
 }

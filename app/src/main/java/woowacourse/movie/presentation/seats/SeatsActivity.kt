@@ -16,6 +16,7 @@ import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.TicketUiFormatter
 import woowacourse.movie.ui.util.intentSerializable
+import java.io.Serializable
 
 class SeatsActivity : BaseActivity(), SeatsContract.View {
     override val layoutRes: Int
@@ -34,6 +35,18 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
         if (!fetchTicketFromIntent()) return
         presenter = SeatsPresenter(this, movieTicket)
         presenter.onViewCreated()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val selectedSeats = presenter.getSelectedSeats()
+        outState.putSerializable(SEATS_KEY, selectedSeats as Serializable)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val selectedSeats = savedInstanceState.getSerializable(SEATS_KEY) as List<Seat>
+        presenter.onConfigurationChanged(selectedSeats)
     }
 
     override fun initSeats() {
@@ -62,6 +75,17 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
 
     override fun updateAmount(amount: Int) {
         amountTextView.text = TicketUiFormatter.formatAmount(getString(R.string.amount_message), amount)
+    }
+
+    override fun updateSelectedSeats(seats: List<Seat>) {
+        seatsTable.children.filterIsInstance<TableRow>().forEach { row ->
+            row.children.filterIsInstance<TextView>().forEach seat@{ seatView ->
+                val seat = seatView.tag as? Seat ?: return@seat
+                seatView.setBackgroundColor(
+                    if (presenter.isSelectedSeat(seat)) getColor(R.color.selected_seat) else getColor(R.color.white)
+                )
+            }
+        }
     }
 
     override fun updateConfirmButtonEnabled(canConfirm: Boolean) {
@@ -121,6 +145,7 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
 
     companion object {
         private const val TICKET_INTENT_ERROR = "[ERROR] 예매 정보에 대한 키 값이 올바르지 않습니다."
-
+        private const val SEATS_KEY = "Seats"
+        private const val AMOUNT_KEY = "Amount"
     }
 }
