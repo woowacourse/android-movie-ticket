@@ -36,7 +36,7 @@ class MovieListPresenterTest {
     }
 
     @Test
-    fun `onMovieClicked 호출 시 view의 moveToBooking이 호출된다`() {
+    fun `clickMovie 호출 시 view의 moveToBooking이 호출된다`() {
         // given
         val movie =
             Movie(
@@ -48,7 +48,7 @@ class MovieListPresenterTest {
         every { view.moveToBooking(movie) } just Runs
 
         // when
-        presenter.onMovieClicked(movie)
+        presenter.clickMovie(movie)
 
         // then
         verify(exactly = 1) { view.moveToBooking(movie) }

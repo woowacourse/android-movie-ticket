@@ -12,6 +12,6 @@ interface MovieListContract {
     interface Presenter {
         fun loadMovies()
 
-        fun onMovieClicked(movie: Movie)
+        fun clickMovie(movie: Movie)
     }
 }

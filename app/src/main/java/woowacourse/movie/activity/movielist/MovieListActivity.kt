@@ -24,7 +24,7 @@ class MovieListActivity :
         val movieList: RecyclerView = findViewById(R.id.movie_list)
         adapter =
             MovieListAdapter(emptyList()) { movie ->
-                presenter.onMovieClicked(movie)
+                presenter.clickMovie(movie)
             }
         movieList.adapter = adapter
 

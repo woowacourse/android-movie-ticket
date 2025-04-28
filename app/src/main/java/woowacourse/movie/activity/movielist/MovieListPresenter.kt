@@ -39,7 +39,7 @@ class MovieListPresenter(
         view.showMovieList(movieList)
     }
 
-    override fun onMovieClicked(movie: Movie) {
+    override fun clickMovie(movie: Movie) {
         view.moveToBooking(movie)
     }
 }
