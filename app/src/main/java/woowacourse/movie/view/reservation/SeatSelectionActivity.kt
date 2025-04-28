@@ -211,6 +211,7 @@ class SeatSelectionActivity :
         title: String,
         count: Int,
         showtime: LocalDateTime,
+        seats: Set<Seat>,
     ) {
         val intent =
             TicketActivity.newIntent(
@@ -218,6 +219,7 @@ class SeatSelectionActivity :
                 title,
                 count,
                 showtime,
+                seats,
             )
         startActivity(intent)
         finish()
