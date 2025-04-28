@@ -14,13 +14,13 @@ data class Movie(
 ) : Serializable {
     companion object {
         val dummy: List<Movie> =
-            listOf(
+            (1..10000).map {
                 Movie(
                     R.drawable.harry,
-                    "해리 포터와 마법사의 돌",
+                    "해리 포터$it",
                     Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 30)),
                     152,
-                ),
-            )
+                )
+            }
     }
 }

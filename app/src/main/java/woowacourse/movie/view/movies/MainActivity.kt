@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieItem
 import woowacourse.movie.view.movies.adapter.MovieAdapter
 import woowacourse.movie.view.reservation.detail.ReservationActivity
 
@@ -36,14 +37,22 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(
-                movies,
                 object : OnMovieEventListener {
                     override fun onClickReservation(movie: Movie) {
                         navigate(movie)
                     }
                 },
             )
+
+        val movieItems = mutableListOf<MovieItem>()
+        movies.forEachIndexed { index, movie ->
+            movieItems.add(MovieItem.Movie(movie))
+            if ((index + 1) % 3 == 0) {
+                movieItems.add(MovieItem.Advertisement)
+            }
+        }
         recyclerView.adapter = movieAdapter
+        movieAdapter.submitList(movieItems)
     }
 
     override fun navigateToReservation(movie: Movie) {
