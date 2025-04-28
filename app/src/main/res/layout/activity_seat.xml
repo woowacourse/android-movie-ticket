@@ -34,42 +34,22 @@
         <TableRow>
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="A1"
                 android:textColor="@color/purple_200" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="A2"
                 android:textColor="@color/purple_200" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="A3"
                 android:textColor="@color/purple_200" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="A4"
                 android:textColor="@color/purple_200" />
         </TableRow>
@@ -77,42 +57,22 @@
         <TableRow>
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="B1"
                 android:textColor="@color/purple_200" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="B2"
                 android:textColor="@color/purple_200" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="B3"
                 android:textColor="@color/purple_200" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="B4"
                 android:textColor="@color/purple_200" />
         </TableRow>
@@ -120,42 +80,22 @@
         <TableRow>
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="C1"
                 android:textColor="@color/green" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="C2"
                 android:textColor="@color/green" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="C3"
                 android:textColor="@color/green" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="C4"
                 android:textColor="@color/green" />
         </TableRow>
@@ -163,42 +103,22 @@
         <TableRow>
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="D1"
                 android:textColor="@color/green" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="D2"
                 android:textColor="@color/green" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="D3"
                 android:textColor="@color/green" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="D4"
                 android:textColor="@color/green" />
         </TableRow>
@@ -206,42 +126,22 @@
         <TableRow>
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="E1"
                 android:textColor="@color/blue" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="E2"
                 android:textColor="@color/blue" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="E3"
                 android:textColor="@color/blue" />
 
             <TextView
-                android:layout_width="73dp"
-                android:layout_height="80dp"
-                android:background="@color/white"
-                android:gravity="center"
-                android:textSize="22sp"
-                android:textStyle="bold"
+                style="@style/Seat"
                 tools:text="E4"
                 android:textColor="@color/blue" />
 
