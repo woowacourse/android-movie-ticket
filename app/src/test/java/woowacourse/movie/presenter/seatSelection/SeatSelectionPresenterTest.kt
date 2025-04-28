@@ -128,7 +128,7 @@ class SeatSelectionPresenterTest {
         presenter.updateMovieToReserve(MOVIE_TO_RESERVE)
 
         // when:
-        presenter.onReservationCompleteRequest()
+        presenter.onReservationCompleteRequested()
 
         // then:
         verify { view.showReservationCompleteView(any()) }

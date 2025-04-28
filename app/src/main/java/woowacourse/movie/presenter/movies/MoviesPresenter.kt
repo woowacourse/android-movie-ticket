@@ -14,7 +14,7 @@ class MoviesPresenter(
         view.showReservationView(movie)
     }
 
-    override fun onClickAdvertisement(url: String) {
+    override fun onAdvertisementRequested(url: String) {
         view.showAdvertisement(url)
     }
 }

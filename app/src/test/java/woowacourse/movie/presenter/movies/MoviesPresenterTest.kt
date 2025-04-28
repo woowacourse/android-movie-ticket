@@ -51,7 +51,7 @@ class MoviesPresenterTest {
         every { view.showAdvertisement(any()) } just Runs
 
         // when:
-        presenter.onClickAdvertisement("https://navar.com")
+        presenter.onAdvertisementRequested("https://navar.com")
 
         // then:
         verify { view.showAdvertisement(any()) }

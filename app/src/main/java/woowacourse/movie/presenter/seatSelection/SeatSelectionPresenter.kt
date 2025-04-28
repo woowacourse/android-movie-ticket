@@ -53,7 +53,7 @@ class SeatSelectionPresenter(
         view.showPrice(totalPrice)
     }
 
-    override fun onReservationCompleteRequest() {
+    override fun onReservationCompleteRequested() {
         val movieTicket =
             MovieTicket(
                 title = movieToReserve.title,

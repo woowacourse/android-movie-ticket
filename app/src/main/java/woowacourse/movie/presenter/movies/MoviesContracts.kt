@@ -16,6 +16,6 @@ interface MoviesContracts {
 
         fun onReservationRequested(id: Long)
 
-        fun onClickAdvertisement(url: String)
+        fun onAdvertisementRequested(url: String)
     }
 }

@@ -47,7 +47,11 @@ class MoviesActivity :
                                 presenter.onReservationRequested(movieId)
                             }
                         },
-                    advertisementClickListener = { presenter.onClickAdvertisement(ADVERTISEMENT_URL) },
+                    advertisementClickListener = {
+                        presenter.onAdvertisementRequested(
+                            ADVERTISEMENT_URL,
+                        )
+                    },
                 )
             movieListView.apply {
                 adapter = movieAdapter

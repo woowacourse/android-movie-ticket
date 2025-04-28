@@ -29,6 +29,6 @@ interface SeatSelectionContracts {
 
         fun updateSelectedSeat(seat: Seat)
 
-        fun onReservationCompleteRequest()
+        fun onReservationCompleteRequested()
     }
 }
