@@ -123,6 +123,7 @@ class BookingSeatActivity :
                 SeatTypeUiModel.RANK_S -> R.color.green_300
                 SeatTypeUiModel.RANK_A -> R.color.blue_300
                 SeatTypeUiModel.RANK_B -> R.color.purple_400
+                else -> 0
             },
         )
 

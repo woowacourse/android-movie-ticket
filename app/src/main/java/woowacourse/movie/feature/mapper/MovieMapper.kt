@@ -71,6 +71,21 @@ fun MovieDate.toUi(): MovieDateUiModel =
 
 fun MovieDateUiModel.toDomain(): MovieDate = MovieDate(year, month, day)
 
-fun MovieSeatUiModel.toDomain(): MovieSeat = MovieSeat(row, column, SeatType.from(seatType.name, row), isSelected)
+fun MovieSeatUiModel.toDomain(): MovieSeat = MovieSeat(row, column, seatType.toDomain(row), isSelected)
 
-fun MovieSeat.toUi(): MovieSeatUiModel = MovieSeatUiModel(row, column, SeatTypeUiModel.from(seatType.name), isSelected)
+fun MovieSeat.toUi(): MovieSeatUiModel = MovieSeatUiModel(row, column, seatType.toUi(), isSelected)
+
+fun SeatType.toUi(): SeatTypeUiModel =
+    when (this) {
+        SeatType.RANK_S -> SeatTypeUiModel.RANK_S
+        SeatType.RANK_A -> SeatTypeUiModel.RANK_A
+        SeatType.RANK_B -> SeatTypeUiModel.RANK_B
+    }
+
+fun SeatTypeUiModel.toDomain(row: Int): SeatType =
+    when (this) {
+        SeatTypeUiModel.RANK_S -> SeatType.RANK_S
+        SeatTypeUiModel.RANK_A -> SeatType.RANK_A
+        SeatTypeUiModel.RANK_B -> SeatType.RANK_B
+        SeatTypeUiModel.NONE -> SeatType.from(row)
+    }
