@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.reservation.detail.ReservationActivity
@@ -74,14 +75,15 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
         private const val DATETIME_PATTERN = "yyyy.M.d. HH:mm"
         private const val PRICE_PATTERN = "#,###"
         private const val KEY_TICKET = "ticket"
+        private const val KET_SEATS = "seats"
 
         fun newIntent(
             context: Context,
             ticket: Ticket,
+            seats: Seats,
         ): Intent =
-            Intent(context, ReservationCompleteActivity::class.java).putExtra(
-                KEY_TICKET,
-                ticket,
-            )
+            Intent(context, ReservationCompleteActivity::class.java)
+                .putExtra(KEY_TICKET, ticket)
+                .putExtra(KET_SEATS, seats)
     }
 }

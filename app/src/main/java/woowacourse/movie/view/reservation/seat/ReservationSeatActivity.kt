@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.Position
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
@@ -129,7 +130,10 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         movieSelectableButton.isEnabled = false
     }
 
-    override fun showReservationDialog(ticket: Ticket) {
+    override fun showReservationDialog(
+        ticket: Ticket,
+        seats: Seats,
+    ) {
         DialogFactory().show(
             DialogInfo(
                 this,
@@ -139,13 +143,16 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
                 R.string.cancel,
             ),
         ) {
-            navigateToReservationComplete(ticket)
+            navigateToReservationComplete(ticket, seats)
             finish()
         }
     }
 
-    override fun navigateToReservationComplete(ticket: Ticket) {
-        val intent = ReservationCompleteActivity.newIntent(this@ReservationSeatActivity, ticket)
+    override fun navigateToReservationComplete(
+        ticket: Ticket,
+        seats: Seats,
+    ) {
+        val intent = ReservationCompleteActivity.newIntent(this@ReservationSeatActivity, ticket, seats)
         startActivity(intent)
     }
 

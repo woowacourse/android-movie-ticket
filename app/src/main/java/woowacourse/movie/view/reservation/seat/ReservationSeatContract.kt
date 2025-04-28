@@ -1,6 +1,7 @@
 package woowacourse.movie.view.reservation.seat
 
 import woowacourse.movie.domain.Position
+import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
 
 interface ReservationSeatContract {
@@ -31,9 +32,15 @@ interface ReservationSeatContract {
 
         fun deselectSeatView(position: Position)
 
-        fun navigateToReservationComplete(ticket: Ticket)
+        fun navigateToReservationComplete(
+            ticket: Ticket,
+            seats: Seats,
+        )
 
-        fun showReservationDialog(ticket: Ticket)
+        fun showReservationDialog(
+            ticket: Ticket,
+            seats: Seats,
+        )
 
         fun selectableButton()
 

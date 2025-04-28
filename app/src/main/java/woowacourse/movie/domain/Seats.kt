@@ -1,6 +1,8 @@
 package woowacourse.movie.domain
 
-class Seats(private val seats: MutableList<Seat>) {
+import java.io.Serializable
+
+class Seats(private val seats: MutableList<Seat>) : Serializable {
     val all get() = seats.toList()
 
     fun addSeat(seat: Seat) = seats.add(seat)

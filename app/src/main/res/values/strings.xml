@@ -21,5 +21,6 @@
     <string name="confirm">확인</string>
     <string name="screen">SCREEN</string>
     <string name="movie_money">%1$s원</string>
+    <string name="seat_list">| %1$s</string>
 
 </resources>
