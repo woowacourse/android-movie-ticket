@@ -22,7 +22,6 @@ import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movietime.MovieSchedule
 import woowacourse.movie.domain.movietime.ScreeningTime
 import woowacourse.movie.view.dialog.DialogFactory
-import woowacourse.movie.view.dialog.DialogInfo
 import woowacourse.movie.view.reservation.seat.ReservationSeatActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -131,21 +130,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 return@setOnClickListener
             }
             present.createTicket(LocalDateTime.of(selectedDate, selectedTime))
-        }
-    }
-
-    override fun showReservationDialog(ticket: Ticket) {
-        DialogFactory().show(
-            DialogInfo(
-                this,
-                R.string.reserve_confirm,
-                R.string.askFor_reserve,
-                R.string.complete,
-                R.string.cancel,
-            ),
-        ) {
-            navigateToReservationComplete(ticket)
-            finish()
         }
     }
 

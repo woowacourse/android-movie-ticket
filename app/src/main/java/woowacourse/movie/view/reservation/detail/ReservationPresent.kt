@@ -71,7 +71,7 @@ class ReservationPresent(
                 selectedDateTime,
                 count,
             )
-        view.showReservationDialog(ticket)
+        view.navigateToReservationComplete(ticket)
     }
 
     companion object {
