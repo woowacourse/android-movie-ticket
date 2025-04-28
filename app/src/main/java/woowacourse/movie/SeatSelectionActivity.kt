@@ -31,7 +31,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
         val ticket = requireResultOrFinish()
         presenter = SeatSelectionPresenter(this, ticket)
-        presenter.initializeData(savedInstanceState)
+        presenter.initializeData()
 
         setupSeatClickListeners()
         setupConfirmButton()
@@ -47,7 +47,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         }
     }
 
-    private fun requireResultOrFinish(): TicketUiModel? {
+    private fun requireResultOrFinish(): TicketUiModel {
         return IntentCompat.getParcelableExtra(
             intent,
             KEY_TICKET,
@@ -56,7 +56,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             ?: run {
                 Log.e(TAG, "인텐트에 영화 예매 정보(KEY_TICKET)가 없습니다.")
                 showToastErrorAndFinish(getString(R.string.booking_toast_message))
-                null
+                throw IllegalStateException("Ticket 데이터가 없어서 Activity를 종료했습니다")
             }
     }
 

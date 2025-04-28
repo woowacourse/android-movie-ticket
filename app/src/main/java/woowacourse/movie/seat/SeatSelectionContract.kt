@@ -24,7 +24,7 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun initializeData(savedInstanceState: Bundle?)
+        fun initializeData()
 
         fun onSeatClicked(seat: TextView)
 

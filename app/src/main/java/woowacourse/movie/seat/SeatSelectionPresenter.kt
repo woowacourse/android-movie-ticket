@@ -1,6 +1,5 @@
 package woowacourse.movie.seat
 
-import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.booking.detail.TicketUiModel
 import woowacourse.movie.mapper.toDomain
@@ -10,16 +9,11 @@ import woowacourse.movie.model.Ticket
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
-    private val ticket: TicketUiModel?,
+    private val ticket: TicketUiModel,
 ) : SeatSelectionContract.Presenter {
     private lateinit var domainTicket: Ticket
 
-    override fun initializeData(savedInstanceState: Bundle?) {
-        if (ticket == null) {
-            view.showToastErrorAndFinish("영화 정보를 불러올 수 없습니다.")
-            return
-        }
-
+    override fun initializeData() {
         domainTicket = ticket.toDomain()
         view.showTicket(ticket)
     }
