@@ -24,7 +24,7 @@ class MovieListActivity :
         setContentView(R.layout.activity_movie_list)
         applyWindowInsets()
 
-        movieListPresenter.updateMovieList()
+        movieListPresenter.loadMovieList()
     }
 
     private fun applyWindowInsets() {
@@ -35,7 +35,7 @@ class MovieListActivity :
         }
     }
 
-    override fun moveToBookingActivity(movie: Movie) {
+    override fun startBookingActivity(movie: Movie) {
         startActivity(BookingActivity.newIntent(this, movie))
     }
 
@@ -44,7 +44,7 @@ class MovieListActivity :
         val adapter =
             MovieAdapter(
                 onClickBooking = { movie ->
-                    moveToBookingActivity(movie)
+                    startBookingActivity(movie)
                 },
             )
 

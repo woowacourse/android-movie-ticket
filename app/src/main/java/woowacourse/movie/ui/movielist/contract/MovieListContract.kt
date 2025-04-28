@@ -5,7 +5,7 @@ import woowacourse.movie.domain.model.MovieListItem
 
 interface MovieListContract {
     interface Presenter {
-        fun updateMovieList()
+        fun loadMovieList()
 
         fun getMovieList(): List<MovieListItem.MovieItem>
 
@@ -15,6 +15,6 @@ interface MovieListContract {
     interface View {
         fun setMoveListItems(items: List<MovieListItem>)
 
-        fun moveToBookingActivity(movie: Movie)
+        fun startBookingActivity(movie: Movie)
     }
 }

@@ -18,8 +18,8 @@ class MovieListPresenterTest {
     }
 
     @Test
-    fun `프레젠터의 updateMovieList가 호출되면 뷰의 setMoveListItems이 호출된다`() {
-        presenter.updateMovieList()
+    fun `프레젠터의 loadMovieList가 호출되면 뷰의 setMoveListItems이 호출된다`() {
+        presenter.loadMovieList()
         verify { view.setMoveListItems(any()) }
     }
 }

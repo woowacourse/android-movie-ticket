@@ -22,7 +22,7 @@ class MovieListPresenter(
             )
         }
 
-    override fun updateMovieList() {
+    override fun loadMovieList() {
         val movies = getMovieList()
         val ads = getAdvertisementList()
         movieListView.setMoveListItems(movieListItems(movies, ads))
