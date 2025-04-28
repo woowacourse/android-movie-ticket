@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.fixture.HARRY_POTTER_01
 import woowacourse.movie.view.reservation.model.TicketUiModel
-import woowacourse.movie.view.reservation.model.toDomain
 import woowacourse.movie.view.reservation.model.toUiModel
 import woowacourse.movie.view.seat.SeatSelectContract
 import woowacourse.movie.view.seat.SeatSelectPresenter
@@ -30,7 +29,7 @@ class SeatSelectPresenterTest {
         presenter.loadSeatSelectScreen()
 
         verify { view.showMovieInfo(ticket.movie) }
-        verify { view.showTotalPrice(ticket.toDomain().totalPrice()) }
+        verify { view.showTotalPrice(ticket.totalPrice) }
     }
 
     @Test

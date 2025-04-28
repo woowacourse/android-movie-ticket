@@ -13,7 +13,7 @@ class SeatSelectPresenter(
 
     override fun loadSeatSelectScreen() {
         view.showMovieInfo(ticket.movie)
-        view.showTotalPrice(ticket.toDomain().totalPrice())
+        view.showTotalPrice(ticket.totalPrice)
     }
 
     override fun onClickSeat(seat: SeatUiModel) {
@@ -22,7 +22,7 @@ class SeatSelectPresenter(
         val isSelected = ticketDomain.contains(seat.toDomain())
         view.updateSeatSelectionState(seat, isSelected)
         view.updateConfirmButtonState(ticketDomain.isSeatsAllSelected())
-        view.showTotalPrice(ticketDomain.totalPrice())
+        view.showTotalPrice(ticket.totalPrice)
     }
 
     override fun onClickConfirmButton() {
