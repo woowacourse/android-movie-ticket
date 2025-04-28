@@ -172,7 +172,7 @@ class ReservationActivity :
 
     private fun initCompleteButtonClickEvent() {
         completeButton.setOnClickListener {
-            presenter?.confirm()
+            presenter?.presentAvailableSeats()
                 ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }

@@ -60,7 +60,7 @@ class ReservationPresenter(
         presentTicketCount()
     }
 
-    override fun confirm() {
+    override fun presentAvailableSeats() {
         view.navigateToSeatSelectionScreen(screening.title, ticketCount)
     }
 

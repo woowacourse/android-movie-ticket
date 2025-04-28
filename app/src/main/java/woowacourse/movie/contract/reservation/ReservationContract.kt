@@ -23,7 +23,7 @@ interface ReservationContract {
 
         fun minusTicketCount()
 
-        fun confirm()
+        fun presentAvailableSeats()
 
         fun getTicketCount(): Int
 
