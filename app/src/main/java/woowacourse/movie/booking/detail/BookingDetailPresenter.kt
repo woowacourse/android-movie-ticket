@@ -32,7 +32,7 @@ class BookingDetailPresenter(
         )
     }
 
-    override fun onDateSelected(date: LocalDate) {
+    override fun selectDate(date: LocalDate) {
         ticket = ticket.updateDate(date)
         val times = booking.screeningTimes(date)
 
@@ -52,7 +52,7 @@ class BookingDetailPresenter(
         view.showTicket(ticket.toUiModel())
     }
 
-    override fun onTimeSelected(time: LocalTime) {
+    override fun selectTime(time: LocalTime) {
         if (ticket.selectedTime == time) return
 
         ticket = ticket.updateTime(time)
@@ -60,17 +60,17 @@ class BookingDetailPresenter(
         view.showTicket(ticket.toUiModel())
     }
 
-    override fun onHeadCountIncreased() {
+    override fun increaseHeadCount() {
         ticket = ticket.plusHeadCount()
         view.showTicket(ticket.toUiModel())
     }
 
-    override fun onHeadCountDecreased() {
+    override fun decreaseHeadCount() {
         if (ticket.isHeadCountValid()) ticket = ticket.minusHeadCount()
         view.showTicket(ticket.toUiModel())
     }
 
-    override fun onConfirmReservation() {
+    override fun confirmReservation() {
         if (ticket.isHeadCountValid()) {
             view.startSeatSelectionActivity(ticket.toUiModel())
         }

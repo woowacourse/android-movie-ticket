@@ -1,6 +1,5 @@
 package woowacourse.movie.booking.detail
 
-import android.os.Bundle
 import woowacourse.movie.movie.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalTime
@@ -33,15 +32,15 @@ interface BookingDetailContract {
 
         fun restoreTicketData(headCount: Int, screeningDate: String?, screeningTime: String?)
 
-        fun onDateSelected(date: LocalDate)
+        fun selectDate(date: LocalDate)
 
-        fun onTimeSelected(time: LocalTime)
+        fun selectTime(time: LocalTime)
 
-        fun onHeadCountIncreased()
+        fun increaseHeadCount()
 
-        fun onHeadCountDecreased()
+        fun decreaseHeadCount()
 
-        fun onConfirmReservation()
+        fun confirmReservation()
 
         fun getCurrentTicketUiModel(): TicketUiModel
 

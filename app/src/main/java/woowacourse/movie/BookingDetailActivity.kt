@@ -102,8 +102,8 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
 
         headCountText.text = result.headCount.toString()
 
-        btnPlus.setOnClickListener { presenter.onHeadCountIncreased() }
-        btnMinus.setOnClickListener { presenter.onHeadCountDecreased() }
+        btnPlus.setOnClickListener { presenter.increaseHeadCount() }
+        btnMinus.setOnClickListener { presenter.decreaseHeadCount() }
     }
 
     override fun showScreeningDates(
@@ -121,7 +121,7 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
         dateSpinner.onItemSelectedListener =
             ScreeningDateSelectedListener(
                 onDateSelected = { date ->
-                    presenter.onDateSelected(date)
+                    presenter.selectDate(date)
                 },
             )
     }
@@ -141,7 +141,7 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
         timeSpinner.onItemSelectedListener =
             ScreeningTimeSelectedListener(
                 onTimeSelected = { time ->
-                    presenter.onTimeSelected(time)
+                    presenter.selectTime(time)
                 },
             )
     }
@@ -149,7 +149,7 @@ class BookingDetailActivity : AppCompatActivity(), BookingDetailContract.View {
     private fun initReserveConfirm() {
         val btnReserveConfirm = findViewById<Button>(R.id.btn_selection_confirm)
         btnReserveConfirm.setOnClickListener {
-            presenter.onConfirmReservation()
+            presenter.confirmReservation()
         }
     }
 
