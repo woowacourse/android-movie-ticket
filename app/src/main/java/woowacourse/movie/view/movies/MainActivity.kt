@@ -1,8 +1,5 @@
 package woowacourse.movie.view.movies
 
-import android.app.Activity
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -58,14 +55,5 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     override fun navigateToReservation(movie: Movie) {
         val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
-    }
-
-    companion object {
-        fun returnToMain(context: Context): Intent {
-            if (context is Activity) {
-                context.finish()
-            }
-            return Intent(context, ReservationActivity::class.java)
-        }
     }
 }

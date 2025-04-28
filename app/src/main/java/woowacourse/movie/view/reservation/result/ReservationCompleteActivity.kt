@@ -13,7 +13,6 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieseat.Seats
 import woowacourse.movie.view.dialog.DialogFactory
-import woowacourse.movie.view.reservation.detail.ReservationActivity
 import java.time.format.DateTimeFormatter
 
 class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteContract.View {
@@ -48,7 +47,7 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
 
     override fun handleInvalidTicket() {
         DialogFactory().showError(this) {
-            ReservationActivity.returnToReserve(this)
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

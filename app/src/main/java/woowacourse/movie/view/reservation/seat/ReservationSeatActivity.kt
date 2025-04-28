@@ -19,7 +19,6 @@ import woowacourse.movie.domain.movieseat.Position
 import woowacourse.movie.domain.movieseat.Seats
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
-import woowacourse.movie.view.reservation.detail.ReservationActivity
 import woowacourse.movie.view.reservation.result.ReservationCompleteActivity
 import java.text.DecimalFormat
 
@@ -180,7 +179,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
 
     override fun handleInvalidTicket() {
         DialogFactory().showError(this) {
-            ReservationActivity.returnToReserve(this)
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 

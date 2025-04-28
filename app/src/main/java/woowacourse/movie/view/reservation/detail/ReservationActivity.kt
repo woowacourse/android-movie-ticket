@@ -1,6 +1,5 @@
 package woowacourse.movie.view.reservation.detail
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -24,7 +23,6 @@ import woowacourse.movie.domain.movietime.MovieSchedule
 import woowacourse.movie.domain.movietime.ScreeningTime
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
-import woowacourse.movie.view.movies.MainActivity
 import woowacourse.movie.view.reservation.seat.ReservationSeatActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -69,7 +67,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
     override fun showErrorInvalidMovie() {
         DialogFactory().showError(this) {
-            MainActivity.returnToMain(this)
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
@@ -233,12 +231,5 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                 KEY_MOVIE,
                 movie,
             )
-
-        fun returnToReserve(context: Context): Intent {
-            if (context is Activity) {
-                context.finish()
-            }
-            return Intent(context, ReservationActivity::class.java)
-        }
     }
 }

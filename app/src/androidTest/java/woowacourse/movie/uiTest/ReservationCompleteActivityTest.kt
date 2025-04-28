@@ -12,6 +12,7 @@ import org.junit.Test
 import org.junit.rules.TestName
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.movieseat.Seats
 import woowacourse.movie.uiTest.fixture.fakeContext
 import woowacourse.movie.view.reservation.detail.ReservationActivity
 import woowacourse.movie.view.reservation.result.ReservationCompleteActivity
@@ -30,11 +31,13 @@ class ReservationCompleteActivityTest {
             2,
         )
 
+    private val seats = Seats(mutableListOf())
+
     @Before
     fun setUp() {
         testName = nameRule.methodName
         if (testName == "`null값이_Intent된_경우_ErrorDialog를_띄운다`") return
-        val intent = ReservationCompleteActivity.newIntent(fakeContext, ticket)
+        val intent = ReservationCompleteActivity.newIntent(fakeContext, ticket, seats)
         ActivityScenario.launch<ReservationCompleteActivity>(intent)
     }
 
