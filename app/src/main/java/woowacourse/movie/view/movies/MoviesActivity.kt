@@ -1,7 +1,8 @@
 package woowacourse.movie.view.movies
 
 import android.os.Bundle
-import android.widget.ListView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.view.base.BaseActivity
@@ -17,8 +18,8 @@ class MoviesActivity :
         presenter.loadData()
     }
 
-    override fun showMovies(movies: List<Movie>) {
-        val lvMovie = findViewById<ListView>(R.id.lv_movie)
+    override fun showMovies(movies: List<MovieListItem>) {
+        val lvMovie = findViewById<RecyclerView>(R.id.lv_movie)
         lvMovie.adapter =
             MovieListAdapter(
                 movies,
@@ -29,5 +30,6 @@ class MoviesActivity :
                     }
                 },
             )
+        lvMovie.layoutManager = LinearLayoutManager(this)
     }
 }

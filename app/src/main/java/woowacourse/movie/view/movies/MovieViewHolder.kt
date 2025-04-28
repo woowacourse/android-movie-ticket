@@ -4,13 +4,14 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
     val view: View,
-) {
+) : RecyclerView.ViewHolder(view) {
     private val ivPoster = view.findViewById<ImageView>(R.id.iv_poster)
     private val tvTitle = view.findViewById<TextView>(R.id.tv_title)
     private val tvDate = view.findViewById<TextView>(R.id.tv_date)
