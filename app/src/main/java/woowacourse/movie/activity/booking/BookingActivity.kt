@@ -45,14 +45,16 @@ class BookingActivity :
         setupDateChangeTimeListener()
         countButtonHandler()
         confirmButtonHandler()
-        if (savedInstanceState != null) {
-            presenter.onRestoreState(savedInstanceState)
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         presenter.onSaveState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        presenter.onRestoreState(savedInstanceState)
     }
 
     private fun setupDateChangeDateListener() {
