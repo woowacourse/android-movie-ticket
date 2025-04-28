@@ -170,12 +170,6 @@ class BookingActivity :
         ticketCount.text = ticketCountValue.count.toString()
     }
 
-    override fun askToConfirmBook() {
-        ConfirmDialog.show(this) {
-            presenter.onYesClick(this@BookingActivity)
-        }
-    }
-
     override fun timeSpinnerSet(times: List<LocalTime>) {
         SpinnerAdapter.bind(this@BookingActivity, movieTime, times.toFormattedStringList("HH:mm"))
     }
