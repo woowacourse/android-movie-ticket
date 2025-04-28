@@ -25,7 +25,7 @@ class BookingActivityTest {
 
     @Before
     fun setupIntent() {
-        val movieInfoUIModel = MovieInfoUIModel(R.drawable.harry_potter_poster_1, "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", 152)
+        val movieInfoUIModel = MovieInfoUIModel("harry_potter_poster_1", "해리 포터와 마법사의 돌", "2025.4.1", "2025.4.25", 152)
 
         val intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingActivity::class.java).apply {
