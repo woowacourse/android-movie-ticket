@@ -24,14 +24,14 @@ interface SeatSelectionContract {
 
         fun calculateAudienceCount(isSelected: Boolean): Int
 
-        fun onSeatClicked(
+        fun selectSeat(
             seat: TextView,
             ticket: Ticket,
         ): Boolean
 
         fun handleConfirmButtonActivation(seats: Sequence<Sequence<TextView>>)
 
-        fun onConfirmButtonClicked(
+        fun confirmSeatSelection(
             seats: Sequence<Sequence<TextView>>,
             ticket: Ticket,
         )

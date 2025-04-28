@@ -40,7 +40,7 @@ class SeatSelectionPresenter(
         return audienceCount
     }
 
-    override fun onSeatClicked(
+    override fun selectSeat(
         seat: TextView,
         ticket: Ticket,
     ): Boolean {
@@ -53,7 +53,7 @@ class SeatSelectionPresenter(
         view.updateConfirmButtonState(hasSelection)
     }
 
-    override fun onConfirmButtonClicked(
+    override fun confirmSeatSelection(
         seats: Sequence<Sequence<TextView>>,
         ticket: Ticket,
     ) {

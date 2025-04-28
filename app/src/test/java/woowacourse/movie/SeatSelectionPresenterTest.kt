@@ -114,7 +114,7 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `onConfirmButtonClicked 호출 시 선택된 좌석 리스트와 함께 결과 화면으로 이동한다`() {
+    fun `confirmSeatSelection 호출 시 선택된 좌석 리스트와 함께 결과 화면으로 이동한다`() {
         // given
         val seat1 =
             mockk<TextView> {
@@ -132,7 +132,7 @@ class SeatSelectionPresenterTest {
         presenter.calculateMoney(0, true)
 
         // when
-        presenter.onConfirmButtonClicked(seats, dummyTicket)
+        presenter.confirmSeatSelection(seats, dummyTicket)
 
         // then
         verify {

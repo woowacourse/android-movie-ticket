@@ -54,7 +54,7 @@ class SeatSelectionActivity :
                         return@setOnClickListener
                     }
 
-                    val isSelected = presenter.onSeatClicked(textView, ticket)
+                    val isSelected = presenter.selectSeat(textView, ticket)
                     presenter.calculateMoney(rowIndex, isSelected)
                     presenter.handleConfirmButtonActivation(seats)
                 }
@@ -71,7 +71,7 @@ class SeatSelectionActivity :
 
     private fun handleConfirmButton(ticket: Ticket) {
         findViewById<TextView>(R.id.confirm_button).setOnClickListener {
-            presenter.onConfirmButtonClicked(seats, ticket)
+            presenter.confirmSeatSelection(seats, ticket)
         }
     }
 
