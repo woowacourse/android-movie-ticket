@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.movie.adapter.MoviesAdapter
-import woowacourse.movie.reserve.ReserveActivity
+import woowacourse.movie.reserve.ReservationActivity
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
     private val moviesView: RecyclerView by lazy { findViewById(R.id.rv_movies) }
@@ -32,7 +32,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         moviesView.layoutManager = LinearLayoutManager(this)
         moviesView.adapter =
             MoviesAdapter(movies) { movie ->
-                val intent = ReserveActivity.newIntent(this, movie)
+                val intent = ReservationActivity.newIntent(this, movie)
                 startActivity(intent)
             }
     }

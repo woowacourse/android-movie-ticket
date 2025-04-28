@@ -23,12 +23,12 @@ import woowacourse.movie.fixture.MOVIE_NAME
 import woowacourse.movie.fixture.RUNNING_TIME
 import woowacourse.movie.fixture.SCREENING_PERIOD
 import woowacourse.movie.fixture.createMovie
-import woowacourse.movie.reserve.ReserveActivity
+import woowacourse.movie.reserve.ReservationActivity
 
-class ReserveActivityTest {
+class ReservationActivityTest {
     private lateinit var intent: Intent
     private val movie = createMovie(MOVIE_NAME)
-    private lateinit var scenario: ActivityScenario<ReserveActivity>
+    private lateinit var scenario: ActivityScenario<ReservationActivity>
 
     @Before
     fun setUp() {
@@ -36,7 +36,7 @@ class ReserveActivityTest {
         intent =
             Intent(
                 fakeActivity,
-                ReserveActivity::class.java,
+                ReservationActivity::class.java,
             ).apply {
                 putExtra(KeyIdentifiers.KEY_MOVIE, movie)
             }

@@ -27,16 +27,16 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class ReserveActivity : AppCompatActivity(), ReserveContract.View {
+class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val ticketCount: TextView by lazy { findViewById(R.id.tv_ticket_count) }
-    private val presenter: ReservePresenter = ReservePresenter(this)
+    private val presenter: ReservationPresenter = ReservationPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_reserve)
+        setContentView(R.layout.activity_reservation)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -200,7 +200,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
             context: Context,
             movie: Movie,
         ): Intent =
-            Intent(context, ReserveActivity::class.java).apply {
+            Intent(context, ReservationActivity::class.java).apply {
                 putExtra(KeyIdentifiers.KEY_MOVIE, movie)
             }
     }

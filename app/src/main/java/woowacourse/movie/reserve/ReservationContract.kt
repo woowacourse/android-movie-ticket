@@ -6,7 +6,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-interface ReserveContract {
+interface ReservationContract {
     interface View {
         fun showMovieInfo(movie: Movie)
 

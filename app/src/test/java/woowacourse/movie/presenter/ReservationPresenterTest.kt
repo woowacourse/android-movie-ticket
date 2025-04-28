@@ -4,19 +4,19 @@ import io.mockk.mockk
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import woowacourse.movie.RESERVATION
-import woowacourse.movie.reserve.ReserveContract
-import woowacourse.movie.reserve.ReservePresenter
+import woowacourse.movie.reserve.ReservationContract
+import woowacourse.movie.reserve.ReservationPresenter
 import java.time.LocalDateTime
 import kotlin.test.Test
 
-class ReservePresenterTest {
-    private lateinit var view: ReserveContract.View
-    private lateinit var presenter: ReservePresenter
+class ReservationPresenterTest {
+    private lateinit var view: ReservationContract.View
+    private lateinit var presenter: ReservationPresenter
 
     @BeforeEach
     fun setUp() {
-        view = mockk<ReserveContract.View>(relaxed = true)
-        presenter = ReservePresenter(view)
+        view = mockk<ReservationContract.View>(relaxed = true)
+        presenter = ReservationPresenter(view)
         presenter.reservation = RESERVATION
     }
 

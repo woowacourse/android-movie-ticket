@@ -16,7 +16,7 @@
             android:name=".seat.SeatActivity"
             android:exported="false" />
         <activity
-            android:name=".reserve.ReserveActivity"
+            android:name=".reserve.ReservationActivity"
             android:exported="false"
             android:parentActivityName=".movie.MovieListActivity" />
         <activity

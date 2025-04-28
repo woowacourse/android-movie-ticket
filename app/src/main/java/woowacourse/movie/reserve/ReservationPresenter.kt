@@ -8,9 +8,9 @@ import woowacourse.movie.domain.TimeScheduler
 import java.time.LocalDate
 import java.time.LocalDateTime
 
-class ReservePresenter(
-    private val view: ReserveContract.View,
-) : ReserveContract.Presenter {
+class ReservationPresenter(
+    private val view: ReservationContract.View,
+) : ReservationContract.Presenter {
     lateinit var reservation: Reservation
 
     override fun initReservation(
