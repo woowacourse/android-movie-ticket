@@ -24,15 +24,20 @@ class ReservationSeatViews(
 
     val dialog: CustomAlertDialog by lazy { CustomAlertDialog(activity) }
 
-    fun bind(
+    fun setData(
         reservationInfo: ReservationInfoUiModel,
         screen: ScreenUiModel,
         selectedSeats: List<SeatUiModel>,
+    ) {
+        tvTitle.text = reservationInfo.title
+        renderSeatLayout(screen, selectedSeats)
+    }
+
+    fun setEventListeners(
         onClickConfirm: () -> Unit,
         onClickSeat: (SeatUiModel) -> Unit,
     ) {
-        tvTitle.text = reservationInfo.title
-        renderSeatLayout(screen, selectedSeats, onClickSeat)
+        cachedSeatViews.forEach { (seat, view) -> view.setupSeatClickListener(seat, onClickSeat) }
         btnConfirm.setOnClickListener { onClickConfirm() }
     }
 
@@ -42,7 +47,7 @@ class ReservationSeatViews(
     }
 
     fun updateSeatState(seat: SeatUiModel) {
-        cachedSeatViews[seat]?.setSeatBackgroundColor()
+        cachedSeatViews[seat]?.toggleSeatBackgroundColor()
     }
 
     fun updateConfirmButton(canPublish: Boolean) {
@@ -56,52 +61,69 @@ class ReservationSeatViews(
     private fun renderSeatLayout(
         screen: ScreenUiModel,
         selectedSeats: List<SeatUiModel>,
-        onClickSeat: (SeatUiModel) -> Unit,
     ) {
         var currentRow = -1
         var tableRow: TableRow? = null
 
         screen.seats.forEach { seat ->
             if (seat.row != currentRow) {
-                tableRow?.let { tableLayout.addView(it) }
+                tableRow?.let { addRowToLayout(it) }
                 tableRow = createTableRow()
                 currentRow = seat.row
             }
-            val isSelected = selectedSeats.contains(seat)
-            val seatView = createSeatView(seat, isSelected, onClickSeat)
-            cachedSeatViews[seat] = seatView
+            val seatView = createSeatView(seat, selectedSeats)
             tableRow?.addView(seatView)
         }
+        tableRow?.let { addRowToLayout(it) }
+    }
 
-        tableRow?.let { tableLayout.addView(it) }
+    private fun addRowToLayout(row: TableRow) {
+        tableLayout.addView(row)
     }
 
     private fun createTableRow(): TableRow = TableRow(activity)
 
     private fun createSeatView(
         seat: SeatUiModel,
-        isSelected: Boolean,
-        onClickSeat: (SeatUiModel) -> Unit,
+        selectedSeats: List<SeatUiModel>,
     ): TextView =
         TextView(activity).apply {
-            text = "${'A' + seat.row}${seat.col}"
-            gravity = Gravity.CENTER
-            textSize = 22f
-            setTextColor(seat.type.getSeatColor())
-            if (isSelected) this.setSeatBackgroundColor()
-            layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
-            tag = seat
-
-            post {
-                val width = width
-                layoutParams.height = width
-                requestLayout()
-            }
-
-            setOnClickListener {
-                onClickSeat(seat)
-            }
+            setupSeatText(seat)
+            setupSeatStyle(seat, selectedSeats.contains(seat))
+            setupSeatLayoutParams()
+            cachedSeatViews[seat] = this
         }
+
+    private fun TextView.setupSeatText(seat: SeatUiModel) {
+        text = "${'A' + seat.row}${seat.col}"
+        gravity = Gravity.CENTER
+        textSize = 22f
+    }
+
+    private fun TextView.setupSeatStyle(
+        seat: SeatUiModel,
+        isSelected: Boolean,
+    ) {
+        setTextColor(seat.type.getSeatColor())
+        if (isSelected) toggleSeatBackgroundColor()
+    }
+
+    private fun TextView.setupSeatLayoutParams() {
+        layoutParams = TableRow.LayoutParams(0, TableRow.LayoutParams.WRAP_CONTENT, 1f)
+        post {
+            val width = width
+            layoutParams.height = width
+            requestLayout()
+        }
+    }
+
+    private fun TextView.setupSeatClickListener(
+        seat: SeatUiModel,
+        onClickSeat: (SeatUiModel) -> Unit,
+    ) {
+        tag = seat
+        setOnClickListener { onClickSeat(seat) }
+    }
 
     private fun SeatTypeUiModel.getSeatColor(): Int =
         when (this) {
@@ -110,17 +132,10 @@ class ReservationSeatViews(
             SeatTypeUiModel.B_CLASS -> activity.getColor(R.color.blue_1b)
         }
 
-    private fun TextView.setSeatBackgroundColor() {
-        val currentColorTag = this.getTag(id) as? Boolean ?: false
-        val newColor =
-            if (!currentColorTag) {
-                setTag(id, true)
-                R.color.yellow_fa
-            } else {
-                setTag(id, false)
-                R.color.white
-            }
-
-        this.setBackgroundResource(newColor)
+    private fun TextView.toggleSeatBackgroundColor() {
+        val isSelected = this.getTag(id) as? Boolean ?: false
+        val newColorRes = if (isSelected) R.color.white else R.color.yellow_fa
+        setTag(id, !isSelected)
+        setBackgroundResource(newColorRes)
     }
 }

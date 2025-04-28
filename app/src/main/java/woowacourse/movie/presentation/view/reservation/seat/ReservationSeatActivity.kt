@@ -80,18 +80,14 @@ class ReservationSeatActivity :
         totalPrice: Int,
         canPublish: Boolean,
     ) {
-        views.bind(
-            reservationInfo,
-            screen,
-            selectedSeats,
+        views.setData(reservationInfo, screen, selectedSeats)
+        views.setEventListeners(
             { views.dialog.show(publishTicketConfirmationDialogInfo) },
             { seat -> presenter.updateSeat(seat) },
         )
-        views.updateConfirmButton(canPublish)
 
-        reservationInfo.seats.let {
-            views.updateTotalPrice(totalPrice)
-        }
+        views.updateConfirmButton(canPublish)
+        views.updateTotalPrice(totalPrice)
     }
 
     override fun updateSeatState(

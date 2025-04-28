@@ -42,6 +42,7 @@ class ReservationSeatPresenter(
             _reservationInfo?.updateSeats(seat.toModel())
         }.onFailure {
             view.notifySeatUpdateFailed(it.message.orEmpty())
+            return
         }
 
         view.updateSeatState(
