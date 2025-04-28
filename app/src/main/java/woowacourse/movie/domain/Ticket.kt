@@ -17,8 +17,6 @@ data class Ticket(
 
     fun isMinimumCount(): Boolean = count == MINIMUM_TICKET_COUNT
 
-    fun isSeatsAllSelected(): Boolean = count == seats.size()
-
     fun totalPrice(): Int = seats.totalPrice()
 
     fun contains(seat: Seat): Boolean = seats.contains(seat)

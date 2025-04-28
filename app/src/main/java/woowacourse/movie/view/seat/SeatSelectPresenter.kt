@@ -16,7 +16,7 @@ class SeatSelectPresenter(
     override fun loadSeatSelectScreen() {
         view.showMovieInfo(ticket.movie)
         view.showTotalPrice(ticket.totalPrice)
-        view.updateConfirmButtonState(ticket.toDomain().isSeatsAllSelected())
+        view.updateConfirmButtonState(ticket.isAllSeatsSelected())
         ticket.seats.seats.forEach {
             view.updateSeatSelectionState(it.toUiModel(), true)
         }
@@ -29,10 +29,9 @@ class SeatSelectPresenter(
 
     override fun onClickSeat(seat: SeatUiModel) {
         toggleSeat(seat)
-        val ticketDomain = ticket.toDomain()
-        val isSelected = ticketDomain.contains(seat.toDomain())
+        val isSelected = ticket.toDomain().contains(seat.toDomain())
         view.updateSeatSelectionState(seat, isSelected)
-        view.updateConfirmButtonState(ticketDomain.isSeatsAllSelected())
+        view.updateConfirmButtonState(ticket.isAllSeatsSelected())
         view.showTotalPrice(ticket.totalPrice)
     }
 

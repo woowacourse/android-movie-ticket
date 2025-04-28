@@ -17,6 +17,8 @@ data class TicketUiModel(
 ) : Parcelable {
     val totalPrice: Int get() = this.toDomain().totalPrice()
 
+    fun isAllSeatsSelected(): Boolean = count == seats.size()
+
     companion object {
         fun from(movie: MovieUiModel): TicketUiModel = Ticket(movie.toDomain()).toUiModel()
     }

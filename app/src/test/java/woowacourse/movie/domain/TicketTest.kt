@@ -77,23 +77,4 @@ class TicketTest {
         // then
         assertThat(ticket.totalPrice()).isEqualTo(expected)
     }
-
-    @Test
-    fun `선택된 인원 수만큼 좌석이 선택되었는지 확인한다`() {
-        // given
-        val ticketCount = 4
-        val seats = Seats(setOf(A1, B3, D2, E4))
-        val ticket =
-            Ticket(
-                movie = HARRY_POTTER_01,
-                count = ticketCount,
-                seats = seats,
-            )
-
-        // when
-        val expected = true
-
-        // then
-        assertThat(ticket.isSeatsAllSelected()).isEqualTo(expected)
-    }
 }
