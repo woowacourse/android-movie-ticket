@@ -35,14 +35,15 @@ class MovieAdapter(
         position: Int,
     ) {
         if (holder is MovieViewHolder) {
-            val item = movies[position]
+            val adjustedPosition = position - position / 4
+            val item = movies[adjustedPosition]
             holder.bind(item)
         }
     }
 
     override fun getItemId(position: Int): Long = position.toLong()
 
-    override fun getItemCount(): Int = movies.size
+    override fun getItemCount(): Int = movies.size + (movies.size / 3)
 
     fun updateMovies(newMovies: List<Movie>) {
         movies.clear()
