@@ -25,11 +25,12 @@ class MoviesActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         presenter.fetchData()
+        setMoviesAdapter()
     }
 
     override fun showScreen(movies: List<MovieUiModel>) {
-        setMoviesAdapter()
         updateMovies(movies)
     }
 
