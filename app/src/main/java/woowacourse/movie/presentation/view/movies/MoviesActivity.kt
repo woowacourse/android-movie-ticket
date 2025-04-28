@@ -1,7 +1,6 @@
 package woowacourse.movie.presentation.view.movies
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.presentation.base.BaseActivity
@@ -14,6 +13,15 @@ class MoviesActivity :
     BaseActivity(R.layout.activity_movies),
     MoviesContract.View {
     private val presenter: MoviesPresenter by lazy { MoviesPresenter(this) }
+    private val moviesAdapter: MoviesAdapter by lazy {
+        MoviesAdapter(
+            object : OnMovieEventListener {
+                override fun onClick(movie: MovieUiModel) {
+                    navigateToReservationScreen(movie)
+                }
+            },
+        )
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,22 +29,17 @@ class MoviesActivity :
     }
 
     override fun showScreen(movies: List<MovieUiModel>) {
-        setMovies(movies)
+        setMoviesAdapter()
+        updateMovies(movies)
     }
 
-    private fun setMovies(movies: List<MovieUiModel>) {
+    private fun setMoviesAdapter() {
         val lvMovie = findViewById<RecyclerView>(R.id.lv_movie)
-        val adapter =
-            MoviesAdapter(
-                object : OnMovieEventListener {
-                    override fun onClick(movie: MovieUiModel) {
-                        navigateToReservationScreen(movie)
-                    }
-                },
-            )
-        lvMovie.layoutManager = LinearLayoutManager(this)
-        lvMovie.adapter = adapter
-        adapter.submitList(movies)
+        lvMovie.adapter = moviesAdapter
+    }
+
+    private fun updateMovies(movies: List<MovieUiModel>) {
+        moviesAdapter.submitList(movies)
     }
 
     private fun navigateToReservationScreen(movie: MovieUiModel) {
