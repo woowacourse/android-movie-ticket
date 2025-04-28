@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
     private val view: View,
-    onClickButton: (MovieUiModel) -> Unit,
+    listener: MovieItemClickListener,
 ) : RecyclerView.ViewHolder(view) {
     private var currentItem: MovieUiModel? = null
 
@@ -23,7 +23,7 @@ class MovieViewHolder(
 
     init {
         reserveButton.setOnClickListener {
-            currentItem?.let { onClickButton(it) }
+            currentItem?.let { listener.onMovieClick(it) }
         }
     }
 

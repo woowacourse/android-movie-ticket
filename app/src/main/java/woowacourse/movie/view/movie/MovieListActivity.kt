@@ -11,7 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.DefaultMovieRepository
 import woowacourse.movie.view.movie.adapter.MovieAdapter
+import woowacourse.movie.view.movie.adapter.MovieItemClickListener
 import woowacourse.movie.view.movie.adapter.MovieListItem
+import woowacourse.movie.view.movie.model.AdUiModel
+import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.MovieReservationActivity
 
 class MovieListActivity :
@@ -31,11 +34,16 @@ class MovieListActivity :
     override fun showMovieList(movies: List<MovieListItem>) {
         val movieAdapter =
             MovieAdapter(
-                items = movies,
-                onClickButton = { movie ->
-                    startActivity(MovieReservationActivity.newIntent(this, movie))
+                movies,
+                object : MovieItemClickListener {
+                    override fun onMovieClick(movie: MovieUiModel) {
+                        startActivity(
+                            MovieReservationActivity.newIntent(this@MovieListActivity, movie),
+                        )
+                    }
+
+                    override fun onAdClick(ad: AdUiModel) = Unit
                 },
-                onClickAd = {},
             )
         movieListView.adapter = movieAdapter
     }
