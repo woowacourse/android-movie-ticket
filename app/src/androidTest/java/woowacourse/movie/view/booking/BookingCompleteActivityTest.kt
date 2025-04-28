@@ -8,6 +8,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.fixture.fakeContext
 import woowacourse.movie.view.complete.BookingCompleteActivity
 import java.time.LocalDate
@@ -21,12 +23,14 @@ class BookingCompleteActivityTest {
         intent =
             BookingCompleteActivity.newIntent(
                 fakeContext,
-                "해리 포터와 마법사의 돌",
-                LocalDate.parse("2025-04-01"),
-                LocalTime.parse("12:00"),
-                2,
-                26000,
-                "A1,A2",
+                Ticket(
+                    "해리 포터와 마법사의 돌",
+                    LocalDate.parse("2025-04-01"),
+                    LocalTime.parse("12:00"),
+                    PeopleCount(2),
+                    "A1,A2",
+                    26000,
+                ),
             )
         ActivityScenario.launch<BookingCompleteActivity>(intent)
     }

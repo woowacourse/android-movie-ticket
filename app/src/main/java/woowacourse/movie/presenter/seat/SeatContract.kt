@@ -1,10 +1,13 @@
 package woowacourse.movie.presenter.seat
 
 import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.view.seat.model.coord.Coordination
 
 interface SeatContract {
     interface View {
+        fun showBookingInformation(title: String)
+
         fun showSeat(seat: Set<Seat>)
 
         fun showToast(peopleCount: Int)
@@ -14,17 +17,16 @@ interface SeatContract {
         fun setConfirmButtonEnabled(clickable: Boolean)
 
         fun moveToBookingComplete(
+            ticket: Ticket,
             seats: Set<Seat>,
-            price: Int,
         )
     }
 
     interface Presenter {
-        fun changeSeat(
-            position: Coordination,
-            limit: Int,
-        )
+        fun loadBookingInfo()
 
-        fun attemptConfirmBooking(limit: Int)
+        fun changeSeat(position: Coordination)
+
+        fun attemptConfirmBooking()
     }
 }

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.ext.getSerializable
 import java.time.LocalDate
@@ -21,24 +22,12 @@ class BookingCompleteActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking_complete)
 
-        val title = intent.getStringExtra(KEY_BOOKING_MOVIE_TITLE) ?: EMPTY_TITLE
-        val bookingDate = intent.getSerializable(KEY_BOOKING_DATE, LocalDate::class.java)
-        val bookingTime = intent.getSerializable(KEY_BOOKING_TIME, LocalTime::class.java)
-        val peopleCount = intent.getIntExtra(KEY_BOOKING_PEOPLE_COUNT, EMPTY_PRICE)
-        val seats = intent.getStringExtra(KEY_BOOKING_SEAT) ?: EMPTY_SEATS
-        val price = intent.getIntExtra(KEY_BOOKING_PRICE, EMPTY_PRICE)
+        val ticket = intent.getSerializable(KEY_TICKET, Ticket::class.java)
 
-        initView(title, bookingDate, bookingTime, peopleCount, seats, price)
+        initView(ticket)
     }
 
-    private fun initView(
-        title: String,
-        bookingDate: LocalDate,
-        bookingTime: LocalTime,
-        peopleCount: Int,
-        seats: String,
-        ticketPrice: Int,
-    ) {
+    private fun initView(ticket: Ticket) {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -46,11 +35,13 @@ class BookingCompleteActivity : AppCompatActivity() {
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        initBookingMovieTitleView(title)
-        initBookingScheduleView(bookingDate, bookingTime)
-        initBookingSeatView(seats)
-        initBookingPeopleCountView(peopleCount)
-        initBookingTicketPriceView(ticketPrice)
+        with(ticket) {
+            initBookingMovieTitleView(title)
+            initBookingScheduleView(bookingDate, bookingTime)
+            initBookingSeatView(seats)
+            initBookingPeopleCountView(count.value)
+            initBookingTicketPriceView(price)
+        }
     }
 
     private fun initBookingMovieTitleView(title: String) {
@@ -96,32 +87,13 @@ class BookingCompleteActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val EMPTY_TITLE = ""
-        private const val EMPTY_SEATS = ""
-        private const val EMPTY_PRICE = 0
-
-        const val KEY_BOOKING_SEAT = "BOOKING_SEAT"
-        const val KEY_BOOKING_PEOPLE_COUNT = "PEOPLE_COUNT"
-        const val KEY_BOOKING_PRICE = "BOOKING_PRICE"
-        const val KEY_BOOKING_DATE = "BOOKING_DATE"
-        const val KEY_BOOKING_TIME = "BOOKING_TIME"
-        const val KEY_BOOKING_MOVIE_TITLE = "BOOKING_MOVIE_TITLE"
+        const val KEY_TICKET = "BOOKING_TICKET"
 
         fun newIntent(
             context: Context,
-            title: String,
-            bookingDate: LocalDate,
-            bookingTime: LocalTime,
-            peopleCount: Int,
-            price: Int,
-            seats: String,
+            ticket: Ticket,
         ) = Intent(context, BookingCompleteActivity::class.java).apply {
-            putExtra(KEY_BOOKING_MOVIE_TITLE, title)
-            putExtra(KEY_BOOKING_DATE, bookingDate)
-            putExtra(KEY_BOOKING_PRICE, price)
-            putExtra(KEY_BOOKING_TIME, bookingTime)
-            putExtra(KEY_BOOKING_PEOPLE_COUNT, peopleCount)
-            putExtra(KEY_BOOKING_SEAT, seats)
+            putExtra(KEY_TICKET, ticket)
         }
     }
 }

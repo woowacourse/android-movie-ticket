@@ -15,28 +15,28 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
+import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.presenter.seat.SeatContract
 import woowacourse.movie.presenter.seat.SeatPresenter
 import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.complete.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.seat.manager.SeatView
+import kotlin.lazy
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
-    private val presenter: SeatContract.Presenter by lazy { SeatPresenter(this, Seats()) }
+    private lateinit var presenter: SeatContract.Presenter
     private lateinit var seatView: SeatView
-
     private val seatTable by lazy { findViewById<TableLayout>(R.id.seatTable) }
     private val priceText by lazy { findViewById<TextView>(R.id.tv_price) }
     private val bookingBtn by lazy { findViewById<TextView>(R.id.btn_booking) }
 
-    private lateinit var defaultBooking: Booking
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_seat)
-        defaultBooking = intent.getSerializable(KEY_BOOKING, Booking::class.java)
+        val booking = intent.getSerializable(KEY_BOOKING, Booking::class.java)
 
+        presenter = SeatPresenter(this, Seats(), booking)
         initView()
     }
 
@@ -48,20 +48,14 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        initMovieTitle()
         initSeat()
         initBookingBtn()
-        showPrice(0)
-    }
-
-    private fun initMovieTitle() {
-        findViewById<TextView>(R.id.tv_title).text = defaultBooking.title
     }
 
     private fun initSeat() {
         seatView =
             SeatView(seatTable) { coordination ->
-                presenter.changeSeat(coordination, defaultBooking.count.value)
+                presenter.changeSeat(coordination)
             }
         seatView.initSeats()
     }
@@ -70,6 +64,10 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         bookingBtn.setOnClickListener {
             showDialog()
         }
+    }
+
+    override fun showBookingInformation(title: String) {
+        findViewById<TextView>(R.id.tv_title).text = title
     }
 
     override fun showSeat(seats: Set<Seat>) {
@@ -91,19 +89,11 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     }
 
     override fun moveToBookingComplete(
+        ticket: Ticket,
         seats: Set<Seat>,
-        price: Int,
     ) {
-        val intent =
-            BookingCompleteActivity.newIntent(
-                this,
-                defaultBooking.title,
-                defaultBooking.bookingDate,
-                defaultBooking.bookingTime,
-                defaultBooking.count.value,
-                price,
-                seatToLabel(seats),
-            )
+        val ticket = ticket.copy(seats = seatToLabel(seats))
+        val intent = BookingCompleteActivity.newIntent(this, ticket)
         startActivity(intent)
     }
 
@@ -120,7 +110,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
             .setTitle(R.string.text_booking_dialog_title)
             .setMessage(R.string.text_booking_dialog_description)
             .setPositiveButton(R.string.text_booking_dialog_positive_button) { _, _ ->
-                presenter.attemptConfirmBooking(defaultBooking.count.value)
+                presenter.attemptConfirmBooking()
             }
             .setNegativeButton(R.string.text_booking_dialog_negative_button) { dialog, _ ->
                 dialog.dismiss()
