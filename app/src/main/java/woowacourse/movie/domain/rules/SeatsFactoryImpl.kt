@@ -1,12 +1,11 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.rules
 
-import woowacourse.movie.domain.Seat.Companion.COLUMNS
-import woowacourse.movie.domain.Seat.Companion.ROWS
+import woowacourse.movie.domain.Seat
 
 class SeatsFactoryImpl : SeatsFactory {
     override fun get(): List<Seat> =
-        ROWS.flatMap { row ->
-            COLUMNS.map { column ->
+        Seat.Companion.ROWS.flatMap { row ->
+            Seat.Companion.COLUMNS.map { column ->
                 val locationString = "$row$column"
                 Seat(
                     locationString,

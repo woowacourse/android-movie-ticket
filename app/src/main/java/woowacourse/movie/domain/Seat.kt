@@ -1,5 +1,7 @@
 package woowacourse.movie.domain
 
+import woowacourse.movie.domain.rules.PriceRule
+
 data class Seat(
     val location: String,
     val price: PriceRule,

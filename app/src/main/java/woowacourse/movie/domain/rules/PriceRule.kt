@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.rules
 
 enum class PriceRule(val price: Int) {
     RANK_B(10_000),

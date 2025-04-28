@@ -2,7 +2,7 @@ package woowacourse.movie.dto
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import woowacourse.movie.domain.PriceRule
+import woowacourse.movie.domain.rules.PriceRule
 
 @Parcelize
 class PriceRuleDto private constructor(

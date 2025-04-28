@@ -3,7 +3,7 @@ package woowacourse.movie.dto
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.PriceRule
+import woowacourse.movie.domain.rules.PriceRule
 import java.time.LocalDateTime
 import java.util.UUID
 import kotlin.time.Duration

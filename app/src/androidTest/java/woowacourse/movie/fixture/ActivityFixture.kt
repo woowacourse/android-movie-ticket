@@ -1,6 +1,6 @@
 package woowacourse.movie.fixture
 
-import woowacourse.movie.domain.PriceRule
+import woowacourse.movie.domain.rules.PriceRule
 import woowacourse.movie.dto.MovieListData
 import woowacourse.movie.dto.PriceRuleDto
 import woowacourse.movie.dto.ReservationDto

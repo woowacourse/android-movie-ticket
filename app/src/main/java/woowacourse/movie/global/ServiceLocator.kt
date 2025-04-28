@@ -7,8 +7,8 @@ import woowacourse.movie.activity.reservation.ReservationPresenter
 import woowacourse.movie.activity.reservation.ReservationSeatContract
 import woowacourse.movie.activity.reservation.ReservationSeatPresenter
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.RunningTimeRuleImpl
-import woowacourse.movie.domain.SeatsFactoryImpl
+import woowacourse.movie.domain.rules.RunningTimeRuleImpl
+import woowacourse.movie.domain.rules.SeatsFactoryImpl
 import woowacourse.movie.dto.MovieListData
 import java.time.LocalDate
 import java.time.LocalDateTime
