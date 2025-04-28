@@ -5,7 +5,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
@@ -42,8 +41,6 @@ class MovieListActivity :
 
     override fun setMoveListItems(items: List<MovieListItem>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movies_recycler_view)
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
         val adapter =
             MovieAdapter(
                 onClickBooking = { movie ->
