@@ -2,7 +2,7 @@ package woowacourse.movie.view.result
 
 import woowacourse.movie.view.reservation.model.TicketUiModel
 
-interface MovieReservationCompleteContract {
+interface ReservationResultContract {
     interface View {
         fun showTicketInfo(ticket: TicketUiModel)
 
@@ -10,6 +10,6 @@ interface MovieReservationCompleteContract {
     }
 
     interface Presenter {
-        fun loadMovieReservationCompleteScreen()
+        fun loadReservationResultScreen()
     }
 }

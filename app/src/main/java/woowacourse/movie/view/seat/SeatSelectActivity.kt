@@ -18,7 +18,7 @@ import woowacourse.movie.R
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
-import woowacourse.movie.view.result.MovieReservationCompleteActivity
+import woowacourse.movie.view.result.ReservationResultActivity
 import woowacourse.movie.view.seat.model.SeatUiModel
 
 class SeatSelectActivity :
@@ -75,7 +75,7 @@ class SeatSelectActivity :
     }
 
     override fun navigateToCompleteScreen(ticket: TicketUiModel) {
-        val intent = MovieReservationCompleteActivity.newIntent(this, ticket)
+        val intent = ReservationResultActivity.newIntent(this, ticket)
         startActivity(intent)
     }
 

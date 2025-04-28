@@ -14,26 +14,20 @@ import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.seat.model.toUiModel
 
-class MovieReservationCompleteActivity :
+class ReservationResultActivity :
     AppCompatActivity(),
-    MovieReservationCompleteContract.View {
-    private lateinit var presenter: MovieReservationCompletePresenter
+    ReservationResultContract.View {
+    private lateinit var presenter: ReservationResultPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_reservation_complete)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        setUpView()
 
         val ticket =
             intent.parcelableExtraCompat(EXTRA_TICKET, TicketUiModel::class.java)
                 ?: finish().run { return }
-        presenter = MovieReservationCompletePresenter(this, ticket)
-        presenter.loadMovieReservationCompleteScreen()
+        presenter = ReservationResultPresenter(this, ticket)
+        presenter.loadReservationResultScreen()
     }
 
     override fun showTicketInfo(ticket: TicketUiModel) {
@@ -53,12 +47,22 @@ class MovieReservationCompleteActivity :
         findViewById<TextView>(R.id.total_price).text = getString(R.string.result_price, totalPrice)
     }
 
+    private fun setUpView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_movie_reservation_complete)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
     companion object {
         fun newIntent(
             context: Context,
             ticket: TicketUiModel,
         ): Intent =
-            Intent(context, MovieReservationCompleteActivity::class.java).apply {
+            Intent(context, ReservationResultActivity::class.java).apply {
                 putExtra(EXTRA_TICKET, ticket)
             }
 

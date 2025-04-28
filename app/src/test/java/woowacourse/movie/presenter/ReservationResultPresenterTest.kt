@@ -7,23 +7,23 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.fixture.HARRY_POTTER_01
 import woowacourse.movie.view.reservation.model.toUiModel
-import woowacourse.movie.view.result.MovieReservationCompleteContract
-import woowacourse.movie.view.result.MovieReservationCompletePresenter
+import woowacourse.movie.view.result.ReservationResultContract
+import woowacourse.movie.view.result.ReservationResultPresenter
 
-class MovieReservationCompletePresenterTest {
-    private lateinit var presenter: MovieReservationCompleteContract.Presenter
-    private lateinit var view: MovieReservationCompleteContract.View
+class ReservationResultPresenterTest {
+    private lateinit var presenter: ReservationResultContract.Presenter
+    private lateinit var view: ReservationResultContract.View
 
     @BeforeEach
     fun setup() {
         view = mockk(relaxed = true)
-        presenter = MovieReservationCompletePresenter(view, Ticket(HARRY_POTTER_01).toUiModel())
+        presenter = ReservationResultPresenter(view, Ticket(HARRY_POTTER_01).toUiModel())
     }
 
     @Test
     fun `영화 예매 정보를 표시한다`() {
         // when
-        presenter.loadMovieReservationCompleteScreen()
+        presenter.loadReservationResultScreen()
 
         // then
         verify { view.showTicketInfo(any()) }

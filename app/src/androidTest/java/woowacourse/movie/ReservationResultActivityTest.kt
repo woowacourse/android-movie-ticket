@@ -14,10 +14,10 @@ import woowacourse.movie.fixture.FAKE_CONTEXT
 import woowacourse.movie.fixture.TICKET
 import woowacourse.movie.view.reservation.MovieReservationActivity
 import woowacourse.movie.view.reservation.model.toUiModel
-import woowacourse.movie.view.result.MovieReservationCompleteActivity
+import woowacourse.movie.view.result.ReservationResultActivity
 
 @Suppress("ktlint:standard:function-naming")
-class MovieReservationCompleteActivityTest {
+class ReservationResultActivityTest {
     private lateinit var intent: Intent
 
     @get:Rule
@@ -26,10 +26,10 @@ class MovieReservationCompleteActivityTest {
     @Before
     fun setUp() {
         intent =
-            Intent(FAKE_CONTEXT, MovieReservationCompleteActivity::class.java).apply {
+            Intent(FAKE_CONTEXT, ReservationResultActivity::class.java).apply {
                 putExtra("extra_ticket", TICKET.toUiModel())
             }
-        ActivityScenario.launch<MovieReservationCompleteActivity>(intent)
+        ActivityScenario.launch<ReservationResultActivity>(intent)
     }
 
     @Test
