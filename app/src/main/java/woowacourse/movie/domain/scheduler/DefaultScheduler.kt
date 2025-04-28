@@ -1,11 +1,12 @@
-package woowacourse.movie.domain
+package woowacourse.movie.domain.scheduler
 
+import woowacourse.movie.domain.DayType
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class Scheduler {
-    fun getScreeningDates(
+object DefaultScheduler : Scheduler {
+    override fun getScreeningDates(
         startDate: LocalDate,
         endDate: LocalDate,
         today: LocalDate,
@@ -20,7 +21,7 @@ class Scheduler {
         }
     }
 
-    fun getShowtimes(
+    override fun getShowtimes(
         selectedDate: LocalDate,
         now: LocalDateTime,
     ): List<LocalTime> {

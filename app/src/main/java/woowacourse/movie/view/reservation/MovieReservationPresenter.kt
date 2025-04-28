@@ -1,6 +1,6 @@
 package woowacourse.movie.view.reservation
 
-import woowacourse.movie.domain.Scheduler
+import woowacourse.movie.domain.scheduler.Scheduler
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.reservation.model.toDomain
 import java.time.LocalDate
@@ -10,7 +10,7 @@ import java.time.LocalTime
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
     ticket: TicketUiModel,
-    private val scheduler: Scheduler = Scheduler(),
+    private val scheduler: Scheduler,
 ) : MovieReservationContract.Presenter {
     private var _ticket: TicketUiModel = ticket.copy()
     val ticket get() = _ticket

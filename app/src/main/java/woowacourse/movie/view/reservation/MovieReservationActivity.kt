@@ -19,6 +19,7 @@ import woowacourse.movie.R
 import woowacourse.movie.common.StringFormatter
 import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
+import woowacourse.movie.domain.scheduler.DefaultScheduler
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.seat.SeatSelectActivity
@@ -48,7 +49,7 @@ class MovieReservationActivity :
         val ticket =
             savedInstanceState?.parcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
                 ?: TicketUiModel.from(movie)
-        presenter = MovieReservationPresenter(this, ticket)
+        presenter = MovieReservationPresenter(this, ticket, DefaultScheduler)
 
         initView()
         presenter.loadMovieReservationScreen()
