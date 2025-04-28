@@ -8,11 +8,11 @@ import woowacourse.movie.feature.movies.contract.MoviesContract
 class MoviesPresenter(
     private val view: MoviesContract.View,
 ) : MoviesContract.Presenter {
-    override fun onCreateView() {
+    override fun prepareMovies() {
         view.showMovies(movies.map { it.toUi() })
     }
 
-    override fun onMovieBookingClicked(movie: MovieUiModel) {
+    override fun selectMovieForBooking(movie: MovieUiModel) {
         view.navigateToBookingDetail(movie)
     }
 }

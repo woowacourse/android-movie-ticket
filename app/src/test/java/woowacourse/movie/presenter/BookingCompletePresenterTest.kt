@@ -22,18 +22,18 @@ class BookingCompletePresenterTest {
     }
 
     @Test
-    fun `onCreateView 호출 시 티켓 예약 결과를 보여준다`() {
+    fun `prepareBookingInfo 호출 시 티켓 예약 결과를 보여준다`() {
         // given & when
-        presenter.onCreateView(bookingInfoUiModel)
+        presenter.prepareBookingInfo(bookingInfoUiModel)
 
         // then
         verify { view.showBookingResult(bookingInfoUiModel) }
     }
 
     @Test
-    fun `onBackButtonClicked 호출 시 뒤로 이동한다`() {
+    fun `quitBookingInfo 호출 시 뒤로 이동한다`() {
         // given & when
-        presenter.onBackButtonClicked()
+        presenter.quitBookingInfo()
 
         // then
         verify { view.navigateToBack() }

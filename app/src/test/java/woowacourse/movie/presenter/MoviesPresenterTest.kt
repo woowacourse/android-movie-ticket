@@ -20,9 +20,9 @@ class MoviesPresenterTest {
     }
 
     @Test
-    fun `onCreateView 호출 시 영화 목록을 보여준다`() {
+    fun `prepareMovies 호출 시 영화 목록을 보여준다`() {
         // given & when
-        presenter.onCreateView()
+        presenter.prepareMovies()
 
         // then
         verify {
@@ -31,12 +31,12 @@ class MoviesPresenterTest {
     }
 
     @Test
-    fun `onMovieBookingClicked 호출 시 예약 상세 화면으로 이동한다`() {
+    fun `selectMovieForBooking 호출 시 예약 상세 화면으로 이동한다`() {
         // given
         val movieUiModel = movies.first().toUi()
 
         // when
-        presenter.onMovieBookingClicked(movieUiModel)
+        presenter.selectMovieForBooking(movieUiModel)
 
         // then
         verify {

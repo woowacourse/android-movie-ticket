@@ -10,8 +10,8 @@ interface BookingCompleteContract {
     }
 
     interface Presenter {
-        fun onCreateView(bookingInfo: BookingInfoUiModel)
+        fun prepareBookingInfo(bookingInfo: BookingInfoUiModel)
 
-        fun onBackButtonClicked()
+        fun quitBookingInfo()
     }
 }

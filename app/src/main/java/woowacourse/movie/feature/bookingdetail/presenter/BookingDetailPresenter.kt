@@ -19,7 +19,7 @@ class BookingDetailPresenter(
 ) : Presenter {
     private lateinit var bookingInfo: BookingInfo
 
-    override fun onCreateView(movieUiModel: MovieUiModel) {
+    override fun prepareBookingInfo(movieUiModel: MovieUiModel) {
         bookingInfo = BookingInfo(movieUiModel.toDomain())
 
         val movieDates = MovieDates(bookingInfo.movie.startDate, bookingInfo.movie.endDate).value.map { it.toUi() }
@@ -31,7 +31,7 @@ class BookingDetailPresenter(
         view.updateView(bookingInfo.toUi())
     }
 
-    override fun onDateSelected(date: String) {
+    override fun selectDate(date: String) {
         val movieDate: MovieDate = MovieDateUiModel.from(date).toDomain()
         bookingInfo.updateDate(movieDate)
 
@@ -39,22 +39,22 @@ class BookingDetailPresenter(
         view.updateTimeSpinnerItems(movieTimes)
     }
 
-    override fun onTimeSelected(time: String) {
+    override fun selectTime(time: String) {
         val movieTime: MovieTime = MovieTimeUiModel.from(time).toDomain()
         bookingInfo.updateMovieTime(movieTime)
     }
 
-    override fun onTicketCountDecreased() {
+    override fun decreaseTicketCount() {
         bookingInfo.decreaseTicketCount()
         view.updateTicketCount(bookingInfo.currentTicketCount)
     }
 
-    override fun onTicketCountIncreased() {
+    override fun increaseTicketCount() {
         bookingInfo.increaseTicketCount()
         view.updateTicketCount(bookingInfo.currentTicketCount)
     }
 
-    override fun onBookingCompleteButtonClicked() {
+    override fun confirmBookingInfo() {
         view.navigateToBookingSeat(bookingInfo.toUi())
     }
 
@@ -62,9 +62,9 @@ class BookingDetailPresenter(
         view.navigateToBack()
     }
 
-    override fun onSaveInstanceState(): BookingInfoUiModel = bookingInfo.toUi()
+    override fun saveBookingInfo(): BookingInfoUiModel = bookingInfo.toUi()
 
-    override fun onRestoreInstanceState(existBookingInfo: BookingInfoUiModel) {
+    override fun loadBookingInfo(existBookingInfo: BookingInfoUiModel) {
         bookingInfo = existBookingInfo.toDomain()
         view.updateView(existBookingInfo)
     }

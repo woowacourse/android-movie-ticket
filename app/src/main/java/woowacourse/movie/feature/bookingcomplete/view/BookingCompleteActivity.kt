@@ -24,11 +24,11 @@ class BookingCompleteActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupView()
-        presenter.onCreateView(bookingInfo = intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel())
+        presenter.prepareBookingInfo(bookingInfo = intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
+        if (item.itemId == android.R.id.home) presenter.quitBookingInfo()
         return super.onOptionsItemSelected(item)
     }
 

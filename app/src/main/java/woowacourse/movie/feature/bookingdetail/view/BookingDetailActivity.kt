@@ -44,7 +44,7 @@ class BookingDetailActivity :
         setupTimeSpinnerItemClickListener()
         setupTicketCountClickListeners()
         setupSelectCompleteClickListener()
-        presenter.onCreateView(movieUiModel = intent.getExtra(MOVIE_KEY) ?: MovieUiModel())
+        presenter.prepareBookingInfo(movieUiModel = intent.getExtra(MOVIE_KEY) ?: MovieUiModel())
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -94,13 +94,13 @@ class BookingDetailActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable(BOOKING_INFO_KEY, presenter.onSaveInstanceState())
+        outState.putParcelable(BOOKING_INFO_KEY, presenter.saveBookingInfo())
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val bookingInfo: BookingInfoUiModel = savedInstanceState.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel()
-        presenter.onRestoreInstanceState(bookingInfo)
+        presenter.loadBookingInfo(bookingInfo)
     }
 
     private fun setupView() {
@@ -124,7 +124,7 @@ class BookingDetailActivity :
                     id: Long,
                 ) {
                     val selectedDate = MovieDateUiModel.from(parent?.getItemAtPosition(position) as String)
-                    presenter.onDateSelected(selectedDate.toString())
+                    presenter.selectDate(selectedDate.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -141,7 +141,7 @@ class BookingDetailActivity :
                     id: Long,
                 ) {
                     val selectedTime = MovieTimeUiModel.from(parent?.getItemAtPosition(position) as String)
-                    presenter.onTimeSelected(selectedTime.toString())
+                    presenter.selectTime(selectedTime.toString())
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -150,17 +150,17 @@ class BookingDetailActivity :
 
     private fun setupTicketCountClickListeners() {
         findViewById<Button>(R.id.btn_booking_detail_count_down).setOnClickListener {
-            presenter.onTicketCountDecreased()
+            presenter.decreaseTicketCount()
         }
 
         findViewById<Button>(R.id.btn_booking_detail_count_up).setOnClickListener {
-            presenter.onTicketCountIncreased()
+            presenter.increaseTicketCount()
         }
     }
 
     private fun setupSelectCompleteClickListener() {
         findViewById<Button>(R.id.btn_booking_detail_select_complete).setOnClickListener {
-            presenter.onBookingCompleteButtonClicked()
+            presenter.confirmBookingInfo()
         }
     }
 

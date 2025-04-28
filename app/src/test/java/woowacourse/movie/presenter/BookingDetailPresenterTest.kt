@@ -48,7 +48,7 @@ class BookingDetailPresenterTest {
     @Test
     fun `onCreateView 호출 시 날짜, 시간, 예약정보를 갱신한다`() {
         // given & when
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
         val dates = slot<List<MovieDateUiModel>>()
         val times = slot<List<String>>()
         val bookingInfo = slot<BookingInfoUiModel>()
@@ -71,10 +71,10 @@ class BookingDetailPresenterTest {
         val date = movieUiModel.startDate
         val time = slot<List<String>>()
         val expectedTimes = MovieTime.getMovieTimes(DateType.WEEKDAY).map { it.toUi().toString() }
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
 
         // when
-        presenter.onDateSelected(date.toString())
+        presenter.selectDate(date.toString())
 
         // then
         verify { view.updateTimeSpinnerItems(capture(time)) }
@@ -85,10 +85,10 @@ class BookingDetailPresenterTest {
     fun `onTicketCountIncreased 호출 시 티켓 수 증가 후 뷰의 출력을 갱신한다`() {
         // given
         val ticketCount = slot<Int>()
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
 
         // when
-        presenter.onTicketCountIncreased()
+        presenter.increaseTicketCount()
 
         // then
         verify { view.updateTicketCount(capture(ticketCount)) }
@@ -99,10 +99,10 @@ class BookingDetailPresenterTest {
     fun `onTicketCountDecreased 호출 시 티켓 수 감소 후 뷰의 출력을 갱신한다`() {
         // given
         val ticketCount = slot<Int>()
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
 
         // when
-        presenter.onTicketCountDecreased()
+        presenter.decreaseTicketCount()
 
         // then
         verify { view.updateTicketCount(capture(ticketCount)) }
@@ -113,10 +113,10 @@ class BookingDetailPresenterTest {
     fun `onBookingCompleteButtonClicked 호출 시 좌석 선택 화면으로 이동한다`() {
         // given
         val bookingInfo = slot<BookingInfoUiModel>()
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
 
         // when
-        presenter.onBookingCompleteButtonClicked()
+        presenter.confirmBookingInfo()
 
         // then
         verify { view.navigateToBookingSeat(capture(bookingInfo)) }
@@ -135,10 +135,10 @@ class BookingDetailPresenterTest {
     @Test
     fun `onSaveInstanceState 호출 시 현재 예약정보를 반환한다`() {
         // given
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
 
         // when
-        val savedState = presenter.onSaveInstanceState()
+        val savedState = presenter.saveBookingInfo()
 
         // then
         assertThat(savedState.movie).isEqualTo(movieUiModel)
@@ -147,10 +147,10 @@ class BookingDetailPresenterTest {
     @Test
     fun `onRestoreInstanceState 호출 시 기존에 저장된 예약정보로 복원한다`() {
         // given
-        presenter.onCreateView(movieUiModel)
+        presenter.prepareBookingInfo(movieUiModel)
 
         // when
-        presenter.onRestoreInstanceState(bookingInfoUiModel)
+        presenter.loadBookingInfo(bookingInfoUiModel)
 
         // then
         verify { view.updateView(bookingInfoUiModel) }

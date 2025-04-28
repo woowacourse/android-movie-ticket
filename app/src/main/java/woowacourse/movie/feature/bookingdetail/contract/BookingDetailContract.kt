@@ -22,22 +22,22 @@ interface BookingDetailContract {
     }
 
     interface Presenter {
-        fun onCreateView(movieUiModel: MovieUiModel)
+        fun prepareBookingInfo(movieUiModel: MovieUiModel)
 
-        fun onDateSelected(date: String)
+        fun selectDate(date: String)
 
-        fun onTimeSelected(time: String)
+        fun selectTime(time: String)
 
-        fun onTicketCountDecreased()
+        fun decreaseTicketCount()
 
-        fun onTicketCountIncreased()
+        fun increaseTicketCount()
 
-        fun onBookingCompleteButtonClicked()
+        fun confirmBookingInfo()
 
         fun onBackButtonClicked()
 
-        fun onSaveInstanceState(): BookingInfoUiModel
+        fun saveBookingInfo(): BookingInfoUiModel
 
-        fun onRestoreInstanceState(existBookingInfo: BookingInfoUiModel)
+        fun loadBookingInfo(existBookingInfo: BookingInfoUiModel)
     }
 }

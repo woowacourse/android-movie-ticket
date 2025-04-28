@@ -22,11 +22,11 @@ class MoviesActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupView()
-        presenter.onCreateView()
+        presenter.prepareMovies()
     }
 
     override fun showMovies(movies: List<MovieUiModel>) {
-        val moviesAdapter = MoviesAdapter { movie -> presenter.onMovieBookingClicked(movie) }
+        val moviesAdapter = MoviesAdapter { movie -> presenter.selectMovieForBooking(movie) }
         moviesAdapter.submitList(Item.from(movies))
         findViewById<RecyclerView>(R.id.rv_movies).adapter = moviesAdapter
     }

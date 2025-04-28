@@ -36,13 +36,13 @@ class BookingSeatActivity :
         super.onCreate(savedInstanceState)
         setupView()
         setupSeatSelectCompleteClickListener()
-        presenter.onCreateView(bookingInfo = intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel())
+        presenter.prepareBookingInfo(bookingInfo = intent.getExtra(BOOKING_INFO_KEY) ?: BookingInfoUiModel())
     }
 
     override fun showSeats() {
         findViewById<TableLayout>(R.id.tl_booking_seat).children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
             row.children.filterIsInstance<TextView>().forEachIndexed { columnIndex, view ->
-                seats[view] = presenter.onSeatSetup(rowIndex + SEAT_POSITION_OFFSET, columnIndex + SEAT_POSITION_OFFSET)
+                seats[view] = presenter.prepareSeats(rowIndex + SEAT_POSITION_OFFSET, columnIndex + SEAT_POSITION_OFFSET)
                 val seat = seats[view] ?: return@forEachIndexed
                 setupSeatSelectButton(view, seat)
             }
@@ -50,7 +50,7 @@ class BookingSeatActivity :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
+        if (item.itemId == android.R.id.home) presenter.cancelSeatSelection()
         return super.onOptionsItemSelected(item)
     }
 
@@ -65,7 +65,7 @@ class BookingSeatActivity :
             .setTitle(getString(R.string.booking_detail_booking_check))
             .setMessage(getString(R.string.booking_detail_booking_check_description))
             .setPositiveButton(getString(R.string.booking_detail_booking_complete)) { _, _ ->
-                presenter.onSeatSelectionCompleteConfirmed()
+                presenter.confirmSeatSelection()
             }.setNegativeButton(getString(R.string.booking_detail_booking_cancel), null)
             .setCancelable(false)
             .show()
@@ -102,7 +102,7 @@ class BookingSeatActivity :
 
     private fun setupSeatSelectCompleteClickListener() {
         seatSelectionCompleteView.setOnClickListener {
-            presenter.onSeatSelectionCompleteClicked()
+            presenter.completeSeatSelection()
         }
     }
 
@@ -128,7 +128,7 @@ class BookingSeatActivity :
         )
 
     private fun handleSeatSelection(button: TextView) {
-        val seatSelectionUiState = presenter.onSeatClicked(seats[button] ?: return)
+        val seatSelectionUiState = presenter.selectSeat(seats[button] ?: return)
 
         when (seatSelectionUiState) {
             is SeatSelectionUiState.Success -> {

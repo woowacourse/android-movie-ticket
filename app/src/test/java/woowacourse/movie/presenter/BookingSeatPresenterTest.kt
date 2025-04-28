@@ -46,13 +46,13 @@ class BookingSeatPresenterTest {
     }
 
     @Test
-    fun `onCreateView 호출 시 좌석과 예약 정보, 가격, 버튼 상태를 표시한다`() {
+    fun `prepareBookingInfo 호출 시 좌석과 예약 정보, 가격, 버튼 상태를 표시한다`() {
         // given
         val price = slot<Int>()
         val isButtonEnabled = slot<Boolean>()
 
         // when
-        presenter.onCreateView(bookingInfoUiModel)
+        presenter.prepareBookingInfo(bookingInfoUiModel)
 
         // then
         verify {
@@ -67,14 +67,14 @@ class BookingSeatPresenterTest {
     }
 
     @Test
-    fun `onSeatClicked 호출 시 성공이면 가격 업데이트와 SeatSelectionUiState_Success를 반환한다`() {
+    fun `prepareBookingInfo 호출 시 성공이면 가격 업데이트와 SeatSelectionUiState_Success를 반환한다`() {
         // given
-        presenter.onCreateView(bookingInfoUiModel)
+        presenter.prepareBookingInfo(bookingInfoUiModel)
         val seat = MovieSeat(1, 1).toUi()
         val prices = mutableListOf<Int>()
 
         // when
-        val result = presenter.onSeatClicked(seat)
+        val result = presenter.selectSeat(seat)
 
         // then
         verify {
@@ -86,22 +86,22 @@ class BookingSeatPresenterTest {
     }
 
     @Test
-    fun `onSeatSelectionCompleteClicked 호출 시 예약 완료 다이얼로그를 띄운다`() {
+    fun `completeSeatSelection 호출 시 예약 완료 다이얼로그를 띄운다`() {
         // given & when
-        presenter.onSeatSelectionCompleteClicked()
+        presenter.completeSeatSelection()
 
         // then
         verify { view.showBookingCompleteDialog() }
     }
 
     @Test
-    fun `onSeatSelectionCompleteConfirmed 호출 시 예약 완료 화면으로 이동한다`() {
+    fun `confirmSeatSelection 호출 시 예약 완료 화면으로 이동한다`() {
         // given
         val bookingInfo = slot<BookingInfoUiModel>()
-        presenter.onCreateView(bookingInfoUiModel)
+        presenter.prepareBookingInfo(bookingInfoUiModel)
 
         // when
-        presenter.onSeatSelectionCompleteConfirmed()
+        presenter.confirmSeatSelection()
 
         // then
         verify { view.navigateToBookingComplete(capture(bookingInfo)) }
@@ -109,9 +109,9 @@ class BookingSeatPresenterTest {
     }
 
     @Test
-    fun `onBackButtonClicked 호출 시 뒤로 이동한다`() {
+    fun `cancelSeatSelection 호출 시 뒤로 이동한다`() {
         // given & when
-        presenter.onBackButtonClicked()
+        presenter.cancelSeatSelection()
 
         // then
         verify { view.navigateToBack() }

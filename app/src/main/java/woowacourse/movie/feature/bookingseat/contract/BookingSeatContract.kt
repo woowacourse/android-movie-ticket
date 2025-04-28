@@ -22,19 +22,19 @@ interface BookingSeatContract {
     }
 
     interface Presenter {
-        fun onCreateView(bookingInfo: BookingInfoUiModel)
+        fun prepareBookingInfo(bookingInfo: BookingInfoUiModel)
 
-        fun onSeatSetup(
+        fun prepareSeats(
             row: Int,
             column: Int,
         ): MovieSeatUiModel
 
-        fun onSeatClicked(seat: MovieSeatUiModel): SeatSelectionUiState
+        fun selectSeat(seat: MovieSeatUiModel): SeatSelectionUiState
 
-        fun onSeatSelectionCompleteClicked()
+        fun completeSeatSelection()
 
-        fun onSeatSelectionCompleteConfirmed()
+        fun confirmSeatSelection()
 
-        fun onBackButtonClicked()
+        fun cancelSeatSelection()
     }
 }

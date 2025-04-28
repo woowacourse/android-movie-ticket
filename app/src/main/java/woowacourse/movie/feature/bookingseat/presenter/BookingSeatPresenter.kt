@@ -15,7 +15,7 @@ class BookingSeatPresenter(
 ) : BookingSeatContract.Presenter {
     private lateinit var bookingInfo: BookingInfo
 
-    override fun onCreateView(bookingInfo: BookingInfoUiModel) {
+    override fun prepareBookingInfo(bookingInfo: BookingInfoUiModel) {
         this.bookingInfo = bookingInfo.toDomain()
         view.showSeats()
         view.showBookingInfo(bookingInfo)
@@ -23,12 +23,12 @@ class BookingSeatPresenter(
         view.updateSeatSelectionCompleteButton(this.bookingInfo.isSeatAllSelected)
     }
 
-    override fun onSeatSetup(
+    override fun prepareSeats(
         row: Int,
         column: Int,
     ): MovieSeatUiModel = MovieSeat(row, column).toUi()
 
-    override fun onSeatClicked(seat: MovieSeatUiModel): SeatSelectionUiState {
+    override fun selectSeat(seat: MovieSeatUiModel): SeatSelectionUiState {
         val result = bookingInfo.updateSeat(seat.toDomain())
 
         view.updateSeatSelectionCompleteButton(bookingInfo.isSeatAllSelected)
@@ -43,15 +43,15 @@ class BookingSeatPresenter(
         }
     }
 
-    override fun onSeatSelectionCompleteClicked() {
+    override fun completeSeatSelection() {
         view.showBookingCompleteDialog()
     }
 
-    override fun onSeatSelectionCompleteConfirmed() {
+    override fun confirmSeatSelection() {
         view.navigateToBookingComplete(bookingInfo.toUi())
     }
 
-    override fun onBackButtonClicked() {
+    override fun cancelSeatSelection() {
         view.navigateToBack()
     }
 }

@@ -10,8 +10,8 @@ interface MoviesContract {
     }
 
     interface Presenter {
-        fun onCreateView()
+        fun prepareMovies()
 
-        fun onMovieBookingClicked(movie: MovieUiModel)
+        fun selectMovieForBooking(movie: MovieUiModel)
     }
 }

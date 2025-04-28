@@ -7,11 +7,11 @@ import woowacourse.movie.feature.model.BookingInfoUiModel
 class BookingCompletePresenter(
     private val view: BookingCompleteContract.View,
 ) : Presenter {
-    override fun onCreateView(bookingInfo: BookingInfoUiModel) {
+    override fun prepareBookingInfo(bookingInfo: BookingInfoUiModel) {
         view.showBookingResult(bookingInfo)
     }
 
-    override fun onBackButtonClicked() {
+    override fun quitBookingInfo() {
         view.navigateToBack()
     }
 }
