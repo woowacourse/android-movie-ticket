@@ -33,6 +33,7 @@ val MOVIE_TO_RESERVE: MovieToReserve =
     )
 
 val SEAT_2_3 = Seat(2, 3)
+val SEAT_2_2 = Seat(2, 2)
 
 val MOVIE_TICKET_B1_C3: MovieTicket =
     MovieTicket(

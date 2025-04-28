@@ -10,6 +10,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.presenter.MOVIE_TO_RESERVE
+import woowacourse.movie.presenter.SEAT_2_2
 import woowacourse.movie.presenter.SEAT_2_3
 
 class SeatSelectionPresenterTest {
@@ -53,15 +54,65 @@ class SeatSelectionPresenterTest {
     @Test
     fun `선택한 좌석을 업데이트 하면 좌석과 버튼의 활성화 여부가 업데이트되고 총 가격이 보인다`() {
         // given:
+        every { view.showMovieTitle(any()) } just Runs
+        every { view.showPrice(any()) } just Runs
+        every { view.showButtonEnabled(any()) } just Runs
         every { view.updateSeatsEnabled(any()) } just Runs
         every { view.showButtonEnabled(any()) } just Runs
         every { view.showPrice(any()) } just Runs
+
+        presenter.updateMovieToReserve(MOVIE_TO_RESERVE)
 
         // when:
         presenter.updateSelectedSeat(SEAT_2_3)
 
         // then:
         verify { view.updateSeatsEnabled(any()) }
+        verify { view.showButtonEnabled(any()) }
+        verify { view.showPrice(any()) }
+    }
+
+    @Test
+    fun `선택한 좌석을 재선택하면 좌석과 버튼의 활성화 여부가 업데이트되고 총 가격이 보인다`() {
+        // given:
+        every { view.showMovieTitle(any()) } just Runs
+        every { view.showPrice(any()) } just Runs
+        every { view.showButtonEnabled(any()) } just Runs
+        every { view.updateSeatsEnabled(any()) } just Runs
+        every { view.showButtonEnabled(any()) } just Runs
+        every { view.showPrice(any()) } just Runs
+
+        presenter.updateMovieToReserve(MOVIE_TO_RESERVE)
+
+        presenter.updateSelectedSeat(SEAT_2_3) // 선택
+
+        // when:
+        presenter.updateSelectedSeat(SEAT_2_3) // 재선택
+
+        // then:
+        verify { view.updateSeatsEnabled(any()) }
+        verify { view.showButtonEnabled(any()) }
+        verify { view.showPrice(any()) }
+    }
+
+    @Test
+    fun `구매할 티켓 개수만큼 좌석을 선택하면, 좌석 선택 활성화 함수가 false로 호출된다`() {
+        // given:
+        every { view.showMovieTitle(any()) } just Runs
+        every { view.showPrice(any()) } just Runs
+        every { view.showButtonEnabled(any()) } just Runs
+        every { view.updateSeatsEnabled(any()) } just Runs
+        every { view.showButtonEnabled(any()) } just Runs
+        every { view.showPrice(any()) } just Runs
+
+        presenter.updateMovieToReserve(MOVIE_TO_RESERVE)
+
+        // when:
+        presenter.updateSelectedSeat(SEAT_2_3) // 선택
+        presenter.updateSelectedSeat(SEAT_2_2) // 선택
+
+        // then:
+        verify { view.updateSeatsEnabled(false) }
         verify { view.showButtonEnabled(any()) }
         verify { view.showPrice(any()) }
     }
