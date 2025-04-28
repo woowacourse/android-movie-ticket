@@ -105,7 +105,12 @@ class ReservationSeatViews(
         isSelected: Boolean,
     ) {
         setTextColor(seat.type.getSeatColor())
-        if (isSelected) toggleSeatBackgroundColor()
+        if (isSelected) {
+            toggleSeatBackgroundColor()
+            return
+        }
+
+        this.setBackgroundResource(R.color.white)
     }
 
     private fun TextView.setupSeatLayoutParams() {

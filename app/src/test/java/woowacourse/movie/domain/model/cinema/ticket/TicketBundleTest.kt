@@ -24,7 +24,7 @@ class TicketBundleTest {
                 createTicket(seat = Seat(1, 2, SeatType.S_CLASS)),
             )
 
-        val ticketBundle = TicketBundle(tickets)
+        val ticketBundle = TicketBundle.bundleOf(tickets)
 
         assertAll(
             { assertThat(ticketBundle.title).isEqualTo("해리 포터") },
@@ -44,7 +44,7 @@ class TicketBundleTest {
     @Test
     fun `티켓이 없는 경우 예외가 발생한다`() {
         assertThrows<IllegalArgumentException> {
-            TicketBundle(emptyList())
+            TicketBundle.bundleOf(emptyList())
         }
     }
 
@@ -57,7 +57,7 @@ class TicketBundleTest {
             )
 
         assertThrows<IllegalArgumentException> {
-            TicketBundle(tickets)
+            TicketBundle.bundleOf(tickets)
         }
     }
 }

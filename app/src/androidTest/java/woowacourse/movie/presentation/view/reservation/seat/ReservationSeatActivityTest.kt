@@ -61,6 +61,7 @@ class ReservationSeatActivityTest {
     @Test
     fun `선택_상태인_좌석을_선택하면_하얀색으로_변경된다`() {
         onView(withText("A1")).perform(click())
+
         onView(withText("A1")).check(matches(hasBackgroundColor(R.color.yellow_fa)))
 
         onView(withText("A1")).perform(click())

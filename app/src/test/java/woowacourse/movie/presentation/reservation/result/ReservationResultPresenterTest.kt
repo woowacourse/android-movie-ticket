@@ -20,16 +20,17 @@ class ReservationResultPresenterTest {
     private lateinit var view: ReservationResultContract.View
     private lateinit var presenter: ReservationResultContract.Presenter
     private val ticketBundle =
-        TicketBundle(
-            listOf(
-                Ticket(
-                    "해리포터",
-                    LocalDateTime.of(2025, 4, 1, 0, 0),
-                    seat = Seat(1, 1, SeatType.B_CLASS),
-                    10_000,
+        TicketBundle
+            .bundleOf(
+                listOf(
+                    Ticket(
+                        "해리포터",
+                        LocalDateTime.of(2025, 4, 1, 0, 0),
+                        seat = Seat(1, 1, SeatType.B_CLASS),
+                        10_000,
+                    ),
                 ),
-            ),
-        ).toUiModel()
+            ).toUiModel()
 
     @BeforeEach
     fun setUp() {

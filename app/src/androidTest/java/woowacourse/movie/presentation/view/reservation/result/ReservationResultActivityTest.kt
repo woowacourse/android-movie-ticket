@@ -18,22 +18,23 @@ import java.time.LocalDateTime
 
 class ReservationResultActivityTest {
     private val ticketBundle =
-        TicketBundle(
-            listOf(
-                Ticket(
-                    "해리 포터와 마법사의 돌",
-                    LocalDateTime.of(2025, 4, 15, 11, 0),
-                    Seat(0, 1, SeatType.B_CLASS),
-                    10_000,
+        TicketBundle
+            .bundleOf(
+                listOf(
+                    Ticket(
+                        "해리 포터와 마법사의 돌",
+                        LocalDateTime.of(2025, 4, 15, 11, 0),
+                        Seat(0, 1, SeatType.B_CLASS),
+                        10_000,
+                    ),
+                    Ticket(
+                        "해리 포터와 마법사의 돌",
+                        LocalDateTime.of(2025, 4, 15, 11, 0),
+                        Seat(0, 2, SeatType.B_CLASS),
+                        10_000,
+                    ),
                 ),
-                Ticket(
-                    "해리 포터와 마법사의 돌",
-                    LocalDateTime.of(2025, 4, 15, 11, 0),
-                    Seat(0, 2, SeatType.B_CLASS),
-                    10_000,
-                ),
-            ),
-        ).toUiModel()
+            ).toUiModel()
 
     @Before
     fun setUp() {

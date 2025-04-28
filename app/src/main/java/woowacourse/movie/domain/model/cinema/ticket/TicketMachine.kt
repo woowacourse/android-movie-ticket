@@ -13,7 +13,7 @@ class TicketMachine(
             tickets.add(reservationInfo.toTicket(seat))
         }
 
-        return TicketBundle(tickets)
+        return TicketBundle.bundleOf(tickets)
     }
 
     private fun ReservationInfo.toTicket(seat: Seat): Ticket =
