@@ -1,8 +1,8 @@
 package woowacourse.movie.view.reservation.seat
 
-import woowacourse.movie.domain.Position
-import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.movieseat.Position
+import woowacourse.movie.domain.movieseat.Seats
 
 interface ReservationSeatContract {
     interface Present {

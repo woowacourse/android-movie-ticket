@@ -19,9 +19,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.MovieSchedule
-import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.movietime.MovieSchedule
+import woowacourse.movie.domain.movietime.ScreeningTime
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
 import woowacourse.movie.view.movies.MainActivity

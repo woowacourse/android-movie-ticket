@@ -14,9 +14,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
-import woowacourse.movie.domain.Position
-import woowacourse.movie.domain.Seats
 import woowacourse.movie.domain.Ticket
+import woowacourse.movie.domain.movieseat.Position
+import woowacourse.movie.domain.movieseat.Seats
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
 import woowacourse.movie.view.reservation.detail.ReservationActivity

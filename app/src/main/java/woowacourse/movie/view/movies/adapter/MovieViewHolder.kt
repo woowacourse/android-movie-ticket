@@ -6,8 +6,8 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.movietime.Date
 import woowacourse.movie.view.movies.OnMovieEventListener
 import java.time.format.DateTimeFormatter
 
