@@ -8,10 +8,6 @@ class Seats {
 
     fun removeSeat(newSeat: Seat) = _item.remove(newSeat)
 
-    fun isSelected(newSeat: Seat) = _item.contains(newSeat)
-
-    fun canSelect(limit: Int) = _item.size < limit
-
     fun bookingPrice() = _item.sumOf { it.seatPrice() }
 
     fun isNotSelectDone(limit: Int) = _item.size != limit
@@ -32,4 +28,8 @@ class Seats {
             }
         }
     }
+
+    private fun isSelected(newSeat: Seat) = _item.contains(newSeat)
+
+    private fun canSelect(limit: Int) = _item.size < limit
 }

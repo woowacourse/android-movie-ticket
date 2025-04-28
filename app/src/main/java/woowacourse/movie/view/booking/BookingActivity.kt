@@ -45,7 +45,9 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
         initView(movieIdx)
         savedInstanceState?.let {
-            restoreSavedState(it)
+            presenter.restorePeopleCount(it.getInt(KEY_PEOPLE_COUNT))
+            val savedTimePosition = it.getInt(KEY_SELECTED_TIME_POSITION)
+            timeSpinner.setSelection(savedTimePosition)
         }
     }
 
@@ -90,7 +92,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
             onItemSelectedListener =
                 AdapterItemSelectedListener { pos ->
-                    onSelectDate(screeningBookingDates[pos])
+                    presenter.loadScreeningTime(screeningBookingDates[pos], LocalDateTime.now())
                 }
         }
     }
@@ -110,34 +112,9 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         Toast.makeText(this, R.string.text_no_booking_time, Toast.LENGTH_LONG).show()
     }
 
-    override fun onClickIncrease() {
-        presenter.increasePeopleCount(MAX_SEAT)
-    }
-
-    override fun onClickDecrease() {
-        presenter.decreasePeopleCount()
-    }
-
-    override fun onClickBooking() {
-        presenter.loadBooking(
-            title = movieTitleTextView.text.toString(),
-            bookingDate = dateSpinner.selectedItem.toString(),
-            bookingTime = timeSpinner.selectedItem.toString(),
-            count = peopleCountTextView.text.toString(),
-        )
-    }
-
-    override fun onSelectDate(selectedDate: LocalDate) {
-        presenter.loadScreeningTime(selectedDate, LocalDateTime.now())
-    }
-
     override fun moveToBookingComplete(booking: Booking) {
         val intent = SeatActivity.newIntent(this, booking)
         startActivity(intent)
-    }
-
-    override fun restoreSavedState(savedCount: Int) {
-        presenter.restorePeopleCount(savedCount)
     }
 
     private fun initTitleView(title: String) {
@@ -167,24 +144,21 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             getString(R.string.text_running_time_ㅡminute_unit).format(runningTime)
     }
 
-    private fun restoreSavedState(savedInstanceState: Bundle?) {
-        savedInstanceState?.let {
-            presenter.restorePeopleCount(it.getInt(KEY_PEOPLE_COUNT))
-            val savedTimePosition = it.getInt(KEY_SELECTED_TIME_POSITION)
-            timeSpinner.setSelection(savedTimePosition)
-        }
-    }
-
     private fun initButtonListener() {
         val increaseBtn = findViewById<Button>(R.id.btn_increase)
         val decreaseBtn = findViewById<Button>(R.id.btn_decrease)
         val bookingBtn = findViewById<Button>(R.id.btn_booking_complete)
 
-        increaseBtn.setOnClickListener { onClickIncrease() }
-        decreaseBtn.setOnClickListener { onClickDecrease() }
+        increaseBtn.setOnClickListener { presenter.increasePeopleCount(MAX_SEAT) }
+        decreaseBtn.setOnClickListener { presenter.decreasePeopleCount() }
 
         bookingBtn.setOnClickListener {
-            onClickBooking()
+            presenter.loadBooking(
+                title = movieTitleTextView.text.toString(),
+                bookingDate = dateSpinner.selectedItem.toString(),
+                bookingTime = timeSpinner.selectedItem.toString(),
+                count = peopleCountTextView.text.toString(),
+            )
         }
     }
 

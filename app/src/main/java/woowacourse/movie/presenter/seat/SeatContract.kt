@@ -5,11 +5,6 @@ import woowacourse.movie.view.seat.model.coord.Coordination
 
 interface SeatContract {
     interface View {
-        fun onClickSeat(
-            position: Coordination,
-            peopleCount: Int,
-        )
-
         fun showSeat(seat: Set<Seat>)
 
         fun showToast(peopleCount: Int)

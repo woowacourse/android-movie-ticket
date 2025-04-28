@@ -76,3 +76,10 @@ private fun seatToLabel(): String {
 
 ## 5. 테이블 레이아웃 코드 개선
 - 좌석의 전체 뷰와 각 row를 관리하도록 수정
+
+## 6. Presenter 코드 개선
+
+### 6-1. Prestener에서 비즈니스 로직을 요청 하지 않는 메서드 제거
+### ⛔️ Warning
+- View 인터페이스(BookingContract.View)에 onClickIncrease(), onClickDecrease() 등 중간 전달 전용 메서드가 존재
+- 해당 메서드들은 별도의 추가 로직 없이 단순히 Presenter 메서드를 호출하는 역할만 수행

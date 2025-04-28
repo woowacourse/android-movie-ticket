@@ -21,7 +21,6 @@ import woowacourse.movie.view.StringFormatter
 import woowacourse.movie.view.complete.BookingCompleteActivity
 import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.seat.manager.SeatView
-import woowacourse.movie.view.seat.model.coord.Coordination
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
     private val presenter: SeatContract.Presenter by lazy { SeatPresenter(this, Seats()) }
@@ -62,7 +61,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     private fun initSeat() {
         seatView =
             SeatView(seatTable) { coordination ->
-                onClickSeat(coordination, defaultBooking.count.value)
+                presenter.changeSeat(coordination, defaultBooking.count.value)
             }
         seatView.initSeats()
     }
@@ -71,13 +70,6 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         bookingBtn.setOnClickListener {
             showDialog()
         }
-    }
-
-    override fun onClickSeat(
-        position: Coordination,
-        peopleCount: Int,
-    ) {
-        presenter.changeSeat(position, peopleCount)
     }
 
     override fun showSeat(seats: Set<Seat>) {

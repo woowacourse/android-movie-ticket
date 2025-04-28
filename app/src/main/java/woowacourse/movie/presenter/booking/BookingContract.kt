@@ -18,17 +18,7 @@ interface BookingContract {
 
         fun showToast()
 
-        fun onClickIncrease()
-
-        fun onClickDecrease()
-
-        fun onClickBooking()
-
-        fun onSelectDate(selectedDate: LocalDate)
-
         fun moveToBookingComplete(booking: Booking)
-
-        fun restoreSavedState(savedCount: Int)
     }
 
     interface Presenter {

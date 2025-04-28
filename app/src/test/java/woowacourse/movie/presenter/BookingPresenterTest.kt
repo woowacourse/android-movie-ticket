@@ -99,10 +99,7 @@ class BookingPresenterTest {
     }
 
     @Test
-    fun `예약 버튼을 누르면 예얀 완료 화면으로 이동하며 예약 정보 Booking 객체를 전달한다`() {
-        // given
-        every { view.onClickBooking() } just Runs
-
+    fun `예약 버튼을 누르면 예약 완료 화면으로 이동하며 예약 정보 Booking 객체를 전달한다`() {
         // when
         presenter.loadBooking(
             title = "테스트 영화 1",
