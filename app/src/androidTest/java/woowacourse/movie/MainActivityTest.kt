@@ -11,13 +11,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.RecyclerViewMatcher.Companion.withRecyclerView
 import woowacourse.movie.activity.main.MainActivity
-import woowacourse.movie.activity.reservation.ReservationActivity
-import woowacourse.movie.adapter.MovieListAdapter
 import woowacourse.movie.domain.MovieListData
 import woowacourse.movie.dto.MovieListDataDto
 import woowacourse.movie.global.ServiceLocator
@@ -27,6 +26,22 @@ import woowacourse.movie.global.ServiceLocator
 class MainActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        activityRule.scenario.onActivity { activity ->
+            val movies = mutableListOf<MovieListData.Movie>()
+            (0..100).forEach {
+                movies.addAll(ServiceLocator.movies)
+            }
+
+            val ads = ServiceLocator.ads
+            val flatten = MovieListData.flatten(movies, ads)
+            activity.initMovieDto(
+                MovieListDataDto.fromDomain(flatten),
+            )
+        }
+    }
 
     @Test
     fun 영화_정보가_표시된다() {
@@ -69,25 +84,7 @@ class MainActivityTest {
     @Test
     fun 영화_목록의_요소는_10_000개까지_추가될_수_있다() {
         activityRule.scenario.onActivity {
-            val movies = mutableListOf<MovieListData.Movie>()
-            (0..100).forEach {
-                movies.addAll(ServiceLocator.movies)
-            }
-
-            val ads = ServiceLocator.ads
-            val flatten = MovieListData.flatten(movies, ads)
-
             val recyclerView = it.findViewById<RecyclerView>(R.id.movies)
-            recyclerView.adapter =
-                MovieListAdapter { movieDto ->
-                    val intent = ReservationActivity.newIntent(it, movieDto)
-                    it.startActivity(intent)
-                }.apply {
-                    submitList(
-                        MovieListDataDto.fromDomain(flatten),
-                    )
-                }
-
             assertThat(recyclerView.adapter?.getItemCount()).isEqualTo(10_000)
         }
     }

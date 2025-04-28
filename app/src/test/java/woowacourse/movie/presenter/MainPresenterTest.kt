@@ -7,7 +7,7 @@ import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import woowacourse.movie.activity.main.MainContract
-import woowacourse.movie.dto.MovieDto
+import woowacourse.movie.dto.MovieListDataDto.MovieDto
 import woowacourse.movie.global.ServiceLocator
 
 class MainPresenterTest {

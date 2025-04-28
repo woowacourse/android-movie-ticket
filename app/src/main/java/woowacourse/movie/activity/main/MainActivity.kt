@@ -15,29 +15,29 @@ import woowacourse.movie.global.ServiceLocator
 
 class MainActivity : AppCompatActivity(), MainContract.View {
     private lateinit var movieDto: List<MovieListDataDto>
+    private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    lateinit var presenter: MainContract.Presenter
 
     override fun initMovieDto(movies: List<MovieListDataDto>) {
         movieDto = movies
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-        val presenter = ServiceLocator.mainPresenter(this)
-        presenter.initMovieDto()
-
         binding.movies.layoutManager = LinearLayoutManager(this)
         binding.movies.adapter =
             MovieListAdapter { movieDto ->
                 val intent = ReservationActivity.newIntent(this, movieDto)
                 startActivity(intent)
             }.apply { submitList(movieDto) }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        presenter = ServiceLocator.mainPresenter(this)
+        presenter.initMovieDto()
     }
 }
