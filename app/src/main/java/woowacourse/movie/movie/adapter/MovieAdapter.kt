@@ -1,6 +1,5 @@
 package woowacourse.movie.movie.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,6 @@ import woowacourse.movie.movie.MovieUiModel
 import woowacourse.movie.util.Formatter.formatDateDotSeparated
 
 class MovieAdapter(
-    private val context: Context,
     private val movieList: List<MovieUiModel>,
     private val onReserveClick: (MovieUiModel) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -54,14 +52,18 @@ class MovieAdapter(
     ) {
         when (holder) {
             is MovieViewHolder -> {
+                val context = holder.itemView.context
                 val realPosition = position - (position / (AD_FREQUENCY + 1))
                 val movie = movieList[realPosition]
+
+                val formattedStartDate = formatDateDotSeparated(movie.screeningStartDate)
+                val formattedEndDate = formatDateDotSeparated(movie.screeningEndDate)
 
                 val screeningPeriod =
                     context.getString(
                         R.string.screening_date_period,
-                        formatDateDotSeparated(movie.screeningStartDate),
-                        formatDateDotSeparated(movie.screeningEndDate),
+                        formattedStartDate,
+                        formattedEndDate,
                     )
                 val runningTimeText = context.getString(R.string.minute_text, movie.runningTime)
 

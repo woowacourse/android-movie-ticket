@@ -38,7 +38,7 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
 
     override fun showMovies(movies: List<MovieUiModel>) {
         val adapter =
-            MovieAdapter(this, movies) { movie ->
+            MovieAdapter(movies) { movie ->
                 presenter.onReserveClicked(movie)
             }
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_layout)
