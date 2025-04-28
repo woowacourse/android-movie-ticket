@@ -10,7 +10,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Column
 import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.Row
 import woowacourse.movie.ui.extensions.serializableData
 import woowacourse.movie.ui.factory.CustomAlertDialog
 import woowacourse.movie.ui.factory.DialogInfo
@@ -33,10 +35,15 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         enableEdgeToEdge()
         setContentView(R.layout.activity_reservation_result)
         initSystemUI()
-        reservationResultPresenter = ReservationResultPresenter(this)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         initViewId()
-        initReservationResult()
+        reservationResultPresenter = ReservationResultPresenter(this)
+        val reservation = reservation()
+        if (reservation == null) {
+            showReservationError()
+            return
+        }
+        reservationResultPresenter.initScreen(reservation)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     private fun initSystemUI() {
@@ -51,23 +58,15 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         cancelGuide = findViewById(R.id.tv_cancel_guide)
         title = findViewById(R.id.tv_title)
         screeningDate = findViewById(R.id.tv_screening_date)
-        ticketCount = findViewById(R.id.tv_ticket_count)
+        ticketCount = findViewById(R.id.tv_ticket_tier)
         totalPrice = findViewById(R.id.tv_total_price)
     }
 
-    private fun initReservationResult() {
-        val reservation =
-            intent.serializableData(
-                KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION,
-                Reservation::class.java,
-            )
-
-        if (reservation == null) {
-            showReservationError()
-        } else {
-            initReservation(reservation)
-        }
-    }
+    private fun reservation(): Reservation? =
+        intent.serializableData(
+            KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION,
+            Reservation::class.java,
+        )
 
     private fun showReservationError() {
         val dialogInfo =
@@ -80,21 +79,6 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
                 ::finish,
             )
         customAlertDialog.show(dialogInfo)
-    }
-
-    private fun initReservation(reservation: Reservation) {
-        val screeningDateView = screeningDate(reservation.reservedTime)
-
-        cancelGuide.text = getString(R.string.cancel_guide, reservation.cancelMinute)
-        title.text = reservation.title
-        screeningDate.text = screeningDateView
-        ticketCount.text = getString(R.string.formatted_ticket_count, reservation.ticketCount)
-        totalPrice.text = wonFormat(this).format(reservation.totalPrice())
-    }
-
-    private fun screeningDate(reservedDateTime: LocalDateTime): String {
-        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_time_format))
-        return formatter.format(reservedDateTime)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -114,8 +98,39 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
         initReservation(reservation)
     }
 
+    private fun initReservation(reservation: Reservation) {
+        val screeningDateView = screeningDate(reservation.reservedTime)
+        cancelGuide.text = getString(R.string.cancel_guide, reservation.cancelMinute)
+        title.text = reservation.title
+        screeningDate.text = screeningDateView
+        ticketCount.text =
+            getString(
+                R.string.formatted_tickets,
+                reservation.ticketCount,
+                formattedPositions(reservation.ticketsPositions ?: return),
+            )
+        totalPrice.text =
+            getString(
+                R.string.purchase_result_price,
+                wonFormat(this).format(reservation.totalPrice()),
+            )
+    }
+
+    private fun screeningDate(reservedDateTime: LocalDateTime): String {
+        val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_time_format))
+        return formatter.format(reservedDateTime)
+    }
+
+    private fun formattedPositions(positions: List<Pair<Row, Column>>): String {
+        return positions.joinToString(",") { (row, column) ->
+            formattedRow(row) + column.value.toString()
+        }
+    }
+
     companion object {
         private fun wonFormat(context: Context) = DecimalFormat(context.getString(R.string.won_format))
+
+        private fun formattedRow(row: Row) = ('A'..'Z').toList()[row.value]
 
         const val KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION =
             "key_reservation_result_activity_reservation"

@@ -28,7 +28,13 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
 
     override fun initDateSpinner(currentDate: LocalDate) {
         val dates = reservationScheduler.reservableDates(movie.screeningDate, currentDate)
-        view.fetchDates(dates)
+        if (dates.isEmpty()) {
+            val nextDayDates =
+                reservationScheduler.reservableDates(movie.screeningDate, currentDate.plusDays(1))
+            view.fetchDates(nextDayDates)
+        } else {
+            view.fetchDates(dates)
+        }
     }
 
     override fun initTimeSpinner(
@@ -36,6 +42,12 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
         currentDateTime: LocalDateTime,
     ) {
         val firstDate = reservationScheduler.startDate(startDate, currentDateTime.toLocalDate())
+        val screeningTimes = screeningTimes(firstDate, currentDateTime)
+        if (screeningTimes.isEmpty()) {
+            val nextDayDates =
+                reservationScheduler.reservableTimes(firstDate, currentDateTime.plusDays(1))
+            view.fetchTimes(nextDayDates)
+        }
         view.fetchTimes(screeningTimes(firstDate, currentDateTime))
     }
 

@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.seat
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
@@ -17,6 +18,10 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.PurchaseCount
 import woowacourse.movie.domain.model.Reservation
 import woowacourse.movie.ui.extensions.serializableData
+import woowacourse.movie.ui.factory.CustomAlertDialog
+import woowacourse.movie.ui.factory.DialogInfo
+import woowacourse.movie.ui.reservationResult.ReservationResultActivity
+import woowacourse.movie.ui.reservationResult.ReservationResultActivity.Companion.KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION
 import java.text.DecimalFormat
 
 class SeatActivity : AppCompatActivity(), SeatContract.View {
@@ -25,6 +30,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
     private lateinit var movieTitle: TextView
     private lateinit var selectTotalPrice: TextView
     private lateinit var reserveButton: Button
+    private val customAlertDialog = CustomAlertDialog(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +41,7 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         presenter = SeatPresenter(this)
         initData()
         initSeatOnClick()
+        reserveButtonInit()
     }
 
     private fun initSystemUI() {
@@ -79,6 +86,25 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         }
     }
 
+    private fun reserveButtonInit() {
+        val dialogInfo =
+            DialogInfo(
+                getString(R.string.reserve_dialog_title),
+                getString(R.string.reserve_dialog_message),
+                getString(R.string.reserve_dialog_positive_button),
+                getString(R.string.cancel),
+                ::moveToReservationResult,
+            )
+
+        reserveButton.setOnClickListener {
+            customAlertDialog.show(dialogInfo)
+        }
+    }
+
+    private fun moveToReservationResult() {
+        presenter.reserve()
+    }
+
     private fun initData() {
         val reservation = reservation()
         val purchaseCount = purchaseCount()
@@ -105,6 +131,14 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
 
     override fun setReserveEnabled(isMatchPurchaseCount: Boolean) {
         reserveButton.isEnabled = isMatchPurchaseCount
+    }
+
+    override fun reserve(reservation: Reservation) {
+        startActivity(
+            Intent(this, ReservationResultActivity::class.java).apply {
+                putExtra(KEY_RESERVATION_RESULT_ACTIVITY_RESERVATION, reservation)
+            },
+        )
     }
 
     companion object {

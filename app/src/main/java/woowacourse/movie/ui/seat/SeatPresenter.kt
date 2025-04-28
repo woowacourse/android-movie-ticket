@@ -63,6 +63,10 @@ class SeatPresenter(private val view: SeatContract.View) : SeatContract.Presente
         view.setReserveEnabled(reservation.ticketCount == (purchaseCount?.value ?: 0))
     }
 
+    override fun reserve() {
+        view.reserve(reservation)
+    }
+
     private fun initReservation(reservation: Reservation) {
         this.reservation = reservation
     }

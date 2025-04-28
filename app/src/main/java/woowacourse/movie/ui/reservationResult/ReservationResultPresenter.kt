@@ -8,6 +8,6 @@ class ReservationResultPresenter(private val view: ReservationResultContract.Vie
 
     override fun initScreen(reservation: Reservation) {
         this.reservation = reservation
-        view.initScreen(reservation)
+        view.initScreen(this.reservation)
     }
 }

@@ -23,6 +23,8 @@ interface SeatContract {
             columnPosition: Int,
             rate: String,
         )
+
+        fun reserve()
     }
 
     interface View {
@@ -34,5 +36,7 @@ interface SeatContract {
         fun updatePrice(totalPrice: Int)
 
         fun setReserveEnabled(isMatchPurchaseCount: Boolean)
+
+        fun reserve(reservation: Reservation)
     }
 }
