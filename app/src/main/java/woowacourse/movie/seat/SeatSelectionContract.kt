@@ -1,7 +1,6 @@
 package woowacourse.movie.seat
 
 import android.content.Context
-import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.booking.detail.TicketUiModel
 

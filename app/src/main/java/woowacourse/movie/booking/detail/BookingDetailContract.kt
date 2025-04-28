@@ -30,7 +30,11 @@ interface BookingDetailContract {
 
         fun createDefaultTicket()
 
-        fun restoreTicketData(headCount: Int, screeningDate: String?, screeningTime: String?)
+        fun restoreTicketData(
+            headCount: Int,
+            screeningDate: String?,
+            screeningTime: String?,
+        )
 
         fun selectDate(date: LocalDate)
 
@@ -43,6 +47,5 @@ interface BookingDetailContract {
         fun confirmReservation()
 
         fun getCurrentTicketUiModel(): TicketUiModel
-
     }
 }

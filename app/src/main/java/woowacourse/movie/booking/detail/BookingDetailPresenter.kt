@@ -85,22 +85,24 @@ class BookingDetailPresenter(
         screeningDate: String?,
         screeningTime: String?,
     ) {
-        ticket = Ticket(
-            title = movie.title,
-            headCount = HeadCount(headCount),
-            selectedDate = screeningDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
-            selectedTime = screeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now(),
-            seats = Seats(emptyList())
-        )
+        ticket =
+            Ticket(
+                title = movie.title,
+                headCount = HeadCount(headCount),
+                selectedDate = screeningDate?.let { LocalDate.parse(it) } ?: LocalDate.now(),
+                selectedTime = screeningTime?.let { LocalTime.parse(it) } ?: LocalTime.now(),
+                seats = Seats(emptyList()),
+            )
     }
 
     override fun createDefaultTicket() {
-        ticket = Ticket(
-            title = movie.title,
-            headCount = HeadCount(0),
-            selectedDate = LocalDate.now(),
-            selectedTime = LocalTime.now(),
-            seats = Seats(emptyList())
-        )
+        ticket =
+            Ticket(
+                title = movie.title,
+                headCount = HeadCount(0),
+                selectedDate = LocalDate.now(),
+                selectedTime = LocalTime.now(),
+                seats = Seats(emptyList()),
+            )
     }
 }
