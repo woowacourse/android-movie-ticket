@@ -41,7 +41,7 @@ class ReservationSeatViews(
             activity.getString(R.string.reservation_select_total_price_format, price)
     }
 
-    fun updateSeatsView(seat: SeatUiModel) {
+    fun updateSeatState(seat: SeatUiModel) {
         cachedSeatViews[seat]?.setSeatBackgroundColor()
     }
 

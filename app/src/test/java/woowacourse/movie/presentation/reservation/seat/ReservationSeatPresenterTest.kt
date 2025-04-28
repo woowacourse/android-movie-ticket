@@ -63,14 +63,14 @@ class ReservationSeatPresenterTest {
 
         // Given: 초기 데이터 로딩과 updateSeatStatus 동작을 설정한다
         every { view.setScreen(any(), any(), any(), any(), any()) } just Runs
-        every { view.updateSeatStatus(any(), any(), any()) } just Runs
+        every { view.updateSeatState(any(), any(), any()) } just Runs
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())
 
         // When: 좌석을 선택하여 업데이트한다
         presenter.updateSeat(seat)
 
         // Then: 선택한 좌석 정보로 view의 updateSeatStatus가 호출되어야 한다
-        verify { view.updateSeatStatus(seat, any(), any()) }
+        verify { view.updateSeatState(seat, any(), any()) }
     }
 
     @Test
@@ -79,7 +79,7 @@ class ReservationSeatPresenterTest {
 
         // Given: view의 동작을 설정한다
         every { view.setScreen(any(), any(), any(), any(), any()) } just Runs
-        every { view.updateSeatStatus(any(), any(), any()) } just Runs
+        every { view.updateSeatState(any(), any(), any()) } just Runs
         every { view.notifySeatUpdateFailed(any()) } just Runs
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())
         presenter.updateSeat(seat)
@@ -98,7 +98,7 @@ class ReservationSeatPresenterTest {
 
         // Given: 초기 데이터 로딩, 좌석 업데이트, 티켓 발행 알림 동작을 설정한다
         every { view.setScreen(any(), any(), any(), any(), any()) } just Runs
-        every { view.updateSeatStatus(any(), any(), any()) } just Runs
+        every { view.updateSeatState(any(), any(), any()) } just Runs
         every { view.notifyPublishedTickets(any()) } just Runs
         presenter.fetchData(fakeReservationInfo, Screen.DEFAULT_SCREEN.toUiModel())
         presenter.updateSeat(seat)

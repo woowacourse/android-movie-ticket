@@ -44,7 +44,7 @@ class ReservationSeatPresenter(
             view.notifySeatUpdateFailed(it.message.orEmpty())
         }
 
-        view.updateSeatStatus(
+        view.updateSeatState(
             seat,
             publishTicketBundle()?.totalPrice ?: TicketBundle.DEFAULT_TOTAL_PRICE,
             canPublish(),

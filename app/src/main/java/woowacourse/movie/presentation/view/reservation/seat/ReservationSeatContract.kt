@@ -26,7 +26,7 @@ interface ReservationSeatContract {
             canPublish: Boolean,
         )
 
-        fun updateSeatStatus(
+        fun updateSeatState(
             selectedSeat: SeatUiModel,
             totalPrice: Int,
             canPublish: Boolean,

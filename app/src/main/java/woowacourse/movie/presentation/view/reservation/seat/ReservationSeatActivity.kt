@@ -94,12 +94,12 @@ class ReservationSeatActivity :
         }
     }
 
-    override fun updateSeatStatus(
+    override fun updateSeatState(
         selectedSeat: SeatUiModel,
         totalPrice: Int,
         canPublish: Boolean,
     ) {
-        views.updateSeatsView(selectedSeat)
+        views.updateSeatState(selectedSeat)
         views.updateTotalPrice(totalPrice)
         views.updateConfirmButton(canPublish)
     }
