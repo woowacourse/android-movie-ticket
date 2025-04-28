@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.reservation.Reservation
 
 interface ReservationResultContract {
     interface Presenter {
-        fun initScreen(reservation: Reservation)
+        fun initReservation(reservation: Reservation)
     }
 
     interface View {

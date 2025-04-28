@@ -42,7 +42,7 @@ class ReservationResultActivity : AppCompatActivity(), ReservationResultContract
             showReservationError()
             return
         }
-        reservationResultPresenter.initScreen(reservation)
+        reservationResultPresenter.initReservation(reservation)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 

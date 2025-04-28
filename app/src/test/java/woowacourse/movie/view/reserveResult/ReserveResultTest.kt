@@ -14,7 +14,7 @@ class ReserveResultTest {
 
     @BeforeEach
     fun setUp() {
-        presenter.initScreen(HARRY_POTTER_RESERVATION)
+        presenter.initReservation(HARRY_POTTER_RESERVATION)
     }
 
     @Test

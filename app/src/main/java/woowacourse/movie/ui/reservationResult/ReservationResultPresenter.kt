@@ -6,7 +6,7 @@ class ReservationResultPresenter(private val view: ReservationResultContract.Vie
     ReservationResultContract.Presenter {
     private lateinit var reservation: Reservation
 
-    override fun initScreen(reservation: Reservation) {
+    override fun initReservation(reservation: Reservation) {
         this.reservation = reservation
         view.initScreen(this.reservation)
     }

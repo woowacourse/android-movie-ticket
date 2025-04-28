@@ -27,7 +27,7 @@ class ReservePresenterTest {
     @BeforeEach
     fun setUp() {
         presenter.initMovie(mockMovie)
-        presenter.initReservationData(mockDateTime)
+        presenter.initReservation(mockDateTime)
     }
 
     @Test
@@ -37,14 +37,14 @@ class ReservePresenterTest {
 
     @Test
     fun `initDateSpinner 호출 시 view의 fetchDates에 예약 가능 날짜 목록을 전달`() {
-        presenter.initDateSpinner(MAY_FIRST)
+        presenter.initDates(MAY_FIRST)
 
         verify { view.fetchDates(mockDates) }
     }
 
     @Test
     fun `initTimeSpinner 호출 시 view의 fetchTimes에 해당 날짜의 예약 가능 시간 목록을 전달`() {
-        presenter.initTimeSpinner(
+        presenter.initTimes(
             MAY_FIRST,
             LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME),
         )
@@ -69,7 +69,7 @@ class ReservePresenterTest {
 
     @Test
     fun `dateOnClick 호출 시 view의 dateOnClick에 정확한 Date와 예상되는 상영 시간 크기를 전달`() {
-        presenter.dateOnClick(MAY_FIRST, LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME), mockDateTime)
+        presenter.updateSelectedDate(MAY_FIRST, LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME), mockDateTime)
 
         verify {
             view.fetchTimes(listOf(LAST_MOVIE_TIME))
@@ -86,7 +86,7 @@ class ReservePresenterTest {
         val selectedPosition = 1
 
         // When
-        presenter.timeOnClick(selectedPosition, mockDateTime)
+        presenter.updateSelectedTime(selectedPosition, mockDateTime)
 
         // Then
         verify { view.timeOnClick(selectedPosition) }
