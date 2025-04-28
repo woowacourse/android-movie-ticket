@@ -9,9 +9,10 @@ import java.time.LocalTime
 
 class MovieReservationPresenter(
     private val view: MovieReservationContract.View,
-    private var _ticket: TicketUiModel,
+    ticket: TicketUiModel,
     private val scheduler: Scheduler = Scheduler(),
 ) : MovieReservationContract.Presenter {
+    private var _ticket: TicketUiModel = ticket.copy()
     val ticket get() = _ticket
 
     override fun loadMovieReservationScreen() {

@@ -7,9 +7,9 @@ import woowacourse.movie.view.seat.model.toDomain
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
-    private var _ticket: TicketUiModel,
+    ticket: TicketUiModel,
 ) : SeatSelectContract.Presenter {
-    private val ticket get() = _ticket
+    private var ticket: TicketUiModel = ticket.copy()
 
     override fun loadSeatSelectScreen() {
         view.showMovieInfo(ticket.movie)
@@ -35,7 +35,7 @@ class SeatSelectPresenter(
 
     private fun toggleSeat(seat: SeatUiModel) {
         val seatDomain = seat.toDomain()
-        _ticket =
+        ticket =
             if (ticket.toDomain().contains(seatDomain)) {
                 ticket.copy(seats = ticket.seats - seatDomain)
             } else {

@@ -5,8 +5,10 @@ import woowacourse.movie.view.reservation.model.toDomain
 
 class ReservationResultPresenter(
     private val view: ReservationResultContract.View,
-    private val ticket: TicketUiModel,
+    ticket: TicketUiModel,
 ) : ReservationResultContract.Presenter {
+    private var ticket: TicketUiModel = ticket.copy()
+
     override fun loadReservationResultScreen() {
         view.showTicketInfo(ticket)
         view.showTotalPrice(ticket.toDomain().totalPrice())
