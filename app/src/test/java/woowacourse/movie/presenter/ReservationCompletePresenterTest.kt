@@ -8,7 +8,7 @@ import io.mockk.slot
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.Fixture
+import woowacourse.movie.domain.model.dummyReservationInfo
 import woowacourse.movie.model.ReservationInfo
 import woowacourse.movie.view.reservation.complete.ReservationCompleteContract
 import woowacourse.movie.view.reservation.complete.ReservationCompletePresenter
@@ -30,7 +30,7 @@ class ReservationCompletePresenterTest {
         every { view.updateReservationInfo(capture(slot1)) } just Runs
 
         // when
-        presenter.fetchData { Fixture.dummyReservationInfo }
+        presenter.fetchData { dummyReservationInfo }
 
         // then
         verify { view.updateReservationInfo(any()) }

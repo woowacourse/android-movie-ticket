@@ -9,7 +9,7 @@ import io.mockk.verify
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.Fixture
+import woowacourse.movie.domain.model.dummyTicket
 import woowacourse.movie.view.reservation.seat.SeatSelectContract
 import woowacourse.movie.view.reservation.seat.SeatSelectPresenter
 
@@ -31,7 +31,7 @@ class SeatSelectPresenterTest {
         every { view.initReservationInfo(capture(slot1), capture(slot2)) } just Runs
 
         // when
-        presenter.fetchData { Fixture.dummyTicket }
+        presenter.fetchData { dummyTicket }
 
         // then
         assertThat(slot1.captured).isEqualTo("라라랜드")
@@ -55,7 +55,7 @@ class SeatSelectPresenterTest {
         every { view.updateTotalPrice(any()) } just Runs
         every { view.updateConfirmButtonState(any()) } just Runs
 
-        presenter.fetchData { Fixture.dummyTicket }
+        presenter.fetchData { dummyTicket }
         presenter.onSeatClicked("A1")
 
         verify { view.updateSeatSelected("A1") }
@@ -70,7 +70,7 @@ class SeatSelectPresenterTest {
         every { view.updateTotalPrice(any()) } just Runs
         every { view.updateConfirmButtonState(any()) } just Runs
 
-        presenter.fetchData { Fixture.dummyTicket }
+        presenter.fetchData { dummyTicket }
         presenter.onSeatClicked("A1")
         presenter.onSeatClicked("A1")
 
@@ -87,7 +87,7 @@ class SeatSelectPresenterTest {
         every { view.updateTotalPrice(any()) } just Runs
         every { view.updateConfirmButtonState(capture(buttonSlot)) } just Runs
 
-        val ticket = Fixture.dummyTicket.copy(count = 2)
+        val ticket = dummyTicket.copy(count = 2)
         presenter.fetchData { ticket }
         presenter.onSeatClicked("A1")
         presenter.onSeatClicked("A2")
@@ -104,7 +104,7 @@ class SeatSelectPresenterTest {
         every { view.updateSeatSelected(any()) } just Runs
         every { view.updateTotalPrice(any()) } just Runs
         every { view.updateConfirmButtonState(any()) } just Runs
-        val ticket = Fixture.dummyTicket.copy(count = 1)
+        val ticket = dummyTicket.copy(count = 1)
 
         presenter.fetchData { ticket }
         presenter.onSeatClicked("A1")

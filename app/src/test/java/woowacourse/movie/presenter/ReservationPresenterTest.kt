@@ -8,7 +8,7 @@ import io.mockk.verify
 import io.mockk.verifySequence
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.Fixture
+import woowacourse.movie.domain.model.dummyMovie
 import woowacourse.movie.view.reservation.reservation.ReservationContract
 import woowacourse.movie.view.reservation.reservation.ReservationPresenter
 import java.time.LocalDate
@@ -29,7 +29,7 @@ class ReservationPresenterTest {
         every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
 
         // when: 영화 목록을 조회하면
-        presenter.fetchData { Fixture.dummyMovie }
+        presenter.fetchData { dummyMovie }
 
         // then: 영화 정보를 설정한다
         verify { view.updateMovieInfo(any(), any(), any(), any(), any()) }
@@ -50,7 +50,7 @@ class ReservationPresenterTest {
         every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
         every { view.updateTimeAdapter(any()) } just Runs
 
-        presenter.fetchData { Fixture.dummyMovie }
+        presenter.fetchData { dummyMovie }
         presenter.onDateSelected(now)
 
         verifySequence {
@@ -61,8 +61,10 @@ class ReservationPresenterTest {
 
     @Test
     fun `티켓 개수를 증가시키면 뷰에 반영된다`() {
+        every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
         every { view.setTicketCount(any()) } just Runs
 
+        presenter.fetchData { dummyMovie }
         presenter.plusTicketCount()
 
         verify { view.setTicketCount(any()) }
@@ -70,8 +72,12 @@ class ReservationPresenterTest {
 
     @Test
     fun `티켓 개수를 감소시키면 뷰에 반영된다`() {
+        val countSlot =
+
+            every { view.updateMovieInfo(any(), any(), any(), any(), any()) } just Runs
         every { view.setTicketCount(any()) } just Runs
 
+        presenter.fetchData { dummyMovie }
         presenter.plusTicketCount()
         presenter.minusTicketCount()
 
