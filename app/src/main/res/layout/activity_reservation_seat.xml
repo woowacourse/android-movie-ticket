@@ -128,10 +128,10 @@
                 android:layout_marginStart="20dp"
                 android:backgroundTint="@color/white"
                 android:gravity="center"
-                tools:text="해리포터와 마법사의 돌"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                tools:text="해리포터와 마법사의 돌" />
 
             <TextView
                 android:id="@+id/reservation_movie_money"

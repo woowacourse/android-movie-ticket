@@ -9,7 +9,6 @@ data class Ticket(
     val personnel: Int,
 ) : Serializable {
     companion object {
-        const val DEFAULT_PRICE = 13_000
         const val CANCEL_DEADLINE = 15
     }
 }
