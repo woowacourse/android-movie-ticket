@@ -4,6 +4,7 @@ import android.os.Bundle
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.MovieScheduleGenerator
 import woowacourse.movie.model.TicketCount
+import woowacourse.movie.uiModel.TicketUIModel
 
 class BookingPresenter(
     val view: BookingContract.View,
@@ -19,9 +20,22 @@ class BookingPresenter(
         }
     }
 
-    override fun onBookButtonClick(count: TicketCount) {
+    override fun onBookButtonClick(
+        title: String,
+        date: String,
+        time: String,
+        count: TicketCount,
+    ) {
         if (count.count == 0) return
-        view.moveActivity()
+        val ticketUIModel =
+            TicketUIModel(
+                title = title,
+                date = date,
+                time = time,
+                count = count.count,
+                money = 0,
+            )
+        view.moveActivity(ticketUIModel)
     }
 
     override fun onUpButtonClick(ticketCount: TicketCount) {

@@ -14,10 +14,10 @@ import woowacourse.movie.R
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.MovieScheduleGenerator
 import woowacourse.movie.model.TicketCount
-import woowacourse.movie.model.TicketMaker
 import woowacourse.movie.selectSeat.SelectSeatActivity
 import woowacourse.movie.uiModel.MovieInfoUIModel
 import woowacourse.movie.uiModel.PosterMapper
+import woowacourse.movie.uiModel.TicketUIModel
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
@@ -111,14 +111,7 @@ class BookingActivity :
         }
     }
 
-    override fun moveActivity() {
-        val ticketUIModel =
-            TicketMaker.generator(
-                title = findViewById<TextView>(R.id.title).text.toString(),
-                date = selectedDate.selectedItem.toString(),
-                time = movieTime.selectedItem.toString(),
-                count = ticketCountValue.count,
-            )
+    override fun moveActivity(ticketUIModel: TicketUIModel) {
         val intent =
             Intent(this, SelectSeatActivity::class.java).apply {
                 putExtra(KEY_TICKET, ticketUIModel)
@@ -148,7 +141,10 @@ class BookingActivity :
     override fun confirmButtonHandler() {
         val confirmButton = findViewById<Button>(R.id.confirm_button)
         confirmButton.setOnClickListener {
-            presenter.onBookButtonClick(ticketCountValue)
+            val title = findViewById<TextView>(R.id.title).text.toString()
+            val date = findViewById<Spinner>(R.id.date).selectedItem.toString()
+            val time = findViewById<Spinner>(R.id.time).selectedItem.toString()
+            presenter.onBookButtonClick(title, date, time, ticketCountValue)
         }
     }
 
