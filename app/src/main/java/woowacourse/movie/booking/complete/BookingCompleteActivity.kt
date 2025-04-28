@@ -1,4 +1,4 @@
-package woowacourse.movie
+package woowacourse.movie.booking.complete
 
 import android.content.Context
 import android.content.Intent
@@ -9,37 +9,37 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import woowacourse.movie.domain.TicketInfo
+import woowacourse.movie.R
 import woowacourse.movie.util.parcelableExtraWithVersion
 
-class BookingCompleteActivity : AppCompatActivity() {
-    private lateinit var ticketInfo: TicketInfo
+class BookingCompleteActivity :
+    AppCompatActivity(),
+    BookingCompleteContract.View {
+    private lateinit var presenter: BookingCompleteContract.Presenter
+    private lateinit var ticketInfo: BookingCompleteUiModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setupView()
+        ticketInfo =
+            intent.parcelableExtraWithVersion(TICKET_INFO_KEY, BookingCompleteUiModel::class.java)
+                ?: return finish()
 
-        ticketInfo = intent.parcelableExtraWithVersion(TICKET_INFO_KEY, TicketInfo::class.java)
-            ?: return finish()
+        presenter = BookingCompletePretender(this)
 
-        bindTicketInfo()
+        presenter.loadTicketInfo(ticketInfo)
     }
 
-    private fun bindTicketInfo() {
-        val title = ticketInfo.movie.title
-        val date = ticketInfo.date
-        val time = ticketInfo.time
-        val ticketCount = ticketInfo.quantity.value
-        val ticketTotalPrice = StringFormatter.formatMoney(ticketInfo.quantity.totalPrice())
-
-        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = title
+    override fun showTicketInfo(uiModel: BookingCompleteUiModel) {
+        findViewById<TextView>(R.id.tv_booking_complete_movie_title).text = uiModel.title
         findViewById<TextView>(R.id.tv_booking_complete_movie_date_time).text =
-            getString(R.string.booking_complete_movie_date_time, date, time)
+            uiModel.formattedDateTme
         findViewById<TextView>(R.id.tv_booking_complete_ticket_count).text =
-            getString(R.string.booking_complete_ticket_count, ticketCount)
+            uiModel.formattedQuantity
+        findViewById<TextView>(R.id.booking_complete_seat_textview).text = uiModel.formattedSeats
         findViewById<TextView>(R.id.tv_booking_complete_ticket_total_price).text =
-            getString(R.string.booking_complete_ticket_total_price, ticketTotalPrice)
+            uiModel.formattedPrice
     }
 
     private fun setupView() {
@@ -61,18 +61,14 @@ class BookingCompleteActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val MOVIE_TITLE_KEY = "movie_title"
-        const val MOVIE_DATE_KEY = "movie_date"
-        const val MOVIE_TIME_KEY = "movie_time"
-        const val TICKET_COUNT_KEY = "ticket_count"
         const val TICKET_INFO_KEY = "ticket_info"
 
         fun newIntent(
             context: Context,
-            ticketInfo: TicketInfo,
+            uiModel: BookingCompleteUiModel,
         ): Intent =
             Intent(context, BookingCompleteActivity::class.java).apply {
-                putExtra(TICKET_INFO_KEY, ticketInfo)
+                putExtra(TICKET_INFO_KEY, uiModel)
             }
     }
 }

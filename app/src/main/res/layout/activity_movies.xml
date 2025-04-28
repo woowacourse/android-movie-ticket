@@ -5,12 +5,13 @@
     android:id="@+id/activity_movies"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MoviesActivity">
+    tools:context=".movies.MoviesActivity">
 
-    <ListView
-        android:id="@+id/lv_movies"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movies_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
