@@ -1,214 +1,221 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
+    android:fillViewport="true"
     tools:context=".view.seat.SeatSelectActivity">
 
-    <TextView
-        android:id="@+id/screen"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:background="@color/dark_gray"
-        android:gravity="center"
-        android:paddingVertical="8dp"
-        android:text="@string/screen"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TableLayout
-        android:id="@+id/seat_table"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginVertical="50dp"
-        android:background="@color/white"
-        app:layout_constraintBottom_toTopOf="@id/select_info"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/screen">
+        <TextView
+            android:id="@+id/screen"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:background="@color/dark_gray"
+            android:gravity="center"
+            android:paddingVertical="8dp"
+            android:text="@string/screen"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <TableRow
-            android:layout_weight="1"
-            android:gravity="center">
+        <TableLayout
+            android:id="@+id/seat_table"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginVertical="40dp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toTopOf="@id/select_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/screen">
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="A1"
-                tools:textColor="@color/purple" />
+            <TableRow
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="A2"
-                tools:textColor="@color/purple" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="A1"
+                    tools:textColor="@color/purple" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="A3"
-                tools:textColor="@color/purple" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="A2"
+                    tools:textColor="@color/purple" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="A4"
-                tools:textColor="@color/purple" />
-        </TableRow>
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="A3"
+                    tools:textColor="@color/purple" />
 
-        <TableRow
-            android:layout_weight="1"
-            android:gravity="center">
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="A4"
+                    tools:textColor="@color/purple" />
+            </TableRow>
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="B1"
-                tools:textColor="@color/purple" />
+            <TableRow
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="B2"
-                tools:textColor="@color/purple" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="B1"
+                    tools:textColor="@color/purple" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="B3"
-                tools:textColor="@color/purple" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="B2"
+                    tools:textColor="@color/purple" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="B4"
-                tools:textColor="@color/purple" />
-        </TableRow>
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="B3"
+                    tools:textColor="@color/purple" />
 
-        <TableRow
-            android:layout_weight="1"
-            android:gravity="center">
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="B4"
+                    tools:textColor="@color/purple" />
+            </TableRow>
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="C1"
-                tools:textColor="@color/green" />
+            <TableRow
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="C2"
-                tools:textColor="@color/green" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="C1"
+                    tools:textColor="@color/green" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="C3"
-                tools:textColor="@color/green" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="C2"
+                    tools:textColor="@color/green" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="C4"
-                tools:textColor="@color/green" />
-        </TableRow>
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="C3"
+                    tools:textColor="@color/green" />
 
-        <TableRow
-            android:layout_weight="1"
-            android:gravity="center">
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="C4"
+                    tools:textColor="@color/green" />
+            </TableRow>
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="D1"
-                tools:textColor="@color/green" />
+            <TableRow
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="D2"
-                tools:textColor="@color/green" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="D1"
+                    tools:textColor="@color/green" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="D3"
-                tools:textColor="@color/green" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="D2"
+                    tools:textColor="@color/green" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="D4"
-                tools:textColor="@color/green" />
-        </TableRow>
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="D3"
+                    tools:textColor="@color/green" />
 
-        <TableRow
-            android:layout_weight="1"
-            android:gravity="center">
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="D4"
+                    tools:textColor="@color/green" />
+            </TableRow>
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="E1"
-                tools:textColor="@color/blue" />
+            <TableRow
+                android:layout_weight="1"
+                android:gravity="center">
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="E2"
-                tools:textColor="@color/blue" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="E1"
+                    tools:textColor="@color/blue" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="E3"
-                tools:textColor="@color/blue" />
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="E2"
+                    tools:textColor="@color/blue" />
 
-            <TextView
-                style="@style/SeatTextStyle"
-                tools:text="E4"
-                tools:textColor="@color/blue" />
-        </TableRow>
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="E3"
+                    tools:textColor="@color/blue" />
 
-    </TableLayout>
+                <TextView
+                    style="@style/SeatTextStyle"
+                    tools:text="E4"
+                    tools:textColor="@color/blue" />
+            </TableRow>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/select_info"
-        android:layout_width="0dp"
-        android:layout_height="80dp"
-        android:background="@color/white"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        </TableLayout>
 
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/select_info"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:paddingHorizontal="20dp">
+            android:layout_height="80dp"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <TextView
-                android:id="@+id/movie_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                tools:text="해리 포터와 마법사의 돌" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingHorizontal="20dp">
 
-            <TextView
-                android:id="@+id/total_price"
+                <TextView
+                    android:id="@+id/movie_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    tools:text="해리 포터와 마법사의 돌" />
+
+                <TextView
+                    android:id="@+id/total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    tools:text="25,000원" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <Button
+                android:id="@+id/confirm_button"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:layout_height="match_parent"
+                android:background="@color/purple_200"
+                android:text="@string/confirm"
                 android:textSize="18sp"
-                tools:text="25,000원" />
+                android:textStyle="bold" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-        <Button
-            android:id="@+id/confirm_button"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@color/purple_200"
-            android:text="@string/confirm"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
