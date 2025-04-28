@@ -60,16 +60,18 @@ class BookingActivity :
     private fun setupDateChangeDateListener() {
         movieDate.onItemSelectedListener =
             SpinnerSelectedListener(
-                currentPositionProvider = { presenter.getSelectedDate() },
-                onChanged = { position -> presenter.selectDate(position) },
+                spinner = movieDate,
+                currentItemProvider = { presenter.getSelectedDate() },
+                onItemChanged = { selectedDate -> presenter.selectDate(selectedDate) },
             )
     }
 
     private fun setupDateChangeTimeListener() {
         movieTime.onItemSelectedListener =
             SpinnerSelectedListener(
-                currentPositionProvider = { presenter.getSelectedTime() },
-                onChanged = { position -> presenter.selectTime(position) },
+                spinner = movieTime,
+                currentItemProvider = { presenter.getSelectedTime() },
+                onItemChanged = { selectedTime -> presenter.selectTime(selectedTime) },
             )
     }
 

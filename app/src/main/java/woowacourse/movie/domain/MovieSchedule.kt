@@ -9,20 +9,20 @@ class MovieSchedule(
     private val endDate: LocalDate,
 ) {
     private val dateFormatter = DateTimeFormatter.ofPattern(DATE_PATTERN)
-    private var selectedDatePosition = 0
-    private var selectedTimePosition = 0
+    private var selectedDate = ""
+    private var selectedTime = ""
 
-    fun setDatePosition(position: Int) {
-        selectedDatePosition = position
+    fun setDate(date: String) {
+        selectedDate = date
     }
 
-    fun setTimePosition(position: Int) {
-        selectedTimePosition = position
+    fun setTime(time: String) {
+        selectedTime = time
     }
 
-    fun getDatePosition(): Int = selectedDatePosition
+    fun getDate(): String = selectedDate
 
-    fun getTimePosition(): Int = selectedTimePosition
+    fun getTime(): String = selectedTime
 
     fun getDates(): List<String> {
         val dates = mutableListOf<String>()

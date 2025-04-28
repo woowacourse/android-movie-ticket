@@ -27,9 +27,9 @@ interface BookingContract {
     interface Presenter {
         fun initData(movie: Movie)
 
-        fun getSelectedDate(): Int
+        fun getSelectedDate(): String
 
-        fun getSelectedTime(): Int
+        fun getSelectedTime(): String
 
         fun confirmBooking()
 
@@ -37,9 +37,9 @@ interface BookingContract {
 
         fun increaseTicketCount()
 
-        fun selectDate(position: Int)
+        fun selectDate(date: String)
 
-        fun selectTime(position: Int)
+        fun selectTime(time: String)
 
         fun saveState(state: Bundle)
 

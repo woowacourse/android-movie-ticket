@@ -22,21 +22,24 @@ class BookingPresenter(
         view.setupPage(movieUiModel)
 
         val dates = movieSchedule.getDates()
-        val times = movieSchedule.getTimes(dates[0])
+        val times = movieSchedule.getTimes(dates.first())
 
-        view.updateDateSpinner(dates, movieSchedule.getDatePosition())
-        view.updateTimeSpinner(times, movieSchedule.getTimePosition())
+        movieSchedule.setDate(dates.first())
+        movieSchedule.setTime(times.first())
+
+        view.updateDateSpinner(dates, 0)
+        view.updateTimeSpinner(times, 0)
         view.showTicketCount(ticketManager.getTicketCount())
     }
 
-    override fun getSelectedDate(): Int = movieSchedule.getDatePosition()
+    override fun getSelectedDate(): String = movieSchedule.getDate()
 
-    override fun getSelectedTime(): Int = movieSchedule.getTimePosition()
+    override fun getSelectedTime(): String = movieSchedule.getTime()
 
     override fun confirmBooking() {
         if (ticketManager.getTicketCount() > MINIMUM_TICKET_COUNT) {
-            val selectedDateString = movieSchedule.getDates()[movieSchedule.getDatePosition()]
-            val selectedTimeString = movieSchedule.getTimes(selectedDateString)[movieSchedule.getTimePosition()]
+            val selectedDateString = movieSchedule.getDate()
+            val selectedTimeString = movieSchedule.getTime()
             val date = LocalDate.parse(selectedDateString, DateTimeFormatter.ofPattern("yyyy.M.d"))
             val hour = selectedTimeString.substringBefore(":").toInt()
             val time = LocalTime.of(hour, 0)
@@ -55,43 +58,47 @@ class BookingPresenter(
         view.showTicketCount(ticketManager.getTicketCount())
     }
 
-    override fun selectDate(position: Int) {
-        movieSchedule.setDatePosition(position)
-        val selectedDate = movieSchedule.getDates()[position]
-        val times = movieSchedule.getTimes(selectedDate)
+    override fun selectDate(date: String) {
+        movieSchedule.setDate(date)
+        val times = movieSchedule.getTimes(date)
+        movieSchedule.setTime(times.first())
+
         view.updateTimeSpinner(times, 0)
     }
 
-    override fun selectTime(position: Int) {
-        movieSchedule.setTimePosition(position)
+    override fun selectTime(time: String) {
+        movieSchedule.setTime(time)
     }
 
     override fun saveState(outState: Bundle) {
         outState.putInt(KEY_TICKET_COUNT, ticketManager.getTicketCount())
-        outState.putInt(KEY_MOVIE_DATE_POSITION, movieSchedule.getDatePosition())
-        outState.putInt(KEY_MOVIE_TIME_POSITION, movieSchedule.getTimePosition())
+        outState.putString(KEY_MOVIE_DATE, movieSchedule.getDate())
+        outState.putString(KEY_MOVIE_TIME, movieSchedule.getTime())
     }
 
     override fun restoreState(savedState: Bundle) {
         ticketManager.setTicketCount(savedState.getInt(KEY_TICKET_COUNT))
-        val savedDatePosition = savedState.getInt(KEY_MOVIE_DATE_POSITION)
-        movieSchedule.setDatePosition(savedDatePosition)
-        val savedTimePosition = savedState.getInt(KEY_MOVIE_TIME_POSITION)
-        movieSchedule.setTimePosition(savedTimePosition)
+        val savedDate = savedState.getString(KEY_MOVIE_DATE) ?: ""
+        val savedTime = savedState.getString(KEY_MOVIE_TIME) ?: ""
+
+        movieSchedule.setDate(savedDate)
+        movieSchedule.setTime(savedTime)
 
         val dates = movieSchedule.getDates()
-        val selectedDate = dates[movieSchedule.getDatePosition()]
-        val times = movieSchedule.getTimes(selectedDate)
+        val times = movieSchedule.getTimes(savedDate)
 
-        view.updateDateSpinner(dates, savedDatePosition)
-        view.updateTimeSpinner(times, savedTimePosition)
+        val selectedDatePosition = dates.indexOf(savedDate).coerceAtLeast(0)
+        val selectedTimePosition = times.indexOf(savedTime).coerceAtLeast(0)
+
+        view.updateDateSpinner(dates, selectedDatePosition)
+        view.updateTimeSpinner(times, selectedTimePosition)
         view.showTicketCount(ticketManager.getTicketCount())
     }
 
     companion object {
         private const val MINIMUM_TICKET_COUNT = 0
         private const val KEY_TICKET_COUNT = "TICKET_COUNT"
-        private const val KEY_MOVIE_DATE_POSITION = "MOVIE_DATE_POSITION"
-        private const val KEY_MOVIE_TIME_POSITION = "MOVIE_TIME_POSITION"
+        private const val KEY_MOVIE_DATE = "MOVIE_DATE"
+        private const val KEY_MOVIE_TIME = "MOVIE_TIME"
     }
 }
