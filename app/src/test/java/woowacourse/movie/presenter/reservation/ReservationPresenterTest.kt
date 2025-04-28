@@ -133,6 +133,7 @@ class ReservationPresenterTest {
                     LocalTime.of(20, 0),
                     LocalTime.of(22, 0),
                 ),
+                0,
             )
         } just Runs
 
@@ -151,6 +152,7 @@ class ReservationPresenterTest {
                     LocalTime.of(20, 0),
                     LocalTime.of(22, 0),
                 ),
+                0,
             )
         }
     }
@@ -161,7 +163,7 @@ class ReservationPresenterTest {
         every { view.setTicketCount(2) } just Runs
 
         // when
-        presenter.plusTicketCount(1)
+        presenter.plusTicketCount()
 
         // then
         verify { view.setTicketCount(2) }
@@ -170,12 +172,26 @@ class ReservationPresenterTest {
     @Test
     fun `티켓 수를 줄일 수 있다`() {
         // given
-        every { view.setTicketCount(1) } just Runs
+        presenter =
+            ReservationPresenter(
+                view,
+                Screening(
+                    Movie(
+                        0,
+                        "해리 포터와 마법사의 돌",
+                        152,
+                    ),
+                    LocalDate.of(2025, 4, 1),
+                    LocalDate.of(2025, 4, 25),
+                ),
+                ticketCount = 3,
+            )
+        every { view.setTicketCount(2) } just Runs
 
         // when
-        presenter.minusTicketCount(2)
+        presenter.minusTicketCount()
 
         // then
-        verify { view.setTicketCount(1) }
+        verify { view.setTicketCount(2) }
     }
 }

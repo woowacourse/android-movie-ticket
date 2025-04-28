@@ -8,6 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.contract.ticket.TicketContract
+import woowacourse.movie.domain.reservation.Seat
 import woowacourse.movie.domain.ticket.FakeCancelTimePolicy
 import woowacourse.movie.domain.ticket.Ticket
 import java.time.LocalDateTime
@@ -27,6 +28,7 @@ class TicketPresenterTest {
                     count = 2,
                     showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
                 ),
+                setOf(Seat(1, 1), Seat(2, 2)),
                 FakeCancelTimePolicy(15),
             )
     }
@@ -70,13 +72,13 @@ class TicketPresenterTest {
     @Test
     fun `예약 인원을 표시한다`() {
         // given
-        every { view.setCount(2) } just Runs
+        every { view.setCount(2, setOf(Seat(1, 1), Seat(2, 2))) } just Runs
 
         // when
         presenter.presentCount()
 
         // then
-        verify { view.setCount(2) }
+        verify { view.setCount(2, setOf(Seat(1, 1), Seat(2, 2))) }
     }
 
     @Test

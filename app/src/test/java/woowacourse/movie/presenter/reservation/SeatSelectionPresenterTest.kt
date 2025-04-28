@@ -82,6 +82,7 @@ class SeatSelectionPresenterTest {
         // given
         every { view.setSeatIsSelected(Seat.Companion(1, 1), true) } just Runs
         every { view.setPrice(10000) } just Runs
+        every { view.setConfirmEnabled(false) } just Runs
 
         // when
         presenter.onSeatSelect(Seat.Companion(1, 1))
@@ -106,6 +107,7 @@ class SeatSelectionPresenterTest {
 
         every { view.setSeatIsSelected(Seat.Companion(1, 1), false) } just Runs
         every { view.setPrice(0) } just Runs
+        every { view.setConfirmEnabled(false) } just Runs
 
         // when
         presenter.onSeatSelect(Seat.Companion(1, 1))
@@ -119,6 +121,7 @@ class SeatSelectionPresenterTest {
         // given
         every { view.setSeatIsSelected(Seat.Companion(1, 1), true) } just Runs
         every { view.setPrice(10_000) } just Runs
+        every { view.setConfirmEnabled(false) } just Runs
 
         // when
         presenter.onSeatSelect(Seat.Companion(1, 1))
@@ -147,6 +150,7 @@ class SeatSelectionPresenterTest {
                 "해리 포터와 마법사의 돌",
                 2,
                 LocalDateTime.of(2025, 4, 15, 11, 0),
+                setOf(),
             )
         } just Runs
 
@@ -159,6 +163,7 @@ class SeatSelectionPresenterTest {
                 "해리 포터와 마법사의 돌",
                 2,
                 LocalDateTime.of(2025, 4, 15, 11, 0),
+                setOf(),
             )
         }
     }
