@@ -2,9 +2,9 @@ package woowacourse.movie.activity.reservation
 
 import woowacourse.movie.domain.MemberCount
 import woowacourse.movie.dto.MovieListDataDto.MovieDto
+import woowacourse.movie.global.ServiceLocator
 import woowacourse.movie.global.ServiceLocator.runningTimeRule
 import java.time.LocalDate
-import java.time.LocalDateTime
 
 class ReservationPresenter(private val reservationView: ReservationContract.View) : ReservationContract.Presenter {
     private var memberCount = MemberCount()
@@ -25,26 +25,22 @@ class ReservationPresenter(private val reservationView: ReservationContract.View
         }
     }
 
-    override fun initRunningTimes(
-        now: LocalDateTime,
-        reservationDay: LocalDate,
-    ) {
-        val runningTimes = runningTimeRule.whenTargetDay(reservationDay, now)
+    override fun initRunningTimes(reservationDay: LocalDate) {
+        val runningTimes = runningTimeRule.whenTargetDay(reservationDay, ServiceLocator.now)
         reservationView.initRunningTimes(runningTimes)
     }
 
-    override fun initRunningDates(
-        today: LocalDate,
-        movieDto: MovieDto,
-    ) {
-        val runningDates = movieDto.toMovie().betweenDates(today)
+    override fun initRunningDates(movieDto: MovieDto) {
+        val runningDates = movieDto.toMovie().betweenDates(ServiceLocator.today)
         reservationView.initRunningDates(runningDates)
     }
 
-    override fun changeRunningTimes(
-        now: LocalDateTime,
-        reservationDay: LocalDate,
-    ) {
-        reservationView.changeRunningTimes(runningTimeRule.whenTargetDay(reservationDay, now))
+    override fun changeRunningTimes(reservationDay: LocalDate) {
+        reservationView.changeRunningTimes(
+            runningTimeRule.whenTargetDay(
+                reservationDay,
+                ServiceLocator.now,
+            ),
+        )
     }
 }

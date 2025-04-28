@@ -31,8 +31,6 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private var runningTimePosition: Int = DEFAULT_POSITION
     private var datePosition: Int = DEFAULT_POSITION
     private var memberCount = MEMBER_COUNT_DEFAULT
-    private val today = ServiceLocator.today
-    private val now = ServiceLocator.now
     private val reservationPresenter = ServiceLocator.reservationPresenter(this)
     private val binding: ActivityReservationBinding by lazy {
         ActivityReservationBinding.inflate(layoutInflater)
@@ -112,7 +110,7 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
                     id: Long,
                 ) {
                     reservationDay = parent?.getItemAtPosition(position) as LocalDate
-                    reservationPresenter.changeRunningTimes(now, reservationDay)
+                    reservationPresenter.changeRunningTimes(reservationDay)
                     datePosition = position
                 }
 
@@ -141,8 +139,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
     private fun init() {
         val movie = intent.getObjectFromIntent<MovieDto>(MOVIE_KEY)
         setBindingText(movie)
-        reservationPresenter.initRunningDates(today, movie)
-        reservationPresenter.initRunningTimes(now, reservationDay)
+        reservationPresenter.initRunningDates(movie)
+        reservationPresenter.initRunningTimes(reservationDay)
         setCounterEventListener()
         setCompleteButtonEventListener(movie)
     }

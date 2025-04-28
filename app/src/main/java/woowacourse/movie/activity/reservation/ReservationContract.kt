@@ -2,7 +2,6 @@ package woowacourse.movie.activity.reservation
 
 import woowacourse.movie.dto.MovieListDataDto.MovieDto
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 
 interface ReservationContract {
@@ -11,20 +10,11 @@ interface ReservationContract {
 
         fun removeMember()
 
-        fun initRunningTimes(
-            now: LocalDateTime,
-            reservationDay: LocalDate,
-        )
+        fun initRunningTimes(reservationDay: LocalDate)
 
-        fun initRunningDates(
-            today: LocalDate,
-            movieDto: MovieDto,
-        )
+        fun initRunningDates(movieDto: MovieDto)
 
-        fun changeRunningTimes(
-            now: LocalDateTime,
-            reservationDay: LocalDate,
-        )
+        fun changeRunningTimes(reservationDay: LocalDate)
     }
 
     interface View {
