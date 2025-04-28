@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         binding.movies.layoutManager = LinearLayoutManager(this)
         binding.movies.adapter =
             MovieListAdapter { movieDto ->
-                val intent = ReservationActivity.Companion.newIntent(this, movieDto)
+                val intent = ReservationActivity.newIntent(this, movieDto)
                 startActivity(intent)
             }.apply { submitList(movieDto) }
     }
