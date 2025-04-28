@@ -2,7 +2,7 @@ package woowacourse.movie.data.reservation
 
 import woowacourse.movie.domain.reservation.Movie
 
-class Movies {
+class MovieData {
     val harryPotterPhilosopersStone =
         Movie(
             0,

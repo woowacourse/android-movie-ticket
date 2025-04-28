@@ -8,46 +8,46 @@ interface ScreeningData {
 }
 
 class LocalScreeningData : ScreeningData {
-    private val movies = Movies()
+    private val movieData = MovieData()
     override val value: List<Screening> =
         listOf(
             Screening(
-                movies.harryPotterPhilosopersStone,
+                movieData.harryPotterPhilosopersStone,
                 LocalDate.of(2025, 4, 1),
                 LocalDate.of(2025, 4, 25),
             ),
             Screening(
-                movies.harryPotterChamberOfSecrets,
+                movieData.harryPotterChamberOfSecrets,
                 LocalDate.of(2025, 4, 1),
                 LocalDate.of(2025, 4, 28),
             ),
             Screening(
-                movies.harryPotterPrisonerOfAzkaban,
+                movieData.harryPotterPrisonerOfAzkaban,
                 LocalDate.of(2025, 5, 1),
                 LocalDate.of(2025, 5, 31),
             ),
             Screening(
-                movies.harryPotterGobletOfFire,
+                movieData.harryPotterGobletOfFire,
                 LocalDate.of(2025, 6, 1),
                 LocalDate.of(2025, 6, 30),
             ),
             Screening(
-                movies.harryPotterPhilosopersStone,
+                movieData.harryPotterPhilosopersStone,
                 LocalDate.of(2025, 5, 1),
                 LocalDate.of(2025, 5, 25),
             ),
             Screening(
-                movies.harryPotterChamberOfSecrets,
+                movieData.harryPotterChamberOfSecrets,
                 LocalDate.of(2025, 5, 1),
                 LocalDate.of(2025, 5, 28),
             ),
             Screening(
-                movies.harryPotterPrisonerOfAzkaban,
+                movieData.harryPotterPrisonerOfAzkaban,
                 LocalDate.of(2025, 6, 1),
                 LocalDate.of(2025, 6, 30),
             ),
             Screening(
-                movies.harryPotterGobletOfFire,
+                movieData.harryPotterGobletOfFire,
                 LocalDate.of(2025, 7, 1),
                 LocalDate.of(2025, 7, 31),
             ),
