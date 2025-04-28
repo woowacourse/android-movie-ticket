@@ -59,7 +59,7 @@ class ScreeningPresenterTest {
         } just Runs
 
         // when
-        presenter.presentScreenings()
+        presenter.presentScreeningContents()
 
         // then
         verify {

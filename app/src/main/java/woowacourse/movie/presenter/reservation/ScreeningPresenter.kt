@@ -14,7 +14,7 @@ class ScreeningPresenter(
     private val screeningData: ScreeningData = LocalScreeningData(),
     private val advertisementData: AdvertisementData = LocalAdvertisementData(),
 ) : ScreeningContract.Presenter {
-    override fun presentScreenings() {
+    override fun presentScreeningContents() {
         val screeningContentsPolicy: ScreeningContentsPolicy =
             DefaultScreeningContentsPolicy(screeningData.value, advertisementData.value)
         view.setScreeningContents(screeningContentsPolicy.screeningContents())
