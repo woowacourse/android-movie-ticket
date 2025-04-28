@@ -68,7 +68,6 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
             row.children.filterIsInstance<TextView>()
                 .forEachIndexed { colIndex, view ->
                     val point = presenter.getSeat(rowIndex, colIndex)
-                    view.tag = point
 
                     view.text = getString(R.string.seat_point).format('A' + point.x, point.y + 1)
                     initSeatClickAction(view, point)
