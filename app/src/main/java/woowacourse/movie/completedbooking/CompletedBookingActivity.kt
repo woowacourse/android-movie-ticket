@@ -46,7 +46,10 @@ class CompletedBookingActivity : AppCompatActivity(), CompletedBookingContract.V
         movieDateTextView.text = dateTime
     }
 
-    override fun showPersonnel(personnel: Int, seats: String) {
+    override fun showPersonnel(
+        personnel: Int,
+        seats: String,
+    ) {
         val moviePersonnel = findViewById<TextView>(R.id.ticket_movie_personnel)
         moviePersonnel.text = getString(R.string.moviePersonnel, personnel, seats)
     }

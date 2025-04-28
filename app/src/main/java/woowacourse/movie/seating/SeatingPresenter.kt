@@ -5,7 +5,7 @@ import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.PriceFormatter
 
-class SeatingPresenter(private val view: SeatingContract.View): SeatingContract.Presenter {
+class SeatingPresenter(private val view: SeatingContract.View) : SeatingContract.Presenter {
     private lateinit var reservationInfo: ReservationInfo
     private var selectedSeats: MutableSet<Seat> = mutableSetOf()
     private var selectedStringSeats: MutableSet<String> = mutableSetOf()

@@ -3,8 +3,8 @@ package woowacourse.movie.detailbooking
 import android.os.Bundle
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
-import woowacourse.movie.domain.ScreeningTime
 import woowacourse.movie.domain.ReservationInfo
+import woowacourse.movie.domain.ScreeningTime
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

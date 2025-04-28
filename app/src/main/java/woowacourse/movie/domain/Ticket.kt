@@ -8,4 +8,4 @@ data class Ticket(
     val reservationInfo: ReservationInfo,
     val seat: Set<String>,
     val totalPrice: Int,
-): Parcelable
+) : Parcelable

@@ -12,12 +12,10 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.utils.DateFormatter
 
-
 class MovieListAdapter(
     private val onItemClick: ClickListener,
-    private val items: List<ItemType>
+    private val items: List<ItemType>,
 ) : RecyclerView.Adapter<ViewHolder>() {
-
     inner class MovieViewHolder(view: View) : ViewHolder(view) {
         private val imageView: ImageView = view.findViewById(R.id.item_movie_image)
         private val titleTextView: TextView = view.findViewById(R.id.item_movie_title)
@@ -53,33 +51,40 @@ class MovieListAdapter(
 
     inner class ADViewHolder(itemView: View) : ViewHolder(itemView)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
         if (viewType == TYPE_MOVIE) {
-            val movieView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.movie_item, parent, false)
+            val movieView =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_item, parent, false)
             return MovieViewHolder(movieView)
         } else {
-            val adView = LayoutInflater.from(parent.context)
-                .inflate(R.layout.ad_item, parent, false)
+            val adView =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.ad_item, parent, false)
             return ADViewHolder(adView)
         }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
         if (holder is MovieViewHolder) {
             val item = items[position]
             if (item is ItemType.MovieType) {
                 val movie = item.movie
                 holder.setItem(movie)
             }
-
         }
     }
 
     override fun getItemCount(): Int = items.size
 
     override fun getItemViewType(position: Int): Int {
-        return  if (position % 4 == TYPE_EMPTY) TYPE_EMPTY else TYPE_MOVIE
+        return if (position % 4 == TYPE_EMPTY) TYPE_EMPTY else TYPE_MOVIE
     }
 
     companion object {

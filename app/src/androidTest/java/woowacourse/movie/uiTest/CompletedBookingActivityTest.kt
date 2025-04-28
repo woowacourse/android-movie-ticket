@@ -23,8 +23,9 @@ class CompletedBookingActivityTest {
             Ticket(
                 ReservationInfo(
                     "해리 포터와 마법사의 돌",
-                    LocalDateTime.of(2025,4,25,11,0),
-                    2),
+                    LocalDateTime.of(2025, 4, 25, 11, 0),
+                    2,
+                ),
                 setOf("A1", "B1"),
                 20_000,
             )

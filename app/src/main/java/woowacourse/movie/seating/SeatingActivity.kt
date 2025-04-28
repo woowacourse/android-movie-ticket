@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
@@ -19,7 +20,6 @@ import woowacourse.movie.completedbooking.CompletedBookingActivity
 import woowacourse.movie.domain.ReservationInfo
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.parcelableCompat
-import androidx.core.graphics.toColorInt
 
 class SeatingActivity : AppCompatActivity(), SeatingContract.View {
     private lateinit var seatingPresenter: SeatingPresenter
@@ -28,6 +28,7 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
     private val titleTextView: TextView by lazy { findViewById(R.id.seating_movie_title) }
     private val priceTextView: TextView by lazy { findViewById(R.id.seating_total_price) }
     private val confirmTextView: TextView by lazy { findViewById(R.id.seating_confirm) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -132,7 +133,7 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
         ): Intent {
             return Intent(context, SeatingActivity::class.java).putExtra(
                 KEY_SEATING,
-                reservationInfo
+                reservationInfo,
             )
         }
     }

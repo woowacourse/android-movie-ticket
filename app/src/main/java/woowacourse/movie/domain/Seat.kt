@@ -1,6 +1,6 @@
 package woowacourse.movie.domain
 
-data class Seat(val seat: String){
+data class Seat(val seat: String) {
     private val column = seat[0]
     private val row = seat[1]
 
