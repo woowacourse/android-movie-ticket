@@ -1,6 +1,6 @@
-package woowacourse.movie.selectSeat
+package woowacourse.movie.model
 
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.selectSeat.SeatPrice
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter

@@ -1,9 +1,9 @@
 package woowacourse.movie.booking
 
 import android.os.Bundle
-import woowacourse.movie.domain.MovieInfo
-import woowacourse.movie.domain.MovieScheduleGenerator
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.MovieScheduleGenerator
+import woowacourse.movie.model.TicketCount
 
 class BookingPresenter : BookingContract.Presenter {
     override fun onCreateView(
