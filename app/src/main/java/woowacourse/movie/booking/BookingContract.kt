@@ -1,8 +1,9 @@
 package woowacourse.movie.booking
 
 import android.os.Bundle
+import woowacourse.movie.domain.MovieInfo
 import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.uiModel.MovieInfo
+import java.time.LocalTime
 
 interface BookingContract {
     interface View {
@@ -20,7 +21,7 @@ interface BookingContract {
 
         fun askToConfirmBook()
 
-        fun timeSpinnerSet(times: List<String>)
+        fun timeSpinnerSet(times: List<LocalTime>)
 
         fun changeTicketCount(ticketCountValue: TicketCount)
     }
@@ -48,7 +49,7 @@ interface BookingContract {
 
         fun dateSpinnerSelect(
             view: View,
-            movieInfo: MovieInfo,
+            movieInfoUIModel: MovieInfo,
             position: Int,
         )
 
