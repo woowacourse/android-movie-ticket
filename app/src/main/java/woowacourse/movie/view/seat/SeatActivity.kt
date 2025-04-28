@@ -88,21 +88,9 @@ class SeatActivity : AppCompatActivity(), SeatContract.View {
         bookingBtn.isEnabled = enabled
     }
 
-    override fun moveToBookingComplete(
-        ticket: Ticket,
-        seats: Set<Seat>,
-    ) {
-        val ticket = ticket.copy(seats = seatToLabel(seats))
+    override fun moveToBookingComplete(ticket: Ticket) {
         val intent = BookingCompleteActivity.newIntent(this, ticket)
         startActivity(intent)
-    }
-
-    private fun seatToLabel(seats: Set<Seat>): String {
-        return seats.joinToString {
-            val rowLetter = ('A' + it.x - 1)
-            val columnNumber = it.y
-            "$rowLetter$columnNumber"
-        }
     }
 
     private fun showDialog() {

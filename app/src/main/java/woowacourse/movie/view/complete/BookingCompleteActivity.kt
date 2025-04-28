@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.ticket.Ticket
 import woowacourse.movie.presenter.complete.BookingCompleteContract
 import woowacourse.movie.presenter.complete.BookingCompletePresenter
@@ -68,8 +69,8 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
         findViewById<TextView>(R.id.tv_schedule).text = scheduleFormat
     }
 
-    private fun initBookingSeatView(seats: String) {
-        findViewById<TextView>(R.id.tv_seat).text = seats
+    private fun initBookingSeatView(seats: Set<Seat>) {
+        findViewById<TextView>(R.id.tv_seat).text = seatToLabel(seats)
     }
 
     private fun initBookingPeopleCountView(peopleCount: Int) {
@@ -81,6 +82,14 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
         val priceFormat = StringFormatter.thousandFormat(ticketPrice)
         findViewById<TextView>(R.id.tv_price).text =
             getString(R.string.text_on_site_payment).format(priceFormat)
+    }
+
+    private fun seatToLabel(seats: Set<Seat>): String {
+        return seats.joinToString {
+            val rowLetter = ('A' + it.x - 1)
+            val columnNumber = it.y
+            "$rowLetter$columnNumber"
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

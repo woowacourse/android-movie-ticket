@@ -16,10 +16,7 @@ interface SeatContract {
 
         fun setConfirmButtonEnabled(clickable: Boolean)
 
-        fun moveToBookingComplete(
-            ticket: Ticket,
-            seats: Set<Seat>,
-        )
+        fun moveToBookingComplete(ticket: Ticket)
     }
 
     interface Presenter {

@@ -59,7 +59,7 @@ class SeatPresenterTest {
 
         // then
         verify { mockView.showToast(booking.count.value) }
-        verify(exactly = 0) { mockView.moveToBookingComplete(any(), any()) }
+        verify(exactly = 0) { mockView.moveToBookingComplete(any()) }
     }
 
     @Test
@@ -73,6 +73,6 @@ class SeatPresenterTest {
         presenter.attemptConfirmBooking()
 
         // then
-        verify { mockView.moveToBookingComplete(any(), any()) }
+        verify { mockView.moveToBookingComplete(any()) }
     }
 }

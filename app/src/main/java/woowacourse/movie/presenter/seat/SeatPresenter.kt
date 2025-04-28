@@ -40,8 +40,9 @@ class SeatPresenter(
             view.showToast(limit)
             return
         }
-        val ticket = Ticket.initialize(booking, seats.bookingPrice())
-        view.moveToBookingComplete(ticket, seats.item)
+
+        val ticket = Ticket.initialize(booking, seats.item, seats.bookingPrice())
+        view.moveToBookingComplete(ticket)
     }
 
     private fun updateConfirmButtonState(peopleCount: Int) {
