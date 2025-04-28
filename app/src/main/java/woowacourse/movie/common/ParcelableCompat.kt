@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 
-fun <T> Intent.parcelableExtraCompat(
+fun <T> Intent.getParcelableExtraCompat(
     key: String,
     clazz: Class<T>,
 ): T? =
@@ -14,7 +14,7 @@ fun <T> Intent.parcelableExtraCompat(
         getParcelableExtra(key) as? T
     }
 
-fun <T> Bundle.parcelableCompat(
+fun <T> Bundle.getParcelableCompat(
     key: String,
     clazz: Class<T>,
 ): T? =

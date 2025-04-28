@@ -17,8 +17,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.StringFormatter
-import woowacourse.movie.common.parcelableCompat
-import woowacourse.movie.common.parcelableExtraCompat
+import woowacourse.movie.common.getParcelableCompat
+import woowacourse.movie.common.getParcelableExtraCompat
 import woowacourse.movie.domain.scheduler.DefaultScheduler
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
@@ -44,7 +44,7 @@ class MovieReservationActivity :
         setView()
 
         val movie =
-            intent.parcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
+            intent.getParcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
                 ?: finish().run { return }
         presenter = MovieReservationPresenter(this, TicketUiModel.from(movie), DefaultScheduler)
 
@@ -62,7 +62,7 @@ class MovieReservationActivity :
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val restoredTicket =
-            savedInstanceState.parcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
+            savedInstanceState.getParcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
         restoredTicket?.let { restored ->
             presenter.restoreTicket(restored)
         }

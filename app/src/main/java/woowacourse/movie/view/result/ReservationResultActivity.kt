@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.common.StringFormatter
-import woowacourse.movie.common.parcelableExtraCompat
+import woowacourse.movie.common.getParcelableExtraCompat
 import woowacourse.movie.view.reservation.model.TicketUiModel
 import woowacourse.movie.view.seat.model.toUiModel
 
@@ -24,7 +24,7 @@ class ReservationResultActivity :
         setUpView()
 
         val ticket =
-            intent.parcelableExtraCompat(EXTRA_TICKET, TicketUiModel::class.java)
+            intent.getParcelableExtraCompat(EXTRA_TICKET, TicketUiModel::class.java)
                 ?: finish().run { return }
         presenter = ReservationResultPresenter(this, ticket)
         presenter.loadReservationResultScreen()
