@@ -19,8 +19,6 @@ interface BookingContract {
 
         fun countButtonHandler()
 
-        fun askToConfirmBook()
-
         fun timeSpinnerSet(times: List<LocalTime>)
 
         fun changeTicketCount(ticketCountValue: TicketCount)
@@ -52,7 +50,5 @@ interface BookingContract {
             movieInfoUIModel: MovieInfo,
             position: Int,
         )
-
-        fun onYesClick(view: View)
     }
 }
