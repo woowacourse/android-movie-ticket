@@ -14,6 +14,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
+import woowacourse.movie.common.parcelableCompat
 import woowacourse.movie.common.parcelableExtraCompat
 import woowacourse.movie.view.movie.model.MovieUiModel
 import woowacourse.movie.view.reservation.model.TicketUiModel
@@ -40,6 +41,20 @@ class SeatSelectActivity :
         initSeatTable()
         initConfirmButton()
         presenter.loadSeatSelectScreen()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putParcelable(EXTRA_TICKET, presenter.ticket)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val restoredTicket =
+            savedInstanceState.parcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
+        restoredTicket?.let { restored ->
+            presenter.restoreTicket(restored)
+        }
     }
 
     override fun showMovieInfo(movie: MovieUiModel) {
@@ -103,7 +118,6 @@ class SeatSelectActivity :
     }
 
     private fun initConfirmButton() {
-        confirmButton.isEnabled = false
         confirmButton.setOnClickListener { presenter.onClickConfirmButton() }
     }
 

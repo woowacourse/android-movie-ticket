@@ -25,6 +25,8 @@ interface SeatSelectContract {
     interface Presenter {
         fun loadSeatSelectScreen()
 
+        fun restoreTicket(ticket: TicketUiModel)
+
         fun onClickSeat(seat: SeatUiModel)
 
         fun onClickConfirmButton()
