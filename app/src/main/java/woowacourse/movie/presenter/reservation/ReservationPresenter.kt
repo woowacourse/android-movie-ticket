@@ -50,6 +50,6 @@ class ReservationPresenter(
     }
 
     override fun confirm() {
-        view.navigateSeatSelectionScreen(screening.title)
+        view.navigateToSeatSelectionScreen(screening.title)
     }
 }

@@ -243,7 +243,7 @@ class ReservationActivity :
         ticketCountView.text = ticketCount.toString()
     }
 
-    override fun navigateSeatSelectionScreen(title: String) {
+    override fun navigateToSeatSelectionScreen(title: String) {
         val intent =
             SeatSelectionActivity.newIntent(
                 this,

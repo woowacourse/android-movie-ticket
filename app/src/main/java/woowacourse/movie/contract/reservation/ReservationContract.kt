@@ -46,6 +46,6 @@ interface ReservationContract {
 
         fun setTicketCount(count: Int)
 
-        fun navigateSeatSelectionScreen(title: String)
+        fun navigateToSeatSelectionScreen(title: String)
     }
 }
