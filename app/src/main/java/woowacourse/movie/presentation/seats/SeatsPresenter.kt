@@ -1,8 +1,8 @@
 package woowacourse.movie.presentation.seats
 
 import woowacourse.movie.domain.model.movie.MovieTicket
-import woowacourse.movie.domain.model.seat.SeatPosition
 import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatPosition
 import woowacourse.movie.domain.model.seat.SelectedSeats
 
 class SeatsPresenter(
@@ -17,7 +17,10 @@ class SeatsPresenter(
         view.updateAmount(movieTicket.amount)
     }
 
-    override fun getSeat(x: Int, y: Int): Seat {
+    override fun getSeat(
+        x: Int,
+        y: Int,
+    ): Seat {
         val seatPosition = SeatPosition(x, y)
         return Seat(seatPosition)
     }
@@ -37,13 +40,14 @@ class SeatsPresenter(
     }
 
     override fun onConfirmClicked() {
-        val movieTicket = MovieTicket(
-            title = this.movieTicket.title,
-            screeningDateTime = this.movieTicket.screeningDateTime,
-            headCount = this.movieTicket.headCount,
-            amount = selectedSeats.getTotalPrice(),
-            seats = selectedSeats.value
-        )
+        val movieTicket =
+            MovieTicket(
+                title = this.movieTicket.title,
+                screeningDateTime = this.movieTicket.screeningDateTime,
+                headCount = this.movieTicket.headCount,
+                amount = selectedSeats.getTotalPrice(),
+                seats = selectedSeats.value,
+            )
         view.navigateToSummary(movieTicket)
     }
 

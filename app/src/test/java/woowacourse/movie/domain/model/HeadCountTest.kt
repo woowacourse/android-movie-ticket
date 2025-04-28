@@ -3,7 +3,6 @@ package woowacourse.movie.domain.model
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.HeadCount
 
 class HeadCountTest {
     private lateinit var headCount: HeadCount

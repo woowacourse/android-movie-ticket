@@ -5,12 +5,12 @@ import android.widget.TextView
 import android.widget.Toast
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.MovieTicket
+import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.constant.IntentKeys
 import woowacourse.movie.ui.util.TicketUiFormatter.formatAmount
 import woowacourse.movie.ui.util.TicketUiFormatter.formatDateTime
 import woowacourse.movie.ui.util.TicketUiFormatter.formatHeadCount
 import woowacourse.movie.ui.util.intentSerializable
-import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.util.toUi
 
 class BookingSummaryActivity : BaseActivity(), BookingSummaryContract.View {

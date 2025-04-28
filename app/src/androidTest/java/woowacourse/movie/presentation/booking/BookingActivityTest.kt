@@ -4,15 +4,12 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.Intents
 import androidx.test.espresso.intent.Intents.intended
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasComponent
 import androidx.test.espresso.intent.matcher.IntentMatchers.hasExtraWithKey
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -34,19 +31,21 @@ class BookingActivityTest {
     fun setUp() {
         Intents.init()
 
-        val movie = Movie(
-            "Test",
-            LocalDate.of(2025, 4, 17),
-            LocalDate.of(2025, 4, 30),
-            100,
-        )
+        val movie =
+            Movie(
+                "Test",
+                LocalDate.of(2025, 4, 17),
+                LocalDate.of(2025, 4, 30),
+                100,
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            BookingActivity::class.java
-        ).apply {
-            putExtra("Movie", movie)
-        }
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                BookingActivity::class.java,
+            ).apply {
+                putExtra("Movie", movie)
+            }
 
         activityScenario = ActivityScenario.launch(intent)
     }
@@ -134,8 +133,10 @@ class BookingActivityTest {
 
         intended(hasComponent(SeatsActivity::class.java.name))
 
-        intended(allOf(
-            hasExtraWithKey("Ticket")
-        ))
+        intended(
+            allOf(
+                hasExtraWithKey("Ticket"),
+            ),
+        )
     }
 }

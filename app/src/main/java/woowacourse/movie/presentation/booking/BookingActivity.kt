@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.movie.MovieTicket
@@ -83,59 +82,64 @@ class BookingActivity : BaseActivity(), BookingContract.View {
     }
 
     override fun showBookableDates(dates: List<LocalDate>) {
-        dateSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            dates
-        )
+        dateSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                dates,
+            )
         dateSpinner.setSelection(dateItemPosition)
-        dateSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedDate = dateSpinner.getItemAtPosition(position) as LocalDate
-                presenter.onDateSelected(selectedDate)
-                dateItemPosition = position
-            }
+        dateSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedDate = dateSpinner.getItemAtPosition(position) as LocalDate
+                    presenter.onDateSelected(selectedDate)
+                    dateItemPosition = position
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     override fun showBookableTimes(times: List<LocalTime>) {
-        timeSpinner.adapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_spinner_item,
-            times
-        )
+        timeSpinner.adapter =
+            ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                times,
+            )
         timeSpinner.setSelection(timeItemPosition)
-        timeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>?,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                val selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
-                presenter.onTimeSelected(selectedTime)
-                timeItemPosition = position
-            }
+        timeSpinner.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long,
+                ) {
+                    val selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
+                    presenter.onTimeSelected(selectedTime)
+                    timeItemPosition = position
+                }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }
+                override fun onNothingSelected(parent: AdapterView<*>?) {}
+            }
     }
 
     override fun updateHeadCount(count: Int) {
-       headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, count)
+        headCountView.text = String.format(Locale.getDefault(), INTEGER_FORMAT, count)
     }
 
     override fun navigateToSeats(ticket: MovieTicket) {
-        val intent = Intent(this, SeatsActivity::class.java).apply {
-            putExtra(IntentKeys.TICKET, ticket)
-        }
+        val intent =
+            Intent(this, SeatsActivity::class.java).apply {
+                putExtra(IntentKeys.TICKET, ticket)
+            }
         startActivity(intent)
     }
 

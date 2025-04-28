@@ -5,5 +5,8 @@ import woowacourse.movie.domain.model.movie.Movie
 
 sealed interface MoviesItem {
     data class MovieItem(val movie: Movie) : MoviesItem
-    data class AdvertisementItem(@DrawableRes val id: Int) : MoviesItem
+
+    data class AdvertisementItem(
+        @DrawableRes val id: Int,
+    ) : MoviesItem
 }

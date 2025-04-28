@@ -4,5 +4,5 @@ import java.io.Serializable
 
 data class SeatPosition(
     val x: Int,
-    val y: Int
+    val y: Int,
 ) : Serializable

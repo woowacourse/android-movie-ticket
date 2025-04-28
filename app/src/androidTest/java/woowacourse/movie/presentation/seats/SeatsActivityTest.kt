@@ -26,18 +26,20 @@ class SeatsActivityTest {
 
     @Before
     fun setUp() {
-        val ticket = MovieTicket(
-            "Test",
-            LocalDateTime.of(2025, 4, 28, 12, 0),
-            1,
-        )
+        val ticket =
+            MovieTicket(
+                "Test",
+                LocalDateTime.of(2025, 4, 28, 12, 0),
+                1,
+            )
 
-        val intent = Intent(
-            ApplicationProvider.getApplicationContext(),
-            SeatsActivity::class.java
-        ).apply {
-            putExtra("Ticket", ticket)
-        }
+        val intent =
+            Intent(
+                ApplicationProvider.getApplicationContext(),
+                SeatsActivity::class.java,
+            ).apply {
+                putExtra("Ticket", ticket)
+            }
 
         activityScenario = ActivityScenario.launch(intent)
     }

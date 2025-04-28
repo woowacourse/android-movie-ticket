@@ -11,11 +11,12 @@ class BookingSummaryPresenterTest {
     private lateinit var view: BookingSummaryContract.View
     private lateinit var presenter: BookingSummaryContract.Presenter
 
-    private val testTicket = MovieTicket(
-        title = "test",
-        screeningDateTime = LocalDateTime.of(2025, 4, 30, 12, 0),
-        headCount = 2,
-    )
+    private val testTicket =
+        MovieTicket(
+            title = "test",
+            screeningDateTime = LocalDateTime.of(2025, 4, 30, 12, 0),
+            headCount = 2,
+        )
 
     @BeforeEach
     fun setUp() {

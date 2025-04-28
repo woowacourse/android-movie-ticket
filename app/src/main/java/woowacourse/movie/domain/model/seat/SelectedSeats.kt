@@ -4,7 +4,7 @@ import java.util.Locale
 
 class SelectedSeats(
     private val headCount: Int,
-    private val _seats: MutableSet<Seat> = mutableSetOf()
+    private val _seats: MutableSet<Seat> = mutableSetOf(),
 ) {
     val value: List<Seat>
         get() = _seats.toList()

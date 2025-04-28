@@ -27,18 +27,20 @@ class MoviesActivity : BaseActivity(), MoviesContract.View {
     }
 
     override fun showMovies(movies: List<Movie>) {
-        val adapter = MovieAdapter {
-            moviesPresenter.onMovieClicked(it)
-        }
+        val adapter =
+            MovieAdapter {
+                moviesPresenter.onMovieClicked(it)
+            }
         adapter.submitList(insertAdvertisement(movies))
         moviesView.layoutManager = LinearLayoutManager(this)
         moviesView.adapter = adapter
     }
 
     override fun navigateToBooking(movie: Movie) {
-        val intent = Intent(this, BookingActivity::class.java).apply {
-            putExtra(IntentKeys.MOVIE, movie)
-        }
+        val intent =
+            Intent(this, BookingActivity::class.java).apply {
+                putExtra(IntentKeys.MOVIE, movie)
+            }
         startActivity(intent)
     }
 

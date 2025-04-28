@@ -12,11 +12,12 @@ class MovieTicketTest {
 
     @BeforeEach
     fun setUp() {
-        movieTicket = MovieTicket(
-            "승부",
-            LocalDateTime.of(2025, 5, 1, 11, 0),
-            3,
-        )
+        movieTicket =
+            MovieTicket(
+                "승부",
+                LocalDateTime.of(2025, 5, 1, 11, 0),
+                3,
+            )
     }
 
     @Test
@@ -39,7 +40,7 @@ class MovieTicketTest {
             MovieTicket(
                 "Test",
                 beforeTime,
-                2
+                2,
             )
         }
     }

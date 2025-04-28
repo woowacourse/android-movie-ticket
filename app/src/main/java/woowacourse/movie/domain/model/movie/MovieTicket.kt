@@ -9,9 +9,8 @@ data class MovieTicket(
     val screeningDateTime: LocalDateTime,
     val headCount: Int,
     val amount: Int = DEFAULT_AMOUNT,
-    val seats: List<Seat> = emptyList()
+    val seats: List<Seat> = emptyList(),
 ) : Serializable {
-
     init {
         require(screeningDateTime.isAfter(LocalDateTime.now())) {
             DATETIME_ERROR

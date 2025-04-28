@@ -16,7 +16,10 @@ import woowacourse.movie.presentation.movies.MoviesItem
 import woowacourse.movie.ui.util.PosterMapper
 
 class MovieAdapter(private val onClick: (Movie) -> Unit) : ListAdapter<MoviesItem, RecyclerView.ViewHolder>(diffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
         return when (viewType) {
             R.layout.item_movie -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
@@ -30,7 +33,10 @@ class MovieAdapter(private val onClick: (Movie) -> Unit) : ListAdapter<MoviesIte
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+    ) {
         when (holder) {
             is MovieViewHolder -> holder.bind((getItem(position) as MoviesItem.MovieItem).movie)
             is AdvertisementViewHolder -> holder.bind()
@@ -38,7 +44,7 @@ class MovieAdapter(private val onClick: (Movie) -> Unit) : ListAdapter<MoviesIte
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when(getItem(position)) {
+        return when (getItem(position)) {
             is MoviesItem.MovieItem -> R.layout.item_movie
             is MoviesItem.AdvertisementItem -> R.layout.item_advertisement
         }
@@ -57,15 +63,17 @@ class MovieAdapter(private val onClick: (Movie) -> Unit) : ListAdapter<MoviesIte
 
         fun bind(movie: Movie) {
             title.text = movie.title
-            screeningDate.text = context.getString(
-                R.string.date_text,
-                movie.startScreeningDate,
-                movie.endScreeningDate
-            )
-            runningTime.text = context.getString(
-                R.string.runningTime_text,
-                movie.runningTime.toString()
-            )
+            screeningDate.text =
+                context.getString(
+                    R.string.date_text,
+                    movie.startScreeningDate,
+                    movie.endScreeningDate,
+                )
+            runningTime.text =
+                context.getString(
+                    R.string.runningTime_text,
+                    movie.runningTime.toString(),
+                )
             poster.setImageResource(PosterMapper.convertTitleToResId(movie.title))
 
             reservationBtn.setOnClickListener {
@@ -85,18 +93,25 @@ class MovieAdapter(private val onClick: (Movie) -> Unit) : ListAdapter<MoviesIte
     companion object {
         private const val TYPE_ERROR = "[ERROR] 알 수 없는 타입입니다."
 
-        private val diffCallback = object : DiffUtil.ItemCallback<MoviesItem>() {
-            override fun areContentsTheSame(oldItem: MoviesItem, newItem: MoviesItem): Boolean {
-                return oldItem == newItem
-            }
+        private val diffCallback =
+            object : DiffUtil.ItemCallback<MoviesItem>() {
+                override fun areContentsTheSame(
+                    oldItem: MoviesItem,
+                    newItem: MoviesItem,
+                ): Boolean {
+                    return oldItem == newItem
+                }
 
-            override fun areItemsTheSame(oldItem: MoviesItem, newItem: MoviesItem): Boolean {
-                return when {
-                    oldItem is MoviesItem.MovieItem && newItem is MoviesItem.MovieItem -> oldItem.movie == newItem.movie
-                    oldItem is MoviesItem.AdvertisementItem && newItem is MoviesItem.AdvertisementItem -> oldItem.id == newItem.id
-                    else -> false
+                override fun areItemsTheSame(
+                    oldItem: MoviesItem,
+                    newItem: MoviesItem,
+                ): Boolean {
+                    return when {
+                        oldItem is MoviesItem.MovieItem && newItem is MoviesItem.MovieItem -> oldItem.movie == newItem.movie
+                        oldItem is MoviesItem.AdvertisementItem && newItem is MoviesItem.AdvertisementItem -> oldItem.id == newItem.id
+                        else -> false
+                    }
                 }
             }
-        }
     }
 }

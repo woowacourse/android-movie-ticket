@@ -14,14 +14,15 @@ class MoviesPresenterTest {
     private lateinit var screeningMovies: ScreeningMovies
     private lateinit var presenter: MoviesContract.Presenter
 
-    private val testMovies = listOf(
-        Movie(
-            "test",
-            LocalDate.of(2025, 4, 24),
-            LocalDate.of(2025, 4, 30),
-            100
+    private val testMovies =
+        listOf(
+            Movie(
+                "test",
+                LocalDate.of(2025, 4, 24),
+                LocalDate.of(2025, 4, 30),
+                100,
+            ),
         )
-    )
 
     @BeforeEach
     fun setUp() {

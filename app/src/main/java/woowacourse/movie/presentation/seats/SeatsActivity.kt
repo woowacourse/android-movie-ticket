@@ -82,7 +82,7 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
             row.children.filterIsInstance<TextView>().forEach seat@{ seatView ->
                 val seat = seatView.tag as? Seat ?: return@seat
                 seatView.setBackgroundColor(
-                    if (presenter.isSelectedSeat(seat)) getColor(R.color.selected_seat) else getColor(R.color.white)
+                    if (presenter.isSelectedSeat(seat)) getColor(R.color.selected_seat) else getColor(R.color.white),
                 )
             }
         }
@@ -102,9 +102,10 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
     }
 
     override fun navigateToSummary(ticket: MovieTicket) {
-        val intent = Intent(this, BookingSummaryActivity::class.java).apply {
-            putExtra(IntentKeys.TICKET, ticket)
-        }
+        val intent =
+            Intent(this, BookingSummaryActivity::class.java).apply {
+                putExtra(IntentKeys.TICKET, ticket)
+            }
         startActivity(intent)
     }
 
@@ -134,13 +135,14 @@ class SeatsActivity : BaseActivity(), SeatsContract.View {
     }
 
     private fun initConfirmDialog() {
-        confirmDialog = AlertDialog.Builder(this)
-            .setTitle(getString(R.string.dialog_title))
-            .setMessage(getString(R.string.dialog_message))
-            .setPositiveButton(getString(R.string.complete)) { _, _ -> presenter.onConfirmClicked() }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
-            .setCancelable(false)
-            .create()
+        confirmDialog =
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.dialog_title))
+                .setMessage(getString(R.string.dialog_message))
+                .setPositiveButton(getString(R.string.complete)) { _, _ -> presenter.onConfirmClicked() }
+                .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
+                .setCancelable(false)
+                .create()
     }
 
     companion object {

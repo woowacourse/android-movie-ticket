@@ -13,11 +13,12 @@ import java.time.LocalDateTime
 class SeatsPresenterTest {
     private lateinit var view: SeatsContract.View
     private lateinit var presenter: SeatsContract.Presenter
-    private val movieTicket = MovieTicket(
-        "Test",
-        LocalDateTime.of(2025, 12, 31, 12, 0),
-        1
-    )
+    private val movieTicket =
+        MovieTicket(
+            "Test",
+            LocalDateTime.of(2025, 12, 31, 12, 0),
+            1,
+        )
 
     @BeforeEach
     fun setUp() {
@@ -92,11 +93,11 @@ class SeatsPresenterTest {
             view.navigateToSummary(
                 match {
                     it.title == movieTicket.title &&
-                    it.screeningDateTime == movieTicket.screeningDateTime &&
-                    it.headCount == movieTicket.headCount &&
-                    it.seats == listOf(seat) &&
-                    it.amount == 10000
-                }
+                        it.screeningDateTime == movieTicket.screeningDateTime &&
+                        it.headCount == movieTicket.headCount &&
+                        it.seats == listOf(seat) &&
+                        it.amount == 10000
+                },
             )
         }
     }

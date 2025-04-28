@@ -10,7 +10,7 @@ import java.time.LocalTime
 
 class BookingPresenter(
     private val view: BookingContract.View,
-    private val movie: Movie
+    private val movie: Movie,
 ) : BookingContract.Presenter {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
@@ -44,18 +44,19 @@ class BookingPresenter(
     }
 
     override fun onConfirmClicked() {
-        val ticket = MovieTicket(
-            title = movie.title,
-            screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
-            headCount = headCount.value,
-        )
+        val ticket =
+            MovieTicket(
+                title = movie.title,
+                screeningDateTime = LocalDateTime.of(selectedDate, selectedTime),
+                headCount = headCount.value,
+            )
         view.navigateToSeats(ticket)
     }
 
     override fun onConfigurationChanged(
         count: Int?,
         date: LocalDate?,
-        time: LocalTime?
+        time: LocalTime?,
     ) {
         count?.let { headCount = HeadCount(it) }
         selectedDate = date

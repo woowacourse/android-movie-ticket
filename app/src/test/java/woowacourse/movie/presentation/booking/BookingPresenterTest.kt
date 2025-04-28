@@ -13,12 +13,13 @@ class BookingPresenterTest {
     private lateinit var view: BookingContract.View
     private lateinit var presenter: BookingContract.Presenter
 
-    private val testMovie = Movie(
-        "test",
-        LocalDate.of(2025, 4, 29),
-        LocalDate.of(2025, 4, 30),
-        100
-    )
+    private val testMovie =
+        Movie(
+            "test",
+            LocalDate.of(2025, 4, 29),
+            LocalDate.of(2025, 4, 30),
+            100,
+        )
 
     @BeforeEach
     fun setUp() {
@@ -29,10 +30,11 @@ class BookingPresenterTest {
     @Test
     fun `영화의 정보와 예매 가능 날짜, 인원 수가 화면에 출력된다`() {
         // Given
-        val expected = listOf(
-            LocalDate.of(2025, 4, 29),
-            LocalDate.of(2025, 4, 30)
-        )
+        val expected =
+            listOf(
+                LocalDate.of(2025, 4, 29),
+                LocalDate.of(2025, 4, 30),
+            )
 
         // When
         presenter.onViewCreated()
@@ -93,9 +95,9 @@ class BookingPresenterTest {
             view.navigateToSeats(
                 match {
                     it.title == testMovie.title &&
-                    it.screeningDateTime == LocalDateTime.of(date, time) &&
-                    it.headCount == 1
-                }
+                        it.screeningDateTime == LocalDateTime.of(date, time) &&
+                        it.headCount == 1
+                },
             )
         }
     }
