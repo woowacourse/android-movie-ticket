@@ -21,7 +21,7 @@ class MoviesPresenter(
                     "해리 포터와 마법사의 돌",
                     ScreeningPeriod(
                         LocalDate.of(2025, 4, 1),
-                        LocalDate.of(2025, 4, 25),
+                        LocalDate.of(2025, 4, 30),
                     ),
                     RunningTime(152),
                 ),
@@ -30,7 +30,7 @@ class MoviesPresenter(
                     "해리 포터와 비밀의 방",
                     ScreeningPeriod(
                         LocalDate.of(2025, 4, 1),
-                        LocalDate.of(2025, 4, 28),
+                        LocalDate.of(2025, 4, 30),
                     ),
                     RunningTime(162),
                 ),
