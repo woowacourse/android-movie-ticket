@@ -5,11 +5,10 @@ import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.MovieScheduleGenerator
 import woowacourse.movie.model.TicketCount
 
-class BookingPresenter : BookingContract.Presenter {
-    override fun onCreateView(
-        view: BookingContract.View,
-        savedInstanceState: Bundle?,
-    ) {
+class BookingPresenter(
+    val view: BookingContract.View,
+) : BookingContract.Presenter {
+    override fun onCreateView(savedInstanceState: Bundle?) {
         view.setupPage()
         view.setupDateChangeListener()
         view.countButtonHandler()
@@ -20,32 +19,22 @@ class BookingPresenter : BookingContract.Presenter {
         }
     }
 
-    override fun onBookButtonClick(
-        view: BookingContract.View,
-        count: TicketCount,
-    ) {
+    override fun onBookButtonClick(count: TicketCount) {
         if (count.count == 0) return
         view.moveActivity()
     }
 
-    override fun onUpButtonClick(
-        view: BookingContract.View,
-        ticketCount: TicketCount,
-    ) {
+    override fun onUpButtonClick(ticketCount: TicketCount) {
         ticketCount.upCount()
         view.changeTicketCount(ticketCount)
     }
 
-    override fun onDownButtonClick(
-        view: BookingContract.View,
-        ticketCount: TicketCount,
-    ) {
+    override fun onDownButtonClick(ticketCount: TicketCount) {
         ticketCount.downCount()
         view.changeTicketCount(ticketCount)
     }
 
     override fun dateSpinnerSelect(
-        view: BookingContract.View,
         movieInfo: MovieInfo,
         position: Int,
     ) {

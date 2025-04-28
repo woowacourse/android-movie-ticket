@@ -25,28 +25,15 @@ interface BookingContract {
     }
 
     interface Presenter {
-        fun onCreateView(
-            view: View,
-            savedInstanceState: Bundle?,
-        )
+        fun onCreateView(savedInstanceState: Bundle?)
 
-        fun onBookButtonClick(
-            view: View,
-            count: TicketCount,
-        )
+        fun onBookButtonClick(count: TicketCount)
 
-        fun onUpButtonClick(
-            view: View,
-            ticketCount: TicketCount,
-        )
+        fun onUpButtonClick(ticketCount: TicketCount)
 
-        fun onDownButtonClick(
-            view: View,
-            ticketCount: TicketCount,
-        )
+        fun onDownButtonClick(ticketCount: TicketCount)
 
         fun dateSpinnerSelect(
-            view: View,
             movieInfoUIModel: MovieInfo,
             position: Int,
         )
