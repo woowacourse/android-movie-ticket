@@ -13,8 +13,8 @@ class Screen(
 
     private fun calculateSeatType(row: Int): SeatType =
         when (row) {
-            in B_CLASS_ROW_RANGE -> SeatType.B_CLASS
-            in S_CLASS_ROW_RANGE -> SeatType.S_CLASS
+            in 0..1 -> SeatType.B_CLASS
+            in 2..3 -> SeatType.S_CLASS
             else -> SeatType.A_CLASS
         }
 
@@ -22,7 +22,5 @@ class Screen(
         val DEFAULT_SCREEN = Screen(ScreenSize(5, 4))
 
         private const val STARTING_INDEX = 0
-        private val B_CLASS_ROW_RANGE = 0..1
-        private val S_CLASS_ROW_RANGE = 2..3
     }
 }
