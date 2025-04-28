@@ -194,8 +194,8 @@ class BookingDetailPresenterTest {
             mockView.startSeatSelectionActivity(
                 match {
                     it.selectedDateText == formattedDate &&
-                            it.selectedTimeText == formattedTime &&
-                            it.headCount == 1
+                        it.selectedTimeText == formattedTime &&
+                        it.headCount == 1
                 },
             )
         }
@@ -217,11 +217,13 @@ class BookingDetailPresenterTest {
         presenter.initializeData()
 
         verify {
-            mockView.showTicket(match {
-                it.selectedDateText == "2028.10.13" &&
+            mockView.showTicket(
+                match {
+                    it.selectedDateText == "2028.10.13" &&
                         it.selectedTimeText == "11:00" &&
                         it.headCount == 3
-            })
+                },
+            )
         }
     }
 
