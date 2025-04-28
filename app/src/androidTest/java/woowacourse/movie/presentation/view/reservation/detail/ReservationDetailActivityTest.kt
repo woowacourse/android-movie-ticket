@@ -12,29 +12,26 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.domain.model.movie.Poster
-import woowacourse.movie.domain.model.movie.RunningTime
 import woowacourse.movie.domain.model.movie.ScreeningPeriod
 import woowacourse.movie.presentation.extension.toDateTimeFormatter
 import woowacourse.movie.presentation.fixture.fakeContext
 import woowacourse.movie.presentation.model.MovieUiModel
-import woowacourse.movie.presentation.model.toUiModel
+import woowacourse.movie.presentation.model.PosterUiModel
 import java.time.LocalDate
 
 class ReservationDetailActivityTest {
     private lateinit var scenario: ActivityScenario<ReservationDetailActivity>
     private val fakeMovie =
-        Movie(
+        MovieUiModel(
             1,
             "해리 포터와 마법사의 돌",
-            Poster.Resource(R.drawable.harrypotter),
+            PosterUiModel.Resource(R.drawable.harrypotter),
             ScreeningPeriod(
                 LocalDate.now(),
                 LocalDate.now().plusDays(1),
             ),
-            RunningTime(152),
-        ).toUiModel()
+            152,
+        )
 
     @Before
     fun setUp() {
