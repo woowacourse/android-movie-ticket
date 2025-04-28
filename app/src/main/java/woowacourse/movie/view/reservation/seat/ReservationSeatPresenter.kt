@@ -20,6 +20,9 @@ class ReservationSeatPresenter(
             view.setSeatInit()
             view.showMovieName(ticket.title)
             view.setSeatClickListener()
+            view.setReservationButton {
+                view.showReservationDialog(ticket)
+            }
             updateMoney()
         }
     }

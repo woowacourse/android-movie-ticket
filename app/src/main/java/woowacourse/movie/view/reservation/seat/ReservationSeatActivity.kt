@@ -91,6 +91,13 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         moviePriceTextView.text = getString(R.string.movie_money, priceFormatter.format(moviePrice))
     }
 
+    override fun setReservationButton(onClickConfirm: () -> Unit) {
+        movieSelectableButton.setOnClickListener {
+            onClickConfirm()
+        }
+        movieSelectableButton.isEnabled = false
+    }
+
     private fun toggleSeatSelection(textView: TextView) {
         val position = textView.tag as Position
         if (textView.isSelected) {

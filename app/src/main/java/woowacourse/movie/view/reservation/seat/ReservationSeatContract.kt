@@ -38,5 +38,7 @@ interface ReservationSeatContract {
         fun selectableButton()
 
         fun deSelectableButton()
+
+        fun setReservationButton(onClickConfirm: () -> Unit)
     }
 }
