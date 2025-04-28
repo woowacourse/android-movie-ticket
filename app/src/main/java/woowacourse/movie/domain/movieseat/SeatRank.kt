@@ -9,8 +9,8 @@ enum class SeatRank(val price: Int) {
     companion object {
         fun get(row: Int) =
             when (row) {
-                1, 2 -> S
-                3, 4 -> B
+                0, 1 -> B
+                2, 3 -> S
                 else -> A
             }
     }
