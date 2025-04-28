@@ -18,6 +18,7 @@ import androidx.core.view.forEachIndexed
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.complete.BookingCompleteActivity
 import woowacourse.movie.utils.StringFormatter.thousandFormat
@@ -67,14 +68,15 @@ class BookingSeatActivity :
         movieTitleView.text = movieTitle
     }
 
-    override fun selectSeat(seatPosition: Pair<Int, Int>) {
+    override fun toggleSeat(
+        seatPosition: Seat,
+        isOccupied: Boolean,
+    ) {
         val seatView: TextView? = seatTextViews[seatPosition.toSeatTag()]
-        seatView?.setBackgroundColor(getColor(R.color.selected_seat))
-    }
-
-    override fun unselectSeat(seatPosition: Pair<Int, Int>) {
-        val seatView: TextView? = seatTextViews[seatPosition.toSeatTag()]
-        seatView?.setBackgroundColor(getColor(R.color.white))
+        when (isOccupied) {
+            true -> seatView?.setBackgroundColor(getColor(R.color.selected_seat))
+            false -> seatView?.setBackgroundColor(getColor(R.color.white))
+        }
     }
 
     private fun initializeSeatTextViews() {
@@ -172,7 +174,7 @@ class BookingSeatActivity :
             .show()
     }
 
-    private fun Pair<Int, Int>.toSeatTag(): String = "${ASCII_A + first}${second + 1}"
+    private fun Seat.toSeatTag(): String = "${ASCII_A + row}${col + 1}"
 
     companion object {
         fun newIntent(

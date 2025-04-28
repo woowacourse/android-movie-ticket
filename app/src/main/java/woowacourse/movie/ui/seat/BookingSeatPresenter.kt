@@ -3,7 +3,6 @@ package woowacourse.movie.ui.seat
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
-import woowacourse.movie.domain.model.TicketType
 
 class BookingSeatPresenter(
     private val bookingSeatView: BookingSeatContract.View,
@@ -36,16 +35,14 @@ class BookingSeatPresenter(
     }
 
     override fun updateSeat(seatTag: String) {
-        val row = seatTag[0] - 'A'
-        val col = seatTag[1].digitToInt() - 1
-        val seat = Seat(row, col, ticketTypeByRow(row))
+        val seat = Seat.fromSeatTag(seatTag)
 
         if (seats.contains(seat)) {
             seats.remove(seat)
-            bookingSeatView.unselectSeat(row to col)
+            bookingSeatView.toggleSeat(seat, false)
         } else if (seats.size < headcount.count) {
             seats.add(seat)
-            bookingSeatView.selectSeat(row to col)
+            bookingSeatView.toggleSeat(seat, true)
         }
         updateTotalPrice()
         updateConfirmButton()
@@ -62,12 +59,4 @@ class BookingSeatPresenter(
     override fun completeBookingSeat() {
         bookingSeatView.moveToBookingCompleteActivity(movieTitle, headcount, seats)
     }
-
-    private fun ticketTypeByRow(row: Int): TicketType =
-        when {
-            row < 2 -> TicketType.B_GRADE
-            row < 4 -> TicketType.S_GRADE
-            row < 5 -> TicketType.A_GRADE
-            else -> TicketType.B_GRADE
-        }
 }

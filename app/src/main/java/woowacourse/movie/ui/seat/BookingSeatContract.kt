@@ -1,6 +1,7 @@
 package woowacourse.movie.ui.seat
 
 import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 
 interface BookingSeatContract {
@@ -29,9 +30,10 @@ interface BookingSeatContract {
 
         fun setMovieTitleTextView(movieTitle: String)
 
-        fun selectSeat(seatPosition: Pair<Int, Int>)
-
-        fun unselectSeat(seatPosition: Pair<Int, Int>)
+        fun toggleSeat(
+            seatPosition: Seat,
+            isOccupied: Boolean,
+        )
 
         fun setConfirmButton(isEnabled: Boolean)
 
