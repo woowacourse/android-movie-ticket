@@ -142,8 +142,8 @@ class BookingActivity :
         val confirmButton = findViewById<Button>(R.id.confirm_button)
         confirmButton.setOnClickListener {
             val title = findViewById<TextView>(R.id.title).text.toString()
-            val date = findViewById<Spinner>(R.id.date).selectedItem.toString()
-            val time = findViewById<Spinner>(R.id.time).selectedItem.toString()
+            val date = findViewById<Spinner>(R.id.selected_date).selectedItem.toString()
+            val time = findViewById<Spinner>(R.id.movie_time).selectedItem.toString()
             presenter.onBookButtonClick(title, date, time, ticketCountValue)
         }
     }
