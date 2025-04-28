@@ -44,17 +44,6 @@ class ReservationActivity :
         }
     }
 
-//    private val reservationDialog by lazy {
-//        AlertDialog
-//            .Builder(this)
-//            .setTitle(R.string.reservation_dialog_title)
-//            .setMessage(R.string.reservation_dialog_message)
-//            .setCancelable(false)
-//            .setPositiveButton(R.string.reservation_dialog_positive) { _, _ ->
-//                submitReservation()
-//            }.setNegativeButton(R.string.reservation_dialog_negative) { dialog, _ -> dialog.dismiss() }
-//    }
-
     private val unavailableDateTimeDialog by lazy {
         AlertDialog
             .Builder(this)
@@ -156,7 +145,7 @@ class ReservationActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun navigateToReservationResultScreen(reservationInfo: ReservationInfo) {
+    override fun navigateToSeatSelectionScreen(reservationInfo: ReservationInfo) {
         val intent = SeatSelectionActivity.newIntent(this, reservationInfo)
         startActivity(intent)
         finish()
@@ -165,7 +154,7 @@ class ReservationActivity :
     private fun setupListener() {
         val btnReservationFinish = findViewById<Button>(R.id.btn_reservation_finish)
         btnReservationFinish.setOnClickListener {
-//            reservationDialog.show()
+            submitReservation()
         }
 
         val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
