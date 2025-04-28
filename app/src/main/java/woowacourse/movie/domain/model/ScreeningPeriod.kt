@@ -19,14 +19,14 @@ data class ScreeningPeriod(
             dates.add(date)
             date = date.plusDays(1)
         }
-        return dates
+        return dates.filterNot { it.isBefore(startDate) }
     }
 
     fun getAvailableTimesFor(
         now: LocalDateTime,
         date: LocalDate,
     ): List<LocalTime> {
-        if (now.toLocalDate().isBefore(startDate) || now.toLocalDate().isAfter(endDate)) return emptyList()
+        if (now.toLocalDate().isAfter(endDate)) return emptyList()
 
         val isToday = date == now.toLocalDate()
         val currentTime = if (isToday) now.toLocalTime() else LocalTime.MIN
