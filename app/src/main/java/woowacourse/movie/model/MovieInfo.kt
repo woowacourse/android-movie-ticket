@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model
 
 import woowacourse.movie.uiModel.MovieInfoUIModel
 import java.time.Duration
@@ -15,7 +15,7 @@ data class MovieInfo(
     companion object {
         private val formatter = DateTimeFormatter.ofPattern("yyyy.M.d")
 
-        fun fromUiModel(dto: woowacourse.movie.uiModel.MovieInfoUIModel): woowacourse.movie.domain.MovieInfo =
+        fun fromUiModel(dto: woowacourse.movie.uiModel.MovieInfoUIModel): woowacourse.movie.model.MovieInfo =
             MovieInfo(
                 posterKey = dto.posterKey,
                 title = dto.title,

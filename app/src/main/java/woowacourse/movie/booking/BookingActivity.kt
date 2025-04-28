@@ -11,10 +11,10 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import woowacourse.movie.R
-import woowacourse.movie.domain.MovieInfo
-import woowacourse.movie.domain.MovieScheduleGenerator
-import woowacourse.movie.domain.TicketCount
-import woowacourse.movie.domain.TicketMaker
+import woowacourse.movie.model.MovieInfo
+import woowacourse.movie.model.MovieScheduleGenerator
+import woowacourse.movie.model.TicketCount
+import woowacourse.movie.model.TicketMaker
 import woowacourse.movie.selectSeat.SelectSeatActivity
 import woowacourse.movie.uiModel.MovieInfoUIModel
 import woowacourse.movie.uiModel.PosterMapper

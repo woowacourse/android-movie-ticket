@@ -1,5 +1,6 @@
 package woowacourse.movie.selectSeat
 
+import woowacourse.movie.model.SelectSeats
 import woowacourse.movie.uiModel.TicketUIModel
 
 class SelectSeatPresenter(

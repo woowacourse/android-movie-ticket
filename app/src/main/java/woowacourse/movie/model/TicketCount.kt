@@ -1,4 +1,4 @@
-package woowacourse.movie.domain
+package woowacourse.movie.model
 
 class TicketCount(
     startCount: Int = 0,
