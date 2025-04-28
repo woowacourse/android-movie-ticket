@@ -1,6 +1,8 @@
 package woowacourse.movie.presenter.movies
 
+import io.kotest.core.spec.style.AnnotationSpec.After
 import io.mockk.Runs
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -53,5 +55,10 @@ class MoviesPresenterTest {
 
         // then:
         verify { view.showAdvertisement(any()) }
+    }
+
+    @After
+    fun finish() {
+        clearAllMocks()
     }
 }

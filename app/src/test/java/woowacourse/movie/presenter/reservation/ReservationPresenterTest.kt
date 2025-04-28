@@ -1,6 +1,8 @@
 package woowacourse.movie.presenter.reservation
 
+import io.kotest.core.spec.style.AnnotationSpec.After
 import io.mockk.Runs
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -155,5 +157,10 @@ class ReservationPresenterTest {
 
         // then:
         verify { view.showSelectedTime(1) }
+    }
+
+    @After
+    fun finish() {
+        clearAllMocks()
     }
 }

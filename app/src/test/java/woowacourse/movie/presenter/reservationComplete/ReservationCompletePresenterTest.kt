@@ -1,6 +1,8 @@
 package woowacourse.movie.presenter.reservationComplete
 
+import io.kotest.core.spec.style.AnnotationSpec.After
 import io.mockk.Runs
+import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -40,5 +42,10 @@ class ReservationCompletePresenterTest {
         }
         verify { view.showSeat(MOVIE_TICKET_B1_C3.seats) }
         verify { view.showPrice(MOVIE_TICKET_B1_C3.price()) }
+    }
+
+    @After
+    fun finish() {
+        clearAllMocks()
     }
 }
