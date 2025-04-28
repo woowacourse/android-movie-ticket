@@ -8,7 +8,7 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.contract.reservation.ScreeningContract
-import woowacourse.movie.data.reservation.FakeScreenings
+import woowacourse.movie.data.reservation.FakeScreeningData
 import woowacourse.movie.domain.reservation.Movie
 import woowacourse.movie.domain.reservation.Screening
 import java.time.LocalDate
@@ -23,7 +23,7 @@ class ScreeningPresenterTest {
         presenter =
             ScreeningPresenter(
                 view,
-                FakeScreenings(
+                FakeScreeningData(
                     listOf(
                         Screening(
                             Movie(
