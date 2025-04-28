@@ -52,15 +52,10 @@ class ReservationPresenter(
     }
 
     override fun selectDate(date: LocalDate) {
-        println("selected: $date")
-        println("movie: ${movie?.screeningPeriod}")
         val times = movie?.screeningPeriod?.getAvailableTimesFor(LocalDateTime.now(), date) ?: emptyList()
-        println(times)
         times.ifEmpty {
             val nextDate = date.plusDays(1)
             val dates = movie?.screeningPeriod?.getAvailableDates(LocalDateTime.of(nextDate, LocalTime.of(0, 0))) ?: emptyList()
-            println(nextDate)
-            println(dates)
             if (dates.isEmpty()) {
                 view.notifyUnavailableDate()
                 return
@@ -68,7 +63,8 @@ class ReservationPresenter(
             view.updateDateSet(dates, nextDate)
         }
 
-        view.updateDateSet(movie?.screeningPeriod?.getAvailableDates(LocalDateTime.now()) ?: emptyList())
+        val temp = movie?.screeningPeriod?.getAvailableDates(LocalDateTime.now()) ?: emptyList()
+        view.updateDateSet(temp)
         view.updateTimeSet(times)
     }
 
@@ -88,7 +84,7 @@ class ReservationPresenter(
                 reservationCount = reservationCount,
             )
 
-        view.navigateToReservationResultScreen(reservationInfo)
+        view.navigateToSeatSelectionScreen(reservationInfo)
     }
 
     companion object {

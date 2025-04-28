@@ -12,6 +12,7 @@
 
     <string name="reservation_count_info">일반 %s명</string>
     <string name="reservation_total_price">%,d원 (현장 결제)</string>
+    <string name="reservation_total_money">%,d원</string>
 
     <string name="reservation_dialog_title">예매 확인</string>
     <string name="reservation_dialog_message">정말 예매하시겠습니까?</string>

@@ -18,11 +18,6 @@ interface SeatSelectionContract {
 
         fun showMovieTitle(title: String)
 
-        fun showSelectedSeatsCount(
-            selected: Int,
-            total: Int,
-        )
-
         fun enableConfirmButton(enabled: Boolean)
 
         fun showError(message: String)
@@ -33,7 +28,7 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadSeats()
+        fun loadSeats(reservationInfo: ReservationInfo?)
 
         fun selectSeat(seat: Seat)
 
@@ -45,20 +40,23 @@ interface SeatSelectionContract {
 
 class SeatSelectionPresenter(
     private val view: SeatSelectionContract.View,
-    private val reservationInfo: ReservationInfo,
 ) : SeatSelectionContract.Presenter {
+    private var reservationInfo: ReservationInfo? = null
+
     private val theater = Theater.default()
     private val ticketMachine = TicketMachine()
 
-    override fun loadSeats() {
+    override fun loadSeats(reservationInfo: ReservationInfo?) {
         val seats = theater.createSeats()
+        this.reservationInfo = reservationInfo
+
         view.showSeats(seats)
         updateScreen()
     }
 
     override fun selectSeat(seat: Seat) {
         try {
-            reservationInfo.updateSeats(seat)
+            reservationInfo?.updateSeats(seat)
             view.updateSeatSelection(seat, seat.isSelected)
             updateScreen()
         } catch (e: IllegalArgumentException) {
@@ -67,11 +65,11 @@ class SeatSelectionPresenter(
     }
 
     private fun updateScreen() {
-        view.showTotalPrice(reservationInfo.totalPrice())
+        view.showTotalPrice(reservationInfo?.totalPrice() ?: throw IllegalArgumentException())
         view.enableConfirmButton(canCompleteReservation())
     }
 
-    private fun canCompleteReservation(): Boolean = ticketMachine.canPublish(reservationInfo)
+    private fun canCompleteReservation(): Boolean = reservationInfo?.let { ticketMachine.canPublish(it) } ?: false
 
     override fun showConfirmButton() {
         if (canCompleteReservation()) {
@@ -82,7 +80,9 @@ class SeatSelectionPresenter(
     }
 
     override fun completeReservation() {
-        ticketMachine.publishTickets(reservationInfo)
-        view.navigateToResult(reservationInfo)
+        reservationInfo?.let {
+            ticketMachine.publishTickets(it)
+            view.navigateToResult(it)
+        }
     }
 }

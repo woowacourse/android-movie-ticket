@@ -23,7 +23,8 @@ class ReservationResultActivity :
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val reservationInfo = intent?.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
+        val reservationInfo = intent.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
+
         presenter.loadReservationInfo(reservationInfo)
 
         onBackPressedDispatcher.addCallback(
@@ -99,9 +100,11 @@ class ReservationResultActivity :
             context: Context,
             reservationInfo: ReservationInfo,
         ): Intent =
-            Intent(context, ReservationResultActivity::class.java).putExtra(
-                BUNDLE_KEY_RESERVATION_INFO,
-                reservationInfo,
-            )
+            Intent(context, ReservationResultActivity::class.java).apply {
+                putExtra(
+                    BUNDLE_KEY_RESERVATION_INFO,
+                    reservationInfo,
+                )
+            }
     }
 }

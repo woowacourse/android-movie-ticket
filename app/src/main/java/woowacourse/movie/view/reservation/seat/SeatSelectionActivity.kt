@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -15,13 +16,13 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.view.base.BaseActivity
+import woowacourse.movie.view.extension.getParcelableCompat
 import woowacourse.movie.view.reservation.result.ReservationResultActivity
 
 class SeatSelectionActivity :
     BaseActivity(R.layout.activity_seat_selection),
     SeatSelectionContract.View {
-    private lateinit var reservationInfo: ReservationInfo
-    private lateinit var presenter: SeatSelectionPresenter
+    private val presenter: SeatSelectionPresenter by lazy { SeatSelectionPresenter(this) }
 
     private val showReservationDialog by lazy {
         AlertDialog
@@ -36,22 +37,24 @@ class SeatSelectionActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        reservationInfo = intent.getParcelableExtra(BUNDLE_KEY_RESERVATION_INFO)!!
-        presenter = SeatSelectionPresenter(this, reservationInfo)
-        (intent?.getParcelableExtra(BUNDLE_KEY_RESERVATION_INFO) as? ReservationInfo)?.let {
-            presenter.loadSeats(it)
-            setupViews(it.title)
-        }
+        val reservation = intent.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
+
+        presenter.loadSeats(reservation)
+        setupViews(reservation.title)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-        setupViews()
-        presenter.loadSeats()
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            onBackPressedDispatcher.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
-    private fun setupViews() {
-        showMovieTitle(reservationInfo.title)
+    private fun setupViews(title: String) {
+        showMovieTitle(title)
 
         findViewById<Button>(R.id.btn_seat_select_confirm).setOnClickListener {
             presenter.showConfirmButton()
@@ -96,18 +99,12 @@ class SeatSelectionActivity :
     }
 
     override fun showTotalPrice(price: Int) {
-        findViewById<TextView>(R.id.tv_reservation_total_price)
+        val tvPrice = findViewById<TextView>(R.id.tv_seat_select_total_price)
+        tvPrice.text = getString(R.string.reservation_total_money, price)
     }
 
     override fun showMovieTitle(title: String) {
         findViewById<TextView>(R.id.tv_seat_select_movie_title).text = title
-    }
-
-    override fun showSelectedSeatsCount(
-        selected: Int,
-        total: Int,
-    ) {
-        TODO("Not yet implemented")
     }
 
     override fun enableConfirmButton(enabled: Boolean) {
@@ -123,15 +120,14 @@ class SeatSelectionActivity :
     }
 
     override fun navigateToResult(reservationInfo: ReservationInfo) {
-        startActivity(newIntent(this, reservationInfo))
-        finish()
+        startActivity(ReservationResultActivity.newIntent(this, reservationInfo))
     }
 
     private fun submitReservation() {
         presenter.completeReservation()
     }
 
-    fun setupSeatClickListener(
+    private fun setupSeatClickListener(
         view: TextView,
         seat: Seat,
     ) {
@@ -147,7 +143,7 @@ class SeatSelectionActivity :
             context: Context,
             reservationInfo: ReservationInfo,
         ): Intent =
-            Intent(context, ReservationResultActivity::class.java).putExtra(
+            Intent(context, SeatSelectionActivity::class.java).putExtra(
                 BUNDLE_KEY_RESERVATION_INFO,
                 reservationInfo,
             )

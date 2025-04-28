@@ -23,7 +23,7 @@ interface ReservationContract {
 
         fun notifyUnavailableDate()
 
-        fun navigateToReservationResultScreen(reservationInfo: ReservationInfo)
+        fun navigateToSeatSelectionScreen(reservationInfo: ReservationInfo)
 
         fun notifyInvalidReservationInfo()
     }
