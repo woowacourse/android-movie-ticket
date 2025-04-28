@@ -29,7 +29,7 @@ class SeatsActivityTest {
         val ticket =
             MovieTicket(
                 "Test",
-                LocalDateTime.of(2025, 4, 28, 12, 0),
+                LocalDateTime.of(2025, 12, 31, 12, 0),
                 1,
             )
 
