@@ -3,11 +3,12 @@ package woowacourse.movie.booking
 import android.os.Bundle
 import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.TicketCount
+import woowacourse.movie.uiModel.TicketUIModel
 import java.time.LocalTime
 
 interface BookingContract {
     interface View {
-        fun moveActivity()
+        fun moveActivity(ticketUIModel: TicketUIModel)
 
         fun setupDateChangeListener()
 
@@ -27,7 +28,12 @@ interface BookingContract {
     interface Presenter {
         fun onCreateView(savedInstanceState: Bundle?)
 
-        fun onBookButtonClick(count: TicketCount)
+        fun onBookButtonClick(
+            title: String,
+            date: String,
+            time: String,
+            count: TicketCount,
+        )
 
         fun onUpButtonClick(ticketCount: TicketCount)
 
