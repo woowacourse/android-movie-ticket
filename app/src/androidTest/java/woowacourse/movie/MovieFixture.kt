@@ -1,10 +1,13 @@
 package woowacourse.movie
 
+import woowacourse.movie.domain.model.Column
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Price
 import woowacourse.movie.domain.model.Reservation
+import woowacourse.movie.domain.model.Row
 import woowacourse.movie.domain.model.RunningTime
 import woowacourse.movie.domain.model.ScreeningDate
+import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.SeatRate
 import woowacourse.movie.domain.model.Ticket
 import woowacourse.movie.domain.model.Tickets
 import java.time.LocalDateTime
@@ -28,7 +31,13 @@ val HARRY_POTTER_MOVIE =
 val HARRY_POTTER_RESERVATION =
     Reservation(
         title = HARRY_POTTER_TITLE,
-        tickets = Tickets(listOf(Ticket(Price(1_3000)), Ticket(Price(1_3000)))),
+        tickets =
+            Tickets(
+                listOf(
+                    Ticket(Seat(Row(0), Column(0), SeatRate.S)),
+                    Ticket(Seat(Row(0), Column(1), SeatRate.B)),
+                ),
+            ),
         reservedTime =
             LocalDateTime.of(
                 APRIL_THIRTIETH,
