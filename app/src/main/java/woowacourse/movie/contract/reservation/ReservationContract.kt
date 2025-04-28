@@ -17,11 +17,19 @@ interface ReservationContract {
 
         fun presentTimes(date: LocalDate)
 
-        fun plusTicketCount(currentCount: Int)
+        fun presentTicketCount()
 
-        fun minusTicketCount(currentCount: Int)
+        fun plusTicketCount()
+
+        fun minusTicketCount()
 
         fun confirm()
+
+        fun getTicketCount(): Int
+
+        fun getItemPosition(): Int
+
+        fun setTimeItemPosition(position: Int)
     }
 
     interface View {
@@ -42,10 +50,16 @@ interface ReservationContract {
 
         fun setDates(dates: List<LocalDate>)
 
-        fun setTimes(times: List<LocalTime>)
+        fun setTimes(
+            times: List<LocalTime>,
+            timeItemPosition: Int,
+        )
 
         fun setTicketCount(count: Int)
 
-        fun navigateToSeatSelectionScreen(title: String)
+        fun navigateToSeatSelectionScreen(
+            title: String,
+            ticketCount: Int,
+        )
     }
 }

@@ -30,9 +30,6 @@ class ReservationActivity :
     ReservationContract.View {
     private var presenter: ReservationContract.Presenter? = null
 
-    private var ticketCount = DEFAULT_TICKET_COUNT
-    private var timeItemPosition = DEFAULT_TIME_ITEM_POSITION
-
     private lateinit var posterImageView: ImageView
     private lateinit var titleView: TextView
     private lateinit var periodView: TextView
@@ -47,8 +44,8 @@ class ReservationActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        outState.putInt(TICKET_COUNT, ticketCount)
-        outState.putInt(TIME_ITEM_POSITION, timeItemPosition)
+        presenter?.getTicketCount()?.let { outState.putInt(TICKET_COUNT, it) }
+        presenter?.getItemPosition()?.let { outState.putInt(TIME_ITEM_POSITION, it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,16 +58,27 @@ class ReservationActivity :
             insets
         }
 
+        initPresenter(
+            savedInstanceState?.getInt(TICKET_COUNT),
+            savedInstanceState?.getInt(TIME_ITEM_POSITION),
+        )
         findViews()
-        initModel(savedInstanceState)
+        initViews()
+        initEventListeners()
+    }
+
+    private fun initPresenter(
+        ticketCount: Int?,
+        timeItemPosition: Int?,
+    ) {
         presenter =
             ReservationPresenter(
                 this,
                 intent.getScreeningExtra(EXTRA_SCREENING)
                     ?: error(ErrorMessage(CAUSE_SCREENING).notProvided()),
+                ticketCount,
+                timeItemPosition,
             )
-        initViews()
-        initEventListeners()
     }
 
     private fun findViews() {
@@ -84,14 +92,6 @@ class ReservationActivity :
         ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
         ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
         completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
-    }
-
-    private fun initModel(savedInstanceState: Bundle?) {
-        val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
-        val savedTimeItemPosition =
-            savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: DEFAULT_TIME_ITEM_POSITION
-        ticketCount = savedTicketCount
-        timeItemPosition = savedTimeItemPosition
     }
 
     @Suppress("DEPRECATION")
@@ -110,7 +110,7 @@ class ReservationActivity :
             presentPeriod()
             presentRunningTime()
             presentDates()
-            setTicketCount(ticketCount)
+            presentTicketCount()
         }
     }
 
@@ -149,7 +149,7 @@ class ReservationActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    timeItemPosition = position
+                    presenter?.setTimeItemPosition(position)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -158,14 +158,14 @@ class ReservationActivity :
 
     private fun initTicketCountPlusButtonClickEvent() {
         ticketCountPlusButton.setOnClickListener {
-            presenter?.plusTicketCount(ticketCount)
+            presenter?.plusTicketCount()
                 ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
 
     private fun initTicketCountMinusButtonClickEvent() {
         ticketCountMinusButton.setOnClickListener {
-            presenter?.minusTicketCount(ticketCount)
+            presenter?.minusTicketCount()
                 ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
@@ -223,7 +223,10 @@ class ReservationActivity :
             )
     }
 
-    override fun setTimes(times: List<LocalTime>) {
+    override fun setTimes(
+        times: List<LocalTime>,
+        timeItemPosition: Int,
+    ) {
         timeSpinner.adapter =
             ArrayAdapter(
                 this@ReservationActivity,
@@ -239,11 +242,13 @@ class ReservationActivity :
     }
 
     override fun setTicketCount(count: Int) {
-        ticketCount = count
-        ticketCountView.text = ticketCount.toString()
+        ticketCountView.text = count.toString()
     }
 
-    override fun navigateToSeatSelectionScreen(title: String) {
+    override fun navigateToSeatSelectionScreen(
+        title: String,
+        ticketCount: Int,
+    ) {
         val intent =
             SeatSelectionActivity.newIntent(
                 this,
@@ -258,9 +263,6 @@ class ReservationActivity :
     }
 
     companion object {
-        private const val DEFAULT_TICKET_COUNT = 1
-        private const val DEFAULT_TIME_ITEM_POSITION = 0
-
         private const val TICKET_COUNT = "TICKET_COUNT"
         private const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
 
