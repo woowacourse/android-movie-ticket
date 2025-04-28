@@ -8,10 +8,10 @@ class TicketMachine(
     private val policy: PricePolicy,
 ) {
     fun publishTickets(reservationInfo: ReservationInfo): TicketBundle {
-        val tickets = mutableListOf<Ticket>()
-        reservationInfo.seats.forEach { seat ->
-            tickets.add(reservationInfo.toTicket(seat))
-        }
+        val tickets =
+            reservationInfo.seats.map { seat ->
+                reservationInfo.toTicket(seat)
+            }
 
         return TicketBundle.bundleOf(tickets)
     }
