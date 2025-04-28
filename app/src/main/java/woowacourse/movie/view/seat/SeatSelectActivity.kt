@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
@@ -96,7 +95,7 @@ class SeatSelectActivity :
                 seatTextView.apply {
                     tag = seat
                     text = seat.toString()
-                    setTextColor(ContextCompat.getColor(context, seat.colorResId))
+                    setTextColor(getColor(seat.colorResId))
                     setOnClickListener { presenter.onClickSeat(seat) }
                 }
             }
