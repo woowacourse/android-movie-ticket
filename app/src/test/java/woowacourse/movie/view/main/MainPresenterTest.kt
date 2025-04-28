@@ -1,27 +1,29 @@
-package woowacourse.movie.ui.main
+package woowacourse.movie.view.main
 
+import io.mockk.mockk
+import io.mockk.verify
+import org.junit.jupiter.api.Test
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.movie.RunningTime
 import woowacourse.movie.domain.model.movie.ScreeningDate
+import woowacourse.movie.ui.main.MainContract
+import woowacourse.movie.ui.main.MainPresenter
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
-    private lateinit var movies: List<Movie>
-    private lateinit var advertisementResources: List<Int>
+class MainPresenterTest {
+    private val view = mockk<MainContract.View>(relaxed = true)
+    private val presenter = MainPresenter(view)
+    private val advertisementResources = listOf(R.drawable.baemin, R.drawable.baemina)
+    private var mockMovies: List<Movie>
 
     init {
-        initMovies()
-        initAdvertisementResources()
-    }
-
-    private fun initMovies() {
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern(DATE_FORMAT)
         val startDate: LocalDate = LocalDate.parse("2025.04.15", formatter)
         val endDate: LocalDate = LocalDate.parse("2025.05.23", formatter)
 
-        movies =
+        mockMovies =
             List(10) {
                 Movie(
                     "해리포터와 마법사의 돌",
@@ -32,12 +34,15 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
             }
     }
 
-    private fun initAdvertisementResources() {
-        advertisementResources = listOf(R.drawable.baemin, R.drawable.baemina)
-    }
-
-    override fun showMovies() {
-        view.showMovies(movies, advertisementResources)
+    @Test
+    fun `초기화한 영화와 광고를 보여주는 기능 테스트`() {
+        presenter.showMovies()
+        verify {
+            view.showMovies(
+                mockMovies,
+                advertisementResources,
+            )
+        }
     }
 
     private companion object {
