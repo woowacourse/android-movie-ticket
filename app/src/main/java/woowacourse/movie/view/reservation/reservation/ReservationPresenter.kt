@@ -28,7 +28,6 @@ class ReservationPresenter(
                 movieDate = MovieDate(result.startDate, result.endDate),
                 movieTime = MovieTime(),
                 ticketCount = TicketCount(),
-                timeTable = emptyList(),
             )
 
         updateMovieInfo()
@@ -43,22 +42,23 @@ class ReservationPresenter(
     }
 
     override fun onDateSelected(date: LocalDate) {
+        val timeTable = reservationState.movieTime.getTimeTable(LocalDateTime.now(), date)
         reservationState.movieDate.updateDate(date)
-        updateReservationState(
-            movieDate = reservationState.movieDate,
-            timeTable = reservationState.movieTime.getTimeTable(LocalDateTime.now(), date),
-        )
+        updateReservationState(movieDate = reservationState.movieDate)
         view.updateTimeAdapter(
-            reservationState.timeTable.map {
-                ReservationUiFormatter.movieTimeToUI(
-                    it,
-                )
+            timeTable.map {
+                ReservationUiFormatter.movieTimeToUI(it)
             },
         )
     }
 
     override fun onTimeSelected(position: Int) {
-        reservationState.movieTime.updateTime(reservationState.timeTable[position])
+        val timeTable =
+            reservationState.movieTime.getTimeTable(
+                LocalDateTime.now(),
+                reservationState.movieDate.value,
+            )
+        reservationState.movieTime.updateTime(timeTable[position])
         updateReservationState(movieTime = reservationState.movieTime)
     }
 
@@ -111,14 +111,12 @@ class ReservationPresenter(
         movieDate: MovieDate = reservationState.movieDate,
         movieTime: MovieTime = reservationState.movieTime,
         ticketCount: TicketCount = reservationState.ticketCount,
-        timeTable: List<Int> = reservationState.timeTable,
     ) {
         reservationState =
             reservationState.copy(
                 movieDate = movieDate,
                 movieTime = movieTime,
                 ticketCount = ticketCount,
-                timeTable = timeTable,
             )
     }
 }

@@ -5,5 +5,4 @@ data class ReservationState(
     val movieDate: MovieDate,
     val movieTime: MovieTime,
     val ticketCount: TicketCount,
-    val timeTable: List<Int>,
 )
