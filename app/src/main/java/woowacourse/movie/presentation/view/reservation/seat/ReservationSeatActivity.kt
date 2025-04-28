@@ -73,7 +73,7 @@ class ReservationSeatActivity :
         outState.putParcelable(BUNDLE_KEY_RESERVATION_INFO, presenter.reservationInfo)
     }
 
-    override fun setScreen(
+    override fun showScreen(
         reservationInfo: ReservationInfoUiModel,
         screen: ScreenUiModel,
         selectedSeats: List<SeatUiModel>,

@@ -26,7 +26,7 @@ interface ReservationDetailContract {
     }
 
     interface View {
-        fun setScreen(movie: MovieUiModel)
+        fun showScreen(movie: MovieUiModel)
 
         fun updateDates(
             dates: List<LocalDate>,

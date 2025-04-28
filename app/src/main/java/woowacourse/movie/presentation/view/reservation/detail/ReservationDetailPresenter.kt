@@ -65,7 +65,7 @@ class ReservationDetailPresenter(
 
     private fun setupView(dateTime: LocalDateTime?) {
         movie?.let {
-            view.setScreen(it.toUiModel())
+            view.showScreen(it.toUiModel())
             view.updateReservationCount(reservationCount.value, reservationCount.isValid())
             setAvailableItems(dateTime)
         }

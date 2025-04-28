@@ -8,6 +8,6 @@ class MoviesPresenter(
 ) : MoviesContract.Presenter {
     override fun fetchData() {
         val movies = createDummyMovies(10_000).map { it.toUiModel() }
-        view.setScreen(movies)
+        view.showScreen(movies)
     }
 }

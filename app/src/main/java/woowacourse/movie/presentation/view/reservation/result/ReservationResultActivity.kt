@@ -48,7 +48,7 @@ class ReservationResultActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setScreen(
+    override fun showScreen(
         ticketBundle: TicketBundleUiModel,
         cancellationTime: Int,
     ) {

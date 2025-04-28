@@ -8,7 +8,7 @@ class ReservationResultPresenter(
 ) : ReservationResultContract.Presenter {
     override fun fetchDate(ticketBundle: TicketBundleUiModel?) {
         ticketBundle?.let { bundle ->
-            view.setScreen(bundle, TicketMachine.CANCELLATION_TIME)
+            view.showScreen(bundle, TicketMachine.CANCELLATION_TIME)
             return
         }
 

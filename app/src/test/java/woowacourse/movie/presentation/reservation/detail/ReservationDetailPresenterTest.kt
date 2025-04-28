@@ -38,7 +38,7 @@ class ReservationDetailPresenterTest {
     @Test
     fun `영화 데이터를 불러온다`() {
         // Given: View가 화면 설정, 예약 수 업데이트, 날짜 업데이트를 수행하도록 설정한다.
-        every { view.setScreen(any()) } just Runs
+        every { view.showScreen(any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
         every { view.updateDates(any(), any(), any()) } just Runs
 
@@ -46,7 +46,7 @@ class ReservationDetailPresenterTest {
         presenter.fetchData(fakeMovie)
 
         // Then: View의 setScreen이 영화 정보를 받아 호출된다.
-        verify { view.setScreen(fakeMovie) }
+        verify { view.showScreen(fakeMovie) }
     }
 
     @Test
@@ -68,7 +68,7 @@ class ReservationDetailPresenterTest {
         val times = dummyMovie.screeningPeriod.getAvailableTimesFor(now, now.toLocalDate())
 
         every { view.updateTimes(times) } just Runs
-        every { view.setScreen(fakeMovie) } just Runs
+        every { view.showScreen(fakeMovie) } just Runs
         every { view.updateDates(any(), any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
 
@@ -79,7 +79,7 @@ class ReservationDetailPresenterTest {
 
         // Then: 화면이 초기화되고, 날짜 선택에 따라 시간 목록이 갱신된다.
         verifySequence {
-            view.setScreen(fakeMovie)
+            view.showScreen(fakeMovie)
             view.updateReservationCount(any(), any())
             view.updateDates(any(), any(), any())
             view.updateTimes(times)
@@ -90,7 +90,7 @@ class ReservationDetailPresenterTest {
     fun `예약 시 조건이 맞으면 예약 정보를 넘긴다`() {
         // Given: View가 예약 정보를 넘길 수 있도록 설정하고, 기본 데이터를 준비한다.
         val now = LocalDateTime.of(2025, 4, 1, 12, 0)
-        every { view.setScreen(any()) } just Runs
+        every { view.showScreen(any()) } just Runs
         every { view.updateDates(any(), any(), any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
         every { view.notifyReservationConfirm(any(), any()) } just Runs
@@ -120,7 +120,7 @@ class ReservationDetailPresenterTest {
             dummyMovie.copy(
                 screeningPeriod = ScreeningPeriod(LocalDate.MIN, LocalDate.MIN),
             )
-        every { view.setScreen(any()) } just Runs
+        every { view.showScreen(any()) } just Runs
         every { view.updateReservationCount(any(), any()) } just Runs
         every { view.notifyNoAvailableDates() } just Runs
 

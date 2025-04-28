@@ -24,7 +24,7 @@ class ReservationSeatPresenter(
     ) {
         reservationInfoUiModel?.let { uiModel ->
             _reservationInfo = uiModel.toModel()
-            view.setScreen(
+            view.showScreen(
                 uiModel,
                 screen ?: Screen.DEFAULT_SCREEN.toUiModel(),
                 _reservationInfo?.seats?.map { it.toUiModel() } ?: emptyList(),

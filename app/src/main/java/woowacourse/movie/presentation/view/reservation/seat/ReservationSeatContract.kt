@@ -18,7 +18,7 @@ interface ReservationSeatContract {
     }
 
     interface View {
-        fun setScreen(
+        fun showScreen(
             reservationInfo: ReservationInfoUiModel,
             screen: ScreenUiModel,
             selectedSeats: List<SeatUiModel>,

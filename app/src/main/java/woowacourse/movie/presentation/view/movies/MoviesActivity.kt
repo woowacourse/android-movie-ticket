@@ -20,7 +20,7 @@ class MoviesActivity :
         presenter.fetchData()
     }
 
-    override fun setScreen(movies: List<MovieUiModel>) {
+    override fun showScreen(movies: List<MovieUiModel>) {
         setMovies(movies)
     }
 

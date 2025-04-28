@@ -2,7 +2,6 @@ package woowacourse.movie.presentation.movies
 
 import io.mockk.Runs
 import io.mockk.every
-import io.mockk.invoke
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.verify
@@ -24,12 +23,12 @@ class MoviesPresenterTest {
     @Test
     fun `영화 목록을 불러온다`() {
         // Given: view의 setScreen 동작을 설정한다
-        every { view.setScreen(any()) } just Runs
+        every { view.showScreen(any()) } just Runs
 
         // When: presenter가 데이터를 불러온다
         presenter.fetchData()
 
         // Then: view에 setScreen이 호출되어야 한다
-        verify { view.setScreen(any()) }
+        verify { view.showScreen(any()) }
     }
 }

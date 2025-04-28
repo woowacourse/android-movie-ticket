@@ -68,7 +68,7 @@ class ReservationDetailActivity :
         views.updateReservationCount(count, isEnabled)
     }
 
-    override fun setScreen(movie: MovieUiModel) {
+    override fun showScreen(movie: MovieUiModel) {
         views.bindMovieInfo(movie)
         setupDateSpinner()
         setupReservationCountControls()

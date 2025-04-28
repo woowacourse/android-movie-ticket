@@ -8,6 +8,6 @@ interface MoviesContract {
     }
 
     interface View {
-        fun setScreen(movies: List<MovieUiModel>)
+        fun showScreen(movies: List<MovieUiModel>)
     }
 }

@@ -8,7 +8,7 @@ interface ReservationResultContract {
     }
 
     interface View {
-        fun setScreen(
+        fun showScreen(
             ticketBundle: TicketBundleUiModel,
             cancellationTime: Int,
         )
