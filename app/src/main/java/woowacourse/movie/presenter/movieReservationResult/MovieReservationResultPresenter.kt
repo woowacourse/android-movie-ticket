@@ -23,6 +23,7 @@ class MovieReservationResultPresenter(
             theater.seats.joinToString { seat ->
                 seat.row.toRowAlphabet() + seat.col.toColNumber()
             }
+        view.showMovieTitle(this.ticket.movie.title)
         view.showMovieDateTime(this.ticket.showtime)
         view.showTicketCount(this.ticket.count.value)
         view.showSelectedSeats(selectedSeats)
