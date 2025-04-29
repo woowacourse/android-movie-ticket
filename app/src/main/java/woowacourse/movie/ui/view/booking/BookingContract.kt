@@ -11,8 +11,6 @@ interface BookingContract {
 
         fun showErrorDialog()
 
-//        fun showBookingConfirmDialog()
-
         fun updateHeadCount(headCount: Int)
 
         fun navigateToSeatsSelection(movieTicket: MovieTicket)

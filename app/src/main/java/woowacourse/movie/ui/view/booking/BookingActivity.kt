@@ -74,18 +74,6 @@ class BookingActivity :
             .show()
     }
 
-//    override fun showBookingConfirmDialog() {
-//        AlertDialog
-//            .Builder(this)
-//            .setTitle(getString(R.string.dialog_title))
-//            .setMessage(getString(R.string.dialog_message))
-//            .setPositiveButton(getString(R.string.complete)) { _, _ ->
-//                presenter.onConfirm()
-//            }.setNegativeButton(getString(R.string.cancel)) { dialog, _ -> dialog.dismiss() }
-//            .setCancelable(false)
-//            .show()
-//    }
-
     override fun navigateToSeatsSelection(movieTicket: MovieTicket) {
         val intent = Intent(this, SeatsSelectionActivity::class.java)
         intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
