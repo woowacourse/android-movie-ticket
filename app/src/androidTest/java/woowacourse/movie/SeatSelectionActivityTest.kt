@@ -13,10 +13,10 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.feature.seatSelection.SeatSelectionActivity
 import woowacourse.movie.fixtures.fakeContext
 import woowacourse.movie.fixtures.seats
 import woowacourse.movie.fixtures.ticket
-import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 
 class SeatSelectionActivityTest {
     private lateinit var intent: Intent

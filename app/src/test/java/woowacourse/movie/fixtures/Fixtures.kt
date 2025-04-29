@@ -4,8 +4,8 @@ import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Ticket
 import woowacourse.movie.domain.movie.TicketCount
 import woowacourse.movie.domain.seat.Seats
-import woowacourse.movie.view.model.toDomain
-import woowacourse.movie.view.model.toUiModel
+import woowacourse.movie.feature.model.toDomain
+import woowacourse.movie.feature.model.toUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 
