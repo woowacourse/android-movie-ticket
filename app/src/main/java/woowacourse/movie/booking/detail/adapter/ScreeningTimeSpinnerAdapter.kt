@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.adapter
+package woowacourse.movie.booking.detail.adapter
 
 import android.R
 import android.content.Context
@@ -24,7 +24,7 @@ class ScreeningTimeSpinnerAdapter(
     ): View {
         val view = super.getView(position, convertView, parent) as TextView
         val time = getItem(position)
-        view.text = Formatter.simpleTimeFormat(time!!)
+        view.text = Formatter.formatTimeWithMidnight24(time!!)
         return view
     }
 
@@ -35,7 +35,7 @@ class ScreeningTimeSpinnerAdapter(
     ): View {
         val view = super.getDropDownView(position, convertView, parent) as TextView
         val time = getItem(position)
-        view.text = Formatter.simpleTimeFormat(time!!)
+        view.text = Formatter.formatTimeWithMidnight24(time!!)
         return view
     }
 }

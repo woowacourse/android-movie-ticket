@@ -8,4 +8,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="screening_info_bg">#9160F9</color>
+    <color name="seat_selection_background">#EAEAEA</color>
+    <color name="screen_background">#494949</color>
+    <color name="seat_unselected_background">#FFFFFF</color>
+    <color name="seat_selected_background">#FAFF00</color>
+    <color name="b_grade_text_color">#8E13EF</color>
+    <color name="s_grade_text_color">#19D358</color>
+    <color name="a_grade_text_color">#1B48E9</color>
+    <color name="btn_deactivate_background">#B7B7B7</color>
+    <color name="btn_activate_background">#6200EE</color>
 </resources>

@@ -1,17 +1,14 @@
 package woowacourse.movie.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
-@Parcelize
 data class Movie(
     val imageSource: String,
     val title: String,
     val screeningStartDate: LocalDate,
     val screeningEndDate: LocalDate,
     val runningTime: Int,
-) : Parcelable {
+) {
     init {
         require(title.isNotBlank()) { ERROR_TITLE_BLACK_MESSAGE }
         require(runningTime > 0) { ERROR_RUNNING_TIME_MESSAGE }

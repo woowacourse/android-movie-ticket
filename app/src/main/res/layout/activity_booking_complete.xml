@@ -56,7 +56,7 @@
                 tools:text="예매한 영화 제목" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/head_count_layout"
+                android:id="@+id/screening_layout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -90,17 +90,52 @@
                     tools:text="영화 상영시간" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/tv_head_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/headCount_seats_layout"
+                app:layout_constraintTop_toBottomOf="@id/screening_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/head_count_layout"
-                tools:text="일반 n명" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="80dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_head_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="일반 n명" />
+
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:id="@+id/tv_delimiter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_head_count"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:text="|" />
+
+                <TextView
+                    android:id="@+id/tv_seats"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toEndOf="@id/tv_delimiter"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    tools:text="B1, D2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <TextView
                 android:id="@+id/tv_booking_amount"
@@ -109,9 +144,9 @@
                 android:layout_marginTop="32dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/headCount_seats_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_head_count"
+                app:layout_constraintEnd_toEndOf="parent"
                 tools:text="26,000원 (현장 결제)" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

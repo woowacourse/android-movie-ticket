@@ -1,14 +1,11 @@
-package woowacourse.movie.ui.listener
+package woowacourse.movie.booking.detail.listener
 
 import android.view.View
 import android.widget.AdapterView
-import woowacourse.movie.model.BookingResult
 import java.time.LocalDate
 
 class ScreeningDateSelectedListener(
-    private var bookingResult: BookingResult,
-    private val onBookingResultChanged: (BookingResult) -> Unit,
-    private val refreshTimeSpinner: () -> Unit,
+    private val onDateSelected: (LocalDate) -> Unit,
 ) : AdapterView.OnItemSelectedListener {
     override fun onItemSelected(
         parent: AdapterView<*>?,
@@ -17,9 +14,7 @@ class ScreeningDateSelectedListener(
         id: Long,
     ) {
         val selectedDate = parent?.getItemAtPosition(position) as LocalDate
-        bookingResult = bookingResult.updateDate(selectedDate)
-        onBookingResultChanged(bookingResult)
-        refreshTimeSpinner()
+        onDateSelected(selectedDate)
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {}
