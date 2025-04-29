@@ -10,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
@@ -79,11 +78,11 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun selectSeat(index: Int) {
-        seatButtons[index].setBackgroundColor("#FAFF00".toColorInt())
+        seatButtons[index].setBackgroundColor(getColor(R.color.seat_selected))
     }
 
     override fun deselectSeat(index: Int) {
-        seatButtons[index].setBackgroundColor("#FFFFFF".toColorInt())
+        seatButtons[index].setBackgroundColor(getColor(R.color.seat_default))
     }
 
     override fun showMovieTitle(title: String) {
