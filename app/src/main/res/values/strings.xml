@@ -20,4 +20,5 @@
     <string name="movie_not_found_message">존재하지 않는 영화입니다.</string>
     <string name="confirm">확인</string>
     <string name="seat_limit_message">선택 가능한 좌석 수를 초과했습니다.</string>
+    <string name="screen">SCREEN</string>
 </resources>

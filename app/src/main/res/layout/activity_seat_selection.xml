@@ -9,7 +9,7 @@
         android:id="@+id/tv_screen"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="SCREEN"
+        android:text="@string/screen"
         android:textColor="@color/white"
         android:textSize="28sp"
         android:textAlignment="center"
@@ -71,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:background="#6200EE"
-            android:text="확인"
+            android:text="@string/confirm"
             android:layout_weight="1" />
     </LinearLayout>
 
