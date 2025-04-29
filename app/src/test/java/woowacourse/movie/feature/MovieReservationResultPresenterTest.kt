@@ -26,6 +26,7 @@ class MovieReservationResultPresenterTest {
 
         // then
         verifyAll {
+            view.showMovieTitle(any())
             view.showMovieDateTime(any())
             view.showTicketCount(any())
             view.showSelectedSeats(any())
