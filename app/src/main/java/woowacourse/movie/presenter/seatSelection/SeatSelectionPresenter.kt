@@ -1,10 +1,10 @@
 package woowacourse.movie.presenter.seatSelection
 
 import woowacourse.movie.domain.movie.Ticket
-import woowacourse.movie.domain.theater.Seat
-import woowacourse.movie.domain.theater.Theater
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.Seats
 import woowacourse.movie.view.model.movie.TicketUiModel
-import woowacourse.movie.view.model.theater.TheaterUiModel
+import woowacourse.movie.view.model.seat.SeatsUiModel
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 
@@ -12,46 +12,46 @@ class SeatSelectionPresenter(
     val view: SeatSelectionContract.View,
 ) : SeatSelectionContract.Presenter {
     private lateinit var ticket: Ticket
-    private lateinit var _theater: Theater
-    val theater get() = _theater.toUiModel()
+    private lateinit var _seats: Seats
+    val seats get() = _seats.toUiModel()
 
     override fun onViewCreated(ticketUiModel: TicketUiModel) {
         ticket = ticketUiModel.toDomain()
-        _theater = Theater(ticketUiModel.count)
+        _seats = Seats(ticketUiModel.count)
         view.showMovieTitle(ticketUiModel.movie.title)
-        view.showTotalPrice(_theater.totalPrice())
+        view.showTotalPrice(_seats.totalPrice())
     }
 
-    override fun onInstanceStateRestored(seats: TheaterUiModel) {
-        _theater = seats.toDomain()
-        _theater.seats.forEach { seat ->
-            val index = seat.row * Theater.COL_SIZE + seat.col
+    override fun onInstanceStateRestored(seats: SeatsUiModel) {
+        _seats = seats.toDomain()
+        _seats.seats.forEach { seat ->
+            val index = seat.row * Seats.COL_SIZE + seat.col
             view.selectSeat(index)
         }
-        view.showTotalPrice(_theater.totalPrice())
+        view.showTotalPrice(_seats.totalPrice())
     }
 
     override fun onSeatSelection(index: Int) {
-        val row = index / Theater.COL_SIZE
-        val col = index % Theater.COL_SIZE
+        val row = index / Seats.COL_SIZE
+        val col = index % Seats.COL_SIZE
         val seat = Seat(row, col)
-        if (seat in _theater.seats) {
+        if (seat in _seats.seats) {
             view.deselectSeat(index)
-            _theater.remove(seat)
+            _seats.remove(seat)
         } else {
-            if (!_theater.isSelectionFinished()) {
+            if (!_seats.isSelectionFinished()) {
                 view.selectSeat(index)
-                _theater.add(seat)
+                _seats.add(seat)
             } else {
                 view.showSelectionFinishedToast()
             }
         }
 
-        view.showTotalPrice(_theater.totalPrice())
+        view.showTotalPrice(_seats.totalPrice())
     }
 
     override fun onConfirmation() {
-        if (_theater.isSelectionFinished()) {
+        if (_seats.isSelectionFinished()) {
             view.showAlertDialog()
         } else {
             view.showSelectionNotFinishedToast(ticket.count.value)
@@ -59,6 +59,6 @@ class SeatSelectionPresenter(
     }
 
     override fun onAlertConfirmation() {
-        view.goToReservationResult(ticket.toUiModel(), theater)
+        view.goToReservationResult(ticket.toUiModel(), seats)
     }
 }

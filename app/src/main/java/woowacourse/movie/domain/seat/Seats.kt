@@ -1,6 +1,6 @@
-package woowacourse.movie.domain.theater
+package woowacourse.movie.domain.seat
 
-class Theater(private val capacity: Int) {
+class Seats(private val capacity: Int) {
     private val _seats = mutableSetOf<Seat>()
     val seats get() = _seats.toList()
 

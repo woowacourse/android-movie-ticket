@@ -1,4 +1,4 @@
-package woowacourse.movie.domain.theater
+package woowacourse.movie.domain.seat
 
 enum class SeatGrade(val price: Int) {
     S(15_000),

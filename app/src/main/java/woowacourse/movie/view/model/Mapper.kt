@@ -4,12 +4,12 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Ticket
 import woowacourse.movie.domain.movie.TicketCount
-import woowacourse.movie.domain.theater.Seat
-import woowacourse.movie.domain.theater.Theater
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.Seats
 import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.movie.TicketUiModel
-import woowacourse.movie.view.model.theater.SeatUiModel
-import woowacourse.movie.view.model.theater.TheaterUiModel
+import woowacourse.movie.view.model.seat.SeatUiModel
+import woowacourse.movie.view.model.seat.SeatsUiModel
 
 fun Movie.toUiModel(): MovieUiModel {
     return MovieUiModel(title, startDate, endDate, runningTime, R.drawable.harry_potter_poster)
@@ -35,12 +35,12 @@ fun SeatUiModel.toDomain(): Seat {
     return Seat(row, col)
 }
 
-fun Theater.toUiModel(): TheaterUiModel {
-    return TheaterUiModel(seats.size, seats.map { seat -> seat.toUiModel() })
+fun Seats.toUiModel(): SeatsUiModel {
+    return SeatsUiModel(seats.size, seats.map { seat -> seat.toUiModel() })
 }
 
-fun TheaterUiModel.toDomain(): Theater {
-    val theater = Theater(seats.size)
-    this.seats.forEach { seat -> theater.add(seat.toDomain()) }
-    return theater
+fun SeatsUiModel.toDomain(): Seats {
+    val seats = Seats(this.capacity)
+    this.seats.forEach { seat -> seats.add(seat.toDomain()) }
+    return seats
 }

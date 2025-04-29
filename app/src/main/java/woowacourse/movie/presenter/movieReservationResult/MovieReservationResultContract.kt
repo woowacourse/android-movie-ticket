@@ -1,7 +1,7 @@
 package woowacourse.movie.presenter.movieReservationResult
 
 import woowacourse.movie.view.model.movie.TicketUiModel
-import woowacourse.movie.view.model.theater.TheaterUiModel
+import woowacourse.movie.view.model.seat.SeatsUiModel
 import java.time.LocalDateTime
 
 interface MovieReservationResultContract {
@@ -20,7 +20,7 @@ interface MovieReservationResultContract {
     interface Presenter {
         fun onViewCreated(
             ticket: TicketUiModel,
-            theater: TheaterUiModel,
+            seats: SeatsUiModel,
         )
     }
 }

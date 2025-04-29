@@ -14,7 +14,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixtures.fakeContext
-import woowacourse.movie.fixtures.theater
+import woowacourse.movie.fixtures.seats
 import woowacourse.movie.fixtures.ticket
 import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 
@@ -30,7 +30,7 @@ class SeatSelectionActivityTest {
         intent =
             Intent(fakeContext, SeatSelectionActivity::class.java).apply {
                 putExtra("ticket", ticket)
-                putExtra("seats", theater)
+                putExtra("seats", seats)
             }
         scenario = ActivityScenario.launch(intent)
     }

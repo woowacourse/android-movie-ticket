@@ -1,10 +1,10 @@
-package woowacourse.movie.view.model.theater
+package woowacourse.movie.view.model.seat
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-class TheaterUiModel(
+class SeatsUiModel(
     val capacity: Int,
     val seats: List<SeatUiModel>,
 ) : Parcelable

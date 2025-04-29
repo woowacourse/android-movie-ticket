@@ -12,7 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultContract
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
 import woowacourse.movie.view.model.movie.TicketUiModel
-import woowacourse.movie.view.model.theater.TheaterUiModel
+import woowacourse.movie.view.model.seat.SeatsUiModel
 import woowacourse.movie.view.movieReservation.MovieReservationActivity.Companion.KEY_TICKET
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDateTime
@@ -25,8 +25,8 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         super.onCreate(savedInstanceState)
         initializeView()
         val ticket = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
-        val theater = intent.extras?.getParcelableCompat<TheaterUiModel>(KEY_THEATER) ?: return
-        presenter.onViewCreated(ticket, theater)
+        val seats = intent.extras?.getParcelableCompat<SeatsUiModel>(KEY_SEATS) ?: return
+        presenter.onViewCreated(ticket, seats)
     }
 
     private fun initializeView() {
@@ -65,16 +65,16 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
     }
 
     companion object {
-        private const val KEY_THEATER = "theater"
+        private const val KEY_SEATS = "seats"
 
         fun createIntent(
             context: Context,
             ticket: TicketUiModel,
-            theater: TheaterUiModel,
+            seats: SeatsUiModel,
         ): Intent {
             val intent = Intent(context, MovieReservationResultActivity::class.java)
             intent.putExtra(KEY_TICKET, ticket)
-            intent.putExtra(KEY_THEATER, theater)
+            intent.putExtra(KEY_SEATS, seats)
             return intent
         }
     }

@@ -5,8 +5,8 @@ import androidx.test.core.app.ApplicationProvider
 import woowacourse.movie.domain.movie.Movie
 import woowacourse.movie.domain.movie.Ticket
 import woowacourse.movie.domain.movie.TicketCount
-import woowacourse.movie.domain.theater.Seat
-import woowacourse.movie.domain.theater.Theater
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.seat.Seats
 import woowacourse.movie.view.model.toDomain
 import woowacourse.movie.view.model.toUiModel
 import java.time.LocalDate
@@ -29,8 +29,8 @@ val ticket =
         count = TicketCount.of(3),
     ).toUiModel()
 
-val theater =
-    Theater(3).apply {
+val seats =
+    Seats(3).apply {
         add(Seat(0, 0))
         add(Seat(2, 0))
         add(Seat(4, 0))

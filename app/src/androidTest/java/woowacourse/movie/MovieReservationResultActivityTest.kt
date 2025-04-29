@@ -12,7 +12,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.fixtures.fakeContext
-import woowacourse.movie.fixtures.theater
+import woowacourse.movie.fixtures.seats
 import woowacourse.movie.fixtures.ticket
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 
@@ -27,7 +27,7 @@ class MovieReservationResultActivityTest {
         intent =
             Intent(fakeContext, MovieReservationResultActivity::class.java).apply {
                 putExtra("ticket", ticket)
-                putExtra("theater", theater)
+                putExtra("seats", seats)
             }
         ActivityScenario.launch<MovieReservationResultActivity>(intent)
     }

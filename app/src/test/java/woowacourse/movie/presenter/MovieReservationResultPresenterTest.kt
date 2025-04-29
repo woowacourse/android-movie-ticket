@@ -4,7 +4,7 @@ import io.mockk.mockk
 import io.mockk.verifyAll
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.fixtures.theater
+import woowacourse.movie.fixtures.seats
 import woowacourse.movie.fixtures.ticket
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultContract
 import woowacourse.movie.presenter.movieReservationResult.MovieReservationResultPresenter
@@ -22,7 +22,7 @@ class MovieReservationResultPresenterTest {
     @Test
     fun `실행 시 예매 완료 정보가 표시된다`() {
         // when
-        presenter.onViewCreated(ticket, theater)
+        presenter.onViewCreated(ticket, seats)
 
         // then
         verifyAll {
