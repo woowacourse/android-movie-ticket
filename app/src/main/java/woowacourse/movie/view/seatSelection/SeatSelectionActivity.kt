@@ -19,6 +19,7 @@ import woowacourse.movie.presenter.seatSelection.SeatSelectionContract
 import woowacourse.movie.presenter.seatSelection.SeatSelectionPresenter
 import woowacourse.movie.view.model.movie.TicketUiModel
 import woowacourse.movie.view.model.theater.TheaterUiModel
+import woowacourse.movie.view.movieReservation.MovieReservationActivity.Companion.KEY_TICKET
 import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.view.utils.buildAlertDialog
 import woowacourse.movie.view.utils.getParcelableCompat
@@ -132,8 +133,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     companion object {
-        const val KEY_TICKET = "ticket"
-        const val KEY_SEATS = "seats"
+        private const val KEY_SEATS = "seats"
 
         fun createIntent(
             context: Context,

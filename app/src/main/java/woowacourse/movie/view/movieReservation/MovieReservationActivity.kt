@@ -19,7 +19,6 @@ import woowacourse.movie.presenter.movieReservation.MovieReservationContract
 import woowacourse.movie.presenter.movieReservation.MovieReservationPresenter
 import woowacourse.movie.view.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.view.model.movie.TicketUiModel
-import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity.Companion.KEY_TICKET
 import woowacourse.movie.view.seatSelection.SeatSelectionActivity
 import woowacourse.movie.view.utils.getParcelableCompat
 import java.time.LocalDate
@@ -179,7 +178,8 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     companion object {
-        const val KEY_MOVIE = "movie"
+        const val KEY_TICKET = "ticket"
+        private const val KEY_MOVIE = "movie"
 
         fun createIntent(
             context: Context,
