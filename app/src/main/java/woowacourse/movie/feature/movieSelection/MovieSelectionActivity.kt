@@ -33,10 +33,10 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
     }
 
     override fun showMovies(movies: List<MovieListItem>) {
-        val movieListView = findViewById<RecyclerView>(R.id.movie_list)
-        movieListView.layoutManager = LinearLayoutManager(this)
+        val movieRecyclerView = findViewById<RecyclerView>(R.id.movie_list)
+        movieRecyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = MovieAdapter { movie -> presenter.onMovieSelection(movie) }
-        movieListView.adapter = adapter
+        movieRecyclerView.adapter = adapter
         adapter.submitList(movies)
     }
 
