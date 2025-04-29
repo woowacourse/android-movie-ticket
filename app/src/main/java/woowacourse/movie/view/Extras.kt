@@ -13,4 +13,12 @@ object Extras {
     object TicketData {
         const val TICKET_KEY = "ticket_data"
     }
+
+    object SeatsData {
+        const val SEATS_KEY = "seats_data"
+    }
+
+    object ReservationInfoData {
+        const val RESERVATION_KEY = "reservation_data"
+    }
 }

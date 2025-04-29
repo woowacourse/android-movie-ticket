@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.view.reservation.reservation
 
 import android.content.Context
 import android.content.DialogInterface

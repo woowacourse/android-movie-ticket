@@ -2,17 +2,23 @@ package woowacourse.movie.view.movie
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.model.Movie
 import woowacourse.movie.view.Extras
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.movie.adapter.MovieAdapter
+import woowacourse.movie.view.reservation.reservation.ReservationActivity
 
-class MoviesActivity : AppCompatActivity() {
+class MoviesActivity :
+    AppCompatActivity(),
+    MovieContract.View {
+    private val presenter: MoviePresenter by lazy { MoviePresenter(this) }
+    private lateinit var moviesAdapter: MovieAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,22 +30,27 @@ class MoviesActivity : AppCompatActivity() {
         }
 
         setupMovieAdapter()
+        presenter.fetchMovies()
+    }
+
+    override fun showMovies(movies: List<Movie>) {
+        moviesAdapter.submitList(movies)
     }
 
     private fun setupMovieAdapter() {
-        val movieListView = findViewById<ListView>(R.id.lv_movies)
-        movieListView.adapter =
+        val recyclerView = findViewById<RecyclerView>(R.id.rv_movies)
+        moviesAdapter =
             MovieAdapter(
-                Movie.values,
                 object : MovieClickListener {
                     override fun onReservationClick(movie: Movie) {
-                        navigateToReservationComplete(movie)
+                        navigateToReservation(movie)
                     }
                 },
             )
+        recyclerView.adapter = moviesAdapter
     }
 
-    private fun navigateToReservationComplete(movie: Movie) {
+    override fun navigateToReservation(movie: Movie) {
         val intent =
             Intent(
                 this,

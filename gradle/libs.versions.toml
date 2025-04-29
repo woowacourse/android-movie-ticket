@@ -1,5 +1,5 @@
 [versions]
-android-gradle-plugin = "8.5.2"
+android-gradle-plugin = "8.7.0"
 android-junit5 = "1.12.0.0"
 androidx-activity-ktx = "1.10.1"
 androidx-appcompat = "1.7.0"
@@ -8,7 +8,7 @@ androidx-core-ktx = "1.15.0"
 androidx-espresso-core = "3.6.1"
 androidx-espresso-intents = "3.6.1"
 androidx-test-ext-junit = "1.2.1"
-androidx-test-runner = "1.6.2"
+androidx-test-runner = "1.6.1"
 assertj-core = "3.27.3"
 google-material = "1.12.0"
 junit-jupiter = "5.12.0"
@@ -16,6 +16,9 @@ kotest-runner-junit5 = "5.9.1"
 kotlin = "2.1.0"
 ktlint = "12.1.0"
 mannodermaus-junit5 = "1.7.0"
+mockk = "1.14.0"
+recyclerview = "1.4.0"
+espresso-contrib = "3.6.1"
 
 [libraries]
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity-ktx" }
@@ -24,6 +27,7 @@ androidx-constraintlayout = { group = "androidx.constraintlayout", name = "const
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidx-core-ktx" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "androidx-espresso-core" }
 androidx-espresso-intents = { group = "androidx.test.espresso", name = "espresso-intents", version.ref = "androidx-espresso-intents" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidx-test-runner" }
 assertj-core = { group = "org.assertj", name = "assertj-core", version.ref = "assertj-core" }
@@ -32,6 +36,8 @@ junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.r
 kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest-runner-junit5" }
 mannodermaus-junit5-core = { group = "de.mannodermaus.junit5", name = "android-test-core", version.ref = "mannodermaus-junit5" }
 mannodermaus-junit5-runner = { group = "de.mannodermaus.junit5", name = "android-test-runner", version.ref = "mannodermaus-junit5" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+androidx-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso-contrib" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "android-gradle-plugin" }

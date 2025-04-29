@@ -1,73 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/reservation_complete"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginBottom="32dp">
 
-    <TextView
-        android:id="@+id/tv_reservation_complete_information"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_9160f9"
-        android:gravity="center"
-        android:paddingTop="66dp"
-        android:paddingBottom="10dp"
-        android:text="@string/reservation_complete_information"
-        android:textColor="@color/white"
-        android:textSize="15sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_reservation_complete_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:textColor="@color/black"
-        android:textSize="25sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_information"
-        tools:text="라라랜드" />
+        <TextView
+            android:id="@+id/tv_reservation_complete_information"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/purple_7C49F4"
+            android:gravity="center"
+            android:paddingTop="66dp"
+            android:paddingBottom="10dp"
+            android:text="@string/reservation_complete_information"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_reservation_complete_timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_title"
-        tools:text="2025.4.15 11:00" />
+        <TextView
+            android:id="@+id/tv_reservation_complete_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_information"
+            tools:text="라라랜드" />
 
-    <TextView
-        android:id="@+id/tv_reservation_complete_ticket_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:text="@string/reservation_complete_ticket_count"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_timestamp" />
+        <TextView
+            android:id="@+id/tv_reservation_complete_timestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/reservation_complete_date_time"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_title"
+            tools:text="2025.4.15 11:00" />
 
-    <TextView
-        android:id="@+id/tv_reservation_complete_ticket_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/reservation_complete_ticket_price"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/tv_reservation_complete_ticket_count"
-        app:layout_constraintStart_toStartOf="@id/tv_reservation_complete_ticket_count"
-        app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_ticket_count" />
+        <TextView
+            android:id="@+id/tv_reservation_complete_count_seats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="@string/reservation_complete_ticket_count"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_timestamp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_reservation_complete_ticket_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/reservation_complete_ticket_price"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@id/tv_reservation_complete_count_seats"
+            app:layout_constraintStart_toStartOf="@id/tv_reservation_complete_count_seats"
+            app:layout_constraintTop_toBottomOf="@id/tv_reservation_complete_count_seats" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -5,9 +5,10 @@ import kotlinx.parcelize.Parcelize
 import java.time.LocalDate
 
 @Parcelize
-data class MovieTicket(
+data class ReservationInfo(
     val title: String,
     val date: LocalDate,
     val time: String,
-    val count: Int,
+    val seats: Seats,
+    val price: Int,
 ) : Parcelable
