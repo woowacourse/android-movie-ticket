@@ -41,7 +41,7 @@ class BookingPresenter(
         bookingView.setMovieInfoViews(movie)
     }
 
-    override fun setHeadcount(headcount: Headcount) {
+    override fun restoreHeadcount(headcount: Headcount) {
         this._headcount = headcount
     }
 

@@ -157,7 +157,7 @@ class BookingActivity :
         val selectedDatePosition: Int = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION)
         val selectedTimePosition: Int = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
 
-        bookingPresenter.setHeadcount(headcount)
+        bookingPresenter.restoreHeadcount(headcount)
         bookingPresenter.setSelectedDatePosition(selectedDatePosition)
         bookingPresenter.setSelectedTimePosition(selectedTimePosition)
     }

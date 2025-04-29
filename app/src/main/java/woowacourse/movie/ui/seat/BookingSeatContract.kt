@@ -6,13 +6,13 @@ import woowacourse.movie.domain.model.Seats
 
 interface BookingSeatContract {
     interface Presenter {
-        fun loadHeadcount(): Headcount
-
-        fun loadMovieTitle(): String
-
         fun refreshTotalPrice()
 
         fun refreshMovieTitle()
+
+        fun restoreHeadcount(headcount: Headcount)
+
+        fun restoreMovieTitle(movieTitle: String)
 
         fun selectSeat(seatTag: String)
 
@@ -22,10 +22,6 @@ interface BookingSeatContract {
     }
 
     interface View {
-        fun getHeadcount(): Headcount?
-
-        fun getMovieTitle(): String?
-
         fun setTotalPrice(totalPrice: Int)
 
         fun setMovieTitle(movieTitle: String)

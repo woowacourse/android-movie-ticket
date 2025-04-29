@@ -41,7 +41,7 @@ class BookingSeatActivity :
 
         applyWindowInsets()
         initializeSeatTextViews()
-        bookingSeatPresenter.fetchData()
+        restoreData()
         bookingSeatPresenter.updateViews()
         setConfirmButtonClickListener()
     }
@@ -54,9 +54,15 @@ class BookingSeatActivity :
         }
     }
 
-    override fun getHeadcount(): Headcount? = intent.intentSerializable(EXTRA_HEADCOUNT, Headcount::class.java)
-
-    override fun getMovieTitle(): String? = intent.getStringExtra(EXTRA_MOVIE_TITLE)
+    private fun restoreData() {
+        bookingSeatPresenter.restoreHeadcount(
+            intent.intentSerializable(
+                EXTRA_HEADCOUNT,
+                Headcount::class.java,
+            ) ?: Headcount(),
+        )
+        bookingSeatPresenter.restoreMovieTitle(intent.getStringExtra(EXTRA_MOVIE_TITLE) ?: "")
+    }
 
     override fun setTotalPrice(totalPrice: Int) {
         val totalPriceView: TextView = findViewById(R.id.tv_price)

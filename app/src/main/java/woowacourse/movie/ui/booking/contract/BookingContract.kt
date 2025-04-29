@@ -18,7 +18,7 @@ interface BookingContract {
 
         fun refreshMovieInfo()
 
-        fun setHeadcount(headcount: Headcount)
+        fun restoreHeadcount(headcount: Headcount)
 
         fun refreshHeadcountDisplay()
 

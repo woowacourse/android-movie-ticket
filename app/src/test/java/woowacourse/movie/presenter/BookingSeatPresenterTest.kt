@@ -1,11 +1,9 @@
 package woowacourse.movie.presenter
 
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.ui.seat.BookingSeatContract
 import woowacourse.movie.ui.seat.BookingSeatPresenter
@@ -17,8 +15,6 @@ class BookingSeatPresenterTest {
     @BeforeEach
     fun setUp() {
         view = mockk(relaxed = true)
-        every { view.getHeadcount() } returns Headcount(2)
-        every { view.getMovieTitle() } returns "해리 포터와 마법사의 돌"
         presenter = BookingSeatPresenter(view)
     }
 
