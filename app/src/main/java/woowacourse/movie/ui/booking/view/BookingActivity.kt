@@ -16,6 +16,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.PosterIdMapper
 import woowacourse.movie.ui.booking.contract.BookingContract
 import woowacourse.movie.ui.booking.presenter.BookingPresenter
 import woowacourse.movie.ui.seat.BookingSeatActivity
@@ -68,7 +69,7 @@ class BookingActivity :
         val movieRunningTimeView: TextView = findViewById(R.id.tv_running_time)
 
         movieTitleView.text = movie.title
-        posterView.setImageResource(movie.posterId)
+        posterView.setImageResource(PosterIdMapper.posterIdByMovieId(movie.id))
         movieReleaseDateView.text =
             getString(R.string.text_date_period)
                 .format(dotDateFormat(startDate), dotDateFormat(endDate))

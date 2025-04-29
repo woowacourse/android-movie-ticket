@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.PosterIdMapper
 import woowacourse.movie.utils.StringFormatter.periodFormat
 
 class MovieViewHolder(
@@ -32,7 +33,7 @@ class MovieViewHolder(
     fun bind(item: Movie) {
         with(item) {
             currentMovieItem = this
-            moviePoster.setImageResource(posterId)
+            moviePoster.setImageResource(PosterIdMapper.posterIdByMovieId(item.id))
             movieTitle.text = title
             movieReleaseDate.text =
                 periodFormat(releaseDate.startDate, releaseDate.endDate)
