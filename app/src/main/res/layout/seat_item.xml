@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="73dp"
+    android:layout_height="80dp"
+    android:text = "A1"
+    android:gravity="center"
+    android:textSize="22sp"
+    android:textStyle="bold"
+    android:textColor="@color/gray"
+    android:background="@color/white"
+    android:id="@+id/seat_table_item"
+    />

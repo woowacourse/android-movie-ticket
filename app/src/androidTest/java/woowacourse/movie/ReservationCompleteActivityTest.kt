@@ -12,27 +12,16 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import woowacourse.movie.activity.ReservationCompleteActivity
-import woowacourse.movie.domain.BookingStatus
-import woowacourse.movie.domain.MemberCount
-import woowacourse.movie.dto.ReservationDto
-import woowacourse.movie.global.ServiceLocator
-import java.time.LocalDateTime
+import woowacourse.movie.activity.reservation.ReservationCompleteActivity
+import woowacourse.movie.fixture.ActivityFixture
 
 @RunWith(AndroidJUnit4::class)
 @Suppress("FunctionName")
 class ReservationCompleteActivityTest {
-    val bookingStatus =
-        BookingStatus(
-            ServiceLocator.movies[0],
-            true,
-            MemberCount(2),
-            LocalDateTime.of(2025, 4, 3, 11, 0, 0),
-        )
     val intent =
         ReservationCompleteActivity.newIntent(
             ApplicationProvider.getApplicationContext<Context>(),
-            ReservationDto.fromBookingStatus(bookingStatus),
+            ActivityFixture.reservationSeatDto,
         )
 
     @get:Rule
@@ -43,13 +32,13 @@ class ReservationCompleteActivityTest {
         onView(withId(R.id.booking_success))
             .check(matches(isDisplayed()))
 
-        onView(withText("해리포터와 마법사의 돌"))
+        onView(withText("해리포터와 마법사의 돌0"))
             .check(matches(isDisplayed()))
         onView(withText("2025.04.03 11:00"))
             .check(matches(isDisplayed()))
         onView(withText("일반 2명"))
             .check(matches(isDisplayed()))
-        onView(withText("26,000원 (현장 결제)"))
+        onView(withText("24,000원 (현장 결제) | A1, A2"))
             .check(matches(isDisplayed()))
     }
 }

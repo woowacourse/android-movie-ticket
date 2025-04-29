@@ -63,6 +63,11 @@ dependencies {
     androidTestImplementation(libs.junit.jupiter)
     androidTestImplementation(libs.kotest.runner.junit5)
     androidTestImplementation(libs.mannodermaus.junit5.core)
+    androidTestImplementation("androidx.test.espresso:espresso-contrib:3.6.1")
+    androidTestImplementation("io.mockk:mockk:1.13.8")
+
     androidTestRuntimeOnly(libs.mannodermaus.junit5.runner)
+
     testImplementation(kotlin("test"))
+    testImplementation("io.mockk:mockk:1.13.8")
 }

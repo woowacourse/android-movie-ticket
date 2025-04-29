@@ -3,57 +3,85 @@ package woowacourse.movie.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieListData
+import woowacourse.movie.dto.MovieListDataDto
 import woowacourse.movie.global.setImage
 import woowacourse.movie.global.toFormattedDate
 
 class MovieListAdapter(
-    private val movies: List<Movie>,
-    private val onReservationClick: (selectedMovie: Movie) -> Unit,
-) : BaseAdapter() {
-    override fun getCount(): Int {
-        return movies.size
-    }
-
-    override fun getItem(position: Int): Any {
-        return movies[position]
-    }
-
-    override fun getItemId(position: Int): Long {
-        return position.toLong()
-    }
-
-    override fun getView(
+    private val onReservationClick: (selectedMovie: MovieListDataDto.MovieDto) -> Unit,
+) : ListAdapter<MovieListDataDto, RecyclerView.ViewHolder>(MyDataDiffCallback()) {
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
         position: Int,
-        convertView: View?,
-        parent: ViewGroup,
-    ): View {
-        val currentItem = getItem(position) as? Movie ?: return View(parent.context)
-        val view =
-            convertView ?: LayoutInflater.from(parent.context)
-                .inflate(R.layout.movie_item, parent, false)
-        view.tag as? ViewHolder ?: ViewHolder(view)
-            .also { view.tag = it }
-            .apply { setData(currentItem, onReservationClick) }
-
-        return view
+    ) {
+        when (holder) {
+            is ViewHolder -> holder.setData(getItem(position) as MovieListDataDto.MovieDto, onReservationClick)
+            is AdvertiseViewHolder -> holder.setData(getItem(position) as MovieListDataDto.AdsDto)
+        }
     }
 
-    private class ViewHolder(view: View) {
-        val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
-        val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
-        val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
-        val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
-        val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
+        val binding =
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.movie_item, parent, false)
+        return if (ViewType.ADS.value == viewType) {
+            val adsBinding =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_item_ads, parent, false)
+            AdvertiseViewHolder(adsBinding)
+        } else {
+            ViewHolder(binding)
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return when (getItem(position)) {
+            is MovieListDataDto.MovieDto -> ViewType.MOVIE.value
+            is MovieListDataDto.AdsDto -> ViewType.ADS.value
+        }
+    }
+
+    override fun getItemCount(): Int {
+        return if (super.itemCount <= MovieListData.MAX_VIEW_SIZE) super.itemCount else MovieListData.MAX_VIEW_SIZE
+    }
+
+    private class MyDataDiffCallback : DiffUtil.ItemCallback<MovieListDataDto>() {
+        override fun areItemsTheSame(
+            oldItem: MovieListDataDto,
+            newItem: MovieListDataDto,
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: MovieListDataDto,
+            newItem: MovieListDataDto,
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        private val titleTextView: TextView = view.findViewById<TextView>(R.id.movie_title)
+        private val runningTimeTextView: TextView = view.findViewById<TextView>(R.id.movie_running)
+        private val screeningDateTextView: TextView = view.findViewById<TextView>(R.id.movie_date)
+        private val posterImageView: ImageView = view.findViewById<ImageView>(R.id.movie_poster)
+        private val buttonView: Button = view.findViewById<Button>(R.id.btn_book)
 
         fun setData(
-            movie: Movie,
-            onReservationClick: (selectedMovie: Movie) -> Unit,
+            movie: MovieListDataDto.MovieDto,
+            onReservationClick: (selectedMovie: MovieListDataDto.MovieDto) -> Unit,
         ) {
             titleTextView.text = movie.title
             runningTimeTextView.text =
@@ -67,10 +95,23 @@ class MovieListAdapter(
                     movie.startDateTime.toFormattedDate(),
                     movie.endDateTime.toFormattedDate(),
                 )
-            posterImageView.setImage(movie.posterUrl)
+            posterImageView.setImage(movie.drawable)
             buttonView.setOnClickListener {
                 onReservationClick(movie)
             }
         }
     }
+
+    class AdvertiseViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        private val ads: ImageView = view.findViewById<ImageView>(R.id.ads)
+
+        fun setData(adsDto: MovieListDataDto.AdsDto) {
+            ads.setImage(adsDto.uri)
+        }
+    }
+}
+
+private enum class ViewType(val value: Int) {
+    MOVIE(0),
+    ADS(1),
 }
