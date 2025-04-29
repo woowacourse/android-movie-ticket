@@ -67,5 +67,7 @@ dependencies {
     androidTestImplementation(libs.kotest.runner.junit5)
     androidTestImplementation(libs.mannodermaus.junit5.core)
     androidTestRuntimeOnly(libs.mannodermaus.junit5.runner)
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    testImplementation("io.mockk:mockk:1.13.8")
     androidTestImplementation("androidx.test.espresso:espresso-device:1.0.1")
 }

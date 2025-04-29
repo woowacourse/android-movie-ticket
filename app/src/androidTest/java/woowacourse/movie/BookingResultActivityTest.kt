@@ -9,14 +9,18 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.junit.Before
 import org.junit.Test
+import woowacourse.movie.activity.booking.BookingActivity
+import woowacourse.movie.activity.bookingresult.BookingResultActivity
 import woowacourse.movie.domain.Ticket
+import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingResultActivityTest {
     private lateinit var intent: Intent
 
     @Before
     fun setupIntent() {
-        val ticket = Ticket("해리 포터와 마법사의 돌", "2025.4.17", "10:00", "2", "26000")
+        val ticket = Ticket("해리 포터와 마법사의 돌", LocalDate.of(2025, 4, 17), LocalTime.of(10, 0), 2, 26000)
 
         intent =
             Intent(ApplicationProvider.getApplicationContext(), BookingResultActivity::class.java).apply {
@@ -36,7 +40,7 @@ class BookingResultActivityTest {
     fun `지정된_날짜를_표시한다`() {
         ActivityScenario.launch<BookingActivity>(intent).use {
             onView(withId(R.id.date))
-                .check(matches(withText("2025.4.17")))
+                .check(matches(withText("2025-04-17")))
         }
     }
 
