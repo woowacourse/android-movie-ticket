@@ -2,9 +2,12 @@ package woowacourse.movie.presenter
 
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.booking.contract.BookingContract
 import woowacourse.movie.ui.booking.presenter.BookingPresenter
@@ -30,8 +33,12 @@ class BookingPresenterTest {
 
     @Test
     fun `인원 수가 증가하면 인원 수 텍스트가 업데이트 된다`() {
+        val slot = slot<Headcount>()
+
         presenter.increaseHeadcount()
-        verify { view.updateHeadcountDisplay(any()) }
+
+        verify { view.updateHeadcountDisplay(capture(slot)) }
+        assertThat(Headcount(2).count).isEqualTo(slot.captured.count)
     }
 
     @Test
