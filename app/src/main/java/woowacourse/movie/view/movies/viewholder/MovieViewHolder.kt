@@ -6,14 +6,14 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.movies.model.UiModel.MovieUiModel
 
 class MovieViewHolder(
     itemView: View,
-    onClickBooking: (Int) -> Unit,
+    val onClickBooking: (Movie) -> Unit,
 ) : RecyclerView.ViewHolder(itemView) {
-    private var mId: Int = NO_ID
     private val context = itemView.context
 
     private val moviePoster = itemView.findViewById<ImageView>(R.id.img_poster)
@@ -22,13 +22,8 @@ class MovieViewHolder(
     private val movieRunningTime = itemView.findViewById<TextView>(R.id.tv_running_time)
     private val bookingBtn = itemView.findViewById<Button>(R.id.btn_booking)
 
-    init {
-        bookingBtn.setOnClickListener { onClickBooking(mId) }
-    }
-
     fun bind(item: MovieUiModel) {
         with(item) {
-            mId = id
             moviePoster.setImageResource(imgName.toDrawableResourceId(context))
 
             movieTitle.text = title
@@ -44,10 +39,10 @@ class MovieViewHolder(
                 context
                     .getString(R.string.text_running_time_ㅡminute_unit)
                     .format(runningTime)
-        }
-    }
 
-    companion object {
-        private const val NO_ID: Int = -1
+            bookingBtn.setOnClickListener {
+                onClickBooking(item.toDomain())
+            }
+        }
     }
 }

@@ -22,7 +22,7 @@ interface BookingContract {
     }
 
     interface Presenter {
-        fun loadMovieDetail(index: Int)
+        fun loadMovieDetail()
 
         fun loadPeopleCount()
 

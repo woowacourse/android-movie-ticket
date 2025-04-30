@@ -4,12 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.movies.model.UiModel
 import woowacourse.movie.view.movies.viewholder.AdvertiseViewHolder
 import woowacourse.movie.view.movies.viewholder.MovieViewHolder
 
 class MovieAdapter(
-    private val onClickBooking: (Int) -> Unit,
+    private val onClickBooking: (Movie) -> Unit,
     private val itemsList: List<UiModel>,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun getItemCount(): Int = itemsList.size

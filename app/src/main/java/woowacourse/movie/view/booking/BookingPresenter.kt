@@ -5,6 +5,7 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.booking.ScreeningTime
+import woowacourse.movie.domain.model.movies.Movie
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -12,10 +13,11 @@ import java.time.LocalTime
 class BookingPresenter(
     private val view: BookingContract.View,
     private val movies: MovieStore,
+    private val selectedMovie: Movie,
     private var count: PeopleCount,
 ) : BookingContract.Presenter {
-    override fun loadMovieDetail(id: Int) {
-        view.showMovieDetail(movies[id])
+    override fun loadMovieDetail() {
+        view.showMovieDetail(selectedMovie)
     }
 
     override fun loadPeopleCount() {

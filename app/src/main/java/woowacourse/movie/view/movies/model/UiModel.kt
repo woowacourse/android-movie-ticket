@@ -1,8 +1,10 @@
 package woowacourse.movie.view.movies.model
 
 import woowacourse.movie.domain.model.ad.Advertisement
+import woowacourse.movie.domain.model.booking.ScreeningDate
 import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.StringFormatter
+import woowacourse.movie.view.ext.toLocalDateFromDotFormat
 import woowacourse.movie.view.movies.model.UiModel.MovieUiModel
 
 sealed interface UiModel {
@@ -13,7 +15,21 @@ sealed interface UiModel {
         val releaseStartDate: String,
         val releaseEndDate: String,
         val runningTime: Int,
-    ) : UiModel
+    ) : UiModel {
+        fun toDomain(): Movie {
+            return Movie(
+                id = id,
+                title = title,
+                posterResource = imgName,
+                releaseDate =
+                    ScreeningDate(
+                        releaseStartDate.toLocalDateFromDotFormat(),
+                        releaseEndDate.toLocalDateFromDotFormat(),
+                    ),
+                runningTime = runningTime,
+            )
+        }
+    }
 
     data class AdvertiseUiModel(
         val imgResource: String,

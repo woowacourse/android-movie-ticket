@@ -21,6 +21,7 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.StringFormatter
+import woowacourse.movie.view.ext.getSerializable
 import woowacourse.movie.view.ext.toDrawableResourceId
 import woowacourse.movie.view.seat.SeatActivity
 import java.time.LocalDate
@@ -28,7 +29,7 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
-    private val presenter by lazy { BookingPresenter(this, MovieStore(), PeopleCount()) }
+    private lateinit var presenter: BookingContract.Presenter
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_title) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
@@ -39,9 +40,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         enableEdgeToEdge()
         setContentView(R.layout.activity_booking)
 
-        val movieIdx = intent.getIntExtra(KEY_MOVIE, NO_MOVIE)
+        val movie = intent.getSerializable(KEY_MOVIE, Movie::class.java)
+        presenter = BookingPresenter(this, MovieStore(), movie, PeopleCount())
 
-        initView(movieIdx)
+        initView()
         savedInstanceState?.let {
             presenter.restorePeopleCount(it.getInt(KEY_PEOPLE_COUNT))
             val savedTimePosition = it.getInt(KEY_SELECTED_TIME_POSITION)
@@ -49,7 +51,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         }
     }
 
-    private fun initView(movieId: Int) {
+    private fun initView() {
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -57,7 +59,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         }
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter.loadMovieDetail(movieId)
+        presenter.loadMovieDetail()
         presenter.loadPeopleCount()
 
         initButtonListener()
@@ -155,7 +157,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
                 title = movieTitleTextView.text.toString(),
                 bookingDate = dateSpinner.selectedItem.toString(),
                 bookingTime = timeSpinner.selectedItem.toString(),
-                count = peopleCountTextView.text.toString(),
+                peopleCount = peopleCountTextView.text.toString(),
             )
         }
     }
@@ -179,7 +181,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     }
 
     companion object {
-        const val KEY_MOVIE = "MOVIE_ID"
+        const val KEY_MOVIE = "MOVIE"
 
         private const val NO_MOVIE = -1
         private const val MAX_SEAT = 20
@@ -189,10 +191,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
         fun newIntent(
             context: Context,
-            movieId: Int,
+            movie: Movie,
         ): Intent =
             Intent(context, BookingActivity::class.java).apply {
-                putExtra(KEY_MOVIE, movieId)
+                putExtra(KEY_MOVIE, movie)
             }
     }
 }

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.data.MovieStore
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.booking.BookingActivity
 import woowacourse.movie.view.movies.adapter.MovieAdapter
 import woowacourse.movie.view.movies.model.UiModel
@@ -45,7 +46,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         rv.adapter = adapter
     }
 
-    private fun moveToBookingComplete(movieId: Int) {
-        startActivity(BookingActivity.newIntent(this, movieId))
+    private fun moveToBookingComplete(movie: Movie) {
+        startActivity(BookingActivity.newIntent(this, movie))
     }
 }
