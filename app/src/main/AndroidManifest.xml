@@ -13,14 +13,17 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".ReserveActivity"
-            android:parentActivityName=".MainActivity"
+            android:name=".seat.SeatActivity"
             android:exported="false" />
         <activity
-            android:name=".ReservationResultActivity"
+            android:name=".reserve.ReservationActivity"
+            android:exported="false"
+            android:parentActivityName=".movie.MovieListActivity" />
+        <activity
+            android:name=".result.ReservationResultActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".movie.MovieListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

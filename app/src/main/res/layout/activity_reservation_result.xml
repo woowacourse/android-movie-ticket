@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ReservationResultActivity">
+    tools:context=".result.ReservationResultActivity">
 
     <TextView
         android:id="@+id/tv_cancel_guide"
@@ -49,28 +49,16 @@
         tools:text="상영일" />
 
     <TextView
-        android:id="@+id/tv_ticket_tier"
-        style="@style/Text_Normal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="5dp"
-        android:gravity="end"
-        android:text="@string/reservation_ticket_tier_standard"
-        app:layout_constraintEnd_toStartOf="@id/tv_ticket_count"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_screening_date" />
-
-    <TextView
-        android:id="@+id/tv_ticket_count"
+        android:id="@+id/tv_ticket"
         style="@style/Text_Normal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/tv_ticket_tier"
         app:layout_constraintTop_toBottomOf="@id/tv_screening_date"
-        tools:text="N명" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:gravity="center"
+        tools:text="일반 N명 | A1" />
 
     <TextView
         android:id="@+id/tv_total_price"
@@ -82,7 +70,7 @@
         android:gravity="end"
         app:layout_constraintEnd_toStartOf="@id/tv_purchase_type"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_ticket_tier"
+        app:layout_constraintTop_toBottomOf="@id/tv_ticket"
         tools:text="26,000원" />
 
     <TextView
@@ -94,6 +82,6 @@
         android:text="@string/reservation_purchase_type_on_site"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_total_price"
-        app:layout_constraintTop_toBottomOf="@id/tv_ticket_tier" />
+        app:layout_constraintTop_toBottomOf="@id/tv_ticket" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

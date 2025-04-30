@@ -13,6 +13,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSpinnerText
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import org.hamcrest.CoreMatchers.anything
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
@@ -22,11 +23,12 @@ import woowacourse.movie.fixture.MOVIE_NAME
 import woowacourse.movie.fixture.RUNNING_TIME
 import woowacourse.movie.fixture.SCREENING_PERIOD
 import woowacourse.movie.fixture.createMovie
+import woowacourse.movie.reserve.ReservationActivity
 
-class ReserveActivityTest {
+class ReservationActivityTest {
     private lateinit var intent: Intent
     private val movie = createMovie(MOVIE_NAME)
-    private lateinit var scenario: ActivityScenario<ReserveActivity>
+    private lateinit var scenario: ActivityScenario<ReservationActivity>
 
     @Before
     fun setUp() {
@@ -34,7 +36,7 @@ class ReserveActivityTest {
         intent =
             Intent(
                 fakeActivity,
-                ReserveActivity::class.java,
+                ReservationActivity::class.java,
             ).apply {
                 putExtra(KeyIdentifiers.KEY_MOVIE, movie)
             }
@@ -96,5 +98,10 @@ class ReserveActivityTest {
         // then
         onView(withId(R.id.sp_date)).check(matches(withSpinnerText(FIRST_DATE)))
         onView(withId(R.id.sp_time)).check(matches(withSpinnerText(FIRST_TIME)))
+    }
+
+    @After
+    fun tearDown() {
+        scenario.close()
     }
 }

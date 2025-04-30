@@ -1,0 +1,136 @@
+package woowacourse.movie.seat
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TableRow
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.children
+import woowacourse.movie.KeyIdentifiers
+import woowacourse.movie.R
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.Reservation
+import woowacourse.movie.domain.Seat
+import woowacourse.movie.ext.getSerializableCompat
+import woowacourse.movie.result.ReservationResultActivity
+import java.text.DecimalFormat
+
+class SeatActivity : AppCompatActivity(), SeatContract.View {
+    private val selectButton: Button by lazy { findViewById(R.id.btn_select) }
+    private val totalPrice: TextView by lazy { findViewById(R.id.tv_total_price) }
+
+    private val presenter = SeatPresenter(this)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_seat)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+
+        presenter.initReservation(getReservation())
+        initView()
+    }
+
+    private fun getReservation(): Reservation {
+        return intent.getSerializableCompat<Reservation>(KeyIdentifiers.KEY_RESERVATION)
+    }
+
+    private fun initView() {
+        presenter.updateReservationInfo()
+        initSeat()
+        initSelectButtonClick()
+    }
+
+    override fun showMovieInfo(movie: Movie) {
+        val title = findViewById<TextView>(R.id.tv_title)
+        title.text = movie.title
+    }
+
+    override fun showTotalPrice(price: Int) {
+        totalPrice.text = getString(R.string.formatted_total_price).format(decimal.format(price))
+    }
+
+    private fun initSeat() {
+        val seatTable = findViewById<TableLayout>(R.id.tl_seat)
+
+        seatTable.children.filterIsInstance<TableRow>().forEachIndexed { rowIndex, row ->
+            row.children.filterIsInstance<TextView>()
+                .forEachIndexed { colIndex, view ->
+                    val point = presenter.getSeat(rowIndex, colIndex)
+
+                    view.text = getString(R.string.seat_point).format('A' + point.x, point.y + 1)
+                    initSeatClickAction(view, point)
+                }
+        }
+    }
+
+    private fun initSeatClickAction(
+        view: TextView,
+        seat: Seat,
+    ) {
+        view.setOnClickListener {
+            if (presenter.isOccupied(seat)) {
+                presenter.cancelSelection(seat)
+                view.setBackgroundColor(getColor(R.color.white))
+            } else {
+                presenter.selectSeat(seat)
+                view.setBackgroundColor(getColor(R.color.yellow))
+            }
+            updateButtonState()
+        }
+    }
+
+    private fun updateButtonState() {
+        if (presenter.canReserve()) {
+            selectButton.setBackgroundColor(getColor(R.color.purple_500))
+            selectButton.isEnabled = true
+        } else {
+            selectButton.setBackgroundColor(getColor(R.color.gray))
+            selectButton.isEnabled = false
+        }
+    }
+
+    private fun initSelectButtonClick() {
+        selectButton.setOnClickListener {
+            showSelectDialog()
+        }
+    }
+
+    private fun showSelectDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(getString(R.string.reserve_dialog_title))
+            .setMessage(getString(R.string.reserve_dialog_message))
+            .setPositiveButton(getString(R.string.reserve_dialog_positive_button)) { _, _ ->
+                val intent = ReservationResultActivity.newIntent(this, presenter.reservation)
+                startActivity(intent)
+            }
+            .setNegativeButton(getString(R.string.reserve_dialog_negative_button)) { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(false)
+            .show()
+    }
+
+    companion object {
+        private val decimal = DecimalFormat("#,###")
+
+        fun newIntent(
+            context: Context,
+            reservation: Reservation,
+        ): Intent =
+            Intent(context, SeatActivity::class.java).apply {
+                putExtra(KeyIdentifiers.KEY_RESERVATION, reservation)
+            }
+    }
+}

@@ -1,12 +1,12 @@
 package woowacourse.movie.domain
 
 @JvmInline
-value class TicketCount(val count: Int) {
+value class TicketCount(val count: Int = DEFAULT_TICKET_COUNT_SIZE) {
     init {
-        require(count >= MINIMUM_COUNT) { INVALID_COUNT }
+        require(count >= DEFAULT_TICKET_COUNT_SIZE) { INVALID_COUNT }
     }
 
-    fun canMinus(): Boolean = count > MINIMUM_COUNT
+    fun canMinus(): Boolean = count > DEFAULT_TICKET_COUNT_SIZE
 
     operator fun plus(value: Int): TicketCount = TicketCount(count + value)
 
@@ -14,6 +14,6 @@ value class TicketCount(val count: Int) {
 
     companion object {
         private const val INVALID_COUNT = "예약 개수는 1보다 같거나 커야 합니다."
-        private const val MINIMUM_COUNT = 1
+        private const val DEFAULT_TICKET_COUNT_SIZE = 1
     }
 }

@@ -2,6 +2,9 @@ package woowacourse.movie.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import woowacourse.movie.APRIL_THIRTIETH
+import woowacourse.movie.MAY_FIRST
+import woowacourse.movie.MAY_THIRD
 import java.time.LocalDateTime
 import java.time.LocalTime
 

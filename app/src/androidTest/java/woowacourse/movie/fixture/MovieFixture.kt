@@ -21,7 +21,7 @@ fun createMovie(movieName: String): Movie =
             RunningTime(
                 152,
             ),
-        imageUrl = R.drawable.harrypotter,
+        imageUrl = R.drawable.harry_potter_01,
     )
 
 const val MOVIE_NAME: String = "해리포터"
