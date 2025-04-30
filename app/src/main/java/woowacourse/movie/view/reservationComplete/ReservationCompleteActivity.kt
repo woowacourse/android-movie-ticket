@@ -66,11 +66,18 @@ class ReservationCompleteActivity :
         return super.onSupportNavigateUp()
     }
 
-    override fun showTitle(title: String) {
+    override fun showTicket(movieTicket: MovieTicket) {
+        showTitle(movieTicket.title)
+        showTimestamp(movieTicket.movieDate, movieTicket.movieTime.value)
+        showSeat(movieTicket.seats)
+        showPrice(movieTicket.price())
+    }
+
+    private fun showTitle(title: String) {
         movieTitleTextView.text = title
     }
 
-    override fun showTimestamp(
+    private fun showTimestamp(
         date: LocalDate,
         time: Int,
     ) {
@@ -82,13 +89,13 @@ class ReservationCompleteActivity :
             )
     }
 
-    override fun showSeat(seats: List<Seat>) {
+    private fun showSeat(seats: List<Seat>) {
         val seatsFormat: String = seatsToUI(seats, ", ")
         ticketCountTextView.text =
             resources.getString(R.string.reservation_complete_ticket_count, seats.size, seatsFormat)
     }
 
-    override fun showPrice(price: Int) {
+    private fun showPrice(price: Int) {
         ticketPriceTextView.text =
             resources.getString(
                 R.string.reservation_complete_ticket_price,

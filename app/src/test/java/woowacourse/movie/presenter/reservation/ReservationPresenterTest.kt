@@ -30,10 +30,7 @@ class ReservationPresenterTest {
     @Test
     fun `영화 정보를 업데이트 하면 영화 정보들이 보인다`() {
         // given:
-        every { view.showTitle(any()) } just Runs
-        every { view.showPoster(any()) } just Runs
-        every { view.showRunningTime(any()) } just Runs
-        every { view.showScreeningDate(any(), any()) } just Runs
+        every { view.showMovieInfo(any()) } just Runs
         every { view.showTicketCount(any()) } just Runs
         every { view.setupDateAdapter(any()) } just Runs
         every { view.updateTimes(any()) } just Runs
@@ -42,10 +39,7 @@ class ReservationPresenterTest {
         presenter.updateMovieData(MOVIE)
 
         // then:
-        verify { view.showTitle(any()) }
-        verify { view.showPoster(any()) }
-        verify { view.showRunningTime(any()) }
-        verify { view.showScreeningDate(any(), any()) }
+        verify { view.showMovieInfo(any()) }
         verify { view.showTicketCount(any()) }
         verify { view.setupDateAdapter(any()) }
         verify { view.updateTimes(any()) }
@@ -93,10 +87,7 @@ class ReservationPresenterTest {
     fun `영화 예매 요청을 보내면 좌석 선택 화면이 보인다`() {
         // given:
         every { view.showSeatSelectionView(any()) } just Runs
-        every { view.showTitle(any()) } just Runs
-        every { view.showPoster(any()) } just Runs
-        every { view.showRunningTime(any()) } just Runs
-        every { view.showScreeningDate(any(), any()) } just Runs
+        every { view.showMovieInfo(any()) } just Runs
         every { view.showTicketCount(any()) } just Runs
         every { view.setupDateAdapter(any()) } just Runs
         every { view.updateTimes(any()) } just Runs

@@ -154,11 +154,18 @@ class ReservationActivity :
         ticketCountTextView.text = count.toString()
     }
 
-    override fun showTitle(title: String) {
+    override fun showMovieInfo(movie: Movie) {
+        showTitle(movie.title)
+        showScreeningDate(movie.startDate, movie.endDate)
+        showPoster(movie.poster)
+        showRunningTime(movie.runningTime)
+    }
+
+    private fun showTitle(title: String) {
         movieTitleTextView.text = title
     }
 
-    override fun showScreeningDate(
+    private fun showScreeningDate(
         startDate: LocalDate,
         endDate: LocalDate,
     ) {
@@ -172,7 +179,7 @@ class ReservationActivity :
             )
     }
 
-    override fun showPoster(poster: Int) {
+    private fun showPoster(poster: Int) {
         val poster =
             AppCompatResources.getDrawable(
                 this,
@@ -181,7 +188,7 @@ class ReservationActivity :
         posterImageView.setImageDrawable(poster)
     }
 
-    override fun showRunningTime(runningTime: Int) {
+    private fun showRunningTime(runningTime: Int) {
         runningTimeTextView.text = getString(R.string.movie_running_time).format(runningTime)
     }
 
