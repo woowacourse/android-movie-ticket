@@ -7,10 +7,12 @@ import woowacourse.movie.R
 import woowacourse.movie.model.movie.Movie
 
 class MovieAdapter(
-    private val movies: MutableList<Movie>,
+    items: List<Movie>,
     private val movieClickListener: MovieClickListener,
     private val advertisementClickListener: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private var movies: List<Movie> = items
+
     override fun getItemViewType(position: Int): Int =
         when {
             (position + 1) % AD_POSITION_MULTIPLE == 0 -> AD_ITEM_TYPE
@@ -64,8 +66,7 @@ class MovieAdapter(
     override fun getItemCount(): Int = movies.size + (movies.size / AD_POSITION_INTERVAL)
 
     fun updateMovies(newMovies: List<Movie>) {
-        movies.clear()
-        movies.addAll(newMovies)
+        movies = newMovies
         notifyDataSetChanged()
     }
 

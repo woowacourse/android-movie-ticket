@@ -39,7 +39,7 @@ class MoviesActivity :
         if (::movieAdapter.isInitialized.not()) {
             movieAdapter =
                 MovieAdapter(
-                    movies = mutableListOf(),
+                    items = emptyList(),
                     movieClickListener =
                         object : MovieClickListener {
                             override fun onReservationClick(movieId: Long) {
