@@ -39,7 +39,7 @@ class SeatPresenterTest {
     fun `좌석을 추가할 수 없으면 토스트 메시지를 보여준다`() {
         // given
         val position = Seat(Column(1), Row(1))
-        every { mockSeats.toggleSeat(any(), any()) } returns false
+        every { mockSeats.toggleSeat(any()) }
 
         // when
         presenter.changeSeat(position)

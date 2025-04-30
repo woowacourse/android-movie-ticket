@@ -12,24 +12,15 @@ class Seats {
 
     fun isNotSelectDone(limit: Int) = _item.size != limit
 
-    fun toggleSeat(
-        newSeat: Seat,
-        limit: Int,
-    ): Boolean {
-        return when (isSelected(newSeat)) {
-            true -> {
-                removeSeat(newSeat)
-                true
-            }
-            false -> {
-                if (canSelect(limit).not()) return false
-                addSeat(newSeat)
-                true
-            }
+    fun toggleSeat(newSeat: Seat) {
+        if (isSelected(newSeat)) {
+            removeSeat(newSeat)
+            return
         }
+        addSeat(newSeat)
     }
 
-    private fun isSelected(newSeat: Seat) = _item.contains(newSeat)
+    fun isSelected(newSeat: Seat) = _item.contains(newSeat)
 
-    private fun canSelect(limit: Int) = _item.size < limit
+    fun canSelect(limit: Int) = _item.size < limit
 }

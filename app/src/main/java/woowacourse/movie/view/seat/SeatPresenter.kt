@@ -25,15 +25,16 @@ class SeatPresenter(
 
     override fun changeSeat(position: Seat) {
         val newSeat = Seat(x = Column(position.x.value), y = Row(position.y.value))
-        val changed = seats.toggleSeat(newSeat, limit)
 
-        if (changed) {
-            view.showSeat(seats.item)
-            view.showPrice(seats.bookingPrice())
-            updateConfirmButtonState(limit)
-        } else {
-            view.showToast(limit)
+        if (!seats.isSelected(newSeat) && !seats.canSelect(limit)) {
+            return view.showToast(limit)
         }
+
+        seats.toggleSeat(newSeat)
+
+        view.showSeat(seats.item)
+        view.showPrice(seats.bookingPrice())
+        updateConfirmButtonState(limit)
     }
 
     override fun attemptConfirmBooking() {

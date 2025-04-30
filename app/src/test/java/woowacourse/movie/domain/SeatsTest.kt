@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.fixture.oneByOneSeat
 import woowacourse.movie.domain.fixture.oneByTowSeat
-import woowacourse.movie.domain.fixture.twoByThreeSeat
 import woowacourse.movie.domain.model.seat.Seats
 
 class SeatsTest {
@@ -78,20 +77,6 @@ class SeatsTest {
     }
 
     @Test
-    fun `선택한 예매 인원수 만큼 예매 했으면 추가할 수 없다`() {
-        // when
-        val seats = Seats()
-        seats.addSeat(oneByOneSeat)
-        seats.addSeat(oneByTowSeat)
-
-        val result = seats.toggleSeat(twoByThreeSeat, 2)
-
-        // then
-        assertFalse(result)
-        assertFalse(seats.item.contains(twoByThreeSeat))
-    }
-
-    @Test
     fun `예매된 좌석이 없으면 총 가격은 0원이다`() {
         // when
         val seats = Seats()
@@ -114,33 +99,5 @@ class SeatsTest {
 
         // then
         assertEquals(10000, totalPrice)
-    }
-
-    @Test
-    fun `선택한 예매 인원 수가 초과되면 좌석을 추가할 수 없다`() {
-        // when
-        val seats = Seats()
-        seats.addSeat(oneByOneSeat)
-        seats.addSeat(oneByTowSeat)
-
-        // given
-        val result = seats.toggleSeat(twoByThreeSeat, 2)
-
-        // then
-        assertFalse(result)
-        assertEquals(2, seats.item.size)
-    }
-
-    @Test
-    fun `좌석을 추가할 수 있을 때 toggleSeat이 정상적으로 동작한다`() {
-        // when
-        val seats = Seats()
-
-        // given
-        val result = seats.toggleSeat(oneByOneSeat, 3)
-
-        // then
-        assertTrue(result)
-        assertTrue(seats.item.contains(oneByOneSeat))
     }
 }
