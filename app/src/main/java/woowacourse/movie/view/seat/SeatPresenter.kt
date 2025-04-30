@@ -1,10 +1,11 @@
 package woowacourse.movie.view.seat
 
 import woowacourse.movie.domain.model.booking.Booking
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.domain.model.ticket.Ticket
-import woowacourse.movie.view.seat.model.coord.Coordination
 
 class SeatPresenter(
     private val view: SeatContract.View,
@@ -22,8 +23,8 @@ class SeatPresenter(
         view.showPrice(0)
     }
 
-    override fun changeSeat(position: Coordination) {
-        val newSeat = Seat(x = position.x.value, y = position.y.value)
+    override fun changeSeat(position: Seat) {
+        val newSeat = Seat(x = Column(position.x.value), y = Row(position.y.value))
         val changed = seats.toggleSeat(newSeat, limit)
 
         if (changed) {

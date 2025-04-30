@@ -2,7 +2,6 @@ package woowacourse.movie.view.seat
 
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.ticket.Ticket
-import woowacourse.movie.view.seat.model.coord.Coordination
 
 interface SeatContract {
     interface View {
@@ -22,7 +21,7 @@ interface SeatContract {
     interface Presenter {
         fun loadBookingInfo()
 
-        fun changeSeat(position: Coordination)
+        fun changeSeat(position: Seat)
 
         fun attemptConfirmBooking()
     }

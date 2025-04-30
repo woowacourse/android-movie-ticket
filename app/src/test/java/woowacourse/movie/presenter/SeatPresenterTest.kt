@@ -7,13 +7,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.view.seat.SeatContract
 import woowacourse.movie.view.seat.SeatPresenter
-import woowacourse.movie.view.seat.model.coord.Column
-import woowacourse.movie.view.seat.model.coord.Coordination
-import woowacourse.movie.view.seat.model.coord.Row
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -39,7 +38,7 @@ class SeatPresenterTest {
     @Test
     fun `좌석을 추가할 수 없으면 토스트 메시지를 보여준다`() {
         // given
-        val position = Coordination(Column(1), Row(1))
+        val position = Seat(Column(1), Row(1))
         every { mockSeats.toggleSeat(any(), any()) } returns false
 
         // when
@@ -66,7 +65,7 @@ class SeatPresenterTest {
     fun `예매 버튼 클릭 시 좌석이 충분하면 예매 완료 화면으로 이동한다`() {
         // given
         every { mockSeats.isNotSelectDone(booking.count.value) } returns false
-        every { mockSeats.item } returns setOf(Seat(1, 1))
+        every { mockSeats.item } returns setOf(Seat(Column(1), Row(1)))
         every { mockSeats.bookingPrice() } returns 10000
 
         // when
