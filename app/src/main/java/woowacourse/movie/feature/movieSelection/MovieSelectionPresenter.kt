@@ -10,7 +10,7 @@ import java.time.LocalDate
 class MovieSelectionPresenter(
     private val view: MovieSelectionContract.View,
 ) : MovieSelectionContract.Presenter {
-    override fun onViewCreated() {
+    override fun loadMovies() {
         var counter = 1
         view.showMovies(
             (1..10000).map { n ->
@@ -28,7 +28,7 @@ class MovieSelectionPresenter(
         )
     }
 
-    override fun onMovieSelection(movie: MovieUiModel) {
+    override fun selectMovie(movie: MovieUiModel) {
         view.goToReservation(movie)
     }
 }

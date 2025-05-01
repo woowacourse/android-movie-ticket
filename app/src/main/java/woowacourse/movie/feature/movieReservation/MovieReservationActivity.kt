@@ -32,7 +32,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         super.onCreate(savedInstanceState)
         initializeView()
         val movie: MovieUiModel = intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
-        presenter.onViewCreated(movie)
+        presenter.loadReservationInfo(movie)
         initializeTicketCountButtons()
         initializeReserveButton()
     }
@@ -48,24 +48,24 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     }
 
     private fun initializeTicketCountButtons() {
-        presenter.onTicketCountChange()
+        presenter.updateTicketCountControls()
 
         val incrementButton = findViewById<Button>(R.id.increment_button)
         incrementButton.setOnClickListener {
-            presenter.onTicketCountIncrement()
-            presenter.onTicketCountChange()
+            presenter.incrementTicketCount()
+            presenter.updateTicketCountControls()
         }
 
         val decrementButton = findViewById<Button>(R.id.decrement_button)
         decrementButton.setOnClickListener {
-            presenter.onTicketCountDecrement()
-            presenter.onTicketCountChange()
+            presenter.decrementTicketCount()
+            presenter.updateTicketCountControls()
         }
     }
 
     private fun initializeReserveButton() {
         val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener { presenter.onConfirmSelection() }
+        selectButton.setOnClickListener { presenter.confirmSelection() }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -76,7 +76,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val ticket = savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
-        presenter.onInstanceStateRestored(ticket)
+        presenter.restoreReservationInfo(ticket)
     }
 
     override fun showSpinnerDates(dates: List<LocalDate>) {
@@ -92,7 +92,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                     id: Long,
                 ) {
                     val selectedDate: LocalDate = dates[position]
-                    presenter.onDateSelection(selectedDate)
+                    presenter.selectDate(selectedDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
@@ -115,7 +115,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
                     id: Long,
                 ) {
                     val selectedTime: LocalTime = times[position]
-                    presenter.onTimeSelection(selectedTime)
+                    presenter.selectTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit

@@ -27,14 +27,14 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun onViewCreated(ticketUiModel: TicketUiModel)
+        fun loadReservationInfo(ticketUiModel: TicketUiModel)
 
-        fun onInstanceStateRestored(seats: SeatsUiModel)
+        fun restoreReservationInfo(seats: SeatsUiModel)
 
-        fun onSeatSelection(index: Int)
+        fun selectSeat(index: Int)
 
-        fun onConfirmation()
+        fun finishSelection()
 
-        fun onAlertConfirmation()
+        fun confirmSelection()
     }
 }

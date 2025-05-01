@@ -22,7 +22,7 @@ class MovieReservationResultPresenterTest {
     @Test
     fun `실행 시 예매 완료 정보가 표시된다`() {
         // when
-        presenter.onViewCreated(ticket, seats)
+        presenter.loadReservationInfo(ticket, seats)
 
         // then
         verifyAll {

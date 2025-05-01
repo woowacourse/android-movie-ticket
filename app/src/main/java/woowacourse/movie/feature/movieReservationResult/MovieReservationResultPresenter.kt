@@ -12,7 +12,7 @@ class MovieReservationResultPresenter(
     private lateinit var ticket: Ticket
     private lateinit var seats: Seats
 
-    override fun onViewCreated(
+    override fun loadReservationInfo(
         ticket: TicketUiModel,
         seats: SeatsUiModel,
     ) {

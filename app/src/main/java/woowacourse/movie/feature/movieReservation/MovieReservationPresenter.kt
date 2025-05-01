@@ -18,7 +18,7 @@ class MovieReservationPresenter(
     val ticket get() = _ticket.toUiModel()
     private val scheduler = Scheduler()
 
-    override fun onViewCreated(movie: MovieUiModel) {
+    override fun loadReservationInfo(movie: MovieUiModel) {
         initializeInfo(movie)
         view.showMoviePoster(ticket.movie.poster)
         view.showMovieTitle(ticket.movie.title)
@@ -46,7 +46,7 @@ class MovieReservationPresenter(
             )
     }
 
-    override fun onInstanceStateRestored(ticket: TicketUiModel) {
+    override fun restoreReservationInfo(ticket: TicketUiModel) {
         _ticket = ticket.toDomain()
         val selectedDate = ticket.showtime.toLocalDate()
         val screeningTimes: List<LocalTime> =
@@ -55,32 +55,32 @@ class MovieReservationPresenter(
         view.showTicketCount(ticket.count)
     }
 
-    override fun onDateSelection(date: LocalDate) {
+    override fun selectDate(date: LocalDate) {
         val screeningTimes: List<LocalTime> = scheduler.getShowtimes(date, LocalDateTime.now())
         view.showSpinnerTimes(screeningTimes, ticket.showtime.toLocalTime())
         _ticket = _ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
     }
 
-    override fun onTimeSelection(time: LocalTime) {
+    override fun selectTime(time: LocalTime) {
         _ticket = _ticket.copy(showtime = LocalDateTime.of(ticket.showtime.toLocalDate(), time))
     }
 
-    override fun onTicketCountIncrement() {
+    override fun incrementTicketCount() {
         _ticket = _ticket.increment()
         view.showTicketCount(ticket.count)
     }
 
-    override fun onTicketCountDecrement() {
+    override fun decrementTicketCount() {
         _ticket = _ticket.decrement()
         view.showTicketCount(ticket.count)
     }
 
-    override fun onTicketCountChange() {
+    override fun updateTicketCountControls() {
         view.setIncrementEnabled(_ticket.count.canIncrement())
         view.setDecrementEnabled(_ticket.count.canDecrement())
     }
 
-    override fun onConfirmSelection() {
+    override fun confirmSelection() {
         view.goToSeatSelection(_ticket.toUiModel())
     }
 }

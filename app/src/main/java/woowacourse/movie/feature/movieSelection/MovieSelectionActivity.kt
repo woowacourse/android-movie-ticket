@@ -18,7 +18,7 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.onViewCreated()
+        presenter.loadMovies()
     }
 
     private fun initializeView() {
@@ -33,7 +33,7 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
 
     override fun showMovies(movies: List<MovieListItem>) {
         val movieRecyclerView = findViewById<RecyclerView>(R.id.movie_list)
-        val adapter = MovieAdapter { movie -> presenter.onMovieSelection(movie) }
+        val adapter = MovieAdapter { movie -> presenter.selectMovie(movie) }
         movieRecyclerView.adapter = adapter
         adapter.submitList(movies)
     }

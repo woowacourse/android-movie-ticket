@@ -25,7 +25,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `실행 시 좌석 정보를 표시한다`() {
         // when
-        presenter.onViewCreated(ticket)
+        presenter.loadReservationInfo(ticket)
 
         // then
         verifyAll {
@@ -37,11 +37,11 @@ class SeatSelectionPresenterTest {
     @Test
     fun `좌석 선택 완료 시 예매 완료 화면으로 이동한다`() {
         // given
-        presenter.onViewCreated(ticket)
+        presenter.loadReservationInfo(ticket)
         every { view.goToReservationResult(any(), any()) } just Runs
 
         // when
-        presenter.onAlertConfirmation()
+        presenter.confirmSelection()
 
         // then
         verify { view.goToReservationResult(any(), any()) }

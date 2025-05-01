@@ -29,7 +29,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onCreate(savedInstanceState)
         initializeView()
         val ticket = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
-        presenter.onViewCreated(ticket)
+        presenter.loadReservationInfo(ticket)
         initializeSeats()
         initializeSelectButton()
     }
@@ -54,7 +54,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         )
         seatButtons.forEachIndexed { index, button ->
             button.setOnClickListener {
-                presenter.onSeatSelection(index)
+                presenter.selectSeat(index)
             }
         }
     }
@@ -62,7 +62,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private fun initializeSelectButton() {
         val selectButton = findViewById<Button>(R.id.select_button)
         selectButton.setOnClickListener {
-            presenter.onConfirmation()
+            presenter.finishSelection()
         }
     }
 
@@ -74,7 +74,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val seats = savedInstanceState.getParcelableCompat<SeatsUiModel>(KEY_SEATS) ?: return
-        presenter.onInstanceStateRestored(seats)
+        presenter.restoreReservationInfo(seats)
     }
 
     override fun toggleSeat(
@@ -101,7 +101,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
                 title = R.string.alert_title_confirm_reservation,
                 message = R.string.alert_message_confirm_reservation,
                 yes = R.string.alert_confirm_reservation_yes,
-            ) { presenter.onAlertConfirmation() }
+            ) { presenter.confirmSelection() }
         alertDialog.show()
     }
 

@@ -24,7 +24,7 @@ class MovieSelectionPresenterTest {
     @Test
     fun `실행 시 영화 목록을 표시한다`() {
         // when
-        presenter.onViewCreated()
+        presenter.loadMovies()
 
         // then
         verify { view.showMovies(any()) }
@@ -36,7 +36,7 @@ class MovieSelectionPresenterTest {
         every { view.goToReservation(any()) } just Runs
 
         // when
-        presenter.onMovieSelection(movie)
+        presenter.selectMovie(movie)
 
         // then
         verify { view.goToReservation(any()) }

@@ -18,7 +18,7 @@ interface MovieReservationResultContract {
     }
 
     interface Presenter {
-        fun onViewCreated(
+        fun loadReservationInfo(
             ticket: TicketUiModel,
             seats: SeatsUiModel,
         )

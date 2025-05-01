@@ -24,7 +24,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         initializeView()
         val ticket = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
         val seats = intent.extras?.getParcelableCompat<SeatsUiModel>(KEY_SEATS) ?: return
-        presenter.onViewCreated(ticket, seats)
+        presenter.loadReservationInfo(ticket, seats)
     }
 
     private fun initializeView() {

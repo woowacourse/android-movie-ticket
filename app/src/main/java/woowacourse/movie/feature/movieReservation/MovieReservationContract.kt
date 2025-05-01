@@ -37,20 +37,20 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun onViewCreated(movie: MovieUiModel)
+        fun loadReservationInfo(movie: MovieUiModel)
 
-        fun onInstanceStateRestored(ticket: TicketUiModel)
+        fun restoreReservationInfo(ticket: TicketUiModel)
 
-        fun onDateSelection(date: LocalDate)
+        fun selectDate(date: LocalDate)
 
-        fun onTimeSelection(time: LocalTime)
+        fun selectTime(time: LocalTime)
 
-        fun onTicketCountIncrement()
+        fun incrementTicketCount()
 
-        fun onTicketCountDecrement()
+        fun decrementTicketCount()
 
-        fun onTicketCountChange()
+        fun updateTicketCountControls()
 
-        fun onConfirmSelection()
+        fun confirmSelection()
     }
 }
