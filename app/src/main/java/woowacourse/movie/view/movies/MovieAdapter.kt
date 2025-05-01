@@ -27,7 +27,7 @@ class MovieAdapter(
             MOVIE_ITEM_TYPE -> {
                 val view =
                     LayoutInflater.from(parent.context).inflate(R.layout.item_movie, parent, false)
-                val holder = MovieViewHolder(view, parent.context, movieClickListener)
+                val holder = MovieViewHolder(view, parent.context)
                 holder.button.setOnClickListener {
                     val position = holder.adapterPosition
                     val adjustedPosition = position - position / AD_POSITION_MULTIPLE

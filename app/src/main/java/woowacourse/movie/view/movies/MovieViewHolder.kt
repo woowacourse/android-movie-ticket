@@ -14,7 +14,6 @@ import woowacourse.movie.view.mapper.Formatter.localDateToUI
 class MovieViewHolder(
     view: View,
     private val context: Context,
-    private val movieClickListener: MovieClickListener,
 ) : RecyclerView.ViewHolder(view) {
     private val titleTextView: TextView by lazy { view.findViewById(R.id.tv_movie_title) }
     private val posterImageView: ImageView by lazy { view.findViewById(R.id.iv_movie_poster) }
@@ -27,7 +26,6 @@ class MovieViewHolder(
         setupPoster(item)
         setupScreeningDate(item)
         setupRunningTime(item)
-        setupButtonClick(item)
     }
 
     private fun setupTitle(item: Movie) {
@@ -51,11 +49,5 @@ class MovieViewHolder(
         val runningTime: Int = item.runningTime
         runningTimeTextView.text =
             context.getString(R.string.movie_running_time, runningTime)
-    }
-
-    private fun setupButtonClick(item: Movie) {
-        button.setOnClickListener {
-            movieClickListener.onReservationClick(item.id)
-        }
     }
 }
