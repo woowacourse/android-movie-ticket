@@ -7,7 +7,5 @@ interface MovieListContract {
         fun showMovieList(movieList: List<UiModel>)
     }
 
-    interface Presenter {
-        fun loadUiData()
-    }
+    interface Presenter
 }

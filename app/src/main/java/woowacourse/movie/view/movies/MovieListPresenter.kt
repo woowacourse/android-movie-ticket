@@ -9,7 +9,11 @@ class MovieListPresenter(
     private val view: MovieListContract.View,
     private val model: MovieStore,
 ) : MovieListContract.Presenter {
-    override fun loadUiData() {
+    init {
+        loadUiData()
+    }
+
+    private fun loadUiData() {
         val items = mutableListOf<UiModel>()
         model.getAll().forEachIndexed { index, movie ->
             items.add(movie.toUiModel())

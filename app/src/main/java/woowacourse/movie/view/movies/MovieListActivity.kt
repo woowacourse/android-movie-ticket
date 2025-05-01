@@ -15,14 +15,13 @@ import woowacourse.movie.view.movies.adapter.MovieAdapter
 import woowacourse.movie.view.movies.model.UiModel
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
-    private val presenter: MovieListContract.Presenter by lazy {
-        MovieListPresenter(this, MovieStore())
-    }
+    private lateinit var presenter: MovieListContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_movie_list)
+        presenter = MovieListPresenter(this, MovieStore())
         initView()
     }
 
@@ -32,7 +31,6 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        presenter.loadUiData()
     }
 
     override fun showMovieList(movieList: List<UiModel>) {
