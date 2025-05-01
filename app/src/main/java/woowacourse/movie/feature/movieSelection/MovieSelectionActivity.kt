@@ -5,7 +5,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.feature.model.movie.MovieListItem
@@ -34,7 +33,6 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
 
     override fun showMovies(movies: List<MovieListItem>) {
         val movieRecyclerView = findViewById<RecyclerView>(R.id.movie_list)
-        movieRecyclerView.layoutManager = LinearLayoutManager(this)
         val adapter = MovieAdapter { movie -> presenter.onMovieSelection(movie) }
         movieRecyclerView.adapter = adapter
         adapter.submitList(movies)
