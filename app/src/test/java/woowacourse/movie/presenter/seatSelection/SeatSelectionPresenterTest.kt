@@ -46,9 +46,9 @@ class SeatSelectionPresenterTest {
         presenter.updateMovieToReserve(MOVIE_TO_RESERVE)
 
         // then:
-        every { view.showMovieTitle(any()) } just Runs
-        every { view.showPrice(any()) } just Runs
-        every { view.showButtonEnabled(false) } just Runs
+        verify { view.showMovieTitle(any()) }
+        verify { view.showPrice(any()) }
+        verify { view.showButtonEnabled(false) }
     }
 
     @Test
