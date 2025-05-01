@@ -8,19 +8,14 @@ value class TicketCount private constructor(val value: Int) {
 
     fun decrement(): TicketCount = of(value - 1)
 
-    fun canIncrement(): Boolean = value < Seats.ROW_SIZE * Seats.COL_SIZE
+    fun canIncrement(): Boolean = value < MAX_COUNT
 
     fun canDecrement(): Boolean = value > MIN_COUNT
 
     companion object {
         const val MIN_COUNT = 1
+        private const val MAX_COUNT = Seats.ROW_SIZE * Seats.COL_SIZE
 
-        fun of(value: Int): TicketCount {
-            return if (value >= MIN_COUNT) {
-                TicketCount(value)
-            } else {
-                TicketCount(MIN_COUNT)
-            }
-        }
+        fun of(value: Int): TicketCount = TicketCount(value.coerceIn(MIN_COUNT..MAX_COUNT))
     }
 }
