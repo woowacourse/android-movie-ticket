@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
+import android.os.Bundle
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieseat.Position
 import woowacourse.movie.domain.movieseat.Seats
@@ -13,6 +14,10 @@ interface ReservationSeatContract {
         fun selectSeat(position: Position)
 
         fun deselectSeat(position: Position)
+
+        fun onSaveState(outState: Bundle)
+
+        fun onRestoreState(outState: Bundle)
     }
 
     interface View {

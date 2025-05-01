@@ -46,6 +46,16 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         fetchMovieOrShowError(ticket)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        presenter.onSaveState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        presenter.onRestoreState(savedInstanceState)
+    }
+
     private fun fetchMovieOrShowError(ticket: Ticket?) {
         if (ticket == null) {
             handleInvalidTicket()

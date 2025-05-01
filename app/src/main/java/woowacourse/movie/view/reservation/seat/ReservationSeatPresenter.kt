@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
+import android.os.Bundle
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieseat.Position
 import woowacourse.movie.domain.movieseat.Seat
@@ -8,7 +9,7 @@ import woowacourse.movie.domain.movieseat.Seats
 class ReservationSeatPresenter(
     val view: ReservationSeatContract.View,
 ) : ReservationSeatContract.Present {
-    private val seats = Seats(mutableSetOf())
+    private var seats = Seats(mutableSetOf())
     private lateinit var ticket: Ticket
 
     override fun fetchData(ticket: Ticket) {
@@ -21,6 +22,19 @@ class ReservationSeatPresenter(
             view.showReservationDialog(ticket, seats)
         }
         updateMoney()
+    }
+
+    override fun onSaveState(outState: Bundle) {
+        outState.putSerializable(KEY_SEATS, seats)
+    }
+
+    override fun onRestoreState(outState: Bundle) {
+        seats = outState.getSerializable(KEY_SEATS) as Seats
+        updateMoney()
+        seats.all.forEach { seat ->
+            view.selectSeatView(seat.position)
+        }
+        canSelectedButton()
     }
 
     override fun selectSeat(position: Position) {
@@ -49,5 +63,9 @@ class ReservationSeatPresenter(
         } else {
             view.deSelectableButton()
         }
+    }
+
+    companion object {
+        const val KEY_SEATS = "seats"
     }
 }
