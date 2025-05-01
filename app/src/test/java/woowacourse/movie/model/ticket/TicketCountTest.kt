@@ -1,9 +1,8 @@
-package woowacourse.movie
+package woowacourse.movie.model.ticket
 
-import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import woowacourse.movie.model.TicketCount
 
 class TicketCountTest {
     @Test
@@ -23,7 +22,7 @@ class TicketCountTest {
         val expected = TicketCount(2)
 
         // then
-        assertThat(ticketCount + 1).isEqualTo(expected)
+        Assertions.assertThat(ticketCount + 1).isEqualTo(expected)
     }
 
     @Test
@@ -35,6 +34,6 @@ class TicketCountTest {
         val expected = TicketCount(2)
 
         // then
-        assertThat(ticketCount - 1).isEqualTo(expected)
+        Assertions.assertThat(ticketCount - 1).isEqualTo(expected)
     }
 }

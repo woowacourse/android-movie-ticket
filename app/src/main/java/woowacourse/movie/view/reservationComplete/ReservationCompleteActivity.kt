@@ -4,20 +4,29 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.model.MovieTicket
+import woowacourse.movie.model.seat.Seat
+import woowacourse.movie.model.ticket.MovieTicket
+import woowacourse.movie.presenter.reservationComplete.ReservationCompleteContracts
+import woowacourse.movie.presenter.reservationComplete.ReservationCompletePresenter
 import woowacourse.movie.view.extension.getSerializableExtraData
 import woowacourse.movie.view.mapper.Formatter.localDateToUI
 import woowacourse.movie.view.mapper.Formatter.movieTimeToUI
 import woowacourse.movie.view.mapper.Formatter.priceToUI
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.movies.MoviesActivity
+import woowacourse.movie.view.seatSelection.SeatSelectionFormatter.seatsToUI
+import java.time.LocalDate
 
-class ReservationCompleteActivity : AppCompatActivity() {
-    private val movieTicket by lazy { intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY) }
+class ReservationCompleteActivity :
+    AppCompatActivity(),
+    ReservationCompleteContracts.View {
+    private val presenter: ReservationCompleteContracts.Presenter =
+        ReservationCompletePresenter(this)
 
     private val movieTitleTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_title) }
     private val screeningDateTextView: TextView by lazy { findViewById(R.id.tv_reservation_complete_timestamp) }
@@ -34,30 +43,64 @@ class ReservationCompleteActivity : AppCompatActivity() {
             insets
         }
 
-        setupMovieTicketInfo()
+        presenter.updateTicketData(intent.getSerializableExtraData<MovieTicket>(TICKET_DATA_KEY))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        setupBackPressedDispatcher()
     }
 
-    private fun setupMovieTicketInfo() {
-        movieTitleTextView.text = movieTicket.title
-        screeningDateTextView.text =
-            getString(
-                R.string.reservation_ticket_timestamp,
-                localDateToUI(movieTicket.movieDate),
-                movieTimeToUI(movieTicket.movieTime.value),
-            )
-        ticketCountTextView.text =
-            resources.getString(R.string.reservation_complete_ticket_count, movieTicket.count)
-        ticketPriceTextView.text =
-            resources.getString(
-                R.string.reservation_complete_ticket_price,
-                priceToUI(movieTicket.price()),
-            )
+    private fun setupBackPressedDispatcher() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    startActivity(MoviesActivity.getIntent(this@ReservationCompleteActivity))
+                    finish()
+                }
+            },
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        startActivity(MoviesActivity.getIntent(this))
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    override fun showTicket(movieTicket: MovieTicket) {
+        showTitle(movieTicket.title)
+        showTimestamp(movieTicket.movieDate, movieTicket.movieTime.value)
+        showSeat(movieTicket.seats)
+        showPrice(movieTicket.price())
+    }
+
+    private fun showTitle(title: String) {
+        movieTitleTextView.text = title
+    }
+
+    private fun showTimestamp(
+        date: LocalDate,
+        time: Int,
+    ) {
+        screeningDateTextView.text =
+            getString(
+                R.string.reservation_complete_ticket_timestamp,
+                localDateToUI(date),
+                movieTimeToUI(time),
+            )
+    }
+
+    private fun showSeat(seats: List<Seat>) {
+        val seatsFormat: String = seatsToUI(seats, ", ")
+        ticketCountTextView.text =
+            resources.getString(R.string.reservation_complete_ticket_count, seats.size, seatsFormat)
+    }
+
+    private fun showPrice(price: Int) {
+        ticketPriceTextView.text =
+            resources.getString(
+                R.string.reservation_complete_ticket_price,
+                priceToUI(price),
+            )
     }
 
     companion object {
@@ -67,7 +110,7 @@ class ReservationCompleteActivity : AppCompatActivity() {
             context: Context,
             movieTicket: MovieTicket,
         ): Intent =
-            Intent(context, ReservationActivity::class.java).apply {
+            Intent(context, ReservationCompleteActivity::class.java).apply {
                 putExtra(TICKET_DATA_KEY, movieTicket)
             }
     }

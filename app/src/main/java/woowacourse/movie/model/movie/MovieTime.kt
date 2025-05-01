@@ -1,4 +1,4 @@
-package woowacourse.movie.model
+package woowacourse.movie.model.movie
 
 import java.io.Serializable
 import java.time.DayOfWeek
