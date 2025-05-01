@@ -8,7 +8,7 @@ import woowacourse.movie.domain.movieseat.Seats
 class ReservationSeatPresenter(
     val view: ReservationSeatContract.View,
 ) : ReservationSeatContract.Present {
-    private val seats = Seats(mutableListOf())
+    private val seats = Seats(mutableSetOf())
     private lateinit var ticket: Ticket
 
     override fun fetchData(ticket: Ticket) {
