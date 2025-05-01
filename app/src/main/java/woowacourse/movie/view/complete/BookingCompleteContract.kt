@@ -7,7 +7,5 @@ interface BookingCompleteContract {
         fun showTicket(ticket: Ticket)
     }
 
-    interface Presenter {
-        fun loadTicket()
-    }
+    interface Presenter
 }

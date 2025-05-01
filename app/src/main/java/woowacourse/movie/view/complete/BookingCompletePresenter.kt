@@ -6,7 +6,11 @@ class BookingCompletePresenter(
     private val view: BookingCompleteContract.View,
     private val ticket: Ticket,
 ) : BookingCompleteContract.Presenter {
-    override fun loadTicket() {
+    init {
+        loadTicket()
+    }
+
+    private fun loadTicket() {
         view.showTicket(ticket)
     }
 }
