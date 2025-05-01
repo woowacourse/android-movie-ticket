@@ -1,23 +1,27 @@
 package woowacourse.movie.presenter
 
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.ReservedMovie
 import woowacourse.movie.domain.policy.PricingPolicy
 import woowacourse.movie.domain.repository.MovieRepository
+import woowacourse.movie.domain.service.MovieTicketService
 import woowacourse.movie.ui.view.seat.SeatButtonState
 import woowacourse.movie.ui.view.seat.SeatsSelectionContract
 
 class SeatsSelectionPresenter(
     private val view: SeatsSelectionContract.View,
-    private val movieTicket: MovieTicket,
+    private val reservedMovie: ReservedMovie,
     private val movieRepository: MovieRepository = MovieRepository(),
-    private val pricingPolicy: PricingPolicy = PricingPolicy(movieTicket.selectedSeats),
+    movieTicketService: MovieTicketService = MovieTicketService(),
 ) : SeatsSelectionContract.Presenter {
+    private val movieTicket = movieTicketService.createMovieTicket(reservedMovie)
+    private val pricingPolicy: PricingPolicy = PricingPolicy(movieTicket.selectedSeats)
+
     override fun onConfirm() {
-        view.navigateToBookingSummary()
+        view.navigateToBookingSummary(movieTicket)
     }
 
     override fun loadMovieTitle() {
-        val movie = movieRepository.getMovieById(movieTicket.movieId)
+        val movie = movieRepository.getMovieById(reservedMovie.movieId)
         view.showMovieTitle(movie.title)
     }
 

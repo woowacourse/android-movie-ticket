@@ -1,5 +1,7 @@
 package woowacourse.movie.ui.view.seat
 
+import woowacourse.movie.domain.model.MovieTicket
+
 interface SeatsSelectionContract {
     interface View {
         fun showBookingConfirmDialog()
@@ -8,7 +10,7 @@ interface SeatsSelectionContract {
 
         fun showAmount(amount: Int)
 
-        fun navigateToBookingSummary()
+        fun navigateToBookingSummary(movieTicket: MovieTicket)
 
         fun showSeatLimitToastMessage()
     }

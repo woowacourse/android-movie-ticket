@@ -1,7 +1,7 @@
 package woowacourse.movie.ui.view.booking
 
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.ReservedMovie
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -13,7 +13,7 @@ interface BookingContract {
 
         fun updateHeadCount(headCount: Int)
 
-        fun navigateToSeatsSelection(movieTicket: MovieTicket)
+        fun navigateToSeatsSelection(reservedMovie: ReservedMovie)
 
         fun updateDateSpinner(
             dates: List<LocalDate>,

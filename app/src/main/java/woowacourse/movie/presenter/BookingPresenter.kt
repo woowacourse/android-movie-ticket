@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.HeadCount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.schedule.MovieScheduler
-import woowacourse.movie.domain.service.MovieTicketService
+import woowacourse.movie.domain.service.ReservationService
 import woowacourse.movie.ui.view.booking.BookingContract
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -15,7 +15,7 @@ class BookingPresenter(
     private val movieId: Int,
     private var headCount: HeadCount = HeadCount(),
     private val movieRepository: MovieRepository = MovieRepository(),
-    private val movieTicketService: MovieTicketService = MovieTicketService(),
+    private val reservationService: ReservationService = ReservationService(),
 ) : BookingContract.Presenter {
     private val movie = getMovie()
     private val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
@@ -64,13 +64,13 @@ class BookingPresenter(
         }
 
     override fun onConfirm() {
-        val movieTicket =
-            movieTicketService.createMovieTicket(
+        val reservedMovie =
+            reservationService.reserveMovie(
                 movieId,
                 LocalDateTime.of(selectedDate, selectedTime),
                 getHeadCount(),
             )
-        view.navigateToSeatsSelection(movieTicket)
+        view.navigateToSeatsSelection(reservedMovie)
     }
 
     override fun loadAvailableDates() {

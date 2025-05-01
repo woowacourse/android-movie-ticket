@@ -1,12 +1,9 @@
 package woowacourse.movie.domain.service
 
 import woowacourse.movie.domain.model.MovieTicket
-import java.time.LocalDateTime
+import woowacourse.movie.domain.model.ReservedMovie
 
 class MovieTicketService {
-    fun createMovieTicket(
-        id: Int,
-        screeningDateTime: LocalDateTime,
-        headCount: Int,
-    ): MovieTicket = MovieTicket(id, screeningDateTime, headCount)
+    fun createMovieTicket(reservedMovie: ReservedMovie): MovieTicket =
+        MovieTicket(reservedMovie.movieId, reservedMovie.screeningDateTime, reservedMovie.headCount)
 }

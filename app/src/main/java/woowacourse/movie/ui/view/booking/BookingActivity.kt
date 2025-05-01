@@ -11,7 +11,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.ReservedMovie
 import woowacourse.movie.presenter.BookingPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.BaseActivity
@@ -74,9 +74,9 @@ class BookingActivity :
             .show()
     }
 
-    override fun navigateToSeatsSelection(movieTicket: MovieTicket) {
+    override fun navigateToSeatsSelection(reservedMovie: ReservedMovie) {
         val intent = Intent(this, SeatsSelectionActivity::class.java)
-        intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
+        intent.putExtra(getString(R.string.reserved_movie_info_key), reservedMovie)
         startActivity(intent)
     }
 

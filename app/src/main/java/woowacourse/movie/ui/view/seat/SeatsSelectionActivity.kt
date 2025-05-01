@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.ReservedMovie
 import woowacourse.movie.presenter.SeatsSelectionPresenter
 import woowacourse.movie.ui.view.BaseActivity
 import woowacourse.movie.ui.view.booking.BookingSummaryActivity
@@ -21,11 +22,11 @@ class SeatsSelectionActivity :
     private lateinit var presenter: SeatsSelectionPresenter
     private val selectedColor by lazy { ContextCompat.getColor(this, R.color.yellow) }
     private val defaultColor by lazy { ContextCompat.getColor(this, R.color.white) }
-    private val movieTicket: MovieTicket by lazy {
+    private val reservedMovie: ReservedMovie by lazy {
         intent
             .intentSerializable(
-                getString(R.string.ticket_info_key),
-                MovieTicket::class.java,
+                getString(R.string.reserved_movie_info_key),
+                ReservedMovie::class.java,
             )
     }
 
@@ -33,7 +34,7 @@ class SeatsSelectionActivity :
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_seat_selection)
 
-        presenter = SeatsSelectionPresenter(this, movieTicket)
+        presenter = SeatsSelectionPresenter(this, reservedMovie)
         presenter.loadMovieTitle()
         presenter.loadAmount()
         setupConfirmButtonListener()
@@ -62,10 +63,7 @@ class SeatsSelectionActivity :
         amountView.text = formatAmount(getString(R.string.won), amount)
     }
 
-    override fun navigateToBookingSummary() {
-        val movieTicket =
-            intent.getSerializableExtra(getString(R.string.ticket_info_key)) as MovieTicket
-
+    override fun navigateToBookingSummary(movieTicket: MovieTicket) {
         val intent = Intent(this, BookingSummaryActivity::class.java)
         intent.putExtra(getString(R.string.ticket_info_key), movieTicket)
         startActivity(intent)
