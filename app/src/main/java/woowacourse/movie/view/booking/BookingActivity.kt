@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.movies.Movie
@@ -41,7 +40,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         setContentView(R.layout.activity_booking)
 
         val movie = intent.getSerializable(KEY_MOVIE, Movie::class.java)
-        presenter = BookingPresenter(this, MovieStore(), movie, PeopleCount())
+        presenter = BookingPresenter(this, movie, PeopleCount())
 
         initView()
         savedInstanceState?.let {
@@ -60,7 +59,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter.loadMovieDetail()
-        presenter.loadPeopleCount()
 
         initButtonListener()
     }
@@ -72,8 +70,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             initPosterView(posterResource)
             initReleaseDateView(startDate, endDate)
             initRunningTimeView(runningTime)
-            presenter.loadScreeningDate(startDate, endDate, LocalDateTime.now())
-            presenter.loadScreeningTime(dateSpinner.selectedItem as LocalDate, LocalDateTime.now())
         }
     }
 

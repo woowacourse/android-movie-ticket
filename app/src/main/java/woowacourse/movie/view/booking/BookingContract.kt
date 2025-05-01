@@ -24,14 +24,6 @@ interface BookingContract {
     interface Presenter {
         fun loadMovieDetail()
 
-        fun loadPeopleCount()
-
-        fun loadScreeningDate(
-            startDate: LocalDate,
-            endDate: LocalDate,
-            now: LocalDateTime,
-        )
-
         fun loadScreeningTime(
             selectedDate: LocalDate,
             now: LocalDateTime,

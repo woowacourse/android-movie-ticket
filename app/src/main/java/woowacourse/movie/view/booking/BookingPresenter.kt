@@ -1,6 +1,5 @@
 package woowacourse.movie.view.booking
 
-import woowacourse.movie.data.MovieStore
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
 import woowacourse.movie.domain.model.booking.ScreeningDate
@@ -12,31 +11,17 @@ import java.time.LocalTime
 
 class BookingPresenter(
     private val view: BookingContract.View,
-    private val movies: MovieStore,
     private val selectedMovie: Movie,
     private var count: PeopleCount,
+    private val initialTime: LocalDateTime = LocalDateTime.now(),
 ) : BookingContract.Presenter {
+    init {
+        loadPeopleCount()
+    }
+
     override fun loadMovieDetail() {
         view.showMovieDetail(selectedMovie)
-    }
-
-    override fun loadPeopleCount() {
-        view.showPeopleCount(count.value)
-    }
-
-    override fun loadScreeningDate(
-        startDate: LocalDate,
-        endDate: LocalDate,
-        now: LocalDateTime,
-    ) {
-        val screeningBookingDates: List<LocalDate> =
-            ScreeningDate(
-                startDate,
-                endDate,
-            )
-                .bookingDates(now.toLocalDate())
-
-        view.showScreeningDate(screeningBookingDates)
+        loadScreening()
     }
 
     override fun loadScreeningTime(
@@ -83,5 +68,21 @@ class BookingPresenter(
             )
 
         view.moveToBookingComplete(booking)
+    }
+
+    private fun loadScreening() {
+        val screeningBookingDates: List<LocalDate> =
+            ScreeningDate(
+                selectedMovie.releaseDate.startDate,
+                selectedMovie.releaseDate.endDate,
+            )
+                .bookingDates(initialTime.toLocalDate())
+
+        view.showScreeningDate(screeningBookingDates)
+        loadScreeningTime(screeningBookingDates[0], initialTime)
+    }
+
+    private fun loadPeopleCount() {
+        view.showPeopleCount(count.value)
     }
 }
