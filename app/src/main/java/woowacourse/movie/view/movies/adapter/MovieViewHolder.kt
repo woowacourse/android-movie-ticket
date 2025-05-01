@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movies.adapter
 
-import android.content.Context
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -33,27 +32,21 @@ class MovieViewHolder(
         this.movie = movie
         movieImage.setImageResource(movie.image)
         movieTitle.text = movie.title
-        setDateTextView(movie.date, itemView.context)
-        setTimeTextView(movie.time, itemView.context)
+        setDateTextView(movie.date)
+        setTimeTextView(movie.time)
     }
 
-    private fun setDateTextView(
-        date: Date,
-        context: Context?,
-    ) {
+    private fun setDateTextView(date: Date) {
         val formatter = DateTimeFormatter.ofPattern(DATETIME_PATTERN)
         val startDateFormatted = date.startDate.format(formatter)
         val endDateFormatted = date.endDate.format(formatter)
         movieDate.text =
-            context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
+            itemView.context?.getString(R.string.movieDate, startDateFormatted, endDateFormatted)
     }
 
-    private fun setTimeTextView(
-        time: Int,
-        context: Context?,
-    ) {
+    private fun setTimeTextView(time: Int) {
         movieTime.text =
-            context?.getString(R.string.movieTime, time.toString())
+            itemView.context?.getString(R.string.movieTime, time.toString())
     }
 
     companion object {
