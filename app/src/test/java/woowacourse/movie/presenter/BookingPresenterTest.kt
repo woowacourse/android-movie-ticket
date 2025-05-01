@@ -8,7 +8,11 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.data.MovieStore
+import woowacourse.movie.domain.fixture.moviesFixture
+import woowacourse.movie.domain.fixture.screeningDateFixture
+import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.PeopleCount
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.view.booking.BookingContract
 import woowacourse.movie.view.booking.BookingPresenter
 import java.time.LocalDate
@@ -16,35 +20,40 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 class BookingPresenterTest {
-    private lateinit var view: BookingContract.View
+    private val view = mockk<BookingContract.View>(relaxed = true)
     private lateinit var model: MovieStore
     private lateinit var presenter: BookingPresenter
 
     @BeforeEach
     fun setUp() {
-        view = mockk<BookingContract.View>(relaxed = true)
         model = MovieStore()
-        presenter = BookingPresenter(view, MovieStore(), PeopleCount(1))
+        presenter = BookingPresenter(view, MovieStore(), moviesFixture[0], PeopleCount(1))
     }
 
     @Test
     fun `영화 정보를 UI에 표시한다`() {
-        // given
-        val movieIndex = 0
-        val movie = model[movieIndex]
-
         // when
-        presenter.loadMovieDetail(movieIndex)
+        presenter.loadMovieDetail()
+
+        val expected =
+            Movie(
+                id = 0,
+                title = "Movie 1",
+                posterResource = "poster1",
+                releaseDate = screeningDateFixture,
+                runningTime = 120,
+            )
 
         // then
         verify {
             view.showMovieDetail(
                 match {
-                    it.id == movie.id &&
-                        it.title == movie.title &&
-                        it.posterResource == movie.posterResource &&
-                        it.releaseDate == movie.releaseDate &&
-                        it.runningTime == movie.runningTime
+                    it.id == expected.id &&
+                        it.title == expected.title &&
+                        it.posterResource == expected.posterResource &&
+                        it.releaseDate.startDate == expected.releaseDate.startDate &&
+                        it.releaseDate.endDate == expected.releaseDate.endDate &&
+                        it.runningTime == expected.runningTime
                 },
             )
         }
@@ -62,8 +71,7 @@ class BookingPresenterTest {
     @Test
     fun `인원은 0명이 될 수 없다`() {
         // given
-        var count = 1
-        every { view.showPeopleCount(count) } just Runs
+        every { view.showPeopleCount(1) } just Runs
 
         // when
         presenter.decreasePeopleCount()
@@ -76,7 +84,7 @@ class BookingPresenterTest {
     fun `인원이 1명 증가한다`() {
         // given
         var count = 1
-        every { view.showPeopleCount(count) } just Runs
+        every { view.showPeopleCount(count) }
 
         // when
         presenter.increasePeopleCount(2)
@@ -88,7 +96,7 @@ class BookingPresenterTest {
     @Test
     fun `인원이 1명 감소한다`() {
         // given
-        val presenter = BookingPresenter(view, model, PeopleCount(5))
+        val presenter = BookingPresenter(view, model, moviesFixture[0], PeopleCount(5))
         every { view.showPeopleCount(4) } just Runs
 
         // when
@@ -108,14 +116,22 @@ class BookingPresenterTest {
             count = "3",
         )
 
+        val expected =
+            Booking(
+                title = "테스트 영화 1",
+                bookingDate = LocalDate.of(2025, 4, 24),
+                bookingTime = LocalTime.of(12, 0),
+                count = PeopleCount(3),
+            )
+
         // then
         verify {
             view.moveToBookingComplete(
                 match {
-                    it.title == "테스트 영화 1" &&
-                        it.bookingDate == LocalDate.of(2025, 4, 24) &&
-                        it.bookingTime == LocalTime.of(12, 0) &&
-                        it.count == PeopleCount(3)
+                    it.title == expected.title &&
+                        it.bookingDate == expected.bookingDate &&
+                        it.bookingTime == expected.bookingTime &&
+                        it.count == expected.count
                 },
             )
         }

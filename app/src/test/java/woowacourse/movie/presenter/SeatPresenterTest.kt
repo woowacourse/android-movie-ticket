@@ -17,8 +17,8 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 class SeatPresenterTest {
-    private lateinit var mockView: SeatContract.View
-    private lateinit var mockSeats: Seats
+    private val mockView: SeatContract.View = mockk(relaxed = true)
+    private val mockSeats: Seats = mockk(relaxed = true)
     private lateinit var presenter: SeatPresenter
     private val booking =
         Booking(
@@ -30,8 +30,6 @@ class SeatPresenterTest {
 
     @BeforeEach
     fun setUp() {
-        mockView = mockk(relaxed = true)
-        mockSeats = mockk(relaxed = true)
         presenter = SeatPresenter(mockView, mockSeats, booking)
     }
 
