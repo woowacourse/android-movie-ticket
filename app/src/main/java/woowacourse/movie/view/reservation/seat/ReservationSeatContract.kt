@@ -6,7 +6,7 @@ import woowacourse.movie.domain.movieseat.Seats
 
 interface ReservationSeatContract {
     interface Present {
-        fun fetchData(ticket: Ticket?)
+        fun fetchData(ticket: Ticket)
 
         fun updateMoney()
 

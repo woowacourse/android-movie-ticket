@@ -6,8 +6,8 @@ import woowacourse.movie.domain.movieseat.Seats
 class ReservationCompleteContract {
     interface Presenter {
         fun fetchData(
-            ticket: Ticket?,
-            seats: Seats?,
+            ticket: Ticket,
+            seats: Seats,
         )
     }
 

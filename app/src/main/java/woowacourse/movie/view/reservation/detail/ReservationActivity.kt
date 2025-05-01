@@ -57,7 +57,15 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
 
         val movie: Movie? = intent.getSerializableExtraCompat<Movie>(KEY_MOVIE)
 
-        present.fetchData(movie)
+        fetchMovieOrShowError(movie)
+    }
+
+    private fun fetchMovieOrShowError(movie: Movie?) {
+        if (movie == null) {
+            showErrorInvalidMovie()
+        } else {
+            present.fetchData(movie)
+        }
     }
 
     override fun showErrorInvalidMovie() {

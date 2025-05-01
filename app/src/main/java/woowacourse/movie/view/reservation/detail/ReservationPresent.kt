@@ -13,17 +13,13 @@ class ReservationPresent(
     private var selectedTimePosition = DEFAULT_TIME_POSITION
     private lateinit var movie: Movie
 
-    override fun fetchData(movie: Movie?) {
-        if (movie == null) {
-            view.showErrorInvalidMovie()
-        } else {
-            this.movie = movie
-            view.showCount(count)
-            view.showMovieReservationScreen(this.movie)
-            view.setCountButtons()
-            view.setReservationButton()
-            view.showSpinnerData(this.movie, selectedDatePosition)
-        }
+    override fun fetchData(movie: Movie) {
+        this.movie = movie
+        view.showCount(count)
+        view.showMovieReservationScreen(this.movie)
+        view.setCountButtons()
+        view.setReservationButton()
+        view.showSpinnerData(this.movie, selectedDatePosition)
     }
 
     override fun onSaveState(outState: Bundle) {

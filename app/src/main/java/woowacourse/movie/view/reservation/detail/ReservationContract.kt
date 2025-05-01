@@ -7,7 +7,7 @@ import java.time.LocalDateTime
 
 interface ReservationContract {
     interface Presenter {
-        fun fetchData(movie: Movie?)
+        fun fetchData(movie: Movie)
 
         fun onSaveState(outState: Bundle)
 

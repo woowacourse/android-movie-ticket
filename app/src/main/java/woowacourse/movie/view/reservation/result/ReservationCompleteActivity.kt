@@ -32,7 +32,18 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
         val ticket = intent.getSerializableExtraCompat<Ticket>(KEY_TICKET)
         val seats = intent.getSerializableExtraCompat<Seats>(KET_SEATS)
 
-        presenter.fetchData(ticket, seats)
+        fetchTicketOrShowError(ticket, seats)
+    }
+
+    private fun fetchTicketOrShowError(
+        ticket: Ticket?,
+        seats: Seats?,
+    ) {
+        if (ticket == null || seats == null) {
+            handleInvalidTicket()
+        } else {
+            presenter.fetchData(ticket, seats)
+        }
     }
 
     override fun handleInvalidTicket() {

@@ -11,20 +11,16 @@ class ReservationSeatPresenter(
     private val seats = Seats(mutableListOf())
     private lateinit var ticket: Ticket
 
-    override fun fetchData(ticket: Ticket?) {
-        if (ticket == null) {
-            view.handleInvalidTicket()
-        } else {
-            this.ticket = ticket
-            view.setSeatTag()
-            view.setSeatInit()
-            view.showMovieName(ticket.title)
-            view.setSeatClickListener()
-            view.setReservationButton {
-                view.showReservationDialog(ticket, seats)
-            }
-            updateMoney()
+    override fun fetchData(ticket: Ticket) {
+        this.ticket = ticket
+        view.setSeatTag()
+        view.setSeatInit()
+        view.showMovieName(ticket.title)
+        view.setSeatClickListener()
+        view.setReservationButton {
+            view.showReservationDialog(ticket, seats)
         }
+        updateMoney()
     }
 
     override fun selectSeat(position: Position) {

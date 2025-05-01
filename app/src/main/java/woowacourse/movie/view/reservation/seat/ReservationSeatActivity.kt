@@ -42,7 +42,16 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         val ticket = intent.getSerializableExtraCompat<Ticket>(KEY_TICKET)
 
         seat = findViewById(R.id.tv_seat)
-        presenter.fetchData(ticket)
+
+        fetchMovieOrShowError(ticket)
+    }
+
+    private fun fetchMovieOrShowError(ticket: Ticket?) {
+        if (ticket == null) {
+            handleInvalidTicket()
+        } else {
+            presenter.fetchData(ticket)
+        }
     }
 
     private fun getAllSeatTextViews(): Sequence<TextView> {
