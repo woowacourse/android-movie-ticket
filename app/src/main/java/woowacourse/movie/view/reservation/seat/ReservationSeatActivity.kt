@@ -3,7 +3,6 @@ package woowacourse.movie.view.reservation.seat
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -17,6 +16,7 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieseat.Position
 import woowacourse.movie.domain.movieseat.Seats
+import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.dialog.DialogInfo
 import woowacourse.movie.view.reservation.result.ReservationCompleteActivity
@@ -39,13 +39,9 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(KEY_TICKET, Ticket::class.java)
-            } else {
-                intent.getSerializableExtra(KEY_TICKET) as? Ticket
-            }
-        seat = findViewById<TableLayout>(R.id.tv_seat)
+        val ticket = intent.getSerializableExtraCompat<Ticket>(KEY_TICKET)
+
+        seat = findViewById(R.id.tv_seat)
         presenter.fetchData(ticket)
     }
 

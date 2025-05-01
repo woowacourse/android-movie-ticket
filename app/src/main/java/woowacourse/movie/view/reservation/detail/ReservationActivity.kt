@@ -2,7 +2,6 @@ package woowacourse.movie.view.reservation.detail
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -21,6 +20,7 @@ import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movietime.MovieSchedule
 import woowacourse.movie.domain.movietime.ScreeningTime
+import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.view.dialog.DialogFactory
 import woowacourse.movie.view.reservation.seat.ReservationSeatActivity
 import java.time.LocalDate
@@ -55,12 +55,8 @@ class ReservationActivity : AppCompatActivity(), ReservationContract.View {
         plusButton = findViewById(R.id.btn_plus_button)
         minusButton = findViewById(R.id.btn_minus_button)
 
-        val movie: Movie? =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(KEY_MOVIE, Movie::class.java)
-            } else {
-                intent.getSerializableExtra(KEY_MOVIE) as? Movie
-            }
+        val movie: Movie? = intent.getSerializableExtraCompat<Movie>(KEY_MOVIE)
+
         present.fetchData(movie)
     }
 

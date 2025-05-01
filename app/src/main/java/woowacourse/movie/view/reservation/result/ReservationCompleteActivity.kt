@@ -2,7 +2,6 @@ package woowacourse.movie.view.reservation.result
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -12,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieseat.Seats
+import woowacourse.movie.utils.getSerializableExtraCompat
 import woowacourse.movie.view.dialog.DialogFactory
 import java.time.format.DateTimeFormatter
 
@@ -29,19 +29,9 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        val ticket =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(KEY_TICKET, Ticket::class.java)
-            } else {
-                intent.getSerializableExtra(KEY_TICKET) as? Ticket
-            }
+        val ticket = intent.getSerializableExtraCompat<Ticket>(KEY_TICKET)
+        val seats = intent.getSerializableExtraCompat<Seats>(KET_SEATS)
 
-        val seats =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getSerializableExtra(KET_SEATS, Seats::class.java)
-            } else {
-                intent.getSerializableExtra(KET_SEATS) as? Seats
-            }
         presenter.fetchData(ticket, seats)
     }
 
