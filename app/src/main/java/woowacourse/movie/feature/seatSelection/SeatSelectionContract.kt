@@ -15,9 +15,10 @@ interface SeatSelectionContract {
 
         fun showSelectionNotFinishedToast(required: Int)
 
-        fun selectSeat(index: Int)
-
-        fun deselectSeat(index: Int)
+        fun toggleSeat(
+            index: Int,
+            isTaken: Boolean,
+        )
 
         fun goToReservationResult(
             ticket: TicketUiModel,

@@ -26,7 +26,7 @@ class SeatSelectionPresenter(
         _seats = seats.toDomain()
         _seats.seats.forEach { seat ->
             val index = seat.row * Seats.COL_SIZE + seat.col
-            view.selectSeat(index)
+            view.toggleSeat(index, false)
         }
         view.showTotalPrice(_seats.totalPrice())
     }
@@ -36,11 +36,11 @@ class SeatSelectionPresenter(
         val col = index % Seats.COL_SIZE
         val seat = Seat(row, col)
         if (seat in _seats.seats) {
-            view.deselectSeat(index)
+            view.toggleSeat(index, true)
             _seats.remove(seat)
         } else {
             if (!_seats.isSelectionFinished()) {
-                view.selectSeat(index)
+                view.toggleSeat(index, false)
                 _seats.add(seat)
             } else {
                 view.showSelectionFinishedToast()

@@ -77,12 +77,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.onInstanceStateRestored(seats)
     }
 
-    override fun selectSeat(index: Int) {
-        seatButtons[index].setBackgroundColor(getColor(R.color.seat_selected))
-    }
-
-    override fun deselectSeat(index: Int) {
-        seatButtons[index].setBackgroundColor(getColor(R.color.seat_default))
+    override fun toggleSeat(
+        index: Int,
+        isTaken: Boolean,
+    ) {
+        val color = if (isTaken) getColor(R.color.seat_default) else getColor(R.color.seat_selected)
+        seatButtons[index].setBackgroundColor(color)
     }
 
     override fun showMovieTitle(title: String) {
