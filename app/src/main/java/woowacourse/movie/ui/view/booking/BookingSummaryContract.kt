@@ -4,4 +4,8 @@ interface BookingSummaryContract {
     interface View {
         fun showBookingSummary()
     }
+
+    interface Presenter {
+        fun loadBookingSummary()
+    }
 }
