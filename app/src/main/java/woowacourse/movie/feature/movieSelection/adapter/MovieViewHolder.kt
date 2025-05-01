@@ -13,6 +13,7 @@ class MovieViewHolder(
     val view: View,
     private val onReservationClick: (MovieUiModel) -> Unit,
 ) : RecyclerView.ViewHolder(view) {
+    private var movie: MovieUiModel? = null
     private val poster: ImageView = view.findViewById(R.id.poster)
     private val title: TextView = view.findViewById(R.id.movie_title)
     private val screeningDate: TextView = view.findViewById(R.id.screening_date)
@@ -20,10 +21,13 @@ class MovieViewHolder(
     private val reserveButton: Button = view.findViewById(R.id.reserve_button)
 
     init {
-        reserveButton.setOnClickListener { onReservationClick }
+        reserveButton.setOnClickListener {
+            movie?.let { movie -> onReservationClick(movie) }
+        }
     }
 
     fun bind(movie: MovieUiModel) {
+        this.movie = movie
         poster.setImageResource(movie.poster)
         title.text = movie.title
         screeningDate.text =
@@ -37,6 +41,5 @@ class MovieViewHolder(
                 R.string.template_running_type,
                 movie.runningTime,
             )
-        reserveButton.setOnClickListener { onReservationClick(movie) }
     }
 }
