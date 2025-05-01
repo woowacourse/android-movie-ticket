@@ -14,7 +14,7 @@
         android:width="350dp"
         android:height="30dp"
         android:background="#494949"
-        android:text="SCREEN"
+        android:text="@string/info_screen"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="22sp"
@@ -39,6 +39,8 @@
                 android:id="@+id/a1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="A1"
                 android:textColor="#8E13EF"
@@ -49,6 +51,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="A2"
                 android:textColor="#8E13EF"
@@ -59,6 +63,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="A3"
                 android:textColor="#8E13EF"
@@ -69,6 +75,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="A4"
                 android:textColor="#8E13EF"
@@ -82,6 +90,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="B1"
                 android:textColor="#8E13EF"
@@ -92,6 +102,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="B2"
                 android:textColor="#8E13EF"
@@ -102,6 +114,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="B3"
                 android:textColor="#8E13EF"
@@ -112,6 +126,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="B4"
                 android:textColor="#8E13EF"
@@ -126,6 +142,8 @@
                 android:id="@+id/c1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="C1"
                 android:textColor="#19D358"
@@ -136,6 +154,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="C2"
                 android:textColor="#19D358"
@@ -146,6 +166,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="C3"
                 android:textColor="#19D358"
@@ -156,6 +178,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="C4"
                 android:textColor="#19D358"
@@ -169,6 +193,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="D1"
                 android:textColor="#19D358"
@@ -179,6 +205,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="D2"
                 android:textColor="#19D358"
@@ -189,6 +217,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="D3"
                 android:textColor="#19D358"
@@ -199,6 +229,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="D4"
                 android:textColor="#19D358"
@@ -213,6 +245,8 @@
                 android:id="@+id/e1"
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="E1"
                 android:textColor="#1B48E9"
@@ -223,6 +257,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="E2"
                 android:textColor="#1B48E9"
@@ -233,6 +269,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="E3"
                 android:textColor="#1B48E9"
@@ -243,6 +281,8 @@
             <Button
                 style="?android:attr/buttonBarButtonStyle"
                 android:backgroundTint="@color/seat_default"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
                 android:padding="25dp"
                 android:text="E4"
                 android:textColor="#1B48E9"
@@ -291,12 +331,13 @@
                 tools:text="25,000원" />
         </androidx.appcompat.widget.LinearLayoutCompat>
 
-
         <Button
             android:id="@+id/select_button"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="확인"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/button_confirm"
             android:textSize="24sp"
             android:textStyle="bold"
             app:cornerRadius="0dp" />
