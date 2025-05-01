@@ -14,7 +14,7 @@ data class Movie(
 ) : Serializable {
     companion object {
         val dummy: List<Movie> =
-            (1..10000).map {
+            List(10000) {
                 Movie(
                     R.drawable.harry,
                     "해리 포터$it",
