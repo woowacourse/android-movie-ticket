@@ -22,8 +22,6 @@
     <string name="template_running_type">%1$d분</string>
     <string name="template_ticket_count">%1$d명</string>
     <string name="template_price">%1$,d원</string>
-    <string name="format_date">yyyy.MM.dd</string>
-    <string name="format_date_time">yyyy.MM.dd HH:mm</string>
 
     <string name="button_increment">-</string>
     <string name="button_decrement">+</string>

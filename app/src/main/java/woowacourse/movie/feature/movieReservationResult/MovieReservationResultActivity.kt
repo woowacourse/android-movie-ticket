@@ -12,9 +12,9 @@ import woowacourse.movie.R
 import woowacourse.movie.feature.model.movie.TicketUiModel
 import woowacourse.movie.feature.model.seat.SeatsUiModel
 import woowacourse.movie.feature.movieReservation.MovieReservationActivity.Companion.KEY_TICKET
+import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.getParcelableCompat
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResultContract.View {
     private val presenter = MovieReservationResultPresenter(this)
@@ -44,7 +44,7 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
 
     override fun showMovieDateTime(showtime: LocalDateTime) {
         val showtimeTextView = findViewById<TextView>(R.id.showtime)
-        showtimeTextView.text = DateTimeFormatter.ofPattern(getString(R.string.format_date_time)).format(showtime)
+        showtimeTextView.text = Formatter.format(showtime)
     }
 
     override fun showTicketCount(count: Int) {

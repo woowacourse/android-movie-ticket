@@ -18,10 +18,10 @@ import woowacourse.movie.R
 import woowacourse.movie.feature.model.movie.MovieListItem.MovieUiModel
 import woowacourse.movie.feature.model.movie.TicketUiModel
 import woowacourse.movie.feature.seatSelection.SeatSelectionActivity
+import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.getParcelableCompat
 import java.time.LocalDate
 import java.time.LocalTime
-import java.time.format.DateTimeFormatter
 
 class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.View {
     private val presenter = MovieReservationPresenter(this)
@@ -142,11 +142,10 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         startDate: LocalDate,
         endDate: LocalDate,
     ) {
-        val dateTimeFormatter = DateTimeFormatter.ofPattern(getString(R.string.format_date))
         val screeningDateTextView = findViewById<TextView>(R.id.screening_date)
         screeningDateTextView.text =
             getString(R.string.template_screening_dates).format(
-                dateTimeFormatter.format(startDate), dateTimeFormatter.format(endDate),
+                Formatter.format(startDate), Formatter.format(endDate),
             )
     }
 
