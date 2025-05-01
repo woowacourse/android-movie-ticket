@@ -107,19 +107,6 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         viewHolder.btnReserveConfirm.setOnClickListener { presenter.reserve() }
     }
 
-//    override fun showConfirmDialog(bookingResultUiModel: BookingResultUiModel) {
-//        DialogUtil.makeDialog(
-//            activity = this@BookingActivity,
-//            title = getString(R.string.dig_title),
-//            message = getString(R.string.dig_message),
-//            positiveButtonName = getString(R.string.dig_btn_positive_message),
-//            negativeButtonName = getString(R.string.dig_btn_negative_message),
-//            moveTo = {
-//                startActivity(BookingSeatActivity.newIntent(this, bookingResultUiModel))
-//            },
-//        )
-//    }
-
     override fun moveTo(bookingResultUiModel: BookingResultUiModel) {
         startActivity(BookingSeatActivity.newIntent(this, bookingResultUiModel))
     }
