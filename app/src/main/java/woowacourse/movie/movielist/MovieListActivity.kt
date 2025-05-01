@@ -7,11 +7,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.data.MovieFactory
 import woowacourse.movie.detailbooking.DetailBookingActivity
 import woowacourse.movie.domain.Movie
 
 class MovieListActivity : AppCompatActivity(), MovieListContract.View {
-    private val movieListPresenter = MovieListPresenter(this)
+    private val movies = MovieFactory().getAll()
+    private val movieListPresenter = MovieListPresenter(this, movies)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

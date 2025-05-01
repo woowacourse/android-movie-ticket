@@ -140,3 +140,4 @@ Activity에 존재하는 View와 Controller의 역할을 분리하는 것부터 
 
 ## 1차 피드백 반영
 - [x] refactor: ItemType -> FeedItem으로 네이밍 변경
+- [x] refactor: presenter의 Movies 생성 책임 분리

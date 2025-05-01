@@ -1,10 +1,6 @@
 package woowacourse.movie.movielist
 
-import woowacourse.movie.data.MovieFactory
-
-class MovieListPresenter(private val view: MovieListContract.View) : MovieListContract.Presenter {
-    private val movies = MovieFactory().getAll()
-
+class MovieListPresenter(private val view: MovieListContract.View, private val movies: List<FeedItem>) : MovieListContract.Presenter {
     override fun updateMovies() {
         view.showMovieList(movies)
     }
