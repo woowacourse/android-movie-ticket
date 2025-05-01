@@ -19,7 +19,7 @@ import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DialogUtil
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
-    private lateinit var presenter: BookingContract.Presenter
+    private lateinit var presenter: BookingPresenter
     private lateinit var screeningDateSpinner: ScreeningDateSpinner
     private lateinit var screeningTimeSpinner: ScreeningTimeSpinner
     private lateinit var viewHolder: BookingViewHolder
@@ -115,9 +115,9 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         super.onSaveInstanceState(outState)
 
         with(outState) {
-            presenter.saveHeadCount { count -> putInt(SAVED_BOOKING_HEAD_COUNT, count) }
-            presenter.saveScreeningDate { date -> putString(SAVED_BOOKING_SCREENING_DATE, date) }
-            presenter.saveScreeningTime { time -> putString(SAVED_BOOKING_SCREENING_TIME, time) }
+            putInt(SAVED_BOOKING_HEAD_COUNT, presenter.bookingResultUiModel.headCount.toInt())
+            putString(SAVED_BOOKING_SCREENING_DATE, presenter.bookingResultUiModel.selectedDate)
+            putString(SAVED_BOOKING_SCREENING_TIME, presenter.bookingResultUiModel.selectedTime)
         }
     }
 

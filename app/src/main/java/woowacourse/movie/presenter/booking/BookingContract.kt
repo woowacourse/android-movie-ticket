@@ -24,12 +24,6 @@ interface BookingContract {
 
         fun reserve()
 
-        fun saveHeadCount(onReceived: (Int) -> Unit)
-
-        fun saveScreeningDate(onReceived: (String) -> Unit)
-
-        fun saveScreeningTime(onReceived: (String) -> Unit)
-
         fun restoreBookingResult(
             count: Int,
             date: String?,

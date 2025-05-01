@@ -4,6 +4,7 @@ import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.sample.SampleMovies
+import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
@@ -23,6 +24,7 @@ class BookingPresenter(
     private val bookingMovie: Movie by lazy { MovieModelMapper.toDomain(movieUiModel!!) }
     private val booking: Booking by lazy { Booking(bookingMovie) }
     private var bookingResult: BookingResult = initBookingResult(booking)
+    val bookingResultUiModel: BookingResultUiModel get() = BookingResultModelMapper.toUi(bookingResult)
     private val bookableDates: List<LocalDate> = booking.screeningPeriods()
     private val bookableTimes: List<LocalTime> get() = booking.screeningTimes(bookingResult.selectedDate)
 
@@ -88,20 +90,6 @@ class BookingPresenter(
             val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
             view.moveTo(bookingResultUiModel)
         }
-    }
-
-    override fun saveHeadCount(onReceived: (Int) -> Unit) {
-        onReceived(bookingResult.headCount)
-    }
-
-    override fun saveScreeningDate(onReceived: (String) -> Unit) {
-        val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
-        onReceived(bookingResultUiModel.selectedDate)
-    }
-
-    override fun saveScreeningTime(onReceived: (String) -> Unit) {
-        val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
-        onReceived(bookingResultUiModel.selectedTime)
     }
 
     override fun restoreBookingResult(
