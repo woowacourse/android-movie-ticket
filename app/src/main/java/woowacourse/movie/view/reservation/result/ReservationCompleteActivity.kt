@@ -89,8 +89,8 @@ class ReservationCompleteActivity : AppCompatActivity(), ReservationCompleteCont
 
         fun newIntent(
             context: Context,
-            ticket: Ticket,
-            seats: Seats,
+            ticket: Ticket?,
+            seats: Seats?,
         ): Intent =
             Intent(context, ReservationCompleteActivity::class.java)
                 .putExtra(KEY_TICKET, ticket)

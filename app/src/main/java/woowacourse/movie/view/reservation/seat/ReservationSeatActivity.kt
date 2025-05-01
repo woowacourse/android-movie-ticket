@@ -204,7 +204,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
 
         fun newIntent(
             context: Context,
-            ticket: Ticket,
+            ticket: Ticket?,
         ): Intent =
             Intent(context, ReservationSeatActivity::class.java).putExtra(
                 KEY_TICKET,

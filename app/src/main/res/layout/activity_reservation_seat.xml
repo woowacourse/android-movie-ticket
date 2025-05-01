@@ -19,6 +19,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_screen"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
@@ -30,7 +31,7 @@
                 android:textSize="30sp" />
 
             <TableLayout
-                android:id="@+id/tv_seat"
+                android:id = "@+id/tv_seat"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -39,6 +40,7 @@
                 android:stretchColumns="*">
 
                 <TableRow
+                    android:id="@+id/tl_row1"
                     android:layout_height="match_parent"
                     android:gravity="center">
 
@@ -52,6 +54,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tl_row2"
                     android:layout_height="match_parent"
                     android:gravity="center">
 
@@ -65,6 +68,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tl_row3"
                     android:layout_height="match_parent"
                     android:gravity="center">
 
@@ -78,6 +82,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tl_row4"
                     android:layout_height="match_parent"
                     android:gravity="center">
 
@@ -91,6 +96,7 @@
                 </TableRow>
 
                 <TableRow
+                    android:id="@+id/tl_row5"
                     android:layout_height="match_parent"
                     android:gravity="center">
 

@@ -33,7 +33,7 @@ class ReservationCompleteActivityTest {
             2,
         )
 
-    private val seats = Seats(mutableListOf(Seat(Position(0, 0))))
+    private val seats = Seats(mutableSetOf(Seat(Position(0, 0))))
 
     @Before
     fun setUp() {
