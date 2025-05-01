@@ -136,3 +136,7 @@ Activity에 존재하는 View와 Controller의 역할을 분리하는 것부터 
 - [x] 영화는 10,000개까지 추가할 수 있어야 한다.
 - [x] 하드코딩된 color 색상 colors.xml로 리팩토링
 - [x] 좌석 배열 5*5에서 5*4로 수정
+
+
+## 1차 피드백 반영
+- [x] refactor: ItemType -> FeedItem으로 네이밍 변경

@@ -14,7 +14,7 @@ import woowacourse.movie.utils.DateFormatter
 
 class MovieListAdapter(
     private val onItemClick: ClickListener,
-    private val items: List<ItemType>,
+    private val items: List<FeedItem>,
 ) : RecyclerView.Adapter<ViewHolder>() {
     inner class MovieViewHolder(view: View) : ViewHolder(view) {
         private val imageView: ImageView = view.findViewById(R.id.item_movie_image)
@@ -32,7 +32,7 @@ class MovieListAdapter(
 
         private val onReservationButtonClicked = { position: Int ->
             val item = items[position]
-            if (item is ItemType.MovieType) {
+            if (item is FeedItem.MovieFeed) {
                 val movie = item.movie
                 onItemClick.onReserveClick(movie)
             }
@@ -74,7 +74,7 @@ class MovieListAdapter(
     ) {
         if (holder is MovieViewHolder) {
             val item = items[position]
-            if (item is ItemType.MovieType) {
+            if (item is FeedItem.MovieFeed) {
                 val movie = item.movie
                 holder.setItem(movie)
             }

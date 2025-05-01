@@ -3,21 +3,21 @@ package woowacourse.movie.data
 import woowacourse.movie.R
 import woowacourse.movie.domain.Date
 import woowacourse.movie.domain.Movie
-import woowacourse.movie.movielist.ItemType
+import woowacourse.movie.movielist.FeedItem
 import java.time.LocalDate
 
 class MovieFactory {
-    fun getAll(): List<ItemType> {
+    fun getAll(): List<FeedItem> {
         val movieList = createMovies(2500)
         return createAdsWithMovies(movieList)
     }
 
-    private fun createAdsWithMovies(movies: List<Movie>): List<ItemType> {
-        val result = mutableListOf<ItemType>()
+    private fun createAdsWithMovies(movies: List<Movie>): List<FeedItem> {
+        val result = mutableListOf<FeedItem>()
         for (i in movies.indices) {
-            result.add(ItemType.MovieType(movies[i]))
+            result.add(FeedItem.MovieFeed(movies[i]))
             if ((i + 1) % 3 == 0) {
-                result.add(ItemType.ADType)
+                result.add(FeedItem.ADFeed)
             }
         }
         return result.toList()

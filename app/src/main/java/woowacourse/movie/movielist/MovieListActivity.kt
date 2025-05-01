@@ -25,7 +25,7 @@ class MovieListActivity : AppCompatActivity(), MovieListContract.View {
         movieListPresenter.updateMovies()
     }
 
-    override fun showMovieList(movies: List<ItemType>) {
+    override fun showMovieList(movies: List<FeedItem>) {
         val recyclerView: RecyclerView = findViewById(R.id.movie_recyclerview)
         val movieListAdapter =
             MovieListAdapter(
