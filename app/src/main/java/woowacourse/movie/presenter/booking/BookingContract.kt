@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.booking
 
+import androidx.annotation.StringRes
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.movie.MovieUiModel
 
@@ -34,7 +35,9 @@ interface BookingContract {
     interface View {
         fun showMovieInfo(movieUiModel: MovieUiModel)
 
-        fun showErrorMessage(message: String)
+        fun showErrorMessage(
+            @StringRes messageResource: Int,
+        )
 
         fun setScreeningDateSpinner(dates: List<String>)
 

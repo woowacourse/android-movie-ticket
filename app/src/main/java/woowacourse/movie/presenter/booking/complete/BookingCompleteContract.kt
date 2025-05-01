@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.booking.complete
 
+import androidx.annotation.StringRes
 import woowacourse.movie.domain.model.booking.TicketPrice
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 
@@ -12,7 +13,9 @@ interface BookingCompleteContract {
     }
 
     interface View {
-        fun showErrorMessage(message: String)
+        fun showErrorMessage(
+            @StringRes messageResource: Int,
+        )
 
         fun showBookingResult(bookingResultUiModel: BookingResultUiModel)
 

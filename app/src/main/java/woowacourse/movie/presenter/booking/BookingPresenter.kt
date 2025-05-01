@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.booking
 
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.domain.model.movie.Movie
@@ -24,13 +25,17 @@ class BookingPresenter(
     private val bookingMovie: Movie by lazy { MovieModelMapper.toDomain(movieUiModel!!) }
     private val booking: Booking by lazy { Booking(bookingMovie) }
     private var bookingResult: BookingResult = initBookingResult(booking)
-    val bookingResultUiModel: BookingResultUiModel get() = BookingResultModelMapper.toUi(bookingResult)
+    val bookingResultUiModel: BookingResultUiModel
+        get() =
+            BookingResultModelMapper.toUi(
+                bookingResult,
+            )
     private val bookableDates: List<LocalDate> = booking.screeningPeriods()
     private val bookableTimes: List<LocalTime> get() = booking.screeningTimes(bookingResult.selectedDate)
 
     init {
         if (movieUiModel == null) {
-            view.showErrorMessage(ERROR_NOT_EXIST_MOVIE)
+            view.showErrorMessage(R.string.error_not_exist_movie)
         } else {
             loadMovie(movieUiModel)
         }
@@ -40,7 +45,7 @@ class BookingPresenter(
         if (isExist(movieUiModel)) {
             view.showMovieInfo(movieUiModel)
         } else {
-            view.showErrorMessage(ERROR_NOT_EXIST_MOVIE)
+            view.showErrorMessage(R.string.error_not_exist_movie)
         }
     }
 
@@ -128,9 +133,5 @@ class BookingPresenter(
         if (bookableTimes.isEmpty() && !bookingMovie.isScreeningEnd(nextDay)) {
             bookingResult = bookingResult.updateDate(nextDay)
         }
-    }
-
-    companion object {
-        private const val ERROR_NOT_EXIST_MOVIE = "영화 정보가 존재하지 않습니다."
     }
 }

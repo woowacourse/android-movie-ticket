@@ -54,10 +54,10 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         }
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showErrorMessage(messageResource: Int) {
         DialogUtil.showError(
             activity = this@BookingSeatActivity,
-            message = message,
+            message = getString(messageResource),
         )
     }
 

@@ -72,10 +72,10 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
         return super.onSupportNavigateUp()
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showErrorMessage(messageResource: Int) {
         DialogUtil.showError(
             activity = this@BookingCompleteActivity,
-            message = message,
+            message = getString(messageResource),
         )
     }
 

@@ -1,6 +1,7 @@
 package woowacourse.movie.presenter.booking.seat
 
 import android.icu.text.DecimalFormat
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
@@ -15,7 +16,7 @@ class BookingSeatPresenter(
 
     init {
         if (bookingResultUiOrNull == null) {
-            view.showErrorMessage(ERROR_NOT_EXIST_BOOKING_RESULT)
+            view.showErrorMessage(R.string.error_not_exist_booking_result)
         } else {
             bookingResultUiModel = bookingResultUiOrNull
         }
@@ -43,9 +44,5 @@ class BookingSeatPresenter(
         val money = seats.totalPrice()
         val totalPrice = DecimalFormat("#,###").format(money)
         view.showTotalPrice(totalPrice)
-    }
-
-    companion object {
-        private const val ERROR_NOT_EXIST_BOOKING_RESULT = "영화 정보가 없습니다."
     }
 }

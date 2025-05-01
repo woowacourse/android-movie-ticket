@@ -1,6 +1,7 @@
 package woowacourse.movie.presenter.booking.complete
 
 import android.icu.text.DecimalFormat
+import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.domain.model.booking.TicketPrice
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
@@ -15,7 +16,7 @@ class BookingCompletePresenter(
 
     init {
         if (bookingResultUiModel == null) {
-            view.showErrorMessage(ERROR_NOT_EXIST_BOOKING_RESULT)
+            view.showErrorMessage(R.string.error_not_exist_booking_result)
         } else {
             loadBookingResult(bookingResultUiModel, ticketPrice)
         }
@@ -31,9 +32,5 @@ class BookingCompletePresenter(
         val money = bookingResult.calculateAmount(ticketPrice)
         val bookingAmount = DecimalFormat("#,###").format(money)
         view.showBookingAmount(bookingAmount)
-    }
-
-    companion object {
-        private const val ERROR_NOT_EXIST_BOOKING_RESULT = "영화 예매 정보가 없습니다."
     }
 }

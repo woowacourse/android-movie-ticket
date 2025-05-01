@@ -1,5 +1,7 @@
 package woowacourse.movie.presenter.booking.seat
 
+import androidx.annotation.StringRes
+
 interface BookingSeatContract {
     interface Presenter {
         fun loadInfos()
@@ -15,7 +17,9 @@ interface BookingSeatContract {
             isSelected: Boolean,
         )
 
-        fun showErrorMessage(message: String)
+        fun showErrorMessage(
+            @StringRes messageResource: Int,
+        )
 
         fun showFullScreen(
             movieTitle: String,

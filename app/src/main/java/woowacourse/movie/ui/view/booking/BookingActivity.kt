@@ -48,10 +48,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
             getString(R.string.minute_text, movieUiModel.runningTime)
     }
 
-    override fun showErrorMessage(message: String) {
+    override fun showErrorMessage(messageResource: Int) {
         DialogUtil.showError(
             this@BookingActivity,
-            message = message,
+            message = getString(messageResource),
         )
     }
 
