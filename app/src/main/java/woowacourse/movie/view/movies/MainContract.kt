@@ -1,6 +1,7 @@
 package woowacourse.movie.view.movies
 
 import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.MovieItem
 
 interface MainContract {
     interface Presenter {
@@ -9,7 +10,7 @@ interface MainContract {
 
     interface View {
         fun showMoviesScreen(
-            movies: List<Movie>,
+            movieItems: List<MovieItem>,
             navigate: (Movie) -> Unit,
         )
 

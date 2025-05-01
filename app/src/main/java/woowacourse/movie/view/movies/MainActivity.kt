@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
     }
 
     override fun showMoviesScreen(
-        movies: List<Movie>,
+        movieItems: List<MovieItem>,
         navigate: (Movie) -> Unit,
     ) {
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
@@ -40,14 +40,6 @@ class MainActivity : AppCompatActivity(), MainContract.View {
                     }
                 },
             )
-
-        val movieItems = mutableListOf<MovieItem>()
-        movies.forEachIndexed { index, movie ->
-            movieItems.add(MovieItem.Movie(movie))
-            if ((index + 1) % 3 == 0) {
-                movieItems.add(MovieItem.Advertisement)
-            }
-        }
         recyclerView.adapter = movieAdapter
         movieAdapter.submitList(movieItems)
     }
