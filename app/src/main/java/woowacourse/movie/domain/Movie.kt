@@ -18,7 +18,7 @@ data class Movie(
                 Movie(
                     R.drawable.harry,
                     "해리 포터$it",
-                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 30)),
+                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 5, 30)),
                     152,
                 )
             }
