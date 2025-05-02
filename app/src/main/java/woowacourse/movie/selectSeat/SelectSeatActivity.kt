@@ -30,21 +30,24 @@ class SelectSeatActivity :
             intent.fetchExtraOrNull<TicketUIModel>(KEY_TICKET) ?: return
         button = findViewById<Button>(R.id.seat_select_button)
         moneyView = findViewById<TextView>(R.id.money)
-        presenter.onViewCreated(ticketUIModel)
+        setTitle()
+        setSeatClicker()
+        setButton()
+        presenter.init(ticketUIModel)
     }
 
-    override fun setTitle(ticketUIModel: TicketUIModel) {
+    fun setTitle() {
         val titleView = findViewById<TextView>(R.id.title)
         titleView.text = ticketUIModel.title
     }
 
-    override fun setMoney(money: Int) {
+    override fun showPrice(money: Int) {
         val formatter = DecimalFormat("#,###")
         val moneyWithComma = formatter.format(money)
         moneyView.text = getString(R.string.price_format, moneyWithComma)
     }
 
-    override fun setSeatClicker() {
+    fun setSeatClicker() {
         val seatSet = findViewById<ViewGroup>(R.id.seat_set)
 
         for (i in 0 until seatSet.childCount) {
@@ -56,27 +59,27 @@ class SelectSeatActivity :
                 val seatNumber = j + 1
                 seat.tag = "$rowChar$seatNumber"
                 seat.setOnClickListener {
-                    presenter.onSeatClicked(seat.tag.toString(), ticketUIModel.count)
+                    presenter.toggleSeat(seat.tag.toString(), ticketUIModel.count)
                 }
             }
         }
     }
 
-    override fun setButton() {
+    fun setButton() {
         val button = findViewById<Button>(R.id.seat_select_button)
 
         button.setOnClickListener {
-            presenter.onBookButtonClicked()
+            presenter.askConfirm()
         }
     }
 
     override fun askToConfirmBook() {
         ConfirmDialog.show(this) {
-            presenter.onYesClick()
+            presenter.completeBooking()
         }
     }
 
-    override fun changeView(ticketUIModel: TicketUIModel) {
+    override fun navigateToBookingResult(ticketUIModel: TicketUIModel) {
         val intent =
             Intent(this, BookingResultActivity::class.java).apply {
                 putExtra(KEY_TICKET, ticketUIModel)
@@ -92,14 +95,18 @@ class SelectSeatActivity :
         button.setEnabled(false)
     }
 
-    override fun onSeatSelected(tag: String) {
+    override fun highlightSeat(tag: String) {
         val viewGroup = findViewById<ViewGroup>(R.id.seat_set)
-        viewGroup.findViewWithTag<TextView>(tag).setBackgroundColor(resources.getColor(R.color.yellow))
+        viewGroup
+            .findViewWithTag<TextView>(tag)
+            .setBackgroundColor(resources.getColor(R.color.yellow))
     }
 
-    override fun onSeatUnSelected(tag: String) {
+    override fun unHighlightSeat(tag: String) {
         val viewGroup = findViewById<ViewGroup>(R.id.seat_set)
-        viewGroup.findViewWithTag<TextView>(tag).setBackgroundColor(resources.getColor(R.color.white))
+        viewGroup
+            .findViewWithTag<TextView>(tag)
+            .setBackgroundColor(resources.getColor(R.color.white))
     }
 
     override fun showFullSeat() {

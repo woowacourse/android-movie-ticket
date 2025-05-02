@@ -4,23 +4,17 @@ import woowacourse.movie.uiModel.TicketUIModel
 
 interface SelectSeatContract {
     interface View {
-        fun setSeatClicker()
-
-        fun setButton()
-
         fun askToConfirmBook()
 
-        fun onSeatSelected(tag: String)
+        fun highlightSeat(tag: String)
 
-        fun onSeatUnSelected(tag: String)
+        fun unHighlightSeat(tag: String)
 
-        fun setTitle(ticketUIModel: TicketUIModel)
-
-        fun setMoney(money: Int)
+        fun showPrice(money: Int)
 
         fun showFullSeat()
 
-        fun changeView(ticketUIModel: TicketUIModel)
+        fun navigateToBookingResult(ticketUIModel: TicketUIModel)
 
         fun activeButton()
 
@@ -28,15 +22,15 @@ interface SelectSeatContract {
     }
 
     interface Presenter {
-        fun onViewCreated(ticketUIModel: TicketUIModel)
+        fun init(ticketUIModel: TicketUIModel)
 
-        fun onSeatClicked(
+        fun toggleSeat(
             tag: String,
             fullCount: Int,
         )
 
-        fun onBookButtonClicked()
+        fun askConfirm()
 
-        fun onYesClick()
+        fun completeBooking()
     }
 }

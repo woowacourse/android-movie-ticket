@@ -8,31 +8,27 @@ class SelectSeatPresenter(
 ) : SelectSeatContract.Presenter {
     val selectSeat = SelectSeats()
 
-    override fun onViewCreated(ticketUIModel: TicketUIModel) {
-        view.setTitle(ticketUIModel)
-        view.setMoney(ticketUIModel.money)
-        view.setSeatClicker()
-        view.setButton()
+    override fun init(ticketUIModel: TicketUIModel) {
+        view.showPrice(0)
         view.disActiveButton()
-
         selectSeat.setTicket(ticketUIModel)
     }
 
-    override fun onSeatClicked(
+    override fun toggleSeat(
         tag: String,
         fullCount: Int,
     ) {
         if (selectSeat.isSeatSelected(tag)) {
             selectSeat.unSelectSeat(tag)
-            view.onSeatUnSelected(tag)
-            view.setMoney(selectSeat.ticket.money)
+            view.unHighlightSeat(tag)
+            view.showPrice(selectSeat.ticket.money)
         } else {
             if (selectSeat.isFullSeat(fullCount)) {
                 view.showFullSeat()
             } else {
                 selectSeat.selectSeat(tag)
-                view.onSeatSelected(tag)
-                view.setMoney(selectSeat.ticket.money)
+                view.highlightSeat(tag)
+                view.showPrice(selectSeat.ticket.money)
             }
         }
         if (selectSeat.isFullSeat(fullCount)) {
@@ -42,11 +38,11 @@ class SelectSeatPresenter(
         }
     }
 
-    override fun onBookButtonClicked() {
+    override fun askConfirm() {
         view.askToConfirmBook()
     }
 
-    override fun onYesClick() {
-        view.changeView(selectSeat.ticket.toUIModel())
+    override fun completeBooking() {
+        view.navigateToBookingResult(selectSeat.ticket.toUIModel())
     }
 }
