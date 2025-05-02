@@ -9,28 +9,19 @@ import woowacourse.movie.util.mapper.BookingResultModelMapper
 
 class BookingCompletePresenter(
     val view: BookingCompleteContract.View,
-    bookingResultUiModel: BookingResultUiModel?,
 ) : BookingCompleteContract.Presenter {
     private val ticketPrice = TicketPrice()
     private lateinit var bookingResult: BookingResult
 
-    init {
-        if (bookingResultUiModel == null) {
-            view.showErrorMessage(R.string.error_not_exist_booking_result)
-        } else {
-            loadBookingResult(bookingResultUiModel, ticketPrice)
-        }
-    }
+    override fun loadBookingResult(bookingResultUiModelOrNull: BookingResultUiModel?) {
+        bookingResultUiModelOrNull?.let {  bookingResultUiModel ->
+            bookingResult = BookingResultModelMapper.toDomain(bookingResultUiModel)
+            view.showBookingResult(bookingResultUiModel)
 
-    override fun loadBookingResult(
-        bookingResultUiModel: BookingResultUiModel,
-        ticketPrice: TicketPrice,
-    ) {
-        bookingResult = BookingResultModelMapper.toDomain(bookingResultUiModel)
-        view.showBookingResult(bookingResultUiModel)
+            val money = bookingResult.calculateAmount(ticketPrice)
+            val bookingAmount = DecimalFormat("#,###").format(money)
+            view.showBookingAmount(bookingAmount)
 
-        val money = bookingResult.calculateAmount(ticketPrice)
-        val bookingAmount = DecimalFormat("#,###").format(money)
-        view.showBookingAmount(bookingAmount)
+        } ?: view.showErrorMessage(R.string.error_not_exist_booking_result)
     }
 }

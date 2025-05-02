@@ -17,7 +17,7 @@ import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.DialogUtil
 
 class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
-    private lateinit var presenter: BookingCompleteContract.Presenter
+    private val presenter: BookingCompletePresenter by lazy { generatePresenter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,24 +26,8 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
         applySystemBarInsets()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        presenter = BookingCompletePresenter(this@BookingCompleteActivity, bookingResultUiOrNull())
+        presenter.loadBookingResult(bookingResultUiOrNull())
     }
-
-    private fun applySystemBarInsets() {
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-
-    private fun bookingResultUiOrNull() =
-        IntentCompat.getParcelableExtra(
-            intent,
-            EXTRA_BOOKING_RESULT,
-            BookingResultUiModel::class.java,
-        )
 
     override fun showBookingResult(bookingResultUiModel: BookingResultUiModel) {
         val cancellationMessage = findViewById<TextView>(R.id.tv_cancellation_guide)
@@ -67,17 +51,36 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
             getString(R.string.screening_complete_booking_amount, totalPrice)
     }
 
-    override fun onSupportNavigateUp(): Boolean {
-        finish()
-        return super.onSupportNavigateUp()
-    }
-
     override fun showErrorMessage(messageResource: Int) {
         DialogUtil.showError(
             activity = this@BookingCompleteActivity,
             message = getString(messageResource),
         )
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return super.onSupportNavigateUp()
+    }
+
+    private fun generatePresenter(): BookingCompletePresenter{
+        return BookingCompletePresenter(this@BookingCompleteActivity)
+    }
+
+    private fun applySystemBarInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun bookingResultUiOrNull() =
+        IntentCompat.getParcelableExtra(
+            intent,
+            EXTRA_BOOKING_RESULT,
+            BookingResultUiModel::class.java,
+        )
 
     companion object {
         private const val EXTRA_BOOKING_RESULT = "extra_booking_result"
