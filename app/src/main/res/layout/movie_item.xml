@@ -11,7 +11,7 @@
         android:layout_width="76dp"
         android:layout_height="108dp"
         android:scaleType="centerCrop"
-        tools:src="@drawable/harry_potter_one"
+        tools:src="@drawable/harry_potter_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

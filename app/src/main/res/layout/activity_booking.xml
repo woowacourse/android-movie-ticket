@@ -28,7 +28,7 @@
                 android:layout_height="380dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                tools:src="@drawable/harry_potter_one" />
+                tools:src="@drawable/harry_potter_1" />
 
             <TextView
                 android:id="@+id/tv_title"

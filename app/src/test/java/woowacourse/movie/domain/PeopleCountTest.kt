@@ -2,7 +2,7 @@ package woowacourse.movie.domain
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.model.PeopleCount
+import woowacourse.movie.domain.model.booking.PeopleCount
 
 class PeopleCountTest {
     @Test
@@ -11,7 +11,7 @@ class PeopleCountTest {
         val peopleCount = PeopleCount(1)
 
         // when
-        val expected = peopleCount.increase().value
+        val expected = peopleCount.increase(10).value
 
         // then
         assertEquals(expected, 2)

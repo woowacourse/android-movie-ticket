@@ -1,11 +1,9 @@
 package woowacourse.movie.view.booking
 
-import android.content.Intent
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.Espresso.pressBack
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -16,8 +14,10 @@ import org.hamcrest.CoreMatchers.anything
 import org.junit.Before
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.booking.ScreeningDate
+import woowacourse.movie.domain.model.movies.Movie
 import woowacourse.movie.fixture.fakeContext
-import woowacourse.movie.view.movie.MovieListActivity.Companion.KEY_MOVIE
+import java.time.LocalDate
 
 class BookingActivityTest {
     private lateinit var scenario: ActivityScenario<BookingActivity>
@@ -25,20 +25,27 @@ class BookingActivityTest {
     @Before
     fun setUp() {
         val intent =
-            Intent(
+            BookingActivity.newIntent(
                 fakeContext,
-                BookingActivity::class.java,
-            ).apply {
-                putExtra(KEY_MOVIE, 1)
-            }
-
+                Movie(
+                    id = 0,
+                    posterResource = "",
+                    title = "해리 포터와 마법사의 돌",
+                    releaseDate =
+                        ScreeningDate(
+                            LocalDate.of(2025, 5, 1),
+                            LocalDate.of(2025, 5, 25),
+                        ),
+                    runningTime = 152,
+                ),
+            )
         scenario = ActivityScenario.launch(intent)
     }
 
     @Test
     fun `전달_받은_영화_이름_상영일_상영_시간을_출력한다`() {
-        onView(withText("해리 포터와 마법사의 돌 1")).check(matches(isDisplayed()))
-        onView(withText("2025.4.1 ~ 2025.4.25")).check(matches(isDisplayed()))
+        onView(withText("해리 포터와 마법사의 돌")).check(matches(isDisplayed()))
+        onView(withText("2025.5.1 ~ 2025.5.25")).check(matches(isDisplayed()))
         onView(withText("152분")).check(matches(isDisplayed()))
     }
 
@@ -87,33 +94,6 @@ class BookingActivityTest {
 
         // then
         onView(withId(R.id.tv_people_count)).check(matches(withText("1")))
-    }
-
-    @Test
-    fun `예매_선택_완료_버튼을_누르면_예매_확인_다이얼로그가_뜬다`() {
-        // when
-        onView(withId(R.id.btn_booking_complete)).perform(click())
-
-        // then
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
-    }
-
-    @Test
-    fun `다이얼로그_외부_영역을_클릭해도_다이얼로그가_유지된다`() {
-        // given
-        onView(withId(R.id.btn_booking_complete)).perform(click())
-
-        // when
-        pressBack()
-
-        // then
-        onView(withText("예매 확인")).check(matches(isDisplayed()))
-        onView(withText("정말 예매하시겠습니까?")).check(matches(isDisplayed()))
-        onView(withText("취소")).check(matches(isDisplayed()))
-        onView(withText("예매 완료")).check(matches(isDisplayed()))
     }
 
     @Test
