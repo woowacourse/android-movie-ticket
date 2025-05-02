@@ -23,13 +23,15 @@
         </activity>
         <activity
             android:name=".feature.movieReservation.MovieReservationActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".feature.movieSelection.MovieSelectionActivity" />
         <activity
             android:name=".feature.seatSelection.SeatSelectionActivity"
-
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".feature.movieSelection.MovieSelectionActivity" />
         <activity
             android:name=".feature.movieReservationResult.MovieReservationResultActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".feature.movieSelection.MovieSelectionActivity" />
     </application>
 </manifest>
