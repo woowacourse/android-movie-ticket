@@ -1,6 +1,5 @@
 package woowacourse.movie.detailbooking
 
-import android.os.Bundle
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.ReservationInfo
 import java.time.LocalDate
@@ -20,9 +19,7 @@ interface DetailBookingContract {
 
         fun clickedButton()
 
-        fun saveState(outState: Bundle)
-
-        fun restoreState(savedInstanceState: Bundle)
+        fun restoreState(personnel: Int, selectedDatePosition: Int, selectedTimePosition: Int)
     }
 
     interface View {

@@ -26,6 +26,7 @@ import java.time.LocalTime
 class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
     private lateinit var detailBookingPresenter: DetailBookingPresenter
 
+    private val personnel: TextView by lazy { findViewById(R.id.detail_personnel) }
     private val decreasedButton: Button by lazy { findViewById(R.id.decrement_button) }
     private val increasedButton: Button by lazy { findViewById(R.id.increment_button) }
     private val spinnerDate: Spinner by lazy { findViewById(R.id.detail_spinner_date) }
@@ -60,13 +61,18 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
         }
 
         if (savedInstanceState != null) {
-            detailBookingPresenter.restoreState(savedInstanceState)
+            val personnel = savedInstanceState.getInt(KEY_PERSONNEL_COUNT, DetailBookingPresenter.DEFAULT_PERSONNEL)
+            val selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, 0)
+            val selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, 0)
+            detailBookingPresenter.restoreState(personnel, selectedDatePosition, selectedTimePosition)
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        detailBookingPresenter.saveState(outState)
+        outState.putInt(KEY_PERSONNEL_COUNT, personnel.text.toString().toInt())
+        outState.putInt(KEY_DATE_POSITION, spinnerDate.selectedItemPosition)
+        outState.putInt(KEY_TIME_POSITION, spinnerTime.selectedItemPosition)
     }
 
     override fun showMovieData(movie: Movie) {
@@ -126,7 +132,7 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
     }
 
     override fun showCount(count: Int) {
-        findViewById<TextView>(R.id.detail_personnel).text = count.toString()
+        personnel.text = count.toString()
     }
 
     override fun showNextActivity(reservationInfo: ReservationInfo) {
@@ -135,6 +141,9 @@ class DetailBookingActivity : AppCompatActivity(), DetailBookingContract.View {
 
     companion object {
         private const val KEY_MOVIE = "movie"
+        private const val KEY_PERSONNEL_COUNT = "personnel_count"
+        private const val KEY_DATE_POSITION = "movieDate_position"
+        private const val KEY_TIME_POSITION = "timeTable_position"
 
         fun newIntent(
             context: Context,

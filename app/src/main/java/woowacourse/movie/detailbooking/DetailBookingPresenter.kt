@@ -1,6 +1,5 @@
 package woowacourse.movie.detailbooking
 
-import android.os.Bundle
 import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieSchedule
 import woowacourse.movie.domain.ReservationInfo
@@ -62,17 +61,7 @@ class DetailBookingPresenter(private val view: DetailBookingContract.View) : Det
         view.showNextActivity(reservationInfo)
     }
 
-    override fun saveState(outState: Bundle) {
-        outState.putInt(KEY_PERSONNEL_COUNT, personnel)
-        outState.putInt(KEY_DATE_POSITION, selectedDatePosition)
-        outState.putInt(KEY_TIME_POSITION, selectedTimePosition)
-    }
-
-    override fun restoreState(savedInstanceState: Bundle) {
-        personnel = savedInstanceState.getInt(KEY_PERSONNEL_COUNT, DEFAULT_PERSONNEL)
-        selectedDatePosition = savedInstanceState.getInt(KEY_DATE_POSITION, 0)
-        selectedTimePosition = savedInstanceState.getInt(KEY_TIME_POSITION, 0)
-
+    override fun restoreState(personnel: Int, selectedDatePosition: Int, selectedTimePosition: Int) {
         view.showMovieSchedule(movieSchedule, selectedDatePosition)
         screeningTime = ScreeningTime(movieSchedule[selectedDatePosition].atStartOfDay()).selectableTimes()
         view.showMovieScreeningTime(screeningTime, selectedTimePosition)
@@ -80,9 +69,6 @@ class DetailBookingPresenter(private val view: DetailBookingContract.View) : Det
     }
 
     companion object {
-        private const val DEFAULT_PERSONNEL = 1
-        private const val KEY_PERSONNEL_COUNT = "personnel_count"
-        private const val KEY_DATE_POSITION = "movieDate_position"
-        private const val KEY_TIME_POSITION = "timeTable_position"
+        const val DEFAULT_PERSONNEL = 1
     }
 }
