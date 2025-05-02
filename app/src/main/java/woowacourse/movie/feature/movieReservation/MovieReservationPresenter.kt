@@ -20,17 +20,15 @@ class MovieReservationPresenter(
 
     override fun loadReservationInfo(movie: MovieUiModel) {
         initializeInfo(movie)
-        view.showMoviePoster(ticket.movie.poster)
-        view.showMovieTitle(ticket.movie.title)
-        view.showScreeningDates(ticket.movie.startDate, ticket.movie.endDate)
-        view.showRunningTime(ticket.movie.runningTime)
-        view.showTicketCount(ticket.count)
+        view.showReservationInfo(ticket)
+        view.updateTicketCount(ticket.count)
+        setControlsStatus()
     }
 
     private fun initializeInfo(movie: MovieUiModel) {
         val screeningDates: List<LocalDate> =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
-        view.showSpinnerDates(screeningDates)
+        view.loadSpinnerDates(screeningDates)
 
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(screeningDates.first(), LocalDateTime.now())
@@ -52,12 +50,13 @@ class MovieReservationPresenter(
         val screeningTimes: List<LocalTime> =
             scheduler.getShowtimes(selectedDate, LocalDateTime.now())
         view.setTimeSpinner(screeningTimes.indexOf(ticket.showtime.toLocalTime()))
-        view.showTicketCount(ticket.count)
+        view.updateTicketCount(ticket.count)
+        setControlsStatus()
     }
 
     override fun selectDate(date: LocalDate) {
         val screeningTimes: List<LocalTime> = scheduler.getShowtimes(date, LocalDateTime.now())
-        view.showSpinnerTimes(screeningTimes, ticket.showtime.toLocalTime())
+        view.loadSpinnerTimes(screeningTimes, ticket.showtime.toLocalTime())
         _ticket = _ticket.copy(showtime = LocalDateTime.of(date, ticket.showtime.toLocalTime()))
     }
 
@@ -67,15 +66,17 @@ class MovieReservationPresenter(
 
     override fun incrementTicketCount() {
         _ticket = _ticket.increment()
-        view.showTicketCount(ticket.count)
+        view.updateTicketCount(ticket.count)
+        setControlsStatus()
     }
 
     override fun decrementTicketCount() {
         _ticket = _ticket.decrement()
-        view.showTicketCount(ticket.count)
+        view.updateTicketCount(ticket.count)
+        setControlsStatus()
     }
 
-    override fun updateTicketCountControls() {
+    private fun setControlsStatus() {
         view.setIncrementEnabled(_ticket.count.canIncrement())
         view.setDecrementEnabled(_ticket.count.canDecrement())
     }

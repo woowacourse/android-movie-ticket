@@ -7,27 +7,18 @@ import java.time.LocalTime
 
 interface MovieReservationContract {
     interface View {
-        fun showSpinnerDates(dates: List<LocalDate>)
+        fun loadSpinnerDates(dates: List<LocalDate>)
 
-        fun showSpinnerTimes(
+        fun loadSpinnerTimes(
             times: List<LocalTime>,
             savedTime: LocalTime,
         )
 
         fun setTimeSpinner(position: Int)
 
-        fun showMoviePoster(posterImage: Int)
+        fun showReservationInfo(ticket: TicketUiModel)
 
-        fun showMovieTitle(title: String)
-
-        fun showScreeningDates(
-            startDate: LocalDate,
-            endDate: LocalDate,
-        )
-
-        fun showRunningTime(runningTime: Int)
-
-        fun showTicketCount(count: Int)
+        fun updateTicketCount(count: Int)
 
         fun setIncrementEnabled(canIncrement: Boolean)
 
@@ -48,8 +39,6 @@ interface MovieReservationContract {
         fun incrementTicketCount()
 
         fun decrementTicketCount()
-
-        fun updateTicketCountControls()
 
         fun confirmSelection()
     }

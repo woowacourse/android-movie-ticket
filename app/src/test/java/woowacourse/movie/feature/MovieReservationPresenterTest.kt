@@ -29,12 +29,11 @@ class MovieReservationPresenterTest {
 
         // then
         verifyAll {
-            view.showSpinnerDates(any())
-            view.showMoviePoster(any())
-            view.showMovieTitle(any())
-            view.showScreeningDates(any(), any())
-            view.showRunningTime(any())
-            view.showTicketCount(any())
+            view.loadSpinnerDates(any())
+            view.showReservationInfo(any())
+            view.updateTicketCount(any())
+            view.setIncrementEnabled(any())
+            view.setDecrementEnabled(any())
         }
     }
 

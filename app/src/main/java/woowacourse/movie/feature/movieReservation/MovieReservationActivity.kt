@@ -27,11 +27,15 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     private val presenter = MovieReservationPresenter(this)
     private val dateSpinner by lazy { findViewById<Spinner>(R.id.date_spinner) }
     private val timeSpinner by lazy { findViewById<Spinner>(R.id.time_spinner) }
+    private val ticketCountTextView by lazy { findViewById<TextView>(R.id.ticket_count) }
+    private val incrementButton by lazy { findViewById<Button>(R.id.increment_button) }
+    private val decrementButton by lazy { findViewById<Button>(R.id.decrement_button) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        val movie: MovieUiModel = intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
+        val movie: MovieUiModel =
+            intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
         presenter.loadReservationInfo(movie)
         initializeTicketCountButtons()
         initializeReserveButton()
@@ -47,27 +51,6 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         }
     }
 
-    private fun initializeTicketCountButtons() {
-        presenter.updateTicketCountControls()
-
-        val incrementButton = findViewById<Button>(R.id.increment_button)
-        incrementButton.setOnClickListener {
-            presenter.incrementTicketCount()
-            presenter.updateTicketCountControls()
-        }
-
-        val decrementButton = findViewById<Button>(R.id.decrement_button)
-        decrementButton.setOnClickListener {
-            presenter.decrementTicketCount()
-            presenter.updateTicketCountControls()
-        }
-    }
-
-    private fun initializeReserveButton() {
-        val selectButton = findViewById<Button>(R.id.select_button)
-        selectButton.setOnClickListener { presenter.confirmSelection() }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(KEY_TICKET, presenter.ticket)
@@ -79,7 +62,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         presenter.restoreReservationInfo(ticket)
     }
 
-    override fun showSpinnerDates(dates: List<LocalDate>) {
+    override fun loadSpinnerDates(dates: List<LocalDate>) {
         val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, dates)
         dateSpinner.adapter = dateAdapter
 
@@ -99,7 +82,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
             }
     }
 
-    override fun showSpinnerTimes(
+    override fun loadSpinnerTimes(
         times: List<LocalTime>,
         savedTime: LocalTime,
     ) {
@@ -128,44 +111,41 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         timeSpinner.setSelection(position)
     }
 
-    override fun showMoviePoster(posterImage: Int) {
+    override fun showReservationInfo(ticket: TicketUiModel) {
         val posterImageView = findViewById<ImageView>(R.id.poster)
-        posterImageView.setImageResource(posterImage)
-    }
-
-    override fun showMovieTitle(title: String) {
         val titleTextView = findViewById<TextView>(R.id.movie_title)
-        titleTextView.text = title
-    }
-
-    override fun showScreeningDates(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ) {
         val screeningDateTextView = findViewById<TextView>(R.id.screening_date)
+        val runningTimeTextView = findViewById<TextView>(R.id.running_time)
+
+        posterImageView.setImageResource(ticket.movie.poster)
+        titleTextView.text = ticket.movie.title
         screeningDateTextView.text =
             getString(R.string.template_screening_dates).format(
-                Formatter.format(startDate), Formatter.format(endDate),
+                Formatter.format(ticket.movie.startDate), Formatter.format(ticket.movie.endDate),
             )
+        runningTimeTextView.text =
+            getString(R.string.template_running_type).format(ticket.movie.runningTime)
     }
 
-    override fun showRunningTime(runningTime: Int) {
-        val runningTimeTextView = findViewById<TextView>(R.id.running_time)
-        runningTimeTextView.text = getString(R.string.template_running_type).format(runningTime)
+    private fun initializeTicketCountButtons() {
+        incrementButton.setOnClickListener { presenter.incrementTicketCount() }
+        decrementButton.setOnClickListener { presenter.decrementTicketCount() }
     }
 
-    override fun showTicketCount(count: Int) {
-        val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
+    private fun initializeReserveButton() {
+        val selectButton = findViewById<Button>(R.id.select_button)
+        selectButton.setOnClickListener { presenter.confirmSelection() }
+    }
+
+    override fun updateTicketCount(count: Int) {
         ticketCountTextView.text = count.toString()
     }
 
     override fun setIncrementEnabled(canIncrement: Boolean) {
-        val incrementButton = findViewById<Button>(R.id.increment_button)
         incrementButton.isEnabled = canIncrement
     }
 
     override fun setDecrementEnabled(canDecrement: Boolean) {
-        val decrementButton = findViewById<Button>(R.id.decrement_button)
         decrementButton.isEnabled = canDecrement
     }
 
