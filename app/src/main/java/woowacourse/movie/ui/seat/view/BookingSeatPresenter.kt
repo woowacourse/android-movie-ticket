@@ -1,8 +1,9 @@
-package woowacourse.movie.ui.seat
+package woowacourse.movie.ui.seat.view
 
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.ui.seat.contract.BookingSeatContract
 
 class BookingSeatPresenter(
     private val bookingSeatView: BookingSeatContract.View,

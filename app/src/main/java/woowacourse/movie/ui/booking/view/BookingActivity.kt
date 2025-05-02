@@ -19,7 +19,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.PosterIdMapper
 import woowacourse.movie.ui.booking.contract.BookingContract
 import woowacourse.movie.ui.booking.presenter.BookingPresenter
-import woowacourse.movie.ui.seat.BookingSeatActivity
+import woowacourse.movie.ui.seat.view.BookingSeatActivity
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
 import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable

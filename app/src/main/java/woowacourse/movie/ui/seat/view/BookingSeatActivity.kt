@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.seat
+package woowacourse.movie.ui.seat.view
 
 import android.app.AlertDialog
 import android.content.Context
@@ -20,7 +20,8 @@ import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
-import woowacourse.movie.ui.complete.BookingCompleteActivity
+import woowacourse.movie.ui.complete.view.BookingCompleteActivity
+import woowacourse.movie.ui.seat.contract.BookingSeatContract
 import woowacourse.movie.utils.StringFormatter.thousandFormat
 import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDateTime
@@ -174,7 +175,8 @@ class BookingSeatActivity :
             .setMessage(description)
             .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
                 bookingSeatPresenter.completeBookingSeat()
-            }.setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
+            }
+            .setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
                 dialog.dismiss()
             }.setCancelable(false)
             .show()

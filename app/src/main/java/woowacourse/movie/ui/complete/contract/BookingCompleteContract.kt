@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.complete
+package woowacourse.movie.ui.complete.contract
 
 import woowacourse.movie.domain.model.BookedTicket
 

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EAEAEA"
-    tools:context=".ui.seat.BookingSeatActivity">
+    tools:context=".ui.seat.view.BookingSeatActivity">
 
     <LinearLayout
         android:id="@+id/screen"
@@ -84,6 +84,7 @@
 
             <include layout="@layout/seat_item" />
         </TableRow>
+
         <TableRow android:layout_weight="1">
 
             <include layout="@layout/seat_item" />

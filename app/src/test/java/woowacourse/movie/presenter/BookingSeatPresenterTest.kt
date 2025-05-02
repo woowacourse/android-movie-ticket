@@ -5,8 +5,8 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Seat
-import woowacourse.movie.ui.seat.BookingSeatContract
-import woowacourse.movie.ui.seat.BookingSeatPresenter
+import woowacourse.movie.ui.seat.contract.BookingSeatContract
+import woowacourse.movie.ui.seat.view.BookingSeatPresenter
 
 class BookingSeatPresenterTest {
     private lateinit var view: BookingSeatContract.View

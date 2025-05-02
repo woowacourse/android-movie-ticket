@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.complete
+package woowacourse.movie.ui.complete.view
 
 import android.content.Context
 import android.content.Intent
@@ -13,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.ui.complete.contract.BookingCompleteContract
+import woowacourse.movie.ui.complete.presenter.BookingCompletePresenter
 import woowacourse.movie.ui.movielist.view.MovieListActivity
 import woowacourse.movie.utils.StringFormatter
 import woowacourse.movie.utils.intentSerializable
@@ -45,7 +47,8 @@ class BookingCompleteActivity :
             else -> super.onOptionsItemSelected(item)
         }
 
-    override fun getBookedTicket(): BookedTicket? = intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java)
+    override fun getBookedTicket(): BookedTicket? =
+        intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java)
 
     override fun setBookedTicket(bookedTicket: BookedTicket) {
         val movieNameTextView: TextView = findViewById(R.id.tv_title)

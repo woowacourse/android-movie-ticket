@@ -15,6 +15,7 @@ import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.fixture.fakeContext
+import woowacourse.movie.ui.complete.view.BookingCompleteActivity
 import java.time.LocalDateTime
 
 class BookingCompleteActivityTest {

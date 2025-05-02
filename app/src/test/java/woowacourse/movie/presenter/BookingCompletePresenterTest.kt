@@ -9,8 +9,8 @@ import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
-import woowacourse.movie.ui.complete.BookingCompleteContract
-import woowacourse.movie.ui.complete.BookingCompletePresenter
+import woowacourse.movie.ui.complete.contract.BookingCompleteContract
+import woowacourse.movie.ui.complete.presenter.BookingCompletePresenter
 import java.time.LocalDateTime
 
 class BookingCompletePresenterTest {
@@ -22,12 +22,12 @@ class BookingCompletePresenterTest {
         view = mockk(relaxed = true)
         presenter = BookingCompletePresenter(view)
         every { view.getBookedTicket() } returns
-            BookedTicket(
-                "해리 포터",
-                Headcount(1),
-                LocalDateTime.of(2025, 1, 1, 12, 0),
-                Seats().apply { Seat(1, 1) },
-            )
+                BookedTicket(
+                    "해리 포터",
+                    Headcount(1),
+                    LocalDateTime.of(2025, 1, 1, 12, 0),
+                    Seats().apply { Seat(1, 1) },
+                )
     }
 
     @Test

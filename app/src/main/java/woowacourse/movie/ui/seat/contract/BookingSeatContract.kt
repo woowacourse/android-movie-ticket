@@ -1,4 +1,4 @@
-package woowacourse.movie.ui.seat
+package woowacourse.movie.ui.seat.contract
 
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
