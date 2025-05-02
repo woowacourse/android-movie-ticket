@@ -37,11 +37,8 @@ class SelectSeatPresenterTest {
     fun `viewCreated 하면 뷰 초기 설정 호출 순서대로 일어난다`() {
         presenter.init(ticketUI)
         verifySequence {
-            view.setTitle(ticketUI)
             view.showPrice(0)
-            view.setSeatClicker()
-            view.setButton()
-            view.disActiveButton()
+            view.unableButton()
         }
     }
 
@@ -54,7 +51,7 @@ class SelectSeatPresenterTest {
         verifySequence {
             view.highlightSeat("A1")
             view.showPrice(priceA1)
-            view.disActiveButton()
+            view.unableButton()
         }
     }
 
@@ -69,7 +66,7 @@ class SelectSeatPresenterTest {
         verifySequence {
             view.unHighlightSeat("A1")
             view.showPrice(0)
-            view.disActiveButton()
+            view.unableButton()
         }
     }
 
@@ -82,7 +79,7 @@ class SelectSeatPresenterTest {
         verifySequence {
             view.highlightSeat("A1")
             view.showPrice(priceA1)
-            view.activeButton()
+            view.enableButton()
         }
     }
 
@@ -92,7 +89,7 @@ class SelectSeatPresenterTest {
 
         verifySequence {
             view.showFullSeat()
-            view.activeButton()
+            view.enableButton()
         }
     }
 

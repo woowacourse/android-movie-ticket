@@ -10,7 +10,7 @@ class SelectSeatPresenter(
 
     override fun init(ticketUIModel: TicketUIModel) {
         view.showPrice(0)
-        view.disActiveButton()
+        view.unableButton()
         selectSeat.setTicket(ticketUIModel)
     }
 
@@ -32,9 +32,9 @@ class SelectSeatPresenter(
             }
         }
         if (selectSeat.isFullSeat(fullCount)) {
-            view.activeButton()
+            view.enableButton()
         } else {
-            view.disActiveButton()
+            view.unableButton()
         }
     }
 

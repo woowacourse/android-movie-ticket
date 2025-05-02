@@ -16,9 +16,9 @@ interface SelectSeatContract {
 
         fun navigateToBookingResult(ticketUIModel: TicketUIModel)
 
-        fun activeButton()
+        fun enableButton()
 
-        fun disActiveButton()
+        fun unableButton()
     }
 
     interface Presenter {

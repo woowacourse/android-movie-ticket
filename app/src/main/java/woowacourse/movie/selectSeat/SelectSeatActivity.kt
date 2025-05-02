@@ -87,11 +87,11 @@ class SelectSeatActivity :
         startActivity(intent)
     }
 
-    override fun activeButton() {
+    override fun enableButton() {
         button.setEnabled(true)
     }
 
-    override fun disActiveButton() {
+    override fun unableButton() {
         button.setEnabled(false)
     }
 
