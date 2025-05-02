@@ -56,7 +56,7 @@ class SampleMovies {
 
     private fun generateSampleMovieUiModels(): List<MovieUiModel> {
         return (1..10_000).map { index ->
-            val insertIndex = (index + 4) % 5
+            val insertIndex = (index + INDEX_OFFSET) % TOTAL_MOVIES
             MovieUiModel(
                 id = index.toLong(),
                 poster = posterDrawables[insertIndex],
@@ -66,5 +66,10 @@ class SampleMovies {
                 runningTime = runningTimes[insertIndex],
             )
         }
+    }
+
+    companion object {
+        private const val TOTAL_MOVIES = 5
+        private const val INDEX_OFFSET = TOTAL_MOVIES - 1
     }
 }
