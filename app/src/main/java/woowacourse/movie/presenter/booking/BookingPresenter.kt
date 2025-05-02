@@ -1,5 +1,7 @@
 package woowacourse.movie.presenter.booking
 
+import java.time.LocalDate
+import java.time.LocalTime
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.BookingResult
@@ -14,39 +16,23 @@ import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
 import woowacourse.movie.util.mapper.BookingResultModelMapper
 import woowacourse.movie.util.mapper.MovieModelMapper
-import java.time.LocalDate
-import java.time.LocalTime
 
 class BookingPresenter(
     val view: BookingContract.View,
-    val movieUiModel: MovieUiModel?,
 ) : BookingContract.Presenter {
     private val movies = SampleMovies()
-    private val bookingMovie: Movie by lazy { MovieModelMapper.toDomain(movieUiModel!!) }
-    private val booking: Booking by lazy { Booking(bookingMovie) }
-    private var bookingResult: BookingResult = initBookingResult(booking)
+    private lateinit var bookingMovie: Movie
+    private lateinit var booking: Booking
+    private lateinit var bookingResult: BookingResult
     val bookingResultUiModel: BookingResultUiModel
-        get() =
-            BookingResultModelMapper.toUi(
-                bookingResult,
-            )
-    private val bookableDates: List<LocalDate> = booking.screeningPeriods()
+        get() = BookingResultModelMapper.toUi(bookingResult)
+    private lateinit var bookableDates: List<LocalDate>
     private val bookableTimes: List<LocalTime> get() = booking.screeningTimes(bookingResult.selectedDate)
 
-    init {
-        if (movieUiModel == null) {
-            view.showErrorMessage(R.string.error_not_exist_movie)
-        } else {
-            loadMovie(movieUiModel)
-        }
-    }
-
-    override fun loadMovie(movieUiModel: MovieUiModel) {
-        if (isExist(movieUiModel)) {
-            view.showMovieInfo(movieUiModel)
-        } else {
-            view.showErrorMessage(R.string.error_not_exist_movie)
-        }
+    override fun loadMovie(movieUiModel: MovieUiModel?) {
+        movieUiModel?.let {
+            validateExistMovieInMovies(movieUiModel)
+        } ?: view.showErrorMessage(R.string.error_not_exist_movie)
     }
 
     override fun loadScreeningDateTimes() {
@@ -110,6 +96,22 @@ class BookingPresenter(
 
         val bookingResultUiModel = BookingResultModelMapper.toUi(bookingResult)
         view.showHeadCount(bookingResultUiModel.headCount)
+    }
+
+    private fun validateExistMovieInMovies(movieUiModel: MovieUiModel) {
+        if (isExist(movieUiModel)) {
+            view.showMovieInfo(movieUiModel)
+            initBookingInfos(movieUiModel)
+        } else {
+            view.showErrorMessage(R.string.error_not_exist_movie)
+        }
+    }
+
+    private fun initBookingInfos(movieUiModel: MovieUiModel) {
+        bookingMovie = MovieModelMapper.toDomain(movieUiModel)
+        booking = Booking(bookingMovie)
+        bookingResult = initBookingResult(booking)
+        bookableDates = booking.screeningPeriods()
     }
 
     private fun initBookingResult(booking: Booking): BookingResult {

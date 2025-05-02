@@ -19,7 +19,7 @@ import woowacourse.movie.util.DateTimeUtil.MOVIE_SPINNER_DATE_DELIMITER
 import woowacourse.movie.util.DialogUtil
 
 class BookingActivity : AppCompatActivity(), BookingContract.View {
-    private lateinit var presenter: BookingPresenter
+    private val presenter: BookingPresenter by lazy { generatePresenter() }
     private lateinit var screeningDateSpinner: ScreeningDateSpinner
     private lateinit var screeningTimeSpinner: ScreeningTimeSpinner
     private lateinit var viewHolder: BookingViewHolder
@@ -32,7 +32,7 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         viewHolder = BookingViewHolder(findViewById(R.id.main))
 
-        presenter = BookingPresenter(view = this@BookingActivity, movieUiModel = movieOrNull())
+        presenter.loadMovie(movieOrNull())
         presenter.loadScreeningDateTimes()
         setButtonClickListener()
     }
@@ -136,6 +136,10 @@ class BookingActivity : AppCompatActivity(), BookingContract.View {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    private fun generatePresenter(): BookingPresenter {
+        return BookingPresenter(this@BookingActivity)
     }
 
     private fun applySystemBarInsets() {

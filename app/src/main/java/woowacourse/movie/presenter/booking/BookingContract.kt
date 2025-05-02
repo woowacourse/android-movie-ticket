@@ -6,7 +6,7 @@ import woowacourse.movie.ui.model.movie.MovieUiModel
 
 interface BookingContract {
     interface Presenter {
-        fun loadMovie(movieUiModel: MovieUiModel)
+        fun loadMovie(movieUiModel: MovieUiModel?)
 
         fun loadScreeningDateTimes()
 
