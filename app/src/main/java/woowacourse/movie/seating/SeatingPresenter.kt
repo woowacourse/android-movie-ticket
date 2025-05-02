@@ -26,18 +26,18 @@ class SeatingPresenter(private val view: SeatingContract.View) : SeatingContract
         if (selectedSeats.contains(selectedSeat)) {
             selectedSeats.remove(selectedSeat)
             selectedStringSeats.remove(selectedSeat.seat)
-            view.showActivateSeat()
+            view.showSeat(selectedStringSeats)
         } else if (selectedSeats.size < reservationInfo.personnel) {
             selectedSeats.add(selectedSeat)
             selectedStringSeats.add(selectedSeat.seat)
         } else {
-            view.showDeactivateSeat(selectedStringSeats)
+            view.showSeat(selectedStringSeats)
         }
 
         totalPrice = selectedSeats.sumOf { it.price() }
         val formattedPrice = priceFormatter.format(totalPrice)
         view.showPrice(formattedPrice)
-        if (selectedSeats.size > 0) {
+        if (selectedSeats.size == reservationInfo.personnel) {
             this.ticket = Ticket(reservationInfo, selectedStringSeats.toSet(), this.totalPrice)
             view.showActivateButton(ticket)
         } else {

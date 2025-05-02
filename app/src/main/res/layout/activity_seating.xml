@@ -36,6 +36,7 @@
             android:id="@+id/table_layout_seating"
             android:layout_width="0dp"
             android:layout_height="400dp"
+            android:background="@drawable/seat_table_clicked"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,44 +49,20 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="A1"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="A1" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="A2"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="A2" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="A3"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="A3" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="A4"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="A4" />
             </TableRow>
 
             <TableRow
@@ -95,45 +72,20 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="B1"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="B1" />
 
                 <TextView
-                    android:background="@color/white"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="B2"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="B2" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="B3"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="B3" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="B4"
-                    android:textColor="#8E13EF"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatB"
+                    android:text="B4" />
             </TableRow>
 
             <TableRow
@@ -143,44 +95,20 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="C1"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="C1" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="C2"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="C2" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="C3"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="C3" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="C4"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="C4" />
             </TableRow>
 
             <TableRow
@@ -190,44 +118,20 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="D1"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="D1" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="D2"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="D2" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="D3"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="D3" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="D4"
-                    android:textColor="#19D358"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatS"
+                    android:text="D4" />
             </TableRow>
 
             <TableRow
@@ -237,44 +141,20 @@
                 android:layout_weight="1">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="E1"
-                    android:textColor="#1B48E9"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatA"
+                    android:text="E1" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="E2"
-                    android:textColor="#1B48E9"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatA"
+                    android:text="E2" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="E3"
-                    android:textColor="#1B48E9"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatA"
+                    android:text="E3" />
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="E4"
-                    android:textColor="#1B48E9"
-                    android:textSize="24sp"
-                    android:textStyle="bold" />
+                    style="@style/SeatA"
+                    android:text="E4" />
             </TableRow>
         </TableLayout>
 
@@ -318,12 +198,13 @@
             android:id="@+id/seating_confirm"
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:background="#B7B7B7"
+            android:background="@drawable/reservation_button_enabled"
             android:gravity="center"
             android:text="확인"
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

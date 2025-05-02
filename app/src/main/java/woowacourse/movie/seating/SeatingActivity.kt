@@ -44,9 +44,6 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
             intent.parcelableCompat(KEY_SEATING, ReservationInfo::class.java)
         seatingPresenter.set(reservationInfo)
 
-        val selectedColor = ContextCompat.getColor(this, R.color.seat_selected)
-        val defaultColor = Color.WHITE
-
         tableLayout.children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
@@ -54,19 +51,16 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
             .forEach { seatView ->
                 seatView.setOnClickListener {
                     val seatName = seatView.text.toString()
-                    val currentColor = (seatView.background as? ColorDrawable)?.color
-                    val isSelected = (currentColor == selectedColor)
-
-                    if (isSelected) {
-                        seatView.setBackgroundColor(defaultColor)
+                    if (seatingPresenter.canSelectMoreSeat()) {
+                        seatView.isSelected = true
                         seatingPresenter.clickedSeat(seatName)
                     } else {
-                        if (seatingPresenter.canSelectMoreSeat()) {
-                            seatView.setBackgroundColor(selectedColor)
-                            seatingPresenter.clickedSeat(seatName)
-                        }
+                        seatView.isSelected = false
+                        seatingPresenter.clickedSeat(seatName)
                     }
                 }
+
+
             }
     }
 
@@ -79,36 +73,28 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
     }
 
     override fun showActivateButton(ticket: Ticket) {
-        val color = ContextCompat.getColor(this, R.color.seat_activate_reservation_button)
-        confirmTextView.setBackgroundColor(color)
+        confirmTextView.isSelected = true
+        confirmTextView.isEnabled = true
         confirmTextView.setOnClickListener {
-            showDialog(ticket)
+            if (confirmTextView.isEnabled) {
+                showDialog(ticket)
+            }
         }
     }
 
     override fun showDeactivateButton() {
-        val color = ContextCompat.getColor(this, R.color.seat_deactivate_reservation_button)
-        confirmTextView.setBackgroundColor(color)
+        confirmTextView.isSelected = false
+        confirmTextView.isEnabled = false
     }
 
-    override fun showActivateSeat() {
-        tableLayout.children
-            .filterIsInstance<TableRow>()
-            .flatMap { it.children }
-            .filterIsInstance<TextView>()
-            .forEach { seatView ->
-                seatView.isEnabled = true
-            }
-    }
-
-    override fun showDeactivateSeat(selectedSeats: MutableSet<String>) {
+    override fun showSeat(selectedSeats: MutableSet<String>) {
         tableLayout.children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<TextView>()
             .forEach { seatView ->
                 val seatName = seatView.text.toString()
-                seatView.isEnabled = selectedSeats.contains(seatName)
+                seatView.isSelected = selectedSeats.contains(seatName)
             }
     }
 

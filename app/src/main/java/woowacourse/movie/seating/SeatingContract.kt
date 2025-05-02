@@ -19,8 +19,6 @@ interface SeatingContract {
 
         fun showDeactivateButton()
 
-        fun showActivateSeat()
-
-        fun showDeactivateSeat(selectedSeats: MutableSet<String>)
+        fun showSeat(selectedSeats: MutableSet<String>)
     }
 }
