@@ -91,11 +91,14 @@ class MovieListAdapter(
     override fun getItemCount(): Int = items.size
 
     override fun getItemViewType(position: Int): Int {
-        return if (position % 4 == TYPE_EMPTY) TYPE_EMPTY else TYPE_MOVIE
+        return when (items[position]) {
+            is FeedItem.MovieFeed -> TYPE_MOVIE
+            is FeedItem.ADFeed -> TYPE_EMPTY
+        }
     }
 
     companion object {
-        private const val TYPE_MOVIE = 1
-        private const val TYPE_EMPTY = 3
+        private const val TYPE_MOVIE = 0
+        private const val TYPE_EMPTY = 1
     }
 }
