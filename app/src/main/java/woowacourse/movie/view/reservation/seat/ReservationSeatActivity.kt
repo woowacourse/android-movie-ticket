@@ -29,6 +29,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     private lateinit var seat: TableLayout
     private val moviePriceTextView by lazy { findViewById<TextView>(R.id.reservation_movie_money) }
     private val movieSelectableButton by lazy { findViewById<TextView>(R.id.btn_confirm) }
+    private var seatTextViews: MutableMap<Position, TextView> = mutableMapOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,32 +65,29 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
     }
 
-    private fun getAllSeatTextViews(): Sequence<TextView> {
-        return seat
+    override fun setSeatTag() {
+        seat
             .children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<TextView>()
-    }
+            .forEachIndexed { index, textView ->
+                val row = index / 4
+                val column = index % 4
 
-    override fun setSeatTag() {
-        getAllSeatTextViews().forEachIndexed { index, textView ->
-            val row = index / 4
-            val column = index % 4
-            textView.tag = Position(row, column)
-        }
+                seatTextViews[Position(row, column)] = textView
+            }
     }
 
     override fun setSeatInit() {
-        getAllSeatTextViews().forEach { textView ->
-            val position = textView.tag as Position
+        seatTextViews.forEach { (position, textView) ->
             textView.text = getSeatName(position)
             setSeatColor(textView, position)
         }
     }
 
     override fun setSeatClickListener() {
-        getAllSeatTextViews().forEachIndexed { _, textView ->
+        seatTextViews.forEach { (_, textView) ->
             textView.setOnClickListener {
                 toggleSeatSelection(textView)
             }
@@ -114,7 +112,10 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     private fun toggleSeatSelection(textView: TextView) {
-        val position = textView.tag as Position
+        val position = seatTextViews.entries.find { it.value == textView }?.key
+
+        requireNotNull(position) { INVALID_TEXTVIEW }
+
         if (textView.isSelected) {
             presenter.deselectSeat(position)
         } else {
@@ -123,13 +124,13 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     }
 
     override fun selectSeatView(position: Position) {
-        val textView = findTextViewByPosition(position)
+        val textView = seatTextViews.getValue(position)
         textView.setBackgroundColor(Color.YELLOW)
         textView.isSelected = true
     }
 
     override fun deselectSeatView(position: Position) {
-        val textView = findTextViewByPosition(position)
+        val textView = seatTextViews.getValue(position)
         textView.setBackgroundColor(Color.WHITE)
         textView.isSelected = false
     }
@@ -170,10 +171,6 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         startActivity(intent)
     }
 
-    private fun findTextViewByPosition(position: Position): TextView {
-        return getAllSeatTextViews().first { it.tag == position }
-    }
-
     private fun getSeatName(position: Position): String {
         val columnChar = 'A' + position.row
         return "$columnChar${position.column + 1}"
@@ -201,6 +198,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
     companion object {
         private const val KEY_TICKET = "ticket"
         private const val PRICE_PATTERN = "#,###"
+        private const val INVALID_TEXTVIEW = "선택한 textView의 position값이 할당되지 않았습니다."
 
         fun newIntent(
             context: Context,
