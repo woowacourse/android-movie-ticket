@@ -2,8 +2,6 @@ package woowacourse.movie.seating
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.widget.TableLayout
 import android.widget.TableRow
@@ -11,13 +9,13 @@ import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.completedbooking.CompletedBookingActivity
 import woowacourse.movie.domain.ReservationInfo
+import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.parcelableCompat
 
@@ -59,8 +57,6 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
                         seatingPresenter.clickedSeat(seatName)
                     }
                 }
-
-
             }
     }
 
@@ -87,14 +83,14 @@ class SeatingActivity : AppCompatActivity(), SeatingContract.View {
         confirmTextView.isEnabled = false
     }
 
-    override fun showSeat(selectedSeats: MutableSet<String>) {
+    override fun showSeat(selectedSeats: MutableSet<Seat>) {
         tableLayout.children
             .filterIsInstance<TableRow>()
             .flatMap { it.children }
             .filterIsInstance<TextView>()
             .forEach { seatView ->
                 val seatName = seatView.text.toString()
-                seatView.isSelected = selectedSeats.contains(seatName)
+                seatView.isSelected = seatingPresenter.isSelected(seatName)
             }
     }
 

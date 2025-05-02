@@ -1,6 +1,7 @@
 package woowacourse.movie.seating
 
 import woowacourse.movie.domain.ReservationInfo
+import woowacourse.movie.domain.Row
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.PriceFormatter
@@ -8,7 +9,6 @@ import woowacourse.movie.utils.PriceFormatter
 class SeatingPresenter(private val view: SeatingContract.View) : SeatingContract.Presenter {
     private lateinit var reservationInfo: ReservationInfo
     private var selectedSeats: MutableSet<Seat> = mutableSetOf()
-    private var selectedStringSeats: MutableSet<String> = mutableSetOf()
     private lateinit var ticket: Ticket
     private var totalPrice = DEFAULT_PRICE
     private val priceFormatter = PriceFormatter()
@@ -25,24 +25,27 @@ class SeatingPresenter(private val view: SeatingContract.View) : SeatingContract
         val selectedSeat = Seat(seat)
         if (selectedSeats.contains(selectedSeat)) {
             selectedSeats.remove(selectedSeat)
-            selectedStringSeats.remove(selectedSeat.seat)
-            view.showSeat(selectedStringSeats)
+            view.showSeat(selectedSeats)
         } else if (selectedSeats.size < reservationInfo.personnel) {
             selectedSeats.add(selectedSeat)
-            selectedStringSeats.add(selectedSeat.seat)
         } else {
-            view.showSeat(selectedStringSeats)
+            view.showSeat(selectedSeats)
         }
 
         totalPrice = selectedSeats.sumOf { it.price() }
         val formattedPrice = priceFormatter.format(totalPrice)
         view.showPrice(formattedPrice)
         if (selectedSeats.size == reservationInfo.personnel) {
-            this.ticket = Ticket(reservationInfo, selectedStringSeats.toSet(), this.totalPrice)
+            this.ticket = Ticket(reservationInfo, selectedSeats.map { it.string() }.toSet(), this.totalPrice)
             view.showActivateButton(ticket)
         } else {
             view.showDeactivateButton()
         }
+    }
+
+    override fun isSelected(seatName: String): Boolean {
+        val seat = Seat(seatName)
+        return selectedSeats.contains(seat)
     }
 
     fun canSelectMoreSeat(): Boolean {

@@ -1,6 +1,7 @@
 package woowacourse.movie.seating
 
 import woowacourse.movie.domain.ReservationInfo
+import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 
 interface SeatingContract {
@@ -8,6 +9,8 @@ interface SeatingContract {
         fun set(reservationInfo: ReservationInfo)
 
         fun clickedSeat(seat: String)
+
+        fun isSelected(seatName: String): Boolean
     }
 
     interface View {
@@ -19,6 +22,6 @@ interface SeatingContract {
 
         fun showDeactivateButton()
 
-        fun showSeat(selectedSeats: MutableSet<String>)
+        fun showSeat(selectedSeats: MutableSet<Seat>)
     }
 }
