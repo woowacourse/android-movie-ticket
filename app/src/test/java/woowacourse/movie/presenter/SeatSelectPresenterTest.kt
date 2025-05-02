@@ -36,16 +36,22 @@ class SeatSelectPresenterTest {
     fun `좌석을 선택하고 다시 클릭하면 해제된다`() {
         // given
         val seat = SeatUiModel(0, 0)
-        presenter.onClickSeat(seat)
 
         // when
-        presenter.onClickSeat(seat) // 같은 좌석을 다시 클릭
+        presenter.onClickSeat(seat) // 첫 번째 클릭 - 선택
 
         // then
-        verify(exactly = 1) { view.updateSeatSelectionState(seat, true) } // 첫 클릭 -> 선택됨
-        verify(exactly = 1) { view.updateSeatSelectionState(seat, false) } // 두 번째 클릭 -> 해제됨
-        verify(atLeast = 2) { view.updateConfirmButtonState(any()) }
-        verify(atLeast = 2) { view.showTotalPrice(any()) }
+        verify { view.updateSeatSelectionState(seat, true) }
+        verify { view.updateConfirmButtonState(any()) }
+        verify { view.showTotalPrice(any()) }
+
+        // when
+        presenter.onClickSeat(seat) // 두 번째 클릭 - 해제
+
+        // then
+        verify { view.updateSeatSelectionState(seat, false) }
+        verify { view.updateConfirmButtonState(any()) }
+        verify { view.showTotalPrice(any()) }
     }
 
     @Test
