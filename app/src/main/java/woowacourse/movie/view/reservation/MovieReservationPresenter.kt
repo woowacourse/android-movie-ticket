@@ -33,7 +33,9 @@ class MovieReservationPresenter(
     }
 
     override fun onClickDecrementButton() {
-        _ticket = ticket.copy(count = ticket.count - 1)
+        if (!ticket.toDomain().isMinimumCount()) {
+            _ticket = ticket.copy(count = ticket.count - 1)
+        }
         updateHeadCount()
     }
 
