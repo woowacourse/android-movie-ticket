@@ -84,7 +84,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     override fun showReservationInfo(ticket: TicketUiModel) {
         val titleTextView = findViewById<TextView>(R.id.movie_title)
-        titleTextView.text = title
+        titleTextView.text = ticket.movie.title
     }
 
     override fun updateTotalPrice(price: Int) {
