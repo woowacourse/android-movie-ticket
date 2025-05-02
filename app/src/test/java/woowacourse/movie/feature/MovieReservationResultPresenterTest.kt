@@ -20,7 +20,7 @@ class MovieReservationResultPresenterTest {
     }
 
     @Test
-    fun `initializeReservationInfo 호출 시 예매 완료 정보가 표시된다`() {
+    fun `initializeReservationInfo 호출 시 예매한 영화 및 좌석 정보와 가격이 표시된다`() {
         // given
         val selectedSeatsText = "A1, A2, A3"
 

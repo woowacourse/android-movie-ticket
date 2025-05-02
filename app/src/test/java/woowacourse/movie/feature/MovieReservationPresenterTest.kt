@@ -21,7 +21,7 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `initializeReservationInfo 호출 시 예매 정보를 표시한다`() {
+    fun `initializeReservationInfo 호출 시 영화 정보, 상영 날짜와 표 개수를 표시하고, + 버튼과 - 버튼을 갱신한다`() {
         // when
         presenter.initializeReservationInfo(MOVIE)
 
@@ -36,7 +36,7 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `loadReservationInfo 호출 시 시간을 선택하고 예매 정보를 표시한다`() {
+    fun `loadReservationInfo 호출 시 저장된 상영 시간을 선택 및 표 개수를 표시하고, + 버튼과 - 버튼을 갱신한다`() {
         // when
         presenter.loadReservationInfo(TICKET)
 
@@ -50,7 +50,7 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `selectDate 호출 시 상영 시간 정보의 목록을 갱신한다`() {
+    fun `selectDate 호출 시 상영 시간의 목록을 갱신한다`() {
         // when
         presenter.initializeReservationInfo(MOVIE)
         presenter.selectDate(TICKET.showtime.toLocalDate())
