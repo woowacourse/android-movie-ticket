@@ -10,7 +10,8 @@ interface SeatSelectionContract {
         fun updateTotalPrice(price: Int)
 
         fun toggleSeat(
-            index: Int,
+            row: Int,
+            col: Int,
             isTaken: Boolean,
         )
 
@@ -31,7 +32,10 @@ interface SeatSelectionContract {
 
         fun loadReservationInfo(seats: SeatsUiModel)
 
-        fun selectSeat(index: Int)
+        fun selectSeat(
+            row: Int,
+            col: Int,
+        )
 
         fun finishSelection()
 

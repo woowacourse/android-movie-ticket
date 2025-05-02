@@ -8,6 +8,7 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.seat.Seats
+import woowacourse.movie.feature.model.movie.TicketUiModel
 import woowacourse.movie.feature.model.seat.SeatsUiModel
 import woowacourse.movie.feature.seatSelection.SeatSelectionContract
 import woowacourse.movie.feature.seatSelection.SeatSelectionPresenter
@@ -28,14 +29,18 @@ class SeatSelectionPresenterTest {
 
     @Test
     fun `initializeReservationInfo 호출 시 예약 정보를 표시하고 가격 정보를 갱신한다`() {
+        // given
+        val ticket = slot<TicketUiModel>()
+
         // when
         presenter.initializeReservationInfo(TICKET)
 
         // then
         verifyAll {
-            view.showReservationInfo(TICKET)
+            view.showReservationInfo(capture(ticket))
             view.updateTotalPrice(0)
         }
+        assertThat(ticket.captured).isEqualTo(TICKET)
     }
 
     @Test
@@ -45,9 +50,9 @@ class SeatSelectionPresenterTest {
 
         // then
         verify {
-            view.toggleSeat(0, false)
-            view.toggleSeat(1, false)
-            view.toggleSeat(2, false)
+            view.toggleSeat(0, 0, false)
+            view.toggleSeat(0, 1, false)
+            view.toggleSeat(0, 2, false)
             view.updateTotalPrice(30000)
         }
     }
@@ -56,9 +61,9 @@ class SeatSelectionPresenterTest {
     fun `finishSelection 호출 시 좌석 선택이 끝났으면 다이얼로그를 표시한다`() {
         // when
         presenter.initializeReservationInfo(TICKET)
-        presenter.selectSeat(0)
-        presenter.selectSeat(1)
-        presenter.selectSeat(2)
+        presenter.selectSeat(0, 0)
+        presenter.selectSeat(0, 1)
+        presenter.selectSeat(0, 2)
         presenter.finishSelection()
 
         // then

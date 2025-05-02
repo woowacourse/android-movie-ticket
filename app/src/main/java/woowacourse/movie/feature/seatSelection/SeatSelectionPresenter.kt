@@ -25,22 +25,22 @@ class SeatSelectionPresenter(
     override fun loadReservationInfo(seats: SeatsUiModel) {
         _seats = seats.toDomain()
         _seats.seats.forEach { seat ->
-            val index = seat.row * Seats.COL_SIZE + seat.col
-            view.toggleSeat(index, false)
+            view.toggleSeat(seat.row, seat.col, false)
         }
         view.updateTotalPrice(_seats.totalPrice())
     }
 
-    override fun selectSeat(index: Int) {
-        val row = index / Seats.COL_SIZE
-        val col = index % Seats.COL_SIZE
+    override fun selectSeat(
+        row: Int,
+        col: Int,
+    ) {
         val seat = Seat(row, col)
         if (seat in _seats.seats) {
-            view.toggleSeat(index, true)
+            view.toggleSeat(row, col, true)
             _seats.remove(seat)
         } else {
             if (!_seats.isSelectionFinished()) {
-                view.toggleSeat(index, false)
+                view.toggleSeat(row, col, false)
                 _seats.add(seat)
             } else {
                 view.showSelectionAlreadyFinishedToast()

@@ -1,14 +1,18 @@
 package woowacourse.movie.feature
 
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
 import io.mockk.verifyAll
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.model.movie.TicketUiModel
 import woowacourse.movie.feature.movieReservation.MovieReservationContract
 import woowacourse.movie.feature.movieReservation.MovieReservationPresenter
 import woowacourse.movie.fixtures.MOVIE
 import woowacourse.movie.fixtures.TICKET
+import java.time.LocalDate
 
 class MovieReservationPresenterTest {
     private lateinit var view: MovieReservationContract.View
@@ -22,17 +26,21 @@ class MovieReservationPresenterTest {
 
     @Test
     fun `initializeReservationInfo 호출 시 영화 정보, 상영 날짜와 표 개수를 표시하고, + 버튼과 - 버튼을 갱신한다`() {
+        // given
+        val dates = slot<List<LocalDate>>()
+
         // when
         presenter.initializeReservationInfo(MOVIE)
 
         // then
         verifyAll {
-            view.loadSpinnerDates(any())
+            view.loadSpinnerDates(capture(dates))
             view.showReservationInfo(presenter.ticket)
             view.updateTicketCount(1)
             view.setIncrementEnabled(true)
             view.setDecrementEnabled(false)
         }
+        println(dates.captured)
     }
 
     @Test
@@ -91,11 +99,15 @@ class MovieReservationPresenterTest {
 
     @Test
     fun `confirmSelection 호출 시 좌석 선택 화면으로 이동한다`() {
+        // given
+        val ticket = slot<TicketUiModel>()
+
         // when
         presenter.initializeReservationInfo(MOVIE)
         presenter.confirmSelection()
 
         // then
-        verify { view.goToSeatSelection(presenter.ticket) }
+        verify { view.goToSeatSelection(capture(ticket)) }
+        assertThat(ticket.captured.movie).isEqualTo(MOVIE)
     }
 }

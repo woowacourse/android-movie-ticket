@@ -24,7 +24,7 @@ import woowacourse.movie.util.getParcelableCompat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     private val presenter = SeatSelectionPresenter(this)
-    private val seatButtons = mutableListOf<Button>()
+    private val seatButtons: MutableList<List<Button>> = mutableListOf()
     private val priceTextView by lazy { findViewById<TextView>(R.id.total_price) }
     private val alertDialog by lazy { buildAlertDialog() }
 
@@ -49,15 +49,17 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
 
     private fun initializeSeats() {
         val seatsLayout = findViewById<TableLayout>(R.id.seats)
-        seatButtons.addAll(
-            seatsLayout.children
-                .filterIsInstance<TableRow>()
-                .flatMap { row -> row.children }
-                .filterIsInstance<Button>(),
-        )
-        seatButtons.forEachIndexed { index, button ->
-            button.setOnClickListener {
-                presenter.selectSeat(index)
+
+        seatsLayout.children
+            .filterIsInstance<TableRow>()
+            .map { row ->
+                row.children.filterIsInstance<Button>().toList()
+            }.forEach { row ->
+                seatButtons.add(row)
+            }
+        seatButtons.forEachIndexed { row, rowButtons ->
+            rowButtons.forEachIndexed { col, button ->
+                button.setOnClickListener { presenter.selectSeat(row, col) }
             }
         }
     }
@@ -126,11 +128,12 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     }
 
     override fun toggleSeat(
-        index: Int,
+        row: Int,
+        col: Int,
         isTaken: Boolean,
     ) {
         val color = if (isTaken) getColor(R.color.seat_default) else getColor(R.color.seat_selected)
-        seatButtons[index].setBackgroundColor(color)
+        seatButtons[row][col].setBackgroundColor(color)
     }
 
     companion object {
