@@ -8,6 +8,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.ads.Ads
 import woowacourse.movie.presenter.movie.MovieContract
 import woowacourse.movie.presenter.movie.MoviePresenter
 import woowacourse.movie.ui.model.movie.MovieUiModel
@@ -25,10 +26,14 @@ class MovieActivity : AppCompatActivity(), MovieContract.View {
         moviePresenter.loadMovies()
     }
 
-    override fun showMovies(movieUiModels: List<MovieUiModel>) {
+    override fun showMovies(
+        movieUiModels: List<MovieUiModel>,
+        ads: Ads,
+    ) {
         val movieAdapter =
             MovieAdapter(
                 movieUiModels = movieUiModels,
+                ads = ads,
                 onSelectMovieListener = { movieUiModel ->
                     moviePresenter.onMovieSelect(movieUiModel)
                 },

@@ -10,12 +10,11 @@ import woowacourse.movie.ui.model.movie.MovieUiModel
 
 class MovieAdapter(
     val movieUiModels: List<MovieUiModel>,
+    private val ads: Ads,
     val onSelectMovieListener: OnSelectMovieListener,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val ads = Ads()
-
     override fun getItemViewType(position: Int): Int {
-        return if ((position + 1) % ADS_CYCLE == 0) {
+        return if (isAdsPosition(position)) {
             ViewType.ADS.typeNumber
         } else {
             ViewType.MOVIE.typeNumber
@@ -54,7 +53,10 @@ class MovieAdapter(
 
     override fun getItemCount() = movieUiModels.size + ads.count(movieUiModels.size, ADS_CYCLE)
 
+    private fun isAdsPosition(position: Int) = (position + POSITION_OFFSET) % ADS_CYCLE == 0
+
     companion object {
+        private const val POSITION_OFFSET = 1
         private const val ADS_CYCLE = 4
     }
 }

@@ -1,5 +1,6 @@
 package woowacourse.movie.presenter.movie
 
+import woowacourse.movie.domain.model.ads.Ads
 import woowacourse.movie.ui.model.movie.MovieUiModel
 
 interface MovieContract {
@@ -10,7 +11,10 @@ interface MovieContract {
     }
 
     interface View {
-        fun showMovies(movieUiModels: List<MovieUiModel>)
+        fun showMovies(
+            movieUiModels: List<MovieUiModel>,
+            ads: Ads,
+        )
 
         fun showErrorMessage(message: String)
 
