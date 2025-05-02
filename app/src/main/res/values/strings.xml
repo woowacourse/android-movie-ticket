@@ -20,4 +20,5 @@
     <string name="select_complete">선택 완료</string>
     <string name="error_not_exist_movie">영화 정보가 없습니다.</string>
     <string name="error_not_exist_booking_result">영화 예매 정보가 없습니다.</string>
+    <string name="btn_booking_seat_confirm">확인</string>
 </resources>

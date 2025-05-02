@@ -216,7 +216,7 @@
         android:id="@+id/btn_booking_seat_reserve"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:text="확인"
+        android:text="@string/btn_booking_seat_confirm"
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
