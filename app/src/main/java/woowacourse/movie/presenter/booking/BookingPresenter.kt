@@ -1,7 +1,5 @@
 package woowacourse.movie.presenter.booking
 
-import java.time.LocalDate
-import java.time.LocalTime
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.booking.Booking
 import woowacourse.movie.domain.model.booking.BookingResult
@@ -16,6 +14,8 @@ import woowacourse.movie.util.DateTimeUtil.toLocalDate
 import woowacourse.movie.util.DateTimeUtil.toLocalTime
 import woowacourse.movie.util.mapper.BookingResultModelMapper
 import woowacourse.movie.util.mapper.MovieModelMapper
+import java.time.LocalDate
+import java.time.LocalTime
 
 class BookingPresenter(
     val view: BookingContract.View,

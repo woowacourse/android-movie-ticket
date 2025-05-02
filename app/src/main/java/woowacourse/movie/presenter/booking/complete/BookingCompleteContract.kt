@@ -9,7 +9,9 @@ interface BookingCompleteContract {
     }
 
     interface View {
-        fun showErrorMessage(@StringRes messageResource: Int)
+        fun showErrorMessage(
+            @StringRes messageResource: Int,
+        )
 
         fun showBookingResult(bookingResultUiModel: BookingResultUiModel)
 

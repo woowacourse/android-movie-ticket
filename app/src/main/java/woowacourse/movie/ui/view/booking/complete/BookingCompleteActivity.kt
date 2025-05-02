@@ -63,7 +63,7 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
         return super.onSupportNavigateUp()
     }
 
-    private fun generatePresenter(): BookingCompletePresenter{
+    private fun generatePresenter(): BookingCompletePresenter {
         return BookingCompletePresenter(this@BookingCompleteActivity)
     }
 

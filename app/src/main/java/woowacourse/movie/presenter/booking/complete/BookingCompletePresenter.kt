@@ -14,14 +14,13 @@ class BookingCompletePresenter(
     private lateinit var bookingResult: BookingResult
 
     override fun loadBookingResult(bookingResultUiModelOrNull: BookingResultUiModel?) {
-        bookingResultUiModelOrNull?.let {  bookingResultUiModel ->
+        bookingResultUiModelOrNull?.let { bookingResultUiModel ->
             bookingResult = BookingResultModelMapper.toDomain(bookingResultUiModel)
             view.showBookingResult(bookingResultUiModel)
 
             val money = bookingResult.calculateAmount(ticketPrice)
             val bookingAmount = DecimalFormat("#,###").format(money)
             view.showBookingAmount(bookingAmount)
-
         } ?: view.showErrorMessage(R.string.error_not_exist_booking_result)
     }
 }
