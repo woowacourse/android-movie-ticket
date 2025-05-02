@@ -51,12 +51,11 @@ class MovieAdapter(
         }
     }
 
-    override fun getItemCount() = movieUiModels.size + ads.count(movieUiModels.size, ADS_CYCLE)
+    override fun getItemCount() = movieUiModels.size + ads.count(movieUiModels.size)
 
-    private fun isAdsPosition(position: Int) = (position + POSITION_OFFSET) % ADS_CYCLE == 0
+    private fun isAdsPosition(position: Int) = (position + POSITION_OFFSET) % ads.insertionInterval == 0
 
     companion object {
         private const val POSITION_OFFSET = 1
-        private const val ADS_CYCLE = 4
     }
 }

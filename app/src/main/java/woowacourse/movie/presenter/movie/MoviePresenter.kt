@@ -10,7 +10,7 @@ class MoviePresenter(
     private val view: MovieContract.View,
 ) : MovieContract.Presenter {
     private val sampleMovies = SampleMovies()
-    private val ads = Ads()
+    private val ads = Ads(itemsBeforeAd = 3)
 
     override fun loadMovies() {
         runCatching {
