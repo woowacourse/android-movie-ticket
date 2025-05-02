@@ -98,11 +98,11 @@ class MovieReservationActivityTest {
         onData(
             allOf(
                 `is`(instanceOf(LocalDate::class.java)),
-                `is`(LocalDate.of(2025, 4, 30)),
+                `is`(LocalDate.of(2025, 5, 5)),
             ),
         ).perform(click())
 
         // then
-        onView(withId(R.id.date_spinner)).check(matches(withSpinnerText("2025-04-30")))
+        onView(withId(R.id.date_spinner)).check(matches(withSpinnerText("2025-05-05")))
     }
 }
