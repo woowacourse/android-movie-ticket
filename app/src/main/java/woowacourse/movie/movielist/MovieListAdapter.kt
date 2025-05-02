@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
@@ -49,7 +50,13 @@ class MovieListAdapter(
         }
     }
 
-    inner class ADViewHolder(itemView: View) : ViewHolder(itemView)
+    class ADViewHolder(view: View) : ViewHolder(view) {
+        private val adImageView: ImageView = view.findViewById(R.id.ad_item)
+
+        fun bind(@DrawableRes image: Int) {
+            adImageView.setImageResource(image)
+        }
+    }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
