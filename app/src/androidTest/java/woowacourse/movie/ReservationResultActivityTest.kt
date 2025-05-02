@@ -6,22 +6,16 @@ import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.ext.junit.rules.ActivityScenarioRule
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.fixture.FAKE_CONTEXT
 import woowacourse.movie.fixture.TICKET
-import woowacourse.movie.view.reservation.MovieReservationActivity
 import woowacourse.movie.view.reservation.model.toUiModel
 import woowacourse.movie.view.result.ReservationResultActivity
 
 @Suppress("ktlint:standard:function-naming")
 class ReservationResultActivityTest {
     private lateinit var intent: Intent
-
-    @get:Rule
-    val activityRule = ActivityScenarioRule(MovieReservationActivity::class.java)
 
     @Before
     fun setUp() {
