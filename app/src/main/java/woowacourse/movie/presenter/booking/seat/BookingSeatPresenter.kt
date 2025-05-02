@@ -1,10 +1,10 @@
 package woowacourse.movie.presenter.booking.seat
 
-import android.icu.text.DecimalFormat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.seat.Seat
 import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
+import woowacourse.movie.util.StringFormatter
 
 class BookingSeatPresenter(
     private val view: BookingSeatContract.View,
@@ -21,7 +21,7 @@ class BookingSeatPresenter(
 
     override fun loadInfos() {
         val money = seats.totalPrice()
-        val totalPrice = DecimalFormat("#,###").format(money)
+        val totalPrice = StringFormatter.toPriceFormat(money)
         view.showFullScreen(bookingResultUiModel.title, totalPrice)
     }
 
@@ -39,7 +39,7 @@ class BookingSeatPresenter(
 
     override fun updatePrice() {
         val money = seats.totalPrice()
-        val totalPrice = DecimalFormat("#,###").format(money)
+        val totalPrice = StringFormatter.toPriceFormat(money)
         view.showTotalPrice(totalPrice)
     }
 }
