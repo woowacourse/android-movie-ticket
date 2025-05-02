@@ -20,12 +20,12 @@ class MovieReservationResultPresenterTest {
     }
 
     @Test
-    fun `loadReservationInfo 호출 시 예매 완료 정보가 표시된다`() {
+    fun `initializeReservationInfo 호출 시 예매 완료 정보가 표시된다`() {
         // given
         val selectedSeatsText = "A1, A2, A3"
 
         // when
-        presenter.loadReservationInfo(TICKET, SEATS_FULL)
+        presenter.initializeReservationInfo(TICKET, SEATS_FULL)
 
         // then
         verifyAll {

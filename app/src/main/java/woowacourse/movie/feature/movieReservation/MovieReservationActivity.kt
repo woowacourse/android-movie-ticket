@@ -36,7 +36,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
         initializeView()
         val movie: MovieUiModel =
             intent.extras?.getParcelableCompat<MovieUiModel>(KEY_MOVIE) ?: return
-        presenter.loadReservationInfo(movie)
+        presenter.initializeReservationInfo(movie)
         initializeTicketCountButtons()
         initializeReserveButton()
     }
@@ -59,7 +59,7 @@ class MovieReservationActivity : AppCompatActivity(), MovieReservationContract.V
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val ticket = savedInstanceState.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
-        presenter.restoreReservationInfo(ticket)
+        presenter.loadReservationInfo(ticket)
     }
 
     override fun loadSpinnerDates(dates: List<LocalDate>) {

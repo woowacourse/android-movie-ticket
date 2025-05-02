@@ -22,12 +22,12 @@ class MovieSelectionPresenterTest {
     }
 
     @Test
-    fun `loadMovies 호출 시 영화 목록을 표시한다`() {
+    fun `initializeMovies 호출 시 영화 목록을 표시한다`() {
         // given
-        every { presenter.loadMovies() } just Runs
+        every { presenter.initializeMovies() } just Runs
 
         // when
-        presenter.loadMovies()
+        presenter.initializeMovies()
 
         // then
         verify { view.showMovies(any()) }

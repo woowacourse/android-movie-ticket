@@ -18,14 +18,14 @@ class MovieReservationPresenter(
     val ticket get() = _ticket.toUiModel()
     private val scheduler = Scheduler()
 
-    override fun loadReservationInfo(movie: MovieUiModel) {
-        initializeInfo(movie)
+    override fun initializeReservationInfo(movie: MovieUiModel) {
+        initializeTicket(movie)
         view.showReservationInfo(ticket)
         view.updateTicketCount(ticket.count)
         setControlsStatus()
     }
 
-    private fun initializeInfo(movie: MovieUiModel) {
+    private fun initializeTicket(movie: MovieUiModel) {
         val screeningDates: List<LocalDate> =
             scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDateTime.now())
         view.loadSpinnerDates(screeningDates)
@@ -44,7 +44,7 @@ class MovieReservationPresenter(
             )
     }
 
-    override fun restoreReservationInfo(ticket: TicketUiModel) {
+    override fun loadReservationInfo(ticket: TicketUiModel) {
         _ticket = ticket.toDomain()
         val selectedDate = ticket.showtime.toLocalDate()
         val screeningTimes: List<LocalTime> =

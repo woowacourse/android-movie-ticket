@@ -27,9 +27,9 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadReservationInfo(ticket: TicketUiModel)
+        fun initializeReservationInfo(ticket: TicketUiModel)
 
-        fun restoreReservationInfo(seats: SeatsUiModel)
+        fun loadReservationInfo(seats: SeatsUiModel)
 
         fun selectSeat(index: Int)
 

@@ -15,14 +15,14 @@ class SeatSelectionPresenter(
     private lateinit var _seats: Seats
     val seats get() = _seats.toUiModel()
 
-    override fun loadReservationInfo(ticket: TicketUiModel) {
+    override fun initializeReservationInfo(ticket: TicketUiModel) {
         this.ticket = ticket.toDomain()
         _seats = Seats(ticket.count)
         view.showReservationInfo(ticket)
         view.updateTotalPrice(_seats.totalPrice())
     }
 
-    override fun restoreReservationInfo(seats: SeatsUiModel) {
+    override fun loadReservationInfo(seats: SeatsUiModel) {
         _seats = seats.toDomain()
         _seats.seats.forEach { seat ->
             val index = seat.row * Seats.COL_SIZE + seat.col

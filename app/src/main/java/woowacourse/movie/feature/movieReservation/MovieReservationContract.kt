@@ -28,9 +28,9 @@ interface MovieReservationContract {
     }
 
     interface Presenter {
-        fun loadReservationInfo(movie: MovieUiModel)
+        fun initializeReservationInfo(movie: MovieUiModel)
 
-        fun restoreReservationInfo(ticket: TicketUiModel)
+        fun loadReservationInfo(ticket: TicketUiModel)
 
         fun selectDate(date: LocalDate)
 

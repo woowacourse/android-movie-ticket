@@ -21,9 +21,9 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `loadReservationInfo 호출 시 예매 정보를 표시한다`() {
+    fun `initializeReservationInfo 호출 시 예매 정보를 표시한다`() {
         // when
-        presenter.loadReservationInfo(MOVIE)
+        presenter.initializeReservationInfo(MOVIE)
 
         // then
         verifyAll {
@@ -36,9 +36,9 @@ class MovieReservationPresenterTest {
     }
 
     @Test
-    fun `restoreReservationInfo 호출 시 시간을 선택하고 예매 정보를 표시한다`() {
+    fun `loadReservationInfo 호출 시 시간을 선택하고 예매 정보를 표시한다`() {
         // when
-        presenter.restoreReservationInfo(TICKET)
+        presenter.loadReservationInfo(TICKET)
 
         // then
         verifyAll {
@@ -52,7 +52,7 @@ class MovieReservationPresenterTest {
     @Test
     fun `selectDate 호출 시 상영 시간 정보의 목록을 갱신한다`() {
         // when
-        presenter.loadReservationInfo(MOVIE)
+        presenter.initializeReservationInfo(MOVIE)
         presenter.selectDate(TICKET.showtime.toLocalDate())
 
         // then
@@ -64,7 +64,7 @@ class MovieReservationPresenterTest {
     @Test
     fun `incrementTicketCount 호출 시 표의 개수, + 버튼과 - 버튼을 갱신한다`() {
         // when
-        presenter.loadReservationInfo(MOVIE)
+        presenter.initializeReservationInfo(MOVIE)
         presenter.incrementTicketCount()
 
         // then
@@ -78,7 +78,7 @@ class MovieReservationPresenterTest {
     @Test
     fun `decrementTicketCount 호출 시 표의 개수, + 버튼과 - 버튼을 갱신한다`() {
         // when
-        presenter.loadReservationInfo(MOVIE)
+        presenter.initializeReservationInfo(MOVIE)
         presenter.decrementTicketCount()
 
         // then
@@ -92,7 +92,7 @@ class MovieReservationPresenterTest {
     @Test
     fun `confirmSelection 호출 시 좌석 선택 화면으로 이동한다`() {
         // when
-        presenter.loadReservationInfo(MOVIE)
+        presenter.initializeReservationInfo(MOVIE)
         presenter.confirmSelection()
 
         // then

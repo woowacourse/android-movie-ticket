@@ -32,7 +32,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         super.onCreate(savedInstanceState)
         initializeView()
         val ticket = intent.extras?.getParcelableCompat<TicketUiModel>(KEY_TICKET) ?: return
-        presenter.loadReservationInfo(ticket)
+        presenter.initializeReservationInfo(ticket)
         initializeSeats()
         initializeSelectButton()
     }
@@ -77,7 +77,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         val seats = savedInstanceState.getParcelableCompat<SeatsUiModel>(KEY_SEATS) ?: return
-        presenter.restoreReservationInfo(seats)
+        presenter.loadReservationInfo(seats)
     }
 
     override fun showReservationInfo(ticket: TicketUiModel) {

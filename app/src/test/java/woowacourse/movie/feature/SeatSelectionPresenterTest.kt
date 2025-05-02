@@ -27,9 +27,9 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `loadReservationInfo 호출 시 예약 정보를 표시하고 가격 정보를 갱신한다`() {
+    fun `initializeReservationInfo 호출 시 예약 정보를 표시하고 가격 정보를 갱신한다`() {
         // when
-        presenter.loadReservationInfo(TICKET)
+        presenter.initializeReservationInfo(TICKET)
 
         // then
         verifyAll {
@@ -39,9 +39,9 @@ class SeatSelectionPresenterTest {
     }
 
     @Test
-    fun `restoreReservationInfo 호출 시 선택된 좌석을 표시하고 가격 정보를 갱신한다`() {
+    fun `loadReservationInfo 호출 시 선택된 좌석을 표시하고 가격 정보를 갱신한다`() {
         // when
-        presenter.restoreReservationInfo(SEATS_FULL)
+        presenter.loadReservationInfo(SEATS_FULL)
 
         // then
         verify {
@@ -55,7 +55,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `finishSelection 호출 시 좌석 선택이 끝났으면 다이얼로그를 표시한다`() {
         // when
-        presenter.loadReservationInfo(TICKET)
+        presenter.initializeReservationInfo(TICKET)
         presenter.selectSeat(0)
         presenter.selectSeat(1)
         presenter.selectSeat(2)
@@ -68,7 +68,7 @@ class SeatSelectionPresenterTest {
     @Test
     fun `finishSelection 호출 시 좌석 선택이 끝나지 않았으면 토스트를 표시한다`() {
         // when
-        presenter.loadReservationInfo(TICKET)
+        presenter.initializeReservationInfo(TICKET)
         presenter.finishSelection()
 
         // then
@@ -80,7 +80,7 @@ class SeatSelectionPresenterTest {
         val seats = slot<SeatsUiModel>()
 
         // when
-        presenter.loadReservationInfo(TICKET)
+        presenter.initializeReservationInfo(TICKET)
         presenter.confirmSelection()
 
         // then

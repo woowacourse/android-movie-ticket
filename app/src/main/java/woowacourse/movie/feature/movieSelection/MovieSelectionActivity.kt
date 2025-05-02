@@ -18,7 +18,7 @@ class MovieSelectionActivity : AppCompatActivity(), MovieSelectionContract.View 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initializeView()
-        presenter.loadMovies()
+        presenter.initializeMovies()
     }
 
     private fun initializeView() {
