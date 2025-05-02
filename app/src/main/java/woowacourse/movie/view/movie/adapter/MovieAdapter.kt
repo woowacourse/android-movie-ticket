@@ -3,17 +3,16 @@ package woowacourse.movie.view.movie.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 
 class MovieAdapter(
     private val items: List<MovieListItem>,
     private val listener: MovieItemClickListener,
-) : RecyclerView.Adapter<ViewHolder>() {
+) : RecyclerView.Adapter<BaseViewHolder<MovieListItem>>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): ViewHolder =
+    ): BaseViewHolder<MovieListItem> =
         when (MovieListItem.ViewType.entries[viewType]) {
             MovieListItem.ViewType.TYPE_MOVIE ->
                 MovieViewHolder(
@@ -30,18 +29,15 @@ class MovieAdapter(
                         .inflate(R.layout.item_ads, parent, false),
                     listener,
                 )
-        }
+        } as BaseViewHolder<MovieListItem>
 
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(
-        holder: ViewHolder,
+        holder: BaseViewHolder<MovieListItem>,
         position: Int,
     ) {
-        when (val item = items[position]) {
-            is MovieListItem.MovieItem -> (holder as MovieViewHolder).bind(item.movie)
-            is MovieListItem.AdItem -> (holder as AdsViewHolder).bind(item.ad)
-        }
+        holder.bind(items[position])
     }
 
     override fun getItemViewType(position: Int): Int = items[position].type.ordinal

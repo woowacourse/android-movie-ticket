@@ -4,16 +4,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.view.movie.model.MovieUiModel
 import java.time.format.DateTimeFormatter
 
 class MovieViewHolder(
     private val view: View,
-    listener: MovieItemClickListener,
-) : RecyclerView.ViewHolder(view) {
-    private var currentItem: MovieUiModel? = null
+    listener: ClickListener,
+) : BaseViewHolder<MovieListItem.MovieItem>(view) {
+    private lateinit var currentItem: MovieUiModel
 
     private val poster: ImageView = view.findViewById(R.id.poster)
     private val title: TextView = view.findViewById(R.id.movie_title)
@@ -23,22 +22,27 @@ class MovieViewHolder(
 
     init {
         reserveButton.setOnClickListener {
-            currentItem?.let { listener.onMovieClick(it) }
+            listener.onClickMovie(currentItem)
         }
     }
 
-    fun bind(item: MovieUiModel) {
-        currentItem = item
-        poster.setImageResource(item.posterResId)
-        title.text = item.title
+    override fun bind(item: MovieListItem.MovieItem) {
+        val movie = item.movie
+        currentItem = movie
+        poster.setImageResource(movie.posterResId)
+        title.text = movie.title
         screeningDate.text =
             view.context.getString(
                 R.string.screening_date,
-                item.startDate.format(DATE_FORMAT),
-                item.endDate.format(DATE_FORMAT),
+                movie.startDate.format(DATE_FORMAT),
+                movie.endDate.format(DATE_FORMAT),
             )
         runningTime.text =
-            view.context.getString(R.string.running_time, item.runningTime)
+            view.context.getString(R.string.running_time, movie.runningTime)
+    }
+
+    interface ClickListener {
+        fun onClickMovie(item: MovieUiModel)
     }
 
     companion object {

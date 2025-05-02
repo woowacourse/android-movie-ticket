@@ -36,13 +36,13 @@ class MovieListActivity :
             MovieAdapter(
                 movies,
                 object : MovieItemClickListener {
-                    override fun onMovieClick(movie: MovieUiModel) {
+                    override fun onClickMovie(item: MovieUiModel) {
                         startActivity(
-                            MovieReservationActivity.newIntent(this@MovieListActivity, movie),
+                            MovieReservationActivity.newIntent(this@MovieListActivity, item),
                         )
                     }
 
-                    override fun onAdClick(ad: AdUiModel) = Unit
+                    override fun onClickAd(item: AdUiModel) = Unit
                 },
             )
         movieListView.adapter = movieAdapter
