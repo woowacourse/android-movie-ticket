@@ -1,9 +1,12 @@
 package woowacourse.movie.presenter.booking.seat
 
 import androidx.annotation.StringRes
+import woowacourse.movie.ui.model.booking.BookingResultUiModel
 
 interface BookingSeatContract {
     interface Presenter {
+        fun loadBookingResult(bookingResultUiModelOrNull: BookingResultUiModel?)
+
         fun loadInfos()
 
         fun toggleBackGroundColor(seatPosition: String)

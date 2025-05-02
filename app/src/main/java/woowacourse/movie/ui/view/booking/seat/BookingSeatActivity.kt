@@ -19,7 +19,7 @@ import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.DialogUtil
 
 class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
-    private lateinit var presenter: BookingSeatContract.Presenter
+    private val presenter: BookingSeatPresenter by lazy { generatePresenter() }
     private lateinit var seatViewCached: Map<String, TextView>
     private val seatsTableLayout: TableLayout by lazy { findViewById(R.id.tl_seat) }
     private val nonClickedBackGroundResource: Int by lazy {
@@ -36,8 +36,8 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         applySystemBarInsets()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        presenter = BookingSeatPresenter(this@BookingSeatActivity, bookingResultUiOrNull())
         seatViewCached = initialSeatTextView()
+        presenter.loadBookingResult(bookingResultUiOrNull())
         presenter.loadInfos()
     }
 
@@ -78,6 +78,10 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
+    }
+
+    private fun generatePresenter(): BookingSeatPresenter {
+        return BookingSeatPresenter(this@BookingSeatActivity)
     }
 
     private fun bookingResultUiOrNull() =

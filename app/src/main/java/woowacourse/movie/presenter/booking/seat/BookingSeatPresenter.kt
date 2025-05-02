@@ -8,18 +8,15 @@ import woowacourse.movie.ui.model.booking.BookingResultUiModel
 
 class BookingSeatPresenter(
     private val view: BookingSeatContract.View,
-    bookingResultUiOrNull: BookingResultUiModel?,
 ) : BookingSeatContract.Presenter {
     private val seats = Seats()
     private val reservedSeat get() = seats.reserveSeats
     private lateinit var bookingResultUiModel: BookingResultUiModel
 
-    init {
-        if (bookingResultUiOrNull == null) {
-            view.showErrorMessage(R.string.error_not_exist_booking_result)
-        } else {
-            bookingResultUiModel = bookingResultUiOrNull
-        }
+    override fun loadBookingResult(bookingResultUiModelOrNull: BookingResultUiModel?) {
+        bookingResultUiModelOrNull?.let {
+            bookingResultUiModel = bookingResultUiModelOrNull
+        } ?: view.showErrorMessage(R.string.error_not_exist_booking_result)
     }
 
     override fun loadInfos() {
