@@ -29,8 +29,8 @@ class SeatSelectionPresenterTest {
 
         // then
         verifyAll {
-            view.showMovieTitle(any())
-            view.showTotalPrice(any())
+            view.showReservationInfo(any())
+            view.updateTotalPrice(any())
         }
     }
 

@@ -5,20 +5,20 @@ import woowacourse.movie.feature.model.seat.SeatsUiModel
 
 interface SeatSelectionContract {
     interface View {
-        fun showMovieTitle(title: String)
+        fun showReservationInfo(ticket: TicketUiModel)
 
-        fun showTotalPrice(price: Int)
-
-        fun showAlertDialog()
-
-        fun showSelectionFinishedToast()
-
-        fun showSelectionNotFinishedToast(required: Int)
+        fun updateTotalPrice(price: Int)
 
         fun toggleSeat(
             index: Int,
             isTaken: Boolean,
         )
+
+        fun showAlertDialog()
+
+        fun showSelectionAlreadyFinishedToast()
+
+        fun showSelectionNotFinishedToast(required: Int)
 
         fun goToReservationResult(
             ticket: TicketUiModel,
@@ -27,7 +27,7 @@ interface SeatSelectionContract {
     }
 
     interface Presenter {
-        fun loadReservationInfo(ticketUiModel: TicketUiModel)
+        fun loadReservationInfo(ticket: TicketUiModel)
 
         fun restoreReservationInfo(seats: SeatsUiModel)
 

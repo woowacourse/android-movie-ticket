@@ -9,6 +9,7 @@ import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -22,8 +23,10 @@ import woowacourse.movie.util.buildAlertDialog
 import woowacourse.movie.util.getParcelableCompat
 
 class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
-    val presenter = SeatSelectionPresenter(this)
+    private val presenter = SeatSelectionPresenter(this)
     private val seatButtons = mutableListOf<Button>()
+    private val priceTextView by lazy { findViewById<TextView>(R.id.total_price) }
+    private val alertDialog by lazy { buildAlertDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,31 +80,24 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         presenter.restoreReservationInfo(seats)
     }
 
-    override fun toggleSeat(
-        index: Int,
-        isTaken: Boolean,
-    ) {
-        val color = if (isTaken) getColor(R.color.seat_default) else getColor(R.color.seat_selected)
-        seatButtons[index].setBackgroundColor(color)
-    }
-
-    override fun showMovieTitle(title: String) {
+    override fun showReservationInfo(ticket: TicketUiModel) {
         val titleTextView = findViewById<TextView>(R.id.movie_title)
         titleTextView.text = title
     }
 
-    override fun showTotalPrice(price: Int) {
-        val priceTextView = findViewById<TextView>(R.id.total_price)
+    override fun updateTotalPrice(price: Int) {
         priceTextView.text = getString(R.string.template_price).format(price)
     }
 
+    private fun buildAlertDialog(): AlertDialog.Builder {
+        return buildAlertDialog(
+            title = R.string.alert_title_confirm_reservation,
+            message = R.string.alert_message_confirm_reservation,
+            yes = R.string.alert_confirm_reservation_yes,
+        ) { presenter.confirmSelection() }
+    }
+
     override fun showAlertDialog() {
-        val alertDialog =
-            buildAlertDialog(
-                title = R.string.alert_title_confirm_reservation,
-                message = R.string.alert_message_confirm_reservation,
-                yes = R.string.alert_confirm_reservation_yes,
-            ) { presenter.confirmSelection() }
         alertDialog.show()
     }
 
@@ -113,7 +109,7 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
         startActivity(intent)
     }
 
-    override fun showSelectionFinishedToast() {
+    override fun showSelectionAlreadyFinishedToast() {
         Toast.makeText(
             this,
             getString(R.string.toast_message_cannot_select_more_seats),
@@ -127,6 +123,14 @@ class SeatSelectionActivity : AppCompatActivity(), SeatSelectionContract.View {
             getString(R.string.toast_message_need_to_select_more_seats).format(required),
             Toast.LENGTH_SHORT,
         ).show()
+    }
+
+    override fun toggleSeat(
+        index: Int,
+        isTaken: Boolean,
+    ) {
+        val color = if (isTaken) getColor(R.color.seat_default) else getColor(R.color.seat_selected)
+        seatButtons[index].setBackgroundColor(color)
     }
 
     companion object {

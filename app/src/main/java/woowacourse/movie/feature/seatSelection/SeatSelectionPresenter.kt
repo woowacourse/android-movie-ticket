@@ -15,11 +15,11 @@ class SeatSelectionPresenter(
     private lateinit var _seats: Seats
     val seats get() = _seats.toUiModel()
 
-    override fun loadReservationInfo(ticketUiModel: TicketUiModel) {
-        ticket = ticketUiModel.toDomain()
-        _seats = Seats(ticketUiModel.count)
-        view.showMovieTitle(ticketUiModel.movie.title)
-        view.showTotalPrice(_seats.totalPrice())
+    override fun loadReservationInfo(ticket: TicketUiModel) {
+        this.ticket = ticket.toDomain()
+        _seats = Seats(ticket.count)
+        view.showReservationInfo(ticket)
+        view.updateTotalPrice(_seats.totalPrice())
     }
 
     override fun restoreReservationInfo(seats: SeatsUiModel) {
@@ -28,7 +28,7 @@ class SeatSelectionPresenter(
             val index = seat.row * Seats.COL_SIZE + seat.col
             view.toggleSeat(index, false)
         }
-        view.showTotalPrice(_seats.totalPrice())
+        view.updateTotalPrice(_seats.totalPrice())
     }
 
     override fun selectSeat(index: Int) {
@@ -43,11 +43,10 @@ class SeatSelectionPresenter(
                 view.toggleSeat(index, false)
                 _seats.add(seat)
             } else {
-                view.showSelectionFinishedToast()
+                view.showSelectionAlreadyFinishedToast()
             }
         }
-
-        view.showTotalPrice(_seats.totalPrice())
+        view.updateTotalPrice(_seats.totalPrice())
     }
 
     override fun finishSelection() {
