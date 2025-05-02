@@ -26,11 +26,10 @@ class MovieReservationResultPresenterTest {
 
         // then
         verifyAll {
-            view.showMovieTitle(any())
-            view.showMovieDateTime(any())
-            view.showTicketCount(any())
+            view.showReservationInfo(any(), any())
+            view.updateTotalPrice(any())
             view.showSelectedSeats(any())
-            view.showTotalPrice(any())
+            view.updateTotalPrice(any())
         }
     }
 }

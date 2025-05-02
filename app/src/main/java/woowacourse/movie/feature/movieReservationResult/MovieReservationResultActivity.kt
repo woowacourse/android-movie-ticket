@@ -14,7 +14,6 @@ import woowacourse.movie.feature.model.seat.SeatsUiModel
 import woowacourse.movie.feature.movieReservation.MovieReservationActivity.Companion.KEY_TICKET
 import woowacourse.movie.util.Formatter
 import woowacourse.movie.util.getParcelableCompat
-import java.time.LocalDateTime
 
 class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResultContract.View {
     private val presenter = MovieReservationResultPresenter(this)
@@ -37,27 +36,22 @@ class MovieReservationResultActivity : AppCompatActivity(), MovieReservationResu
         }
     }
 
-    override fun showMovieTitle(title: String) {
+    override fun showReservationInfo(
+        ticket: TicketUiModel,
+        selectedSeats: String,
+    ) {
         val titleTextView = findViewById<TextView>(R.id.movie_title)
-        titleTextView.text = title
-    }
-
-    override fun showMovieDateTime(showtime: LocalDateTime) {
         val showtimeTextView = findViewById<TextView>(R.id.showtime)
-        showtimeTextView.text = Formatter.format(showtime)
-    }
-
-    override fun showTicketCount(count: Int) {
         val ticketCountTextView = findViewById<TextView>(R.id.ticket_count)
-        ticketCountTextView.text = getString(R.string.template_ticket_count).format(count)
-    }
-
-    override fun showSelectedSeats(seats: String) {
         val selectedSeatsTextView = findViewById<TextView>(R.id.selected_seats)
-        selectedSeatsTextView.text = seats
+
+        titleTextView.text = ticket.movie.title
+        showtimeTextView.text = Formatter.format(ticket.showtime)
+        ticketCountTextView.text = getString(R.string.template_ticket_count).format(ticket.count)
+        selectedSeatsTextView.text = selectedSeats
     }
 
-    override fun showTotalPrice(price: Int) {
+    override fun updateTotalPrice(price: Int) {
         val totalPriceTextView = findViewById<TextView>(R.id.total_price)
         totalPriceTextView.text = getString(R.string.template_price).format(price)
     }
