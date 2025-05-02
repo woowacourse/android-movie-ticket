@@ -6,8 +6,8 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieReservationResult.MovieReservationResultContract
 import woowacourse.movie.feature.movieReservationResult.MovieReservationResultPresenter
-import woowacourse.movie.fixtures.seats
-import woowacourse.movie.fixtures.ticket
+import woowacourse.movie.fixtures.SEATS_FULL
+import woowacourse.movie.fixtures.TICKET
 
 class MovieReservationResultPresenterTest {
     private lateinit var presenter: MovieReservationResultPresenter
@@ -20,16 +20,17 @@ class MovieReservationResultPresenterTest {
     }
 
     @Test
-    fun `실행 시 예매 완료 정보가 표시된다`() {
+    fun `loadReservationInfo 호출 시 예매 완료 정보가 표시된다`() {
+        // given
+        val selectedSeatsText = "A1, A2, A3"
+
         // when
-        presenter.loadReservationInfo(ticket, seats)
+        presenter.loadReservationInfo(TICKET, SEATS_FULL)
 
         // then
         verifyAll {
-            view.showReservationInfo(any(), any())
-            view.updateTotalPrice(any())
-            view.showSelectedSeats(any())
-            view.updateTotalPrice(any())
+            view.showReservationInfo(TICKET, selectedSeatsText)
+            view.updateTotalPrice(30000)
         }
     }
 }

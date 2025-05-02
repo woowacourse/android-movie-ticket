@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieSelection.MovieSelectionContract
 import woowacourse.movie.feature.movieSelection.MovieSelectionPresenter
-import woowacourse.movie.fixtures.movie
+import woowacourse.movie.fixtures.MOVIE
 
 class MovieSelectionPresenterTest {
     private lateinit var presenter: MovieSelectionPresenter
@@ -17,12 +17,15 @@ class MovieSelectionPresenterTest {
 
     @BeforeEach
     fun setup() {
-        view = mockk(relaxed = true)
+        view = mockk()
         presenter = MovieSelectionPresenter(view)
     }
 
     @Test
-    fun `실행 시 영화 목록을 표시한다`() {
+    fun `loadMovies 호출 시 영화 목록을 표시한다`() {
+        // given
+        every { presenter.loadMovies() } just Runs
+
         // when
         presenter.loadMovies()
 
@@ -31,12 +34,12 @@ class MovieSelectionPresenterTest {
     }
 
     @Test
-    fun `영화 선택 시 영화 예매 화면으로 이동한다`() {
+    fun `selectMovie 호출 시 영화 예매 화면으로 이동한다`() {
         // given
-        every { view.goToReservation(any()) } just Runs
+        every { presenter.selectMovie(MOVIE) } just Runs
 
         // when
-        presenter.selectMovie(movie)
+        presenter.selectMovie(MOVIE)
 
         // then
         verify { view.goToReservation(any()) }
