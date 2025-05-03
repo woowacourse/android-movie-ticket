@@ -146,7 +146,7 @@ class BookingActivity : BaseActivity(), BookingContract.View {
     private fun fetchMovieFromIntent(): Boolean {
         val data = intent.intentSerializable(IntentKeys.MOVIE, Movie::class.java)
         if (data == null) {
-            Toast.makeText(this, MOVIE_INTENT_ERROR, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.movie_intent_error), Toast.LENGTH_SHORT).show()
             finish()
             return false
         }
@@ -178,6 +178,5 @@ class BookingActivity : BaseActivity(), BookingContract.View {
         private const val DATE_POSITION_KEY = "Date"
         private const val TIME_POSITION_KEY = "Time"
         private const val INTEGER_FORMAT = "%d"
-        private const val MOVIE_INTENT_ERROR = "[ERROR] 영화 정보에 대한 키 값이 올바르지 않습니다."
     }
 }
