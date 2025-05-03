@@ -20,6 +20,7 @@ import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
+import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.ui.complete.view.BookingCompleteActivity
 import woowacourse.movie.ui.seat.contract.BookingSeatContract
 import woowacourse.movie.utils.StringFormatter.thousandFormat
@@ -93,10 +94,14 @@ class BookingSeatActivity :
             .filterIsInstance<TableRow>()
             .forEachIndexed { rowIndex, tableRow ->
                 tableRow.forEachIndexed { colIndex, textView ->
-                    setSeatTag(textView as TextView, rowIndex, colIndex)
-                    setSeatColor(textView, rowIndex)
-                    textView.setOnClickListener {
-                        bookingSeatPresenter.selectSeat(textView.getTag(R.id.seat_tag).toString())
+                    with(textView as TextView) {
+                        setSeatTag(this, rowIndex, colIndex)
+                        setSeatColor(this, rowIndex)
+                        setOnClickListener {
+                            bookingSeatPresenter.selectSeat(
+                                seatFromTag(getTag(R.id.seat_tag).toString()),
+                            )
+                        }
                     }
                 }
             }
@@ -175,14 +180,20 @@ class BookingSeatActivity :
             .setMessage(description)
             .setPositiveButton(getString(R.string.text_booking_dialog_positive_button)) { _, _ ->
                 bookingSeatPresenter.completeBookingSeat()
-            }
-            .setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
+            }.setNegativeButton(getString(R.string.text_booking_dialog_negative_button)) { dialog, _ ->
                 dialog.dismiss()
             }.setCancelable(false)
             .show()
     }
 
     private fun Seat.toSeatTag(): String = "${ASCII_A + row}${col + 1}"
+
+    private fun seatFromTag(tag: String): Seat {
+        val row = tag[0] - ASCII_A
+        val col = tag[1].digitToInt() - ONE_BASED
+        val ticketType = TicketType.ticketTypeByRow(row)
+        return Seat(row, col, ticketType)
+    }
 
     companion object {
         fun newIntent(
@@ -200,6 +211,8 @@ class BookingSeatActivity :
         private const val EXTRA_DATETIME = "dateTime"
         private const val EXTRA_HEADCOUNT = "headcount"
         private const val ASCII_A = 'A'
+
+        private const val ONE_BASED = 1
 
         private const val B_LINE = 2
         private const val S_LINE = 4

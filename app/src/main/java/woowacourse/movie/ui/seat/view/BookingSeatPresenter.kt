@@ -36,9 +36,7 @@ class BookingSeatPresenter(
         this.movieTitle = movieTitle
     }
 
-    override fun selectSeat(seatTag: String) {
-        val seat = Seat.fromSeatTag(seatTag)
-
+    override fun selectSeat(seat: Seat) {
         if (seats.contains(seat)) {
             seats.remove(seat)
             bookingSeatView.toggleSeat(seat, false)

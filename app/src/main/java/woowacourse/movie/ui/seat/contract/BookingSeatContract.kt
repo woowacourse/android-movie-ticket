@@ -14,7 +14,7 @@ interface BookingSeatContract {
 
         fun restoreMovieTitle(movieTitle: String)
 
-        fun selectSeat(seatTag: String)
+        fun selectSeat(seat: Seat)
 
         fun refreshConfirmButton()
 
