@@ -17,7 +17,7 @@ sealed class ImageResource : Parcelable {
     ) : ImageResource()
 }
 
-fun ImageView.setImageResource(resource: ImageResource) {
+fun ImageView.setCustomImageResource(resource: ImageResource) {
     when (resource) {
         is ImageResource.Resource -> this.setImageResource(resource.resId)
         is ImageResource.Url -> TODO("URL을 이용한 이미지 요청시 추가 필요")

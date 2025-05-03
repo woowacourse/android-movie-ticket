@@ -8,13 +8,12 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectPresenter
 import woowacourse.movie.feature.seatSelect.SelectSeatView
-import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
-import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.SeatsData
 import woowacourse.movie.view.model.TicketData
 
@@ -23,7 +22,7 @@ class SelectSeatPresenterTest {
     private lateinit var selectSeatView: SelectSeatView
     private lateinit var ticketData: TicketData
     private lateinit var screeningData: ScreeningData
-    private lateinit var screening: Screening
+    private lateinit var screening: ScreeningData
 
     // 테스트용 좌석 객체
     private val seatA1 = Seat(SeatRow(0), SeatCol(0))

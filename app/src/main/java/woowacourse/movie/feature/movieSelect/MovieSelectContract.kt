@@ -1,16 +1,21 @@
 package woowacourse.movie.feature.movieSelect
 
-import woowacourse.movie.model.movie.Advertisement
-import woowacourse.movie.model.movie.screening.Screening
-import woowacourse.movie.view.model.ScreeningData
+import woowacourse.movie.feature.movieSelect.adapter.AdvertisementData
+import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 
 interface MovieSelectContract {
     interface View {
-        fun initMovieListUI(
-            screenings: List<Screening>,
-            ads: List<Advertisement>,
+        fun updateMovieList(
+            screeningDataList: List<ScreeningData>,
+            adsDataList: List<AdvertisementData>,
         )
 
-        fun navigateToReservationUI(screeningData: ScreeningData)
+        fun navigateToReservationView(screeningData: ScreeningData)
+    }
+
+    interface Presenter {
+        fun loadMovieList()
+
+        fun navigateToReservationView(screeningData: ScreeningData)
     }
 }

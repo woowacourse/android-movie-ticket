@@ -17,12 +17,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectActivity
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.model.setImageResource
+import woowacourse.movie.view.model.setCustomImageResource
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -79,7 +79,7 @@ class ReservationActivity :
                 screeningData.endDate.dayOfMonth,
             )
         val posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        posterImageView.setImageResource(screeningData.poster)
+        posterImageView.setCustomImageResource(screeningData.poster)
 
         val runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
         runningTimeView.text = getString(R.string.running_time, screeningData.runningTime)

@@ -2,6 +2,7 @@ package woowacourse.movie.view.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import java.time.LocalDateTime
 
 @Parcelize

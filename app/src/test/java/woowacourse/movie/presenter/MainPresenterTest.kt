@@ -24,7 +24,7 @@ class MainPresenterTest {
     @Test
     fun `기본 상영 목록으로 영화 리스트 UI를 초기화한다`() {
         // When
-        movieSelectPresenter.initMainUI()
+        movieSelectPresenter.loadMovieList()
 
         // Then
         verify { mainView.initMovieListUI(any(), any()) }
@@ -45,7 +45,7 @@ class MainPresenterTest {
         every { screening.runningTime } returns 120
 
         // When
-        movieSelectPresenter.navigateToReservationUI(screening, poster)
+        movieSelectPresenter.navigateToReservationView(screening, poster)
 
         // Then
         verify {

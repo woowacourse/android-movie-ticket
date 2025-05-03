@@ -6,10 +6,9 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.reservation.ReservationPresenter
 import woowacourse.movie.feature.reservation.ReservationView
-import woowacourse.movie.model.movie.screening.Screening
-import woowacourse.movie.view.model.ScreeningData
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -17,14 +16,14 @@ class ReservationPresenterTest {
     private lateinit var reservationPresenter: ReservationPresenter
     private lateinit var reservationView: ReservationView
     private lateinit var screeningData: ScreeningData
-    private lateinit var screening: Screening
+    private lateinit var screening: ScreeningData
     private val startDate: LocalDate = LocalDate.of(2025, 4, 1)
     private val endDate = LocalDate.of(2025, 4, 10)
 
     @BeforeEach
     fun setUp() {
         screeningData = mockk<ScreeningData>()
-        screening = mockk<Screening>()
+        screening = mockk<ScreeningData>()
         reservationView = mockk(relaxed = true)
 
         every { screening.capacityOfTheater } returns 20

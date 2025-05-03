@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.movieSelect
+package woowacourse.movie.feature.movieSelect.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,29 +8,24 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.model.movie.Advertisement
-import woowacourse.movie.model.movie.MainItem
-import woowacourse.movie.model.movie.screening.Screening
-import woowacourse.movie.view.model.ImageResource
 import woowacourse.movie.view.model.ResourceMapper
-import woowacourse.movie.view.model.setImageResource
+import woowacourse.movie.view.model.setCustomImageResource
 
 class MovieAdapter(
-    screenings: List<Screening>,
-    ads: List<Advertisement>,
+    screeningDataList: List<ScreeningData>,
+    adsDataList: List<AdvertisementData>,
     private val onClickReserveButton: (
-        screening: Screening,
-        poster: ImageResource,
+        screening: ScreeningData,
     ) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val mainItems: List<MainItem> by lazy {
+    private val movieSelectItems: List<MovieSelectItems> by lazy {
         var adIndex = 0
-        screenings.foldIndexed(mutableListOf<MainItem>()) { idx, mainItems, screening ->
-            mainItems.apply {
-                add(MainItem.MovieItem(screening))
+        screeningDataList.foldIndexed(mutableListOf()) { idx, movieSelectItems, screeningData ->
+            movieSelectItems.apply {
+                add(MovieSelectItems.MovieItem(screeningData))
 
-                if ((idx + 1) % AD_SHOW_CYCLE == 0 && ads.isNotEmpty()) {
-                    add(MainItem.AdItem(ads[adIndex % ads.size]))
+                if ((idx + 1) % AD_SHOW_CYCLE == 0 && adsDataList.isNotEmpty()) {
+                    add(MovieSelectItems.AdItem(adsDataList[adIndex % adsDataList.size]))
                     adIndex++
                 }
             }
@@ -47,27 +42,28 @@ class MovieAdapter(
         private val posterImageView: ImageView = view.findViewById(R.id.iv_item_movie_poster)
         private val reserveButton: Button = view.findViewById(R.id.btn_item_movie_reserve)
 
-        fun bind(item: MainItem.MovieItem) {
-            val screening = item.screening
+        fun bind(item: MovieSelectItems.MovieItem) {
+            val screeningData = item.screeningData
             val context = itemView.context
 
-            titleView.text = screening.title
+            titleView.text = screeningData.title
             screeningDateView.text =
                 context.getString(
                     R.string.screening_period,
-                    screening.period.start.year,
-                    screening.period.start.monthValue,
-                    screening.period.start.dayOfMonth,
-                    screening.period.endInclusive.year,
-                    screening.period.endInclusive.monthValue,
-                    screening.period.endInclusive.dayOfMonth,
+                    screeningData.startDate.year,
+                    screeningData.startDate.monthValue,
+                    screeningData.startDate.dayOfMonth,
+                    screeningData.endDate.year,
+                    screeningData.endDate.monthValue,
+                    screeningData.endDate.dayOfMonth,
                 )
-            runningTimeView.text = context.getString(R.string.running_time, screening.runningTime)
+            runningTimeView.text =
+                context.getString(R.string.running_time, screeningData.runningTime)
 
-            val poster = ResourceMapper.movieIdToPosterImageResource(screening.movieId)
-            posterImageView.setImageResource(poster)
+            val poster = ResourceMapper.movieIdToPosterImageResource(screeningData.movieId)
+            posterImageView.setCustomImageResource(poster)
             reserveButton.setOnClickListener {
-                onClickReserveButton(screening, poster)
+                onClickReserveButton(screeningData)
             }
         }
     }
@@ -77,8 +73,9 @@ class MovieAdapter(
     ) : RecyclerView.ViewHolder(view) {
         private val bannerImageView: ImageView = view.findViewById(R.id.iv_ad_banner)
 
-        fun bind(item: MainItem.AdItem) {
-            bannerImageView.setImageResource(ResourceMapper.adIdToBannerImageResource(item.ad.adId))
+        fun bind(item: MovieSelectItems.AdItem) {
+            val adData = item.adData
+            bannerImageView.setCustomImageResource(adData.imageResource)
         }
     }
 
@@ -110,18 +107,18 @@ class MovieAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        when (val item = mainItems[position]) {
-            is MainItem.MovieItem -> (holder as MovieViewHolder).bind(item)
-            is MainItem.AdItem -> (holder as AdBannerViewHolder).bind(item)
+        when (val item = movieSelectItems[position]) {
+            is MovieSelectItems.MovieItem -> (holder as MovieViewHolder).bind(item)
+            is MovieSelectItems.AdItem -> (holder as AdBannerViewHolder).bind(item)
         }
     }
 
-    override fun getItemCount(): Int = mainItems.size
+    override fun getItemCount(): Int = movieSelectItems.size
 
     override fun getItemViewType(position: Int): Int =
-        when (mainItems[position]) {
-            is MainItem.MovieItem -> VIEW_TYPE_MOVIE
-            is MainItem.AdItem -> VIEW_TYPE_AD
+        when (movieSelectItems[position]) {
+            is MovieSelectItems.MovieItem -> VIEW_TYPE_MOVIE
+            is MovieSelectItems.AdItem -> VIEW_TYPE_AD
         }
 
     companion object {

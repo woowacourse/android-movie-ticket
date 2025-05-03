@@ -13,9 +13,9 @@ import org.hamcrest.CoreMatchers.containsString
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.ticket.TicketActivity
 import woowacourse.movie.view.model.ResourceMapper
-import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.SeatsData
 import woowacourse.movie.view.model.TicketData
 import java.time.LocalDate
