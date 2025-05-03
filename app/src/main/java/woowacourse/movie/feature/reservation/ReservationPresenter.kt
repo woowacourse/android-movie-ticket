@@ -1,30 +1,29 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.model.ticket.getOrDefault
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.reservation.ReservationView
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationPresenter(
-    private val view: ReservationView,
+    private val view: ReservationContract.View,
 ) {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
     private val screeningData: ScreeningData by lazy { view.getScreeningData() }
     private val screening: Screening by lazy { screeningData.toScreening() }
-    var ticketCount: TicketCount = TicketCount.create(1).getOrDefault()
+    var ticketCount: TicketCount = TicketCount.Companion.create(1).getOrDefault()
     var timeItemPosition: Int = 0
 
     fun initReservationData(
         savedTicketCount: Int,
         savedTimeItemPosition: Int,
     ) {
-        ticketCount = TicketCount.create(savedTicketCount).getOrDefault()
+        ticketCount = TicketCount.Companion.create(savedTicketCount).getOrDefault()
         timeItemPosition = savedTimeItemPosition
     }
 

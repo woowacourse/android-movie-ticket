@@ -1,4 +1,4 @@
-package woowacourse.movie.view.ticket
+package woowacourse.movie.feature.ticket
 
 import android.content.Context
 import android.content.Intent
@@ -11,12 +11,11 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.model.ticket.Ticket
-import woowacourse.movie.presenter.TicketPresenter
 import woowacourse.movie.view.model.TicketData
 
 class TicketActivity :
     AppCompatActivity(),
-    TicketView {
+    TicketContract.TicketView {
     private val present: TicketPresenter = TicketPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {

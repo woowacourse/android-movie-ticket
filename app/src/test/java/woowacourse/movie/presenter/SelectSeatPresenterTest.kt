@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.selectseat.SelectSeatPresenter
+import woowacourse.movie.feature.selectseat.SelectSeatView
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
@@ -15,7 +17,6 @@ import woowacourse.movie.model.ticket.seat.SeatRow
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.SeatsData
 import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.selectSeat.SelectSeatView
 
 class SelectSeatPresenterTest {
     private lateinit var selectSeatPresenter: SelectSeatPresenter

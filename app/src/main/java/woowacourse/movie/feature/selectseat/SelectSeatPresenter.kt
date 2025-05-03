@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.selectseat
 
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatToggleResult
@@ -6,10 +6,9 @@ import woowacourse.movie.model.ticket.seat.Seats
 import woowacourse.movie.model.ticket.seat.grade.RowBasedSeatGradePolicy
 import woowacourse.movie.view.model.SeatsData
 import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.selectSeat.SelectSeatView
 
 class SelectSeatPresenter(
-    private val view: SelectSeatView,
+    private val view: SelectSeatContract.View,
 ) {
     private val ticketDataEmptySeat: TicketData by lazy {
         view.getTicketData()

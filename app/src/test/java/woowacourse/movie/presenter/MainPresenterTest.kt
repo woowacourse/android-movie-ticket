@@ -5,8 +5,9 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.main.MainPresenter
+import woowacourse.movie.feature.main.MainView
 import woowacourse.movie.model.movie.screening.Screening
-import woowacourse.movie.view.main.MainView
 import woowacourse.movie.view.model.ImageResource
 import java.time.LocalDate
 

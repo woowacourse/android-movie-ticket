@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.feature.reservation
 
 import android.content.Context
 import android.content.Intent
@@ -17,19 +17,18 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.feature.selectseat.SelectSeatActivity
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.presenter.ReservationPresenter
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.model.setImageResource
-import woowacourse.movie.view.selectSeat.SelectSeatActivity
 import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationActivity :
     AppCompatActivity(),
-    ReservationView {
+    ReservationContract.View {
     private val present: ReservationPresenter = ReservationPresenter(this)
 
     override fun onSaveInstanceState(outState: Bundle) {

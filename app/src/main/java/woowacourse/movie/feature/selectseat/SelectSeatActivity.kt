@@ -1,4 +1,4 @@
-package woowacourse.movie.view.selectSeat
+package woowacourse.movie.feature.selectseat
 
 import android.content.Context
 import android.content.Intent
@@ -15,18 +15,17 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.feature.ticket.TicketActivity
 import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
-import woowacourse.movie.presenter.SelectSeatPresenter
 import woowacourse.movie.view.model.SeatIndexData
 import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.ticket.TicketActivity
 
 class SelectSeatActivity :
     AppCompatActivity(),
-    SelectSeatView {
+    SelectSeatContract.View {
     private val present: SelectSeatPresenter = SelectSeatPresenter(this)
     private var dialog: AlertDialog? = null
     private val seatTableView by lazy { findViewById<TableLayout>(R.id.tl_seat) }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".view.reservation.ReservationActivity">
+    tools:context=".feature.reservation.ReservationActivity">
 
     <ImageView
         android:id="@+id/iv_reservation_poster"

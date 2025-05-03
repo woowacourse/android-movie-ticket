@@ -4,7 +4,8 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.view.ticket.TicketView
+import woowacourse.movie.feature.ticket.TicketPresenter
+import woowacourse.movie.feature.ticket.TicketView
 
 class TicketPresenterTest {
     private lateinit var ticketView: TicketView

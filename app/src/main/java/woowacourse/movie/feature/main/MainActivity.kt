@@ -1,4 +1,4 @@
-package woowacourse.movie.view.main
+package woowacourse.movie.feature.main
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -8,15 +8,14 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.feature.reservation.ReservationActivity
 import woowacourse.movie.model.movie.Advertisement
 import woowacourse.movie.model.movie.screening.Screening
-import woowacourse.movie.presenter.MainPresenter
 import woowacourse.movie.view.model.ScreeningData
-import woowacourse.movie.view.reservation.ReservationActivity
 
 class MainActivity :
     AppCompatActivity(),
-    MainView {
+    MainContract.View {
     private val present: MainPresenter = MainPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {

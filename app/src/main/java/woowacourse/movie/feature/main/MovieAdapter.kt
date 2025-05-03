@@ -1,4 +1,4 @@
-package woowacourse.movie.view.main
+package woowacourse.movie.feature.main
 
 import android.view.LayoutInflater
 import android.view.View

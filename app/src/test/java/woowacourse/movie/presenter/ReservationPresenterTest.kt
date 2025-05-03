@@ -6,9 +6,10 @@ import io.mockk.verify
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.reservation.ReservationPresenter
+import woowacourse.movie.feature.reservation.ReservationView
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.model.ScreeningData
-import woowacourse.movie.view.reservation.ReservationView
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -12,6 +12,7 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.feature.main.MainActivity
 
 class MainActivityTest {
     @get:Rule
