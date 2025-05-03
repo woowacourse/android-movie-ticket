@@ -15,6 +15,7 @@ import woowacourse.movie.presenter.booking.complete.BookingCompleteContract
 import woowacourse.movie.presenter.booking.complete.BookingCompletePresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.ui.model.seat.SeatsUiModel
+import woowacourse.movie.ui.view.movie.MovieActivity
 import woowacourse.movie.util.DialogUtil
 
 class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
@@ -49,7 +50,8 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
 
     override fun showSeatsPosition(seatsPosition: String) {
         val seatsPositionView = findViewById<TextView>(R.id.tv_seats_position)
-        seatsPositionView.text = getString(R.string.screening_complete_seats_position, seatsPosition)
+        seatsPositionView.text =
+            getString(R.string.screening_complete_seats_position, seatsPosition)
     }
 
     override fun showTotalPrice(totalPrice: String) {
@@ -65,6 +67,8 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
     }
 
     override fun onSupportNavigateUp(): Boolean {
+        val intent = Intent(this, MovieActivity::class.java)
+        startActivity(intent)
         finish()
         return super.onSupportNavigateUp()
     }
