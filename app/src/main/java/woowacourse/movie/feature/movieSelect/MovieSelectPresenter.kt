@@ -1,12 +1,12 @@
-package woowacourse.movie.feature.main
+package woowacourse.movie.feature.movieSelect
 
 import woowacourse.movie.model.movie.Advertisement
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.model.ImageResource
 import woowacourse.movie.view.model.ScreeningData
 
-class MainPresenter(
-    private val view: MainContract.View,
+class MovieSelectPresenter(
+    private val view: MovieSelectContract.View,
 ) {
     fun initMainUI() {
         val screenings: List<Screening> = Screening.Companion.getDefaultScreenings()

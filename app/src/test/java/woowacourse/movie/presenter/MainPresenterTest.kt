@@ -5,26 +5,26 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.feature.main.MainPresenter
-import woowacourse.movie.feature.main.MainView
+import woowacourse.movie.feature.movieSelect.MainView
+import woowacourse.movie.feature.movieSelect.MovieSelectPresenter
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.model.ImageResource
 import java.time.LocalDate
 
 class MainPresenterTest {
-    private lateinit var mainPresenter: MainPresenter
+    private lateinit var movieSelectPresenter: MovieSelectPresenter
     private lateinit var mainView: MainView
 
     @BeforeEach
     fun setUp() {
         mainView = mockk(relaxed = true)
-        mainPresenter = MainPresenter(mainView)
+        movieSelectPresenter = MovieSelectPresenter(mainView)
     }
 
     @Test
     fun `기본 상영 목록으로 영화 리스트 UI를 초기화한다`() {
         // When
-        mainPresenter.initMainUI()
+        movieSelectPresenter.initMainUI()
 
         // Then
         verify { mainView.initMovieListUI(any(), any()) }
@@ -45,7 +45,7 @@ class MainPresenterTest {
         every { screening.runningTime } returns 120
 
         // When
-        mainPresenter.navigateToReservationUI(screening, poster)
+        movieSelectPresenter.navigateToReservationUI(screening, poster)
 
         // Then
         verify {

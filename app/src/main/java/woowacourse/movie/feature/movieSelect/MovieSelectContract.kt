@@ -1,10 +1,10 @@
-package woowacourse.movie.feature.main
+package woowacourse.movie.feature.movieSelect
 
 import woowacourse.movie.model.movie.Advertisement
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.model.ScreeningData
 
-interface MainContract {
+interface MovieSelectContract {
     interface View {
         fun initMovieListUI(
             screenings: List<Screening>,

@@ -12,11 +12,11 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.feature.main.MainActivity
+import woowacourse.movie.feature.movieSelect.MovieSelectActivity
 
 class MainActivityTest {
     @get:Rule
-    val activityRule = ActivityScenarioRule(MainActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieSelectActivity::class.java)
 
     @Test
     fun `첫번째_아이템에_영화_제목이_표시된다`() {

@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.main
+package woowacourse.movie.feature.movieSelect
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -13,10 +13,10 @@ import woowacourse.movie.model.movie.Advertisement
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.view.model.ScreeningData
 
-class MainActivity :
+class MovieSelectActivity :
     AppCompatActivity(),
-    MainContract.View {
-    private val present: MainPresenter = MainPresenter(this)
+    MovieSelectContract.View {
+    private val present: MovieSelectPresenter = MovieSelectPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

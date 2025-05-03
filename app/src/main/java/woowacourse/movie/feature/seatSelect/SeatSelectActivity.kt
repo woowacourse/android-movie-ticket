@@ -1,4 +1,4 @@
-package woowacourse.movie.feature.selectseat
+package woowacourse.movie.feature.seatSelect
 
 import android.content.Context
 import android.content.Intent
@@ -23,10 +23,10 @@ import woowacourse.movie.model.ticket.seat.SeatRow
 import woowacourse.movie.view.model.SeatIndexData
 import woowacourse.movie.view.model.TicketData
 
-class SelectSeatActivity :
+class SeatSelectActivity :
     AppCompatActivity(),
-    SelectSeatContract.View {
-    private val present: SelectSeatPresenter = SelectSeatPresenter(this)
+    SeatSelectContract.View {
+    private val present: SeatSelectPresenter = SeatSelectPresenter(this)
     private var dialog: AlertDialog? = null
     private val seatTableView by lazy { findViewById<TableLayout>(R.id.tl_seat) }
     private val ticketPriceTextView by lazy { findViewById<TextView>(R.id.tv_select_seat_selected_ticket_price) }
@@ -182,7 +182,7 @@ class SelectSeatActivity :
             context: Context,
             ticketData: TicketData,
         ): Intent =
-            Intent(context, SelectSeatActivity::class.java).apply {
+            Intent(context, SeatSelectActivity::class.java).apply {
                 putExtra(EXTRA_TICKET_DATA, ticketData)
             }
     }

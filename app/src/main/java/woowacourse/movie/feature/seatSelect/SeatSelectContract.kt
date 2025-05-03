@@ -1,10 +1,10 @@
-package woowacourse.movie.feature.selectseat
+package woowacourse.movie.feature.seatSelect
 
 import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.view.model.TicketData
 
-interface SelectSeatContract {
+interface SeatSelectContract {
     interface View {
         fun getTicketData(): TicketData
 

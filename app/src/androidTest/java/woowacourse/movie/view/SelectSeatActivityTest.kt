@@ -20,7 +20,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.feature.selectseat.SelectSeatActivity
+import woowacourse.movie.feature.seatSelect.SeatSelectActivity
 import woowacourse.movie.view.model.ResourceMapper
 import woowacourse.movie.view.model.ScreeningData
 import woowacourse.movie.view.model.TicketData
@@ -49,8 +49,8 @@ class SelectSeatActivityTest {
 
     @get:Rule
     val activityRule =
-        ActivityScenarioRule<SelectSeatActivity>(
-            SelectSeatActivity.Companion.newIntent(
+        ActivityScenarioRule<SeatSelectActivity>(
+            SeatSelectActivity.Companion.newIntent(
                 ApplicationProvider.getApplicationContext(),
                 ticketData,
             ),

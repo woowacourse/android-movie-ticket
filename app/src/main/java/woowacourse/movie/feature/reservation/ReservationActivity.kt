@@ -17,7 +17,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
-import woowacourse.movie.feature.selectseat.SelectSeatActivity
+import woowacourse.movie.feature.seatSelect.SeatSelectActivity
 import woowacourse.movie.model.movie.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.view.model.ScreeningData
@@ -185,7 +185,7 @@ class ReservationActivity :
     }
 
     override fun navigateToSelectSeatUI(ticketData: TicketData) {
-        startActivity(SelectSeatActivity.newIntent(this, ticketData))
+        startActivity(SeatSelectActivity.newIntent(this, ticketData))
     }
 
     companion object {
