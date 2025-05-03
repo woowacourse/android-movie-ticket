@@ -8,4 +8,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="screening_info_bg">#9160F9</color>
+    <color name="booking_seat_screen_info_bg">#494949</color>
+    <color name="booking_seat_bg">#EAEAEA</color>
+    <color name="booking_seat_b_rank">#8E13EF</color>
+    <color name="booking_seat_a_rank">#19D358</color>
+    <color name="booking_seat_s_rank">#1B48E9</color>
+    <color name="booking_seat_click_bg">#FAFF00</color>
 </resources>

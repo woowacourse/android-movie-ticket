@@ -25,6 +25,10 @@ data class BookingResult(
         return this.copy(headCount = headCount - 1)
     }
 
+    fun updateCount(count: Int): BookingResult {
+        return this.copy(headCount = count)
+    }
+
     fun updateDate(date: LocalDate): BookingResult {
         return this.copy(selectedDate = date)
     }

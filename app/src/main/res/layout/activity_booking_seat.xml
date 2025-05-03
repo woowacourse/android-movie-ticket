@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/booking_seat_bg"
+    tools:context=".ui.view.booking.seat.BookingSeatActivity">
+
+    <TextView
+        android:id="@+id/tv_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginEnd="34dp"
+        android:background="@color/booking_seat_screen_info_bg"
+        android:text="SCREEN"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="22sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_screen">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableLayout
+                android:id="@+id/tl_seat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="34dp"
+                android:layout_marginEnd="34dp"
+                android:gravity="center"
+                android:stretchColumns="1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/seat_1_1"
+                        style="@style/SeatBRank"
+                        android:text="A1" />
+
+                    <TextView
+                        android:id="@+id/seat_1_2"
+                        style="@style/SeatBRank"
+                        android:text="A2" />
+
+                    <TextView
+                        android:id="@+id/seat_1_3"
+                        style="@style/SeatBRank"
+                        android:text="A3" />
+
+                    <TextView
+                        android:id="@+id/seat_1_4"
+                        style="@style/SeatBRank"
+                        android:text="A4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/seat_2_1"
+                        style="@style/SeatBRank"
+                        android:text="B1" />
+
+                    <TextView
+                        android:id="@+id/seat_2_2"
+                        style="@style/SeatBRank"
+                        android:text="B2" />
+
+                    <TextView
+                        android:id="@+id/seat_2_3"
+                        style="@style/SeatBRank"
+                        android:text="B3" />
+
+                    <TextView
+                        android:id="@+id/seat_2_4"
+                        style="@style/SeatBRank"
+                        android:text="B4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/seat_3_1"
+                        style="@style/SeatSRank"
+                        android:text="C1" />
+
+                    <TextView
+                        android:id="@+id/seat_3_2"
+                        style="@style/SeatSRank"
+                        android:text="C2" />
+
+                    <TextView
+                        android:id="@+id/seat_3_3"
+                        style="@style/SeatSRank"
+                        android:text="C3" />
+
+                    <TextView
+                        android:id="@+id/seat_3_4"
+                        style="@style/SeatSRank"
+                        android:text="C4" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/seat_4_1"
+                        style="@style/SeatSRank"
+                        android:text="D1" />
+
+                    <TextView
+                        android:id="@+id/seat_4_2"
+                        style="@style/SeatSRank"
+                        android:text="D2" />
+
+                    <TextView
+                        android:id="@+id/seat_4_3"
+                        style="@style/SeatSRank"
+                        android:text="D3" />
+
+                    <TextView
+                        android:id="@+id/seat_4_4"
+                        style="@style/SeatSRank"
+                        android:text="D4" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/seat_5_1"
+                        style="@style/SeatARank"
+                        android:text="E1" />
+
+                    <TextView
+                        android:id="@+id/seat_5_2"
+                        style="@style/SeatARank"
+                        android:text="E2" />
+
+                    <TextView
+                        android:id="@+id/seat_5_3"
+                        style="@style/SeatARank"
+                        android:text="E3" />
+
+                    <TextView
+                        android:id="@+id/seat_5_4"
+                        style="@style/SeatARank"
+                        android:text="E4" />
+
+                </TableRow>
+            </TableLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_booking_seat_movie_title"
+        android:layout_width="0dp"
+        android:layout_height="39dp"
+        android:background="@color/white"
+        android:gravity="bottom"
+        android:maxLines="1"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/tv_booking_seat_movie_price"
+        app:layout_constraintEnd_toStartOf="@id/btn_booking_seat_reserve"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="해리포터와 마법사의 돌" />
+
+    <TextView
+        android:id="@+id/tv_booking_seat_movie_price"
+        android:layout_width="0dp"
+        android:layout_height="39dp"
+        android:background="@color/white"
+        android:paddingStart="15dp"
+        android:paddingEnd="0dp"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_booking_seat_reserve"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="25,000원" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_booking_seat_reserve"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:background="@color/white"
+        android:enabled="false"
+        android:text="@string/btn_booking_seat_confirm"
+        app:cornerRadius="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,9 +4,10 @@ import woowacourse.movie.R
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.model.movie.MovieUiModel
 import woowacourse.movie.ui.model.movie.Poster
-import woowacourse.movie.util.DateTimeUtil
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_DELIMITER
 import woowacourse.movie.util.DateTimeUtil.MOVIE_DATE_FORMAT
+import woowacourse.movie.util.DateTimeUtil.toFormattedString
+import woowacourse.movie.util.DateTimeUtil.toLocalDate
 
 object MovieModelMapper {
     private val posterDrawableMapper = hashMapOf<Long, Poster>()
@@ -16,8 +17,8 @@ object MovieModelMapper {
         return Movie(
             movieUiModel.id,
             movieUiModel.title,
-            DateTimeUtil.toLocalDate(movieUiModel.screeningStartDate, MOVIE_DATE_DELIMITER),
-            DateTimeUtil.toLocalDate(movieUiModel.screeningEndDate, MOVIE_DATE_DELIMITER),
+            movieUiModel.screeningStartDate.toLocalDate(MOVIE_DATE_DELIMITER),
+            movieUiModel.screeningEndDate.toLocalDate(MOVIE_DATE_DELIMITER),
             movieUiModel.runningTime.toInt(),
         )
     }
@@ -32,8 +33,8 @@ object MovieModelMapper {
             movie.id,
             poster,
             movie.title,
-            DateTimeUtil.toFormattedString(movie.screeningStartDate, MOVIE_DATE_FORMAT),
-            DateTimeUtil.toFormattedString(movie.screeningEndDate, MOVIE_DATE_FORMAT),
+            movie.screeningStartDate.toFormattedString(MOVIE_DATE_FORMAT),
+            movie.screeningEndDate.toFormattedString(MOVIE_DATE_FORMAT),
             movie.runningTime.toString(),
         )
     }
