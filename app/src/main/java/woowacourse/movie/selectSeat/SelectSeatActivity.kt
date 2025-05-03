@@ -33,7 +33,7 @@ class SelectSeatActivity :
         setTitle()
         setSeatClicker()
         setButton()
-        presenter.init(ticketUIModel)
+        presenter.loadSeats(ticketUIModel)
     }
 
     fun setTitle() {

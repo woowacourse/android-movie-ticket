@@ -22,7 +22,7 @@ interface SelectSeatContract {
     }
 
     interface Presenter {
-        fun init(ticketUIModel: TicketUIModel)
+        fun loadSeats(ticketUIModel: TicketUIModel)
 
         fun toggleSeat(
             tag: String,

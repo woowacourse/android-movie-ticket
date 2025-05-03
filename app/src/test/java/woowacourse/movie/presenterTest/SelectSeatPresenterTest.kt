@@ -29,13 +29,13 @@ class SelectSeatPresenterTest {
     fun setUp() {
         view = mockk(relaxed = true)
         presenter = SelectSeatPresenter(view)
-        presenter.init(ticketUI)
+        presenter.loadSeats(ticketUI)
         clearMocks(view)
     }
 
     @Test
     fun `viewCreated 하면 뷰 초기 설정 호출 순서대로 일어난다`() {
-        presenter.init(ticketUI)
+        presenter.loadSeats(ticketUI)
         verifySequence {
             view.showPrice(0)
             view.unableButton()
