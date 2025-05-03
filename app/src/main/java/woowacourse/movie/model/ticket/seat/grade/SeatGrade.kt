@@ -5,9 +5,9 @@ import woowacourse.movie.model.ticket.TicketPrice
 sealed class SeatGrade(
     val ticketPrice: TicketPrice,
 ) {
-    object B : SeatGrade(TicketPrice(10_000))
+    data object B : SeatGrade(TicketPrice(10_000))
 
-    object S : SeatGrade(TicketPrice(15_000))
+    data object S : SeatGrade(TicketPrice(15_000))
 
-    object A : SeatGrade(TicketPrice(12_000))
+    data object A : SeatGrade(TicketPrice(12_000))
 }
