@@ -16,8 +16,10 @@ kotlin = "2.1.0"
 ktlint = "12.1.0"
 mannodermaus-junit5 = "1.7.0"
 androidx_recyclerview = "1.2.1"
+mockk = "1.14.0"
 
 [libraries]
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
 androidx_recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx_recyclerview" }
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "androidx-activity-ktx" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidx-appcompat" }
