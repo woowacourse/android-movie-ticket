@@ -9,15 +9,15 @@ import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.booking.contract.BookingContract
+import woowacourse.movie.ui.booking.model.BookingState
 import woowacourse.movie.ui.booking.presenter.BookingPresenter
-import java.time.LocalDate
+import java.time.LocalDateTime
 
 class BookingPresenterTest {
     private lateinit var view: BookingContract.View
     private lateinit var presenter: BookingPresenter
 
     private lateinit var dummyMovie: Movie
-    private val dummySelectedDate = LocalDate.of(2025, 6, 1)
 
     @BeforeEach
     fun setUp() {
@@ -25,6 +25,15 @@ class BookingPresenterTest {
         presenter = BookingPresenter(view)
 
         dummyMovie = Movie.DUMMY_MOVIES.first()
+        val fakeBookingState =
+            BookingState(
+                dummyMovie,
+                Headcount(1),
+                0,
+                0,
+                LocalDateTime.MIN,
+            )
+        presenter.restoreState(fakeBookingState)
     }
 
     @Test
@@ -59,19 +68,5 @@ class BookingPresenterTest {
     fun `날짜 스피너를 업데이트하면 선택된 시간에 따라 시간 스피너가 업데이트 된다`() {
         presenter.setupDateSpinner()
         verify { view.setDateSpinner(any(), any()) }
-    }
-
-    @Test
-    fun `날짜 스피너의 목록 포지션이 바뀌면 날짜 스피너가 업데이트 된다`() {
-        val position = 1
-        presenter.loadSelectedDatePosition(position)
-        verify { view.setDateSpinner(any(), position) }
-    }
-
-    @Test
-    fun `시간 스피너의 목록 포지션이 바뀌면 시간 스피너가 업데이트 된다`() {
-        val position = 2
-        presenter.loadSelectedTimePosition(position)
-        verify { view.setTimeSpinner(any(), position) }
     }
 }

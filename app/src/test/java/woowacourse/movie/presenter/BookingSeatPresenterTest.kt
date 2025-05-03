@@ -4,6 +4,7 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.ui.seat.contract.BookingSeatContract
 import woowacourse.movie.ui.seat.view.BookingSeatPresenter
@@ -38,23 +39,24 @@ class BookingSeatPresenterTest {
 
     @Test
     fun `좌석을 선택하면 좌석이 추가되고 View가 업데이트 된다`() {
-        presenter.selectSeat("A1")
-        verify { view.toggleSeat(Seat.fromSeatTag("A1"), true) }
+        presenter.selectSeat(Seat(0, 0))
+        verify { view.toggleSeat(Seat(0, 0), true) }
         verify { view.setTotalPrice(any()) }
         verify { view.setConfirmButton(any()) }
     }
 
     @Test
     fun `선택한 좌석 수가 인원 수와 다르면 확인 버튼이 비활성화된다`() {
-        presenter.selectSeat("A1")
+        presenter.restoreHeadcount(Headcount(2))
+        presenter.selectSeat(Seat(0, 0))
         // Headcount는 2이지만, 좌석이 아직 하나만 선택되었다.
         verify { view.setConfirmButton(false) }
     }
 
     @Test
     fun `선택한 좌석 수가 인원 수와 같으면 확인 버튼이 활성화된다`() {
-        presenter.selectSeat("A1")
-        presenter.selectSeat("A2")
+        presenter.selectSeat(Seat(0, 0))
+        presenter.selectSeat(Seat(0, 1))
         verify { view.setConfirmButton(true) }
     }
 }

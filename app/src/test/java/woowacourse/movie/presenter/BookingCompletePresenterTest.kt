@@ -1,13 +1,11 @@
 package woowacourse.movie.presenter
 
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.BookedTicket
 import woowacourse.movie.domain.model.Headcount
-import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.complete.contract.BookingCompleteContract
 import woowacourse.movie.ui.complete.presenter.BookingCompletePresenter
@@ -21,13 +19,14 @@ class BookingCompletePresenterTest {
     fun setUp() {
         view = mockk(relaxed = true)
         presenter = BookingCompletePresenter(view)
-        every { view.getBookedTicket() } returns
-                BookedTicket(
-                    "해리 포터",
-                    Headcount(1),
-                    LocalDateTime.of(2025, 1, 1, 12, 0),
-                    Seats().apply { Seat(1, 1) },
-                )
+        val fakeBookedTicket =
+            BookedTicket(
+                movieName = "해리 포터와 마법사의 돌",
+                dateTime = LocalDateTime.of(2025, 5, 3, 20, 0),
+                headcount = Headcount(2),
+                seats = Seats(),
+            )
+        presenter.loadBookedTicket(fakeBookedTicket)
     }
 
     @Test
