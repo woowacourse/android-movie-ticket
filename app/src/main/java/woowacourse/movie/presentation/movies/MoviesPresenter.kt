@@ -1,5 +1,6 @@
 package woowacourse.movie.presentation.movies
 
+import woowacourse.movie.domain.model.Advertise
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.movie.ScreeningMovies
 
@@ -9,7 +10,8 @@ class MoviesPresenter(
 ) : MoviesContract.Presenter {
     override fun onViewCreated() {
         val screeningMovies = screeningMovies.getData()
-        view.showMovies(screeningMovies)
+        val advertise = Advertise(screeningMovies)
+        view.showMovies(advertise.insertAdvertisement())
     }
 
     override fun onMovieClicked(movie: Movie) {

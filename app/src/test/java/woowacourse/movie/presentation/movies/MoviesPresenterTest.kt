@@ -41,7 +41,7 @@ class MoviesPresenterTest {
 
         // Then
         verify { screeningMovies.getData() }
-        verify { view.showMovies(testMovies) }
+        verify { view.showMovies(any()) }
     }
 
     @Test

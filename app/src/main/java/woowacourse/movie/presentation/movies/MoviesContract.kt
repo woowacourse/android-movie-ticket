@@ -4,7 +4,7 @@ import woowacourse.movie.domain.model.movie.Movie
 
 interface MoviesContract {
     interface View {
-        fun showMovies(movies: List<Movie>)
+        fun showMovies(items: List<MoviesItem>)
 
         fun navigateToBooking(movie: Movie)
     }
