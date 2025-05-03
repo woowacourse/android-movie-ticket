@@ -27,10 +27,10 @@ class MovieAdapter(
         var adIndex = 0
         screenings.foldIndexed(mutableListOf<MainItem>()) { idx, mainItems, screening ->
             mainItems.apply {
-                add(MainItem.Movie(screening))
+                add(MainItem.MovieItem(screening))
 
                 if ((idx + 1) % AD_SHOW_CYCLE == 0 && ads.isNotEmpty()) {
-                    add(MainItem.Advertisement(ads[adIndex % ads.size]))
+                    add(MainItem.AdItem(ads[adIndex % ads.size]))
                     adIndex++
                 }
             }
@@ -47,7 +47,7 @@ class MovieAdapter(
         private val posterImageView: ImageView = view.findViewById(R.id.iv_item_movie_poster)
         private val reserveButton: Button = view.findViewById(R.id.btn_item_movie_reserve)
 
-        fun bind(item: MainItem.Movie) {
+        fun bind(item: MainItem.MovieItem) {
             val screening = item.screening
             val context = itemView.context
 
@@ -77,7 +77,7 @@ class MovieAdapter(
     ) : RecyclerView.ViewHolder(view) {
         private val bannerImageView: ImageView = view.findViewById(R.id.iv_ad_banner)
 
-        fun bind(item: MainItem.Advertisement) {
+        fun bind(item: MainItem.AdItem) {
             bannerImageView.setImageResource(ResourceMapper.adIdToBannerImageResource(item.ad.adId))
         }
     }
@@ -111,8 +111,8 @@ class MovieAdapter(
         position: Int,
     ) {
         when (val item = mainItems[position]) {
-            is MainItem.Movie -> (holder as MovieViewHolder).bind(item)
-            is MainItem.Advertisement -> (holder as AdBannerViewHolder).bind(item)
+            is MainItem.MovieItem -> (holder as MovieViewHolder).bind(item)
+            is MainItem.AdItem -> (holder as AdBannerViewHolder).bind(item)
         }
     }
 
@@ -120,8 +120,8 @@ class MovieAdapter(
 
     override fun getItemViewType(position: Int): Int =
         when (mainItems[position]) {
-            is MainItem.Movie -> VIEW_TYPE_MOVIE
-            is MainItem.Advertisement -> VIEW_TYPE_AD
+            is MainItem.MovieItem -> VIEW_TYPE_MOVIE
+            is MainItem.AdItem -> VIEW_TYPE_AD
         }
 
     companion object {

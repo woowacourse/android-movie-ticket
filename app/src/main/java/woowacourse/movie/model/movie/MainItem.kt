@@ -3,11 +3,11 @@ package woowacourse.movie.model.movie
 import woowacourse.movie.model.movie.screening.Screening
 
 sealed class MainItem {
-    data class Movie(
+    data class MovieItem(
         val screening: Screening,
     ) : MainItem()
 
-    data class Advertisement(
-        val ad: woowacourse.movie.model.movie.Advertisement,
+    data class AdItem(
+        val ad: Advertisement,
     ) : MainItem()
 }
