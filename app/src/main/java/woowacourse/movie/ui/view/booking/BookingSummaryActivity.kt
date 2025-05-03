@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
+import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.presenter.BookingSummaryPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
 import woowacourse.movie.ui.view.BaseActivity
@@ -53,8 +54,16 @@ class BookingSummaryActivity :
         private fun formatHeadCount(
             message: String,
             headCount: Int,
-            selectedSeats: List<String>,
-        ): String = String.format(message, headCount, selectedSeats.joinToString())
+            selectedSeats: List<Seat>,
+        ): String {
+            val cols = listOf(1, 2, 3, 4)
+            val rows = listOf("A", "B", "C", "D", "E")
+            val formatSeats =
+                selectedSeats.map { seat ->
+                    "${rows[seat.row]}${cols[seat.col]}"
+                }
+            return String.format(message, headCount, formatSeats.joinToString())
+        }
 
         fun formatAmount(
             message: String,
