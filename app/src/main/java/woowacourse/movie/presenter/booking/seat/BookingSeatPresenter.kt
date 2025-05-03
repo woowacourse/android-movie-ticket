@@ -65,6 +65,10 @@ class BookingSeatPresenter(
         view.showTotalPrice(totalPrice)
     }
 
+    override fun updateConfirmButton() {
+        view.showConfirmButton(seats.isSeatSelectionComplete())
+    }
+
     override fun proceedToBookingResult() {
         val seatsUiModel = SeatsModelMapper.toUi(seats)
         view.moveToBookingResultScreen(bookingResultUiModel, seatsUiModel)

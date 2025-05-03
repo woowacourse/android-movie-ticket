@@ -14,6 +14,8 @@ interface BookingSeatContract {
 
         fun updatePrice()
 
+        fun updateConfirmButton()
+
         fun proceedToBookingResult()
     }
 
@@ -38,5 +40,7 @@ interface BookingSeatContract {
             bookingResultUiModel: BookingResultUiModel,
             seatsUiModel: SeatsUiModel,
         )
+
+        fun showConfirmButton(isEnabled: Boolean)
     }
 }

@@ -31,6 +31,9 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         resources.getColor(R.color.booking_seat_click_bg, null)
     }
 
+    private val reserveButton: Button by lazy { findViewById(R.id.btn_booking_seat_reserve) }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -92,6 +95,10 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         )
     }
 
+    override fun showConfirmButton(isEnabled: Boolean) {
+        reserveButton.isEnabled = isEnabled
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
@@ -115,6 +122,7 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
                 val seatPosition = textView.text.toString()
                 textView.setOnClickListener {
                     presenter.updateSeat(seatPosition)
+                    presenter.updateConfirmButton()
                 }
                 seatPosition to textView
             }
@@ -130,7 +138,6 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
     }
 
     private fun setOnConfirmClickListener() {
-        val reserveButton = findViewById<Button>(R.id.btn_booking_seat_reserve)
         reserveButton.setOnClickListener {
             DialogUtil.makeDialog(
                 this@BookingSeatActivity,
