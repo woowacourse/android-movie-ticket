@@ -12,7 +12,7 @@ class SeatTypeTest {
     fun `A 행은 B등급이며 좌석 요금은 10000원이다`() {
         // Given
         seatName = "A"
-        seatType = SeatType.fromSeatName(seatName)
+        seatType = SeatType.fromSeat(seatName)
 
         // Then
         seatType.price shouldBe 10000
@@ -22,7 +22,7 @@ class SeatTypeTest {
     fun `B 행은 B등급이며 좌석 요금은 10000원이다`() {
         // Given
         seatName = "B"
-        seatType = SeatType.fromSeatName(seatName)
+        seatType = SeatType.fromSeat(seatName)
 
         // Then
         seatType shouldBe SeatType.B
@@ -33,7 +33,7 @@ class SeatTypeTest {
     fun `C 행은 S등급이며 좌석 요금은 15000원이다`() {
         // Given
         seatName = "C"
-        seatType = SeatType.fromSeatName(seatName)
+        seatType = SeatType.fromSeat(seatName)
 
         // Then
         seatType shouldBe SeatType.S
@@ -44,7 +44,7 @@ class SeatTypeTest {
     fun `D 행은 S등급이며 좌석 요금은 15000원이다`() {
         // Given
         seatName = "D"
-        seatType = SeatType.fromSeatName(seatName)
+        seatType = SeatType.fromSeat(seatName)
 
         // Then
         seatType shouldBe SeatType.S
@@ -55,7 +55,7 @@ class SeatTypeTest {
     fun `E 행은 A등급이며 좌석 요금은 12000원이다`() {
         // Given
         seatName = "E"
-        seatType = SeatType.fromSeatName(seatName)
+        seatType = SeatType.fromSeat(seatName)
 
         // Then
         seatType shouldBe SeatType.A

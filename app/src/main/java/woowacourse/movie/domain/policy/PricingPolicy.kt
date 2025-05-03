@@ -1,10 +1,12 @@
 package woowacourse.movie.domain.policy
 
+import woowacourse.movie.domain.model.Seat
+
 class PricingPolicy(
-    private val selectedSeats: List<String>,
+    private val selectedSeats: List<Seat>,
 ) {
     fun calculatePrice(): Int =
-        selectedSeats.sumOf { seatName ->
-            SeatType.fromSeatName(seatName).price
+        selectedSeats.sumOf { seat ->
+            SeatType.fromSeat(seat).price
         }
 }
