@@ -18,6 +18,7 @@ import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.ui.PosterIdMapper
 import woowacourse.movie.ui.booking.contract.BookingContract
+import woowacourse.movie.ui.booking.model.BookingState
 import woowacourse.movie.ui.booking.presenter.BookingPresenter
 import woowacourse.movie.ui.seat.view.BookingSeatActivity
 import woowacourse.movie.utils.StringFormatter.dotDateFormat
@@ -44,22 +45,52 @@ class BookingActivity :
 
         applyWindowInsets()
 
-        bookingPresenter.loadMovie()
+        initializeFromIntent()
+        savedInstanceState?.let { restoreState(it) }
         bookingPresenter.updateViews()
         setButtonClickListeners()
     }
 
-    override fun getMovie(): Movie? = intent.intentSerializable(EXTRA_MOVIE, Movie::class.java)
+    private fun initializeFromIntent() {
+        val movie =
+            intent.intentSerializable(EXTRA_MOVIE, Movie::class.java) ?: Movie.DUMMY_MOVIES.first()
+        bookingPresenter.restoreState(
+            BookingState(
+                movie,
+                Headcount(),
+                0,
+                0,
+                LocalDateTime.MIN,
+            ),
+        )
+    }
 
-    override fun getSelectedDateTime(): LocalDateTime =
+    private fun restoreState(savedInstanceState: Bundle) {
+        val movie =
+            savedInstanceState.bundleSerializable(EXTRA_MOVIE, Movie::class.java)
+                ?: Movie.DUMMY_MOVIES.first()
+        val headcount =
+            savedInstanceState.bundleSerializable(KEY_PEOPLE_COUNT, Headcount::class.java)
+                ?: Headcount()
+        val selectedDatePosition: Int = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION)
+        val selectedTimePosition: Int = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
+
+        bookingPresenter.restoreState(
+            BookingState(
+                movie,
+                headcount,
+                selectedDatePosition,
+                selectedTimePosition,
+                selectedDateTime(),
+            ),
+        )
+    }
+
+    private fun selectedDateTime(): LocalDateTime =
         LocalDateTime.of(
             dateSpinner.selectedItem as LocalDate,
             timeSpinner.selectedItem as LocalTime,
         )
-
-    override fun getSelectedDate(): LocalDate = dateSpinner.selectedItem as LocalDate
-
-    override fun getSelectedTimePosition(): Int = timeSpinner.selectedItemPosition
 
     override fun setMovieInfoViews(movie: Movie) {
         val movieTitleView: TextView = findViewById(R.id.tv_title)
@@ -95,9 +126,7 @@ class BookingActivity :
             setSelection(position)
 
             onItemSelectedListener =
-                AdapterItemSelectedListener { pos ->
-                    bookingPresenter.setupTimeSpinner()
-                }
+                AdapterItemSelectedListener { bookingPresenter.setupTimeSpinner() }
         }
         bookingPresenter.setupTimeSpinner()
     }
@@ -116,9 +145,6 @@ class BookingActivity :
             if (spinnerItems.isNotEmpty()) {
                 setSelection(position)
             }
-            onItemSelectedListener =
-                AdapterItemSelectedListener { pos ->
-                }
         }
     }
 
@@ -142,25 +168,14 @@ class BookingActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putSerializable(KEY_PEOPLE_COUNT, bookingPresenter.headcount)
-        outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
-        outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
-    }
+        val savedBookingState = bookingPresenter.savedBookingState()
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-
-        val headcount =
-            savedInstanceState.bundleSerializable(
-                KEY_PEOPLE_COUNT,
-                Headcount::class.java,
-            ) as Headcount
-        val selectedDatePosition: Int = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION)
-        val selectedTimePosition: Int = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
-
-        bookingPresenter.restoreHeadcount(headcount)
-        bookingPresenter.setSelectedDatePosition(selectedDatePosition)
-        bookingPresenter.setSelectedTimePosition(selectedTimePosition)
+        with(savedBookingState) {
+            outState.putSerializable(KEY_MOVIE, movie)
+            outState.putSerializable(KEY_PEOPLE_COUNT, bookingPresenter.headcount)
+            outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
+            outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
+        }
     }
 
     private fun applyWindowInsets() {
@@ -196,6 +211,7 @@ class BookingActivity :
     private fun setBookingCompleteButtonClickListener() {
         val bookingCompleteBtn: Button = findViewById(R.id.btn_booking_complete)
         bookingCompleteBtn.setOnClickListener {
+            bookingPresenter.loadSelectedLocalDateTime(selectedDateTime())
             bookingPresenter.completeBooking()
         }
     }
@@ -209,6 +225,7 @@ class BookingActivity :
                 putExtra(EXTRA_MOVIE, movie)
             }
 
+        private const val KEY_MOVIE = "movie"
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
         private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"

@@ -2,6 +2,7 @@ package woowacourse.movie.ui.booking.contract
 
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.booking.model.BookingState
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -12,7 +13,15 @@ interface BookingContract {
 
         fun increaseHeadcount()
 
-        fun loadMovie(): Movie
+        fun restoreState(bookingState: BookingState)
+
+        fun savedBookingState(): BookingState
+
+        fun loadSelectedDatePosition(selectedDatePosition: Int)
+
+        fun loadSelectedTimePosition(selectedTimePosition: Int)
+
+        fun loadSelectedLocalDateTime(selectedDateTime: LocalDateTime)
 
         fun completeBooking()
 
@@ -25,21 +34,9 @@ interface BookingContract {
         fun setupDateSpinner()
 
         fun setupTimeSpinner()
-
-        fun setSelectedDatePosition(position: Int)
-
-        fun setSelectedTimePosition(position: Int)
     }
 
     interface View {
-        fun getMovie(): Movie?
-
-        fun getSelectedDate(): LocalDate
-
-        fun getSelectedTimePosition(): Int
-
-        fun getSelectedDateTime(): LocalDateTime
-
         fun setMovieInfoViews(movie: Movie)
 
         fun updateHeadcountDisplay(headcount: Headcount)

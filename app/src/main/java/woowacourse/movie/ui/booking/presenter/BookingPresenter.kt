@@ -5,6 +5,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.domain.model.ScreeningTime
 import woowacourse.movie.ui.booking.contract.BookingContract
+import woowacourse.movie.ui.booking.model.BookingState
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -14,15 +15,16 @@ class BookingPresenter(
     private var _headcount: Headcount = Headcount()
     val headcount get() = _headcount.deepCopy()
 
-    private val movie: Movie by lazy { loadMovie() }
+    private lateinit var movie: Movie
 
     private var selectedDatePosition: Int = 0
     private var selectedTimePosition: Int = 0
-    private val selectedDateTime: LocalDateTime get() = bookingView.getSelectedDateTime()
+    private lateinit var selectedDateTime: LocalDateTime
 
     fun updateViews() {
         refreshMovieInfo()
         setupDateSpinner()
+        setupTimeSpinner()
     }
 
     override fun increaseHeadcount() {
@@ -30,19 +32,48 @@ class BookingPresenter(
         bookingView.updateHeadcountDisplay(_headcount)
     }
 
+    override fun savedBookingState(): BookingState =
+        BookingState(
+            movie,
+            headcount,
+            selectedDatePosition,
+            selectedTimePosition,
+            selectedDateTime,
+        )
+
+    override fun restoreState(bookingState: BookingState) {
+        with(bookingState) {
+            this@BookingPresenter.movie = movie
+            this@BookingPresenter._headcount = headcount
+            this@BookingPresenter.selectedDatePosition = selectedDatePosition
+            this@BookingPresenter.selectedTimePosition = selectedTimePosition
+            this@BookingPresenter.selectedDateTime = selectedDateTime
+        }
+    }
+
+    override fun restoreHeadcount(headcount: Headcount) {
+        this._headcount = headcount
+    }
+
+    override fun loadSelectedDatePosition(selectedDatePosition: Int) {
+        this.selectedDatePosition = selectedDatePosition
+    }
+
+    override fun loadSelectedTimePosition(selectedTimePosition: Int) {
+        this.selectedTimePosition = selectedTimePosition
+    }
+
+    override fun loadSelectedLocalDateTime(selectedDateTime: LocalDateTime) {
+        this.selectedDateTime = selectedDateTime
+    }
+
     override fun decreaseHeadcount() {
         _headcount.decrease()
         bookingView.updateHeadcountDisplay(_headcount)
     }
 
-    override fun loadMovie(): Movie = bookingView.getMovie() ?: Movie.Companion.DUMMY_MOVIES.first()
-
     override fun refreshMovieInfo() {
         bookingView.setMovieInfoViews(movie)
-    }
-
-    override fun restoreHeadcount(headcount: Headcount) {
-        this._headcount = headcount
     }
 
     override fun refreshHeadcountDisplay() {
@@ -58,21 +89,13 @@ class BookingPresenter(
     }
 
     override fun setupTimeSpinner() {
-        val selectedDate = bookingView.getSelectedDate()
         val screeningTimes =
-            ScreeningTime().getAvailableScreeningTimes(LocalDateTime.now(), selectedDate)
+            ScreeningTime().getAvailableScreeningTimes(
+                LocalDateTime.now(),
+                selectedDateTime.toLocalDate(),
+            )
 
         bookingView.setTimeSpinner(screeningTimes, selectedTimePosition)
-    }
-
-    override fun setSelectedDatePosition(position: Int) {
-        selectedDatePosition = position
-        setupDateSpinner()
-    }
-
-    override fun setSelectedTimePosition(position: Int) {
-        selectedTimePosition = position
-        setupTimeSpinner()
     }
 
     override fun completeBooking() {

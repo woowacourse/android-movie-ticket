@@ -1,6 +1,5 @@
 package woowacourse.movie.presenter
 
-import io.mockk.every
 import io.mockk.mockk
 import io.mockk.slot
 import io.mockk.verify
@@ -26,9 +25,6 @@ class BookingPresenterTest {
         presenter = BookingPresenter(view)
 
         dummyMovie = Movie.DUMMY_MOVIES.first()
-
-        every { view.getMovie() } returns dummyMovie
-        every { view.getSelectedDate() } returns dummySelectedDate
     }
 
     @Test
@@ -45,12 +41,6 @@ class BookingPresenterTest {
     fun `인원 수가 감소하면 인원 수 텍스트가 업데이트 된다`() {
         presenter.decreaseHeadcount()
         verify { view.updateHeadcountDisplay(any()) }
-    }
-
-    @Test
-    fun `뷰에서 영화를 받아올 수 있다`() {
-        presenter.loadMovie()
-        verify { view.getMovie() }
     }
 
     @Test
@@ -74,14 +64,14 @@ class BookingPresenterTest {
     @Test
     fun `날짜 스피너의 목록 포지션이 바뀌면 날짜 스피너가 업데이트 된다`() {
         val position = 1
-        presenter.setSelectedDatePosition(position)
+        presenter.loadSelectedDatePosition(position)
         verify { view.setDateSpinner(any(), position) }
     }
 
     @Test
     fun `시간 스피너의 목록 포지션이 바뀌면 시간 스피너가 업데이트 된다`() {
         val position = 2
-        presenter.setSelectedTimePosition(position)
+        presenter.loadSelectedTimePosition(position)
         verify { view.setTimeSpinner(any(), position) }
     }
 }
