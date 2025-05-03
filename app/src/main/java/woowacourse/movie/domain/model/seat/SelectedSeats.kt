@@ -1,7 +1,5 @@
 package woowacourse.movie.domain.model.seat
 
-import java.util.Locale
-
 class SelectedSeats(
     private val headCount: Int,
     private val _seats: MutableSet<Seat> = mutableSetOf(),
@@ -15,7 +13,7 @@ class SelectedSeats(
             return
         } else {
             require(_seats.size < headCount) {
-                String.format(Locale.getDefault(), SELECT_MESSAGE, headCount)
+                SELECT_MESSAGE
             }
             _seats.add(seat)
         }
