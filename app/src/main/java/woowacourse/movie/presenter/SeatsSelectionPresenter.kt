@@ -16,6 +16,11 @@ class SeatsSelectionPresenter(
     private val movieTicket = movieTicketService.createMovieTicket(reservedMovie)
     private val pricingPolicy: PricingPolicy = PricingPolicy(movieTicket.selectedSeats)
 
+    init {
+        loadMovieTitle()
+        loadAmount()
+    }
+
     override fun onConfirm() {
         view.navigateToBookingSummary(movieTicket)
     }

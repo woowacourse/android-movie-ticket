@@ -35,8 +35,6 @@ class SeatsSelectionActivity :
         setupScreen(R.layout.activity_seat_selection)
 
         presenter = SeatsSelectionPresenter(this, reservedMovie)
-        presenter.loadMovieTitle()
-        presenter.loadAmount()
         setupConfirmButtonListener()
         setupSeatButtonsListener()
     }
