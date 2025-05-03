@@ -1,7 +1,6 @@
 package woowacourse.movie.seating
 
 import woowacourse.movie.domain.ReservationInfo
-import woowacourse.movie.domain.Row
 import woowacourse.movie.domain.Seat
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.utils.PriceFormatter
@@ -25,12 +24,11 @@ class SeatingPresenter(private val view: SeatingContract.View) : SeatingContract
         val selectedSeat = Seat(seat)
         if (selectedSeats.contains(selectedSeat)) {
             selectedSeats.remove(selectedSeat)
-            view.showSeat(selectedSeats)
         } else if (selectedSeats.size < reservationInfo.personnel) {
             selectedSeats.add(selectedSeat)
-        } else {
-            view.showSeat(selectedSeats)
         }
+
+        view.showSeat(selectedSeats)
 
         totalPrice = selectedSeats.sumOf { it.price() }
         val formattedPrice = priceFormatter.format(totalPrice)
