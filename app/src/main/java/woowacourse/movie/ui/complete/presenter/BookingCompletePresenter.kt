@@ -1,28 +1,21 @@
 package woowacourse.movie.ui.complete.presenter
 
 import woowacourse.movie.domain.model.BookedTicket
-import woowacourse.movie.domain.model.Headcount
-import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.complete.contract.BookingCompleteContract
-import java.time.LocalDateTime
 
 class BookingCompletePresenter(
     private val bookingCompleteView: BookingCompleteContract.View,
 ) : BookingCompleteContract.Presenter {
-    private val bookedTicket: BookedTicket by lazy { loadBookedTicket() }
+    private lateinit var bookedTicket: BookedTicket
 
     fun updateViews() {
         refreshBookedTicketDisplay()
         refreshTicketPrice()
     }
 
-    override fun loadBookedTicket(): BookedTicket =
-        bookingCompleteView.getBookedTicket() ?: BookedTicket(
-            "NULL",
-            Headcount(),
-            LocalDateTime.now(),
-            Seats(),
-        )
+    override fun loadBookedTicket(bookedTicket: BookedTicket) {
+        this.bookedTicket = bookedTicket
+    }
 
     override fun refreshTicketPrice() {
         val price = bookedTicket.totalPrice()

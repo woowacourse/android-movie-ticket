@@ -12,12 +12,15 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.BookedTicket
+import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.complete.contract.BookingCompleteContract
 import woowacourse.movie.ui.complete.presenter.BookingCompletePresenter
 import woowacourse.movie.ui.movielist.view.MovieListActivity
 import woowacourse.movie.utils.StringFormatter
 import woowacourse.movie.utils.intentSerializable
+import java.time.LocalDateTime
 
 class BookingCompleteActivity :
     AppCompatActivity(),
@@ -31,10 +34,16 @@ class BookingCompleteActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applyWindowInsets()
-        bookingCompletePresenter.loadBookedTicket()
+        initializeFromIntent()
         bookingCompletePresenter.updateViews()
-
         setOnBackPressedCallback()
+    }
+
+    private fun initializeFromIntent() {
+        val bookedTicket =
+            intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java)
+                ?: BookedTicket("", Headcount(), LocalDateTime.MIN, Seats())
+        bookingCompletePresenter.loadBookedTicket(bookedTicket)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean =
@@ -46,9 +55,6 @@ class BookingCompleteActivity :
 
             else -> super.onOptionsItemSelected(item)
         }
-
-    override fun getBookedTicket(): BookedTicket? =
-        intent.intentSerializable(EXTRA_BOOKED_TICKET, BookedTicket::class.java)
 
     override fun setBookedTicket(bookedTicket: BookedTicket) {
         val movieNameTextView: TextView = findViewById(R.id.tv_title)
