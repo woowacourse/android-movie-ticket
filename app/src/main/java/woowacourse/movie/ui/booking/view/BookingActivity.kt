@@ -45,13 +45,13 @@ class BookingActivity :
 
         applyWindowInsets()
 
-        initializeFromIntent()
+        initializeStateFromIntent()
         savedInstanceState?.let { restoreState(it) }
         bookingPresenter.updateViews()
         setButtonClickListeners()
     }
 
-    private fun initializeFromIntent() {
+    private fun initializeStateFromIntent() {
         val movie =
             intent.intentSerializable(EXTRA_MOVIE, Movie::class.java) ?: Movie.DUMMY_MOVIES.first()
         bookingPresenter.restoreState(
@@ -66,24 +66,17 @@ class BookingActivity :
     }
 
     private fun restoreState(savedInstanceState: Bundle) {
-        val movie =
-            savedInstanceState.bundleSerializable(EXTRA_MOVIE, Movie::class.java)
-                ?: Movie.DUMMY_MOVIES.first()
-        val headcount =
-            savedInstanceState.bundleSerializable(KEY_PEOPLE_COUNT, Headcount::class.java)
-                ?: Headcount()
-        val selectedDatePosition: Int = savedInstanceState.getInt(KEY_SELECTED_DATE_POSITION)
-        val selectedTimePosition: Int = savedInstanceState.getInt(KEY_SELECTED_TIME_POSITION)
-
-        bookingPresenter.restoreState(
-            BookingState(
-                movie,
-                headcount,
-                selectedDatePosition,
-                selectedTimePosition,
-                selectedDateTime(),
-            ),
-        )
+        val bookingState =
+            with(savedInstanceState) {
+                BookingState(
+                    bundleSerializable(KEY_MOVIE, Movie::class.java) ?: Movie.DUMMY_MOVIES.first(),
+                    bundleSerializable(KEY_HEADCOUNT, Headcount::class.java) ?: Headcount(),
+                    getInt(KEY_SELECTED_DATE_POSITION),
+                    getInt(KEY_SELECTED_TIME_POSITION),
+                    selectedDateTime(),
+                )
+            }
+        bookingPresenter.restoreState(bookingState)
     }
 
     private fun selectedDateTime(): LocalDateTime =
@@ -172,7 +165,7 @@ class BookingActivity :
 
         with(savedBookingState) {
             outState.putSerializable(KEY_MOVIE, movie)
-            outState.putSerializable(KEY_PEOPLE_COUNT, bookingPresenter.headcount)
+            outState.putSerializable(KEY_HEADCOUNT, bookingPresenter.headcount)
             outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
             outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
         }
@@ -228,7 +221,7 @@ class BookingActivity :
         private const val KEY_MOVIE = "movie"
         private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
         private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
-        private const val KEY_PEOPLE_COUNT = "SAVED_PEOPLE_COUNT"
+        private const val KEY_HEADCOUNT = "SAVED_PEOPLE_COUNT"
 
         private const val EXTRA_MOVIE = "movie"
     }
