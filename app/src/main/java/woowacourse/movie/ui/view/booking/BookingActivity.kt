@@ -11,6 +11,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservedMovie
 import woowacourse.movie.presenter.BookingPresenter
 import woowacourse.movie.ui.mapper.PosterMapper
@@ -25,20 +26,26 @@ class BookingActivity :
     BookingContract.View {
     private lateinit var headCountView: TextView
     private lateinit var presenter: BookingPresenter
+    private lateinit var dateSpinner: Spinner
+    private lateinit var timeSpinner: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!canLoadMovie()) return
-        if (savedInstanceState != null) loadSavedInstanceState(savedInstanceState)
         setupScreen(R.layout.activity_booking)
-        showSelectedMovie()
+
+        dateSpinner = findViewById(R.id.dateSpinner)
+        timeSpinner = findViewById(R.id.timeSpinner)
+
+        if (!canLoadMovie()) return
+
+        if (savedInstanceState != null) showSavedBookingInfo(savedInstanceState)
+        presenter.loadSelectedMovie()
         setupTicketQuantityButtonListeners()
         setupSelectButtonListener()
         presenter.loadAvailableDates()
     }
 
-    override fun showSelectedMovie() {
-        val movie = presenter.getMovie()
+    override fun showSelectedMovie(movie: Movie) {
         val imagePoster = findViewById<ImageView>(R.id.poster)
         val posterRes = PosterMapper.mapMovieIdToDrawableRes(movie.id)
         imagePoster.setImage(posterRes)
@@ -60,9 +67,12 @@ class BookingActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putInt(KEY_HEAD_COUNT, presenter.getHeadCount())
-        outState.putString(KEY_DATE, presenter.selectedDate.toString())
-        outState.putString(KEY_TIME, presenter.selectedTime.toString())
+        val headCount: Int = headCountView.text.toString().toInt()
+        val selectedDateItem = dateSpinner.selectedItem as LocalDate
+        val selectedTimeItem = timeSpinner.selectedItem as LocalTime
+        outState.putInt(KEY_HEAD_COUNT, headCount)
+        outState.putString(KEY_DATE, selectedDateItem.toString())
+        outState.putString(KEY_TIME, selectedTimeItem.toString())
     }
 
     override fun showErrorDialog() {
@@ -143,7 +153,12 @@ class BookingActivity :
         val movieId = intent.getIntExtra(getString(R.string.movie_info_key), -1)
         presenter = BookingPresenter(this, movieId)
 
-        return presenter.tryLoadMovie(movieId)
+        return if (movieId == -1) {
+            showErrorDialog()
+            false
+        } else {
+            true
+        }
     }
 
     private fun setupTicketQuantityButtonListeners() {
@@ -166,14 +181,12 @@ class BookingActivity :
         }
     }
 
-    private fun loadSavedInstanceState(savedInstance: Bundle) {
-        val restoredCount = savedInstance.getInt(KEY_HEAD_COUNT, presenter.getHeadCount())
-        presenter.saveHeadCount(restoredCount)
-
-        val restoredDate = LocalDate.parse(savedInstance.getString(KEY_DATE))
+    private fun showSavedBookingInfo(savedInstance: Bundle) {
+        val restoredHeadCount = savedInstance.getInt(KEY_HEAD_COUNT)
+        val restoredDate = savedInstance.getString(KEY_DATE)?.let { LocalDate.parse(it) }
+        val restoredTime = savedInstance.getString(KEY_TIME)?.let { LocalTime.parse(it) }
+        presenter.saveHeadCount(restoredHeadCount)
         presenter.saveDate(restoredDate)
-
-        val restoredTime = LocalTime.parse(savedInstance.getString(KEY_TIME))
         presenter.saveTime(restoredTime)
     }
 

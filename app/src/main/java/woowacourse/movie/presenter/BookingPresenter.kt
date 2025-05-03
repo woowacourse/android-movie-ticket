@@ -1,7 +1,6 @@
 package woowacourse.movie.presenter
 
 import woowacourse.movie.domain.model.HeadCount
-import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.repository.MovieRepository
 import woowacourse.movie.domain.schedule.MovieScheduler
 import woowacourse.movie.domain.service.ReservationService
@@ -14,61 +13,46 @@ class BookingPresenter(
     private val view: BookingContract.View,
     private val movieId: Int,
     private var headCount: HeadCount = HeadCount(),
-    private val movieRepository: MovieRepository = MovieRepository(),
+    movieRepository: MovieRepository = MovieRepository(),
     private val reservationService: ReservationService = ReservationService(),
 ) : BookingContract.Presenter {
-    private val movie = getMovie()
+    private val movie = movieRepository.getMovieById(movieId)
     private val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
-    var selectedDate: LocalDate = LocalDate.now()
-        private set
-    var selectedTime: LocalTime = LocalTime.now()
-        private set
-
-    override fun getHeadCount(): Int = headCount.getCount()
+    private var selectedDate: LocalDate? = null
+    private var selectedTime: LocalTime? = null
 
     override fun loadInitialHeadCount() {
-        view.updateHeadCount(getHeadCount())
+        view.updateHeadCount(headCount.getCount())
     }
 
     override fun increaseHeadCount() {
         headCount.increase()
-        view.updateHeadCount(getHeadCount())
+        view.updateHeadCount(headCount.getCount())
     }
 
     override fun decreaseHeadCount() {
         headCount.decrease()
-        view.updateHeadCount(getHeadCount())
+        view.updateHeadCount(headCount.getCount())
     }
 
     override fun saveHeadCount(restoredCount: Int) {
         headCount = HeadCount(restoredCount)
     }
 
-    override fun saveDate(restoredDate: LocalDate) {
+    override fun saveDate(restoredDate: LocalDate?) {
         selectedDate = restoredDate
     }
 
-    override fun saveTime(restoredTime: LocalTime) {
+    override fun saveTime(restoredTime: LocalTime?) {
         selectedTime = restoredTime
     }
-
-    override fun getMovie(): Movie = movieRepository.getMovieById(movieId)
-
-    override fun tryLoadMovie(movieId: Int): Boolean =
-        if (movieId == -1) {
-            view.showErrorDialog()
-            false
-        } else {
-            getMovie()
-            true
-        }
 
     override fun onConfirm() {
         val reservedMovie =
             reservationService.reserveMovie(
                 movieId,
                 LocalDateTime.of(selectedDate, selectedTime),
-                getHeadCount(),
+                headCount.getCount(),
             )
         view.navigateToSeatsSelection(reservedMovie)
     }
@@ -84,5 +68,9 @@ class BookingPresenter(
         val times = movieScheduler.getBookableTimes(selectedDate)
         val index = times.indexOf(selectedTime).takeIf { it != -1 } ?: 0
         view.updateTimeSpinner(times, index)
+    }
+
+    override fun loadSelectedMovie() {
+        view.showSelectedMovie(movie)
     }
 }

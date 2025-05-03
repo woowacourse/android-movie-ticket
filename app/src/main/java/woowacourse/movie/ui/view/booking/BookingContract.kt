@@ -7,7 +7,7 @@ import java.time.LocalTime
 
 interface BookingContract {
     interface View {
-        fun showSelectedMovie()
+        fun showSelectedMovie(movie: Movie)
 
         fun showErrorDialog()
 
@@ -24,11 +24,15 @@ interface BookingContract {
             times: List<LocalTime>,
             index: Int,
         )
+
+//        fun showSavedBookingInfo(
+//            headCount: Int,
+//            selectedDate: LocalDate,
+//            selectedTime: LocalTime,
+//        )
     }
 
     interface Presenter {
-        fun getHeadCount(): Int
-
         fun loadInitialHeadCount()
 
         fun increaseHeadCount()
@@ -37,18 +41,16 @@ interface BookingContract {
 
         fun saveHeadCount(restoredCount: Int)
 
-        fun saveDate(restoredDate: LocalDate)
+        fun saveDate(restoredDate: LocalDate?)
 
-        fun saveTime(restoredTime: LocalTime)
-
-        fun getMovie(): Movie
-
-        fun tryLoadMovie(movieId: Int): Boolean
+        fun saveTime(restoredTime: LocalTime?)
 
         fun onConfirm()
 
         fun loadAvailableDates()
 
         fun loadAvailableTimes(selectedDate: LocalDate)
+
+        fun loadSelectedMovie()
     }
 }
