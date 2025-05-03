@@ -14,6 +14,7 @@ import woowacourse.movie.domain.model.booking.BookingResult
 import woowacourse.movie.presenter.booking.complete.BookingCompleteContract
 import woowacourse.movie.presenter.booking.complete.BookingCompletePresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
+import woowacourse.movie.ui.model.seat.SeatsUiModel
 import woowacourse.movie.util.DialogUtil
 
 class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.View {
@@ -27,6 +28,7 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         presenter.loadBookingResult(bookingResultUiOrNull())
+        presenter.loadSeats(seatsUiOrNull())
     }
 
     override fun showBookingResult(bookingResultUiModel: BookingResultUiModel) {
@@ -45,10 +47,14 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
             getString(R.string.screening_complete_headCount, bookingResultUiModel.headCount)
     }
 
-    override fun showBookingAmount(totalPrice: String) {
-        val completeBookingAmount = findViewById<TextView>(R.id.tv_booking_amount)
-        completeBookingAmount.text =
-            getString(R.string.screening_complete_booking_amount, totalPrice)
+    override fun showSeatsPosition(seatsPosition: String) {
+        val seatsPositionView = findViewById<TextView>(R.id.tv_seats_position)
+        seatsPositionView.text = getString(R.string.screening_complete_seats_position, seatsPosition)
+    }
+
+    override fun showTotalPrice(totalPrice: String) {
+        val bookingAmountView = findViewById<TextView>(R.id.tv_booking_amount)
+        bookingAmountView.text = getString(R.string.screening_complete_booking_amount, totalPrice)
     }
 
     override fun showErrorMessage(messageResource: Int) {
@@ -82,17 +88,29 @@ class BookingCompleteActivity : AppCompatActivity(), BookingCompleteContract.Vie
             BookingResultUiModel::class.java,
         )
 
+    private fun seatsUiOrNull() =
+        IntentCompat.getParcelableExtra(
+            intent,
+            EXTRA_BOOKING_SEATS,
+            SeatsUiModel::class.java,
+        )
+
     companion object {
         private const val EXTRA_BOOKING_RESULT = "extra_booking_result"
+        private const val EXTRA_BOOKING_SEATS = "extra_booking_seats"
 
         fun newIntent(
             context: Context,
             bookingResultUiModel: BookingResultUiModel,
+            seats: SeatsUiModel,
         ): Intent {
             return Intent(
                 context,
                 BookingCompleteActivity::class.java,
-            ).apply { putExtra(EXTRA_BOOKING_RESULT, bookingResultUiModel) }
+            ).apply {
+                putExtra(EXTRA_BOOKING_RESULT, bookingResultUiModel)
+                putExtra(EXTRA_BOOKING_SEATS, seats)
+            }
         }
     }
 }

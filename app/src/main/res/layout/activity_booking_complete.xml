@@ -8,12 +8,12 @@
     tools:context=".ui.view.booking.complete.BookingCompleteActivity">
 
     <ScrollView
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,13 +33,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="15dp"
-                    tools:text="영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다."
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="영화 상영 시작 시간 15분 전까지\n 취소가 가능합니다." />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -48,13 +48,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dp"
-                tools:text="영화 제목 "
                 android:textColor="@color/black"
                 android:textSize="25sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/screening_info_layout" />
+                app:layout_constraintTop_toBottomOf="@id/screening_info_layout"
+                tools:text="영화 제목 " />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/head_count_layout"
@@ -68,60 +68,70 @@
                     android:id="@+id/tv_complete_screening_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="날짜 "
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="날짜 " />
 
                 <TextView
                     android:id="@+id/tv_complete_screening_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    tools:text="시간"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/tv_complete_screening_date"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="시간" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tv_head_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="80dp"
                 tools:text="일반 2명"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="80dp"
+                app:layout_constraintTop_toBottomOf="@+id/head_count_layout"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/head_count_layout" />
+                app:layout_constraintEnd_toStartOf="@id/tv_seats_position"
+                app:layout_constraintHorizontal_chainStyle="packed" />
+
+            <TextView
+                android:id="@+id/tv_seats_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="| B2, C2"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_marginTop="83dp"
+                app:layout_constraintTop_toBottomOf="@+id/head_count_layout"
+                app:layout_constraintStart_toEndOf="@id/tv_head_count"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/tv_booking_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
-                tools:text="26,000원 (현장 결제)"
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_head_count" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_head_count"
+                tools:text="26,000원 (현장 결제)" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
     </ScrollView>
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
