@@ -24,12 +24,6 @@ interface BookingContract {
             times: List<LocalTime>,
             index: Int,
         )
-
-//        fun showSavedBookingInfo(
-//            headCount: Int,
-//            selectedDate: LocalDate,
-//            selectedTime: LocalTime,
-//        )
     }
 
     interface Presenter {
@@ -39,11 +33,11 @@ interface BookingContract {
 
         fun decreaseHeadCount()
 
-        fun saveHeadCount(restoredCount: Int)
+        fun restoreHeadCount(restoredCount: Int)
 
-        fun saveDate(restoredDate: LocalDate?)
+        fun restoreDate(restoredDate: LocalDate?)
 
-        fun saveTime(restoredTime: LocalTime?)
+        fun restoreTime(restoredTime: LocalTime?)
 
         fun onConfirm()
 

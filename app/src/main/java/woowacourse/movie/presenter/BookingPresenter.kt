@@ -35,15 +35,15 @@ class BookingPresenter(
         view.updateHeadCount(headCount.getCount())
     }
 
-    override fun saveHeadCount(restoredCount: Int) {
+    override fun restoreHeadCount(restoredCount: Int) {
         headCount = HeadCount(restoredCount)
     }
 
-    override fun saveDate(restoredDate: LocalDate?) {
+    override fun restoreDate(restoredDate: LocalDate?) {
         selectedDate = restoredDate
     }
 
-    override fun saveTime(restoredTime: LocalTime?) {
+    override fun restoreTime(restoredTime: LocalTime?) {
         selectedTime = restoredTime
     }
 

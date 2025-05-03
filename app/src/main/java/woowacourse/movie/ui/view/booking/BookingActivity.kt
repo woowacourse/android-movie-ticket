@@ -32,13 +32,10 @@ class BookingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_booking)
-
         dateSpinner = findViewById(R.id.dateSpinner)
         timeSpinner = findViewById(R.id.timeSpinner)
-
         if (!canLoadMovie()) return
-
-        if (savedInstanceState != null) showSavedBookingInfo(savedInstanceState)
+        if (savedInstanceState != null) restoredBookingInfo(savedInstanceState)
         presenter.loadSelectedMovie()
         setupTicketQuantityButtonListeners()
         setupSelectButtonListener()
@@ -142,7 +139,7 @@ class BookingActivity :
                     id: Long,
                 ) {
                     val selectedTime = timeSpinner.getItemAtPosition(position) as LocalTime
-                    presenter.saveTime(selectedTime)
+                    presenter.restoreTime(selectedTime)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -181,13 +178,13 @@ class BookingActivity :
         }
     }
 
-    private fun showSavedBookingInfo(savedInstance: Bundle) {
+    private fun restoredBookingInfo(savedInstance: Bundle) {
         val restoredHeadCount = savedInstance.getInt(KEY_HEAD_COUNT)
         val restoredDate = savedInstance.getString(KEY_DATE)?.let { LocalDate.parse(it) }
         val restoredTime = savedInstance.getString(KEY_TIME)?.let { LocalTime.parse(it) }
-        presenter.saveHeadCount(restoredHeadCount)
-        presenter.saveDate(restoredDate)
-        presenter.saveTime(restoredTime)
+        presenter.restoreHeadCount(restoredHeadCount)
+        presenter.restoreDate(restoredDate)
+        presenter.restoreTime(restoredTime)
     }
 
     companion object {
