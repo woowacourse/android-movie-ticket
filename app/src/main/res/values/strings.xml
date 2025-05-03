@@ -1,32 +1,36 @@
 <resources>
     <string name="app_name">Movie</string>
 
+    <string name="description_poster">영화 포스터</string>
+    <string name="description_ad">광고</string>
+
     <string name="alert_default_yes">확인</string>
     <string name="alert_default_no">취소</string>
+    <string name="alert_confirm_reservation_yes">예매 완료</string>
+    <string name="alert_title_confirm_reservation">예매 확인</string>
+    <string name="alert_message_confirm_reservation">정말 예매하시겠습니까?</string>
 
-    <string name="poster_description">영화 포스터</string>
-    <string name="reserve_now_button">지금 예매</string>
-    <string name="running_time_label">"러닝타임: "</string>
-    <string name="screening_dates_label">"상영일: "</string>
+    <string name="toast_message_no_screening_date_available">예매 가능한 날짜가 없습니다.</string>
+    <string name="toast_message_cannot_select_more_seats">더이상 좌석을 선택할 수 없습니다.</string>
+    <string name="toast_message_need_to_select_more_seats">총 %1$d개의 좌석을 선택해주세요.</string>
 
-    <string name="screening_dates_format">%1$s ~ %2$s</string>
-    <string name="running_type_format">%1$d분</string>
-    <string name="date_format">yyyy.MM.dd</string>
-    <string name="date_time_format">yyyy.MM.dd HH:mm</string>
-    <string name="ticket_count_format">%1$d명</string>
-    <string name="ticket_price_format">%1$,d원</string>
+    <string name="button_reserve">지금 예매</string>
+    <string name="label_running_time">"러닝타임: "</string>
+    <string name="label_screening_dates">"상영일: "</string>
 
-    <string name="confirm_reservation_alert_title">예매 확인</string>
-    <string name="confirm_reservation_alert_message">정말 예매하시겠습니까?</string>
-    <string name="confirm_reservation_alert_yes">예매 완료</string>
+    <string name="template_screening_dates">%1$s ~ %2$s</string>
+    <string name="template_running_type">%1$d분</string>
+    <string name="template_ticket_count">%1$d명</string>
+    <string name="template_price">%1$,d원</string>
 
-    <string name="no_screening_date_available_toast_message">예매 가능한 날짜가 없습니다.</string>
+    <string name="button_increment">-</string>
+    <string name="button_decrement">+</string>
+    <string name="button_confirm">확인</string>
+    <string name="button_confirm_reservation">선택 완료</string>
 
-    <string name="decrement_button">-</string>
-    <string name="increment_button">+</string>
-    <string name="confirm_reservation_button">선택 완료</string>
-
-    <string name="cancel_reservation_info">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
-    <string name="ticket_type_info">"일반 "</string>
-    <string name="payment_method_info">" (현장 결제)"</string>
+    <string name="info_cancel_reservation">영화 상영 시작 시간 15분 전까지\n취소가 가능합니다.</string>
+    <string name="info_ticket_type">"일반 "</string>
+    <string name="info_payment_method">" (현장 결제)"</string>
+    <string name="info_screen">SCREEN</string>
+    <string name="divider_ticket_info">" | "</string>
 </resources>

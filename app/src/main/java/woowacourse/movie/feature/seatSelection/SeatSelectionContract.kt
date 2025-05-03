@@ -1,0 +1,44 @@
+package woowacourse.movie.feature.seatSelection
+
+import woowacourse.movie.feature.model.movie.TicketUiModel
+import woowacourse.movie.feature.model.seat.SeatsUiModel
+
+interface SeatSelectionContract {
+    interface View {
+        fun showReservationInfo(ticket: TicketUiModel)
+
+        fun updateTotalPrice(price: Int)
+
+        fun toggleSeat(
+            row: Int,
+            col: Int,
+            isTaken: Boolean,
+        )
+
+        fun showAlertDialog()
+
+        fun showSelectionAlreadyFinishedToast()
+
+        fun showSelectionNotFinishedToast(required: Int)
+
+        fun goToReservationResult(
+            ticket: TicketUiModel,
+            seats: SeatsUiModel,
+        )
+    }
+
+    interface Presenter {
+        fun initializeReservationInfo(ticket: TicketUiModel)
+
+        fun loadReservationInfo(seats: SeatsUiModel)
+
+        fun selectSeat(
+            row: Int,
+            col: Int,
+        )
+
+        fun finishSelection()
+
+        fun confirmSelection()
+    }
+}

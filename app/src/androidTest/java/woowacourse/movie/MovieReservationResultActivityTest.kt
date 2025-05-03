@@ -11,30 +11,25 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.jupiter.api.DisplayName
+import woowacourse.movie.feature.movieReservationResult.MovieReservationResultActivity
 import woowacourse.movie.fixtures.fakeContext
+import woowacourse.movie.fixtures.seats
 import woowacourse.movie.fixtures.ticket
-import woowacourse.movie.view.movieReservation.MovieReservationActivity
-import woowacourse.movie.view.movieReservationResult.MovieReservationResultActivity
 
 class MovieReservationResultActivityTest {
     private lateinit var intent: Intent
 
     @get:Rule
-    val activityRule = ActivityScenarioRule(MovieReservationActivity::class.java)
+    val activityRule = ActivityScenarioRule(MovieReservationResultActivity::class.java)
 
     @Before
     fun setUp() {
         intent =
             Intent(fakeContext, MovieReservationResultActivity::class.java).apply {
                 putExtra("ticket", ticket)
+                putExtra("seats", seats)
             }
         ActivityScenario.launch<MovieReservationResultActivity>(intent)
-    }
-
-    @Test
-    @DisplayName("예매한 영화의 제목이 표시된다")
-    fun displayReservedMovieTitleTest() {
-        onView(withId(R.id.movie_title)).check(matches(withText("해리 포터와 마법사의 돌")))
     }
 
     @Test
@@ -44,14 +39,20 @@ class MovieReservationResultActivityTest {
     }
 
     @Test
+    @DisplayName("선택한 좌석이 표시된다")
+    fun displaySelectedSeatsTest() {
+        onView(withId(R.id.selected_seats)).check(matches(withText("A1, C1, E1")))
+    }
+
+    @Test
     @DisplayName("예매한 인원수가 표시된다")
     fun displayReservedTicketCountTest() {
-        onView(withId(R.id.ticket_count)).check(matches(withText("2명")))
+        onView(withId(R.id.ticket_count)).check(matches(withText("3명")))
     }
 
     @Test
     @DisplayName("예매한 총 금액이 표시된다")
     fun displayReservedTotalPriceTest() {
-        onView(withId(R.id.total_price)).check(matches(withText("26,000원")))
+        onView(withId(R.id.total_price)).check(matches(withText("37,000원")))
     }
 }

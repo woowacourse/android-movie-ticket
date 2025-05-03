@@ -5,13 +5,13 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.movieReservation.MovieReservationActivity">
+    tools:context=".feature.movieReservation.MovieReservationActivity">
 
     <ImageView
         android:id="@+id/poster"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:contentDescription="@string/poster_description"
+        android:contentDescription="@string/description_poster"
         android:scaleType="centerCrop"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/screening_dates_label"
+                android:text="@string/label_screening_dates"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -72,7 +72,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/running_time_label"
+                android:text="@string/label_running_time"
                 android:textColor="@color/black"
                 android:textSize="16sp" />
 
@@ -128,7 +128,7 @@
             android:id="@+id/decrement_button"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
-            android:text="@string/decrement_button"
+            android:text="@string/button_increment"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -147,7 +147,7 @@
             android:id="@+id/increment_button"
             android:layout_width="64dp"
             android:layout_height="wrap_content"
-            android:text="@string/increment_button"
+            android:text="@string/button_decrement"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -160,7 +160,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
         android:paddingVertical="12dp"
-        android:text="@string/confirm_reservation_button"
+        android:text="@string/button_confirm_reservation"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent" />
