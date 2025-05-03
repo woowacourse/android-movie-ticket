@@ -18,6 +18,7 @@ import woowacourse.movie.selectSeat.SelectSeatActivity
 import woowacourse.movie.uiModel.MovieInfoUIModel
 import woowacourse.movie.uiModel.PosterMapper
 import woowacourse.movie.uiModel.TicketUIModel
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
@@ -26,32 +27,52 @@ class BookingActivity :
     AppCompatActivity(),
     BookingContract.View {
     private lateinit var movieInfoUIModel: MovieInfoUIModel
+    private lateinit var movieInfo: MovieInfo
+
     private lateinit var movieTime: Spinner
     private lateinit var selectedDate: Spinner
     private lateinit var ticketCount: TextView
     private lateinit var movieDate: TextView
-    private var ticketCountValue = TicketCount()
-    private var presenter = BookingPresenter(this)
-    private lateinit var movieInfo: MovieInfo
+    private lateinit var availableDates: List<LocalDate>
+
+    private val ticketCountValue = TicketCount()
+    private val presenter = BookingPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_booking)
+
+        movieInfoUIModel = intent.fetchExtraOrNull(KEY_MOVIE_INFO) ?: return
+        movieInfo = MovieInfo.fromUiModel(movieInfoUIModel)
+
+        bindViews()
+        renderMovieInfo()
+
+        availableDates = MovieScheduleGenerator.generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
+        SpinnerAdapter.bind(this, selectedDate, availableDates.toFormattedStringList("yyyy.M.d"))
+        SpinnerAdapter.bind(
+            this,
+            movieTime,
+            MovieScheduleGenerator.generateScreeningTimesFor(availableDates[0]).toFormattedStringList("HH:mm"),
+        )
+
+        presenter.onCreateView(savedInstanceState)
+
+        savedInstanceState?.let { repairInstanceState(it) }
+    }
+
+    private fun bindViews() {
         selectedDate = findViewById(R.id.selected_date)
         movieTime = findViewById(R.id.movie_time)
         ticketCount = findViewById(R.id.ticket_count)
         movieDate = findViewById(R.id.movie_date)
-        movieInfoUIModel = intent.fetchExtraOrNull<MovieInfoUIModel>(KEY_MOVIE_INFO) ?: return
-        movieInfo = MovieInfo.fromUiModel(movieInfoUIModel)
-        presenter.onCreateView(savedInstanceState)
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        outState.putString(KEY_TICKET_COUNT, ticketCount.text.toString())
-        outState.putInt(KEY_MOVIE_DATE_POSITION, selectedDate.selectedItemPosition)
-        outState.putInt(KEY_MOVIE_TIME_POSITION, movieTime.selectedItemPosition)
+    private fun renderMovieInfo() {
+        findViewById<TextView>(R.id.title).text = movieInfoUIModel.title
+        findViewById<TextView>(R.id.running_time).text = getString(R.string.running_time, movieInfoUIModel.runningTime)
+        movieDate.text = getString(R.string.movie_date, movieInfoUIModel.startDate, movieInfoUIModel.endDate)
+        findViewById<ImageView>(R.id.movie_poster).setImageResource(PosterMapper.getPosterResourceId(movieInfoUIModel.posterKey))
     }
 
     override fun repairInstanceState(state: Bundle) {
@@ -64,59 +85,16 @@ class BookingActivity :
         ticketCount.text = state.getString(KEY_TICKET_COUNT)
     }
 
-    override fun setupPage() {
-        val title = findViewById<TextView>(R.id.title)
-        val runningTime = findViewById<TextView>(R.id.running_time)
-        val poster = findViewById<ImageView>(R.id.movie_poster)
-
-        poster.setImageResource(PosterMapper.getPosterResourceId(movieInfoUIModel.posterKey))
-        title.text = movieInfoUIModel.title
-        movieDate.text =
-            this.getString(
-                R.string.movie_date,
-                movieInfoUIModel.startDate,
-                movieInfoUIModel.endDate,
-            )
-        runningTime.text = this.getString(R.string.running_time, movieInfoUIModel.runningTime)
-
-        SpinnerAdapter.bind(
-            this,
-            selectedDate,
-            MovieScheduleGenerator
-                .generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
-                .toFormattedStringList("yyyy.M.d"),
-        )
-        SpinnerAdapter.bind(
-            this,
-            movieTime,
-            MovieScheduleGenerator
-                .generateScreeningTimesFor(movieInfo.startDate)
-                .toFormattedStringList("HH:mm"),
-        )
+    override fun showAvailableDate(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ) {
+        // 이미 Activity에서 처리함, 안 써도 됨
     }
 
-    inline fun <reified T : TemporalAccessor> List<T>.toFormattedStringList(pattern: String): List<String> {
-        val formatter = DateTimeFormatter.ofPattern(pattern)
-        return map { ta ->
-            when (ta) {
-                is LocalTime -> {
-                    if (ta.hour == 0 && ta.minute == 0) {
-                        "24:00"
-                    } else {
-                        ta.format(formatter)
-                    }
-                }
-                else -> formatter.format(ta)
-            }
-        }
-    }
-
-    override fun moveActivity(ticketUIModel: TicketUIModel) {
-        val intent =
-            Intent(this, SelectSeatActivity::class.java).apply {
-                putExtra(KEY_TICKET, ticketUIModel)
-            }
-        startActivity(intent)
+    override fun showAvailableTime(selectedDate: LocalDate) {
+        val times = MovieScheduleGenerator.generateScreeningTimesFor(selectedDate)
+        SpinnerAdapter.bind(this, movieTime, times.toFormattedStringList("HH:mm"))
     }
 
     override fun setupDateChangeListener() {
@@ -128,10 +106,8 @@ class BookingActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    presenter.dateSpinnerSelect(
-                        MovieInfo.fromUiModel(movieInfoUIModel),
-                        position,
-                    )
+                    val selected = availableDates.getOrNull(position) ?: return
+                    presenter.changeTimesByDate(selected)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -139,25 +115,20 @@ class BookingActivity :
     }
 
     override fun confirmButtonHandler() {
-        val confirmButton = findViewById<Button>(R.id.confirm_button)
-        confirmButton.setOnClickListener {
+        findViewById<Button>(R.id.confirm_button).setOnClickListener {
             val title = findViewById<TextView>(R.id.title).text.toString()
-            val date = findViewById<Spinner>(R.id.selected_date).selectedItem.toString()
-            val time = findViewById<Spinner>(R.id.movie_time).selectedItem.toString()
+            val date = selectedDate.selectedItem.toString()
+            val time = movieTime.selectedItem.toString()
             presenter.onBookButtonClick(title, date, time, ticketCountValue)
         }
     }
 
     override fun countButtonHandler() {
-        val minusButton = findViewById<Button>(R.id.minus_button)
-        val plusButton = findViewById<Button>(R.id.plus_button)
-
-        minusButton.setOnClickListener {
-            presenter.onDownButtonClick(ticketCountValue)
+        findViewById<Button>(R.id.minus_button).setOnClickListener {
+            presenter.downTicketCount(ticketCountValue)
         }
-
-        plusButton.setOnClickListener {
-            presenter.onUpButtonClick(ticketCountValue)
+        findViewById<Button>(R.id.plus_button).setOnClickListener {
+            presenter.upTicketCount(ticketCountValue)
         }
     }
 
@@ -165,11 +136,25 @@ class BookingActivity :
         ticketCount.text = ticketCountValue.count.toString()
     }
 
-    override fun timeSpinnerSet(times: List<LocalTime>) {
-        SpinnerAdapter.bind(this@BookingActivity, movieTime, times.toFormattedStringList("HH:mm"))
+    override fun navigateToResult(ticket: TicketUIModel) {
+        startActivity(
+            Intent(this, SelectSeatActivity::class.java).apply {
+                putExtra(KEY_TICKET, ticket)
+            },
+        )
     }
 
     inline fun <reified T : Parcelable> Intent.fetchExtraOrNull(key: String): T? = getParcelableExtra(key)
+
+    private fun <T : TemporalAccessor> List<T>.toFormattedStringList(pattern: String): List<String> {
+        val formatter = DateTimeFormatter.ofPattern(pattern)
+        return map {
+            when (it) {
+                is LocalTime -> if (it.hour == 0 && it.minute == 0) "24:00" else it.format(formatter)
+                else -> formatter.format(it)
+            }
+        }
+    }
 
     companion object {
         private const val KEY_TICKET_COUNT = "TICKET_COUNT"

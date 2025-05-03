@@ -1,23 +1,19 @@
+// BookingPresenter.kt
 package woowacourse.movie.booking
 
 import android.os.Bundle
-import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.MovieScheduleGenerator
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.uiModel.TicketUIModel
+import java.time.LocalDate
 
 class BookingPresenter(
-    val view: BookingContract.View,
+    private val view: BookingContract.View,
 ) : BookingContract.Presenter {
     override fun onCreateView(savedInstanceState: Bundle?) {
-        view.setupPage()
         view.setupDateChangeListener()
-        view.countButtonHandler()
         view.confirmButtonHandler()
-
-        if (savedInstanceState != null) {
-            view.repairInstanceState(savedInstanceState)
-        }
+        view.countButtonHandler()
     }
 
     override fun onBookButtonClick(
@@ -27,38 +23,30 @@ class BookingPresenter(
         count: TicketCount,
     ) {
         if (count.count == 0) return
-        val ticketUIModel =
+        val ticket =
             TicketUIModel(
                 title = title,
                 date = date,
                 time = time,
+                seats = emptyList(),
                 count = count.count,
                 money = 0,
             )
-        view.moveActivity(ticketUIModel)
+        view.navigateToResult(ticket)
     }
 
-    override fun onUpButtonClick(ticketCount: TicketCount) {
+    override fun upTicketCount(ticketCount: TicketCount) {
         ticketCount.upCount()
         view.changeTicketCount(ticketCount)
     }
 
-    override fun onDownButtonClick(ticketCount: TicketCount) {
+    override fun downTicketCount(ticketCount: TicketCount) {
         ticketCount.downCount()
         view.changeTicketCount(ticketCount)
     }
 
-    override fun dateSpinnerSelect(
-        movieInfo: MovieInfo,
-        position: Int,
-    ) {
-        val selectedDate =
-            MovieScheduleGenerator
-                .generateScreeningDates(movieInfo.startDate, movieInfo.endDate)
-                .getOrNull(position)
-        selectedDate?.let {
-            val selectedTimes = MovieScheduleGenerator.generateScreeningTimesFor(it)
-            view.timeSpinnerSet(selectedTimes)
-        }
+    override fun changeTimesByDate(selectedDate: LocalDate) {
+        val times = MovieScheduleGenerator.generateScreeningTimesFor(selectedDate)
+        view.showAvailableTime(selectedDate)
     }
 }

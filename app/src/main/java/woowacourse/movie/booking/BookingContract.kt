@@ -1,28 +1,30 @@
 package woowacourse.movie.booking
 
 import android.os.Bundle
-import woowacourse.movie.model.MovieInfo
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.uiModel.TicketUIModel
-import java.time.LocalTime
+import java.time.LocalDate
 
 interface BookingContract {
     interface View {
-        fun moveActivity(ticketUIModel: TicketUIModel)
-
-        fun setupDateChangeListener()
-
-        fun setupPage()
+        fun navigateToResult(ticket: TicketUIModel)
 
         fun repairInstanceState(state: Bundle)
+
+        fun changeTicketCount(ticketCountValue: TicketCount)
+
+        fun showAvailableDate(
+            startDate: LocalDate,
+            endDate: LocalDate,
+        )
+
+        fun showAvailableTime(selectedDate: LocalDate)
+
+        fun setupDateChangeListener()
 
         fun confirmButtonHandler()
 
         fun countButtonHandler()
-
-        fun timeSpinnerSet(times: List<LocalTime>)
-
-        fun changeTicketCount(ticketCountValue: TicketCount)
     }
 
     interface Presenter {
@@ -35,13 +37,10 @@ interface BookingContract {
             count: TicketCount,
         )
 
-        fun onUpButtonClick(ticketCount: TicketCount)
+        fun upTicketCount(ticketCount: TicketCount)
 
-        fun onDownButtonClick(ticketCount: TicketCount)
+        fun downTicketCount(ticketCount: TicketCount)
 
-        fun dateSpinnerSelect(
-            movieInfoUIModel: MovieInfo,
-            position: Int,
-        )
+        fun changeTimesByDate(selectedDate: LocalDate)
     }
 }

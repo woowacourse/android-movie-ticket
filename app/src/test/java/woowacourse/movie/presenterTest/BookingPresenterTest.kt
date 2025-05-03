@@ -53,7 +53,7 @@ class BookingPresenterTest {
                 0,
             )
         verifySequence {
-            view.moveActivity(exceptedUIModel)
+            view.navigateToResult(exceptedUIModel)
         }
     }
 
@@ -79,7 +79,7 @@ class BookingPresenterTest {
     @Test
     fun `+버튼을 클릭하면_카운트가_증가한다`() {
         val ticketCount = TicketCount(5)
-        presenter.onUpButtonClick(ticketCount)
+        presenter.upTicketCount(ticketCount)
         assertEquals(ticketCount.count, 6)
         verifySequence {
             view.changeTicketCount(ticketCount)
@@ -89,7 +89,7 @@ class BookingPresenterTest {
     @Test
     fun `-버튼을 클릭하면_카운트가_감소한다`() {
         val ticketCount = TicketCount(5)
-        presenter.onDownButtonClick(ticketCount)
+        presenter.downTicketCount(ticketCount)
         assertEquals(ticketCount.count, 4)
         verifySequence {
             view.changeTicketCount(ticketCount)
@@ -99,7 +99,7 @@ class BookingPresenterTest {
     @Test
     fun `카운트는_0_이하로_떨어지지_않는다`() {
         val ticketCount = TicketCount(0)
-        presenter.onDownButtonClick(ticketCount)
+        presenter.downTicketCount(ticketCount)
         assertEquals(ticketCount.count, 0)
         verifySequence {
             view.changeTicketCount(ticketCount)
@@ -123,7 +123,7 @@ class BookingPresenterTest {
         val position = 1
         val expectedTimes = MovieScheduleGenerator.generateScreeningTimesFor(allDates[position])
 
-        presenter.dateSpinnerSelect(movieInfo, position)
+        presenter.changeTimesByDate(movieInfo, position)
 
         verifySequence { view.timeSpinnerSet(expectedTimes) }
     }
