@@ -20,20 +20,20 @@ class MovieListActivity :
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        presenter.onViewCreated()
+        presenter.loadMovies()
     }
 
-    override fun showMovies(items: List<MovieInfoUIModel>) {
+    override fun showMovies(movies: List<MovieInfoUIModel>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movie_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MovieListAdapter(items, presenter)
+        adapter = MovieListAdapter(movies, ::navigateToBooking, ::showError)
         recyclerView.adapter = adapter
     }
 
-    override fun changeActivity(item: MovieInfoUIModel) {
+    override fun navigateToBooking(movie: MovieInfoUIModel) {
         val intent =
             Intent(this, BookingActivity::class.java).apply {
-                putExtra(MOVIE_INFO_KEY, item)
+                putExtra(MOVIE_INFO_KEY, movie)
             }
         startActivity(intent)
     }

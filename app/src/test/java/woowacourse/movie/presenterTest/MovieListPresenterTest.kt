@@ -20,7 +20,7 @@ class MovieListPresenterTest {
 
     @Test
     fun `뷰를_생성하면_영화들이_뷰에_들어간다`() {
-        presenter.onViewCreated()
+        presenter.loadMovies()
         val exptedItem =
             mutableListOf(
                 MovieInfoUIModel(
@@ -68,10 +68,10 @@ class MovieListPresenterTest {
                 152,
             )
 
-        presenter.onButtonClicked(expectedItem)
+        presenter.onMovieSelected(expectedItem)
 
         verifySequence {
-            view.changeActivity(expectedItem)
+            view.navigateToBooking(expectedItem)
         }
     }
 

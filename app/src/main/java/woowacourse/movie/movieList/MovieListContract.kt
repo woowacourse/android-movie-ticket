@@ -4,18 +4,16 @@ import woowacourse.movie.uiModel.MovieInfoUIModel
 
 interface MovieListContract {
     interface View {
-        fun showMovies(items: List<MovieInfoUIModel>)
+        fun showMovies(movies: List<MovieInfoUIModel>)
 
         fun showError()
 
-        fun changeActivity(item: MovieInfoUIModel)
+        fun navigateToBooking(movie: MovieInfoUIModel)
     }
 
     interface Presenter {
-        fun onViewCreated()
+        fun loadMovies()
 
-        fun onButtonClicked(item: MovieInfoUIModel)
-
-        fun onError()
+        fun onMovieSelected(movie: MovieInfoUIModel)
     }
 }
