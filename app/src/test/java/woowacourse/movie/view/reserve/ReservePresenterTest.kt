@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 
 class ReservePresenterTest {
-    private val view = mockk<ReserveContract.View>(relaxed = true)
+    private val view = mockk<ReserveContract.View>(relaxUnitFun = true)
     private val presenter = ReservePresenter(view)
 
     private val mockMovie = HARRY_POTTER_MOVIE

@@ -13,7 +13,7 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 class MainPresenterTest {
-    private val view = mockk<MainContract.View>(relaxed = true)
+    private val view = mockk<MainContract.View>(relaxUnitFun = true)
     private val presenter = MainPresenter(view)
     private val advertisementResources = listOf(R.drawable.baemin, R.drawable.baemina)
     private var mockMovies: List<Movie>

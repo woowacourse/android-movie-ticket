@@ -9,7 +9,7 @@ import woowacourse.movie.ui.reservationResult.ReservationResultContract
 import woowacourse.movie.ui.reservationResult.ReservationResultPresenter
 
 class ReserveResultTest {
-    private val view = mockk<ReservationResultContract.View>(relaxed = true)
+    private val view = mockk<ReservationResultContract.View>(relaxUnitFun = true)
     private val presenter = ReservationResultPresenter(view)
 
     @BeforeEach

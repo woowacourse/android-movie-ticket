@@ -10,7 +10,7 @@ import woowacourse.movie.ui.seat.SeatContract
 import woowacourse.movie.ui.seat.SeatPresenter
 
 class SeatPresenterTest {
-    private val view = mockk<SeatContract.View>(relaxed = true)
+    private val view = mockk<SeatContract.View>(relaxUnitFun = true)
     private val presenter = SeatPresenter(view)
 
     @BeforeEach
