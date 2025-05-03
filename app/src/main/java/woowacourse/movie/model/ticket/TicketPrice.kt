@@ -1,10 +1,16 @@
 package woowacourse.movie.model.ticket
 
+import woowacourse.movie.model.ticket.seat.Seat
+import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
+
 @JvmInline
 value class TicketPrice(
     val value: Int,
 ) {
-    fun plusPrice(plusAmount: TicketPrice): TicketPrice = TicketPrice(value + plusAmount.value)
-
-    fun minusPrice(minusAmount: TicketPrice): TicketPrice = TicketPrice(value - minusAmount.value)
+    companion object {
+        fun calculateTotalPrice(
+            seats: Set<Seat>,
+            seatGradePolicy: SeatGradePolicy,
+        ): TicketPrice = TicketPrice(seats.sumOf { seatGradePolicy.getGrade(it).ticketPrice.value })
+    }
 }

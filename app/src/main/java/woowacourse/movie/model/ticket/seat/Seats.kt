@@ -8,10 +8,8 @@ class Seats(
     private val seatGradePolicy: SeatGradePolicy,
 ) {
     val selectedSeats: MutableSet<Seat> = initSeats.toMutableSet()
-    private var _totalTicketPrice: TicketPrice =
-        TicketPrice(initSeats.sumOf { seatGradePolicy.getGrade(it).ticketPrice.value })
-    val totalTicketPrice
-        get() = _totalTicketPrice
+    val totalTicketPrice: TicketPrice
+        get() = TicketPrice.calculateTotalPrice(selectedSeats, seatGradePolicy)
 
     fun isSelectedSeat(seat: Seat): Boolean = seat in selectedSeats
 
@@ -26,12 +24,10 @@ class Seats(
 
     private fun removeSeat(seat: Seat) {
         selectedSeats.remove(seat)
-        _totalTicketPrice = _totalTicketPrice.minusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
     }
 
     private fun addSeat(seat: Seat) {
         selectedSeats.add(seat)
-        _totalTicketPrice = _totalTicketPrice.plusPrice(seatGradePolicy.getGrade(seat).ticketPrice)
     }
 
     fun size() = selectedSeats.size
