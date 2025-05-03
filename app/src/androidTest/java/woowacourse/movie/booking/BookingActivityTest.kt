@@ -15,8 +15,8 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.ui.view.booking.BookingActivity
+import woowacourse.movie.domain.movies.Movie
+import woowacourse.movie.ui.booking.BookingActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)

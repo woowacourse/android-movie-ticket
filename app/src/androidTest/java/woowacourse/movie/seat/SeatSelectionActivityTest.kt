@@ -14,9 +14,9 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.MovieTicket
-import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.ui.view.seat.SeatsSelectionActivity
+import woowacourse.movie.domain.ticket.MovieTicket
+import woowacourse.movie.ui.booking.BookingActivity
+import woowacourse.movie.ui.seat.SeatsSelectionActivity
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
