@@ -3,16 +3,6 @@ package woowacourse.movie.model.ticket.seat
 import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
 
-sealed class SeatToggleResult {
-    data class Added(
-        val seat: Seat,
-    ) : SeatToggleResult()
-
-    data class Removed(
-        val seat: Seat,
-    ) : SeatToggleResult()
-}
-
 class Seats(
     initSeats: Collection<Seat> = setOf<Seat>(),
     private val seatGradePolicy: SeatGradePolicy,
