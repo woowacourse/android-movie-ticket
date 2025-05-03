@@ -1,23 +1,30 @@
 package woowacourse.movie.domain.model.seat
 
 class Seats(
-    private val _seats: MutableSet<Seat> = mutableSetOf(),
+    val availableSelectCount: Int,
+    seats: MutableSet<Seat> = mutableSetOf(),
 ) {
-    val reserveSeats: Set<Seat> get() = _seats.toSet()
+    private val reservedSeats = seats.toSet()
+    private val _reservingSeats: MutableSet<Seat> = mutableSetOf()
+    val reservingSeats get() = _reservingSeats.toSet()
 
     fun isReservedSeat(seat: Seat): Boolean {
-        return !_seats.contains(seat)
+        return reservedSeats.contains(seat) || reservingSeats.contains(seat)
     }
 
     fun reserve(seat: Seat) {
-        _seats.add(seat)
+        _reservingSeats.add(seat)
     }
 
     fun cancelReserve(seat: Seat) {
-        _seats.remove(seat)
+        _reservingSeats.remove(seat)
+    }
+
+    fun isSeatSelectionComplete(): Boolean {
+        return reservingSeats.size == availableSelectCount
     }
 
     fun totalPrice(): Int {
-        return _seats.sumOf { seat -> seat.price() }
+        return reservingSeats.sumOf { seat -> seat.price() }
     }
 }

@@ -9,7 +9,7 @@ interface BookingSeatContract {
 
         fun loadInfos()
 
-        fun toggleBackGroundColor(seatPosition: String)
+        fun updateSeat(seatPosition: String)
 
         fun updatePrice()
     }

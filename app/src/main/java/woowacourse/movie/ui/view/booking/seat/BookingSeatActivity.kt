@@ -21,7 +21,6 @@ import woowacourse.movie.util.DialogUtil
 class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
     private val presenter: BookingSeatPresenter by lazy { generatePresenter() }
     private lateinit var seatViewCached: Map<String, TextView>
-    private val seatsTableLayout: TableLayout by lazy { findViewById(R.id.tl_seat) }
     private val nonClickedBackGroundResource: Int by lazy {
         resources.getColor(R.color.white, null)
     }
@@ -92,11 +91,12 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         )
 
     private fun initialSeatTextView(): Map<String, TextView> {
+        val seatsTableLayout: TableLayout by lazy { findViewById(R.id.tl_seat) }
         return seatsTableLayout.children.filterIsInstance<TableRow>().flatMap { tableRow ->
             tableRow.children.filterIsInstance<TextView>().map { textView ->
                 val seatPosition = textView.text.toString()
                 textView.setOnClickListener {
-                    presenter.toggleBackGroundColor(seatPosition)
+                    presenter.updateSeat(seatPosition)
                 }
                 seatPosition to textView
             }
