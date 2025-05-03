@@ -1,10 +1,10 @@
 package woowacourse.movie.view.model
 
 import woowacourse.movie.R
-import woowacourse.movie.model.movie.Advertisement.Companion.JOIN_COUPON_BANNER_ID
-import woowacourse.movie.model.movie.Advertisement.Companion.NIGHT_SALE_BANNER_ID
-import woowacourse.movie.model.movie.Advertisement.Companion.WOOWA_TECH_BANNER_ID
-import woowacourse.movie.model.movie.screening.Screening.Companion.HARRY_POTTER_1_MOVIE_ID
+import woowacourse.movie.model.movieSelect.Advertisement.Companion.JOIN_COUPON_BANNER_ID
+import woowacourse.movie.model.movieSelect.Advertisement.Companion.NIGHT_SALE_BANNER_ID
+import woowacourse.movie.model.movieSelect.Advertisement.Companion.WOOWA_TECH_BANNER_ID
+import woowacourse.movie.model.movieSelect.screening.Screening.Companion.HARRY_POTTER_1_MOVIE_ID
 
 object ResourceMapper {
     fun movieIdToPosterImageResource(movieId: String): ImageResource =

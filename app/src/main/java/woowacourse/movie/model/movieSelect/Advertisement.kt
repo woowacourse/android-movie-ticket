@@ -1,4 +1,4 @@
-package woowacourse.movie.model.movie
+package woowacourse.movie.model.movieSelect
 
 class Advertisement(
     val adId: String,

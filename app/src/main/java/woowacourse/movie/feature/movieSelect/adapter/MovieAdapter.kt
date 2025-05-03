@@ -12,26 +12,11 @@ import woowacourse.movie.view.model.ResourceMapper
 import woowacourse.movie.view.model.setCustomImageResource
 
 class MovieAdapter(
-    screeningDataList: List<ScreeningData>,
-    adsDataList: List<AdvertisementData>,
+    val movieSelectViewDatas: List<MovieSelectViewData>,
     private val onClickReserveButton: (
         screening: ScreeningData,
     ) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-    private val movieSelectItems: List<MovieSelectItems> by lazy {
-        var adIndex = 0
-        screeningDataList.foldIndexed(mutableListOf()) { idx, movieSelectItems, screeningData ->
-            movieSelectItems.apply {
-                add(MovieSelectItems.MovieItem(screeningData))
-
-                if ((idx + 1) % AD_SHOW_CYCLE == 0 && adsDataList.isNotEmpty()) {
-                    add(MovieSelectItems.AdItem(adsDataList[adIndex % adsDataList.size]))
-                    adIndex++
-                }
-            }
-        }
-    }
-
     private inner class MovieViewHolder(
         view: View,
     ) : RecyclerView.ViewHolder(view) {
@@ -42,7 +27,7 @@ class MovieAdapter(
         private val posterImageView: ImageView = view.findViewById(R.id.iv_item_movie_poster)
         private val reserveButton: Button = view.findViewById(R.id.btn_item_movie_reserve)
 
-        fun bind(item: MovieSelectItems.MovieItem) {
+        fun bind(item: MovieSelectViewData.Movie) {
             val screeningData = item.screeningData
             val context = itemView.context
 
@@ -73,7 +58,7 @@ class MovieAdapter(
     ) : RecyclerView.ViewHolder(view) {
         private val bannerImageView: ImageView = view.findViewById(R.id.iv_ad_banner)
 
-        fun bind(item: MovieSelectItems.AdItem) {
+        fun bind(item: MovieSelectViewData.Ad) {
             val adData = item.adData
             bannerImageView.setCustomImageResource(adData.imageResource)
         }
@@ -107,24 +92,22 @@ class MovieAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        when (val item = movieSelectItems[position]) {
-            is MovieSelectItems.MovieItem -> (holder as MovieViewHolder).bind(item)
-            is MovieSelectItems.AdItem -> (holder as AdBannerViewHolder).bind(item)
+        when (val item = movieSelectViewDatas[position]) {
+            is MovieSelectViewData.Movie -> (holder as MovieViewHolder).bind(item)
+            is MovieSelectViewData.Ad -> (holder as AdBannerViewHolder).bind(item)
         }
     }
 
-    override fun getItemCount(): Int = movieSelectItems.size
+    override fun getItemCount(): Int = movieSelectViewDatas.size
 
     override fun getItemViewType(position: Int): Int =
-        when (movieSelectItems[position]) {
-            is MovieSelectItems.MovieItem -> VIEW_TYPE_MOVIE
-            is MovieSelectItems.AdItem -> VIEW_TYPE_AD
+        when (movieSelectViewDatas[position]) {
+            is MovieSelectViewData.Movie -> VIEW_TYPE_MOVIE
+            is MovieSelectViewData.Ad -> VIEW_TYPE_AD
         }
 
     companion object {
         private const val VIEW_TYPE_MOVIE = 0
         private const val VIEW_TYPE_AD = 1
-
-        private const val AD_SHOW_CYCLE = 3
     }
 }

@@ -1,4 +1,4 @@
-package woowacourse.movie.model.movie.screening
+package woowacourse.movie.model.movieSelect.screening
 
 import org.assertj.core.api.Assertions.assertThat
 import java.time.LocalDate

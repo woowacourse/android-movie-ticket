@@ -1,11 +1,11 @@
 package woowacourse.movie.feature.movieSelect.adapter
 
-sealed class MovieSelectItems {
-    data class MovieItem(
+sealed class MovieSelectViewData {
+    data class Movie(
         val screeningData: ScreeningData,
-    ) : MovieSelectItems()
+    ) : MovieSelectViewData()
 
-    data class AdItem(
+    data class Ad(
         val adData: AdvertisementData,
-    ) : MovieSelectItems()
+    ) : MovieSelectViewData()
 }

@@ -1,48 +1,56 @@
 package woowacourse.movie.feature.movieSelect
 
 import woowacourse.movie.feature.movieSelect.adapter.AdvertisementData
+import woowacourse.movie.feature.movieSelect.adapter.MovieSelectViewData
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
-import woowacourse.movie.model.movie.Advertisement
-import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.model.movieSelect.Advertisement
+import woowacourse.movie.model.movieSelect.MovieItemCategory
+import woowacourse.movie.model.movieSelect.MovieListItem
+import woowacourse.movie.model.movieSelect.screening.Screening
 import woowacourse.movie.view.model.ResourceMapper
 
 class MovieSelectPresenter(
     private val view: MovieSelectContract.View,
 ) : MovieSelectContract.Presenter {
-    private var screeningDataList: List<ScreeningData> = emptyList()
-    private var adsDataList: List<AdvertisementData> = emptyList()
-
     override fun loadMovieList() {
         // 3. presenter는 model에서 데이터 획득
-        val screenings: List<Screening> = Screening.getDefaultScreenings()
-        val ads: List<Advertisement> = Advertisement.getDefaultAds()
+        val movieItems = MovieListItem().createItems()
 
         // 4. presenter는 view에 사용할 데이터로 가공
-        this.screeningDataList = screeningsToScreeningDatas(screenings)
-        this.adsDataList = adsToAdDatas(ads)
+        val movieSelectViewData = movieSelectItemToViewData(movieItems)
 
         // 5. presenter는 view에 가공한 데이터를 전달
-        view.updateMovieList(screeningDataList, adsDataList)
+        view.updateMovieList(movieSelectViewData)
     }
 
-    private fun adsToAdDatas(ads: List<Advertisement>): List<AdvertisementData> =
-        ads.map {
-            AdvertisementData(
-                ResourceMapper.adIdToBannerImageResource(it.adId),
-            )
+    private fun movieSelectItemToViewData(movieItem: List<MovieItemCategory>): List<MovieSelectViewData> =
+        movieItem.map { movieSelectItem ->
+            when (movieSelectItem) {
+                is MovieItemCategory.Movie ->
+                    MovieSelectViewData.Movie(
+                        screeningToScreeningData(
+                            movieSelectItem.screening,
+                        ),
+                    )
+
+                is MovieItemCategory.Ad -> MovieSelectViewData.Ad(adToAdData(movieSelectItem.advertisement))
+            }
         }
 
-    private fun screeningsToScreeningDatas(screenings: List<Screening>): List<ScreeningData> =
-        screenings.map {
-            ScreeningData(
-                title = it.title,
-                startDate = it.period.start,
-                endDate = it.period.endInclusive,
-                movieId = it.movieId,
-                runningTime = it.runningTime,
-                poster = ResourceMapper.movieIdToPosterImageResource(it.movieId),
-            )
-        }
+    private fun adToAdData(ad: Advertisement): AdvertisementData =
+        AdvertisementData(
+            ResourceMapper.adIdToBannerImageResource(ad.adId),
+        )
+
+    private fun screeningToScreeningData(screening: Screening): ScreeningData =
+        ScreeningData(
+            title = screening.title,
+            startDate = screening.period.start,
+            endDate = screening.period.endInclusive,
+            movieId = screening.movieId,
+            runningTime = screening.runningTime,
+            poster = ResourceMapper.movieIdToPosterImageResource(screening.movieId),
+        )
 
     override fun navigateToReservationView(screeningData: ScreeningData) {
         view.navigateToReservationView(screeningData)

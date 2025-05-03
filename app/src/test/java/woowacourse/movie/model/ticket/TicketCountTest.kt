@@ -1,4 +1,4 @@
-package woowacourse.movie.model.movie.ticket
+package woowacourse.movie.model.movieSelect.ticket
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

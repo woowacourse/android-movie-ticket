@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieSelect.MainView
 import woowacourse.movie.feature.movieSelect.MovieSelectPresenter
-import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.model.movieSelect.screening.Screening
 import woowacourse.movie.view.model.ImageResource
 import java.time.LocalDate
 

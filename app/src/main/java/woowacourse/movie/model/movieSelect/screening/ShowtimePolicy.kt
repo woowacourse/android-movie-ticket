@@ -1,4 +1,4 @@
-package woowacourse.movie.model.movie.screening
+package woowacourse.movie.model.movieSelect.screening
 
 import java.time.LocalDate
 import java.time.LocalTime

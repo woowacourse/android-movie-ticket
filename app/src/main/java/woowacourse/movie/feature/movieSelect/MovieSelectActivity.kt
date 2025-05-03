@@ -8,8 +8,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.feature.movieSelect.adapter.AdvertisementData
 import woowacourse.movie.feature.movieSelect.adapter.MovieAdapter
+import woowacourse.movie.feature.movieSelect.adapter.MovieSelectViewData
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.reservation.ReservationActivity
 
@@ -35,14 +35,11 @@ class MovieSelectActivity :
     }
 
     // 6. view는 presenter가 가공한 데이터를 전달받아 표시(recyclerView 등)
-    override fun updateMovieList(
-        screeningDataList: List<ScreeningData>,
-        adsDataList: List<AdvertisementData>,
-    ) {
+    override fun updateMovieList(movieSelectViewDatas: List<MovieSelectViewData>) {
         val movieListView = findViewById<RecyclerView>(R.id.rv_main_movies)
 
         val movieAdapter =
-            MovieAdapter(screeningDataList, adsDataList) { screeningData ->
+            MovieAdapter(movieSelectViewDatas) { screeningData ->
                 presenter.navigateToReservationView(screeningData)
             }
         movieListView.adapter = movieAdapter

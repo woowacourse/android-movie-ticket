@@ -19,7 +19,7 @@ import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectActivity
-import woowacourse.movie.model.movie.screening.Screening
+import woowacourse.movie.model.movieSelect.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.view.model.TicketData
 import woowacourse.movie.view.model.setCustomImageResource
