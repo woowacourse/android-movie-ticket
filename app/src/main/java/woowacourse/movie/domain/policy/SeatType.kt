@@ -1,5 +1,7 @@
 package woowacourse.movie.domain.policy
 
+import woowacourse.movie.domain.model.Seat
+
 enum class SeatType(
     val price: Int,
 ) {
@@ -8,12 +10,12 @@ enum class SeatType(
     B(10000), ;
 
     companion object {
-        fun fromSeatName(seatName: String): SeatType =
-            when (seatName.firstOrNull()) {
-                'C', 'D' -> S
-                'E' -> A
-                'A', 'B' -> B
-                else -> throw IllegalArgumentException("존재하지 않는 좌석입니다.$seatName")
+        fun fromSeat(seat: Seat): SeatType =
+            when (seat.row) {
+                2, 3 -> S
+                4 -> A
+                0, 1 -> B
+                else -> throw IllegalArgumentException("존재하지 않는 좌석입니다.")
             }
     }
 }
