@@ -7,18 +7,24 @@ class MovieAdvertisementPolicy {
     fun movieAdvertisement(
         movies: List<Movie>,
         advertisements: List<Advertisement>,
+        interval: Int,
     ): List<MovieContent> {
-        val result = mutableListOf<MovieContent>()
-        var adIndex = 0
-
-        movies.chunked(3).forEach { movieChunk ->
-            result += movieChunk.map { it }
-            if (movieChunk.size == 3 && advertisements.isNotEmpty()) {
-                result += advertisements[adIndex % advertisements.size]
-                adIndex++
+        return movies.chunked(interval)
+            .flatMapIndexed { index, movieChunk ->
+                val selectedAdvertisement =
+                    selectAdvertisement(index, movieChunk.size, interval, advertisements)
+                movieChunk + selectedAdvertisement
             }
-        }
-
-        return result
     }
+}
+
+private fun selectAdvertisement(
+    chunkIndex: Int,
+    chunkSize: Int,
+    interval: Int,
+    advertisements: List<Advertisement>,
+): List<MovieContent> {
+    if (chunkSize < interval || advertisements.isEmpty()) return emptyList()
+    val advertisement = advertisements[chunkIndex % advertisements.size]
+    return listOf(advertisement)
 }

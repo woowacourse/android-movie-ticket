@@ -48,7 +48,11 @@ class MainPresenter(
     override fun showMovies() {
         val movieAdvertisementPolicy = MovieAdvertisementPolicy()
         val movieAdvertisements =
-            movieAdvertisementPolicy.movieAdvertisement(movies, advertisements)
+            movieAdvertisementPolicy.movieAdvertisement(
+                movies,
+                advertisements,
+                ADVERTISEMENT_INTERVAL,
+            )
         val movieItems =
             movieAdvertisements.map { movieAdvertisement ->
                 when (movieAdvertisement) {
@@ -61,6 +65,7 @@ class MainPresenter(
     }
 
     private companion object {
+        private const val ADVERTISEMENT_INTERVAL = 3
         const val DATE_FORMAT = "yyyy.MM.dd"
     }
 }
