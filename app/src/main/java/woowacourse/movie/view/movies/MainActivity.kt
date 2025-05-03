@@ -27,16 +27,13 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         presenter.fetchData()
     }
 
-    override fun showMoviesScreen(
-        movieItems: List<MovieItem>,
-        navigate: (Movie) -> Unit,
-    ) {
+    override fun showMoviesScreen(movieItems: List<MovieItem>) {
         val recyclerView: RecyclerView = findViewById(R.id.recycler_view)
         val movieAdapter: MovieAdapter =
             MovieAdapter(
                 object : OnMovieEventListener {
                     override fun onClickReservation(movie: Movie) {
-                        navigate(movie)
+                        navigateToReservation(movie)
                     }
                 },
             )
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         movieAdapter.submitList(movieItems)
     }
 
-    override fun navigateToReservation(movie: Movie) {
+    private fun navigateToReservation(movie: Movie) {
         val intent = ReservationActivity.newIntent(this, movie)
         startActivity(intent)
     }

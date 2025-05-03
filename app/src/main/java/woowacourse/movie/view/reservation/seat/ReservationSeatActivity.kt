@@ -163,7 +163,7 @@ class ReservationSeatActivity : AppCompatActivity(), ReservationSeatContract.Vie
         }
     }
 
-    override fun navigateToReservationComplete(
+    private fun navigateToReservationComplete(
         ticket: Ticket,
         seats: Seats,
     ) {

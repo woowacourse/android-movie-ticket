@@ -1,6 +1,5 @@
 package woowacourse.movie.view.movies
 
-import woowacourse.movie.domain.Movie
 import woowacourse.movie.domain.MovieItem
 
 interface MainContract {
@@ -9,11 +8,6 @@ interface MainContract {
     }
 
     interface View {
-        fun showMoviesScreen(
-            movieItems: List<MovieItem>,
-            navigate: (Movie) -> Unit,
-        )
-
-        fun navigateToReservation(movie: Movie)
+        fun showMoviesScreen(movieItems: List<MovieItem>)
     }
 }

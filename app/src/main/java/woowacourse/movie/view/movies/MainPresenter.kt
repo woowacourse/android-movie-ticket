@@ -10,9 +10,7 @@ class MainPresenter(
         val movies: List<Movie> = Movie.dummy
         val movieItem = convertToMovieItems(movies)
 
-        view.showMoviesScreen(movieItem) { movie ->
-            view.navigateToReservation(movie)
-        }
+        view.showMoviesScreen(movieItem)
     }
 
     private fun convertToMovieItems(movies: List<Movie>): List<MovieItem> {

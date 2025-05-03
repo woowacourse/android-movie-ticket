@@ -33,7 +33,7 @@ interface ReservationContract {
 
         fun showCount(count: Int)
 
-        fun navigateToReservationComplete(ticket: Ticket)
+        fun showTicket(ticket: Ticket)
 
         fun setCountButtons()
 
