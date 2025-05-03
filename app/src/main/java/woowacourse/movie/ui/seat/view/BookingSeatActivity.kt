@@ -23,7 +23,10 @@ import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.domain.model.TicketType
 import woowacourse.movie.ui.complete.view.BookingCompleteActivity
 import woowacourse.movie.ui.seat.contract.BookingSeatContract
+import woowacourse.movie.ui.seat.model.SeatState
+import woowacourse.movie.ui.seat.presenter.BookingSeatPresenter
 import woowacourse.movie.utils.StringFormatter.thousandFormat
+import woowacourse.movie.utils.bundleSerializable
 import woowacourse.movie.utils.intentSerializable
 import java.time.LocalDateTime
 
@@ -42,8 +45,9 @@ class BookingSeatActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         applyWindowInsets()
+        initializeStateFromIntent()
         initializeSeatTextViews()
-        restoreData()
+        savedInstanceState?.let { restoreState(it) }
         bookingSeatPresenter.updateViews()
         setConfirmButtonClickListener()
     }
@@ -56,14 +60,32 @@ class BookingSeatActivity :
         }
     }
 
-    private fun restoreData() {
-        bookingSeatPresenter.restoreHeadcount(
-            intent.intentSerializable(
-                EXTRA_HEADCOUNT,
-                Headcount::class.java,
-            ) ?: Headcount(),
-        )
-        bookingSeatPresenter.restoreMovieTitle(intent.getStringExtra(EXTRA_MOVIE_TITLE) ?: "")
+    private fun initializeStateFromIntent() {
+        val seatState: SeatState =
+            with(intent) {
+                SeatState(
+                    movieTitle = getStringExtra(EXTRA_MOVIE_TITLE) ?: "",
+                    headcount =
+                        intentSerializable(EXTRA_HEADCOUNT, Headcount::class.java)
+                            ?: Headcount(),
+                    selectedSeats = Seats(),
+                )
+            }
+        bookingSeatPresenter.restoreState(seatState)
+    }
+
+    private fun restoreState(savedInstanceState: Bundle) {
+        val seatState: SeatState =
+            with(savedInstanceState) {
+                SeatState(
+                    movieTitle = getString(KEY_MOVIE_TITLE) ?: "",
+                    headcount =
+                        bundleSerializable(KEY_HEADCOUNT, Headcount::class.java)
+                            ?: Headcount(),
+                    selectedSeats = bundleSerializable(KEY_SEATS, Seats::class.java) ?: Seats(),
+                )
+            }
+        bookingSeatPresenter.restoreState(seatState)
     }
 
     override fun setTotalPrice(totalPrice: Int) {
@@ -206,6 +228,10 @@ class BookingSeatActivity :
             putExtra(EXTRA_DATETIME, dateTime)
             putExtra(EXTRA_HEADCOUNT, headcount)
         }
+
+        private const val KEY_MOVIE_TITLE = "movieTitle"
+        private const val KEY_HEADCOUNT = "headcount"
+        private const val KEY_SEATS = "seats"
 
         private const val EXTRA_MOVIE_TITLE = "movieTitle"
         private const val EXTRA_DATETIME = "dateTime"

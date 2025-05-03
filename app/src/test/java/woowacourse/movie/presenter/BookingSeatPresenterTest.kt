@@ -6,8 +6,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
+import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.seat.contract.BookingSeatContract
-import woowacourse.movie.ui.seat.view.BookingSeatPresenter
+import woowacourse.movie.ui.seat.model.SeatState
+import woowacourse.movie.ui.seat.presenter.BookingSeatPresenter
 
 class BookingSeatPresenterTest {
     private lateinit var view: BookingSeatContract.View
@@ -17,6 +19,13 @@ class BookingSeatPresenterTest {
     fun setUp() {
         view = mockk(relaxed = true)
         presenter = BookingSeatPresenter(view)
+        presenter.restoreState(
+            SeatState(
+                Headcount(2),
+                "해리 포터와 마법사의 돌",
+                Seats(),
+            ),
+        )
     }
 
     @Test
@@ -47,7 +56,6 @@ class BookingSeatPresenterTest {
 
     @Test
     fun `선택한 좌석 수가 인원 수와 다르면 확인 버튼이 비활성화된다`() {
-        presenter.restoreHeadcount(Headcount(2))
         presenter.selectSeat(Seat(0, 0))
         // Headcount는 2이지만, 좌석이 아직 하나만 선택되었다.
         verify { view.setConfirmButton(false) }

@@ -1,9 +1,10 @@
-package woowacourse.movie.ui.seat.view
+package woowacourse.movie.ui.seat.presenter
 
 import woowacourse.movie.domain.model.Headcount
 import woowacourse.movie.domain.model.Seat
 import woowacourse.movie.domain.model.Seats
 import woowacourse.movie.ui.seat.contract.BookingSeatContract
+import woowacourse.movie.ui.seat.model.SeatState
 
 class BookingSeatPresenter(
     private val bookingSeatView: BookingSeatContract.View,
@@ -20,20 +21,20 @@ class BookingSeatPresenter(
         refreshConfirmButton()
     }
 
+    override fun restoreState(seatState: SeatState) {
+        with(seatState) {
+            this@BookingSeatPresenter._headcount = headcount
+            this@BookingSeatPresenter.movieTitle = movieTitle
+            this@BookingSeatPresenter.seats = selectedSeats
+        }
+    }
+
     override fun refreshTotalPrice() {
         bookingSeatView.setTotalPrice(seats.totalPrice())
     }
 
     override fun refreshMovieTitle() {
         bookingSeatView.setMovieTitle(movieTitle)
-    }
-
-    override fun restoreHeadcount(headcount: Headcount) {
-        _headcount = headcount
-    }
-
-    override fun restoreMovieTitle(movieTitle: String) {
-        this.movieTitle = movieTitle
     }
 
     override fun selectSeat(seat: Seat) {
