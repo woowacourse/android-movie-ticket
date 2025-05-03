@@ -33,7 +33,6 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
 
     private val reserveButton: Button by lazy { findViewById(R.id.btn_booking_seat_reserve) }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
