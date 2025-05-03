@@ -10,7 +10,7 @@ interface ReserveContract {
     interface Presenter {
         fun initMovie(movie: Movie)
 
-        fun initReservation(selectedDateTime: () -> LocalDateTime)
+        fun updateReservation(selectedDateTime: LocalDateTime)
 
         fun initDates(currentDate: LocalDate)
 
@@ -30,13 +30,9 @@ interface ReserveContract {
         fun updateSelectedDate(
             date: LocalDate,
             currentDateTime: LocalDateTime,
-            selectedDateTime: () -> LocalDateTime,
         )
 
-        fun updateSelectedTime(
-            position: Int,
-            selectedDateTime: () -> LocalDateTime,
-        )
+        fun updateSelectedTime(position: Int)
     }
 
     interface View {

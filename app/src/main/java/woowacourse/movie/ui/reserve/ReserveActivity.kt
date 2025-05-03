@@ -160,9 +160,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
     private fun initReservation(movie: Movie) {
         initDateSpinner()
         initTimeSpinner(movie.screeningDate.startDate)
-        presenter.initReservation {
-            getSelectedDateTime()
-        }
+        presenter.updateReservation(getSelectedDateTime())
         initButtonListeners()
     }
 
@@ -212,8 +210,8 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
                 presenter.updateSelectedDate(
                     dates[position],
                     LocalDateTime.now(),
-                    ::getSelectedDateTime,
                 )
+                presenter.updateReservation(getSelectedDateTime())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -227,7 +225,8 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
                 position: Int,
                 id: Long,
             ) {
-                presenter.updateSelectedTime(position, ::getSelectedDateTime)
+                presenter.updateSelectedTime(position)
+                presenter.updateReservation(getSelectedDateTime())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -276,9 +275,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
     ) {
         presenter.initTimes(date, LocalDateTime.now())
         timeSpinner.setSelection(savedTimePosition.coerceAtMost(screeningTimesSize - 1))
-        presenter.initReservation {
-            getSelectedDateTime()
-        }
+        presenter.updateReservation(getSelectedDateTime())
     }
 
     override fun timeOnClick(position: Int) {

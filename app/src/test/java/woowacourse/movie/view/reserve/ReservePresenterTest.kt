@@ -17,8 +17,7 @@ class ReservePresenterTest {
     private val presenter = ReservePresenter(view)
 
     private val mockMovie = HARRY_POTTER_MOVIE
-    private val mockDateTime: () -> LocalDateTime =
-        { LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME) }
+    private val mockDateTime: LocalDateTime = LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME)
     private val mockDates = listOf(LocalDate.of(2025, 5, 1), LocalDate.of(2025, 5, 2))
     private val mockTimes = listOf(LAST_MOVIE_TIME)
     private val increasedPurchaseCount = 2
@@ -27,7 +26,7 @@ class ReservePresenterTest {
     @BeforeEach
     fun setUp() {
         presenter.initMovie(mockMovie)
-        presenter.initReservation(mockDateTime)
+        presenter.updateReservation(mockDateTime)
     }
 
     @Test
@@ -69,7 +68,10 @@ class ReservePresenterTest {
 
     @Test
     fun `dateOnClick 호출 시 view의 dateOnClick에 정확한 Date와 예상되는 상영 시간 크기를 전달`() {
-        presenter.updateSelectedDate(MAY_FIRST, LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME), mockDateTime)
+        presenter.updateSelectedDate(
+            MAY_FIRST,
+            LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME),
+        )
 
         verify {
             view.fetchTimes(listOf(LAST_MOVIE_TIME))
@@ -86,7 +88,7 @@ class ReservePresenterTest {
         val selectedPosition = 1
 
         // When
-        presenter.updateSelectedTime(selectedPosition, mockDateTime)
+        presenter.updateSelectedTime(selectedPosition)
 
         // Then
         verify { view.timeOnClick(selectedPosition) }
