@@ -16,7 +16,7 @@ import woowacourse.movie.ui.movielist.presenter.MovieListPresenter
 class MovieListActivity :
     AppCompatActivity(),
     MovieListContract.View {
-    val movieListPresenter = MovieListPresenter(this)
+    private val movieListPresenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +24,7 @@ class MovieListActivity :
         setContentView(R.layout.activity_movie_list)
         applyWindowInsets()
 
-        movieListPresenter.loadMovieList()
+        movieListPresenter.loadMovieListItems()
     }
 
     private fun applyWindowInsets() {

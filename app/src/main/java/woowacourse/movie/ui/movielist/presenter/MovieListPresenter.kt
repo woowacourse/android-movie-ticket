@@ -1,28 +1,18 @@
 package woowacourse.movie.ui.movielist.presenter
 
-import woowacourse.movie.domain.model.Advertisement
-import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.Advertisement.Companion.DUMMY_ADS
+import woowacourse.movie.domain.model.Movie.Companion.DUMMY_MOVIES
 import woowacourse.movie.domain.model.MovieListItem
 import woowacourse.movie.ui.movielist.contract.MovieListContract
 
 class MovieListPresenter(
     private val movieListView: MovieListContract.View,
 ) : MovieListContract.Presenter {
-    override fun getMovieList(): List<MovieListItem.MovieItem> =
-        Movie.Companion.DUMMY_MOVIES.map {
-            MovieListItem.MovieItem(
-                it,
-            )
-        }
+    private fun getMovieList(): List<MovieListItem.MovieItem> = DUMMY_MOVIES.map { MovieListItem.MovieItem(it) }
 
-    override fun getAdvertisementList(): List<MovieListItem.AdItem> =
-        Advertisement.Companion.DUMMY_ADS.map {
-            MovieListItem.AdItem(
-                it,
-            )
-        }
+    private fun getAdvertisementList(): List<MovieListItem.AdItem> = DUMMY_ADS.map { MovieListItem.AdItem(it) }
 
-    override fun loadMovieList() {
+    override fun loadMovieListItems() {
         val movies = getMovieList()
         val ads = getAdvertisementList()
         movieListView.setMoveListItems(movieListItems(movies, ads))
