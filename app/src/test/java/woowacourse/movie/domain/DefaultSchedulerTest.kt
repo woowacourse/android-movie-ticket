@@ -2,12 +2,13 @@ package woowacourse.movie.domain
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.scheduler.DefaultScheduler
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class SchedulerTest {
-    private val scheduler = Scheduler()
+class DefaultSchedulerTest {
+    private val scheduler = DefaultScheduler
 
     @Test
     fun `상영 시작일이 오늘보다 빠르면 오늘부터 종료일까지 반환한다`() {

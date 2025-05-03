@@ -13,17 +13,20 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
+            android:name=".view.seat.SeatSelectActivity"
+            android:exported="false"
+            android:parentActivityName=".view.reservation.MovieReservationActivity"/>
+        <activity
             android:name=".view.reservation.MovieReservationActivity"
             android:exported="false"
-            android:parentActivityName=".view.list.MovieListActivity" />
+            android:parentActivityName=".view.movie.MovieListActivity" />
         <activity
-            android:name=".view.reservation.MovieReservationCompleteActivity"
+            android:name=".view.result.ReservationResultActivity"
             android:exported="false"
-            android:parentActivityName=".view.reservation.MovieReservationActivity" />
+            android:parentActivityName=".view.seat.SeatSelectActivity" />
         <activity
-            android:name=".view.list.MovieListActivity"
-            android:exported="false">
-        </activity>
+            android:name=".view.movie.MovieListActivity"
+            android:exported="false" />
         <activity
             android:name=".view.MainActivity"
             android:exported="true">

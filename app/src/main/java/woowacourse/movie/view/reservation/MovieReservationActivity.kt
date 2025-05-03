@@ -12,83 +12,91 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.common.parcelable
-import woowacourse.movie.common.parcelableExtra
-import woowacourse.movie.domain.Movie
-import woowacourse.movie.domain.Scheduler
-import woowacourse.movie.domain.Ticket
+import woowacourse.movie.common.StringFormatter
+import woowacourse.movie.common.getParcelableCompat
+import woowacourse.movie.common.getParcelableExtraCompat
+import woowacourse.movie.domain.scheduler.DefaultScheduler
+import woowacourse.movie.view.movie.model.MovieUiModel
+import woowacourse.movie.view.reservation.model.TicketUiModel
+import woowacourse.movie.view.seat.SeatSelectActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import java.time.LocalTime
 
-class MovieReservationActivity : AppCompatActivity() {
-    private lateinit var movie: Movie
-    private lateinit var ticket: Ticket
-    private val scheduler = Scheduler()
+class MovieReservationActivity :
+    AppCompatActivity(),
+    MovieReservationContract.View {
+    private lateinit var presenter: MovieReservationPresenter
 
+    private val decrementButton: Button by lazy { findViewById(R.id.decrement_button) }
+    private val incrementButton: Button by lazy { findViewById(R.id.increment_button) }
+    private val ticketCountTextView: TextView by lazy { findViewById(R.id.ticket_count) }
     private val dateSpinner: Spinner by lazy { findViewById(R.id.date_spinner) }
     private val timeSpinner: Spinner by lazy { findViewById(R.id.time_spinner) }
-    private val ticketCountTextView: TextView by lazy { findViewById(R.id.ticket_count) }
+    private lateinit var dateAdapter: ArrayAdapter<LocalDate>
+    private lateinit var timeAdapter: ArrayAdapter<LocalTime>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initUi()
+        setView()
 
-        movie = intent.parcelableExtra(EXTRA_MOVIE, Movie::class.java) ?: finish().run { return }
-        ticket = savedInstanceState?.parcelable(EXTRA_TICKET, Ticket::class.java) ?: Ticket(movie)
+        val movie =
+            intent.getParcelableExtraCompat(EXTRA_MOVIE, MovieUiModel::class.java)
+                ?: finish().run { return }
+        presenter = MovieReservationPresenter(this, TicketUiModel.from(movie), DefaultScheduler)
 
-        initMovieInfo()
-        initDateSpinner()
-        initTimeSpinner()
-
-        updateTicketCountView()
-        initTicketCountButton()
-        initSelectButton()
+        initView()
+        presenter.loadMovieReservationScreen()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        if (!dateAdapter.isEmpty && !timeAdapter.isEmpty) {
+            outState.putParcelable(EXTRA_TICKET, presenter.ticket)
+        }
         super.onSaveInstanceState(outState)
+    }
 
-        if (!dateSpinner.adapter.isEmpty && !timeSpinner.adapter.isEmpty) {
-            outState.putParcelable(EXTRA_TICKET, ticket)
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        val restoredTicket =
+            savedInstanceState.getParcelableCompat(EXTRA_TICKET, TicketUiModel::class.java)
+        restoredTicket?.let { restored ->
+            presenter.restoreTicket(restored)
         }
     }
 
-    private fun initUi() {
-        enableEdgeToEdge()
-        setContentView(R.layout.activity_movie_reservation)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
-    }
-
-    private fun initMovieInfo() {
+    override fun showMovieInfo(movie: MovieUiModel) {
         val poster: ImageView = findViewById(R.id.poster)
         val title: TextView = findViewById(R.id.movie_title)
         val screeningDate: TextView = findViewById(R.id.screening_date)
         val runningTime: TextView = findViewById(R.id.running_time)
 
-        poster.setImageResource(movie.poster)
+        poster.setImageResource(movie.posterResId)
         title.text = movie.title
-        val startDate = movie.startDate.format(DATE_FORMAT)
-        val endDate = movie.endDate.format(DATE_FORMAT)
+        val startDate = StringFormatter.date(movie.startDate)
+        val endDate = StringFormatter.date(movie.endDate)
         screeningDate.text = getString(R.string.screening_date, startDate, endDate)
         runningTime.text = getString(R.string.running_time, movie.runningTime)
     }
 
-    private fun initDateSpinner() {
-        val screeningDates =
-            scheduler.getScreeningDates(movie.startDate, movie.endDate, LocalDate.now())
+    override fun showHeadCount(count: Int) {
+        ticketCountTextView.text = count.toString()
+    }
 
-        val dateAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, screeningDates)
-        dateSpinner.adapter = dateAdapter
+    override fun updateDecrementButtonState(enabled: Boolean) {
+        decrementButton.isEnabled = enabled
+    }
+
+    override fun updateDateSpinner(
+        screeningDates: List<LocalDate>,
+        selectedDate: LocalDate,
+    ) {
+        dateAdapter.clear()
+        dateAdapter.addAll(screeningDates)
+        dateSpinner.setSelection(dateAdapter.getPosition(selectedDate))
 
         dateSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -98,36 +106,20 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    ticket =
-                        ticket.copy(
-                            showtime =
-                                LocalDateTime.of(
-                                    screeningDates[position],
-                                    ticket.showtime.toLocalTime(),
-                                ),
-                        )
-                    initTimeSpinner()
+                    presenter.onSelectDate(screeningDates[position])
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
-
-        ticket.showtime.toLocalDate().let {
-            dateSpinner.setSelection(dateAdapter.getPosition(it))
-        }
     }
 
-    private fun initTimeSpinner() {
-        val showtimes =
-            if (dateSpinner.adapter.isEmpty) {
-                emptyList()
-            } else {
-                ticket.showtime
-                    .toLocalDate()
-                    ?.let { scheduler.getShowtimes(it, LocalDateTime.now()) } ?: emptyList()
-            }
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, showtimes)
-        timeSpinner.adapter = adapter
+    override fun updateTimeSpinner(
+        showtimes: List<LocalTime>,
+        selectedTime: LocalTime,
+    ) {
+        timeAdapter.clear()
+        timeAdapter.addAll(showtimes)
+        timeSpinner.setSelection(timeAdapter.getPosition(selectedTime))
 
         timeSpinner.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -137,76 +129,63 @@ class MovieReservationActivity : AppCompatActivity() {
                     position: Int,
                     id: Long,
                 ) {
-                    ticket =
-                        ticket.copy(
-                            showtime =
-                                LocalDateTime.of(
-                                    ticket.showtime.toLocalDate(),
-                                    showtimes[position],
-                                ),
-                        )
+                    presenter.onSelectTime(showtimes[position])
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) = Unit
             }
+    }
 
-        ticket.showtime.toLocalTime().let {
-            timeSpinner.setSelection(adapter.getPosition(it))
+    override fun navigateToCompleteScreen(ticket: TicketUiModel) {
+        val intent = SeatSelectActivity.newIntent(this, ticket)
+        startActivity(intent)
+    }
+
+    private fun setView() {
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_movie_reservation)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
         }
     }
 
-    private fun initTicketCountButton() {
-        val decrementButton: Button = findViewById(R.id.decrement_button)
-        val incrementButton: Button = findViewById(R.id.increment_button)
-
-        if (ticket.isMinimumCount()) decrementButton.isEnabled = false
-
-        ticketCountTextView.text = ticket.count.toString()
-        decrementButton.setOnClickListener {
-            ticket = ticket.copy(count = ticket.count - 1)
-            updateTicketCountView()
-            if (ticket.isMinimumCount()) decrementButton.isEnabled = false
-        }
-        incrementButton.setOnClickListener {
-            decrementButton.isEnabled = true
-            ticket = ticket.copy(count = ticket.count + 1)
-            updateTicketCountView()
-        }
+    private fun initView() {
+        initSpinners()
+        initButtons()
+        initSelectButton()
     }
 
-    private fun updateTicketCountView() {
-        ticketCountTextView.text = ticket.count.toString()
+    private fun initSpinners() {
+        dateAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalDate>())
+        timeAdapter =
+            ArrayAdapter(this, android.R.layout.simple_spinner_item, mutableListOf<LocalTime>())
+        dateSpinner.adapter = dateAdapter
+        timeSpinner.adapter = timeAdapter
+    }
+
+    private fun initButtons() {
+        decrementButton.setOnClickListener { presenter.onClickDecrementButton() }
+        incrementButton.setOnClickListener { presenter.onClickIncrementButton() }
     }
 
     private fun initSelectButton() {
         val selectButton: Button = findViewById(R.id.select_button)
-        val alertDialog =
-            AlertDialog
-                .Builder(this)
-                .setTitle(R.string.confirm_reservation)
-                .setMessage(R.string.confirm_reservation_message)
-                .setPositiveButton(R.string.complete_reservation) { _, _ -> onConfirmReservation() }
-                .setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-
         selectButton.setOnClickListener {
             if (!dateSpinner.adapter.isEmpty && !timeSpinner.adapter.isEmpty) {
-                alertDialog.show()
+                presenter.completeReservation()
             } else {
                 Toast.makeText(this, R.string.select_date_and_time, Toast.LENGTH_SHORT).show()
             }
         }
-        alertDialog.setCancelable(false)
-    }
-
-    private fun onConfirmReservation() {
-        val intent = MovieReservationCompleteActivity.newIntent(this, ticket)
-        startActivity(intent)
     }
 
     companion object {
         fun newIntent(
             context: Context,
-            movie: Movie,
+            movie: MovieUiModel,
         ): Intent =
             Intent(context, MovieReservationActivity::class.java).apply {
                 putExtra(EXTRA_MOVIE, movie)
@@ -214,6 +193,5 @@ class MovieReservationActivity : AppCompatActivity() {
 
         private const val EXTRA_MOVIE = "extra_movie"
         private const val EXTRA_TICKET = "extra_ticket"
-        private val DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy.MM.dd")
     }
 }
