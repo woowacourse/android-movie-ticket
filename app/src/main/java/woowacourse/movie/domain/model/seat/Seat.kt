@@ -1,6 +1,6 @@
 package woowacourse.movie.domain.model.seat
 
-data class Seat private constructor(
+data class Seat(
     val row: Row,
     val col: Col,
 ) {

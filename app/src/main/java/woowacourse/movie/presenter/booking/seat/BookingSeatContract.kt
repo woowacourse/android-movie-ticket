@@ -2,6 +2,7 @@ package woowacourse.movie.presenter.booking.seat
 
 import androidx.annotation.StringRes
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
+import woowacourse.movie.ui.model.seat.SeatsUiModel
 
 interface BookingSeatContract {
     interface Presenter {
@@ -33,6 +34,9 @@ interface BookingSeatContract {
 
         fun showTotalPrice(totalPrice: String)
 
-        fun moveToBookingResultScreen(bookingResultUiModel: BookingResultUiModel)
+        fun moveToBookingResultScreen(
+            bookingResultUiModel: BookingResultUiModel,
+            seatsUiModel: SeatsUiModel,
+        )
     }
 }

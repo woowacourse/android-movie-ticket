@@ -2,10 +2,10 @@ package woowacourse.movie.domain.model.seat
 
 class Seats(
     val availableSelectCount: Int,
-    seats: MutableSet<Seat> = mutableSetOf(),
+    _reservedSeats: MutableSet<Seat> = mutableSetOf(),
+    private val _reservingSeats: MutableSet<Seat> = mutableSetOf(),
 ) {
-    private val reservedSeats = seats.toSet()
-    private val _reservingSeats: MutableSet<Seat> = mutableSetOf()
+    val reservedSeats = _reservedSeats.toSet()
     val reservingSeats get() = _reservingSeats.toSet()
 
     fun isReservedSeat(seat: Seat): Boolean {

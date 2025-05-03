@@ -7,6 +7,7 @@ import woowacourse.movie.domain.model.seat.Seats
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
 import woowacourse.movie.util.StringFormatter
 import woowacourse.movie.util.mapper.BookingResultModelMapper
+import woowacourse.movie.util.mapper.SeatsModelMapper
 
 class BookingSeatPresenter(
     private val view: BookingSeatContract.View,
@@ -65,6 +66,7 @@ class BookingSeatPresenter(
     }
 
     override fun proceedToBookingResult() {
-        view.moveToBookingResultScreen(bookingResultUiModel)
+        val seatsUiModel = SeatsModelMapper.toUi(seats)
+        view.moveToBookingResultScreen(bookingResultUiModel, seatsUiModel)
     }
 }

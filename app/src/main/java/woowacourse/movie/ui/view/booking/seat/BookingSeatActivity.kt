@@ -17,6 +17,7 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.presenter.booking.seat.BookingSeatContract
 import woowacourse.movie.presenter.booking.seat.BookingSeatPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
+import woowacourse.movie.ui.model.seat.SeatsUiModel
 import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
 import woowacourse.movie.util.DialogUtil
 
@@ -78,11 +79,15 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         totalPriceView.text = getString(R.string.seat_total_price, totalPrice)
     }
 
-    override fun moveToBookingResultScreen(bookingResultUiModel: BookingResultUiModel) {
+    override fun moveToBookingResultScreen(
+        bookingResultUiModel: BookingResultUiModel,
+        seatsUiModel: SeatsUiModel,
+    ) {
         startActivity(
             BookingCompleteActivity.newIntent(
                 this@BookingSeatActivity,
                 bookingResultUiModel,
+                seatsUiModel,
             ),
         )
     }
