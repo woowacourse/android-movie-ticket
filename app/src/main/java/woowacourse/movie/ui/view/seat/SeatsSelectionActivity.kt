@@ -3,10 +3,13 @@ package woowacourse.movie.ui.view.seat
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TableLayout
+import android.widget.TableRow
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.model.ReservedMovie
@@ -22,6 +25,7 @@ class SeatsSelectionActivity :
     private lateinit var presenter: SeatsSelectionPresenter
     private val selectedColor by lazy { ContextCompat.getColor(this, R.color.yellow) }
     private val defaultColor by lazy { ContextCompat.getColor(this, R.color.white) }
+    private lateinit var tableLayout: TableLayout
     private val reservedMovie: ReservedMovie by lazy {
         intent
             .intentSerializable(
@@ -33,7 +37,7 @@ class SeatsSelectionActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_seat_selection)
-
+        tableLayout = findViewById(R.id.seats)
         presenter = SeatsSelectionPresenter(this, reservedMovie)
         setupConfirmButtonListener()
         setupSeatButtonsListener()
@@ -76,6 +80,17 @@ class SeatsSelectionActivity :
             ).show()
     }
 
+    override fun changeSeatColor(
+        row: Int,
+        col: Int,
+        isSelected: Boolean,
+    ) {
+        val tableRow = tableLayout.getChildAt(row) as TableRow
+        val button = tableRow.getChildAt(col) as Button
+        val color = if (isSelected) selectedColor else defaultColor
+        button.setBackgroundColor(color)
+    }
+
     private fun setupConfirmButtonListener() {
         val confirmBtn = findViewById<Button>(R.id.confirm_button)
 
@@ -85,34 +100,14 @@ class SeatsSelectionActivity :
     }
 
     private fun setupSeatButtonsListener() {
-        val buttonIds = createButtonIds()
-        buttonIds.forEach { buttonName ->
-            val buttonID = resources.getIdentifier(buttonName, ID, packageName)
-            val button = findViewById<Button>(buttonID)
-            button.setOnClickListener {
-                val result = presenter.getSeatResult(button.text.toString())
-                when (result) {
-                    SeatButtonState.SELECTED -> button.setBackgroundColor(selectedColor)
-                    SeatButtonState.DESELECTED -> button.setBackgroundColor(defaultColor)
-                    SeatButtonState.LIMIT -> showSeatLimitToastMessage()
+        tableLayout.children.forEachIndexed { rowIndex, rowView ->
+            val tableRow = rowView as TableRow
+            tableRow.children.forEachIndexed { colIndex, view ->
+                val button = view as Button
+                button.setOnClickListener {
+                    presenter.onClickSeat(rowIndex, colIndex)
                 }
-                presenter.loadAmount()
             }
         }
-    }
-
-    companion object {
-        private val rows = listOf("A", "B", "C", "D", "E")
-        private val cols = listOf(1, 2, 3, 4)
-        private const val ID = "id"
-        private const val BUTTON_ID_FORMAT = "button_%s%d"
-
-        private fun createButtonIds() =
-            rows
-                .flatMap { row ->
-                    cols.map { col ->
-                        BUTTON_ID_FORMAT.format(row, col)
-                    }
-                }
     }
 }

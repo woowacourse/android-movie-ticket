@@ -12,7 +12,7 @@ import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.MovieTicket
 import woowacourse.movie.domain.policy.PricingPolicy
 import woowacourse.movie.domain.repository.MovieRepository
-import woowacourse.movie.ui.view.seat.SeatButtonState
+import woowacourse.movie.ui.view.seat.SeatState
 import woowacourse.movie.ui.view.seat.SeatsSelectionContract
 
 class SeatsSelectionPresenterTest {
@@ -101,7 +101,7 @@ class SeatsSelectionPresenterTest {
         val result = presenter.getSeatResult("A1")
 
         // then
-        result shouldBe SeatButtonState.DESELECTED
+        result shouldBe SeatState.DESELECTED
     }
 
     @Test
@@ -118,7 +118,7 @@ class SeatsSelectionPresenterTest {
         val result = presenter.getSeatResult("B1")
 
         // then
-        result shouldBe SeatButtonState.LIMIT
+        result shouldBe SeatState.LIMIT
     }
 
     @Test
@@ -135,6 +135,6 @@ class SeatsSelectionPresenterTest {
         val result = presenter.getSeatResult("A1")
 
         // then
-        result shouldBe SeatButtonState.SELECTED
+        result shouldBe SeatState.SELECTED
     }
 }

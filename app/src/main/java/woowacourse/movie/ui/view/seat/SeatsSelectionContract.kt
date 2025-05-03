@@ -13,6 +13,12 @@ interface SeatsSelectionContract {
         fun navigateToBookingSummary(movieTicket: MovieTicket)
 
         fun showSeatLimitToastMessage()
+
+        fun changeSeatColor(
+            row: Int,
+            col: Int,
+            isSelected: Boolean,
+        )
     }
 
     interface Presenter {
@@ -22,10 +28,11 @@ interface SeatsSelectionContract {
 
         fun loadAmount()
 
-        fun getSeatResult(seatName: String): SeatButtonState
-
-        fun isSeatLimit(): Boolean
-
         fun updateAmount()
+
+        fun onClickSeat(
+            row: Int,
+            col: Int,
+        )
     }
 }
