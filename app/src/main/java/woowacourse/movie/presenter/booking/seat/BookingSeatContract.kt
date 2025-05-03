@@ -12,6 +12,8 @@ interface BookingSeatContract {
         fun updateSeat(seatPosition: String)
 
         fun updatePrice()
+
+        fun proceedToBookingResult()
     }
 
     interface View {
@@ -30,5 +32,7 @@ interface BookingSeatContract {
         )
 
         fun showTotalPrice(totalPrice: String)
+
+        fun moveToBookingResultScreen(bookingResultUiModel: BookingResultUiModel)
     }
 }

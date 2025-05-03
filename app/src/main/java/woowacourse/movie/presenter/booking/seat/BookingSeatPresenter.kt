@@ -63,4 +63,8 @@ class BookingSeatPresenter(
         val totalPrice = StringFormatter.toPriceFormat(money)
         view.showTotalPrice(totalPrice)
     }
+
+    override fun proceedToBookingResult() {
+        view.moveToBookingResultScreen(bookingResultUiModel)
+    }
 }

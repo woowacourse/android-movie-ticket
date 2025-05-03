@@ -3,6 +3,7 @@ package woowacourse.movie.ui.view.booking.seat
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TableLayout
 import android.widget.TableRow
 import android.widget.TextView
@@ -16,6 +17,7 @@ import woowacourse.movie.compat.IntentCompat
 import woowacourse.movie.presenter.booking.seat.BookingSeatContract
 import woowacourse.movie.presenter.booking.seat.BookingSeatPresenter
 import woowacourse.movie.ui.model.booking.BookingResultUiModel
+import woowacourse.movie.ui.view.booking.complete.BookingCompleteActivity
 import woowacourse.movie.util.DialogUtil
 
 class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
@@ -38,6 +40,8 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         seatViewCached = initialSeatTextView()
         presenter.loadBookingResult(bookingResultUiOrNull())
         presenter.loadInfos()
+
+        setOnConfirmClickListener()
     }
 
     override fun showSeatView(
@@ -74,6 +78,15 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
         totalPriceView.text = getString(R.string.seat_total_price, totalPrice)
     }
 
+    override fun moveToBookingResultScreen(bookingResultUiModel: BookingResultUiModel) {
+        startActivity(
+            BookingCompleteActivity.newIntent(
+                this@BookingSeatActivity,
+                bookingResultUiModel,
+            ),
+        )
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         finish()
         return super.onSupportNavigateUp()
@@ -108,6 +121,20 @@ class BookingSeatActivity : AppCompatActivity(), BookingSeatContract.View {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+    }
+
+    private fun setOnConfirmClickListener() {
+        val reserveButton = findViewById<Button>(R.id.btn_booking_seat_reserve)
+        reserveButton.setOnClickListener {
+            DialogUtil.makeDialog(
+                this@BookingSeatActivity,
+                title = getString(R.string.dig_title),
+                message = getString(R.string.dig_message),
+                positiveButtonName = getString(R.string.dig_btn_positive_message),
+                negativeButtonName = getString(R.string.dig_btn_negative_message),
+                moveTo = { presenter.proceedToBookingResult() },
+            )
         }
     }
 
