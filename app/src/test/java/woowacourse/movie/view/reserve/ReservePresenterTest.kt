@@ -35,14 +35,14 @@ class ReservePresenterTest {
     }
 
     @Test
-    fun `initDateSpinner 호출 시 view의 fetchDates에 예약 가능 날짜 목록을 전달`() {
+    fun `initDates 호출 시 view의 fetchDates에 예약 가능 날짜 목록을 전달`() {
         presenter.initDates(MAY_FIRST)
 
         verify { view.fetchDates(mockDates) }
     }
 
     @Test
-    fun `initTimeSpinner 호출 시 view의 fetchTimes에 해당 날짜의 예약 가능 시간 목록을 전달`() {
+    fun `initTimes 호출 시 view의 fetchTimes에 해당 날짜의 예약 가능 시간 목록을 전달`() {
         presenter.initTimes(
             MAY_FIRST,
             LocalDateTime.of(MAY_FIRST, LAST_MOVIE_TIME),

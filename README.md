@@ -99,4 +99,5 @@
 - [x] Lamda 로직 presenter에서 함수를 통해서 사용하도록 수정
 - [x] relaxed -> relaxedUnitFun으로 변경 
 - [x] 영화 3개마다 광고 1개 반환 비즈니스 로직으로 추출
-- [ ] Presenter 관련 Test 수정
+- [x] Presenter 관련 Test 수정
+- [ ] 데이터가 복원이 된 상태를 Presnter로 넘기고 Presenter에서 그 데이터를 기반으로 View를 Update한다.
