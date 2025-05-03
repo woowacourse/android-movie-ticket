@@ -1,19 +1,24 @@
 package woowacourse.movie.ui.main
 
 import woowacourse.movie.R
+import woowacourse.movie.domain.model.advertisement.Advertisement
 import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.RunningMinute
 import woowacourse.movie.domain.model.movie.ScreeningDate
+import woowacourse.movie.domain.policy.MovieAdvertisementPolicy
+import woowacourse.movie.ui.model.toAdvertisementUiModel
+import woowacourse.movie.ui.model.toMovieUiModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class MainPresenter(private val view: MainContract.View) : MainContract.Presenter {
-    private lateinit var movies: List<Movie>
-    private lateinit var advertisementResources: List<Int>
-
+class MainPresenter(
+    private val view: MainContract.View,
+    private var movies: List<Movie> = emptyList(),
+    private var advertisements: List<Advertisement> = emptyList(),
+) : MainContract.Presenter {
     init {
-        initMovies()
-        initAdvertisementResources()
+        if (movies.isEmpty()) initMovies()
+        if (advertisements.isEmpty()) initAdvertisementResources()
     }
 
     private fun initMovies() {
@@ -26,18 +31,33 @@ class MainPresenter(private val view: MainContract.View) : MainContract.Presente
                 Movie(
                     "해리포터와 마법사의 돌",
                     ScreeningDate(startDate, endDate),
-                    RunningTime(152),
-                    R.drawable.harrypotter,
+                    RunningMinute(152),
+                    R.drawable.harrypotter.toString(),
                 )
             }
     }
 
     private fun initAdvertisementResources() {
-        advertisementResources = listOf(R.drawable.baemin, R.drawable.baemina)
+        advertisements =
+            listOf(
+                Advertisement(R.drawable.baemin.toString()),
+                Advertisement(R.drawable.baemina.toString()),
+            )
     }
 
     override fun showMovies() {
-        view.showMovies(movies, advertisementResources)
+        val movieAdvertisementPolicy = MovieAdvertisementPolicy()
+        val movieAdvertisements =
+            movieAdvertisementPolicy.movieAdvertisement(movies, advertisements)
+        val movieItems =
+            movieAdvertisements.map { movieAdvertisement ->
+                when (movieAdvertisement) {
+                    is Movie -> movieAdvertisement.toMovieUiModel()
+                    is Advertisement -> movieAdvertisement.toAdvertisementUiModel()
+                    else -> throw IllegalStateException("처리하지 않은 상태가 있습니다.")
+                }
+            }
+        view.showMovies(movieItems)
     }
 
     private companion object {

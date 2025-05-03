@@ -14,12 +14,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.domain.model.movie.ScreeningDate
 import woowacourse.movie.domain.model.reservation.Reservation
 import woowacourse.movie.ui.extensions.serializableData
 import woowacourse.movie.ui.factory.CustomAlertDialog
 import woowacourse.movie.ui.factory.DialogInfo
+import woowacourse.movie.ui.model.MovieUiModel
 import woowacourse.movie.ui.seat.SeatActivity
 import woowacourse.movie.ui.seat.SeatActivity.Companion.KEY_SEAT_ACTIVITY_PURCHASE_COUNT
 import woowacourse.movie.ui.seat.SeatActivity.Companion.KEY_SEAT_ACTIVITY_RESERVATION
@@ -133,7 +132,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         presenter.reserve()
     }
 
-    fun movie(): Movie? = intent.serializableData(KEY_RESERVE_ACTIVITY_MOVIE, Movie::class.java)
+    fun movie(): MovieUiModel? = intent.serializableData(KEY_RESERVE_ACTIVITY_MOVIE, MovieUiModel::class.java)
 
     private fun showMissingMovieDialog() {
         val dialogInfo =
@@ -148,18 +147,18 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         customAlertDialog.show(dialogInfo)
     }
 
-    private fun initMovieContent(movie: Movie) {
+    private fun initMovieContent(movie: MovieUiModel) {
         with(movie) {
-            posterView.setImageResource(imageUrl)
+            posterView.setImageResource(poster)
             titleView.text = title
-            screeningDateView.text = formatScreeningDate(screeningDate)
-            runningTimeView.text = getString(R.string.formatted_minute, runningTime.time)
+            screeningDateView.text = formatScreeningDate(startDate, endDate)
+            runningTimeView.text = getString(R.string.formatted_minute, runningMinute)
         }
     }
 
-    private fun initReservation(movie: Movie) {
+    private fun initReservation(movie: MovieUiModel) {
         initDateSpinner()
-        initTimeSpinner(movie.screeningDate.startDate)
+        initTimeSpinner(movie.startDate)
         presenter.updateReservation(getSelectedDateTime())
         initButtonListeners()
     }
@@ -190,12 +189,15 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
         )
     }
 
-    private fun formatScreeningDate(screeningDate: ScreeningDate): String {
+    private fun formatScreeningDate(
+        startDate: LocalDate,
+        endDate: LocalDate,
+    ): String {
         val formatter = DateTimeFormatter.ofPattern(getString(R.string.date_format))
         return getString(
             R.string.formatted_screening_date,
-            screeningDate.startDate.format(formatter),
-            screeningDate.endDate.format(formatter),
+            startDate.format(formatter),
+            endDate.format(formatter),
         )
     }
 
@@ -232,7 +234,7 @@ class ReserveActivity : AppCompatActivity(), ReserveContract.View {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-    override fun initScreen(movie: Movie) {
+    override fun initScreen(movie: MovieUiModel) {
         initMovieContent(movie)
         initReservation(movie)
         presenter.updateTicketCount()

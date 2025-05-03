@@ -1,6 +1,6 @@
 package woowacourse.movie.ui.main
 
-import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.ui.model.MovieItem
 
 interface MainContract {
     interface Presenter {
@@ -8,9 +8,6 @@ interface MainContract {
     }
 
     interface View {
-        fun showMovies(
-            movies: List<Movie>,
-            advertisements: List<Int>,
-        )
+        fun showMovies(moviesItem: List<MovieItem>)
     }
 }

@@ -1,7 +1,7 @@
 package woowacourse.movie
 
 import woowacourse.movie.domain.model.movie.Movie
-import woowacourse.movie.domain.model.movie.RunningTime
+import woowacourse.movie.domain.model.movie.RunningMinute
 import woowacourse.movie.domain.model.movie.ScreeningDate
 import woowacourse.movie.domain.model.reservation.Reservation
 import woowacourse.movie.domain.model.seat.Column
@@ -22,11 +22,11 @@ val HARRY_POTTER_MOVIE =
                 APRIL_THIRTIETH,
                 MAY_FOURTH,
             ),
-        runningTime =
-            RunningTime(
+        runningMinute =
+            RunningMinute(
                 HARRY_POTTER_RUNNING_TIME,
             ),
-        imageUrl = R.drawable.harrypotter,
+        poster = R.drawable.harrypotter,
     )
 val HARRY_POTTER_RESERVATION =
     Reservation(

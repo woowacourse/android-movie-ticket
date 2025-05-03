@@ -4,60 +4,47 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.ui.model.AdvertisementUiModel
+import woowacourse.movie.ui.model.MovieItem
+import woowacourse.movie.ui.model.MovieItemType
+import woowacourse.movie.ui.model.MovieUiModel
 
 class MoviesAdapter(
-    private val movies: List<Movie>,
-    private val advertisements: List<Int>,
-    private val onClick: (Movie) -> Unit,
-) : RecyclerView.Adapter<MoviesViewHolder>() {
+    private val moviesItem: List<MovieItem>,
+    private val onClick: (MovieItem) -> Unit,
+) : RecyclerView.Adapter<BaseViewHolder<MovieItem>>() {
     override fun getItemViewType(position: Int): Int {
-        return if ((position + 1) % 4 == 0) ADVERTISEMENT_TYPE else MOVIE_TYPE
+        return when (moviesItem[position]) {
+            is MovieUiModel -> MovieItemType.MOVIE_TYPE.value
+            is AdvertisementUiModel -> MovieItemType.ADVERTISEMENT_TYPE.value
+        }
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int,
-    ): MoviesViewHolder {
+    ): BaseViewHolder<MovieItem> {
         return when (viewType) {
-            MOVIE_TYPE -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
-                MoviesViewHolder.MovieViewHolder(view, onClick)
+            MovieItemType.MOVIE_TYPE.value -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(view, onClick)
             }
 
             else -> {
-                val view =
-                    LayoutInflater.from(parent.context)
-                        .inflate(R.layout.advertisement_item, parent, false)
-                MoviesViewHolder.AdvertisementViewHolder(view)
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.advertisement_item, parent, false)
+                AdvertisementViewHolder(view)
             }
-        }
+        } as? BaseViewHolder<MovieItem> ?: throw IllegalStateException("viewType=$viewType 대해 BaseViewHolder<MovieItem>의 서브타입을 생성할 수 없습니다.")
     }
 
     override fun getItemCount(): Int {
-        return movies.size + movies.size / 3
+        return moviesItem.size
     }
 
     override fun onBindViewHolder(
-        holder: MoviesViewHolder,
+        holder: BaseViewHolder<MovieItem>,
         position: Int,
     ) {
-        when (holder) {
-            is MoviesViewHolder.AdvertisementViewHolder -> {
-                val adIndex = position / 4
-                holder.bind(advertisements[adIndex % advertisements.size])
-            }
-
-            is MoviesViewHolder.MovieViewHolder -> {
-                val movieIndex = position - position / 4
-                holder.bind(movies[movieIndex])
-            }
-        }
-    }
-
-    companion object {
-        private const val MOVIE_TYPE = 0
-        private const val ADVERTISEMENT_TYPE = 1
+        holder.bind(moviesItem[position])
     }
 }

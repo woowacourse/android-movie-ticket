@@ -98,5 +98,5 @@
 
 - [x] Lamda 로직 presenter에서 함수를 통해서 사용하도록 수정
 - [x] relaxed -> relaxedUnitFun으로 변경 
-- [ ] 3개마다 1개씩 광고가 들어가져 있는 것이라는 비즈니스 로직 추출
+- [x] 영화 3개마다 광고 1개 반환 비즈니스 로직으로 추출
 - [ ] Presenter 관련 Test 수정

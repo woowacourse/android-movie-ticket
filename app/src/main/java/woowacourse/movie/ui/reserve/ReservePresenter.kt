@@ -6,6 +6,8 @@ import woowacourse.movie.domain.date.scheduler.ReservationScheduler
 import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.reservation.PurchaseCount
 import woowacourse.movie.domain.model.reservation.Reservation
+import woowacourse.movie.ui.model.MovieUiModel
+import woowacourse.movie.ui.model.toMovie
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -17,9 +19,9 @@ class ReservePresenter(private val view: ReserveContract.View) : ReserveContract
     private lateinit var reservation: Reservation
     private lateinit var movie: Movie
 
-    override fun initMovie(movie: Movie) {
-        this.movie = movie
-        view.initScreen(movie)
+    override fun initMovie(movieUiModel: MovieUiModel) {
+        this.movie = movieUiModel.toMovie()
+        view.initScreen(movieUiModel)
     }
 
     override fun updateReservation(selectedDateTime: LocalDateTime) {

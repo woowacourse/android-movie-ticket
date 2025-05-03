@@ -8,8 +8,9 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.ui.main.adapter.MoviesAdapter
+import woowacourse.movie.ui.model.MovieItem
+import woowacourse.movie.ui.model.MovieUiModel
 import woowacourse.movie.ui.reserve.ReserveActivity
 import woowacourse.movie.ui.reserve.ReserveActivity.Companion.KEY_RESERVE_ACTIVITY_MOVIE
 
@@ -33,21 +34,11 @@ class MainActivity : AppCompatActivity(), MainContract.View {
         }
     }
 
-    override fun showMovies(
-        movies: List<Movie>,
-        advertisements: List<Int>,
-    ) {
-        initMoviesView(movies, advertisements)
-    }
-
-    private fun initMoviesView(
-        movies: List<Movie>,
-        advertisements: List<Int>,
-    ) {
+    override fun showMovies(moviesItem: List<MovieItem>) {
         val adapter =
-            MoviesAdapter(movies, advertisements) { movie ->
+            MoviesAdapter(moviesItem) { movie ->
                 val intent = Intent(this, ReserveActivity::class.java)
-                intent.putExtra(KEY_RESERVE_ACTIVITY_MOVIE, movie)
+                intent.putExtra(KEY_RESERVE_ACTIVITY_MOVIE, movie as MovieUiModel)
                 startActivity(intent)
             }
         moviesView.adapter = adapter

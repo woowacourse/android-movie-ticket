@@ -1,14 +1,14 @@
 package woowacourse.movie.ui.reserve
 
-import woowacourse.movie.domain.model.movie.Movie
 import woowacourse.movie.domain.model.reservation.Reservation
+import woowacourse.movie.ui.model.MovieUiModel
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 interface ReserveContract {
     interface Presenter {
-        fun initMovie(movie: Movie)
+        fun initMovie(movieUiModel: MovieUiModel)
 
         fun updateReservation(selectedDateTime: LocalDateTime)
 
@@ -36,7 +36,7 @@ interface ReserveContract {
     }
 
     interface View {
-        fun initScreen(movie: Movie)
+        fun initScreen(movie: MovieUiModel)
 
         fun fetchDates(dates: List<LocalDate>)
 
