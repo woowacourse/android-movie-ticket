@@ -2,6 +2,7 @@ package woowacourse.movie.presentation.seats
 
 import woowacourse.movie.domain.model.movie.MovieTicket
 import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatPosition
 
 interface SeatsContract {
     interface View {
@@ -15,7 +16,7 @@ interface SeatsContract {
 
         fun updateAmount(amount: Int)
 
-        fun updateSelectedSeats(seats: List<Seat>)
+        fun updateSelectedSeat(seatPosition: SeatPosition, isSelected: Boolean)
 
         fun updateConfirmButtonEnabled(canConfirm: Boolean)
 
@@ -23,21 +24,14 @@ interface SeatsContract {
     }
 
     interface Presenter {
-        fun onViewCreated()
-
-        fun getSeat(
-            x: Int,
-            y: Int,
-        ): Seat
+        fun loadSeats(movieTicket: MovieTicket)
 
         fun getSelectedSeats(): List<Seat>
 
-        fun isSelectedSeat(seat: Seat): Boolean
+        fun selectSeat(seatPosition: SeatPosition)
 
-        fun onSeatClicked(seat: Seat)
+        fun publishMovieTicket()
 
-        fun onConfirmClicked()
-
-        fun onConfigurationChanged(seats: List<Seat>)
+        fun restoreSeats(seats: List<Seat>)
     }
 }
