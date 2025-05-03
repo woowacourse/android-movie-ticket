@@ -1,10 +1,10 @@
 package woowacourse.movie.feature.reservation
 
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.movieSelect.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.model.ticket.getOrDefault
-import woowacourse.movie.view.model.TicketData
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

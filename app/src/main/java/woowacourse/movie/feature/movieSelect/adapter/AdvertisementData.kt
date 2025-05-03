@@ -1,6 +1,6 @@
 package woowacourse.movie.feature.movieSelect.adapter
 
-import woowacourse.movie.view.model.ImageResource
+import woowacourse.movie.extension.ImageResource
 
 class AdvertisementData(
     val imageResource: ImageResource,

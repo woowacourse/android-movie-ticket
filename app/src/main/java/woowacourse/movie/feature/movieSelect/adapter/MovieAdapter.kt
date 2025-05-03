@@ -8,8 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.view.model.ResourceMapper
-import woowacourse.movie.view.model.setCustomImageResource
+import woowacourse.movie.extension.ResourceMapper
+import woowacourse.movie.extension.setCustomImageResource
 
 class MovieAdapter(
     val movieSelectViewDatas: List<MovieSelectViewData>,

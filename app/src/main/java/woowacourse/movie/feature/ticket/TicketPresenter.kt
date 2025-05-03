@@ -4,7 +4,6 @@ import woowacourse.movie.model.ticket.Ticket
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.getOrDefault
-import woowacourse.movie.view.model.TicketData
 import java.time.LocalDateTime
 
 class TicketPresenter(

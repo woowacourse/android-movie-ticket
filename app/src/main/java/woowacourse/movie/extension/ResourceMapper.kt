@@ -1,4 +1,4 @@
-package woowacourse.movie.view.model
+package woowacourse.movie.extension
 
 import woowacourse.movie.R
 import woowacourse.movie.model.movieSelect.Advertisement.Companion.JOIN_COUPON_BANNER_ID

@@ -13,11 +13,11 @@ import org.hamcrest.CoreMatchers.containsString
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.extension.ResourceMapper
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
+import woowacourse.movie.feature.seatSelect.SeatsData
 import woowacourse.movie.feature.ticket.TicketActivity
-import woowacourse.movie.view.model.ResourceMapper
-import woowacourse.movie.view.model.SeatsData
-import woowacourse.movie.view.model.TicketData
+import woowacourse.movie.feature.ticket.TicketData
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

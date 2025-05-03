@@ -1,8 +1,8 @@
 package woowacourse.movie.feature.seatSelect
 
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
-import woowacourse.movie.view.model.TicketData
 
 interface SeatSelectContract {
     interface View {

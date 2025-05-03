@@ -17,9 +17,9 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.extension.ResourceMapper
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.reservation.ReservationActivity
-import woowacourse.movie.view.model.ResourceMapper
 import java.time.LocalDate
 import java.time.LocalTime
 

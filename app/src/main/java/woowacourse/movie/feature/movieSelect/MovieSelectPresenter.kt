@@ -1,5 +1,6 @@
 package woowacourse.movie.feature.movieSelect
 
+import woowacourse.movie.extension.ResourceMapper
 import woowacourse.movie.feature.movieSelect.adapter.AdvertisementData
 import woowacourse.movie.feature.movieSelect.adapter.MovieSelectViewData
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
@@ -7,7 +8,6 @@ import woowacourse.movie.model.movieSelect.Advertisement
 import woowacourse.movie.model.movieSelect.MovieItemCategory
 import woowacourse.movie.model.movieSelect.MovieListItem
 import woowacourse.movie.model.movieSelect.screening.Screening
-import woowacourse.movie.view.model.ResourceMapper
 
 class MovieSelectPresenter(
     private val view: MovieSelectContract.View,

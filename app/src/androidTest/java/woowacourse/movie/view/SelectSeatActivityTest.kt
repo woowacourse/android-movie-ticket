@@ -20,10 +20,10 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
+import woowacourse.movie.extension.ResourceMapper
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectActivity
-import woowacourse.movie.view.model.ResourceMapper
-import woowacourse.movie.view.model.TicketData
+import woowacourse.movie.feature.ticket.TicketData
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

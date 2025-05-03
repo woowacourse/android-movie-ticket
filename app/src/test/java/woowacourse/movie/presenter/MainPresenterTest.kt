@@ -5,10 +5,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.extension.ImageResource
 import woowacourse.movie.feature.movieSelect.MainView
 import woowacourse.movie.feature.movieSelect.MovieSelectPresenter
 import woowacourse.movie.model.movieSelect.screening.Screening
-import woowacourse.movie.view.model.ImageResource
 import java.time.LocalDate
 
 class MainPresenterTest {

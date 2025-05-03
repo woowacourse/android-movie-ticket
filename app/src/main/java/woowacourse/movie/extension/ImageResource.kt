@@ -1,4 +1,4 @@
-package woowacourse.movie.view.model
+package woowacourse.movie.extension
 
 import android.os.Parcelable
 import android.widget.ImageView

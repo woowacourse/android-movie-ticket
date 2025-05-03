@@ -17,12 +17,12 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
+import woowacourse.movie.extension.setCustomImageResource
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectActivity
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.movieSelect.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.view.model.TicketData
-import woowacourse.movie.view.model.setCustomImageResource
 import java.time.LocalDate
 import java.time.LocalTime
 

@@ -16,12 +16,11 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.feature.ticket.TicketActivity
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
-import woowacourse.movie.view.model.SeatIndexData
-import woowacourse.movie.view.model.TicketData
 
 class SeatSelectActivity :
     AppCompatActivity(),

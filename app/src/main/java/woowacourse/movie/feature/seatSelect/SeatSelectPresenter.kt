@@ -1,11 +1,10 @@
 package woowacourse.movie.feature.seatSelect
 
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatToggleResult
 import woowacourse.movie.model.ticket.seat.Seats
 import woowacourse.movie.model.ticket.seat.grade.RowBasedSeatGradePolicy
-import woowacourse.movie.view.model.SeatsData
-import woowacourse.movie.view.model.TicketData
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,

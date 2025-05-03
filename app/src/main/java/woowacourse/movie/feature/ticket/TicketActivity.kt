@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.model.ticket.Ticket
-import woowacourse.movie.view.model.TicketData
 
 class TicketActivity :
     AppCompatActivity(),

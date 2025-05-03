@@ -10,12 +10,12 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectPresenter
+import woowacourse.movie.feature.seatSelect.SeatsData
 import woowacourse.movie.feature.seatSelect.SelectSeatView
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
-import woowacourse.movie.view.model.SeatsData
-import woowacourse.movie.view.model.TicketData
 
 class SelectSeatPresenterTest {
     private lateinit var seatSelectPresenter: SeatSelectPresenter
