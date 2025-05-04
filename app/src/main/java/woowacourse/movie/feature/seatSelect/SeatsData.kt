@@ -23,6 +23,6 @@ data class SeatsData(
     companion object {
         fun getEmptySeatsData(): SeatsData = SeatsData(listOf())
 
-        fun fromSeats(seats: Seats): SeatsData = SeatsData(seats.seats.map { SeatIndexData(it.row.value, it.col.value) })
+        fun fromSeats(seats: Seats): SeatsData = SeatsData(seats.seats.map { SeatIndexData(it.row.index, it.col.index) })
     }
 }

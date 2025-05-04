@@ -36,6 +36,4 @@ class Seats(
     }
 
     fun size() = seats.size
-
-    fun getSeatCodes(): List<String> = seats.map { it.seatCode }
 }

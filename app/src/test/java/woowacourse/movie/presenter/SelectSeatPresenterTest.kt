@@ -40,7 +40,7 @@ class SelectSeatPresenterTest {
         every { ticketData.ticketCount } returns 2
         every { screeningData.toScreening() } returns screening
         every { selectSeatView.getTicketData() } returns ticketData
-        every { ticketData.seatsAddedTicketData(any()) } returns ticketData
+        every { ticketData.seatSelectedTicketData(any()) } returns ticketData
 
         seatSelectPresenter = SeatSelectPresenter(selectSeatView, getTicketData())
     }
@@ -136,7 +136,7 @@ class SelectSeatPresenterTest {
 
         // Then
         verify {
-            ticketData.seatsAddedTicketData(
+            ticketData.seatSelectedTicketData(
                 match<SeatsData> { seatsData ->
                     seatsData.seatsLength == 2 &&
                         seatsData.seatsCodes.size == 2 &&

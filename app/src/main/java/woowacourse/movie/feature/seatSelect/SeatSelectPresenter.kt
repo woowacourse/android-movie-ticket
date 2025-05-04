@@ -48,8 +48,9 @@ class SeatSelectPresenter(
 
     override fun handleCompleteSelectSeat() {
         view.navigateToTicketView(
-            ticketData.seatsAddedTicketData(
+            ticketData.seatSelectedTicketData(
                 SeatsData.fromSeats(selectedSeats),
+                selectedSeats.totalTicketPrice.value,
             ),
         )
     }

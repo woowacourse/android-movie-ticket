@@ -1,11 +1,25 @@
 package woowacourse.movie.feature.ticket
 
-import woowacourse.movie.model.ticket.Ticket
+import java.time.LocalDateTime
 
 interface TicketContract {
-    interface TicketView {
-        fun getTicketData(): TicketData
+    interface View {
+        fun setCancelableMinute(cancelableMinute: Int)
 
-        fun initTicketUI(ticket: Ticket)
+        fun setMovieTitle(movieTitle: String)
+
+        fun setShowTime(showtime: LocalDateTime)
+
+        fun setSeatCodes(seatCodes: List<String>)
+
+        fun setTicketCount(ticketCount: Int)
+
+        fun setTicketPrice(totalTicketPrice: Int)
+
+        fun printError(message: String)
+    }
+
+    interface Presenter {
+        fun initTicketView()
     }
 }

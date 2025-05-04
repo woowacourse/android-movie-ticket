@@ -113,8 +113,8 @@ class SeatSelectActivity :
         seat: Seat,
         colorRes: Int,
     ) {
-        val tableRow = seatTableView.getChildAt(seat.row.value) as? TableRow
-        val seatView = tableRow?.getChildAt(seat.col.value) as? TextView
+        val tableRow = seatTableView.getChildAt(seat.row.index) as? TableRow
+        val seatView = tableRow?.getChildAt(seat.col.index) as? TextView
         seatView?.setBackgroundResource(colorRes)
             ?: throw IllegalStateException("좌석의 좌표가 범위를 벗어났습니다")
     }

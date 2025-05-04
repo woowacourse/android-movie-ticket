@@ -16,7 +16,7 @@ import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
 class MockSeatGradePolicy : SeatGradePolicy {
     override fun getGrade(seat: Seat): SeatGrade {
         // row 0: 10000원 (B석), row 1: 15000원 (S석), 나머지: 12000원 (A석)
-        return when (seat.row.value) {
+        return when (seat.row.index) {
             0 -> SeatGrade.B
             1 -> SeatGrade.S
             else -> SeatGrade.A

@@ -20,7 +20,7 @@ class TicketPresenterTest {
     @Test
     fun `티켓 UI를 초기화한다`() {
         // When
-        ticketPresenter.initTicketUi()
+        ticketPresenter.initTicketView()
 
         // Then
         verify { ticketView.initTicketUI(any()) }

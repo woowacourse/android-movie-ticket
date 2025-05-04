@@ -4,18 +4,19 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
-import woowacourse.movie.model.ticket.Ticket
+import java.time.LocalDateTime
 
 class TicketActivity :
     AppCompatActivity(),
-    TicketContract.TicketView {
-    private val present: TicketPresenter = TicketPresenter(this)
+    TicketContract.View {
+    private lateinit var present: TicketContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,38 +27,62 @@ class TicketActivity :
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        present.initTicketUi()
+
+        present = TicketPresenter(this, ticketData = getTicketData() ?: return)
+        present.initTicketView()
     }
 
-    override fun getTicketData(): TicketData =
-        intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
-            ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
+    private fun getTicketData(): TicketData? {
+        val ticketData =
+            intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
+        if (ticketData == null) {
+            printError(ERROR_CANT_READ_TICKET_INFO)
+            finish()
+            return null
+        }
+        return ticketData
+    }
 
-    override fun initTicketUI(ticket: Ticket) {
-        val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
-        titleView.text = ticket.title
+    override fun printError(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
-        val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
-        showtimeView.text =
-            ticket.showtime.run {
-                getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
-            }
-
+    override fun setCancelableMinute(cancelableMinute: Int) {
         val cancelableMinuteView = findViewById<TextView>(R.id.tv_ticket_cancel_time_info)
         cancelableMinuteView.text =
-            getString(R.string.ticket_cancelable_minute_info, ticket.cancelableMinute)
+            getString(R.string.ticket_cancelable_minute_info, cancelableMinute)
+    }
 
-        val countView = findViewById<TextView>(R.id.tv_ticket_count)
-        countView.text =
+    override fun setMovieTitle(movieTitle: String) {
+        val titleView = findViewById<TextView>(R.id.tv_ticket_movie_title)
+        titleView.text = movieTitle
+    }
+
+    override fun setShowTime(showtime: LocalDateTime) {
+        val showtimeView = findViewById<TextView>(R.id.tv_ticket_screening_date)
+        showtimeView.text =
+            showtime.run {
+                getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
+            }
+    }
+
+    override fun setTicketCount(ticketCount: Int) {
+        val ticketCountView = findViewById<TextView>(R.id.tv_ticket_count)
+        ticketCountView.text = getString(R.string.ticket_count, ticketCount)
+    }
+
+    override fun setSeatCodes(seatCodes: List<String>) {
+        val seatCodeView = findViewById<TextView>(R.id.tv_seat_code)
+        seatCodeView.text =
             getString(
-                R.string.ticket_count,
-                ticket.ticketCount.value,
-                "좌석 ID",
-                // TODO: 실제 좌석 ID로 변경 출력 필요
+                R.string.ticket_seat_code,
+                seatCodes.joinToString(),
             )
+    }
 
+    override fun setTicketPrice(totalTicketPrice: Int) {
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)
-        priceView.text = getString(R.string.ticket_price, present.getTotalPrice().value)
+        priceView.text = getString(R.string.ticket_price, totalTicketPrice)
     }
 
     companion object {

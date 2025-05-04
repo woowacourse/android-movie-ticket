@@ -1,31 +1,24 @@
 package woowacourse.movie.feature.ticket
 
-import woowacourse.movie.model.ticket.Ticket
-import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.model.ticket.TicketPrice
-import woowacourse.movie.model.ticket.getOrDefault
-import java.time.LocalDateTime
-
 class TicketPresenter(
-    private val view: TicketContract.TicketView,
-) {
-    private val ticketData: TicketData by lazy {
-        view.getTicketData()
-    }
-    private val ticket: Ticket by lazy {
-        val screening = ticketData.screeningData.toScreening()
-        val ticketCount = ticketData.ticketCount
-        val showtime: LocalDateTime = ticketData.showtime
-        Ticket(
-            screening = screening,
-            ticketCount = TicketCount.Companion.create(ticketCount).getOrDefault(),
-            showtime = showtime,
-        )
+    private val view: TicketContract.View,
+    private val ticketData: TicketData,
+) : TicketContract.Presenter {
+    override fun initTicketView() {
+        view.setCancelableMinute(ticketData.cancelableMinute)
+        view.setMovieTitle(ticketData.screeningData.title)
+        view.setShowTime(ticketData.showtime)
+        view.setSeatCodes(getSeatCodes())
+        view.setTicketCount(ticketData.ticketCount)
+        view.setTicketPrice(ticketData.totalTicketPrice)
     }
 
-    fun initTicketUi() {
-        view.initTicketUI(ticket)
-    }
+    private fun getSeatCodes(): List<String> =
+        ticketData.seatsData.toSeatList().map {
+            getRowSeatText(it.row.index) + getColSeatText(it.col.index)
+        }
 
-    fun getTotalPrice(): TicketPrice = TicketPrice(ticketData.totalTicketPrice)
+    private fun getColSeatText(index: Int) = (index + 1).toString()
+
+    private fun getRowSeatText(index: Int) = ('A'.code + index).toChar().toString()
 }
