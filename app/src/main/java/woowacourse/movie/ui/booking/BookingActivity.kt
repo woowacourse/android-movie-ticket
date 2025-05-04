@@ -31,9 +31,11 @@ class BookingActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_booking)
+        val movieId = intent.getIntExtra(getString(R.string.movie_info_key), -1)
+        presenter = BookingPresenter(this, movieId)
         dateSpinner = findViewById(R.id.dateSpinner)
         timeSpinner = findViewById(R.id.timeSpinner)
-        if (!canLoadMovie()) return
+        if (!canLoadMovie(movieId)) return
         if (savedInstanceState != null) restoredBookingInfo(savedInstanceState)
         presenter.loadSelectedMovie()
         setupTicketQuantityButtonListeners()
@@ -145,17 +147,13 @@ class BookingActivity :
             }
     }
 
-    private fun canLoadMovie(): Boolean {
-        val movieId = intent.getIntExtra(getString(R.string.movie_info_key), -1)
-        presenter = BookingPresenter(this, movieId)
-
-        return if (movieId == -1) {
+    private fun canLoadMovie(movieId: Int): Boolean =
+        if (movieId == -1) {
             showErrorDialog()
             false
         } else {
             true
         }
-    }
 
     private fun setupTicketQuantityButtonListeners() {
         headCountView = findViewById(R.id.headCount)
