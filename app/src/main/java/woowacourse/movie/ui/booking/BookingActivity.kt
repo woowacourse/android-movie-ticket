@@ -171,7 +171,7 @@ class BookingActivity :
     private fun setupSelectButtonListener() {
         val selectBtn = findViewById<Button>(R.id.select)
         selectBtn.setOnClickListener {
-            presenter.onConfirm()
+            presenter.confirmMovieReservation()
         }
     }
 

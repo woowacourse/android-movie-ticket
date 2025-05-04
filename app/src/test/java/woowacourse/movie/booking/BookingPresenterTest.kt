@@ -75,7 +75,7 @@ class BookingPresenterTest {
     }
 
     @Test
-    fun `onConfirm 호출 시 티켓을 생성하고 좌석 선택 화면으로 이동한다`() {
+    fun `선택완료 버튼을 클릭시 영화를 예매하고 좌석 선택 화면으로 이동한다`() {
         // given
         every {
             movieReserveService.createMovieToReserve(
@@ -90,7 +90,7 @@ class BookingPresenterTest {
         every { view.navigateToSeatsSelection(mockk()) } just runs
 
         // when
-        presenter.onConfirm()
+        presenter.confirmMovieReservation()
 
         // then
         verify {

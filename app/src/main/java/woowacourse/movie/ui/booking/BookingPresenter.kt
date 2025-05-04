@@ -45,7 +45,7 @@ class BookingPresenter(
         selectedTime = restoredTime
     }
 
-    override fun onConfirm() {
+    override fun confirmMovieReservation() {
         val reservedMovie =
             movieReserveService.createMovieToReserve(
                 movieId,

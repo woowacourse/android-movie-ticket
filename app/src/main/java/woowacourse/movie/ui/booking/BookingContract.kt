@@ -39,7 +39,7 @@ interface BookingContract {
 
         fun restoreTime(restoredTime: LocalTime?)
 
-        fun onConfirm()
+        fun confirmMovieReservation()
 
         fun loadAvailableDates()
 
