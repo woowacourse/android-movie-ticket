@@ -15,7 +15,7 @@ interface SeatSelectContract {
 
         fun setTicketPrice(ticketPrice: Int)
 
-        fun printError(message: String)
+        fun printError(message: SeatSelectErrorType)
 
         fun navigateToTicketView(ticketData: TicketData)
 

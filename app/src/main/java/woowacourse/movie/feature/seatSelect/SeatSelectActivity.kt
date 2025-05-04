@@ -58,7 +58,7 @@ class SeatSelectActivity :
     private fun getTicketData(): TicketData? {
         val ticketData = intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
         if (ticketData == null) {
-            printError(ERROR_CANT_READ_TICKET_INFO)
+            printError(SeatSelectErrorType.NotReceiveData)
             finish()
             return null
         }
@@ -116,10 +116,15 @@ class SeatSelectActivity :
         val tableRow = seatTableView.getChildAt(seat.row.index) as? TableRow
         val seatView = tableRow?.getChildAt(seat.col.index) as? TextView
         seatView?.setBackgroundResource(colorRes)
-            ?: throw IllegalStateException("좌석의 좌표가 범위를 벗어났습니다")
+            ?: throw IllegalStateException("좌석의 좌표가 범위를 벗어났습니다") // 논리 오류?
     }
 
-    override fun printError(message: String) {
+    override fun printError(errorType: SeatSelectErrorType) {
+        val message =
+            when (errorType) {
+                is SeatSelectErrorType.OverBooking -> getString(R.string.select_seat_error_over_booking)
+                is SeatSelectErrorType.NotReceiveData -> getString(R.string.select_seat_error_not_receive_data)
+            }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
@@ -164,8 +169,6 @@ class SeatSelectActivity :
     }
 
     companion object {
-        private const val ERROR_CANT_READ_TICKET_INFO = "티켓 정보가 전달되지 않았습니다"
-
         private const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
         private const val SEATS_DATA = "seatIndexesData"
 

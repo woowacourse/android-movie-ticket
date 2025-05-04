@@ -23,7 +23,7 @@ interface ReservationContract {
 
         fun initTicketMinusBtnUi()
 
-        fun printError(message: String)
+        fun printError(errorType: ReservationErrorType)
 
         fun navigateToSelectSeatView(ticketData: TicketData)
     }

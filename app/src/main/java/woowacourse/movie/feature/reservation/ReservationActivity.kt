@@ -72,7 +72,7 @@ class ReservationActivity :
     private fun getScreeningByIntent(): Screening? {
         val screeningData = intent.getParcelableExtraCompat<ScreeningData>(EXTRA_SCREENING_DATA)
         if (screeningData == null) {
-            printError(ERROR_CANT_READ_SCREENING_INFO)
+            printError(ReservationErrorType.NotReceiveData)
             finish()
             return null
         }
@@ -192,7 +192,13 @@ class ReservationActivity :
         }
     }
 
-    override fun printError(message: String) {
+    override fun printError(errorType: ReservationErrorType) {
+        val message =
+            when (errorType) {
+                ReservationErrorType.NotSelectedDateTime -> getString(R.string.reservation_error_not_selected_date_time)
+                ReservationErrorType.OverCapacityTheater -> getString(R.string.reservation_error_over_capacity_theater)
+                ReservationErrorType.NotReceiveData -> getString(R.string.reservation_error_not_receive_data)
+            }
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
@@ -205,8 +211,6 @@ class ReservationActivity :
         const val DEFAULT_TIME_ITEM_POSITION = 0
         const val TICKET_COUNT = "TICKET_COUNT"
         const val TIME_ITEM_POSITION = "TIME_ITEM_POSITION"
-
-        private const val ERROR_CANT_READ_SCREENING_INFO = "상영 정보가 전달되지 않았습니다"
 
         private const val EXTRA_SCREENING_DATA = "woowacourse.movie.EXTRA_SCREENING_DATA"
 

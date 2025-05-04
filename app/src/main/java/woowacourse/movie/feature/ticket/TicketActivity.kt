@@ -36,7 +36,7 @@ class TicketActivity :
         val ticketData =
             intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
         if (ticketData == null) {
-            printError(ERROR_CANT_READ_TICKET_INFO)
+            printError(getString(R.string.ticket_error_not_receive_data))
             finish()
             return null
         }
@@ -86,8 +86,6 @@ class TicketActivity :
     }
 
     companion object {
-        private const val ERROR_CANT_READ_TICKET_INFO = "티켓 정보가 전달되지 않았습니다"
-
         private const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
 
         fun newIntent(

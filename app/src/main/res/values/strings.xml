@@ -10,12 +10,15 @@
     <!--item_movie.xml-->
     <string name="item_movie_reserve">지금 예매</string>
 
-    <!--activity_reservation.xml-->
+    <!--reservation-->
     <string name="reservation_plus_symbol">+</string>
     <string name="reservation_minus_symbol">-</string>
     <string name="reservation_select_complete">선택 완료</string>
-
-    <!--ticket.xml-->
+    <string name="reservation_error_not_receive_data">상영 정보가 전달되지 않았습니다</string>
+    <string name="reservation_error_not_selected_date_time">예매 정보가 선택되지 않았습니다</string>
+    <string name="reservation_error_over_capacity_theater">극장의 최대 관람 가능 인원을 넘어섰습니다</string>
+    
+    <!--ticket-->
     <string name="ticket_cancelable_minute_info">영화 상영 시작 시간 %1$d분 전까지\n 취소가 가능합니다.</string>
     <string name="ticket_count">일반 %1$d명</string>
     <string name="ticket_seat_code">%1$s</string>
@@ -25,8 +28,11 @@
     <string name="ticket_dialog_message">정말 예매하시겠습니까?</string>
     <string name="ticket_dialog_positive_button">예매 완료</string>
     <string name="ticket_dialog_nagative_button">취소</string>
+    <string name="ticket_error_not_receive_data">티켓 정보가 전달되지 않았습니다</string>
 
-    <!--select_seat.xml-->
+    <!--select_seat-->
     <string name="btn_select_seat_submit">확인</string>
     <string name="select_seat_total_ticket_price">%1$,d원</string>
+    <string name="select_seat_error_over_booking">관람 인원을 초과하여\n좌석을 선택할 수 없습니다</string>
+    <string name="select_seat_error_not_receive_data">좌석 정보가 전달되지 않았습니다</string>
 </resources>

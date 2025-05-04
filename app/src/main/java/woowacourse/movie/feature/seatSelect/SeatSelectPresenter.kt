@@ -19,7 +19,7 @@ class SeatSelectPresenter(
 
     override fun onSeatInput(seat: Seat) {
         if (isMaximumSelectedSeat() && !selectedSeats.isSelectedSeat(seat)) {
-            view.printError(ERROR_OVER_TICKET_SIZE)
+            view.printError(SeatSelectErrorType.OverBooking)
             return
         }
         toggleSeat(seat)
@@ -53,9 +53,5 @@ class SeatSelectPresenter(
                 selectedSeats.totalTicketPrice.value,
             ),
         )
-    }
-
-    companion object {
-        private const val ERROR_OVER_TICKET_SIZE = "관람 인원을 초과하여\n좌석을 선택할 수 없습니다"
     }
 }
