@@ -2,17 +2,18 @@ package woowacourse.movie.seat
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SeatType
 
 class SeatTypeTest {
     private lateinit var seatType: SeatType
-    private lateinit var seatName: String
+    private lateinit var seat: Seat
 
     @Test
     fun `A 행은 B등급이며 좌석 요금은 10000원이다`() {
         // Given
-        seatName = "A"
-        seatType = SeatType.fromSeat(seatName)
+        seat = Seat(0, 0)
+        seatType = SeatType.fromSeat(seat)
 
         // Then
         seatType.price shouldBe 10000
@@ -21,8 +22,8 @@ class SeatTypeTest {
     @Test
     fun `B 행은 B등급이며 좌석 요금은 10000원이다`() {
         // Given
-        seatName = "B"
-        seatType = SeatType.fromSeat(seatName)
+        seat = Seat(1, 0)
+        seatType = SeatType.fromSeat(seat)
 
         // Then
         seatType shouldBe SeatType.B
@@ -32,8 +33,8 @@ class SeatTypeTest {
     @Test
     fun `C 행은 S등급이며 좌석 요금은 15000원이다`() {
         // Given
-        seatName = "C"
-        seatType = SeatType.fromSeat(seatName)
+        seat = Seat(2, 0)
+        seatType = SeatType.fromSeat(seat)
 
         // Then
         seatType shouldBe SeatType.S
@@ -43,8 +44,8 @@ class SeatTypeTest {
     @Test
     fun `D 행은 S등급이며 좌석 요금은 15000원이다`() {
         // Given
-        seatName = "D"
-        seatType = SeatType.fromSeat(seatName)
+        seat = Seat(3, 0)
+        seatType = SeatType.fromSeat(seat)
 
         // Then
         seatType shouldBe SeatType.S
@@ -54,8 +55,8 @@ class SeatTypeTest {
     @Test
     fun `E 행은 A등급이며 좌석 요금은 12000원이다`() {
         // Given
-        seatName = "E"
-        seatType = SeatType.fromSeat(seatName)
+        seat = Seat(4, 0)
+        seatType = SeatType.fromSeat(seat)
 
         // Then
         seatType shouldBe SeatType.A

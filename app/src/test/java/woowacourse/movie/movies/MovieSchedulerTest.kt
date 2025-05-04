@@ -18,8 +18,8 @@ class MovieSchedulerTest {
     fun setUp() {
         movieScheduler =
             MovieScheduler(
-                LocalDate.of(2025, 4, 16),
-                LocalDate.of(2025, 4, 30),
+                LocalDate.of(2025, 5, 17),
+                LocalDate.of(2025, 5, 30),
             )
     }
 
@@ -40,7 +40,7 @@ class MovieSchedulerTest {
     @Test
     fun `주말 19시 일 때 예매 가능 시간은 21시와 23시다`() {
         // When
-        val today = LocalDate.of(2025, 4, 19)
+        val today = LocalDate.of(2025, 5, 17)
         val bookableTimes =
             movieScheduler.getBookableTimes(today, LocalDateTime.of(today, LocalTime.of(19, 0)))
 

@@ -1,6 +1,5 @@
 package woowacourse.movie.seat
 
-import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
@@ -10,9 +9,13 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.movies.Movie
 import woowacourse.movie.domain.movies.MovieRepository
+import woowacourse.movie.domain.movies.MovieToReserve
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SeatPricingPolicy
+import woowacourse.movie.domain.seat.SeatService
 import woowacourse.movie.domain.seat.SeatState
 import woowacourse.movie.domain.ticket.MovieTicket
+import woowacourse.movie.domain.ticket.MovieTicketService
 import woowacourse.movie.ui.seat.SeatsSelectionContract
 import woowacourse.movie.ui.seat.SeatsSelectionPresenter
 
@@ -21,17 +24,20 @@ class SeatsSelectionPresenterTest {
     private lateinit var presenter: SeatsSelectionPresenter
     private lateinit var movieTicket: MovieTicket
     private lateinit var movieRepository: MovieRepository
-    private lateinit var pricingPolicy: SeatPricingPolicy
+    private lateinit var seatPricingPolicy: SeatPricingPolicy
     private lateinit var movie: Movie
+    private lateinit var movieToReserve: MovieToReserve
+    private lateinit var movieTicketService: MovieTicketService
+    private lateinit var seatService: SeatService
 
     @BeforeEach
     fun setUp() {
         view = mockk(relaxed = true)
         movieTicket =
             mockk<MovieTicket> {
-                every { movieId } returns 1 // getMovieId 호출할 때 1 리턴
+                every { movieId } returns 1
                 every { amount } returns 20000
-                every { selectedSeats } returns mutableListOf("A1", "A2")
+                every { selectedSeats } returns listOf(Seat(0, 0), Seat(0, 1))
             }
         movieRepository = mockk()
 
@@ -40,28 +46,52 @@ class SeatsSelectionPresenterTest {
                 every { title } returns "승부"
             }
 
-        pricingPolicy = mockk()
-        presenter = SeatsSelectionPresenter(view, movieTicket, movieRepository, pricingPolicy)
+        every { movieRepository.getMovieById(1) } returns movie
+
+        movieToReserve =
+            mockk<MovieToReserve> {
+                every { movieId } returns 1
+                every { headCount } returns 2
+            }
+        seatPricingPolicy = mockk()
+        every { seatPricingPolicy.calculatePrice() } returns 20000
+        movieTicketService = mockk()
+        seatService = mockk()
+        presenter =
+            SeatsSelectionPresenter(
+                view,
+                movieToReserve,
+                movieRepository,
+                movieTicketService,
+                seatPricingPolicy = seatPricingPolicy,
+                seatService = seatService,
+            )
     }
 
     @Test
     fun `onConfirm을 호출하면 예매 상세 화면으로 이동한다`() {
         // given
-        every { view.navigateToBookingSummary() } just runs
+        every {
+            movieTicketService.createMovieTicket(
+                any(),
+                any(),
+                any(),
+            )
+        } returns movieTicket
+        every { view.navigateToBookingSummary(movieTicket) } just runs
 
         // when
         presenter.onConfirm()
 
         // then
         verify {
-            view.navigateToBookingSummary()
+            view.navigateToBookingSummary(movieTicket)
         }
     }
 
     @Test
     fun `loadMovieTitle를 호출하면 영화 제목이 보인다`() {
         // given
-
         every { movieRepository.getMovieById(any()) } returns movie
         every { view.showMovieTitle(any()) } just runs
 
@@ -78,8 +108,7 @@ class SeatsSelectionPresenterTest {
     @Test
     fun `loadAmount를 호출하면 좌석 가격의 총합이 보인다`() {
         // given
-        every { pricingPolicy.calculatePrice() } returns 20000
-        every { movieTicket.amount = any() } just runs
+
         every { view.showAmount(any()) } just runs
 
         // when
@@ -87,55 +116,27 @@ class SeatsSelectionPresenterTest {
 
         // then
         verify {
-            pricingPolicy.calculatePrice()
-            movieTicket.amount = 20000
             view.showAmount(20000)
         }
     }
 
     @Test
-    fun `이미 선택된 좌석을 다시 선택하면 DESELECTED를 반환한다`() {
+    fun `좌석 클릭 시 SELECTED면 색이 바뀌고 리스트에 추가된다`() {
         // given
-        movieTicket.selectedSeats.add("A1")
+        every { seatService.getSeatSate(any(), any()) } returns SeatState.SELECTED
+        every { view.changeSeatColor(any(), any(), any()) } just runs
+        every { view.showSeatLimitToastMessage() } just runs
+        every { seatPricingPolicy.calculatePrice() } returns 10000
+        every { movieTicket.amount = any() } just runs
+        every { view.showAmount(any()) } just runs
 
         // when
-        val result = presenter.getSeatResult("A1")
+        presenter.onClickSeat(1, 2)
 
         // then
-        result shouldBe SeatState.DESELECTED
-    }
-
-    @Test
-    fun `좌석이 한계에 도달했으면 LIMIT를 반환한다`() {
-        // given
-        movieTicket =
-            mockk<MovieTicket> {
-                every { selectedSeats } returns mutableListOf("A1")
-                every { headCount } returns 1
-            }
-        presenter = SeatsSelectionPresenter(view, movieTicket)
-
-        // when
-        val result = presenter.getSeatResult("B1")
-
-        // then
-        result shouldBe SeatState.LIMIT
-    }
-
-    @Test
-    fun `좌석을 선택하면 SELECTED를 반환한다`() {
-        // given
-        movieTicket =
-            mockk<MovieTicket> {
-                every { selectedSeats } returns mutableListOf("A3", "A4")
-                every { headCount } returns 3
-            }
-        presenter = SeatsSelectionPresenter(view, movieTicket)
-
-        // when
-        val result = presenter.getSeatResult("A1")
-
-        // then
-        result shouldBe SeatState.SELECTED
+        verify {
+            view.changeSeatColor(1, 2, true)
+            view.showAmount(10000)
+        }
     }
 }

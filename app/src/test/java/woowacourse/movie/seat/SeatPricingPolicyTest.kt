@@ -3,15 +3,16 @@ package woowacourse.movie.seat
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.seat.SeatPricingPolicy
 
 class SeatPricingPolicyTest {
     private lateinit var pricingPolicy: SeatPricingPolicy
-    private lateinit var selectedSeats: List<String>
+    private lateinit var selectedSeats: List<Seat>
 
     @BeforeEach
     fun setUp() {
-        selectedSeats = listOf("A1", "C1")
+        selectedSeats = listOf(Seat(0, 1), Seat(0, 2))
         pricingPolicy = SeatPricingPolicy(selectedSeats)
     }
 
@@ -21,6 +22,6 @@ class SeatPricingPolicyTest {
         val amount = pricingPolicy.calculatePrice()
 
         // Then
-        amount shouldBe 25000
+        amount shouldBe 20000
     }
 }
