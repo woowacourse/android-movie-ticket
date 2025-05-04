@@ -32,13 +32,13 @@ class ReservationPresenterTest {
         every { screening.period.start } returns startDate
         every { screening.period.endInclusive } returns endDate
 
-        reservationPresenter = ReservationPresenter(reservationView)
+        reservationPresenter = ReservationPresenter(reservationView, getScreeningByIntent())
     }
 
     @Test
     fun `티켓 수량과 시간 위치로 예약 데이터를 초기화한다`() {
         // When
-        reservationPresenter.initReservationData(3, 2)
+        reservationPresenter.recoverReservationData(3, 2)
 
         // Then
         assertEquals(3, reservationPresenter.ticketCount.value)
@@ -105,7 +105,7 @@ class ReservationPresenterTest {
         reservationPresenter.onChangedTime(selectedTime)
 
         // When
-        reservationPresenter.navigateToSelectSeatUI()
+        reservationPresenter.handleCompleteReservation()
 
         // Then
         verify { reservationView.navigateToSelectSeatUI(any()) }
@@ -114,7 +114,7 @@ class ReservationPresenterTest {
     @Test
     fun `날짜나 시간이 선택되지 않은 경우 오류 메시지를 표시한다`() {
         // When
-        reservationPresenter.navigateToSelectSeatUI()
+        reservationPresenter.handleCompleteReservation()
 
         // Then
         verify { reservationView.printError("예매 정보가 선택되지 않았습니다") }

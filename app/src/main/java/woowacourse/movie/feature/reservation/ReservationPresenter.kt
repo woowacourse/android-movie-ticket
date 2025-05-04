@@ -5,59 +5,57 @@ import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.movieSelect.screening.Screening
 import woowacourse.movie.model.ticket.TicketCount
 import woowacourse.movie.model.ticket.getOrDefault
+import woowacourse.movie.model.ticket.getOrThrow
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
 class ReservationPresenter(
     private val view: ReservationContract.View,
-) {
+    private val screening: Screening,
+) : ReservationContract.Presenter {
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
-    private val screeningData: ScreeningData by lazy { view.getScreeningData() }
-    private val screening: Screening by lazy { screeningData.toScreening() }
     var ticketCount: TicketCount = TicketCount.Companion.create(1).getOrDefault()
-    var timeItemPosition: Int = 0
 
-    fun initReservationData(
-        savedTicketCount: Int,
-        savedTimeItemPosition: Int,
-    ) {
-        ticketCount = TicketCount.Companion.create(savedTicketCount).getOrDefault()
-        timeItemPosition = savedTimeItemPosition
+    override fun recoverReservationData(savedTicketCount: Int) {
+        ticketCount = TicketCount.Companion.create(savedTicketCount).getOrThrow()
+        view.setTicketCounterUi(ticketCount.value)
     }
 
-    fun initReservationUI() {
-        view.initScreeningInfoUI(screeningData)
-        view.setDateSelectUi(screening)
-        view.setTimeSelectUi(screening.period.start, screening, timeItemPosition)
-        view.setTicketCounterUi(ticketCount)
+    override fun initReservationView() {
+        // view에 표시할 데이터를 가공해서 전달
+        view.showScreeningData(ScreeningData.fromScreening(screening))
+        view.setDateSelectUi(screening.getScreeningDates())
+        view.setTicketCounterUi(ticketCount.value)
     }
 
-    fun onChangedDate(selectedDate: LocalDate) {
+    override fun onChangedDate(selectedDate: LocalDate) {
         this.selectedDate = selectedDate
-        view.setTimeSelectUi(selectedDate, screening, timeItemPosition)
+        view.setTimeSelectUi(selectedDate, screening)
     }
 
-    fun onChangedTime(selectedTime: LocalTime) {
+    override fun onChangedTime(selectedTime: LocalTime) {
         this.selectedTime = selectedTime
     }
 
-    fun increaseTicketCount() {
+    override fun increaseTicketCount() {
         if (ticketCount.value >= screening.capacityOfTheater) {
             view.printError(ERROR_OVER_CAPACITY_THEATER)
             return
         }
         ticketCount = ticketCount.increase().getOrDefault()
-        view.setTicketCounterUi(ticketCount)
+        view.setTicketCounterUi(ticketCount.value)
     }
 
-    fun decreaseTicketCount() {
+    override fun decreaseTicketCount() {
         ticketCount = ticketCount.decrease().getOrDefault()
-        view.setTicketCounterUi(ticketCount)
+        view.setTicketCounterUi(ticketCount.value)
     }
 
-    fun navigateToSelectSeatUI() {
+    override fun getTicketCountValue(): Int = ticketCount.value
+
+    override fun handleCompleteReservation() {
         if (selectedDate == null || selectedTime == null) {
             view.printError(ERROR_NOT_SELECTED_DATETIME)
             return
@@ -65,11 +63,11 @@ class ReservationPresenter(
 
         val ticketData =
             TicketData(
-                screeningData = screeningData,
+                screeningData = ScreeningData.fromScreening(screening),
                 showtime = LocalDateTime.of(selectedDate, selectedTime),
                 ticketCount = ticketCount.value,
             )
-        view.navigateToSelectSeatUI(ticketData)
+        view.navigateToSelectSeatView(ticketData)
     }
 
     companion object {

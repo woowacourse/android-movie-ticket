@@ -22,20 +22,22 @@ import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.seatSelect.SeatSelectActivity
 import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.movieSelect.screening.Screening
-import woowacourse.movie.model.ticket.TicketCount
 import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationActivity :
     AppCompatActivity(),
     ReservationContract.View {
-    private val present: ReservationPresenter = ReservationPresenter(this)
+    private lateinit var presenter: ReservationContract.Presenter
+    private val dateSpinnerView: Spinner by lazy { findViewById(R.id.spinner_reservation_screening_date) }
+    private val timeSpinnerView: Spinner by lazy { findViewById(R.id.spinner_reservation_screening_time) }
+
+    private var timeItemPosition = 0
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-
-        outState.putInt(TICKET_COUNT, present.ticketCount.value)
-        outState.putInt(TIME_ITEM_POSITION, present.timeItemPosition)
+        outState.putInt(TICKET_COUNT, presenter.getTicketCountValue())
+        outState.putInt(TIME_ITEM_POSITION, timeItemPosition)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,21 +51,35 @@ class ReservationActivity :
         }
 
         val savedTicketCount = savedInstanceState?.getInt(TICKET_COUNT) ?: DEFAULT_TICKET_COUNT
-        val savedTimeItemPosition =
+        timeItemPosition =
             savedInstanceState?.getInt(TIME_ITEM_POSITION) ?: DEFAULT_TIME_ITEM_POSITION
 
-        present.initReservationData(savedTicketCount, savedTimeItemPosition)
-        present.initReservationUI()
+        // 0. Presenter에 View(자신) 의존성 주입하며 초기화 + Screening 객체 전달
+        presenter = ReservationPresenter(this, getScreeningByIntent() ?: return)
+
+        // 1. presenter에게 데이터를 받아올 필요가 없는 View 자체 초기화
         initTicketPlusBtnUi()
         initTicketMinusBtnUi()
         initCompleteButtonView()
+
+        // 2. presenter에게 View에 표시되는 데이터 초기화 요청
+        presenter.initReservationView()
+
+        // 3. 화면 회전시 초기화 되는 티켓 수량을 presenter에 복구
+        presenter.recoverReservationData(savedTicketCount)
     }
 
-    override fun getScreeningData(): ScreeningData =
-        intent.getParcelableExtraCompat<ScreeningData>(EXTRA_SCREENING_DATA)
-            ?: throw IllegalArgumentException(ERROR_CANT_READ_SCREENING_INFO)
+    private fun getScreeningByIntent(): Screening? {
+        val screeningData = intent.getParcelableExtraCompat<ScreeningData>(EXTRA_SCREENING_DATA)
+        if (screeningData == null) {
+            printError(ERROR_CANT_READ_SCREENING_INFO)
+            finish()
+            return null
+        }
+        return screeningData.toScreening()
+    }
 
-    override fun initScreeningInfoUI(screeningData: ScreeningData) {
+    override fun showScreeningData(screeningData: ScreeningData) {
         val titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
         titleView.text = screeningData.title
 
@@ -85,9 +101,7 @@ class ReservationActivity :
         runningTimeView.text = getString(R.string.running_time, screeningData.runningTime)
     }
 
-    override fun setDateSelectUi(screening: Screening) {
-        val screeningDates = screening.getScreeningDates()
-
+    override fun setDateSelectUi(screeningDates: List<LocalDate>) {
         val dateAdapter =
             ArrayAdapter(
                 this,
@@ -95,7 +109,6 @@ class ReservationActivity :
                 screeningDates,
             )
 
-        val dateSpinnerView = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
         dateSpinnerView.adapter = dateAdapter
 
         dateSpinnerView.onItemSelectedListener =
@@ -107,7 +120,7 @@ class ReservationActivity :
                     id: Long,
                 ) {
                     val selectedDate = screeningDates[position]
-                    present.onChangedDate(selectedDate)
+                    presenter.onChangedDate(selectedDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -117,11 +130,7 @@ class ReservationActivity :
     override fun setTimeSelectUi(
         selectedDate: LocalDate,
         screening: Screening,
-        position: Int,
     ) {
-        val timeSpinnerView =
-            findViewById<Spinner>(R.id.spinner_reservation_screening_time)
-
         val screeningTimes: List<LocalTime> = screening.showtimes(selectedDate)
 
         val timeAdapter =
@@ -130,8 +139,9 @@ class ReservationActivity :
                 android.R.layout.simple_spinner_item,
                 screeningTimes,
             )
-
         timeSpinnerView.adapter = timeAdapter
+
+        restoreTimeSpinnerPosition(screeningTimes)
 
         timeSpinnerView.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -141,42 +151,44 @@ class ReservationActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    present.onChangedTime(screeningTimes[position])
-                    present.timeItemPosition = position
+                    presenter.onChangedTime(screeningTimes[position])
+                    timeItemPosition = position
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
-        if (position >= screeningTimes.size) {
-            timeSpinnerView.setSelection(screeningTimes.lastIndex)
-        } else {
-            timeSpinnerView.setSelection(position)
+    }
+
+    private fun restoreTimeSpinnerPosition(screeningTimes: List<LocalTime>) {
+        if (timeItemPosition in 0 until screeningTimes.size) {
+            timeSpinnerView.setSelection(timeItemPosition, false)
+            presenter.onChangedTime(screeningTimes[timeItemPosition])
         }
     }
 
-    override fun setTicketCounterUi(ticketCount: TicketCount) {
+    override fun setTicketCounterUi(ticketCountValue: Int) {
         val ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
-        ticketCountView.text = ticketCount.toString()
+        ticketCountView.text = ticketCountValue.toString()
     }
 
     override fun initTicketMinusBtnUi() {
         val ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
         ticketCountMinusButton.setOnClickListener {
-            present.decreaseTicketCount()
+            presenter.decreaseTicketCount()
         }
     }
 
     override fun initTicketPlusBtnUi() {
         val ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
         ticketCountPlusButton.setOnClickListener {
-            present.increaseTicketCount()
+            presenter.increaseTicketCount()
         }
     }
 
     private fun initCompleteButtonView() {
         val completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
         completeButton.setOnClickListener {
-            present.navigateToSelectSeatUI()
+            presenter.handleCompleteReservation()
         }
     }
 
@@ -184,7 +196,7 @@ class ReservationActivity :
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun navigateToSelectSeatUI(ticketData: TicketData) {
+    override fun navigateToSelectSeatView(ticketData: TicketData) {
         startActivity(SeatSelectActivity.newIntent(this, ticketData))
     }
 

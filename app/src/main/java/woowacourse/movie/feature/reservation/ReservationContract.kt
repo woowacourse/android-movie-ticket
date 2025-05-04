@@ -3,24 +3,21 @@ package woowacourse.movie.feature.reservation
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.movieSelect.screening.Screening
-import woowacourse.movie.model.ticket.TicketCount
 import java.time.LocalDate
+import java.time.LocalTime
 
 interface ReservationContract {
     interface View {
-        fun getScreeningData(): ScreeningData
+        fun showScreeningData(screeningData: ScreeningData)
 
-        fun initScreeningInfoUI(screeningData: ScreeningData)
-
-        fun setDateSelectUi(screening: Screening)
+        fun setDateSelectUi(screeningDates: List<LocalDate>)
 
         fun setTimeSelectUi(
             selectedDate: LocalDate,
             screening: Screening,
-            position: Int,
         )
 
-        fun setTicketCounterUi(ticketCount: TicketCount)
+        fun setTicketCounterUi(ticketCountValue: Int)
 
         fun initTicketPlusBtnUi()
 
@@ -28,6 +25,24 @@ interface ReservationContract {
 
         fun printError(message: String)
 
-        fun navigateToSelectSeatUI(ticketData: TicketData)
+        fun navigateToSelectSeatView(ticketData: TicketData)
+    }
+
+    interface Presenter {
+        fun recoverReservationData(savedTicketCount: Int)
+
+        fun initReservationView()
+
+        fun onChangedDate(selectedDate: LocalDate)
+
+        fun onChangedTime(selectedTime: LocalTime)
+
+        fun increaseTicketCount()
+
+        fun decreaseTicketCount()
+
+        fun getTicketCountValue(): Int
+
+        fun handleCompleteReservation()
     }
 }
