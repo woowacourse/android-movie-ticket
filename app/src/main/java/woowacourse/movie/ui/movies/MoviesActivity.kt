@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.movies.Movie
+import woowacourse.movie.domain.movies.MovieListItem
 import woowacourse.movie.ui.BaseActivity
 import woowacourse.movie.ui.booking.BookingActivity
 
@@ -33,10 +33,10 @@ class MoviesActivity :
         presenter.loadAllMovies()
     }
 
-    override fun showAllMovies(movies: List<Movie>) {
+    override fun showAllMovies(movieListItems: List<MovieListItem>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movies)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
-        adapter.updateMovieData(movies)
+        adapter.updateMovieData(movieListItems)
     }
 }

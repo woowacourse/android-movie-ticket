@@ -10,11 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 import woowacourse.movie.domain.movies.Movie
+import woowacourse.movie.domain.movies.MovieListItem
 import woowacourse.movie.ui.movies.poster.PosterMapper
 import woowacourse.movie.ui.movies.poster.setImage
 
 class MovieAdapter(
-    private var movies: List<Movie>,
+    private var movieListItems: List<MovieListItem>,
     private val onReservationClickListener: (Int) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
@@ -37,27 +38,25 @@ class MovieAdapter(
         holder: ViewHolder,
         position: Int,
     ) {
-        when (holder) {
-            is MovieViewHolder -> {
-                val realPosition = position - (position / 4)
-                holder.bind(movies[realPosition])
-            }
+        when (val item = movieListItems[position]) {
+            is MovieListItem.MovieItem ->
+                (holder as MovieViewHolder).bind(item.movie)
 
-            is AdvertisementViewHolder -> {
-                holder.bindAdvertisement()
-            }
+            is MovieListItem.AdvertisementItem ->
+                (holder as AdvertisementViewHolder).bindAdvertisement()
         }
     }
 
-    override fun getItemViewType(position: Int): Int = if ((position + 1) % 4 == 0) ADVERTISEMENT_TYPE else MOVIE_TYPE
+    override fun getItemViewType(position: Int): Int =
+        when (movieListItems[position]) {
+            is MovieListItem.AdvertisementItem -> ADVERTISEMENT_TYPE
+            is MovieListItem.MovieItem -> MOVIE_TYPE
+        }
 
-    override fun getItemCount(): Int {
-        val adCount = movies.size / 3
-        return movies.size + adCount
-    }
+    override fun getItemCount(): Int = movieListItems.size
 
-    fun updateMovieData(movies: List<Movie>) {
-        this.movies = movies
+    fun updateMovieData(movieListItems: List<MovieListItem>) {
+        this.movieListItems = movieListItems
         notifyDataSetChanged()
     }
 

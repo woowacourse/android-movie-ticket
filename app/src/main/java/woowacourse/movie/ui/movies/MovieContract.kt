@@ -1,10 +1,10 @@
 package woowacourse.movie.ui.movies
 
-import woowacourse.movie.domain.movies.Movie
+import woowacourse.movie.domain.movies.MovieListItem
 
 interface MovieContract {
     interface View {
-        fun showAllMovies(movies: List<Movie>)
+        fun showAllMovies(movieListItems: List<MovieListItem>)
     }
 
     interface Presenter {

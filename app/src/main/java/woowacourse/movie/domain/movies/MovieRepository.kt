@@ -36,4 +36,15 @@ class MovieRepository {
         )
 
     fun getMovieById(movieId: Int): Movie = getAllMovies()[movieId - 1]
+
+    fun getMovieListItems(): List<MovieListItem> {
+        val result = mutableListOf<MovieListItem>()
+        getAllMovies().forEachIndexed { index, movie ->
+            result.add(MovieListItem.MovieItem(movie))
+            if ((index + 1) % 3 == 0) {
+                result.add(MovieListItem.AdvertisementItem)
+            }
+        }
+        return result
+    }
 }
