@@ -6,18 +6,11 @@ import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
 import woowacourse.movie.model.ticket.seat.Seats
-import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
 
 @Parcelize
 data class SeatsData(
     val seatsIndexes: List<SeatIndexData>,
 ) : Parcelable {
-    fun toSeats(seatGradePolicy: SeatGradePolicy): Seats =
-        Seats(
-            seatGradePolicy = seatGradePolicy,
-            seatsIndexes.map { Seat(SeatRow(it.row), SeatCol(it.col)) },
-        )
-
     fun toSeatList(): List<Seat> = seatsIndexes.map { Seat(SeatRow(it.row), SeatCol(it.col)) }
 
     companion object {
