@@ -52,7 +52,7 @@ class MovieSelectPresenter(
             poster = ResourceMapper.movieIdToPosterImageResource(screening.movieId),
         )
 
-    override fun navigateToReservationView(screeningData: ScreeningData) {
+    override fun onMovieSelected(screeningData: ScreeningData) {
         view.navigateToReservationView(screeningData)
     }
 }

@@ -40,7 +40,7 @@ class MovieSelectActivity :
 
         val movieAdapter =
             MovieAdapter(movieSelectViewDatas) { screeningData ->
-                presenter.navigateToReservationView(screeningData)
+                presenter.onMovieSelected(screeningData)
             }
         movieListView.adapter = movieAdapter
         movieListView.layoutManager = LinearLayoutManager(this)

@@ -13,6 +13,6 @@ interface MovieSelectContract {
     interface Presenter {
         fun loadMovieList()
 
-        fun navigateToReservationView(screeningData: ScreeningData)
+        fun onMovieSelected(screeningData: ScreeningData)
     }
 }

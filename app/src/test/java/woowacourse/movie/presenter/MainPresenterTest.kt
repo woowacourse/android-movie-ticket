@@ -45,7 +45,7 @@ class MainPresenterTest {
         every { screening.runningTime } returns 120
 
         // When
-        movieSelectPresenter.navigateToReservationView(screening, poster)
+        movieSelectPresenter.onMovieSelected(screening, poster)
 
         // Then
         verify {
