@@ -34,7 +34,7 @@ interface BookingDetailContract {
 
         fun confirmBookingInfo()
 
-        fun onBackButtonClicked()
+        fun cancelBookingInfoSetting()
 
         fun saveBookingInfo(): BookingInfoUiModel
 

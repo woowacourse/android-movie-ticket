@@ -46,7 +46,7 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onCreateView 호출 시 날짜, 시간, 예약정보를 갱신한다`() {
+    fun `prepareBookingInfo 호출 시 날짜, 시간, 예약정보를 갱신한다`() {
         // given & when
         presenter.prepareBookingInfo(movieUiModel)
         val dates = slot<List<MovieDateUiModel>>()
@@ -66,7 +66,7 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onDateSelected 호출 시 영화 시간을 갱신한다`() {
+    fun `selectDate 호출 시 영화 시간을 갱신한다`() {
         // given
         val date = movieUiModel.startDate
         val time = slot<List<String>>()
@@ -82,7 +82,7 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onTicketCountIncreased 호출 시 티켓 수 증가 후 뷰의 출력을 갱신한다`() {
+    fun `increaseTicketCount 호출 시 티켓 수 증가 후 뷰의 출력을 갱신한다`() {
         // given
         val ticketCount = slot<Int>()
         presenter.prepareBookingInfo(movieUiModel)
@@ -96,7 +96,7 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onTicketCountDecreased 호출 시 티켓 수 감소 후 뷰의 출력을 갱신한다`() {
+    fun `decreaseTicketCount 호출 시 티켓 수 감소 후 뷰의 출력을 갱신한다`() {
         // given
         val ticketCount = slot<Int>()
         presenter.prepareBookingInfo(movieUiModel)
@@ -110,7 +110,7 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onBookingCompleteButtonClicked 호출 시 좌석 선택 화면으로 이동한다`() {
+    fun `confirmBookingInfo 호출 시 좌석 선택 화면으로 이동한다`() {
         // given
         val bookingInfo = slot<BookingInfoUiModel>()
         presenter.prepareBookingInfo(movieUiModel)
@@ -124,16 +124,16 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onBackButtonClicked 호출 시 뒤로 이동한다`() {
+    fun `cancelBookingInfoSetting 호출 시 뒤로 이동한다`() {
         // given & when
-        presenter.onBackButtonClicked()
+        presenter.cancelBookingInfoSetting()
 
         // then
         verify { view.navigateToBack() }
     }
 
     @Test
-    fun `onSaveInstanceState 호출 시 현재 예약정보를 반환한다`() {
+    fun `saveBookingInfo 호출 시 현재 예약정보를 반환한다`() {
         // given
         presenter.prepareBookingInfo(movieUiModel)
 
@@ -145,7 +145,7 @@ class BookingDetailPresenterTest {
     }
 
     @Test
-    fun `onRestoreInstanceState 호출 시 기존에 저장된 예약정보로 복원한다`() {
+    fun `loadBookingInfo 호출 시 기존에 저장된 예약정보로 복원한다`() {
         // given
         presenter.prepareBookingInfo(movieUiModel)
 

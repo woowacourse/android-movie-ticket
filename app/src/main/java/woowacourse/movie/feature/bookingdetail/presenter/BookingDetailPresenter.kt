@@ -58,7 +58,7 @@ class BookingDetailPresenter(
         view.navigateToBookingSeat(bookingInfo.toUi())
     }
 
-    override fun onBackButtonClicked() {
+    override fun cancelBookingInfoSetting() {
         view.navigateToBack()
     }
 

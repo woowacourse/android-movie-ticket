@@ -48,7 +48,7 @@ class BookingDetailActivity :
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) presenter.onBackButtonClicked()
+        if (item.itemId == android.R.id.home) presenter.cancelBookingInfoSetting()
         return super.onOptionsItemSelected(item)
     }
 
