@@ -65,7 +65,7 @@ class MovieBookingPresenterTest {
     }
 
     @Test
-    fun decreaseCount_1명일_때_에러를_보여준다() {
+    fun 인원이_1명_미만이_되면_에러가_발생한다() {
         // given
         every { view.showError(any()) } just Runs
         every { view.updateMemberCount(any()) } just Runs
@@ -83,7 +83,7 @@ class MovieBookingPresenterTest {
     }
 
     @Test
-    fun decreaseCount_2명이상일_때_인원수가_감소한다() {
+    fun 인원이_2명이상일_때_인원수가_감소한다() {
         // given
         every { view.showError(any()) } just Runs
         every { view.updateMemberCount(any()) } just Runs
