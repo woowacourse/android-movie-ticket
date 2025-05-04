@@ -15,6 +15,7 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.extension.ResourceMapper
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
+import woowacourse.movie.feature.seatSelect.SeatIndexData
 import woowacourse.movie.feature.seatSelect.SeatsData
 import woowacourse.movie.feature.ticket.TicketActivity
 import woowacourse.movie.feature.ticket.TicketData
@@ -35,9 +36,7 @@ class TicketActivityTest {
 
     private val seatsData =
         SeatsData(
-            seatsLength = 2,
-            totalSeatsPrice = 20000,
-            seatsCodes = listOf("A1", "A2"),
+            listOf(SeatIndexData(0, 0), SeatIndexData(0, 1)),
         )
 
     // 2명 티켓 데이터
@@ -47,6 +46,7 @@ class TicketActivityTest {
             ticketCount = 2,
             showtime = LocalDateTime.of(LocalDate.of(2025, 4, 20), LocalTime.of(13, 0)),
             seatsData = seatsData,
+            totalTicketPrice = 20000,
         )
 
     @get:Rule
@@ -90,6 +90,8 @@ class TicketActivityTest {
         onView(withId(R.id.tv_ticket_count))
             .check(matches(isDisplayed()))
             .check(matches(withText(containsString("일반 2명"))))
+        onView(withId(R.id.tv_seat_code))
+            .check(matches(isDisplayed()))
             .check(matches(withText(containsString("A1, A2"))))
     }
 
@@ -105,8 +107,10 @@ class TicketActivityTest {
         // 기본 정보 확인
         onView(withId(R.id.tv_ticket_movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌")))
-        onView(withId(R.id.tv_ticket_count))
+        onView(withId(R.id.tv_seat_code))
             .check(matches(withText(containsString("A1, A2"))))
+        onView(withId(R.id.tv_ticket_price))
+            .check(matches(withText(containsString("20,000원"))))
 
         // 화면 회전
         rotateToLandscape()
@@ -114,7 +118,7 @@ class TicketActivityTest {
         // 회전 후에도 정보 유지 확인
         onView(withId(R.id.tv_ticket_movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌")))
-        onView(withId(R.id.tv_ticket_count))
+        onView(withId(R.id.tv_seat_code))
             .check(matches(withText(containsString("A1, A2"))))
         onView(withId(R.id.tv_ticket_price))
             .check(matches(withText(containsString("20,000원"))))

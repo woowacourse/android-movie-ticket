@@ -3,23 +3,22 @@ package woowacourse.movie.presenter
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertFalse
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
+import woowacourse.movie.feature.seatSelect.SeatIndexData
+import woowacourse.movie.feature.seatSelect.SeatSelectContract
+import woowacourse.movie.feature.seatSelect.SeatSelectErrorType
 import woowacourse.movie.feature.seatSelect.SeatSelectPresenter
 import woowacourse.movie.feature.seatSelect.SeatsData
-import woowacourse.movie.feature.seatSelect.SelectSeatView
 import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
 
 class SelectSeatPresenterTest {
-    private lateinit var seatSelectPresenter: SeatSelectPresenter
-    private lateinit var selectSeatView: SelectSeatView
+    private lateinit var seatSelectPresenter: SeatSelectContract.Presenter
+    private lateinit var selectSeatView: SeatSelectContract.View
     private lateinit var ticketData: TicketData
     private lateinit var screeningData: ScreeningData
     private lateinit var screening: ScreeningData
@@ -29,6 +28,9 @@ class SelectSeatPresenterTest {
     private val seatA2 = Seat(SeatRow(0), SeatCol(1))
     private val seatA3 = Seat(SeatRow(0), SeatCol(2))
 
+    private val seatA1IndexData = SeatIndexData(0, 0)
+    private val seatA2IndexData = SeatIndexData(0, 1)
+
     @BeforeEach
     fun setUp() {
         screeningData = mockk(relaxed = true)
@@ -36,13 +38,12 @@ class SelectSeatPresenterTest {
         ticketData = mockk(relaxed = true)
         selectSeatView = mockk(relaxed = true)
 
-        every { ticketData.screeningData } returns screeningData
+        every { ticketData.screeningData.title } returns "해리포터"
+        every { ticketData.totalTicketPrice } returns 20000
         every { ticketData.ticketCount } returns 2
-        every { screeningData.toScreening() } returns screening
-        every { selectSeatView.getTicketData() } returns ticketData
-        every { ticketData.seatSelectedTicketData(any()) } returns ticketData
+        every { ticketData.seatsData } returns SeatsData(listOf(seatA1IndexData, seatA2IndexData))
 
-        seatSelectPresenter = SeatSelectPresenter(selectSeatView, getTicketData())
+        seatSelectPresenter = SeatSelectPresenter(selectSeatView, ticketData)
     }
 
     @Test
@@ -51,7 +52,7 @@ class SelectSeatPresenterTest {
         seatSelectPresenter.initSelectSeatView()
 
         // Then
-        verify { selectSeatView.initMovieTitleUI(ticketData) }
+        verify { selectSeatView.setMovieTitle("해리포터") }
         verify { selectSeatView.setTicketPrice(any()) }
     }
 
@@ -63,7 +64,7 @@ class SelectSeatPresenterTest {
         // Then
         verify { selectSeatView.seatSelect(seatA1) }
         verify { selectSeatView.setTicketPrice(any()) }
-        verify { selectSeatView.updateSubmitButton() }
+        verify { selectSeatView.setSubmitButtonView(any()) }
     }
 
     @Test
@@ -76,7 +77,6 @@ class SelectSeatPresenterTest {
 
         // Then
         verify { selectSeatView.seatUnSelect(seatA1) }
-        assertFalse(seatSelectPresenter.getSeatsData.isSelectedSeat(seatA1))
     }
 
     @Test
@@ -90,71 +90,20 @@ class SelectSeatPresenterTest {
         seatSelectPresenter.onSeatInput(seatA3)
 
         // Then
-        verify { selectSeatView.printError("관람 인원을 초과하여\n좌석을 선택할 수 없습니다") }
+        verify { selectSeatView.printError(SeatSelectErrorType.OverBooking) }
     }
 
     @Test
-    fun `최대 인원 선택 여부를 정확히 판단한다`() {
+    fun `좌석 선택 완료시 티켓 화면으로 이동한다`() {
         // Given
-        every { ticketData.ticketCount } returns 2
-
-        // WhenThen
-        assertFalse(seatSelectPresenter.isMaximumSelectedSeat())
-
         seatSelectPresenter.onSeatInput(seatA1)
-        assertFalse(seatSelectPresenter.isMaximumSelectedSeat())
-
         seatSelectPresenter.onSeatInput(seatA2)
-        assertTrue(seatSelectPresenter.isMaximumSelectedSeat())
-    }
-
-    @Test
-    fun `좌석 토글 시 선택 상태에 따라 적절한 UI가 업데이트된다`() {
-        // When - 좌석 선택
-        seatSelectPresenter.toggleSeat(seatA1)
-
-        // Then
-        verify { selectSeatView.seatSelect(seatA1) }
-        verify { selectSeatView.setTicketPrice(any()) }
-
-        // When - 좌석 선택 취소
-        seatSelectPresenter.toggleSeat(seatA1)
-
-        // Then
-        verify { selectSeatView.seatUnSelect(seatA1) }
-        verify(exactly = 2) { selectSeatView.setTicketPrice(any()) }
-    }
-
-    @Test
-    fun `티켓 화면으로 이동 시 선택된 좌석 정보가 전달된다`() {
-        // Given
-        seatSelectPresenter.toggleSeat(seatA1)
-        seatSelectPresenter.toggleSeat(seatA2)
 
         // When
         seatSelectPresenter.handleCompleteSelectSeat()
 
-        // Then
-        verify {
-            ticketData.seatSelectedTicketData(
-                match<SeatsData> { seatsData ->
-                    seatsData.seatsLength == 2 &&
-                        seatsData.seatsCodes.size == 2 &&
-                        seatsData.seatsCodes.contains(seatA1.seatCode) &&
-                        seatsData.seatsCodes.contains(seatA2.seatCode)
-                },
-            )
-        }
-        verify { selectSeatView.navigateToTicketUI(ticketData) }
-    }
-
-    @Test
-    fun `선택된 좌석이 없을 때 총 가격은 0원이다`() {
-        // When
-        val price = seatSelectPresenter.getSeatsData.totalTicketPrice
-
-        // Then
-        assertEquals(0, price.value)
+        // then
+        verify { selectSeatView.navigateToTicketView(any()) }
     }
 
     @Test
@@ -163,12 +112,12 @@ class SelectSeatPresenterTest {
         seatSelectPresenter.onSeatInput(seatA1)
 
         // Then
-        verify { selectSeatView.updateSubmitButton() }
+        verify { selectSeatView.setSubmitButtonView(any()) }
 
         // When
         seatSelectPresenter.onSeatInput(seatA1)
 
         // Then
-        verify(exactly = 2) { selectSeatView.updateSubmitButton() }
+        verify(exactly = 2) { selectSeatView.setSubmitButtonView(any()) }
     }
 }

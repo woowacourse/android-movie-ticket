@@ -89,15 +89,4 @@ class SeatsTest {
         seats.toggleSeat(seatA)
         assertEquals(1, seats.size())
     }
-
-    @Test
-    fun `전체 좌석의 좌석 코드를 받아올 수 있다`() {
-        seats.toggleSeat(seatA)
-        seats.toggleSeat(seatB)
-
-        val codes = seats.getSeatCodes()
-        assertTrue(codes.contains(seatA.seatCode))
-        assertTrue(codes.contains(seatB.seatCode))
-        assertEquals(2, codes.size)
-    }
 }

@@ -4,17 +4,19 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.feature.ticket.TicketContract
+import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.feature.ticket.TicketPresenter
-import woowacourse.movie.feature.ticket.TicketView
 
 class TicketPresenterTest {
-    private lateinit var ticketView: TicketView
-    private lateinit var ticketPresenter: TicketPresenter
+    private lateinit var ticketView: TicketContract.View
+    private lateinit var ticketPresenter: TicketContract.Presenter
 
     @BeforeEach
     fun setUp() {
         ticketView = mockk(relaxed = true)
-        ticketPresenter = TicketPresenter(ticketView)
+        val ticketData: TicketData = mockk(relaxed = true)
+        ticketPresenter = TicketPresenter(ticketView, ticketData)
     }
 
     @Test
@@ -23,6 +25,13 @@ class TicketPresenterTest {
         ticketPresenter.initTicketView()
 
         // Then
-        verify { ticketView.initTicketUI(any()) }
+        verify {
+            ticketView.setTicketPrice(any())
+            ticketView.setTicketCount(any())
+            ticketView.setSeatCodes(any())
+            ticketView.setShowTime(any())
+            ticketView.setMovieTitle(any())
+            ticketView.setCancelableMinute(any())
+        }
     }
 }
