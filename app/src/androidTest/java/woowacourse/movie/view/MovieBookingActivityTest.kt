@@ -5,7 +5,7 @@ import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import org.junit.Test
@@ -48,12 +48,12 @@ class MovieBookingActivityTest {
         onView(withId(R.id.member_count))
             .check(matches(withText("1")))
 
-        onView(withId(R.id.plus_member_count)).perform(ViewActions.click())
+        onView(withId(R.id.plus_member_count)).perform(click())
 
         onView(withId(R.id.member_count))
             .check(matches(withText("2")))
 
-        onView(withId(R.id.minus_member_count)).perform(ViewActions.click())
+        onView(withId(R.id.minus_member_count)).perform(click())
 
         onView(withId(R.id.member_count))
             .check(matches(withText("1")))
@@ -61,7 +61,7 @@ class MovieBookingActivityTest {
 
     @Test
     fun 예약_완료_버튼을_누르면_확인_다이얼로그가_나온다() {
-        onView(withId(R.id.booking_complete_button)).perform(ViewActions.click())
+        onView(withId(R.id.booking_complete_button)).perform(click())
 
         onView(withText(R.string.confirm_reservation_message))
             .check(matches(isDisplayed()))
