@@ -12,6 +12,7 @@ import org.junit.jupiter.api.DisplayName
 import woowacourse.movie.R
 import woowacourse.movie.completedbooking.CompletedBookingActivity
 import woowacourse.movie.detailbooking.DetailBookingActivity
+import woowacourse.movie.domain.ReservationInfo
 import woowacourse.movie.domain.Ticket
 import java.time.LocalDateTime
 
@@ -20,9 +21,13 @@ class CompletedBookingActivityTest {
     fun setUp() {
         val ticket =
             Ticket(
-                "해리 포터와 마법사의 돌",
-                LocalDateTime.of(2025, 4, 25, 11, 0),
-                2,
+                ReservationInfo(
+                    "해리 포터와 마법사의 돌",
+                    LocalDateTime.of(2025, 4, 25, 11, 0),
+                    2,
+                ),
+                setOf("A1", "B1"),
+                24_000,
             )
 
         val intent = CompletedBookingActivity.newIntent(ApplicationProvider.getApplicationContext(), ticket)
@@ -55,13 +60,13 @@ class CompletedBookingActivityTest {
     @DisplayName("예매한 영화 인원 수가 보여야 한다")
     fun moviePersonnelIs2() {
         onView(withId(R.id.ticket_movie_personnel))
-            .check(matches(withText("일반 2명")))
+            .check(matches(withText("일반 2명 | A1, B1")))
     }
 
     @Test
     @DisplayName("예매한 영화 티켓 가격이 보여야 한다")
     fun ticketTotalPriceIsDisplayed() {
         onView(withId(R.id.ticket_total_price))
-            .check(matches(withText("26,000원 (현장 결제)")))
+            .check(matches(withText("24,000원 (현장 결제)")))
     }
 }

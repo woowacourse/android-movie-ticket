@@ -4,25 +4,35 @@
     android:layout_height="match_parent"
     android:id="@+id/scrollView">
 
-    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/layout_detail_booking_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:context=".detailbooking.DetailBookingActivity">
 
-        <ImageView
-            android:id="@+id/detail_movie_image"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:scaleType="centerCrop"
-            android:src="@drawable/harry" />
+            android:layout_height="wrap_content"
+            xmlns:app="http://schemas.android.com/apk/res-auto">
+
+            <ImageView
+                android:id="@+id/detail_movie_image"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/harry_potter_and_the_philosopher_stone"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintDimensionRatio="1:1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="25sp">
 
@@ -34,9 +44,7 @@
                 android:text="@string/movie_title"
                 android:textColor="@color/black"
                 android:textSize="25sp"
-                android:textStyle="bold">
-
-            </TextView>
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/detail_movie_date"
@@ -44,9 +52,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/movieDate"
                 android:textColor="@color/black"
-                android:textSize="15sp">
-
-            </TextView>
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/detail_movie_time"
@@ -65,13 +71,13 @@
 
                 <Spinner
                     android:id="@+id/detail_spinner_date"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="30sp"
                     android:layout_weight="1" />
 
                 <Spinner
                     android:id="@+id/detail_spinner_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />
             </LinearLayout>
@@ -92,7 +98,7 @@
 
                 <TextView
                     android:id="@+id/detail_personnel"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="9"
                     android:gravity="center"
@@ -110,7 +116,6 @@
                     android:text="@string/plus"
                     android:textSize="25sp"
                     android:textStyle="bold" />
-
             </LinearLayout>
 
             <Button
@@ -122,7 +127,6 @@
                 android:text="@string/reserve_complete"
                 android:textSize="25sp"
                 android:textStyle="bold" />
-
         </LinearLayout>
 
     </LinearLayout>

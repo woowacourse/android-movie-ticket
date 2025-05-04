@@ -76,7 +76,7 @@
                 android:id="@+id/ticket_total_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "@string/movieTotalPrice"
+                android:text = "@string/ticketTotalPrice"
                 android:layout_gravity="center"
                 android:layout_marginTop="30sp"
                 android:textSize="25sp"

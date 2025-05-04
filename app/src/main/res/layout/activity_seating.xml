@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/seating_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EAEAEA"
+    tools:context=".seating.SeatingActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/seating_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingHorizontal="40dp"
+        app:layout_constraintBottom_toTopOf="@+id/seating_movie_info"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/screen"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="40dp"
+            android:background="#494949"
+            android:gravity="center"
+            android:text="SCREEN"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/table_layout_seating"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TableLayout
+            android:id="@+id/table_layout_seating"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:background="@drawable/seat_table_clicked"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/screen">
+
+            <TableRow
+                android:background="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="A1" />
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="A2" />
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="A3" />
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="A4" />
+            </TableRow>
+
+            <TableRow
+                android:background="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="B1" />
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="B2" />
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="B3" />
+
+                <TextView
+                    style="@style/SeatB"
+                    android:text="B4" />
+            </TableRow>
+
+            <TableRow
+                android:background="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="C1" />
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="C2" />
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="C3" />
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="C4" />
+            </TableRow>
+
+            <TableRow
+                android:background="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="D1" />
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="D2" />
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="D3" />
+
+                <TextView
+                    style="@style/SeatS"
+                    android:text="D4" />
+            </TableRow>
+
+            <TableRow
+                android:background="@color/white"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <TextView
+                    style="@style/SeatA"
+                    android:text="E1" />
+
+                <TextView
+                    style="@style/SeatA"
+                    android:text="E2" />
+
+                <TextView
+                    style="@style/SeatA"
+                    android:text="E3" />
+
+                <TextView
+                    style="@style/SeatA"
+                    android:text="E4" />
+            </TableRow>
+        </TableLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/seating_movie_info"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/seating_movie_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:text="@string/movie_title"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/seating_total_price"
+            app:layout_constraintVertical_chainStyle="packed"/>
+
+        <TextView
+            android:id="@+id/seating_total_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ticketTotalPrice"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/seating_movie_title"
+            app:layout_constraintTop_toBottomOf="@+id/seating_movie_title" />
+
+        <TextView
+            android:id="@+id/seating_confirm"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/reservation_button_enabled"
+            android:gravity="center"
+            android:text="확인"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:enabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

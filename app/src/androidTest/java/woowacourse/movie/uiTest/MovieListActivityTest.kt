@@ -22,7 +22,7 @@ class MovieListActivityTest {
     @Test
     @DisplayName("영화 목록은 보여야 한다")
     fun listOfMoviesIsDisplayed() {
-        onView(withId(R.id.movie_listview))
+        onView(withId(R.id.movie_recyclerview))
             .check(matches(isDisplayed()))
     }
 
@@ -30,7 +30,7 @@ class MovieListActivityTest {
     @DisplayName("첫 번째 영화 제목은 '해리 포터와 마법사의 돌 1'이다")
     fun firstMovieTitleIsHarryPotter() {
         onData(isA(Movie::class.java))
-            .inAdapterView(withId(R.id.movie_listview))
+            .inAdapterView(withId(R.id.movie_recyclerview))
             .atPosition(0)
             .onChildView(withId(R.id.item_movie_title))
             .check(matches(withText("해리 포터와 마법사의 돌 1")))
@@ -40,7 +40,7 @@ class MovieListActivityTest {
     @DisplayName("첫 번째 영화 상영일은 '상영일: 2025.4.1 ~ 2025.4.25'이다")
     fun firstMovieDateIsApril1to25() {
         onData(isA(Movie::class.java))
-            .inAdapterView(withId(R.id.movie_listview))
+            .inAdapterView(withId(R.id.movie_recyclerview))
             .atPosition(0)
             .onChildView(withId(R.id.item_movie_date))
             .check(matches(withText("상영일: 2025.4.1 ~ 2025.4.25")))
@@ -50,7 +50,7 @@ class MovieListActivityTest {
     @DisplayName("첫 번째 영화 러닝타임은 '러닝타임: 152분'이다")
     fun firstMovieTimeIs152minute() {
         onData(isA(Movie::class.java))
-            .inAdapterView(withId(R.id.movie_listview))
+            .inAdapterView(withId(R.id.movie_recyclerview))
             .atPosition(0)
             .onChildView(withId(R.id.item_movie_time))
             .check(matches(withText("러닝타임: 152분")))
@@ -60,7 +60,7 @@ class MovieListActivityTest {
     @DisplayName("첫 번째 영화는 '지금 예매' 버튼을 가지고 있다")
     fun firstMovieHasReservationButton() {
         onData(isA(Movie::class.java))
-            .inAdapterView(withId(R.id.movie_listview))
+            .inAdapterView(withId(R.id.movie_recyclerview))
             .atPosition(0)
             .onChildView(withId(R.id.item_reserve_button))
             .check(matches(withText("지금 예매")))

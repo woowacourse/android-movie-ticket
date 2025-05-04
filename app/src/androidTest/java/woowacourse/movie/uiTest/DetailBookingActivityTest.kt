@@ -26,7 +26,7 @@ class DetailBookingActivityTest {
     fun setUp() {
         val movie =
             Movie(
-                R.drawable.harry,
+                R.drawable.harry_potter_and_the_philosopher_stone,
                 "해리 포터와 마법사의 돌",
                 Date(LocalDate.of(3025, 4, 1), LocalDate.of(3025, 4, 25)),
                 152,
@@ -138,50 +138,6 @@ class DetailBookingActivityTest {
             .perform(swipeUp())
         onView(withId(R.id.detail_reservation_button))
             .check(matches(withText("선택 완료")))
-    }
-
-    @Test
-    @DisplayName("'선택 완료' 버튼을 누르면 다이얼로그의 '예매 확인'이 뜬다")
-    fun dialogPopUpTitleWhenReservationButtonIsClicked() {
-        onView(withId(R.id.scrollView))
-            .perform(swipeUp())
-        onView(withId(R.id.detail_reservation_button))
-            .perform(click())
-        onView(withText("예매 확인"))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    @DisplayName("'선택 완료' 버튼을 누르면 다이얼로그의 '정말 예매하시겠습니까?'가 뜬다")
-    fun dialogPopUpDetailWhenReservationButtonIsClicked() {
-        onView(withId(R.id.scrollView))
-            .perform(swipeUp())
-        onView(withId(R.id.detail_reservation_button))
-            .perform(click())
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    @DisplayName("'선택 완료' 버튼을 누르면 다이얼로그에 취소 버튼이 뜬다")
-    fun dialogPopUpCancelButtonWhenReservationButtonIsClicked() {
-        onView(withId(R.id.scrollView))
-            .perform(swipeUp())
-        onView(withId(R.id.detail_reservation_button))
-            .perform(click())
-        onView(withText("취소"))
-            .check(matches(isDisplayed()))
-    }
-
-    @Test
-    @DisplayName("'선택 완료' 버튼을 누르면 다이얼로그에 확인 버튼이 뜬다")
-    fun dialogPopUpConfirmButtonWhenReservationButtonIsClicked() {
-        onView(withId(R.id.scrollView))
-            .perform(swipeUp())
-        onView(withId(R.id.detail_reservation_button))
-            .perform(click())
-        onView(withText("예매 완료"))
-            .check(matches(isDisplayed()))
     }
 
     @Test

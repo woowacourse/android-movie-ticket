@@ -1,48 +1,56 @@
 package woowacourse.movie.movielist
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
-import woowacourse.movie.domain.Movie
 
 class MovieListAdapter(
-    private val items: List<Movie>,
-    private val clickListener: ClickListener,
-) : BaseAdapter() {
-    override fun getCount(): Int = items.size
-
-    override fun getItem(position: Int): Movie = items[position]
-
-    override fun getItemId(position: Int): Long = position.toLong()
-
-    override fun getView(
-        position: Int,
-        convertView: View?,
-        parent: ViewGroup?,
-    ): View {
-        val view: View
-        val movieListViewHolder: MovieListViewHolder
-        val item = items[position]
-
-        if (convertView == null) {
-            view =
-                LayoutInflater
-                    .from(parent?.context)
-                    .inflate(R.layout.item, parent, false)
-            movieListViewHolder = MovieListViewHolder(view)
-            view.tag = movieListViewHolder
+    private val onItemClick: ClickListener,
+    private val items: List<FeedItem>,
+) : RecyclerView.Adapter<ViewHolder>() {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int,
+    ): ViewHolder {
+        if (viewType == TYPE_MOVIE) {
+            val movieView =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.movie_item, parent, false)
+            return MovieViewHolder(movieView, onItemClick)
         } else {
-            view = convertView
-            movieListViewHolder = view.tag as MovieListViewHolder
+            val adView =
+                LayoutInflater.from(parent.context)
+                    .inflate(R.layout.ad_item, parent, false)
+            return ADViewHolder(adView)
         }
+    }
 
-        movieListViewHolder.setItem(item)
-        movieListViewHolder.reserveButton.setOnClickListener {
-            clickListener.onReserveClick(item)
+    override fun onBindViewHolder(
+        holder: ViewHolder,
+        position: Int,
+    ) {
+        if (holder is MovieViewHolder) {
+            val item = items[position]
+            if (item is FeedItem.MovieFeed) {
+                val movie = item.movie
+                holder.setItem(movie)
+            }
         }
+    }
 
-        return view
+    override fun getItemCount(): Int = items.size
+
+    override fun getItemViewType(position: Int): Int {
+        return when (items[position]) {
+            is FeedItem.MovieFeed -> TYPE_MOVIE
+            is FeedItem.ADFeed -> TYPE_EMPTY
+        }
+    }
+
+    companion object {
+        private const val TYPE_MOVIE = 0
+        private const val TYPE_EMPTY = 1
     }
 }

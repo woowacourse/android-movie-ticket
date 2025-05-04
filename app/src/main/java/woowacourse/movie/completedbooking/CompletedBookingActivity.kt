@@ -10,11 +10,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
 import woowacourse.movie.domain.Ticket
-import woowacourse.movie.utils.DateFormatter
-import woowacourse.movie.utils.PriceFormatter
 import woowacourse.movie.utils.parcelableCompat
 
-class CompletedBookingActivity : AppCompatActivity() {
+class CompletedBookingActivity : AppCompatActivity(), CompletedBookingContract.View {
+    private lateinit var completedBookingPresenter: CompletedBookingContract.Presenter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,34 +25,42 @@ class CompletedBookingActivity : AppCompatActivity() {
             insets
         }
 
-        val ticket: Ticket = intent.parcelableCompat(KEY_TICKET, Ticket::class.java)
+        completedBookingPresenter = CompletedBookingPresenter(this)
 
-        setTicketInfo(ticket)
+        val ticket: Ticket = intent.parcelableCompat(KEY_TICKET, Ticket::class.java)
+        completedBookingPresenter.set(ticket)
     }
 
-    private fun setTicketInfo(ticket: Ticket) {
-        val dateFormatter = DateFormatter()
-        val formattedDateTime = dateFormatter.format(ticket.date)
-        val priceFormatter = PriceFormatter()
-        val formattedPrice = priceFormatter.format(DEFAULT_PRICE * ticket.personnel)
-
-        val movieTitleTextView = findViewById<TextView>(R.id.ticket_movie_title)
+    override fun showCancelDeadLine(deadline: Int) {
         val movieCancelInfoTextView = findViewById<TextView>(R.id.ticket_cancel_info_Text)
-        val movieDateTextView = findViewById<TextView>(R.id.ticket_movie_datetime)
-        val moviePersonnel = findViewById<TextView>(R.id.ticket_movie_personnel)
-        val movieTotalPrice = findViewById<TextView>(R.id.ticket_total_price)
+        movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, deadline)
+    }
 
-        movieTitleTextView.text = ticket.title
-        movieCancelInfoTextView.text = getString(R.string.movie_cancel_deadline, CANCEL_DEADLINE)
-        movieDateTextView.text = formattedDateTime
-        moviePersonnel.text = getString(R.string.moviePersonnel, ticket.personnel)
-        movieTotalPrice.text = getString(R.string.movieTotalPrice, formattedPrice)
+    override fun showMovieTitle(title: String) {
+        val movieTitleTextView = findViewById<TextView>(R.id.ticket_movie_title)
+        movieTitleTextView.text = title
+    }
+
+    override fun showMovieDateTime(dateTime: String) {
+        val movieDateTextView = findViewById<TextView>(R.id.ticket_movie_datetime)
+        movieDateTextView.text = dateTime
+    }
+
+    override fun showPersonnel(
+        personnel: Int,
+        seats: String,
+    ) {
+        val moviePersonnel = findViewById<TextView>(R.id.ticket_movie_personnel)
+        moviePersonnel.text = getString(R.string.moviePersonnel, personnel, seats)
+    }
+
+    override fun showTicketTotalPrice(price: String) {
+        val movieTotalPrice = findViewById<TextView>(R.id.ticket_total_price)
+        movieTotalPrice.text = getString(R.string.ticketTotalPrice, price)
     }
 
     companion object {
         private const val KEY_TICKET = "ticket"
-        private const val DEFAULT_PRICE = 13_000
-        private const val CANCEL_DEADLINE = 15
 
         fun newIntent(
             context: Context,

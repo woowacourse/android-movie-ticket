@@ -1,0 +1,42 @@
+package woowacourse.movie.detailbooking
+
+import woowacourse.movie.domain.Movie
+import woowacourse.movie.domain.ReservationInfo
+import java.time.LocalDate
+import java.time.LocalTime
+
+interface DetailBookingContract {
+    interface Presenter {
+        fun set(movie: Movie)
+
+        fun clickedDate(position: Int)
+
+        fun clickedTime(position: Int)
+
+        fun increasedCount()
+
+        fun decreasedCount()
+
+        fun clickedButton()
+
+        fun restoreState(personnel: Int, selectedDatePosition: Int, selectedTimePosition: Int)
+    }
+
+    interface View {
+        fun showMovieData(movie: Movie)
+
+        fun showMovieSchedule(
+            movieSchedule: List<LocalDate>,
+            selectedDatePosition: Int,
+        )
+
+        fun showMovieScreeningTime(
+            screeningTime: List<LocalTime>,
+            selectedTimePosition: Int,
+        )
+
+        fun showCount(count: Int)
+
+        fun showNextActivity(reservationInfo: ReservationInfo)
+    }
+}
