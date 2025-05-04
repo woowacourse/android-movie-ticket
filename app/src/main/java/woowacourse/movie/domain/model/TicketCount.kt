@@ -19,6 +19,6 @@ class TicketCount(
     }
 
     companion object {
-        const val INITIAL_TICKET_COUNT = 1
+        private const val INITIAL_TICKET_COUNT = 1
     }
 }

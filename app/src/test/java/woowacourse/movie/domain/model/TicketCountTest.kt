@@ -16,7 +16,6 @@ class TicketCountTest {
     fun `티켓의 초기 수량은 1장이다`() {
         // given & when & then
         assertThat(ticketCount.value).isEqualTo(1)
-        assertThat(TicketCount.INITIAL_TICKET_COUNT).isEqualTo(1)
     }
 
     @Test
