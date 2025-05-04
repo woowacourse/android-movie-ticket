@@ -1,21 +1,13 @@
 package woowacourse.movie.domain.ticket
 
 class HeadCount(
-    private var count: Int = 1,
+    val value: Int = 1,
 ) {
     init {
-        if (count < 1) {
-            count = 1
-        }
+        require(value >= 1) { "예매 수량은 1개 이상이어야 합니다." }
     }
 
-    fun getCount(): Int = count
+    operator fun plus(other: Int): HeadCount = HeadCount(value + other)
 
-    fun increase() {
-        count++
-    }
-
-    fun decrease() {
-        count = (count - 1).coerceAtLeast(1)
-    }
+    operator fun minus(other: Int): HeadCount = HeadCount(value - other)
 }

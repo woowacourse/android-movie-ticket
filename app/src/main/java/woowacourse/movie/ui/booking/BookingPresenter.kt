@@ -11,27 +11,26 @@ import java.time.LocalTime
 class BookingPresenter(
     private val view: BookingContract.View,
     private val movieId: Int,
-    private var headCount: HeadCount = HeadCount(),
-    movieRepository: MovieRepository = MovieRepository(),
     private val movieReserveService: MovieReserveService = MovieReserveService(),
 ) : BookingContract.Presenter {
-    private val movie = movieRepository.getMovieById(movieId)
+    private val movie = MovieRepository().getMovieById(movieId)
     private val movieScheduler = MovieScheduler(movie.startScreeningDate, movie.endScreeningDate)
+    private var headCount: HeadCount = HeadCount()
     private var selectedDate: LocalDate? = null
     private var selectedTime: LocalTime? = null
 
     override fun loadInitialHeadCount() {
-        view.updateHeadCount(headCount.getCount())
+        view.updateHeadCount(headCount.value)
     }
 
     override fun increaseHeadCount() {
-        headCount.increase()
-        view.updateHeadCount(headCount.getCount())
+        headCount += 1
+        view.updateHeadCount(headCount.value)
     }
 
     override fun decreaseHeadCount() {
-        headCount.decrease()
-        view.updateHeadCount(headCount.getCount())
+        headCount -= 1
+        view.updateHeadCount(headCount.value)
     }
 
     override fun restoreHeadCount(restoredCount: Int) {
@@ -51,7 +50,7 @@ class BookingPresenter(
             movieReserveService.createMovieToReserve(
                 movieId,
                 LocalDateTime.of(selectedDate, selectedTime),
-                headCount.getCount(),
+                headCount.value,
             )
         view.navigateToSeatsSelection(reservedMovie)
     }
