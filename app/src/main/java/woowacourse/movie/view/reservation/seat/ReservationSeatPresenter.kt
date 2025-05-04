@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation.seat
 
+import SeatRank
 import android.os.Bundle
 import woowacourse.movie.domain.Ticket
 import woowacourse.movie.domain.movieseat.Position
@@ -39,7 +40,7 @@ class ReservationSeatPresenter(
 
     override fun selectSeat(position: Position) {
         if (seats.selectedLimit(ticket.personnel).not()) {
-            seats.addSeat(Seat(position))
+            seats.addSeat(Seat(position, SeatRank.get(position.row)))
             view.selectSeatView(position)
             updateMoney()
             canSelectedButton()
@@ -47,7 +48,7 @@ class ReservationSeatPresenter(
     }
 
     override fun deselectSeat(position: Position) {
-        seats.removeSeat(Seat(position))
+        seats.removeSeat(Seat(position, SeatRank.get(position.row)))
         view.deselectSeatView(position)
         updateMoney()
         canSelectedButton()

@@ -1,5 +1,6 @@
 package woowacourse.movie.domain
 
+import SeatRank
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import woowacourse.movie.domain.movieseat.Position
@@ -10,7 +11,7 @@ class SeatsTest {
     @Test
     fun `좌석의 가격의 합을 구할 수 있다`() {
         // given
-        val seats = Seats(mutableSetOf(Seat(Position(0, 0)), Seat(Position(1, 1))))
+        val seats = Seats(mutableSetOf(Seat(Position(0, 0), SeatRank.get(0)), Seat(Position(1, 1), SeatRank.get(1))))
         // when
         val actual = seats.reservationPrice()
         val expected = 20000
@@ -22,11 +23,11 @@ class SeatsTest {
     fun `좌석을 추가할 수 있다`() {
         // given
         val seats = Seats(mutableSetOf())
-        seats.addSeat(Seat(Position(0, 0)))
-        seats.addSeat(Seat(Position(1, 1)))
+        seats.addSeat(Seat(Position(0, 0), SeatRank.get(0)))
+        seats.addSeat(Seat(Position(1, 1), SeatRank.get(1)))
         // when
         val actual = seats.all
-        val expected = listOf(Seat(Position(0, 0)), Seat(Position(1, 1)))
+        val expected = listOf(Seat(Position(0, 0), SeatRank.get(0)), Seat(Position(1, 1), SeatRank.get(1)))
 
         assertThat(actual).isEqualTo(expected)
     }
@@ -34,11 +35,11 @@ class SeatsTest {
     @Test
     fun `좌석을 빼낼 수 있다`() {
         // given
-        val seats = Seats(mutableSetOf(Seat(Position(0, 0)), Seat(Position(1, 1))))
-        seats.removeSeat(Seat(Position(0, 0)))
+        val seats = Seats(mutableSetOf(Seat(Position(0, 0), SeatRank.get(0)), Seat(Position(1, 1), SeatRank.get(1))))
+        seats.removeSeat(Seat(Position(0, 0), SeatRank.get(0)))
         // when
         val actual = seats.all
-        val expected = listOf(Seat(Position(1, 1)))
+        val expected = listOf(Seat(Position(1, 1), SeatRank.get(1)))
 
         assertThat(actual).isEqualTo(expected)
     }
