@@ -1,10 +1,16 @@
-package woowacourse.movie.domain.model
+package woowacourse.movie.domain.model.reservation
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.APRIL_THIRTIETH
-import woowacourse.movie.domain.MAY_FIRST
+import woowacourse.movie.APRIL_THIRTIETH
+import woowacourse.movie.MAY_FIRST
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatRate
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.domain.model.ticket.Tickets
 import java.time.LocalDateTime
 import java.time.LocalTime
 
@@ -20,7 +26,11 @@ class ReservationTest {
                     APRIL_THIRTIETH,
                     LocalTime.of(12, 0),
                 ),
-                Tickets(listOf(Ticket(TicketType.DEFAULT))),
+                Tickets(
+                    listOf(
+                        Ticket(Seat(Row(0), Column(0), SeatRate.S)),
+                    ),
+                ),
             )
     }
 
@@ -28,30 +38,7 @@ class ReservationTest {
     fun `총 가격을 계산한다`() {
         // given & when
         val actual = reservation.totalPrice()
-        val expected = 13000
-
-        // then
-        assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    fun `예매할 티켓 수를 증가한다`() {
-        // given & when
-        val expected = reservation.ticketCount + 1
-        val actual = reservation.plusCount().ticketCount
-
-        // then
-        assertThat(actual).isEqualTo(expected)
-    }
-
-    @Test
-    fun `예매할 티켓 수를 감소한다`() {
-        // given
-        reservation = reservation.plusCount()
-
-        // when
-        val expected = reservation.ticketCount - 1
-        val actual = reservation.minusCount().ticketCount
+        val expected = 1_5000
 
         // then
         assertThat(actual).isEqualTo(expected)

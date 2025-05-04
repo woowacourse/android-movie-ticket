@@ -44,13 +44,13 @@ class ReservationResultActivityTest {
 
     @Test
     fun shouldDisplayTicketCount() {
-        onView(withId(R.id.tv_ticket_count))
-            .check(matches(withText("2명")))
+        onView(withId(R.id.tv_ticket_tier))
+            .check(matches(withText("2명 | A1,A2")))
     }
 
     @Test
     fun shouldDisplayTotalPrice() {
         onView(withId(R.id.tv_total_price))
-            .check(matches(withText("26,000원")))
+            .check(matches(withText("25,000원 (현장 결제)")))
     }
 }

@@ -1,12 +1,15 @@
 package woowacourse.movie
 
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.Reservation
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningDate
-import woowacourse.movie.domain.model.Ticket
-import woowacourse.movie.domain.model.TicketType
-import woowacourse.movie.domain.model.Tickets
+import woowacourse.movie.domain.model.movie.Movie
+import woowacourse.movie.domain.model.movie.RunningMinute
+import woowacourse.movie.domain.model.movie.ScreeningDate
+import woowacourse.movie.domain.model.reservation.Reservation
+import woowacourse.movie.domain.model.seat.Column
+import woowacourse.movie.domain.model.seat.Row
+import woowacourse.movie.domain.model.seat.Seat
+import woowacourse.movie.domain.model.seat.SeatRate
+import woowacourse.movie.domain.model.ticket.Ticket
+import woowacourse.movie.domain.model.ticket.Tickets
 import java.time.LocalDateTime
 
 const val HARRY_POTTER_TITLE = "해리포터"
@@ -19,16 +22,22 @@ val HARRY_POTTER_MOVIE =
                 APRIL_THIRTIETH,
                 MAY_FOURTH,
             ),
-        runningTime =
-            RunningTime(
+        runningMinute =
+            RunningMinute(
                 HARRY_POTTER_RUNNING_TIME,
             ),
-        imageUrl = R.drawable.harrypotter,
+        poster = R.drawable.harrypotter,
     )
 val HARRY_POTTER_RESERVATION =
     Reservation(
         title = HARRY_POTTER_TITLE,
-        tickets = Tickets(listOf(Ticket(TicketType.DEFAULT), Ticket(TicketType.DEFAULT))),
+        tickets =
+            Tickets(
+                listOf(
+                    Ticket(Seat(Row(0), Column(0), SeatRate.S)),
+                    Ticket(Seat(Row(0), Column(1), SeatRate.B)),
+                ),
+            ),
         reservedTime =
             LocalDateTime.of(
                 APRIL_THIRTIETH,

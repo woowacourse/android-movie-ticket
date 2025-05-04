@@ -1,6 +1,5 @@
 package woowacourse.movie.domain.date.scheduler
 
-import woowacourse.movie.domain.model.ScreeningDayType
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime

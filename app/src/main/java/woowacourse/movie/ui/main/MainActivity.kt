@@ -2,30 +2,28 @@ package woowacourse.movie.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ListView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.RunningTime
-import woowacourse.movie.domain.model.ScreeningDate
 import woowacourse.movie.ui.main.adapter.MoviesAdapter
+import woowacourse.movie.ui.model.MovieItem
+import woowacourse.movie.ui.model.MovieUiModel
 import woowacourse.movie.ui.reserve.ReserveActivity
 import woowacourse.movie.ui.reserve.ReserveActivity.Companion.KEY_RESERVE_ACTIVITY_MOVIE
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
 
-class MainActivity : AppCompatActivity() {
-    private val moviesView: ListView by lazy { findViewById(R.id.lv_movies) }
+class MainActivity : AppCompatActivity(), MainContract.View {
+    private val moviesView: RecyclerView by lazy { findViewById(R.id.rv_movies) }
+    private val presenter: MainContract.Presenter by lazy { MainPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
         initSystemUI()
-        initMoviesView(movies())
+        presenter.showMovies()
     }
 
     private fun initSystemUI() {
@@ -36,27 +34,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun movies(): List<Movie> {
-        val formatter: DateTimeFormatter =
-            DateTimeFormatter.ofPattern(getString(R.string.date_format))
-        val startDate: LocalDate = LocalDate.parse("2025.04.01", formatter)
-        val endDate: LocalDate = LocalDate.parse("2025.04.25", formatter)
-
-        return List(1000) {
-            Movie(
-                "해리포터와 마법사의 돌",
-                ScreeningDate(startDate, endDate),
-                RunningTime(152),
-                R.drawable.harrypotter,
-            )
-        }
-    }
-
-    private fun initMoviesView(movies: List<Movie>) {
+    override fun showMovies(moviesItem: List<MovieItem>) {
         val adapter =
-            MoviesAdapter(movies) { movie ->
+            MoviesAdapter(moviesItem) { movie ->
                 val intent = Intent(this, ReserveActivity::class.java)
-                intent.putExtra(KEY_RESERVE_ACTIVITY_MOVIE, movie)
+                intent.putExtra(KEY_RESERVE_ACTIVITY_MOVIE, movie as MovieUiModel)
                 startActivity(intent)
             }
         moviesView.adapter = adapter
