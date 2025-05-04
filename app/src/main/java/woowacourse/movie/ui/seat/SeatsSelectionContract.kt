@@ -28,8 +28,6 @@ interface SeatsSelectionContract {
 
         fun loadAmount()
 
-        fun updateAmount()
-
         fun onClickSeat(
             row: Int,
             col: Int,

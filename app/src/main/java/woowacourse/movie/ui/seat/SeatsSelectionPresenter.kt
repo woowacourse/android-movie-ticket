@@ -13,12 +13,12 @@ class SeatsSelectionPresenter(
     private val movieToReserve: MovieToReserve,
     private val movieRepository: MovieRepository = MovieRepository(),
     private val movieTicketService: MovieTicketService = MovieTicketService(),
+    private val selectedSeats: MutableList<Seat> = mutableListOf(),
+    private val seatPricingPolicy: SeatPricingPolicy = SeatPricingPolicy(selectedSeats),
+    private val seatService: SeatService = SeatService(),
 ) : SeatsSelectionContract.Presenter {
     private lateinit var seat: Seat
-    private val selectedSeats = mutableListOf<Seat>()
     private var amount: Int = 0
-    private val pricingPolicy: SeatPricingPolicy = SeatPricingPolicy(selectedSeats)
-    private val seatService = SeatService()
 
     init {
         loadMovieTitle()
@@ -41,8 +41,8 @@ class SeatsSelectionPresenter(
         view.showAmount(amount)
     }
 
-    override fun updateAmount() {
-        amount = pricingPolicy.calculatePrice()
+    private fun updateAmount() {
+        amount = seatPricingPolicy.calculatePrice()
     }
 
     override fun onClickSeat(
