@@ -9,4 +9,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="grey">#FF727272</color>
+    <color name="seats_background">#FFEAEAEA</color>
+    <color name="screen_background">#FF494949</color>
+    <color name="b_grade">#FF8E13EF</color>
+    <color name="a_grade">#FF1B48E9</color>
+    <color name="s_grade">#FF19D358</color>
+    <color name="selected_seat">#FFFAFF00</color>
+    <color name="confirm_deactivate">#FFB7B7B7</color>
+    <color name="confirm_activate">#FF6200EE</color>
 </resources>

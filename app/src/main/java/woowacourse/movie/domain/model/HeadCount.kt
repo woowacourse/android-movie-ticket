@@ -5,7 +5,7 @@ class HeadCount(private var _value: Int = INITIAL_VALUE) {
         get() = _value
 
     init {
-        if(_value < INITIAL_VALUE) _value = INITIAL_VALUE
+        if (_value < INITIAL_VALUE) _value = INITIAL_VALUE
     }
 
     fun increase() {

@@ -4,7 +4,9 @@ import java.time.DayOfWeek
 import java.time.LocalDate
 
 enum class DayType {
-    WEEKDAY, WEEKEND;
+    WEEKDAY,
+    WEEKEND,
+    ;
 
     companion object {
         fun from(date: LocalDate): DayType {

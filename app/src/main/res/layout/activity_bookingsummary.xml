@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.view.BookingSummaryActivity">
+    tools:context=".presentation.bookingsummary.BookingSummaryActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -49,13 +49,31 @@
             android:textSize="20sp"
             android:paddingBottom="40dp" />
 
-        <TextView
-            android:id="@+id/textview_headcount"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="20sp"
-            android:paddingBottom="20dp" />
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textview_headcount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:paddingBottom="20dp" />
+
+            <TextView
+                android:id="@+id/textview_seats"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:paddingBottom="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="0dp"/>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textview_amount"
