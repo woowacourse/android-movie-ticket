@@ -2,14 +2,27 @@ package woowacourse.movie.feature.seatSelect
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.model.ticket.seat.Seat
+import woowacourse.movie.model.ticket.seat.SeatCol
+import woowacourse.movie.model.ticket.seat.SeatRow
+import woowacourse.movie.model.ticket.seat.Seats
+import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
 
 @Parcelize
 data class SeatsData(
-    val seatsLength: Int,
-    val totalSeatsPrice: Int,
-    val seatsCodes: List<String>,
+    val seatsIndexes: List<SeatIndexData>,
 ) : Parcelable {
+    fun toSeats(seatGradePolicy: SeatGradePolicy): Seats =
+        Seats(
+            seatGradePolicy = seatGradePolicy,
+            seatsIndexes.map { Seat(SeatRow(it.row), SeatCol(it.col)) },
+        )
+
+    fun toSeatList(): List<Seat> = seatsIndexes.map { Seat(SeatRow(it.row), SeatCol(it.col)) }
+
     companion object {
-        fun getEmptySeatsData() = SeatsData(0, 0, listOf())
+        fun getEmptySeatsData(): SeatsData = SeatsData(listOf())
+
+        fun fromSeats(seats: Seats): SeatsData = SeatsData(seats.seats.map { SeatIndexData(it.row.value, it.col.value) })
     }
 }

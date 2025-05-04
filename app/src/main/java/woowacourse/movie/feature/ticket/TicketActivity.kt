@@ -52,7 +52,8 @@ class TicketActivity :
             getString(
                 R.string.ticket_count,
                 ticket.ticketCount.value,
-                present.getSortedSeatsCodes().joinToString(),
+                "좌석 ID",
+                // TODO: 실제 좌석 ID로 변경 출력 필요
             )
 
         val priceView = findViewById<TextView>(R.id.tv_ticket_price)

@@ -8,48 +8,48 @@ import woowacourse.movie.model.ticket.seat.grade.RowBasedSeatGradePolicy
 
 class SeatSelectPresenter(
     private val view: SeatSelectContract.View,
-) {
-    private val ticketDataEmptySeat: TicketData by lazy {
-        view.getTicketData()
+    private val ticketData: TicketData,
+) : SeatSelectContract.Presenter {
+    val selectedSeats: Seats = Seats(RowBasedSeatGradePolicy())
+
+    override fun initSelectSeatView() {
+        view.setMovieTitle(ticketData.screeningData.title)
+        view.setTicketPrice(selectedSeats.totalTicketPrice.value)
     }
 
-    val selectedSeats: Seats by lazy {
-        Seats(seatGradePolicy = RowBasedSeatGradePolicy())
-    }
-
-    fun initSelectSeatUI() {
-        view.initMovieTitleUI(ticketDataEmptySeat)
-        view.setTicketPrice(selectedSeats.totalTicketPrice)
-    }
-
-    fun seatInputProcess(seat: Seat) {
+    override fun onSeatInput(seat: Seat) {
         if (isMaximumSelectedSeat() && !selectedSeats.isSelectedSeat(seat)) {
             view.printError(ERROR_OVER_TICKET_SIZE)
             return
         }
         toggleSeat(seat)
-        view.updateSubmitButton()
+        view.setSubmitButtonView(isMaximumSelectedSeat())
     }
 
-    fun isMaximumSelectedSeat(): Boolean = selectedSeats.size() == ticketDataEmptySeat.ticketCount
+    private fun isMaximumSelectedSeat(): Boolean = selectedSeats.size() == ticketData.ticketCount
 
-    fun toggleSeat(seat: Seat) {
+    private fun toggleSeat(seat: Seat) {
         val toggleResult = selectedSeats.toggleSeat(seat)
         when (toggleResult) {
             is SeatToggleResult.Added -> view.seatSelect(seat)
             is SeatToggleResult.Removed -> view.seatUnSelect(seat)
         }
-        view.setTicketPrice(selectedSeats.totalTicketPrice)
+        view.setTicketPrice(selectedSeats.totalTicketPrice.value)
     }
 
-    fun navigateToTicketUI() {
-        view.navigateToTicketUI(
-            ticketDataEmptySeat.seatsAddedTicketData(
-                SeatsData(
-                    seatsLength = selectedSeats.size(),
-                    totalSeatsPrice = selectedSeats.totalTicketPrice.value,
-                    seatsCodes = selectedSeats.getSeatCodes(),
-                ),
+    override fun setSeatsData(seatsData: SeatsData) {
+        selectedSeats.updateSeats(seatsData.toSeatList())
+        selectedSeats.seats.forEach { view.seatSelect(it) }
+        view.setTicketPrice(selectedSeats.totalTicketPrice.value)
+        view.setSubmitButtonView(isMaximumSelectedSeat())
+    }
+
+    override fun getSelectedSeatsData(): SeatsData = SeatsData.fromSeats(selectedSeats)
+
+    override fun handleCompleteSelectSeat() {
+        view.navigateToTicketView(
+            ticketData.seatsAddedTicketData(
+                SeatsData.fromSeats(selectedSeats),
             ),
         )
     }

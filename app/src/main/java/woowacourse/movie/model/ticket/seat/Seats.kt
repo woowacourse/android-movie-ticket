@@ -4,17 +4,22 @@ import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
 
 class Seats(
-    initSeats: Collection<Seat> = setOf<Seat>(),
     private val seatGradePolicy: SeatGradePolicy,
+    initSeats: Collection<Seat> = setOf<Seat>(),
 ) {
-    val selectedSeats: MutableSet<Seat> = initSeats.toMutableSet()
+    val seats: MutableSet<Seat> = initSeats.toMutableSet()
     val totalTicketPrice: TicketPrice
-        get() = TicketPrice.calculateTotalPrice(selectedSeats, seatGradePolicy)
+        get() = TicketPrice.calculateTotalPrice(seats, seatGradePolicy)
 
-    fun isSelectedSeat(seat: Seat): Boolean = seat in selectedSeats
+    fun isSelectedSeat(seat: Seat): Boolean = seat in seats
+
+    fun updateSeats(newSeats: Collection<Seat>) {
+        seats.clear()
+        seats.addAll(newSeats)
+    }
 
     fun toggleSeat(seat: Seat): SeatToggleResult =
-        if (seat in selectedSeats) {
+        if (seat in seats) {
             removeSeat(seat)
             SeatToggleResult.Removed(seat)
         } else {
@@ -23,14 +28,14 @@ class Seats(
         }
 
     private fun removeSeat(seat: Seat) {
-        selectedSeats.remove(seat)
+        seats.remove(seat)
     }
 
     private fun addSeat(seat: Seat) {
-        selectedSeats.add(seat)
+        seats.add(seat)
     }
 
-    fun size() = selectedSeats.size
+    fun size() = seats.size
 
-    fun getSeatCodes(): List<String> = selectedSeats.map { it.seatCode }
+    fun getSeatCodes(): List<String> = seats.map { it.seatCode }
 }

@@ -12,6 +12,7 @@ data class TicketData(
     val showtime: LocalDateTime,
     val ticketCount: Int,
     val seatsData: SeatsData = SeatsData.Companion.getEmptySeatsData(),
+    val totalTicketPrice: Int = 0,
 ) : Parcelable {
     fun seatsAddedTicketData(seatsData: SeatsData): TicketData = TicketData(this.screeningData, this.showtime, this.ticketCount, seatsData)
 }

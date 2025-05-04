@@ -42,13 +42,13 @@ class SelectSeatPresenterTest {
         every { selectSeatView.getTicketData() } returns ticketData
         every { ticketData.seatsAddedTicketData(any()) } returns ticketData
 
-        seatSelectPresenter = SeatSelectPresenter(selectSeatView)
+        seatSelectPresenter = SeatSelectPresenter(selectSeatView, getTicketData())
     }
 
     @Test
     fun `좌석 선택 UI를 초기화한다`() {
         // When
-        seatSelectPresenter.initSelectSeatUI()
+        seatSelectPresenter.initSelectSeatView()
 
         // Then
         verify { selectSeatView.initMovieTitleUI(ticketData) }
@@ -58,7 +58,7 @@ class SelectSeatPresenterTest {
     @Test
     fun `좌석 선택 시 UI가 업데이트된다`() {
         // When
-        seatSelectPresenter.seatInputProcess(seatA1)
+        seatSelectPresenter.onSeatInput(seatA1)
 
         // Then
         verify { selectSeatView.seatSelect(seatA1) }
@@ -69,25 +69,25 @@ class SelectSeatPresenterTest {
     @Test
     fun `이미 선택된 좌석을 다시 클릭하면 선택이 취소된다`() {
         // Given
-        seatSelectPresenter.seatInputProcess(seatA1)
+        seatSelectPresenter.onSeatInput(seatA1)
 
         // When
-        seatSelectPresenter.seatInputProcess(seatA1)
+        seatSelectPresenter.onSeatInput(seatA1)
 
         // Then
         verify { selectSeatView.seatUnSelect(seatA1) }
-        assertFalse(seatSelectPresenter.selectedSeats.isSelectedSeat(seatA1))
+        assertFalse(seatSelectPresenter.getSeatsData.isSelectedSeat(seatA1))
     }
 
     @Test
     fun `최대 인원을 초과하여 좌석을 선택하면 오류 메시지가 표시된다`() {
         // Given
         every { ticketData.ticketCount } returns 2
-        seatSelectPresenter.seatInputProcess(seatA1)
-        seatSelectPresenter.seatInputProcess(seatA2)
+        seatSelectPresenter.onSeatInput(seatA1)
+        seatSelectPresenter.onSeatInput(seatA2)
 
         // When
-        seatSelectPresenter.seatInputProcess(seatA3)
+        seatSelectPresenter.onSeatInput(seatA3)
 
         // Then
         verify { selectSeatView.printError("관람 인원을 초과하여\n좌석을 선택할 수 없습니다") }
@@ -101,10 +101,10 @@ class SelectSeatPresenterTest {
         // WhenThen
         assertFalse(seatSelectPresenter.isMaximumSelectedSeat())
 
-        seatSelectPresenter.seatInputProcess(seatA1)
+        seatSelectPresenter.onSeatInput(seatA1)
         assertFalse(seatSelectPresenter.isMaximumSelectedSeat())
 
-        seatSelectPresenter.seatInputProcess(seatA2)
+        seatSelectPresenter.onSeatInput(seatA2)
         assertTrue(seatSelectPresenter.isMaximumSelectedSeat())
     }
 
@@ -132,7 +132,7 @@ class SelectSeatPresenterTest {
         seatSelectPresenter.toggleSeat(seatA2)
 
         // When
-        seatSelectPresenter.navigateToTicketUI()
+        seatSelectPresenter.handleCompleteSelectSeat()
 
         // Then
         verify {
@@ -151,7 +151,7 @@ class SelectSeatPresenterTest {
     @Test
     fun `선택된 좌석이 없을 때 총 가격은 0원이다`() {
         // When
-        val price = seatSelectPresenter.selectedSeats.totalTicketPrice
+        val price = seatSelectPresenter.getSeatsData.totalTicketPrice
 
         // Then
         assertEquals(0, price.value)
@@ -160,13 +160,13 @@ class SelectSeatPresenterTest {
     @Test
     fun `좌석 선택 상태가 변경될 때마다 제출 버튼 상태가 업데이트된다`() {
         // When
-        seatSelectPresenter.seatInputProcess(seatA1)
+        seatSelectPresenter.onSeatInput(seatA1)
 
         // Then
         verify { selectSeatView.updateSubmitButton() }
 
         // When
-        seatSelectPresenter.seatInputProcess(seatA1)
+        seatSelectPresenter.onSeatInput(seatA1)
 
         // Then
         verify(exactly = 2) { selectSeatView.updateSubmitButton() }

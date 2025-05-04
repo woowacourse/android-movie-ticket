@@ -17,7 +17,6 @@ import woowacourse.movie.R
 import woowacourse.movie.extension.getParcelableExtraCompat
 import woowacourse.movie.feature.ticket.TicketActivity
 import woowacourse.movie.feature.ticket.TicketData
-import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
@@ -25,7 +24,7 @@ import woowacourse.movie.model.ticket.seat.SeatRow
 class SeatSelectActivity :
     AppCompatActivity(),
     SeatSelectContract.View {
-    private val present: SeatSelectPresenter = SeatSelectPresenter(this)
+    private lateinit var presenter: SeatSelectContract.Presenter
     private var dialog: AlertDialog? = null
     private val seatTableView by lazy { findViewById<TableLayout>(R.id.tl_seat) }
     private val ticketPriceTextView by lazy { findViewById<TextView>(R.id.tv_select_seat_selected_ticket_price) }
@@ -33,16 +32,9 @@ class SeatSelectActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(
-            SEAT_INDEXES_DATA,
-            ArrayList(
-                present.selectedSeats.selectedSeats.map {
-                    SeatIndexData(
-                        col = it.col.value,
-                        row = it.row.value,
-                    )
-                },
-            ),
+        outState.putParcelable(
+            SEATS_DATA,
+            presenter.getSelectedSeatsData(),
         )
     }
 
@@ -56,39 +48,34 @@ class SeatSelectActivity :
             insets
         }
 
-        restoreSelectedSeat(savedInstanceState)
-        present.initSelectSeatUI()
+        presenter = SeatSelectPresenter(this, getTicketData() ?: return)
+        presenter.initSelectSeatView()
+
+        recoverReservationData(savedInstanceState)
         initSeatClickListener()
-        updateSubmitButton()
     }
 
-    private fun restoreSelectedSeat(savedInstanceState: Bundle?) {
+    private fun getTicketData(): TicketData? {
+        val ticketData = intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
+        if (ticketData == null) {
+            printError(ERROR_CANT_READ_TICKET_INFO)
+            finish()
+            return null
+        }
+        return ticketData
+    }
+
+    private fun recoverReservationData(savedInstanceState: Bundle?) {
         savedInstanceState?.let { bundle ->
-            val seatIndexList =
-                BundleCompat.getParcelableArrayList(
+            val seatsData =
+                BundleCompat.getParcelable(
                     bundle,
-                    SEAT_INDEXES_DATA,
-                    SeatIndexData::class.java,
+                    SEATS_DATA,
+                    SeatsData::class.java,
                 )
 
-            seatIndexList?.forEach { seatIndexData ->
-                val seat =
-                    Seat(
-                        row = SeatRow(seatIndexData.row),
-                        col = SeatCol(seatIndexData.col),
-                    )
-                present.toggleSeat(seat)
-            }
+            seatsData?.let { presenter.setSeatsData(it) }
         }
-    }
-
-    override fun getTicketData(): TicketData =
-        intent.getParcelableExtraCompat<TicketData>(EXTRA_TICKET_DATA)
-            ?: throw IllegalArgumentException(ERROR_CANT_READ_TICKET_INFO)
-
-    override fun initMovieTitleUI(ticketData: TicketData) {
-        val titleView = findViewById<TextView>(R.id.tv_select_seat_movie_title)
-        titleView.text = ticketData.screeningData.title
     }
 
     override fun initSeatClickListener() {
@@ -98,10 +85,15 @@ class SeatSelectActivity :
             for (j in 0 until tableRow.childCount) {
                 val seat = tableRow.getChildAt(j) as TextView
                 seat.setOnClickListener {
-                    present.seatInputProcess(Seat(SeatRow(i), SeatCol(j)))
+                    presenter.onSeatInput(Seat(SeatRow(i), SeatCol(j)))
                 }
             }
         }
+    }
+
+    override fun setMovieTitle(movieTitle: String) {
+        val titleView = findViewById<TextView>(R.id.tv_select_seat_movie_title)
+        titleView.text = movieTitle
     }
 
     override fun seatSelect(seat: Seat) {
@@ -112,9 +104,9 @@ class SeatSelectActivity :
         setSeatBackground(seat, R.color.white)
     }
 
-    override fun setTicketPrice(totalTicketPrice: TicketPrice) {
+    override fun setTicketPrice(totalTicketPrice: Int) {
         ticketPriceTextView.text =
-            getString(R.string.select_seat_total_ticket_price, totalTicketPrice.value)
+            getString(R.string.select_seat_total_ticket_price, totalTicketPrice)
     }
 
     private fun setSeatBackground(
@@ -131,12 +123,12 @@ class SeatSelectActivity :
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun navigateToTicketUI(ticketData: TicketData) {
+    override fun navigateToTicketView(ticketData: TicketData) {
         startActivity(TicketActivity.newIntent(this, ticketData))
     }
 
-    override fun updateSubmitButton() {
-        if (present.isMaximumSelectedSeat()) {
+    override fun setSubmitButtonView(isMaximumSelectedSeat: Boolean) {
+        if (isMaximumSelectedSeat) {
             setSubmitButtonOnClickListener()
             confirmButtonView.setBackgroundResource(R.color.purple_500)
         } else {
@@ -153,7 +145,7 @@ class SeatSelectActivity :
                     .setTitle(getString(R.string.ticket_dialog_title))
                     .setMessage(getString(R.string.ticket_dialog_message))
                     .setPositiveButton(getString(R.string.ticket_dialog_positive_button)) { _, _ ->
-                        present.navigateToTicketUI()
+                        presenter.handleCompleteSelectSeat()
                     }.setNegativeButton(getString(R.string.ticket_dialog_nagative_button)) { dialog, _ ->
                         dialog.dismiss()
                     }.setCancelable(false)
@@ -175,7 +167,7 @@ class SeatSelectActivity :
         private const val ERROR_CANT_READ_TICKET_INFO = "티켓 정보가 전달되지 않았습니다"
 
         private const val EXTRA_TICKET_DATA = "woowacourse.movie.EXTRA_TICKET_DATA"
-        private const val SEAT_INDEXES_DATA = "seatIndexesData"
+        private const val SEATS_DATA = "seatIndexesData"
 
         fun newIntent(
             context: Context,

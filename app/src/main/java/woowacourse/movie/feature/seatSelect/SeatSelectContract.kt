@@ -1,14 +1,11 @@
 package woowacourse.movie.feature.seatSelect
 
 import woowacourse.movie.feature.ticket.TicketData
-import woowacourse.movie.model.ticket.TicketPrice
 import woowacourse.movie.model.ticket.seat.Seat
 
 interface SeatSelectContract {
     interface View {
-        fun getTicketData(): TicketData
-
-        fun initMovieTitleUI(ticketData: TicketData)
+        fun setMovieTitle(movieTitle: String)
 
         fun initSeatClickListener()
 
@@ -16,12 +13,24 @@ interface SeatSelectContract {
 
         fun seatUnSelect(seat: Seat)
 
-        fun setTicketPrice(ticketPrice: TicketPrice)
+        fun setTicketPrice(ticketPrice: Int)
 
         fun printError(message: String)
 
-        fun navigateToTicketUI(ticketData: TicketData)
+        fun navigateToTicketView(ticketData: TicketData)
 
-        fun updateSubmitButton()
+        fun setSubmitButtonView(isMaximumSelectedSeat: Boolean)
+    }
+
+    interface Presenter {
+        fun initSelectSeatView()
+
+        fun onSeatInput(seat: Seat)
+
+        fun getSelectedSeatsData(): SeatsData
+
+        fun setSeatsData(seatsData: SeatsData)
+
+        fun handleCompleteSelectSeat()
     }
 }
