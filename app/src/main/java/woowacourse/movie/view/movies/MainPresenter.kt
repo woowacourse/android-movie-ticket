@@ -17,10 +17,19 @@ class MainPresenter(
         val items = mutableListOf<MovieItem>()
         movies.forEachIndexed { index, movie ->
             items.add(MovieItem.Movie(movie))
-            if ((index + 1) % 3 == 0) {
+            if (index.isAdInsertionPosition()) {
                 items.add(MovieItem.Advertisement)
             }
         }
         return items
+    }
+
+    private fun Int.isAdInsertionPosition(): Boolean {
+        return (this + INDEX_OFFSET) % AD_INSERT_INTERVAL == 0
+    }
+
+    companion object {
+        private const val AD_INSERT_INTERVAL = 3
+        private const val INDEX_OFFSET = 1
     }
 }
