@@ -12,7 +12,7 @@ data class BookingSeats(
         get() = _seats
 
     init {
-        require(value >= MINIMUM_NUMBER_OF_PEOPLE) {ERROR_PEOPLE_OVER_ONE}
+        require(value >= MINIMUM_NUMBER_OF_PEOPLE) { ERROR_PEOPLE_OVER_ONE }
     }
 
     fun add(seat: Seat) {
@@ -27,7 +27,7 @@ data class BookingSeats(
         return _seats.sumOf { seat -> seat.price() }
     }
 
-    fun isSelectedAll():Boolean = this.value == this._seats.size
+    fun isSelectedAll(): Boolean = this.value == this._seats.size
 
     companion object {
         private const val MINIMUM_NUMBER_OF_PEOPLE = 1
