@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.booking.BookingActivity">
+    tools:context=".ui.booking.view.BookingActivity">
 
     <ImageView
         android:id="@+id/img_movie_poster"
@@ -133,13 +133,13 @@
             android:id="@+id/tv_headcount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/btn_decrease"
             app:layout_constraintEnd_toStartOf="@id/btn_increase"
             app:layout_constraintStart_toEndOf="@id/btn_decrease"
-            app:layout_constraintTop_toTopOf="@id/btn_decrease" />
+            app:layout_constraintTop_toTopOf="@id/btn_decrease"
+            tools:text="1" />
 
         <Button
             android:id="@+id/btn_booking_complete"

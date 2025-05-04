@@ -1,0 +1,72 @@
+package woowacourse.movie.presenter
+
+import io.mockk.mockk
+import io.mockk.slot
+import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
+import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.booking.contract.BookingContract
+import woowacourse.movie.ui.booking.model.BookingState
+import woowacourse.movie.ui.booking.presenter.BookingPresenter
+import java.time.LocalDateTime
+
+class BookingPresenterTest {
+    private lateinit var view: BookingContract.View
+    private lateinit var presenter: BookingPresenter
+
+    private lateinit var dummyMovie: Movie
+
+    @BeforeEach
+    fun setUp() {
+        view = mockk(relaxed = true)
+        presenter = BookingPresenter(view)
+
+        dummyMovie = Movie.DUMMY_MOVIES.first()
+        val fakeBookingState =
+            BookingState(
+                dummyMovie,
+                Headcount(1),
+                0,
+                0,
+                LocalDateTime.MIN,
+            )
+        presenter.restoreState(fakeBookingState)
+    }
+
+    @Test
+    fun `인원 수가 증가하면 인원 수 텍스트가 업데이트 된다`() {
+        val slot = slot<Headcount>()
+
+        presenter.increaseHeadcount()
+
+        verify { view.updateHeadcountDisplay(capture(slot)) }
+        assertThat(Headcount(2).count).isEqualTo(slot.captured.count)
+    }
+
+    @Test
+    fun `인원 수가 감소하면 인원 수 텍스트가 업데이트 된다`() {
+        presenter.decreaseHeadcount()
+        verify { view.updateHeadcountDisplay(any()) }
+    }
+
+    @Test
+    fun `날짜 스피너를 업데이트하면 뷰에 반영된다`() {
+        presenter.setupDateSpinner()
+        verify { view.setDateSpinner(any(), any()) }
+    }
+
+    @Test
+    fun `시간 스피너를 업데이트하면 뷰에 반영된다`() {
+        presenter.setupTimeSpinner()
+        verify { view.setTimeSpinner(any(), any()) }
+    }
+
+    @Test
+    fun `날짜 스피너를 업데이트하면 선택된 시간에 따라 시간 스피너가 업데이트 된다`() {
+        presenter.setupDateSpinner()
+        verify { view.setDateSpinner(any(), any()) }
+    }
+}

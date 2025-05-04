@@ -1,0 +1,228 @@
+package woowacourse.movie.ui.booking.view
+
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
+import android.view.MenuItem
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import woowacourse.movie.R
+import woowacourse.movie.domain.model.Headcount
+import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.ui.PosterIdMapper
+import woowacourse.movie.ui.booking.contract.BookingContract
+import woowacourse.movie.ui.booking.model.BookingState
+import woowacourse.movie.ui.booking.presenter.BookingPresenter
+import woowacourse.movie.ui.seat.view.BookingSeatActivity
+import woowacourse.movie.utils.StringFormatter.dotDateFormat
+import woowacourse.movie.utils.bundleSerializable
+import woowacourse.movie.utils.intentSerializable
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
+
+class BookingActivity :
+    AppCompatActivity(),
+    BookingContract.View {
+    private val bookingPresenter = BookingPresenter(this)
+
+    private val peopleCountView: TextView by lazy { findViewById(R.id.tv_headcount) }
+    private val dateSpinner: Spinner by lazy { findViewById(R.id.sp_date) }
+    private val timeSpinner: Spinner by lazy { findViewById(R.id.sp_time) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_booking)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        applyWindowInsets()
+
+        initializeStateFromIntent()
+        savedInstanceState?.let { restoreState(it) }
+        bookingPresenter.updateViews()
+        setButtonClickListeners()
+    }
+
+    private fun initializeStateFromIntent() {
+        val movie =
+            intent.intentSerializable(EXTRA_MOVIE, Movie::class.java) ?: Movie.DUMMY_MOVIES.first()
+        bookingPresenter.restoreState(
+            BookingState(
+                movie,
+                Headcount(),
+                0,
+                0,
+                LocalDateTime.MIN,
+            ),
+        )
+    }
+
+    private fun restoreState(savedInstanceState: Bundle) {
+        val bookingState =
+            with(savedInstanceState) {
+                BookingState(
+                    bundleSerializable(KEY_MOVIE, Movie::class.java) ?: Movie.DUMMY_MOVIES.first(),
+                    bundleSerializable(KEY_HEADCOUNT, Headcount::class.java) ?: Headcount(),
+                    getInt(KEY_SELECTED_DATE_POSITION),
+                    getInt(KEY_SELECTED_TIME_POSITION),
+                    selectedDateTime(),
+                )
+            }
+        bookingPresenter.restoreState(bookingState)
+    }
+
+    private fun selectedDateTime(): LocalDateTime =
+        LocalDateTime.of(
+            dateSpinner.selectedItem as LocalDate,
+            timeSpinner.selectedItem as LocalTime,
+        )
+
+    override fun setMovieInfoViews(movie: Movie) {
+        val movieTitleView: TextView = findViewById(R.id.tv_title)
+        val (startDate, endDate) = movie.releaseDate
+        val posterView: ImageView = findViewById(R.id.img_movie_poster)
+        val movieReleaseDateView: TextView = findViewById(R.id.tv_screening_period)
+        val movieRunningTimeView: TextView = findViewById(R.id.tv_running_time)
+
+        movieTitleView.text = movie.title
+        posterView.setImageResource(PosterIdMapper.posterIdByMovieId(movie.id))
+        movieReleaseDateView.text =
+            getString(R.string.text_date_period)
+                .format(dotDateFormat(startDate), dotDateFormat(endDate))
+        movieRunningTimeView.text = getString(R.string.text_minute).format(movie.runningTime)
+        bookingPresenter.refreshHeadcountDisplay()
+    }
+
+    override fun updateHeadcountDisplay(headcount: Headcount) {
+        peopleCountView.text = headcount.count.toString()
+    }
+
+    override fun setDateSpinner(
+        spinnerItems: List<LocalDate>,
+        position: Int,
+    ) {
+        with(dateSpinner) {
+            adapter =
+                ArrayAdapter(
+                    this@BookingActivity,
+                    android.R.layout.simple_spinner_item,
+                    spinnerItems,
+                )
+            setSelection(position)
+
+            onItemSelectedListener =
+                AdapterItemSelectedListener { bookingPresenter.setupTimeSpinner() }
+        }
+        bookingPresenter.setupTimeSpinner()
+    }
+
+    override fun setTimeSpinner(
+        spinnerItems: List<LocalTime>,
+        position: Int,
+    ) {
+        with(timeSpinner) {
+            adapter =
+                ArrayAdapter(
+                    this@BookingActivity,
+                    android.R.layout.simple_spinner_item,
+                    spinnerItems,
+                )
+            if (spinnerItems.isNotEmpty()) {
+                setSelection(position)
+            }
+        }
+    }
+
+    override fun startBookingSeatActivity(
+        movieTitle: String,
+        dateTime: LocalDateTime,
+        headcount: Headcount,
+    ) {
+        startActivity(BookingSeatActivity.newIntent(this, movieTitle, dateTime, headcount))
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean =
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+
+            else -> super.onOptionsItemSelected(item)
+        }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val savedBookingState = bookingPresenter.savedBookingState()
+
+        with(savedBookingState) {
+            outState.putSerializable(KEY_MOVIE, movie)
+            outState.putSerializable(KEY_HEADCOUNT, bookingPresenter.headcount)
+            outState.putInt(KEY_SELECTED_DATE_POSITION, dateSpinner.selectedItemPosition)
+            outState.putInt(KEY_SELECTED_TIME_POSITION, timeSpinner.selectedItemPosition)
+        }
+    }
+
+    private fun applyWindowInsets() {
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+
+    private fun setButtonClickListeners() {
+        setIncreaseButtonClickListener()
+        setDecreaseButtonClickListener()
+        setBookingCompleteButtonClickListener()
+    }
+
+    private fun setIncreaseButtonClickListener() {
+        val increaseBtn: Button = findViewById(R.id.btn_increase)
+        increaseBtn.setOnClickListener {
+            bookingPresenter.increaseHeadcount()
+            bookingPresenter.refreshHeadcountDisplay()
+        }
+    }
+
+    private fun setDecreaseButtonClickListener() {
+        val decreaseBtn: Button = findViewById(R.id.btn_decrease)
+        decreaseBtn.setOnClickListener {
+            bookingPresenter.decreaseHeadcount()
+            bookingPresenter.refreshHeadcountDisplay()
+        }
+    }
+
+    private fun setBookingCompleteButtonClickListener() {
+        val bookingCompleteBtn: Button = findViewById(R.id.btn_booking_complete)
+        bookingCompleteBtn.setOnClickListener {
+            bookingPresenter.loadSelectedLocalDateTime(selectedDateTime())
+            bookingPresenter.completeBooking()
+        }
+    }
+
+    companion object {
+        fun newIntent(
+            context: Context,
+            movie: Movie,
+        ): Intent =
+            Intent(context, BookingActivity::class.java).apply {
+                putExtra(EXTRA_MOVIE, movie)
+            }
+
+        private const val KEY_MOVIE = "movie"
+        private const val KEY_SELECTED_DATE_POSITION = "SELECTED_DATE_POSITION"
+        private const val KEY_SELECTED_TIME_POSITION = "SELECTED_TIME_POSITION"
+        private const val KEY_HEADCOUNT = "SAVED_PEOPLE_COUNT"
+
+        private const val EXTRA_MOVIE = "movie"
+    }
+}
