@@ -21,8 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MovieBookingActivity" />
-        <activity android:name=".view.MovieBookedActivity" />
+        <activity
+            android:name=".view.MovieBookingActivity"
+            android:parentActivityName=".view.MovieActivity" />
+        <activity
+            android:name=".view.MovieBookingSeatActivity"
+            android:parentActivityName=".view.MovieBookingActivity" />
+        <activity
+            android:name=".view.MovieBookedActivity"
+            android:parentActivityName=".view.MovieActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/booking_seat"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.MovieBookingSeatActivity">
+
+    <!-- 스크롤 가능한 좌석 영역 -->
+    <ScrollView
+        android:id="@+id/scroll_area"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        android:background="@color/gray_300"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottom_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/booked"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxWidth="700dp">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/screen"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/gray_700"
+                    android:maxWidth="600dp"
+                    android:paddingVertical="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/screen_text"
+                        style="@style/ScreenTextStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="SCREEN" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TableLayout
+                    android:id="@+id/seat_table"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:gravity="center"
+                    android:maxWidth="600dp"
+                    android:stretchColumns="*"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/screen">
+
+                    <!-- A열 -->
+                    <TableRow>
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="A1" />
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="A2" />
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="A3" />
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="A4" />
+                    </TableRow>
+
+                    <!-- B열 -->
+                    <TableRow>
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="B1" />
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="B2" />
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="B3" />
+
+                        <TextView
+                            style="@style/SeatTextStyleB"
+                            android:text="B4" />
+                    </TableRow>
+
+                    <!-- C열 -->
+                    <TableRow>
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="C1" />
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="C2" />
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="C3" />
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="C4" />
+                    </TableRow>
+
+                    <!-- D열 -->
+                    <TableRow>
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="D1" />
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="D2" />
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="D3" />
+
+                        <TextView
+                            style="@style/SeatTextStyleS"
+                            android:text="D4" />
+                    </TableRow>
+
+                    <!-- E열 -->
+                    <TableRow>
+
+                        <TextView
+                            style="@style/SeatTextStyleA"
+                            android:text="E1" />
+
+                        <TextView
+                            style="@style/SeatTextStyleA"
+                            android:text="E2" />
+
+                        <TextView
+                            style="@style/SeatTextStyleA"
+                            android:text="E3" />
+
+                        <TextView
+                            style="@style/SeatTextStyleA"
+                            android:text="E4" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 하단 고정 바 -->
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- 영화 정보 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/movie_title"
+                style="@style/MovieItemTitleTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="해리 포터와 마법사의 돌" />
+
+            <TextView
+                android:id="@+id/movie_price"
+                style="@style/MoviePriceTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="0원" />
+        </LinearLayout>
+
+        <!-- 확인 버튼 -->
+        <Button
+            android:id="@+id/confirm_button"
+            style="@style/ButtonTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/gray_500"
+            tools:text="확인" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

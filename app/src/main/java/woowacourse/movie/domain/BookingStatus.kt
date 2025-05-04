@@ -2,6 +2,7 @@ package woowacourse.movie.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
+import woowacourse.movie.domain.seat.BookingSeats
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -10,14 +11,14 @@ import java.time.LocalTime
 data class BookingStatus(
     val movie: Movie,
     val isBooked: Boolean = true,
-    private val _memberCount: MemberCount,
+    val seat: BookingSeats,
     val bookedTime: LocalDateTime,
 ) : Parcelable {
     val memberCount: Int
-        get() = _memberCount.value
+        get() = seat.value
 
     fun calculateTicketPrices(): Int {
-        return _memberCount.calculateTicketPrices()
+        return seat.calculateTicketPrices()
     }
 
     fun book(): BookingStatus {
@@ -43,7 +44,7 @@ data class BookingStatus(
             val bookedDateTime = LocalDateTime.of(bookedDate, bookedTime)
             return BookingStatus(
                 movie = movie,
-                _memberCount = MemberCount(count),
+                seat = BookingSeats(count),
                 bookedTime = bookedDateTime
             )
         }
@@ -56,4 +57,3 @@ data class BookingStatus(
         ): BookingStatus = from(movie, count, bookedDate, bookedTime)
     }
 }
-

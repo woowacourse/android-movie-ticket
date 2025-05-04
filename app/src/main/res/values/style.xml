@@ -68,5 +68,49 @@
         <item name="android:textStyle">normal</item>
     </style>
 
+    <!-- 좌석 예매 화면용 스크린 -->
+    <style name="ScreenTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_xlarge</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- 좌석 예매 화면용 좌석 -->
+    <style name="SeatTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_xlarge</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:paddingVertical">24dp</item>
+        <item name="android:background">@drawable/seat_background</item>
+    </style>
+
+    <style name="SeatTextStyleB" parent="SeatTextStyle">
+        <item name="android:textColor">@color/purple_400</item>
+    </style>
+
+    <style name="SeatTextStyleS" parent="SeatTextStyle">
+        <item name="android:textColor">@color/green</item>
+    </style>
+
+    <style name="SeatTextStyleA" parent="SeatTextStyle">
+        <item name="android:textColor">@color/blue</item>
+    </style>
+
+    <!-- 좌석 예매 화면용 가격 -->
+    <style name="MoviePriceTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">start</item>
+        <item name="android:textSize">@dimen/font_size_normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/gray_700</item>
+    </style>
+
+    <!-- 좌석 예매 화면용 버튼 -->
+    <style name="ButtonTextStyle" parent="BaseTextStyle">
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/font_size_normal</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
 </resources>
 

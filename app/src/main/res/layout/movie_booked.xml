@@ -74,16 +74,39 @@
                 app:layout_constraintTop_toBottomOf="@id/movie_title"
                 tools:text="2025.04.01 10:00" />
 
-            <TextView
-                android:id="@+id/member_count"
-                style="@style/SubTitleTextStyle"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/member_seat_layout"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal"
+                android:gravity="center"
                 app:layout_constraintTop_toBottomOf="@id/booking_date_time"
-                tools:text="일반 2명" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+
+                <TextView
+                    android:id="@+id/member_count"
+                    style="@style/SubTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="일반 2명" />
+
+                <TextView
+                    android:id="@+id/divider"
+                    style="@style/SubTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" | "
+                    android:paddingHorizontal="8dp" />
+
+                <TextView
+                    android:id="@+id/booking_seat"
+                    style="@style/SubTitleTextStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="B2, B3" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/movie_ticket_price"
