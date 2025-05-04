@@ -14,7 +14,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.ticket.MovieTicket
+import woowacourse.movie.domain.movies.MovieToReserve
 import woowacourse.movie.ui.booking.BookingActivity
 import woowacourse.movie.ui.seat.SeatsSelectionActivity
 import java.time.LocalDateTime
@@ -23,13 +23,11 @@ import java.time.LocalDateTime
 class SeatSelectionActivityTest {
     @Before
     fun setUp() {
-        val ticket =
-            MovieTicket(
+        val movieToReserve =
+            MovieToReserve(
                 1,
                 LocalDateTime.of(2025, 4, 18, 12, 0),
                 2,
-                20000,
-                mutableListOf("A1", "A2"),
             )
 
         val intent =
@@ -37,7 +35,7 @@ class SeatSelectionActivityTest {
                 ApplicationProvider.getApplicationContext(),
                 SeatsSelectionActivity::class.java,
             ).apply {
-                putExtra("Ticket", ticket)
+                putExtra("ReservedMovie", movieToReserve)
             }
 
         ActivityScenario.launch<BookingActivity>(intent)
@@ -50,9 +48,9 @@ class SeatSelectionActivityTest {
     }
 
     @Test
-    fun `티켓_총_금액이_출력된다`() {
+    fun `초기_금액이_출력된다`() {
         onView(withId(R.id.amount))
-            .check(matches(withText("20,000원")))
+            .check(matches(withText("0원")))
     }
 
     @Test

@@ -13,6 +13,7 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
+import woowacourse.movie.domain.seat.Seat
 import woowacourse.movie.domain.ticket.MovieTicket
 import woowacourse.movie.ui.booking.BookingActivity
 import woowacourse.movie.ui.booking.bookingsummary.BookingSummaryActivity
@@ -28,7 +29,7 @@ class BookingSummaryActivityTest {
                 LocalDateTime.of(2025, 4, 18, 12, 0),
                 2,
                 20000,
-                mutableListOf("A1", "A2"),
+                mutableListOf(Seat(0, 0), Seat(0, 1)),
             )
 
         val intent =
