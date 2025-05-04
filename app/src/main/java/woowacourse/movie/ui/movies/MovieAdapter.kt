@@ -14,7 +14,7 @@ import woowacourse.movie.ui.movies.poster.PosterMapper
 import woowacourse.movie.ui.movies.poster.setImage
 
 class MovieAdapter(
-    private val movies: List<Movie>,
+    private var movies: List<Movie>,
     private val onReservationClickListener: (Int) -> Unit,
 ) : RecyclerView.Adapter<ViewHolder>() {
     override fun onCreateViewHolder(
@@ -54,6 +54,11 @@ class MovieAdapter(
     override fun getItemCount(): Int {
         val adCount = movies.size / 3
         return movies.size + adCount
+    }
+
+    fun updateMovieData(movies: List<Movie>) {
+        this.movies = movies
+        notifyDataSetChanged()
     }
 
     class MovieViewHolder(

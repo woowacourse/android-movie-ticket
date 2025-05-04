@@ -13,19 +13,15 @@ class MoviesActivity :
     BaseActivity(),
     MovieContract.View {
     private lateinit var presenter: MoviePresenter
+    private lateinit var adapter: MovieAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setupScreen(R.layout.activity_main)
-
         presenter = MoviePresenter(this)
-        presenter.loadAllMovies()
-    }
-
-    override fun showAllMovies(movies: List<Movie>) {
-        val adapter =
+        adapter =
             MovieAdapter(
-                movies,
+                emptyList(),
                 onReservationClickListener =
                     { movieId ->
                         val intent = Intent(this, BookingActivity::class.java)
@@ -33,8 +29,14 @@ class MoviesActivity :
                         startActivity(intent)
                     },
             )
+
+        presenter.loadAllMovies()
+    }
+
+    override fun showAllMovies(movies: List<Movie>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movies)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+        adapter.updateMovieData(movies)
     }
 }
