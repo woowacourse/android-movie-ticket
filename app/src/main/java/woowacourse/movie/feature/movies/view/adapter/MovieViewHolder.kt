@@ -18,7 +18,7 @@ internal class MovieViewHolder(
     private val bookingButton: Button = view.findViewById(R.id.btn_movie_booking)
 
     fun bind(
-        movie: Item.Movie,
+        movie: MovieItem.Movie,
         onBookingClick: (MovieUiModel) -> Unit,
     ) {
         title.text = movie.value.title

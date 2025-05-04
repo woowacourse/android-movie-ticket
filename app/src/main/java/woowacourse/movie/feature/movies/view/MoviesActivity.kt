@@ -11,7 +11,7 @@ import woowacourse.movie.feature.bookingdetail.view.BookingDetailActivity
 import woowacourse.movie.feature.model.MovieUiModel
 import woowacourse.movie.feature.movies.contract.MoviesContract
 import woowacourse.movie.feature.movies.presenter.MoviesPresenter
-import woowacourse.movie.feature.movies.view.adapter.Item
+import woowacourse.movie.feature.movies.view.adapter.MovieItem
 import woowacourse.movie.feature.movies.view.adapter.MoviesAdapter
 
 class MoviesActivity :
@@ -27,7 +27,7 @@ class MoviesActivity :
 
     override fun showMovies(movies: List<MovieUiModel>) {
         val moviesAdapter = MoviesAdapter { movie -> presenter.selectMovieForBooking(movie) }
-        moviesAdapter.submitList(Item.from(movies))
+        moviesAdapter.submitList(MovieItem.from(movies))
         findViewById<RecyclerView>(R.id.rv_movies).adapter = moviesAdapter
     }
 
