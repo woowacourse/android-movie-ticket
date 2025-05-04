@@ -21,7 +21,7 @@ class ReservationSeatPresenterTest {
 
     @BeforeEach
     fun setup() {
-        view = mockk(relaxed = true)
+        view = mockk()
         presenter = ReservationSeatPresenter(view)
         ticket =
             Ticket(
@@ -65,6 +65,11 @@ class ReservationSeatPresenterTest {
         val moneySlots = mutableListOf<Int>()
         val position = Position(1, 1)
 
+        every { view.setSeatTag() } just Runs
+        every { view.setSeatInit() } just Runs
+        every { view.showMovieName(any()) } just Runs
+        every { view.setSeatClickListener() } just Runs
+        every { view.setReservationButton(any()) } just Runs
         every { view.showTicketMoney(capture(moneySlots)) } just Runs
         every { view.selectSeatView(capture(positionSlot)) } just Runs
         every { view.deSelectableButton() } just Runs
