@@ -66,7 +66,7 @@ class BookingCompleteActivity :
     }
 
     companion object {
-        const val BOOKING_INFO_KEY = "BOOKING_INFO"
+        private const val BOOKING_INFO_KEY = "BOOKING_INFO"
         private val MONEY_DECIMAL_FORMAT = DecimalFormat("#,###")
 
         fun newIntent(

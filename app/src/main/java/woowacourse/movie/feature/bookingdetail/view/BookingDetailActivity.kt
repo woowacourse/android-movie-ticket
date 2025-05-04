@@ -165,7 +165,7 @@ class BookingDetailActivity :
     }
 
     companion object {
-        const val MOVIE_KEY = "MOVIE"
+        private const val MOVIE_KEY = "MOVIE"
         private const val BOOKING_INFO_KEY = "BOOKING_INFO"
 
         fun newIntent(
