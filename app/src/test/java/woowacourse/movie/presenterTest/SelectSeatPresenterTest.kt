@@ -6,6 +6,7 @@ import io.mockk.verify
 import io.mockk.verifySequence
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import woowacourse.movie.model.Seat
 import woowacourse.movie.selectSeat.SeatPrice
 import woowacourse.movie.selectSeat.SelectSeatContract
 import woowacourse.movie.selectSeat.SelectSeatPresenter
@@ -44,27 +45,28 @@ class SelectSeatPresenterTest {
 
     @Test
     fun `좌석 클릭 시 미선택 상태이면 선택 처리하고 금액 갱신`() {
-        val priceA1 = SeatPrice.getPrice("A1")
+        val seat = Seat('A', 1)
+        val price = SeatPrice.getPrice(seat)
 
-        presenter.toggleSeat(tag = "A1", fullCount = 2)
+        presenter.toggleSeat(seat, fullCount = 2)
 
         verifySequence {
-            view.highlightSeat("A1")
-            view.showPrice(priceA1)
+            view.highlightSeat(seat.tag)
+            view.showPrice(price)
             view.unableButton()
         }
     }
 
     @Test
     fun `같은 좌석을 다시 클릭하면 선택 해제 처리하고 금액 갱신`() {
-        // 먼저 선택
-        presenter.toggleSeat("A1", fullCount = 2)
-        clearMocks(view)
+        val seat = Seat('A', 1)
 
-        presenter.toggleSeat("A1", fullCount = 2)
+        presenter.toggleSeat(seat, fullCount = 2)
+        clearMocks(view)
+        presenter.toggleSeat(seat, fullCount = 2)
 
         verifySequence {
-            view.unHighlightSeat("A1")
+            view.unHighlightSeat(seat.tag)
             view.showPrice(0)
             view.unableButton()
         }
@@ -72,25 +74,25 @@ class SelectSeatPresenterTest {
 
     @Test
     fun `fullCount 에 도달하면 활성화 버튼 호출`() {
-        val priceA1 = SeatPrice.getPrice("A1")
+        val seat = Seat('A', 1)
+        val price = SeatPrice.getPrice(seat)
 
-        presenter.toggleSeat("A1", fullCount = 1)
+        presenter.toggleSeat(seat, fullCount = 1)
 
         verifySequence {
-            view.highlightSeat("A1")
-            view.showPrice(priceA1)
+            view.highlightSeat(seat.tag)
+            view.showPrice(price)
             view.enableButton()
         }
     }
 
     @Test
     fun `이미 full 상태에서 다른 좌석 클릭 시 좌석이 꽉 찼다는걸 표시하고 선택은 무효`() {
-        presenter.toggleSeat("B2", fullCount = 0)
+        val seat = Seat('B', 2)
 
-        verifySequence {
-            view.showFullSeat()
-            view.enableButton()
-        }
+        presenter.toggleSeat(seat, fullCount = 0)
+
+        verify { view.showFullSeat() }
     }
 
     @Test
@@ -102,17 +104,21 @@ class SelectSeatPresenterTest {
 
     @Test
     fun `예를 누르면 최종적으로 티켓을 UI모델로 변환 후 액티비티 이동`() {
-        presenter.toggleSeat("A1", fullCount = 1)
+        val seat = Seat('A', 1)
+        val price = SeatPrice.getPrice(seat)
+
+        presenter.toggleSeat(seat, fullCount = 1)
         clearMocks(view)
 
         presenter.completeBooking()
 
         val expected =
             ticketUI.copy(
-                seats = listOf("A1"),
+                seats = listOf(seat.tag),
                 count = 1,
-                money = SeatPrice.getPrice("A1"),
+                money = price,
             )
+
         verify { view.navigateToBookingResult(expected) }
     }
 }

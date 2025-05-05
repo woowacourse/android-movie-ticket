@@ -2,7 +2,6 @@
 package woowacourse.movie.booking
 
 import android.os.Bundle
-import woowacourse.movie.model.MovieScheduleGenerator
 import woowacourse.movie.model.TicketCount
 import woowacourse.movie.uiModel.TicketUIModel
 import java.time.LocalDate
@@ -46,7 +45,6 @@ class BookingPresenter(
     }
 
     override fun changeTimesByDate(selectedDate: LocalDate) {
-        val times = MovieScheduleGenerator.generateScreeningTimesFor(selectedDate)
         view.showAvailableTime(selectedDate)
     }
 }

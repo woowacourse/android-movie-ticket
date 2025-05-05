@@ -2,9 +2,9 @@ package woowacourse.movie
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.domain.TicketCount
+import woowacourse.movie.model.TicketCount
 
-class SeatSelectionCountDTOCountTest {
+class ticketCountTest {
     @Test
     fun `티켓_수량을_1씩_증가시킬_수_있다`() {
         // given

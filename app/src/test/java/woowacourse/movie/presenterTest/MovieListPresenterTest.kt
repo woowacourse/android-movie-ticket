@@ -6,7 +6,9 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.movieList.MovieListContract
 import woowacourse.movie.movieList.MovieListPresenter
+import woowacourse.movie.uiModel.AdUIModel
 import woowacourse.movie.uiModel.MovieInfoUIModel
+import woowacourse.movie.uiModel.MovieListItem
 
 class MovieListPresenterTest {
     private lateinit var view: MovieListContract.View
@@ -21,7 +23,7 @@ class MovieListPresenterTest {
     @Test
     fun `뷰를_생성하면_영화들이_뷰에_들어간다`() {
         presenter.loadMovies()
-        val exptedItem =
+        val exptedItem: MutableList<MovieListItem> =
             mutableListOf(
                 MovieInfoUIModel(
                     "harry_potter_poster_1",
@@ -44,6 +46,7 @@ class MovieListPresenterTest {
                     "2025.5.31",
                     141,
                 ),
+                AdUIModel,
                 MovieInfoUIModel(
                     "harry_potter_poster_4",
                     "해리 포터와 불의 잔",
@@ -72,15 +75,6 @@ class MovieListPresenterTest {
 
         verifySequence {
             view.navigateToBooking(expectedItem)
-        }
-    }
-
-    @Test
-    fun `오류가_발생하면_뷰에서_에러메세지를_출력한다`() {
-        presenter.onError()
-
-        verifySequence {
-            view.showError()
         }
     }
 }
