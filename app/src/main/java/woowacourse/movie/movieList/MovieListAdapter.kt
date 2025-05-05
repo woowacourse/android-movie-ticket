@@ -14,9 +14,10 @@ import woowacourse.movie.uiModel.MovieListItem
 import woowacourse.movie.uiModel.PosterMapper
 
 class MovieListAdapter(
-    private val items: List<MovieListItem>,
     private val onClick: (MovieInfoUIModel) -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val items: MutableList<MovieListItem> = mutableListOf()
+
     companion object {
         private const val TYPE_MOVIE = 0
         private const val TYPE_AD = 1
@@ -41,12 +42,10 @@ class MovieListAdapter(
                 val view = inflater.inflate(R.layout.movie_list_item, parent, false)
                 MovieViewHolder(view)
             }
-
             TYPE_AD -> {
                 val view = inflater.inflate(R.layout.movie_list_ad, parent, false)
                 AdViewHolder(view)
             }
-
             else -> throw IllegalArgumentException("Invalid view type")
         }
     }
@@ -61,11 +60,16 @@ class MovieListAdapter(
                 vh.bind(item)
                 vh.button.setOnClickListener { onClick(item) }
             }
-
             is AdUIModel -> {
                 (holder as AdViewHolder).bind()
             }
         }
+    }
+
+    fun updateItems(newItems: List<MovieListItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
     }
 
     class MovieViewHolder(

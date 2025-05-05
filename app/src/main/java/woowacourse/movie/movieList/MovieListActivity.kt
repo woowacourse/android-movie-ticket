@@ -14,29 +14,30 @@ import woowacourse.movie.uiModel.MovieListItem
 class MovieListActivity :
     AppCompatActivity(),
     MovieListContract.View {
-    private lateinit var adapter: MovieListAdapter
+    private val adapter =
+        MovieListAdapter(
+            onClick = { movie ->
+                if (movie is MovieInfoUIModel) {
+                    navigateToBooking(movie)
+                }
+            },
+        )
+
     private val presenter: MovieListPresenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val recyclerView = findViewById<RecyclerView>(R.id.movie_list)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+
         presenter.loadMovies()
     }
 
     override fun showMovies(movies: List<MovieListItem>) {
-        val recyclerView = findViewById<RecyclerView>(R.id.movie_list)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter =
-            MovieListAdapter(
-                items = movies,
-                onClick = { movie ->
-                    if (movie is MovieInfoUIModel) {
-                        navigateToBooking(movie)
-                    }
-                },
-            )
-        recyclerView.adapter = adapter
+        adapter.updateItems(movies)
     }
 
     override fun navigateToBooking(movie: MovieInfoUIModel) {
