@@ -1,10 +1,7 @@
-package woowacourse.movie.model.movieSelect.ticket
+package woowacourse.movie.model.ticket
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.ticket.TicketCount
-import woowacourse.movie.model.ticket.TicketCountResult
-import woowacourse.movie.model.ticket.getOrThrow
 
 class TicketCountTest {
     @Test
