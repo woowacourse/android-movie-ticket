@@ -15,8 +15,8 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.ui.view.booking.BookingActivity
+import woowacourse.movie.domain.movies.Movie
+import woowacourse.movie.ui.booking.BookingActivity
 import java.time.LocalDate
 
 @RunWith(AndroidJUnit4::class)
@@ -92,15 +92,5 @@ class BookingActivityTest {
 
         onView(withId(R.id.headCount))
             .check(matches(withText("1")))
-    }
-
-    @DisplayName("선택 완료 버튼을 누르면 다이얼로그가 나타난다")
-    @Test
-    fun dialogTest() {
-        onView(withId(R.id.select))
-            .perform(click())
-
-        onView(withText("정말 예매하시겠습니까?"))
-            .check(matches(isDisplayed()))
     }
 }

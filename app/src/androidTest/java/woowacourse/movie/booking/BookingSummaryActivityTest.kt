@@ -13,9 +13,10 @@ import org.junit.Test
 import org.junit.jupiter.api.DisplayName
 import org.junit.runner.RunWith
 import woowacourse.movie.R
-import woowacourse.movie.domain.model.MovieTicket
-import woowacourse.movie.ui.view.booking.BookingActivity
-import woowacourse.movie.ui.view.booking.BookingSummaryActivity
+import woowacourse.movie.domain.seat.Seat
+import woowacourse.movie.domain.ticket.MovieTicket
+import woowacourse.movie.ui.booking.BookingActivity
+import woowacourse.movie.ui.booking.bookingsummary.BookingSummaryActivity
 import java.time.LocalDateTime
 
 @RunWith(AndroidJUnit4::class)
@@ -27,7 +28,8 @@ class BookingSummaryActivityTest {
                 1,
                 LocalDateTime.of(2025, 4, 18, 12, 0),
                 2,
-                26000,
+                20000,
+                mutableListOf(Seat(0, 0), Seat(0, 1)),
             )
 
         val intent =
@@ -59,13 +61,13 @@ class BookingSummaryActivityTest {
     @Test
     fun headCountTest() {
         onView(withId(R.id.headCount))
-            .check(matches(withText("일반 2명")))
+            .check(matches(withText("일반 2명 | A1, A2")))
     }
 
     @DisplayName("총 결제 금액이 출력된다")
     @Test
     fun amountTest() {
         onView(withId(R.id.amount))
-            .check(matches(withText("26,000원 (현장 결제)")))
+            .check(matches(withText("20,000원 (현장 결제)")))
     }
 }
