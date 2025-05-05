@@ -8,9 +8,11 @@
     android:fitsSystemWindows="true">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="200dp"
+        android:layout_marginHorizontal="24dp"
         android:id="@+id/seat_set"
-        android:layout_width="350dp"
-        android:layout_height="400dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -283,6 +285,7 @@
     </LinearLayout>
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/white"
@@ -290,6 +293,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -329,9 +333,9 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/textView7"
-        android:layout_width="350dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
         android:background="@color/nature_black"
         android:gravity="center"
         android:text="SCREEN"

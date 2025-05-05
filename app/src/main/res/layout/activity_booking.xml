@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,128 +13,95 @@
         android:layout_height="400dp"
         android:scaleType="centerCrop"
         android:src="@drawable/sample_poster"
-
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/movie_poster"
         app:layout_constraintBottom_toTopOf="@id/select_layout"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_poster">
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="24dp"
                 android:layout_marginVertical="20dp"
-                android:layout_marginStart="25dp"
                 android:textColor="@color/black"
                 android:textSize="35sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
                 tools:text="영화제목" />
 
             <TextView
                 android:id="@+id/movie_date"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginHorizontal="24dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title"
-                app:layout_constraintVertical_bias="0.0"
                 tools:text="상영일 : 2003.02.10~2003.02.15" />
 
             <TextView
                 android:id="@+id/running_time"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
+                android:layout_marginHorizontal="24dp"
                 android:layout_marginBottom="10dp"
                 android:textColor="@color/black"
                 android:textSize="20sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/movie_date"
-                app:layout_constraintVertical_bias="0.0"
                 tools:text="러닝타임 : 100분" />
 
-
         </LinearLayout>
-
-
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/select_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
         android:orientation="vertical"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/running_time">
+            android:layout_marginHorizontal="24dp"
+            android:orientation="horizontal">
 
             <Spinner
                 android:id="@+id/selected_date"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1" />
 
             <Spinner
                 android:id="@+id/movie_time"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_weight="1" />
-
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="25dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_marginHorizontal="24dp"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/minus_button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="-"
@@ -142,37 +109,29 @@
 
             <TextView
                 android:id="@+id/ticket_count"
-                android:layout_width="130dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="0"
                 android:textColor="@color/black"
-                android:textSize="30dp" />
+                android:textSize="30sp" />
 
             <Button
                 android:id="@+id/plus_button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end|end"
                 android:layout_weight="1"
                 android:text="+"
                 android:textSize="25sp" />
-
         </LinearLayout>
 
         <Button
             android:id="@+id/confirm_button"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginHorizontal="25dp"
-            android:text="선택 완료"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="0.0" />
-
+            android:layout_marginHorizontal="24dp"
+            android:text="선택 완료" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
