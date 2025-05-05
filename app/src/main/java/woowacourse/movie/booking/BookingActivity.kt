@@ -57,7 +57,7 @@ class BookingActivity :
         )
 
         presenter.onCreateView(savedInstanceState)
-
+        changeTicketCount(ticketCountValue)
         savedInstanceState?.let { repairInstanceState(it) }
     }
 
@@ -83,13 +83,6 @@ class BookingActivity :
             }
         }
         ticketCount.text = state.getString(KEY_TICKET_COUNT)
-    }
-
-    override fun showAvailableDate(
-        startDate: LocalDate,
-        endDate: LocalDate,
-    ) {
-        // 이미 Activity에서 처리함, 안 써도 됨
     }
 
     override fun showAvailableTime(selectedDate: LocalDate) {

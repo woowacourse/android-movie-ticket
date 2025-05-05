@@ -13,11 +13,6 @@ interface BookingContract {
 
         fun changeTicketCount(ticketCountValue: TicketCount)
 
-        fun showAvailableDate(
-            startDate: LocalDate,
-            endDate: LocalDate,
-        )
-
         fun showAvailableTime(selectedDate: LocalDate)
 
         fun setupDateChangeListener()
