@@ -22,7 +22,7 @@ class ReservationPresenter(
         this.movie = movie
 
         if (this.movie == null) {
-            // 다이얼로그 노출
+            view.notifyInvalidReservationInfo()
             return
         }
 
