@@ -26,7 +26,7 @@ class SelectSeatsTest {
     fun `티켓이_올바르게_초기화된다`() {
         subject.setTicket(dummyUi)
 
-        val t = subject.ticket
+        val t = subject.seatSelection
         assertEquals("테스트 영화", t.title)
         assertEquals(LocalDate.of(2025, 4, 1), t.date)
         assertEquals(LocalTime.of(9, 0), t.time)
@@ -48,7 +48,7 @@ class SelectSeatsTest {
         assertFalse(subject.isSeatSelected("A1"))
         subject.selectSeat("A1")
         assertTrue(subject.isSeatSelected("A1"))
-        assertEquals(price, subject.ticket.money)
+        assertEquals(price, subject.seatSelection.money)
     }
 
     @Test
@@ -58,11 +58,11 @@ class SelectSeatsTest {
 
         subject.selectSeat("B2")
         assertTrue(subject.isSeatSelected("B2"))
-        assertEquals(price, subject.ticket.money)
+        assertEquals(price, subject.seatSelection.money)
 
         subject.unSelectSeat("B2")
         assertFalse(subject.isSeatSelected("B2"))
-        assertEquals(0, subject.ticket.money)
+        assertEquals(0, subject.seatSelection.money)
     }
 
     @Test

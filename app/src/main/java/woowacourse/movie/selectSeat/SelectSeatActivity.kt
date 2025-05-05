@@ -12,6 +12,7 @@ import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity.Companion.KEY_TICKET
 import woowacourse.movie.booking.ConfirmDialog
 import woowacourse.movie.bookingResult.BookingResultActivity
+import woowacourse.movie.model.Seat
 import woowacourse.movie.uiModel.TicketUIModel
 import java.text.DecimalFormat
 
@@ -54,12 +55,14 @@ class SelectSeatActivity :
             val row = seatSet.getChildAt(i) as ViewGroup
 
             for (j in 0 until row.childCount) {
-                val seat = row.getChildAt(j) as TextView
+                val seatView = row.getChildAt(j) as TextView
                 val rowChar = 'A' + i
                 val seatNumber = j + 1
-                seat.tag = "$rowChar$seatNumber"
-                seat.setOnClickListener {
-                    presenter.toggleSeat(seat.tag.toString(), ticketUIModel.count)
+                val seat = Seat(rowChar, seatNumber)
+                seatView.tag = seat
+
+                seatView.setOnClickListener {
+                    presenter.toggleSeat(seat, ticketUIModel.count)
                 }
             }
         }
@@ -96,16 +99,18 @@ class SelectSeatActivity :
     }
 
     override fun highlightSeat(tag: String) {
+        val seat = Seat.fromTag(tag)
         val viewGroup = findViewById<ViewGroup>(R.id.seat_set)
         viewGroup
-            .findViewWithTag<TextView>(tag)
+            .findViewWithTag<TextView>(seat)
             .setBackgroundColor(resources.getColor(R.color.yellow))
     }
 
     override fun unHighlightSeat(tag: String) {
+        val seat = Seat.fromTag(tag)
         val viewGroup = findViewById<ViewGroup>(R.id.seat_set)
         viewGroup
-            .findViewWithTag<TextView>(tag)
+            .findViewWithTag<TextView>(seat)
             .setBackgroundColor(resources.getColor(R.color.white))
     }
 

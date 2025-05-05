@@ -1,21 +1,19 @@
 package woowacourse.movie.selectSeat
 
+import woowacourse.movie.model.Seat
+
 enum class SeatPrice(
-    private val price: Int,
+    val row: Char,
+    val price: Int,
 ) {
-    A(10000),
-    B(10000),
-    C(15000),
-    D(15000),
-    E(12000),
+    A('A', 10000),
+    B('B', 10000),
+    C('C', 15000),
+    D('D', 15000),
+    E('E', 12000),
     ;
 
     companion object {
-        fun getPrice(seatTag: String): Int {
-            entries.forEach {
-                if (seatTag[0].toString() == it.name) return it.price
-            }
-            return 0
-        }
+        fun getPrice(seat: Seat): Int = entries.firstOrNull { it.row == seat.row }?.price ?: 0
     }
 }

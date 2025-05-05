@@ -1,5 +1,6 @@
 package woowacourse.movie.selectSeat
 
+import woowacourse.movie.model.Seat
 import woowacourse.movie.uiModel.TicketUIModel
 
 interface SelectSeatContract {
@@ -25,7 +26,7 @@ interface SelectSeatContract {
         fun loadSeats(ticketUIModel: TicketUIModel)
 
         fun toggleSeat(
-            tag: String,
+            seat: Seat,
             fullCount: Int,
         )
 

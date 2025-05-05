@@ -1,40 +1,41 @@
 package woowacourse.movie.selectSeat
 
-import woowacourse.movie.model.SelectSeats
+import woowacourse.movie.model.Seat
+import woowacourse.movie.model.SeatSelection
 import woowacourse.movie.uiModel.TicketUIModel
 
 class SelectSeatPresenter(
-    var view: SelectSeatContract.View,
+    private var view: SelectSeatContract.View,
 ) : SelectSeatContract.Presenter {
-    val selectSeat = SelectSeats()
+    private lateinit var seatSelection: SeatSelection
 
     override fun loadSeats(ticketUIModel: TicketUIModel) {
+        seatSelection = SeatSelection.fromUIModel(ticketUIModel)
         view.showPrice(0)
         view.unableButton()
-        selectSeat.setTicket(ticketUIModel)
     }
 
     override fun toggleSeat(
-        tag: String,
+        seat: Seat,
         fullCount: Int,
     ) {
-        val isSelected = selectSeat.isSeatSelected(tag)
-        val isFull = selectSeat.isFullSeat(fullCount)
+        val isSelected = seatSelection.isSeatSelected(seat)
+        val isFull = seatSelection.isFull(fullCount)
 
         if (isSelected) {
-            selectSeat.unSelectSeat(tag)
-            view.unHighlightSeat(tag)
-            view.showPrice(selectSeat.ticket.money)
+            seatSelection.unSelectSeat(seat)
+            view.unHighlightSeat(seat.tag)
         } else if (isFull) {
             view.showFullSeat()
             return
         } else {
-            selectSeat.selectSeat(tag)
-            view.highlightSeat(tag)
-            view.showPrice(selectSeat.ticket.money)
+            seatSelection.selectSeat(seat)
+            view.highlightSeat(seat.tag)
         }
 
-        if (selectSeat.isFullSeat(fullCount)) {
+        view.showPrice(seatSelection.getTotalMoney())
+
+        if (seatSelection.isFull(fullCount)) {
             view.enableButton()
         } else {
             view.unableButton()
@@ -46,6 +47,8 @@ class SelectSeatPresenter(
     }
 
     override fun completeBooking() {
-        view.navigateToBookingResult(selectSeat.ticket.toUIModel())
+        val ticket = seatSelection
+        val uiModel = TicketUIModel.from(ticket)
+        view.navigateToBookingResult(uiModel)
     }
 }
