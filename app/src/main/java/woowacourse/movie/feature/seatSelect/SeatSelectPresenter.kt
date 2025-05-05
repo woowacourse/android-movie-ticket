@@ -26,7 +26,7 @@ class SeatSelectPresenter(
         view.setSubmitButtonView(isMaximumSelectedSeat())
     }
 
-    private fun isMaximumSelectedSeat(): Boolean = selectedSeats.size() == ticketData.ticketCount
+    private fun isMaximumSelectedSeat(): Boolean = selectedSeats.size() >= ticketData.ticketCount
 
     private fun toggleSeat(seat: Seat) {
         val toggleResult = selectedSeats.toggleSeat(seat)
