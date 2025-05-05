@@ -7,14 +7,14 @@ import woowacourse.movie.domain.model.ScreeningPeriod
 import java.time.LocalDate
 
 object DummyMovie {
-    val dummyMovie =
+    val baseDummyMovies =
         listOf(
             Movie(
                 R.drawable.harrypotter_1.toString(),
                 "해리 포터와 마법사의 돌",
                 ScreeningPeriod(
-                    LocalDate.of(2025, 4, 1),
-                    LocalDate.of(2025, 4, 30),
+                    LocalDate.of(2025, 5, 1),
+                    LocalDate.of(2025, 5, 30),
                 ),
                 RunningTime(152),
             ),
@@ -22,8 +22,8 @@ object DummyMovie {
                 R.drawable.harrypotter_2.toString(),
                 "해리 포터와 비밀의 방",
                 ScreeningPeriod(
-                    LocalDate.of(2025, 4, 1),
-                    LocalDate.of(2025, 4, 30),
+                    LocalDate.of(2025, 5, 1),
+                    LocalDate.of(2025, 5, 30),
                 ),
                 RunningTime(162),
             ),
@@ -82,4 +82,21 @@ object DummyMovie {
                 RunningTime(131),
             ),
         )
+
+    private const val TARGET_MOVIE_COUNT = 10000
+    val dummyMovie: List<Movie> by lazy {
+        generateDummyMovies(TARGET_MOVIE_COUNT)
+    }
+
+    private fun generateDummyMovies(count: Int): List<Movie> {
+        if (baseDummyMovies.isEmpty()) return emptyList()
+
+        val generatedList = mutableListOf<Movie>()
+        var index = 0
+        while (generatedList.size < count) {
+            generatedList.add(baseDummyMovies[index % baseDummyMovies.size])
+            index++
+        }
+        return generatedList
+    }
 }
