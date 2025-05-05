@@ -7,19 +7,21 @@ class Seats(
     private val seatGradePolicy: SeatGradePolicy,
     initSeats: Collection<Seat> = setOf<Seat>(),
 ) {
-    val seats: MutableSet<Seat> = initSeats.toMutableSet()
-    val totalTicketPrice: TicketPrice
-        get() = TicketPrice.calculateTotalPrice(seats, seatGradePolicy)
+    private val _seats: MutableSet<Seat> = initSeats.toMutableSet()
+    val seats: Set<Seat> get() = _seats.toSet()
 
-    fun isSelectedSeat(seat: Seat): Boolean = seat in seats
+    val totalTicketPrice: TicketPrice
+        get() = TicketPrice.calculateTotalPrice(_seats, seatGradePolicy)
+
+    fun isSelectedSeat(seat: Seat): Boolean = seat in _seats
 
     fun updateSeats(newSeats: Collection<Seat>) {
-        seats.clear()
-        seats.addAll(newSeats)
+        _seats.clear()
+        _seats.addAll(newSeats)
     }
 
     fun toggleSeat(seat: Seat): SeatToggleResult =
-        if (seat in seats) {
+        if (seat in _seats) {
             removeSeat(seat)
             SeatToggleResult.Removed(seat)
         } else {
@@ -28,12 +30,12 @@ class Seats(
         }
 
     private fun removeSeat(seat: Seat) {
-        seats.remove(seat)
+        _seats.remove(seat)
     }
 
     private fun addSeat(seat: Seat) {
-        seats.add(seat)
+        _seats.add(seat)
     }
 
-    fun size() = seats.size
+    fun size() = _seats.size
 }
