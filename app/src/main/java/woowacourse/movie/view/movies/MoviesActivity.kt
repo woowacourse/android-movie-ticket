@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.MovieListState
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.reservation.ReservationActivity
 
@@ -26,8 +25,6 @@ class MoviesActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        val listState = MovieListState(presenter.getCurrentList())
-        outState.putParcelable(MoviesPresenter.BUNDLE_KEY_MOVIE_LIST_ITEMS, listState)
     }
 
     private fun setupViews() {

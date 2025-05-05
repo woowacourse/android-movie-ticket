@@ -84,6 +84,7 @@ object DummyMovie {
         )
 
     private const val TARGET_MOVIE_COUNT = 10000
+
     val dummyMovie: List<Movie> by lazy {
         generateDummyMovies(TARGET_MOVIE_COUNT)
     }
