@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
+import woowacourse.movie.domain.model.MovieListState
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.reservation.ReservationActivity
 
@@ -13,16 +14,27 @@ class MoviesActivity :
     MoviesContract.View {
     private val presenter = MoviesPresenter(this)
 
+    private lateinit var rvMovie: RecyclerView
+    private lateinit var movieListAdapter: MovieListAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.loadData()
+        setupViews()
+
+        presenter.loadData(savedInstanceState)
     }
 
-    override fun showMovies(movies: List<MovieListItem>) {
-        val lvMovie = findViewById<RecyclerView>(R.id.rv_movie)
-        lvMovie.adapter =
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val listState = MovieListState(presenter.getCurrentList())
+        outState.putParcelable(MoviesPresenter.BUNDLE_KEY_MOVIE_LIST_ITEMS, listState)
+    }
+
+    private fun setupViews() {
+        rvMovie = findViewById(R.id.rv_movie)
+
+        movieListAdapter =
             MovieListAdapter(
-                movies,
                 object : OnMovieEventListener {
                     override fun onReserveButtonClick(movie: Movie) {
                         val intent = ReservationActivity.newIntent(this@MoviesActivity, movie)
@@ -30,6 +42,12 @@ class MoviesActivity :
                     }
                 },
             )
-        lvMovie.layoutManager = LinearLayoutManager(this)
+        rvMovie.adapter = movieListAdapter
+
+        rvMovie.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun showMovies(movies: List<MovieListItem>) {
+        movieListAdapter.updateItems(movies)
     }
 }
