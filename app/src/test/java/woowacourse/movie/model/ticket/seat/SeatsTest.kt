@@ -1,15 +1,10 @@
-package woowacourse.movie.model.ticket
+package woowacourse.movie.model.ticket.seat
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertFalse
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.model.ticket.seat.Seat
-import woowacourse.movie.model.ticket.seat.SeatCol
-import woowacourse.movie.model.ticket.seat.SeatRow
-import woowacourse.movie.model.ticket.seat.SeatToggleResult
-import woowacourse.movie.model.ticket.seat.Seats
 import woowacourse.movie.model.ticket.seat.grade.SeatGrade
 import woowacourse.movie.model.ticket.seat.grade.SeatGradePolicy
 

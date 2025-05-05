@@ -1,15 +1,12 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.reservation
 
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
-import woowacourse.movie.feature.reservation.ReservationContract
-import woowacourse.movie.feature.reservation.ReservationErrorType
-import woowacourse.movie.feature.reservation.ReservationPresenter
 import woowacourse.movie.model.movieSelect.screening.Screening
 import java.time.LocalDate
 import java.time.LocalTime
@@ -46,7 +43,7 @@ class ReservationPresenterTest {
         reservationPresenter.recoverReservationData(3)
 
         // Then
-        assertEquals(3, reservationPresenter.getTicketCountValue())
+        Assertions.assertEquals(3, reservationPresenter.getTicketCountValue())
     }
 
     @Test
@@ -81,7 +78,7 @@ class ReservationPresenterTest {
         reservationPresenter.increaseTicketCount()
 
         // Then
-        assertEquals(initialCount + 1, reservationPresenter.getTicketCountValue())
+        Assertions.assertEquals(initialCount + 1, reservationPresenter.getTicketCountValue())
         verify { reservationView.setTicketCounterUi(initialCount + 1) }
     }
 
@@ -95,7 +92,7 @@ class ReservationPresenterTest {
         reservationPresenter.decreaseTicketCount()
 
         // Then
-        assertEquals(initialCount - 1, reservationPresenter.getTicketCountValue())
+        Assertions.assertEquals(initialCount - 1, reservationPresenter.getTicketCountValue())
         verify { reservationView.setTicketCounterUi(initialCount - 1) }
     }
 

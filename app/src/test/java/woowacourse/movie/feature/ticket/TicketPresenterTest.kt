@@ -1,12 +1,9 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.ticket
 
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.feature.ticket.TicketContract
-import woowacourse.movie.feature.ticket.TicketData
-import woowacourse.movie.feature.ticket.TicketPresenter
 
 class TicketPresenterTest {
     private lateinit var ticketView: TicketContract.View

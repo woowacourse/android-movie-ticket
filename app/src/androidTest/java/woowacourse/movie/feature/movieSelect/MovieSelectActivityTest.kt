@@ -1,4 +1,4 @@
-package woowacourse.movie.view.main
+package woowacourse.movie.feature.movieSelect
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
@@ -12,9 +12,8 @@ import org.hamcrest.Matchers.allOf
 import org.junit.Rule
 import org.junit.Test
 import woowacourse.movie.R
-import woowacourse.movie.feature.movieSelect.MovieSelectActivity
 
-class MainActivityTest {
+class MovieSelectActivityTest {
     @get:Rule
     val activityRule = ActivityScenarioRule(MovieSelectActivity::class.java)
 

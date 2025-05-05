@@ -1,14 +1,12 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.movieSelect
 
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.feature.movieSelect.MovieSelectContract
-import woowacourse.movie.feature.movieSelect.MovieSelectPresenter
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
 
-class MainPresenterTest {
+class MovieSelectPresenterTest {
     private lateinit var movieSelectPresenter: MovieSelectContract.Presenter
     private lateinit var movieSelectView: MovieSelectContract.View
 

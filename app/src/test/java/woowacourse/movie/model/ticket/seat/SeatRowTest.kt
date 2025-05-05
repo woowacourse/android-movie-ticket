@@ -1,9 +1,8 @@
-package woowacourse.movie.model.ticket
+package woowacourse.movie.model.ticket.seat
 
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import woowacourse.movie.model.ticket.seat.SeatRow
 
 class SeatRowTest {
     @ParameterizedTest

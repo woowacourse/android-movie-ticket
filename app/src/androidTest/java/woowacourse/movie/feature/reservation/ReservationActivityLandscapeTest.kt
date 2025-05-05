@@ -1,4 +1,4 @@
-package woowacourse.movie.view.reservation
+package woowacourse.movie.feature.reservation
 
 import android.content.pm.ActivityInfo
 import androidx.test.core.app.ApplicationProvider
@@ -19,7 +19,6 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.extension.ResourceMapper
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
-import woowacourse.movie.feature.reservation.ReservationActivity
 import java.time.LocalDate
 import java.time.LocalTime
 

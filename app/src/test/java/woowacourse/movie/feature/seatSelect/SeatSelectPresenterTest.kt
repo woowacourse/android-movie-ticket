@@ -1,4 +1,4 @@
-package woowacourse.movie.presenter
+package woowacourse.movie.feature.seatSelect
 
 import io.mockk.every
 import io.mockk.mockk
@@ -6,17 +6,12 @@ import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.feature.movieSelect.adapter.ScreeningData
-import woowacourse.movie.feature.seatSelect.SeatIndexData
-import woowacourse.movie.feature.seatSelect.SeatSelectContract
-import woowacourse.movie.feature.seatSelect.SeatSelectErrorType
-import woowacourse.movie.feature.seatSelect.SeatSelectPresenter
-import woowacourse.movie.feature.seatSelect.SeatsData
 import woowacourse.movie.feature.ticket.TicketData
 import woowacourse.movie.model.ticket.seat.Seat
 import woowacourse.movie.model.ticket.seat.SeatCol
 import woowacourse.movie.model.ticket.seat.SeatRow
 
-class SelectSeatPresenterTest {
+class SeatSelectPresenterTest {
     private lateinit var seatSelectPresenter: SeatSelectContract.Presenter
     private lateinit var selectSeatView: SeatSelectContract.View
     private lateinit var ticketData: TicketData
