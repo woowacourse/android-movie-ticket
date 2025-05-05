@@ -9,12 +9,13 @@ import woowacourse.movie.ErrorHandler
 import woowacourse.movie.R
 import woowacourse.movie.booking.BookingActivity
 import woowacourse.movie.uiModel.MovieInfoUIModel
+import woowacourse.movie.uiModel.MovieListItem
 
 class MovieListActivity :
     AppCompatActivity(),
     MovieListContract.View {
     private lateinit var adapter: MovieListAdapter
-    private var presenter: MovieListPresenter = MovieListPresenter(this)
+    private val presenter: MovieListPresenter = MovieListPresenter(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,10 +24,18 @@ class MovieListActivity :
         presenter.loadMovies()
     }
 
-    override fun showMovies(movies: List<MovieInfoUIModel>) {
+    override fun showMovies(movies: List<MovieListItem>) {
         val recyclerView = findViewById<RecyclerView>(R.id.movie_list)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        adapter = MovieListAdapter(movies, ::navigateToBooking, ::showError)
+        adapter =
+            MovieListAdapter(
+                items = movies,
+                onClick = { movie ->
+                    if (movie is MovieInfoUIModel) {
+                        navigateToBooking(movie)
+                    }
+                },
+            )
         recyclerView.adapter = adapter
     }
 

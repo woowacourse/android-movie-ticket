@@ -8,28 +8,28 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
+import woowacourse.movie.uiModel.AdUIModel
 import woowacourse.movie.uiModel.MovieInfoUIModel
+import woowacourse.movie.uiModel.MovieListItem
 import woowacourse.movie.uiModel.PosterMapper
 
 class MovieListAdapter(
-    private val items: List<MovieInfoUIModel>,
+    private val items: List<MovieListItem>,
     private val onClick: (MovieInfoUIModel) -> Unit,
-    private val onError: () -> Unit,
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     companion object {
         private const val TYPE_MOVIE = 0
         private const val TYPE_AD = 1
-        private const val AD_INTERVAL = 4
     }
 
-    override fun getItemViewType(position: Int): Int = if ((position + 1) % AD_INTERVAL == 0) TYPE_AD else TYPE_MOVIE
+    override fun getItemViewType(position: Int): Int =
+        when (items[position]) {
+            is MovieInfoUIModel -> TYPE_MOVIE
+            is AdUIModel -> TYPE_AD
+            else -> throw IllegalArgumentException("Unknown item type")
+        }
 
-    override fun getItemCount(): Int {
-        if (items.isEmpty()) return 0
-        val groupSize = AD_INTERVAL - 1
-        val adCount = items.size / groupSize
-        return items.size + adCount
-    }
+    override fun getItemCount(): Int = items.size
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -47,7 +47,7 @@ class MovieListAdapter(
                 AdViewHolder(view)
             }
 
-            else -> throw IllegalArgumentException("Unknown viewType: $viewType")
+            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
@@ -55,19 +55,16 @@ class MovieListAdapter(
         holder: RecyclerView.ViewHolder,
         position: Int,
     ) {
-        if (holder is MovieViewHolder) {
-            val realPos = position - (position / AD_INTERVAL)
-            val movie = items.getOrNull(realPos)
-            if (movie == null) {
-                onError()
-                return
+        when (val item = items[position]) {
+            is MovieInfoUIModel -> {
+                val vh = holder as MovieViewHolder
+                vh.bind(item)
+                vh.button.setOnClickListener { onClick(item) }
             }
-            holder.bind(movie)
-            holder.button.setOnClickListener {
-                onClick(movie)
+
+            is AdUIModel -> {
+                (holder as AdViewHolder).bind()
             }
-        } else if (holder is AdViewHolder) {
-            holder.bind()
         }
     }
 
@@ -80,20 +77,11 @@ class MovieListAdapter(
         private val runningTime: TextView = view.findViewById(R.id.running_time)
         val button: Button = view.findViewById(R.id.reservation_button)
 
-        fun bind(movieInfoUIModel: MovieInfoUIModel) {
-            image.setImageResource(PosterMapper.getPosterResourceId(movieInfoUIModel.posterKey))
-            title.text = movieInfoUIModel.title
-            movieDate.text =
-                itemView.context.getString(
-                    R.string.movie_date,
-                    movieInfoUIModel.startDate,
-                    movieInfoUIModel.endDate,
-                )
-            runningTime.text =
-                itemView.context.getString(
-                    R.string.running_time,
-                    movieInfoUIModel.runningTime,
-                )
+        fun bind(model: MovieInfoUIModel) {
+            image.setImageResource(PosterMapper.getPosterResourceId(model.posterKey))
+            title.text = model.title
+            movieDate.text = itemView.context.getString(R.string.movie_date, model.startDate, model.endDate)
+            runningTime.text = itemView.context.getString(R.string.running_time, model.runningTime)
         }
     }
 

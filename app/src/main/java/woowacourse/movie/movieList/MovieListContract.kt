@@ -1,10 +1,11 @@
 package woowacourse.movie.movieList
 
 import woowacourse.movie.uiModel.MovieInfoUIModel
+import woowacourse.movie.uiModel.MovieListItem
 
 interface MovieListContract {
     interface View {
-        fun showMovies(movies: List<MovieInfoUIModel>)
+        fun showMovies(movies: List<MovieListItem>)
 
         fun showError()
 

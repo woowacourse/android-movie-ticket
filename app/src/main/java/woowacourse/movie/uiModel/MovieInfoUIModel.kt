@@ -1,7 +1,7 @@
 package woowacourse.movie.uiModel
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class MovieInfoUIModel(
@@ -10,4 +10,5 @@ data class MovieInfoUIModel(
     val startDate: String,
     val endDate: String,
     val runningTime: Int,
-) : Parcelable
+) : MovieListItem,
+    Parcelable
