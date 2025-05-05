@@ -1,45 +1,55 @@
 package woowacourse.movie.domain.model
 
 import woowacourse.movie.domain.model.MovieTime.Companion.getMovieTimes
-import java.time.LocalDate
 
 data class BookingInfo(
     val movie: Movie,
+    private var date: MovieDate = movie.startDate,
+    private var time: MovieTime = getMovieTimes(DateType.from(date)).first(),
+    private val seats: MovieSeats = MovieSeats(),
+    private val ticketCount: TicketCount = TicketCount(),
 ) {
-    private var _date: LocalDate = movie.startDate
-    val date: LocalDate get() = _date
+    val selectedDate: MovieDate get() = date
+    val selectedTime: MovieTime get() = time
+    val selectedSeats: Set<MovieSeat> get() = seats.value
+    val totalPrice: TicketPrice get() = seats.totalPrice
+    val currentTicketCount: Int get() = ticketCount.value
+    val isSeatAllSelected: Boolean get() = selectedSeats.size == currentTicketCount
 
-    private var _movieTime: MovieTime = getMovieTimes(DateType.from(date)).first()
-    val movieTime: MovieTime get() = _movieTime
-
-    private var _ticketCount: Int = 0
-    val ticketCount: Int get() = _ticketCount
-
-    val eachPrice: Int = DEFAULT_TICKET_PRICE
-    val totalPrice: Int get() = ticketCount * eachPrice
-
-    fun updateDate(date: LocalDate) {
-        _date = date
-        _movieTime = getMovieTimes(DateType.from(date)).first()
+    fun updateDate(date: MovieDate) {
+        this.date = date
+        this.time = getMovieTimes(DateType.from(date)).first()
     }
 
     fun updateMovieTime(movieTime: MovieTime) {
-        _movieTime = movieTime
+        time = movieTime
     }
 
     fun increaseTicketCount(count: Int = 1) {
-        _ticketCount += count
+        ticketCount.increase(count)
     }
 
     fun decreaseTicketCount(count: Int = 1) {
-        if (ticketCount - count < 0) {
-            _ticketCount = 0
-        } else {
-            _ticketCount -= count
-        }
+        ticketCount.decrease(count)
     }
 
-    companion object {
-        private const val DEFAULT_TICKET_PRICE = 13_000
+    fun updateSeat(seat: MovieSeat): SeatSelectionResult =
+        if (seats.value.contains(seat)) {
+            removeSeat(seat)
+            SeatSelectionResult.Success(seat.copy(isSelected = false))
+        } else {
+            addSeat(seat.copy(isSelected = true))
+        }
+
+    fun addSeat(seat: MovieSeat): SeatSelectionResult =
+        if (ticketCount.value > selectedSeats.size) {
+            seats.add(seat)
+            SeatSelectionResult.Success(seat)
+        } else {
+            SeatSelectionResult.ExceedCountFailure
+        }
+
+    private fun removeSeat(seat: MovieSeat) {
+        seats.remove(seat)
     }
 }

@@ -5,7 +5,7 @@
     android:id="@+id/activity_booking_complete"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.bookingcomplete.BookingCompleteActivity">
+    tools:context=".feature.bookingcomplete.view.BookingCompleteActivity">
 
     <TextView
         android:id="@+id/tv_booking_complete_cancel_notice"
@@ -48,14 +48,38 @@
 
     <TextView
         android:id="@+id/tv_booking_complete_ticket_count"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:textAlignment="textEnd"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_booking_complete_ticket_divider"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_booking_complete_movie_date_time"
         tools:text="일반 2명" />
+
+    <TextView
+        android:id="@+id/tv_booking_complete_ticket_divider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_booking_complete_ticket_count"
+        app:layout_constraintEnd_toEndOf="@id/tv_booking_complete_ticket_seats"
+        app:layout_constraintStart_toEndOf="@id/tv_booking_complete_ticket_count"
+        app:layout_constraintTop_toTopOf="@id/tv_booking_complete_ticket_count"
+        android:text="@string/booking_complete_ticket_divider" />
+
+    <TextView
+        android:id="@+id/tv_booking_complete_ticket_seats"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/tv_booking_complete_ticket_count"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tv_booking_complete_ticket_divider"
+        app:layout_constraintTop_toTopOf="@id/tv_booking_complete_ticket_count"
+        tools:text="B3, D2" />
 
     <TextView
         android:id="@+id/tv_booking_complete_ticket_total_price"
