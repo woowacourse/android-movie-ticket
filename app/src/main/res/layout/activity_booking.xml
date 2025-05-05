@@ -104,7 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="-"
+                android:text="@string/minus"
                 android:textSize="25sp" />
 
             <TextView
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="0"
+                tools:text = "0"
                 android:textColor="@color/black"
                 android:textSize="30sp" />
 
@@ -122,7 +122,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="+"
+                android:text="@string/plus"
                 android:textSize="25sp" />
         </LinearLayout>
 
@@ -131,7 +131,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginHorizontal="24dp"
-            android:text="선택 완료" />
+            android:text="@string/confirm_select" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

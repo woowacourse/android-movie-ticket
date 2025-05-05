@@ -15,7 +15,7 @@
         android:background="@color/custom_purple"
         android:gravity="center|bottom"
         android:padding="20dp"
-        android:text="영화 상영 시작 시간 15분 전까지 \n 취소가 가능합니다"
+        android:text="@string/cancellation_notice"
         android:textColor="@color/white"
         tools:ignore="MissingConstraints" />
 

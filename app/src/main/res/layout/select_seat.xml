@@ -326,7 +326,7 @@
             android:gravity="center"
             android:insetTop="0dp"
             android:insetBottom="0dp"
-            android:text="예매"
+            android:text="@string/book"
             android:textSize="20sp"
             app:cornerRadius="0dp"
             app:layout_constraintEnd_toEndOf="parent" />
@@ -338,7 +338,7 @@
         android:layout_marginHorizontal="24dp"
         android:background="@color/nature_black"
         android:gravity="center"
-        android:text="SCREEN"
+        android:text="@string/screen"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

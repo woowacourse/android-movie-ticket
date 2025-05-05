@@ -64,7 +64,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_marginEnd="20dp"
-            android:text="지금 예매" />
+            android:text="@string/book_now" />
 
     </LinearLayout>
 
