@@ -3,16 +3,15 @@ package woowacourse.movie.view.movies
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import woowacourse.movie.R
 
 class MovieListAdapter(
-    private val items: List<MovieListItem>,
     private val eventListener: OnMovieEventListener,
-) : RecyclerView.Adapter<ViewHolder>() {
+) : ListAdapter<MovieListItem, ViewHolder>(MovieListItemDiffCallback()) {
     override fun getItemViewType(position: Int): Int =
-        when (items[position]) {
+        when (getItem(position)) {
             is MovieListItem.AdItem -> R.layout.item_advertisement
             is MovieListItem.MovieItem -> R.layout.item_movie
         }
@@ -32,17 +31,15 @@ class MovieListAdapter(
                 view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
                 AdViewHolder(view)
             }
-            else -> throw IllegalArgumentException()
+            else -> throw IllegalArgumentException("알 수 없는 화면입니다: $viewType")
         }
     }
-
-    override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int,
     ) {
-        when (val item = items[position]) {
+        when (val item = getItem(position)) {
             is MovieListItem.AdItem -> (holder as AdViewHolder).bind(item.ad)
             is MovieListItem.MovieItem ->
                 (holder as MovieViewHolder).bind(
@@ -50,5 +47,9 @@ class MovieListAdapter(
                     eventListener,
                 )
         }
+    }
+
+    fun updateItems(newList: List<MovieListItem>) {
+        submitList(newList)
     }
 }
