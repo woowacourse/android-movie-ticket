@@ -2,6 +2,7 @@ package woowacourse.movie.domain
 
 import androidx.annotation.DrawableRes
 import woowacourse.movie.R
+import woowacourse.movie.domain.movietime.Date
 import java.io.Serializable
 import java.time.LocalDate
 
@@ -13,13 +14,13 @@ data class Movie(
 ) : Serializable {
     companion object {
         val dummy: List<Movie> =
-            listOf(
+            List(10000) {
                 Movie(
                     R.drawable.harry,
-                    "해리 포터와 마법사의 돌",
-                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 4, 25)),
+                    "해리 포터$it",
+                    Date(LocalDate.of(2025, 4, 1), LocalDate.of(2025, 5, 30)),
                     152,
-                ),
-            )
+                )
+            }
     }
 }

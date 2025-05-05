@@ -1,0 +1,17 @@
+package woowacourse.movie.domain.movieseat
+
+import java.io.Serializable
+
+class Seats(private val seats: MutableSet<Seat>) : Serializable {
+    val all get() = seats.toList()
+
+    fun addSeat(seat: Seat) = seats.add(seat)
+
+    fun removeSeat(seat: Seat) = seats.remove(seat)
+
+    fun selectedLimit(limit: Int): Boolean = seats.size >= limit
+
+    fun canSelect(limit: Int): Boolean = seats.size == limit
+
+    fun reservationPrice() = seats.sumOf { it.seatPrice() }
+}

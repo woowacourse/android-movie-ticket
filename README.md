@@ -65,3 +65,20 @@
 - [x] 각 xml파일 scrollView를 전체 Layout으로 수정
 - [x] ReservationCompleteActivity | getSerializableExtra() 버전에 따라 메서드를 다르게 사용하도록 수정
 - [x] DialogFactory | DialogFactory의 구조를 변경하여 다이얼로그 중복 생성을 방지
+
+## 3단계 개요
+
+- [ ] 필요없는 companion 메서드 제거
+- [x] 패키지 구조 분리
+- [ ] dialog 인스턴스 전역으로 따로 생성
+- [x] MainActivity | MVP구조로 분리
+- [x] ReservationActivity | MVP구조로 분리
+- [x] ReservationCompleteActivity | MVP구조로 분리
+
+## 4단계 개요
+
+- [x] 영화 목록에 영화가 세 번 노출될 때마다 광고가 한 번 노출된다.
+- [x] 영화 목록의 요소는 10,000개까지 추가될 수 있다.
+- [x] 사용자는 인원/날짜 선택 후에 좌석을 고를 수 있다.
+- [x] 좌석을 선택하면 배경색이 바뀌고, 하단에 선택한 좌석 수를 반영한 최종 가격이 표시된다.
+- [x] 선택된 좌석을 재선택하면 선택이 해제된다.
