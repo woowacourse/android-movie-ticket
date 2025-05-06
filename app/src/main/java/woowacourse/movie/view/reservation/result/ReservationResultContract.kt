@@ -4,7 +4,13 @@ import woowacourse.movie.domain.model.ReservationInfo
 
 interface ReservationResultContract {
     interface View {
-        fun showReservationResult(reservationInfo: ReservationInfo)
+        fun showReservationResult(
+            title: String,
+            dateTime: String,
+            count: String,
+            seats: String,
+            totalPrice: String,
+        )
 
         fun showMessage(message: String)
     }

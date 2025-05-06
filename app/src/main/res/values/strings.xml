@@ -31,4 +31,8 @@
     <string name="confirm">확인</string>
 
     <string name="seat_split_line">|%s|</string>
+    <string name="reservation_count_format">일반 %d명</string>
+    <string name="no_seats_selected">선택된 좌석 없음</string>
+
+
 </resources>

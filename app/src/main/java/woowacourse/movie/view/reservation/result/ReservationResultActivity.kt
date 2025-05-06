@@ -13,8 +13,6 @@ import woowacourse.movie.view.extension.getParcelableCompat
 import woowacourse.movie.view.movies.MoviesActivity
 import woowacourse.movie.view.reservation.seat.SeatSelectionActivity
 import woowacourse.movie.view.reservation.seat.SeatSelectionActivity.Companion.BUNDLE_KEY_RESERVATION_INFO
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class ReservationResultActivity :
     BaseActivity(R.layout.activity_reservation_result),
@@ -47,6 +45,8 @@ class ReservationResultActivity :
                 }
             },
         )
+
+        setupCancelDescription()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -57,58 +57,27 @@ class ReservationResultActivity :
         return super.onOptionsItemSelected(item)
     }
 
-    override fun showReservationResult(reservationInfo: ReservationInfo) {
-        displayReservationResult(reservationInfo)
+    override fun showReservationResult(
+        title: String,
+        dateTime: String,
+        count: String,
+        seats: String,
+        totalPrice: String,
+    ) {
+        tvMovieTitle?.text = title
+        tvMovieDate.text = dateTime
+        tvReservationCountInfo?.text = count
+        tvReservationSeats.text = seats
+        tvTotalPrice?.text = totalPrice
     }
 
     override fun showMessage(message: String) {
         showToast(message)
     }
 
-    private fun displayReservationResult(reservationInfo: ReservationInfo) {
-        setupCancelDescription()
-        setupMovieTitle(reservationInfo.title)
-        setupMovieDate(reservationInfo.reservationDateTime)
-        setupReservationCount(reservationInfo.reservationCount.value)
-        setupTotalPrice(reservationInfo.totalPrice())
-
-        setupSeats(reservationInfo.seats)
-    }
-
     private fun setupCancelDescription() {
         tvCancelDescription?.text =
             getString(R.string.reservation_result_cancel_time_description, CANCELLATION_TIME)
-    }
-
-    private fun setupMovieTitle(title: String?) {
-        tvMovieTitle?.text = title
-    }
-
-    private fun setupMovieDate(reservationDateTime: LocalDateTime?) {
-        tvMovieDate.text =
-            reservationDateTime?.format(
-                DateTimeFormatter.ofPattern(
-                    getString(R.string.reservation_datetime_format),
-                ),
-            )
-    }
-
-    private fun setupReservationCount(reservationCount: Int?) {
-        tvReservationCountInfo?.text =
-            getString(R.string.reservation_count_info).format(reservationCount)
-    }
-
-    private fun setupTotalPrice(totalPrice: Int?) {
-        tvTotalPrice?.text =
-            getString(R.string.reservation_total_price).format(totalPrice)
-    }
-
-    private fun setupSeats(seats: List<woowacourse.movie.domain.model.Seat>) {
-        tvReservationSeats.text =
-            getString(
-                R.string.seat_split_line,
-                seats.joinToString(",") { it.row.toString() + it.column.toString() },
-            )
     }
 
     companion object {
