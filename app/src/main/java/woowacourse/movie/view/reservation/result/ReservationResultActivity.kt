@@ -19,6 +19,7 @@ class ReservationResultActivity :
     ReservationResultContract.View {
     val presenter = ReservationResultPresenter(this)
 
+    private val tvReservationSeats = findViewById<TextView>(R.id.tv_reservation_seats)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -57,6 +58,8 @@ class ReservationResultActivity :
         setupMovieDate(reservationInfo.reservationDateTime)
         setupReservationCount(reservationInfo.reservationCount.value)
         setupTotalPrice(reservationInfo.totalPrice())
+
+        setupSeats(reservationInfo.seats)
     }
 
     private fun setupCancelDescription() {
@@ -92,6 +95,14 @@ class ReservationResultActivity :
             getString(R.string.reservation_total_price).format(totalPrice)
     }
 
+    private fun setupSeats(seats: List<woowacourse.movie.domain.model.Seat>) {
+        tvReservationSeats.text =
+            getString(
+                R.string.seat_split_line,
+                seats.joinToString(",") { it.row.toString() + it.column.toString() },
+            )
+    }
+
     companion object {
         private const val CANCELLATION_TIME = 15
         private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
@@ -103,6 +114,7 @@ class ReservationResultActivity :
             Intent(context, ReservationResultActivity::class.java).apply {
                 putExtra(
                     BUNDLE_KEY_RESERVATION_INFO,
+                    SeatSelectionActivity.BUNDLE_KEY_RESERVATION_INFO,
                     reservationInfo,
                 )
             }

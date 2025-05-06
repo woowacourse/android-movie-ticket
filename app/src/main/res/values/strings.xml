@@ -28,4 +28,6 @@
 
     <string name="unavailable_reservation_message">선택 가능한 날짜 및 시간이 없습니다</string>
     <string name="confirm">확인</string>
+
+    <string name="seat_split_line">|%s|</string>
 </resources>

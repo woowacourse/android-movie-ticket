@@ -137,7 +137,7 @@ class SeatSelectionActivity :
     }
 
     companion object {
-        private const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
+        const val BUNDLE_KEY_RESERVATION_INFO = "reservation_info"
 
         fun newIntent(
             context: Context,
