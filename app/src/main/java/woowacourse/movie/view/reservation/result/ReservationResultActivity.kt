@@ -24,7 +24,7 @@ class ReservationResultActivity :
     private val tvMovieTitle by lazy { findViewById<TextView>(R.id.tv_movie_title) }
     private val tvMovieDate by lazy { findViewById<TextView>(R.id.tv_movie_date) }
     private val tvReservationCountInfo by lazy { findViewById<TextView>(R.id.tv_reservation_count_info) }
-    private val tvReservationSeats = findViewById<TextView>(R.id.tv_reservation_seats)
+    private val tvReservationSeats by lazy { findViewById<TextView>(R.id.tv_reservation_seats) }
     private val tvCancelDescription by lazy { findViewById<TextView>(R.id.tv_cancel_description) }
     private val tvTotalPrice by lazy { findViewById<TextView>(R.id.tv_reservation_total_price) }
 
