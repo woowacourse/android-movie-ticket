@@ -14,7 +14,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.getParcelableCompat
@@ -125,6 +124,15 @@ class ReservationActivity :
         showToast(getString(R.string.unavailable_reservation_message))
     }
 
+    override fun notifyCountConstraintError(minimumCount: Int) {
+        showToast(
+            getString(
+                R.string.invalid_reservation_count_message,
+                minimumCount,
+            ),
+        )
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) {
             onBackPressedDispatcher.onBackPressed()
@@ -146,16 +154,7 @@ class ReservationActivity :
 
         val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
         btnMinus.setOnClickListener {
-            runCatching {
-                presenter.decreaseCount(1)
-            }.onFailure {
-                showToast(
-                    getString(
-                        R.string.invalid_reservation_count_message,
-                        ReservationCount.MINIMUM_RESERVATION_COUNT,
-                    ),
-                )
-            }
+            presenter.decreaseCount(1)
         }
 
         val btnPlus = findViewById<Button>(R.id.btn_reservation_count_plus)

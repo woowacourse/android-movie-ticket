@@ -29,6 +29,8 @@ interface ReservationContract {
         fun notifyInvalidReservationInfo()
 
         fun notifyNoFutureAvailability()
+
+        fun notifyCountConstraintError(minimumCount: Int)
     }
 
     interface Presenter {

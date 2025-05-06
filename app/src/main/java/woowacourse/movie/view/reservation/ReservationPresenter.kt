@@ -89,21 +89,19 @@ class ReservationPresenter(
 
     override fun increaseCount(count: Int) {
         runCatching {
-            // 예외 처리를 Presenter에서 할 경우
             reservationCount += count
             view.updateReservationCount(reservationCount.value)
         }.onFailure {
-            // view.showError(it.message ?: "인원 수 증가 오류")
+            view.notifyCountConstraintError(ReservationCount.MINIMUM_RESERVATION_COUNT)
         }
     }
 
     override fun decreaseCount(count: Int) {
         runCatching {
-            // 예외 처리를 Presenter에서 할 경우
             reservationCount -= count
             view.updateReservationCount(reservationCount.value)
         }.onFailure {
-            // view.showError(it.message ?: "인원 수 감소 오류")
+            view.notifyCountConstraintError(ReservationCount.MINIMUM_RESERVATION_COUNT)
         }
     }
 
