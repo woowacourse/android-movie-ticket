@@ -20,7 +20,6 @@ import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.getParcelableCompat
 import woowacourse.movie.view.reservation.seat.SeatSelectionActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -58,34 +57,16 @@ class ReservationActivity :
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val movie = intent?.getParcelableCompat<Movie>(BUNDLE_KEY_MOVIE)
-        val count = savedInstanceState?.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER)
-        val reservationDateTime =
-            savedInstanceState?.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
-        presenter.loadData(movie, count, reservationDateTime)
+        presenter.loadData(movie = movie, savedInstanceState = savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val selectedDate = spinnerDate.selectedItem as? LocalDate
-        val selectedTime = spinnerTime.selectedItem as? LocalTime
+        val currentReservationInfo = presenter.getCurrentReservationInfo()
 
-        val reservationDateTime =
-            if (selectedDate != null && selectedTime != null) {
-                LocalDateTime.of(
-                    selectedDate,
-                    selectedTime,
-                )
-            } else {
-                ""
-            }
-
-        outState.apply {
-            putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime.toString())
-            putInt(
-                RESTORE_BUNDLE_KEY_RESERVATION_NUMBER,
-                tvReservationCount.text.toString().toIntOrNull() ?: 1,
-            )
+        if (currentReservationInfo != null) {
+            outState.putParcelable(RESTORE_BUNDLE_KEY_RESERVATION_INFO, currentReservationInfo)
         }
     }
 
@@ -113,7 +94,10 @@ class ReservationActivity :
 
         selectedDate?.let {
             val position = dateSpinnerAdapter.getPosition(it)
-            spinnerDate.setSelection(position)
+            if (position >= 0) {
+                spinnerDate.setSelection(position)
+                shouldIgnoreNextSelection = true
+            }
         }
     }
 
@@ -135,6 +119,10 @@ class ReservationActivity :
 
     override fun notifyUnavailableDate() {
         unavailableDateTimeDialog.show()
+    }
+
+    override fun notifyNoFutureAvailability() {
+        showToast(getString(R.string.unavailable_reservation_message))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -177,10 +165,7 @@ class ReservationActivity :
     }
 
     private fun submitReservation() {
-        presenter.onReserve(
-            reservationDate = spinnerDate.selectedItem as? LocalDate,
-            reservationTime = spinnerTime.selectedItem as? LocalTime,
-        )
+        presenter.onReserve()
     }
 
     private fun setMovieInfo(movie: Movie) {
@@ -231,8 +216,7 @@ class ReservationActivity :
 
     companion object {
         private const val BUNDLE_KEY_MOVIE = "movie"
-        private const val RESTORE_BUNDLE_KEY_RESERVATION_DATETIME = "reservation_datetime"
-        private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
+        const val RESTORE_BUNDLE_KEY_RESERVATION_INFO = "reservation_info_state"
 
         fun newIntent(
             context: Context,

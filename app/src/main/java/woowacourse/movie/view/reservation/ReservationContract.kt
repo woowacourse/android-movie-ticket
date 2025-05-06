@@ -1,5 +1,6 @@
 package woowacourse.movie.view.reservation
 
+import android.os.Bundle
 import woowacourse.movie.domain.model.Movie
 import woowacourse.movie.domain.model.ReservationInfo
 import java.time.LocalDate
@@ -26,13 +27,14 @@ interface ReservationContract {
         fun navigateToSeatSelectionScreen(reservationInfo: ReservationInfo)
 
         fun notifyInvalidReservationInfo()
+
+        fun notifyNoFutureAvailability()
     }
 
     interface Presenter {
         fun loadData(
             movie: Movie?,
-            count: Int? = null,
-            dateTime: String? = null,
+            savedInstance: Bundle? = null,
         )
 
         fun increaseCount(count: Int)
@@ -41,9 +43,6 @@ interface ReservationContract {
 
         fun selectDate(date: LocalDate)
 
-        fun onReserve(
-            reservationDate: LocalDate?,
-            reservationTime: LocalTime?,
-        )
+        fun onReserve()
     }
 }
