@@ -19,19 +19,30 @@ data class ScreeningPeriod(
             dates.add(date)
             date = date.plusDays(1)
         }
-        return dates
+        return dates.filterNot { it.isBefore(startDate) }
     }
 
-    fun getAvailableTimesFor(date: LocalDate): List<LocalTime> {
-        val nowDateTime = LocalDateTime.now()
-        val isToday = date == nowDateTime.toLocalDate()
-        val currentTime = if (isToday) nowDateTime.toLocalTime() else LocalTime.MIN
+    fun getAvailableTimesFor(
+        now: LocalDateTime,
+        date: LocalDate,
+    ): List<LocalTime> {
+        if (now.toLocalDate().isAfter(endDate)) return emptyList()
+
+        val isToday = date == now.toLocalDate()
+        val currentTime = if (isToday) now.toLocalTime() else LocalTime.MIN
 
         val isWeekend = date.dayOfWeek == DayOfWeek.SATURDAY || date.dayOfWeek == DayOfWeek.SUNDAY
-        val startHour = if (isWeekend) 9 else 10
+        val startHour = if (isWeekend) WEEKEND_SCREENING_START else WEEKDAY_SCREENING_START
 
-        return (startHour until 24 step 2)
+        return (startHour until FINISH_HOUR step SCREENING_INTERVAL_TIME)
             .map { LocalTime.of(it, 0) }
             .filter { it.isAfter(currentTime) }
+    }
+
+    companion object {
+        private val WEEKEND_SCREENING_START = 9
+        private val WEEKDAY_SCREENING_START = 10
+        private val FINISH_HOUR = 24
+        private val SCREENING_INTERVAL_TIME = 2
     }
 }

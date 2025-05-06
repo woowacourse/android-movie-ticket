@@ -14,20 +14,19 @@ import android.widget.Spinner
 import android.widget.TextView
 import woowacourse.movie.R
 import woowacourse.movie.domain.model.Movie
-import woowacourse.movie.domain.model.ReservationCount
 import woowacourse.movie.domain.model.ReservationInfo
 import woowacourse.movie.view.base.BaseActivity
 import woowacourse.movie.view.extension.getParcelableCompat
-import woowacourse.movie.view.reservation.result.ReservationResultActivity
+import woowacourse.movie.view.reservation.seat.SeatSelectionActivity
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
-class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
-    private var reservationCount = ReservationCount()
+class ReservationActivity :
+    BaseActivity(R.layout.activity_reservation),
+    ReservationContract.View {
+    private val presenter = ReservationPresenter(this)
     private var shouldIgnoreNextSelection = false
-    private var movie: Movie? = null
 
     private val tvReservationCount by lazy { findViewById<TextView>(R.id.tv_reservation_count) }
     private val spinnerDate by lazy { findViewById<Spinner>(R.id.spinner_reservation_date) }
@@ -43,21 +42,11 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         }
     }
 
-    private val reservationDialog by lazy {
+    private val unavailableDateTimeDialog by lazy {
         AlertDialog
             .Builder(this)
-            .setTitle(R.string.reservation_dialog_title)
-            .setMessage(R.string.reservation_dialog_message)
-            .setCancelable(false)
-            .setPositiveButton(R.string.reservation_dialog_positive) { _, _ -> navigateToResult() }
-            .setNegativeButton(R.string.reservation_dialog_negative) { dialog, _ -> dialog.dismiss() }
-    }
-
-    private val showUnavailableDateTimeDialog by lazy {
-        AlertDialog
-            .Builder(this)
-            .setMessage("선택 가능한 날짜 및 시간이 없습니다")
-            .setPositiveButton("확인") { _, _ ->
+            .setMessage(R.string.unavailable_reservation_message)
+            .setPositiveButton(R.string.confirm) { _, _ ->
                 onBackPressedDispatcher.onBackPressed()
             }
     }
@@ -65,73 +54,83 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        setupData()
-        setMovieInfo()
-        setupListener()
-        setupDateSpinner()
-    }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        restoreReservationInfo(savedInstanceState)
+        val movie = intent?.getParcelableCompat<Movie>(BUNDLE_KEY_MOVIE)
+        presenter.loadData(movie = movie, savedInstanceState = savedInstanceState)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        val selectedDate = spinnerDate.selectedItem as? LocalDate
-        val selectedTime = spinnerTime.selectedItem as? LocalTime
+        val currentReservationInfo = presenter.getCurrentReservationInfo()
 
-        val reservationDateTime =
-            if (selectedDate != null && selectedTime != null) {
-                LocalDateTime.of(
-                    selectedDate,
-                    selectedTime,
-                )
-            } else {
-                ""
-            }
-
-        outState.apply {
-            putString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME, reservationDateTime.toString())
-            putInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER, reservationCount.count)
+        if (currentReservationInfo != null) {
+            outState.putParcelable(RESTORE_BUNDLE_KEY_RESERVATION_INFO, currentReservationInfo)
         }
     }
 
-    private fun restoreReservationInfo(savedInstanceState: Bundle) {
-        reservationCount =
-            ReservationCount(savedInstanceState.getInt(RESTORE_BUNDLE_KEY_RESERVATION_NUMBER))
-        tvReservationCount.text = reservationCount.count.toString()
-
-        movie?.let {
-            val availableDates = it.screeningPeriod.getAvailableDates(LocalDateTime.now())
-            updateDateSpinner(availableDates)
-
-            val reservationDateTime =
-                savedInstanceState.getString(RESTORE_BUNDLE_KEY_RESERVATION_DATETIME)
-            val dateTime =
-                LocalDateTime.parse(
-                    reservationDateTime,
-                    DateTimeFormatter.ofPattern(
-                        SPINNER_DATETIME_FORMAT,
-                    ),
-                )
-
-            dateTime?.toLocalDate()?.let { selectedDate ->
-                val datePosition = dateSpinnerAdapter.getPosition(selectedDate)
-                if (datePosition >= 0) {
-                    shouldIgnoreNextSelection = true
-                    spinnerDate.setSelection(datePosition)
-                    setupTimeSpinner(it, selectedDate, dateTime.toLocalTime())
-                }
-            }
-        }
+    override fun showMovieDetail(movie: Movie) {
+        setMovieInfo(movie)
+        setupDateSpinner()
+        setupListener()
     }
 
-    private fun updateDateSpinner(availableDates: List<LocalDate>) {
+    override fun notifyInvalidReservationInfo() {
+        showToast(getString(R.string.invalid_reservation_message))
+    }
+
+    override fun updateReservationCount(count: Int) {
+        tvReservationCount.text = count.toString()
+    }
+
+    override fun updateDateSet(
+        dates: List<LocalDate>,
+        selectedDate: LocalDate?,
+    ) {
         dateSpinnerAdapter.clear()
-        dateSpinnerAdapter.addAll(availableDates)
+        dateSpinnerAdapter.addAll(dates)
         dateSpinnerAdapter.notifyDataSetChanged()
+
+        selectedDate?.let {
+            val position = dateSpinnerAdapter.getPosition(it)
+            if (position >= 0) {
+                spinnerDate.setSelection(position)
+                shouldIgnoreNextSelection = true
+            }
+        }
+    }
+
+    override fun updateTimeSet(
+        times: List<LocalTime>,
+        selectedTime: LocalTime?,
+    ) {
+        timeSpinnerAdapter.clear()
+        timeSpinnerAdapter.addAll(times)
+        timeSpinnerAdapter.notifyDataSetChanged()
+
+        selectedTime?.let {
+            val timePosition = timeSpinnerAdapter.getPosition(it)
+            if (timePosition >= 0) {
+                spinnerTime.setSelection(timePosition)
+            }
+        }
+    }
+
+    override fun notifyUnavailableDate() {
+        unavailableDateTimeDialog.show()
+    }
+
+    override fun notifyNoFutureAvailability() {
+        showToast(getString(R.string.unavailable_reservation_message))
+    }
+
+    override fun notifyCountConstraintError(minimumCount: Int) {
+        showToast(
+            getString(
+                R.string.invalid_reservation_count_message,
+                minimumCount,
+            ),
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -142,83 +141,55 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupData() {
-        tvReservationCount.text = reservationCount.count.toString()
-        movie = intent?.getParcelableCompat<Movie>(BUNDLE_KEY_MOVIE)
+    override fun navigateToSeatSelectionScreen(reservationInfo: ReservationInfo) {
+        val intent = SeatSelectionActivity.newIntent(this, reservationInfo)
+        startActivity(intent)
     }
 
     private fun setupListener() {
         val btnReservationFinish = findViewById<Button>(R.id.btn_reservation_finish)
         btnReservationFinish.setOnClickListener {
-            if (reservationCount.count < ReservationCount.MINIMUM_RESERVATION_COUNT) return@setOnClickListener
-            reservationDialog.show()
+            submitReservation()
         }
 
         val btnMinus = findViewById<Button>(R.id.btn_reservation_count_minus)
         btnMinus.setOnClickListener {
-            runCatching {
-                tvReservationCount.text = (reservationCount - 1).count.toString()
-                reservationCount -= 1
-            }.onFailure {
-                showToast(
-                    getString(
-                        R.string.invalid_reservation_count_message,
-                        ReservationCount.MINIMUM_RESERVATION_COUNT,
-                    ),
-                )
-            }
+            presenter.decreaseCount(1)
         }
 
         val btnPlus = findViewById<Button>(R.id.btn_reservation_count_plus)
         btnPlus.setOnClickListener {
-            tvReservationCount.text = (reservationCount + 1).count.toString()
-            reservationCount += 1
+            presenter.increaseCount(1)
         }
     }
 
-    private fun navigateToResult() {
-        val reservationDate = spinnerDate.selectedItem as? LocalDate
-        val reservationTime = spinnerTime.selectedItem as? LocalTime
+    private fun submitReservation() {
+        presenter.onReserve()
+    }
 
-        if (reservationDate == null || reservationTime == null) {
-            showToast(getString(R.string.invalid_reservation_message))
-            return
-        }
-
-        val reservationInfo =
-            ReservationInfo(
-                title = findViewById<TextView>(R.id.tv_reservation_title).text.toString(),
-                reservationDateTime = LocalDateTime.of(reservationDate, reservationTime),
-                reservationCount = reservationCount,
+    private fun setMovieInfo(movie: Movie) {
+        val formatter =
+            DateTimeFormatter.ofPattern(getString(R.string.movie_screening_period_format))
+        findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(movie.poster.toInt())
+        findViewById<TextView>(R.id.tv_reservation_title).text = movie.title
+        findViewById<TextView>(R.id.tv_screening_period).text =
+            getString(
+                R.string.movie_date,
+                movie.screeningPeriod.startDate.format(formatter),
+                movie.screeningPeriod.endDate
+                    .format(formatter),
             )
-
-        val intent = ReservationResultActivity.newIntent(this, reservationInfo)
-        startActivity(intent)
-        finish()
-    }
-
-    private fun setMovieInfo() {
-        movie?.let { movie ->
-            val formatter = DateTimeFormatter.ofPattern(getString(R.string.movie_screening_period_format))
-            findViewById<ImageView>(R.id.iv_reservation_poster).setImageResource(movie.poster.toInt())
-            findViewById<TextView>(R.id.tv_reservation_title).text = movie.title
-            findViewById<TextView>(R.id.tv_screening_period).text =
-                getString(
-                    R.string.movie_date,
-                    movie.screeningPeriod.startDate.format(formatter),
-                    movie.screeningPeriod.endDate
-                        .format(formatter),
-                )
-            findViewById<TextView>(R.id.tv_reservation_running_time).text =
-                getString(
-                    R.string.running_time,
-                    movie.runningTime.minute.toString(),
-                )
-        }
+        findViewById<TextView>(R.id.tv_reservation_running_time).text =
+            getString(
+                R.string.running_time,
+                movie.runningTime.minute.toString(),
+            )
     }
 
     private fun setupDateSpinner() {
         spinnerDate.adapter = dateSpinnerAdapter
+        spinnerTime.adapter = timeSpinnerAdapter
+
         spinnerDate.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
@@ -233,53 +204,18 @@ class ReservationActivity : BaseActivity(R.layout.activity_reservation) {
                     }
 
                     val selectedDate = parent.getItemAtPosition(position) as LocalDate
-                    movie?.let { setupTimeSpinner(it, selectedDate) }
+                    presenter.selectDate(selectedDate)
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
             }
 
-        movie?.let {
-            val nowDateTime = LocalDateTime.now()
-            val availableDates = it.screeningPeriod.getAvailableDates(nowDateTime)
-            availableDates.ifEmpty {
-                showUnavailableDateTimeDialog.show()
-            }
-            updateDateSpinner(availableDates)
-        }
-    }
-
-    private fun setupTimeSpinner(
-        movie: Movie,
-        date: LocalDate,
-        selectedTime: LocalTime? = null,
-    ) {
-        timeSpinnerAdapter.clear()
-        val times = movie.screeningPeriod.getAvailableTimesFor(date)
-        if (times.isEmpty()) {
-            val datePosition = spinnerDate.selectedItemPosition
-            runCatching { spinnerDate.setSelection(datePosition + 1) }.onFailure {
-                showUnavailableDateTimeDialog.show()
-            }
-        }
-
-        timeSpinnerAdapter.addAll(times)
-        timeSpinnerAdapter.notifyDataSetChanged()
-        spinnerTime.adapter = timeSpinnerAdapter
-
-        selectedTime?.let {
-            val timePosition = timeSpinnerAdapter.getPosition(it)
-            if (timePosition >= 0) {
-                spinnerTime.setSelection(timePosition)
-            }
-        }
+        presenter.selectDate(LocalDate.now())
     }
 
     companion object {
         private const val BUNDLE_KEY_MOVIE = "movie"
-        private const val RESTORE_BUNDLE_KEY_RESERVATION_DATETIME = "reservation_datetime"
-        private const val RESTORE_BUNDLE_KEY_RESERVATION_NUMBER = "reservation_number"
-        private const val SPINNER_DATETIME_FORMAT = "yyyy-MM-dd'T'HH:mm"
+        const val RESTORE_BUNDLE_KEY_RESERVATION_INFO = "reservation_info_state"
 
         fun newIntent(
             context: Context,

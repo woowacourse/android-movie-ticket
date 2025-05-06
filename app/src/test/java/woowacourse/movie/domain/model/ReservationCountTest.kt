@@ -16,7 +16,7 @@ class ReservationCountTest {
         val actual = reservationCount + 1
         val expected = 3
 
-        assertThat(actual.count).isEqualTo(expected)
+        assertThat(actual.value).isEqualTo(expected)
     }
 
     @Test
@@ -25,6 +25,6 @@ class ReservationCountTest {
         val actual = reservationCount - 1
         val expected = 2
 
-        assertThat(actual.count).isEqualTo(expected)
+        assertThat(actual.value).isEqualTo(expected)
     }
 }

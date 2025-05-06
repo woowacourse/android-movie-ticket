@@ -23,7 +23,7 @@ class MoviesActivityTest {
     fun setUp() {
         movieItem =
             onData(anything())
-                .inAdapterView(withId(R.id.lv_movie))
+                .inAdapterView(withId(R.id.rv_movie))
                 .atPosition(0)
     }
 

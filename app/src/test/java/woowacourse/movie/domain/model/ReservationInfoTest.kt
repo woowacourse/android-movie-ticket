@@ -22,7 +22,7 @@ class ReservationInfoTest {
                     LocalDateTime.of(2025, 4, 15, 11, 0),
                 )
             },
-            { assertThat(reservationInfo.reservationCount.count).isEqualTo(2) },
+            { assertThat(reservationInfo.reservationCount.value).isEqualTo(2) },
         )
     }
 
