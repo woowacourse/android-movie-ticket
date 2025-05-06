@@ -1,91 +1,101 @@
 package woowacourse.movie.movieList
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import woowacourse.movie.R
-import woowacourse.movie.dto.MovieInfo
-import woowacourse.movie.util.ErrorUtils
+import woowacourse.movie.uiModel.AdUIModel
+import woowacourse.movie.uiModel.MovieInfoUIModel
+import woowacourse.movie.uiModel.MovieListItem
+import woowacourse.movie.uiModel.PosterMapper
 
 class MovieListAdapter(
-    context: Context,
-    items: MutableList<MovieInfo>,
-    val changeActivity: (MovieInfo) -> Unit,
-    val onError: () -> Unit,
-) : ArrayAdapter<MovieInfo>(context, 0, items) {
-    override fun getView(
-        position: Int,
-        convertView: View?,
+    private val onClick: (MovieInfoUIModel) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val items: MutableList<MovieListItem> = mutableListOf()
+
+    companion object {
+        private const val TYPE_MOVIE = 0
+        private const val TYPE_AD = 1
+    }
+
+    override fun getItemViewType(position: Int): Int =
+        when (items[position]) {
+            is MovieInfoUIModel -> TYPE_MOVIE
+            is AdUIModel -> TYPE_AD
+            else -> throw IllegalArgumentException("Unknown item type")
+        }
+
+    override fun getItemCount(): Int = items.size
+
+    override fun onCreateViewHolder(
         parent: ViewGroup,
-    ): View {
-        lateinit var view: View
-
-        if (convertView == null) {
-            view =
-                LayoutInflater
-                    .from(context)
-                    .inflate(R.layout.movie_list_item, parent, false)
-            view.tag = ViewHolder.of(view)
-        } else {
-            view = convertView
-        }
-
-        val viewHolder = view.tag as ViewHolder
-
-        val item =
-            getMovieInfoOrPrintError(position) ?: run {
-                onError()
-                return view
+        viewType: Int,
+    ): RecyclerView.ViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_MOVIE -> {
+                val view = inflater.inflate(R.layout.movie_list_item, parent, false)
+                MovieViewHolder(view)
             }
-
-        with(viewHolder) {
-            image.setImageResource(item.poster)
-            title.text = item.title
-            movieDate.text =
-                context.getString(
-                    R.string.movie_date,
-                    item.startDate,
-                    item.endDate,
-                )
-            runningTime.text =
-                context.getString(R.string.running_time, item.runningTime)
-
-            button.setOnClickListener {
-                changeActivity(item)
+            TYPE_AD -> {
+                val view = inflater.inflate(R.layout.movie_list_ad, parent, false)
+                AdViewHolder(view)
             }
-        }
-
-        return view
-    }
-
-    private fun getMovieInfoOrPrintError(position: Int): MovieInfo? {
-        return getItem(position) ?: run {
-            ErrorUtils.printError(context)
-            return null
+            else -> throw IllegalArgumentException("Invalid view type")
         }
     }
 
-    private class ViewHolder(
-        val image: ImageView,
-        val title: TextView,
-        val movieDate: TextView,
-        val runningTime: TextView,
-        val button: Button,
+    override fun onBindViewHolder(
+        holder: RecyclerView.ViewHolder,
+        position: Int,
     ) {
-        companion object {
-            fun of(view: View): ViewHolder =
-                ViewHolder(
-                    view.findViewById(R.id.movie_image),
-                    view.findViewById(R.id.title),
-                    view.findViewById(R.id.movie_date),
-                    view.findViewById(R.id.running_time),
-                    view.findViewById(R.id.reservation_button),
-                )
+        when (val item = items[position]) {
+            is MovieInfoUIModel -> {
+                val vh = holder as MovieViewHolder
+                vh.bind(item)
+                vh.button.setOnClickListener { onClick(item) }
+            }
+            is AdUIModel -> {
+                (holder as AdViewHolder).bind()
+            }
+        }
+    }
+
+    fun updateItems(newItems: List<MovieListItem>) {
+        items.clear()
+        items.addAll(newItems)
+        notifyDataSetChanged()
+    }
+
+    class MovieViewHolder(
+        view: View,
+    ) : RecyclerView.ViewHolder(view) {
+        private val image: ImageView = view.findViewById(R.id.movie_image)
+        private val title: TextView = view.findViewById(R.id.title)
+        private val movieDate: TextView = view.findViewById(R.id.movie_date)
+        private val runningTime: TextView = view.findViewById(R.id.running_time)
+        val button: Button = view.findViewById(R.id.reservation_button)
+
+        fun bind(model: MovieInfoUIModel) {
+            image.setImageResource(PosterMapper.getPosterResourceId(model.posterKey))
+            title.text = model.title
+            movieDate.text = itemView.context.getString(R.string.movie_date, model.startDate, model.endDate)
+            runningTime.text = itemView.context.getString(R.string.running_time, model.runningTime)
+        }
+    }
+
+    class AdViewHolder(
+        view: View,
+    ) : RecyclerView.ViewHolder(view) {
+        private val adImage: ImageView = view.findViewById(R.id.ad)
+
+        fun bind() {
+            adImage.setImageResource(R.drawable.ad_image)
         }
     }
 }
