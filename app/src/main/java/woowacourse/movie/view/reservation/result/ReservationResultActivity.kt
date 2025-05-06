@@ -19,7 +19,7 @@ import java.time.format.DateTimeFormatter
 class ReservationResultActivity :
     BaseActivity(R.layout.activity_reservation_result),
     ReservationResultContract.View {
-    val presenter = ReservationResultPresenter(this)
+    private lateinit var presenter: ReservationResultPresenter
 
     private val tvMovieTitle by lazy { findViewById<TextView>(R.id.tv_movie_title) }
     private val tvMovieDate by lazy { findViewById<TextView>(R.id.tv_movie_date) }
@@ -30,6 +30,7 @@ class ReservationResultActivity :
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        presenter = ReservationResultPresenter(this, this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val reservationInfo = intent.getParcelableCompat<ReservationInfo>(BUNDLE_KEY_RESERVATION_INFO)
