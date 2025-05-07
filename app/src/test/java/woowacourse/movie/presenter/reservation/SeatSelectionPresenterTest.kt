@@ -34,47 +34,34 @@ class SeatSelectionPresenterTest {
     @Test
     fun `좌석들을 보여줄 수 있다`() {
         // given
-        every { view.setSeats(Seat.Companion.seats(), emptySet()) } just Runs
+        every {
+            view.setSeats(Seat.Companion.seats(), emptySet())
+            view.setConfirmEnabled(false)
+        } just Runs
 
         // when
-        presenter.presentSeats()
+        presenter.fetchAvailableSeats()
 
         // then
         verify { view.setSeats(Seat.Companion.seats(), emptySet()) }
     }
 
     @Test
-    fun `영화 제목을 보여줄 수 있다`() {
+    fun `영화 제목과 가격을 보여줄 수 있다`() {
         // given
-        every { view.setTitle("해리 포터와 마법사의 돌") } just Runs
+        every {
+            view.setTitle("해리 포터와 마법사의 돌")
+            view.setPrice(0)
+        } just Runs
 
         // when
-        presenter.presentTitle()
+        presenter.fetchScreeningDetail()
 
         // then
-        verify { view.setTitle("해리 포터와 마법사의 돌") }
-    }
-
-    @Test
-    fun `가격을 보여줄 수 있다`() {
-        // given
-        presenter =
-            SeatSelectionPresenter(
-                view,
-                Ticket(
-                    title = "해리 포터와 마법사의 돌",
-                    count = 2,
-                    showtime = LocalDateTime.of(2025, 4, 15, 11, 0),
-                ),
-                selectedSeats = setOf(Seat.Companion(1, 1)),
-            )
-        every { view.setPrice(10000) } just Runs
-
-        // when
-        presenter.presentPrice()
-
-        // then
-        verify { view.setPrice(10000) }
+        verify {
+            view.setTitle("해리 포터와 마법사의 돌")
+            view.setPrice(0)
+        }
     }
 
     @Test

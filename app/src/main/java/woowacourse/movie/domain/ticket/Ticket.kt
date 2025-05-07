@@ -3,7 +3,7 @@ package woowacourse.movie.domain.ticket
 import java.io.Serializable
 import java.time.LocalDateTime
 
-class Ticket(
+data class Ticket(
     val title: String,
     val count: Int,
     val showtime: LocalDateTime,
