@@ -16,19 +16,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import woowacourse.movie.R
-import woowacourse.movie.contract.reservation.ReservationContract
+import woowacourse.movie.contract.reservation.ScreeningDetailContract
 import woowacourse.movie.domain.reservation.Screening
-import woowacourse.movie.presenter.reservation.ReservationPresenter
+import woowacourse.movie.presenter.reservation.ScreeningDetailPresenter
 import woowacourse.movie.view.reservation.Poster.posterId
 import woowacourse.movie.view.util.ErrorMessage
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 
-class ReservationActivity :
+class ScreeningDetailActivity :
     AppCompatActivity(),
-    ReservationContract.View {
-    private var presenter: ReservationContract.Presenter? = null
+    ScreeningDetailContract.View {
+    private var presenter: ScreeningDetailContract.Presenter? = null
 
     private lateinit var posterImageView: ImageView
     private lateinit var titleView: TextView
@@ -44,15 +44,15 @@ class ReservationActivity :
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        presenter?.getTicketCount()?.let { outState.putInt(TICKET_COUNT, it) }
-        presenter?.getItemPosition()?.let { outState.putInt(TIME_ITEM_POSITION, it) }
+        presenter?.ticketCount?.let { outState.putInt(TICKET_COUNT, it) }
+        presenter?.timeItemPosition?.let { outState.putInt(TIME_ITEM_POSITION, it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_reservation)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.layout_reservation)) { v, insets ->
+        setContentView(R.layout.activity_screening_detail)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.layout_screening_detail)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
@@ -72,7 +72,7 @@ class ReservationActivity :
         timeItemPosition: Int?,
     ) {
         presenter =
-            ReservationPresenter(
+            ScreeningDetailPresenter(
                 this,
                 intent.getScreeningExtra(EXTRA_SCREENING)
                     ?: error(ErrorMessage(CAUSE_SCREENING).notProvided()),
@@ -82,16 +82,16 @@ class ReservationActivity :
     }
 
     private fun findViews() {
-        posterImageView = findViewById<ImageView>(R.id.iv_reservation_poster)
-        titleView = findViewById<TextView>(R.id.tv_reservation_movie_title)
-        periodView = findViewById<TextView>(R.id.tv_reservation_movie_period)
-        runningTimeView = findViewById<TextView>(R.id.tv_reservation_movie_running_time)
-        dateSpinner = findViewById<Spinner>(R.id.spinner_reservation_screening_date)
-        timeSpinner = findViewById<Spinner>(R.id.spinner_reservation_screening_time)
-        ticketCountView = findViewById<TextView>(R.id.tv_reservation_audience_count)
-        ticketCountMinusButton = findViewById<Button>(R.id.btn_reservation_minus)
-        ticketCountPlusButton = findViewById<Button>(R.id.btn_reservation_plus)
-        completeButton = findViewById<Button>(R.id.btn_reservation_select_complete)
+        posterImageView = findViewById<ImageView>(R.id.iv_screening_detail_poster)
+        titleView = findViewById<TextView>(R.id.tv_screening_detail_movie_title)
+        periodView = findViewById<TextView>(R.id.tv_screening_detail_movie_period)
+        runningTimeView = findViewById<TextView>(R.id.tv_screening_detail_movie_running_time)
+        dateSpinner = findViewById<Spinner>(R.id.spinner_screening_detail_date)
+        timeSpinner = findViewById<Spinner>(R.id.spinner_screening_detail_time)
+        ticketCountView = findViewById<TextView>(R.id.tv_screening_detail_count)
+        ticketCountMinusButton = findViewById<Button>(R.id.btn_screening_detail_minus)
+        ticketCountPlusButton = findViewById<Button>(R.id.btn_screening_detail_plus)
+        completeButton = findViewById<Button>(R.id.btn_screening_detail_select_complete)
     }
 
     @Suppress("DEPRECATION")
@@ -105,12 +105,7 @@ class ReservationActivity :
 
     private fun initViews() {
         (presenter ?: error(ErrorMessage("screening").notProvided())).run {
-            presentPoster()
-            presentTitle()
-            presentPeriod()
-            presentRunningTime()
-            presentDates()
-            presentTicketCount()
+            fetchScreeningDetail()
         }
     }
 
@@ -132,7 +127,7 @@ class ReservationActivity :
                     id: Long,
                 ) {
                     val selectedDate: LocalDate = dateSpinner.selectedItem as LocalDate
-                    presenter?.presentTimes(selectedDate)
+                    presenter?.fetchAvailableTimes(selectedDate)
                         ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
                 }
 
@@ -149,7 +144,7 @@ class ReservationActivity :
                     position: Int,
                     id: Long,
                 ) {
-                    presenter?.setTimeItemPosition(position)
+                    presenter?.timeItemPosition = position
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
@@ -172,7 +167,7 @@ class ReservationActivity :
 
     private fun initCompleteButtonClickEvent() {
         completeButton.setOnClickListener {
-            presenter?.presentAvailableSeats()
+            presenter?.fetchAvailableSeats()
                 ?: error(ErrorMessage(CAUSE_SCREENING).notProvided())
         }
     }
@@ -229,7 +224,7 @@ class ReservationActivity :
     ) {
         timeSpinner.adapter =
             ArrayAdapter(
-                this@ReservationActivity,
+                this@ScreeningDetailActivity,
                 android.R.layout.simple_spinner_item,
                 times,
             )
@@ -274,7 +269,7 @@ class ReservationActivity :
             context: Context,
             screening: Screening,
         ): Intent =
-            Intent(context, ReservationActivity::class.java).putExtra(
+            Intent(context, ScreeningDetailActivity::class.java).putExtra(
                 EXTRA_SCREENING,
                 screening,
             )

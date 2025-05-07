@@ -39,7 +39,7 @@ class ScreeningActivity :
     }
 
     override fun navigateToReservationScreen(screening: Screening) {
-        val intent = ReservationActivity.newIntent(this, screening)
+        val intent = ScreeningDetailActivity.newIntent(this, screening)
         startActivity(intent)
     }
 

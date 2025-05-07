@@ -7,21 +7,21 @@ import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import woowacourse.movie.contract.reservation.ReservationContract
+import woowacourse.movie.contract.reservation.ScreeningDetailContract
 import woowacourse.movie.domain.reservation.Movie
 import woowacourse.movie.domain.reservation.Screening
 import java.time.LocalDate
 import java.time.LocalTime
 
 class ReservationPresenterTest {
-    private lateinit var presenter: ReservationContract.Presenter
-    private lateinit var view: ReservationContract.View
+    private lateinit var presenter: ScreeningDetailContract.Presenter
+    private lateinit var view: ScreeningDetailContract.View
 
     @BeforeEach
     fun setUp() {
         view = mockk()
         presenter =
-            ReservationPresenter(
+            ScreeningDetailPresenter(
                 view,
                 Screening(
                     Movie(
@@ -138,7 +138,7 @@ class ReservationPresenterTest {
         } just Runs
 
         // when
-        presenter.presentTimes(LocalDate.of(2024, 4, 24))
+        presenter.fetchAvailableTimes(LocalDate.of(2024, 4, 24))
 
         // then
         verify {
@@ -173,7 +173,7 @@ class ReservationPresenterTest {
     fun `티켓 수를 줄일 수 있다`() {
         // given
         presenter =
-            ReservationPresenter(
+            ScreeningDetailPresenter(
                 view,
                 Screening(
                     Movie(

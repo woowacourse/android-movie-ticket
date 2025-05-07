@@ -17,7 +17,7 @@ import org.junit.Test
 import woowacourse.movie.R
 import woowacourse.movie.domain.reservation.Movie
 import woowacourse.movie.domain.reservation.Screening
-import woowacourse.movie.view.reservation.ReservationActivity
+import woowacourse.movie.view.reservation.ScreeningDetailActivity
 import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
@@ -25,8 +25,8 @@ import java.time.LocalTime
 class ReservationActivityTest {
     @get:Rule
     val activityRule =
-        ActivityScenarioRule<ReservationActivity>(
-            ReservationActivity.newIntent(
+        ActivityScenarioRule<ScreeningDetailActivity>(
+            ScreeningDetailActivity.newIntent(
                 ApplicationProvider.getApplicationContext(),
                 Screening(
                     movie =
@@ -44,47 +44,47 @@ class ReservationActivityTest {
 
     @Test
     fun `영화_제목이_표시된다`() {
-        onView(withId(R.id.tv_reservation_movie_title))
+        onView(withId(R.id.tv_screening_detail_movie_title))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `상영일이_표시된다`() {
-        onView(withId(R.id.tv_reservation_movie_period))
+        onView(withId(R.id.tv_screening_detail_movie_period))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `포스터가_표시된다`() {
-        onView(withId(R.id.iv_reservation_poster))
+        onView(withId(R.id.iv_screening_detail_poster))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `러닝타임이_표시된다`() {
-        onView(withId(R.id.tv_reservation_movie_running_time))
+        onView(withId(R.id.tv_screening_detail_movie_running_time))
             .check(matches(isDisplayed()))
     }
 
     @Test
     fun `티켓_인원수를_버튼으로_증감시킬_수_있다`() {
-        onView(withId(R.id.tv_reservation_audience_count))
+        onView(withId(R.id.tv_screening_detail_count))
             .check(matches(withText("1")))
 
-        onView(withId(R.id.btn_reservation_plus))
+        onView(withId(R.id.btn_screening_detail_plus))
             .perform(click())
-        onView(withId(R.id.tv_reservation_audience_count))
+        onView(withId(R.id.tv_screening_detail_count))
             .check(matches(withText("2")))
 
-        onView(withId(R.id.btn_reservation_minus))
+        onView(withId(R.id.btn_screening_detail_minus))
             .perform(click())
-        onView(withId(R.id.tv_reservation_audience_count))
+        onView(withId(R.id.tv_screening_detail_count))
             .check(matches(withText("1")))
     }
 
     @Test
     fun `날짜를_선택하면_가능한_시간대가_표시된다`() {
-        onView(withId(R.id.spinner_reservation_screening_date)).perform(click())
+        onView(withId(R.id.spinner_screening_detail_date)).perform(click())
         onData(
             allOf(
                 `is`(instanceOf(LocalDate::class.java)),
@@ -92,7 +92,7 @@ class ReservationActivityTest {
             ),
         ).perform(click())
 
-        onView(withId(R.id.spinner_reservation_screening_time)).perform(click())
+        onView(withId(R.id.spinner_screening_detail_time)).perform(click())
 
         val hours = listOf(9, 11, 13, 15, 17, 19, 21, 23)
         for (hour in hours) {
@@ -107,7 +107,7 @@ class ReservationActivityTest {
 
     @Test
     fun `사용자는_인원_날짜_선택_후에_좌석을_고를_수_있다`() {
-        onView(withId(R.id.btn_reservation_select_complete))
+        onView(withId(R.id.btn_screening_detail_select_complete))
             .perform(click())
 
         onView(withId(R.id.layout_seat_selection))
@@ -116,15 +116,15 @@ class ReservationActivityTest {
 
     @Test
     fun `화면이_다시_그려질_때_데이터를_유지한다`() {
-        onView(withId(R.id.btn_reservation_plus))
+        onView(withId(R.id.btn_screening_detail_plus))
             .perform(click())
 
-        onView(withId(R.id.btn_reservation_plus))
+        onView(withId(R.id.btn_screening_detail_plus))
             .perform(click())
 
         activityRule.scenario.recreate()
 
-        onView(withId(R.id.tv_reservation_audience_count))
+        onView(withId(R.id.tv_screening_detail_count))
             .check(matches(withText("3")))
     }
 }

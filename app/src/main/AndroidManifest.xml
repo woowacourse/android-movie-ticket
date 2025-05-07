@@ -16,7 +16,7 @@
             android:name=".view.reservation.SeatSelectionActivity"
             android:exported="false" />
         <activity
-            android:name=".view.reservation.ReservationActivity"
+            android:name=".view.reservation.ScreeningDetailActivity"
             android:exported="false" />
         <activity
             android:name=".view.ticket.TicketActivity"

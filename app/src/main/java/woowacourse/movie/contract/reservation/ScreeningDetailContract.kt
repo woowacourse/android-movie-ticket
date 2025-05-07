@@ -3,33 +3,20 @@ package woowacourse.movie.contract.reservation
 import java.time.LocalDate
 import java.time.LocalTime
 
-interface ReservationContract {
+interface ScreeningDetailContract {
     interface Presenter {
-        fun presentPoster()
+        val ticketCount: Int
+        var timeItemPosition: Int
 
-        fun presentTitle()
+        fun fetchScreeningDetail()
 
-        fun presentPeriod()
-
-        fun presentRunningTime()
-
-        fun presentDates()
-
-        fun presentTimes(date: LocalDate)
-
-        fun presentTicketCount()
+        fun fetchAvailableTimes(date: LocalDate)
 
         fun plusTicketCount()
 
         fun minusTicketCount()
 
-        fun presentAvailableSeats()
-
-        fun getTicketCount(): Int
-
-        fun getItemPosition(): Int
-
-        fun setTimeItemPosition(position: Int)
+        fun fetchAvailableSeats()
     }
 
     interface View {
