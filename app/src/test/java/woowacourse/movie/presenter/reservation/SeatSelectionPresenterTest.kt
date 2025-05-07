@@ -1,10 +1,13 @@
 package woowacourse.movie.presenter.reservation
 
+import io.mockk.CapturingSlot
 import io.mockk.Runs
 import io.mockk.every
 import io.mockk.just
 import io.mockk.mockk
+import io.mockk.slot
 import io.mockk.verify
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import woowacourse.movie.contract.reservation.SeatSelectionContract
@@ -49,9 +52,12 @@ class SeatSelectionPresenterTest {
     @Test
     fun `영화 제목과 가격을 보여줄 수 있다`() {
         // given
+        val titleSlot: CapturingSlot<String> = slot()
+        val priceSlot: CapturingSlot<Int> = slot()
+
         every {
-            view.setTitle("해리 포터와 마법사의 돌")
-            view.setPrice(0)
+            view.setTitle(capture(titleSlot))
+            view.setPrice(capture(priceSlot))
         } just Runs
 
         // when
@@ -59,15 +65,19 @@ class SeatSelectionPresenterTest {
 
         // then
         verify {
-            view.setTitle("해리 포터와 마법사의 돌")
-            view.setPrice(0)
+            view.setTitle(titleSlot.captured)
+            view.setPrice(priceSlot.captured)
         }
+
+        assertThat(titleSlot.captured).isEqualTo("해리 포터와 마법사의 돌")
+        assertThat(priceSlot.captured).isEqualTo(0)
     }
 
     @Test
     fun `좌석을 선택할 수 있다`() {
         // given
-        every { view.setSeatIsSelected(Seat(1, 1), true) } just Runs
+        val seatSlot: CapturingSlot<Seat> = slot()
+        every { view.setSeatIsSelected(capture(seatSlot), true) } just Runs
         every { view.setPrice(10000) } just Runs
         every { view.setConfirmEnabled(false) } just Runs
 
@@ -75,7 +85,8 @@ class SeatSelectionPresenterTest {
         presenter.selectSeat(Seat(1, 1))
 
         // then
-        verify { view.setSeatIsSelected(Seat(1, 1), true) }
+        verify { view.setSeatIsSelected(seatSlot.captured, true) }
+        assertThat(seatSlot.captured).isEqualTo(Seat(1, 1))
     }
 
     @Test
