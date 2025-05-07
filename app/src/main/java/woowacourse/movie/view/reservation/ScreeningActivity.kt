@@ -31,7 +31,7 @@ class ScreeningActivity :
             insets
         }
 
-        presenter.presentScreeningContents()
+        presenter.fetchScreeningContents()
     }
 
     override fun setScreeningContents(screeningContents: List<ScreeningContent>) {

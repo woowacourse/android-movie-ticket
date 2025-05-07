@@ -5,7 +5,7 @@ import woowacourse.movie.domain.reservation.ScreeningContent
 
 interface ScreeningContract {
     interface Presenter {
-        fun presentScreeningContents()
+        fun fetchScreeningContents()
 
         fun selectScreening(screening: Screening)
     }
