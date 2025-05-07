@@ -62,7 +62,7 @@ class TicketActivity :
                 getSerializableExtra(
                     EXTRA_SEATS,
                     LinkedHashSet::class.java,
-                ) as Set<Seat>
+                ) as? Set<Seat>
 
             else -> (getSerializableExtra(EXTRA_SEATS) as? Set<Seat>)
         }
