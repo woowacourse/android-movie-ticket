@@ -11,41 +11,39 @@ class SeatSelectionPresenter(
 ) : SeatSelectionContract.Presenter {
     private val seats: Set<Seat> = Seat.Companion.seats()
     private var selectedSeats = selectedSeats?.toSet() ?: emptySet()
-    private val completable get() = ticket.count == selectedSeats?.size
+    private val completable get() = ticket.count == selectedSeats.size
     private val price: Int get() = selectedSeats.sumOf(Seat::price)
 
-    override fun presentSeats() {
+    override fun fetchAvailableSeats() {
         view.setSeats(seats, selectedSeats)
-    }
-
-    override fun presentTitle() {
-        view.setTitle(ticket.title)
-    }
-
-    override fun presentPrice() {
-        view.setPrice(price)
-    }
-
-    override fun presentCompleteButton() {
         view.setConfirmEnabled(completable)
     }
 
-    override fun onSeatSelect(seat: Seat) {
-        if (seat in selectedSeats) {
+    override fun fetchScreeningDetail() {
+        view.setTitle(ticket.title)
+        view.setPrice(price)
+    }
+
+    override fun selectSeat(seat: Seat) {
+        if (seat.isSelected) {
             selectedSeats -= seat
         } else {
-            if (canSelectSeat()) {
+            if (canSelectSeat) {
                 selectedSeats += seat
             }
         }
 
-        view.setSeatIsSelected(seat, seat in selectedSeats)
+        view.setSeatIsSelected(seat, seat.isSelected)
         view.setPrice(price)
         view.setConfirmEnabled(completable)
     }
 
-    override fun tryReservation() {
-        view.askFinalReservation()
+    private val Seat.isSelected get() = this in selectedSeats
+
+    private val canSelectSeat: Boolean get() = selectedSeats.size < ticket.count
+
+    override fun reserve() {
+        view.requestConfirm()
     }
 
     override fun confirmReservation() {
@@ -54,7 +52,5 @@ class SeatSelectionPresenter(
         }
     }
 
-    private fun canSelectSeat(): Boolean = selectedSeats.size < ticket.count
-
-    override fun getSelectedSeats(): Set<Seat> = selectedSeats.toSet()
+    override fun selectedSeats(): Set<Seat> = selectedSeats.toSet()
 }

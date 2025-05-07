@@ -85,7 +85,7 @@ class SeatSelectionPresenterTest {
         every { view.setConfirmEnabled(false) } just Runs
 
         // when
-        presenter.onSeatSelect(Seat.Companion(1, 1))
+        presenter.selectSeat(Seat.Companion(1, 1))
 
         // then
         verify { view.setSeatIsSelected(Seat.Companion(1, 1), true) }
@@ -110,7 +110,7 @@ class SeatSelectionPresenterTest {
         every { view.setConfirmEnabled(false) } just Runs
 
         // when
-        presenter.onSeatSelect(Seat.Companion(1, 1))
+        presenter.selectSeat(Seat.Companion(1, 1))
 
         // then
         verify { view.setSeatIsSelected(Seat.Companion(1, 1), false) }
@@ -124,7 +124,7 @@ class SeatSelectionPresenterTest {
         every { view.setConfirmEnabled(false) } just Runs
 
         // when
-        presenter.onSeatSelect(Seat.Companion(1, 1))
+        presenter.selectSeat(Seat.Companion(1, 1))
 
         // then
         verify { view.setPrice(10_000) }
@@ -133,13 +133,13 @@ class SeatSelectionPresenterTest {
     @Test
     fun `예매 확인 다이얼로그를 띄울 수 있다`() {
         // given
-        every { view.askFinalReservation() } just Runs
+        every { view.requestConfirm() } just Runs
 
         // when
-        presenter.tryReservation()
+        presenter.reserve()
 
         // then
-        verify { view.askFinalReservation() }
+        verify { view.requestConfirm() }
     }
 
     @Test

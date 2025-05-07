@@ -5,21 +5,17 @@ import java.time.LocalDateTime
 
 interface SeatSelectionContract {
     interface Presenter {
-        fun presentSeats()
+        fun fetchAvailableSeats()
 
-        fun presentTitle()
+        fun fetchScreeningDetail()
 
-        fun presentPrice()
+        fun selectSeat(seat: Seat)
 
-        fun presentCompleteButton()
-
-        fun onSeatSelect(seat: Seat)
-
-        fun tryReservation()
+        fun reserve()
 
         fun confirmReservation()
 
-        fun getSelectedSeats(): Set<Seat>
+        fun selectedSeats(): Set<Seat>
     }
 
     interface View {
@@ -39,7 +35,7 @@ interface SeatSelectionContract {
 
         fun setConfirmEnabled(isEnabled: Boolean)
 
-        fun askFinalReservation()
+        fun requestConfirm()
 
         fun navigateToTicketScreen(
             title: String,

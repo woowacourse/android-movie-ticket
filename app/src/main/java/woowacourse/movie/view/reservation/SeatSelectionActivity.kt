@@ -63,22 +63,20 @@ class SeatSelectionActivity :
 
     private fun setEventListeners() {
         completeView.setOnClickListener {
-            presenter?.tryReservation()
+            presenter?.reserve()
         }
     }
 
     private fun presentModels() {
-        presenter?.let {
-            it.presentSeats()
-            it.presentTitle()
-            it.presentPrice()
-            it.presentCompleteButton()
+        (presenter ?: error("")).run {
+            fetchScreeningDetail()
+            fetchAvailableSeats()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        presenter?.getSelectedSeats()?.let { selectedSeats: Set<Seat> ->
+        presenter?.selectedSeats()?.let { selectedSeats: Set<Seat> ->
             outState.putSerializable(KEY_SEATS, selectedSeats as Serializable)
         }
     }
@@ -162,7 +160,7 @@ class SeatSelectionActivity :
                 )
             isSelected = seat in selectedSeats
             setOnClickListener { view: View ->
-                presenter?.onSeatSelect(seat)
+                presenter?.selectSeat(seat)
             }
         }
 
@@ -192,7 +190,7 @@ class SeatSelectionActivity :
         completeView.isEnabled = enabled
     }
 
-    override fun askFinalReservation() {
+    override fun requestConfirm() {
         showConfirmDialog(
             title = getString(R.string.ticket_dialog_title),
             message = getString(R.string.ticket_dialog_message),
