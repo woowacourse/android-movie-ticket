@@ -13,13 +13,16 @@
         android:theme="@style/Theme.Movie"
         tools:targetApi="31">
         <activity
-            android:name=".view.ReservationActivity"
+            android:name=".feature.reservation.ReservationActivity"
             android:exported="false" />
         <activity
-            android:name=".view.TicketActivity"
+            android:name=".feature.ticket.TicketActivity"
             android:exported="false" />
         <activity
-            android:name=".view.MainActivity"
+            android:name=".feature.seatSelect.SeatSelectActivity"
+            android:exported="false" />
+        <activity
+            android:name=".feature.movieSelect.MovieSelectActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

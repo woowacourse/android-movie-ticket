@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    tools:context=".view.TicketActivity">
+    tools:context=".feature.ticket.TicketActivity">
 
     <TextView
         android:id="@+id/tv_ticket_cancel_time_info"
@@ -52,10 +52,27 @@
             android:id="@+id/tv_ticket_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
+
             android:textColor="@color/black"
             android:textSize="20sp"
             tools:text="일반 2명" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" | "
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+
+
+        <TextView
+            android:id="@+id/tv_seat_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            tools:text="A1, A2" />
 
         <TextView
             android:id="@+id/tv_ticket_price"
