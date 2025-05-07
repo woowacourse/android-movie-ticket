@@ -60,8 +60,6 @@ class ScreeningAdapter(
         holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = currentList.size
-
     companion object {
         const val VIEW_TYPE_SCREENING = 0
         const val VIEW_TYPE_ADVERTISEMENT = 1
