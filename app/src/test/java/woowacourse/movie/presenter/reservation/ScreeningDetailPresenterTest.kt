@@ -13,7 +13,7 @@ import woowacourse.movie.domain.reservation.Screening
 import java.time.LocalDate
 import java.time.LocalTime
 
-class ReservationPresenterTest {
+class ScreeningDetailPresenterTest {
     private lateinit var presenter: ScreeningDetailContract.Presenter
     private lateinit var view: ScreeningDetailContract.View
 
@@ -36,58 +36,10 @@ class ReservationPresenterTest {
     }
 
     @Test
-    fun `포스터를 표시한다`() {
-        // given
-        every { view.setPoster(0) } just Runs
-
-        // when
-        presenter.presentPoster()
-
-        // then
-        verify { view.setPoster(0) }
-    }
-
-    @Test
-    fun `제목을 표시한다`() {
-        // given
-        every { view.setTitle("해리 포터와 마법사의 돌") } just Runs
-
-        // when
-        presenter.presentTitle()
-
-        // then
-        verify { view.setTitle("해리 포터와 마법사의 돌") }
-    }
-
-    @Test
-    fun `상영일을 표시한다`() {
-        // given
-        every { view.setPeriod(2025, 4, 1, 2025, 4, 25) } just Runs
-
-        // when
-        presenter.presentPeriod()
-
-        // then
-        verify { view.setPeriod(2025, 4, 1, 2025, 4, 25) }
-    }
-
-    @Test
-    fun `러닝타임을 표시한다`() {
-        // given
-        every { view.setRunningTime(152) } just Runs
-
-        // when
-        presenter.presentRunningTime()
-
-        // then
-        verify { view.setRunningTime(152) }
-    }
-
-    @Test
-    fun `선택 가능한 날짜들을 표시한다`() {
+    fun `상영에 대한 정보들을 표시한다`() {
         // given
         every {
-            view.setDates(
+            view.setScreeningDetail(
                 Screening(
                     Movie(
                         0,
@@ -96,27 +48,15 @@ class ReservationPresenterTest {
                     ),
                     LocalDate.of(2025, 4, 1),
                     LocalDate.of(2025, 4, 25),
-                ).availableDates(),
+                ),
             )
+            view.setTicketCount(1)
         } just Runs
 
         // when
-        presenter.presentDates()
+        presenter.fetchScreeningDetail()
 
         // then
-        verify {
-            view.setDates(
-                Screening(
-                    Movie(
-                        0,
-                        "해리 포터와 마법사의 돌",
-                        152,
-                    ),
-                    LocalDate.of(2025, 4, 1),
-                    LocalDate.of(2025, 4, 25),
-                ).availableDates(),
-            )
-        }
     }
 
     @Test
