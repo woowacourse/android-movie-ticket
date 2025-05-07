@@ -27,7 +27,7 @@ class ScreeningTest {
     @Test
     fun `상영일 중 가능한 날짜의 목록을 얻을 수 있다`() {
         // when
-        val availableDates = screening.availableDates()
+        val availableDates = screening.availableDates
 
         // then
         assertThat(availableDates)
