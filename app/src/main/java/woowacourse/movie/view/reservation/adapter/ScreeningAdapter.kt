@@ -11,7 +11,6 @@ import woowacourse.movie.domain.reservation.ScreeningContent
 import woowacourse.movie.view.util.ErrorMessage
 
 class ScreeningAdapter(
-    private val items: List<ScreeningContent>,
     private val onClickReserveButton: (Screening) -> Unit,
 ) : ListAdapter<ScreeningContent, ScreeningContentViewHolder>(
         object : DiffUtil.ItemCallback<ScreeningContent>() {
@@ -27,7 +26,7 @@ class ScreeningAdapter(
         },
     ) {
     override fun getItemViewType(position: Int): Int {
-        val screeningContent = items[position]
+        val screeningContent = getItem(position)
         return when (screeningContent) {
             is Screening -> VIEW_TYPE_SCREENING
             is Advertisement -> VIEW_TYPE_ADVERTISEMENT
@@ -58,10 +57,10 @@ class ScreeningAdapter(
         holder: ScreeningContentViewHolder,
         position: Int,
     ) {
-        holder.bind(items[position])
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = currentList.size
 
     companion object {
         const val VIEW_TYPE_SCREENING = 0

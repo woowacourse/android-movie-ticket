@@ -47,7 +47,7 @@ class ScreeningActivity :
         val screenings: List<ScreeningContent> =
             intent?.getScreeningsExtra()?.toList() ?: screeningContents
         val moviesView = findViewById<RecyclerView>(R.id.rv_screening_movies)
-        val movieAdapter = ScreeningAdapter(screenings, presenter::selectScreening)
+        val movieAdapter = ScreeningAdapter(presenter::selectScreening)
         moviesView.adapter = movieAdapter
     }
 
