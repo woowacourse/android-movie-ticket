@@ -57,17 +57,17 @@ class SeatSelectionActivity :
         val selectedSeats: Set<Seat>? = savedInstanceState.getSelectedSeats()
         initPresenter(selectedSeats)
         findViews()
-        presentModels()
-        setEventListeners()
+        initViews()
+        initEventListeners()
     }
 
-    private fun setEventListeners() {
+    private fun initEventListeners() {
         completeView.setOnClickListener {
             presenter?.reserve()
         }
     }
 
-    private fun presentModels() {
+    private fun initViews() {
         (presenter ?: error("")).run {
             fetchScreeningDetail()
             fetchAvailableSeats()
