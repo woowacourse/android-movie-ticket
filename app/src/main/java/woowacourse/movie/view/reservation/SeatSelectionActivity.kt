@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.core.view.setPadding
 import woowacourse.movie.R
 import woowacourse.movie.contract.reservation.SeatSelectionContract
 import woowacourse.movie.domain.reservation.Row
@@ -43,7 +42,7 @@ class SeatSelectionActivity :
     private lateinit var priceView: TextView
     private lateinit var completeView: Button
 
-    private var seatViewMap: Map<Seat, TextView> = emptyMap()
+    private var seatViews: Map<Seat, TextView> = emptyMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -98,7 +97,7 @@ class SeatSelectionActivity :
                 getSerializable(
                     KEY_SEATS,
                     LinkedHashSet::class.java,
-                ) as Set<Seat>
+                ) as? Set<Seat>
 
             else -> (getSerializable(KEY_SEATS) as? Set<Seat>)
         }
@@ -132,7 +131,7 @@ class SeatSelectionActivity :
             val seatsRow = TableRow(this)
             seats.forEach { seat: Seat ->
                 val seatView: TextView = seatView(seat, selectedSeats)
-                seatViewMap += seat to seatView
+                seatViews += seat to seatView
                 seatsRow.addView(seatView)
             }
             seatsLayout.addView(seatsRow)
@@ -154,7 +153,7 @@ class SeatSelectionActivity :
             val textColor = getColor(colorResId)
             setTextColor(textColor)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, 22f)
-            setPadding(27.dp)
+            setPadding(0, 27.dp, 0, 27.dp)
             gravity = Gravity.CENTER
             background =
                 AppCompatResources.getDrawable(
@@ -185,7 +184,7 @@ class SeatSelectionActivity :
         seat: Seat,
         isSelected: Boolean,
     ) {
-        val seatView: TextView = seatViewMap[seat] ?: error(ErrorMessage("seat").noSuch())
+        val seatView: TextView = seatViews[seat] ?: error(ErrorMessage("seat").noSuch())
         seatView.isSelected = isSelected
     }
 
@@ -230,8 +229,6 @@ class SeatSelectionActivity :
         private const val KEY_SEATS = "KEY_SEATS"
 
         private const val CAUSE_TICKET = "ticket"
-        private const val CAUSE_SEAT_VIEW = "seatView"
-        private const val IN_SEAT_LAYOUT = "seatLayout"
 
         private const val EXTRA_TICKET = "woowacourse.movie.EXTRA_TICKET"
 
