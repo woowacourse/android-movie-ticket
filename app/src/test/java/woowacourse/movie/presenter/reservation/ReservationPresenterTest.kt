@@ -123,7 +123,7 @@ class ReservationPresenterTest {
     fun `선택 가능한 시간들을 표시한다`() {
         // given
         every {
-            view.setTimes(
+            view.setAvailableTimes(
                 listOf(
                     LocalTime.of(10, 0),
                     LocalTime.of(12, 0),
@@ -142,7 +142,7 @@ class ReservationPresenterTest {
 
         // then
         verify {
-            view.setTimes(
+            view.setAvailableTimes(
                 listOf(
                     LocalTime.of(10, 0),
                     LocalTime.of(12, 0),

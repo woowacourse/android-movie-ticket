@@ -24,7 +24,7 @@ data class Screening(
     val endMonth: Int = end.monthValue
     val endDay: Int = end.dayOfMonth
 
-    fun availableDates(): List<LocalDate> = dates.filterNot { date -> date.isBefore(current.toLocalDate()) }
+    val availableDates: List<LocalDate> get() = dates.filterNot { date -> date.isBefore(current.toLocalDate()) }
 
     fun showtimes(
         date: LocalDate,

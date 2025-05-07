@@ -172,16 +172,33 @@ class ScreeningDetailActivity :
         }
     }
 
-    override fun setPoster(movieId: Int) {
+    override fun setScreeningDetail(screening: Screening) {
+        with(screening) {
+            setPoster(id)
+            setTitle(title)
+            setPeriod(
+                startYear,
+                startMonth,
+                startDay,
+                endYear,
+                endMonth,
+                endDay,
+            )
+            setRunningTime(runningTime)
+            setDates(availableDates)
+        }
+    }
+
+    private fun setPoster(movieId: Int) {
         val posterResourceId = posterId(movieId)
         if (posterResourceId != null) posterImageView.setImageResource(posterResourceId)
     }
 
-    override fun setTitle(title: String) {
+    private fun setTitle(title: String) {
         titleView.text = title
     }
 
-    override fun setPeriod(
+    private fun setPeriod(
         startYear: Int,
         startMonth: Int,
         startDay: Int,
@@ -201,7 +218,7 @@ class ScreeningDetailActivity :
             )
     }
 
-    override fun setRunningTime(runningTime: Int) {
+    private fun setRunningTime(runningTime: Int) {
         runningTimeView.text =
             getString(
                 R.string.running_time,
@@ -209,7 +226,7 @@ class ScreeningDetailActivity :
             )
     }
 
-    override fun setDates(dates: List<LocalDate>) {
+    private fun setDates(dates: List<LocalDate>) {
         dateSpinner.adapter =
             ArrayAdapter(
                 this,
@@ -218,7 +235,7 @@ class ScreeningDetailActivity :
             )
     }
 
-    override fun setTimes(
+    override fun setAvailableTimes(
         times: List<LocalTime>,
         timeItemPosition: Int,
     ) {

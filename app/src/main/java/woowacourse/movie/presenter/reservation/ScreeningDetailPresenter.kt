@@ -14,25 +14,12 @@ class ScreeningDetailPresenter(
     override var timeItemPosition = timeItemPosition ?: DEFAULT_TIME_ITEM_POSITION
 
     override fun fetchScreeningDetail() {
-        view.setPoster(screening.id)
-        view.setTitle(screening.title)
-        screening.run {
-            view.setPeriod(
-                startYear,
-                startMonth,
-                startDay,
-                endYear,
-                endMonth,
-                endDay,
-            )
-        }
-        view.setRunningTime(screening.runningTime)
-        view.setDates(screening.availableDates())
+        view.setScreeningDetail(screening)
         view.setTicketCount(ticketCount)
     }
 
     override fun fetchAvailableTimes(date: LocalDate) {
-        view.setTimes(screening.showtimes(date), timeItemPosition)
+        view.setAvailableTimes(screening.showtimes(date), timeItemPosition)
     }
 
     override fun plusTicketCount() {

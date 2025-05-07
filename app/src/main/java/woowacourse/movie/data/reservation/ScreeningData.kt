@@ -51,7 +51,7 @@ class LocalScreeningData : ScreeningData {
                 LocalDate.of(2025, 7, 1),
                 LocalDate.of(2025, 7, 31),
             ),
-        ).filter { it.availableDates().isNotEmpty() }
+        ).filter { it.availableDates.isNotEmpty() }
 }
 
 class FakeScreeningData(

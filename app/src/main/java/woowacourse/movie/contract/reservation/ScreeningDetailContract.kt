@@ -1,5 +1,6 @@
 package woowacourse.movie.contract.reservation
 
+import woowacourse.movie.domain.reservation.Screening
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -20,29 +21,14 @@ interface ScreeningDetailContract {
     }
 
     interface View {
-        fun setPoster(movieId: Int)
+        fun setScreeningDetail(screening: Screening)
 
-        fun setTitle(title: String)
+        fun setTicketCount(count: Int)
 
-        fun setPeriod(
-            startYear: Int,
-            startMonth: Int,
-            startDay: Int,
-            endYear: Int,
-            endMonth: Int,
-            endDay: Int,
-        )
-
-        fun setRunningTime(runningTime: Int)
-
-        fun setDates(dates: List<LocalDate>)
-
-        fun setTimes(
+        fun setAvailableTimes(
             times: List<LocalTime>,
             timeItemPosition: Int,
         )
-
-        fun setTicketCount(count: Int)
 
         fun navigateToSeatSelectionScreen(
             title: String,
