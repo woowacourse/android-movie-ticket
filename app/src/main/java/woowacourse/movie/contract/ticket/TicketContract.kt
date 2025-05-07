@@ -1,33 +1,19 @@
 package woowacourse.movie.contract.ticket
 
 import woowacourse.movie.domain.reservation.Seat
-import java.time.LocalDateTime
+import woowacourse.movie.domain.ticket.Ticket
 
 interface TicketContract {
     interface Presenter {
-        fun presentCancelDescription()
-
-        fun presentTitle()
-
-        fun presentShowtime()
-
-        fun presentCount()
-
-        fun presentPrice()
+        fun fetchTicket()
     }
 
     interface View {
         fun setCancelDescription(minutes: Int)
 
-        fun setMovieTitle(movieTitle: String)
-
-        fun setShowtime(showtime: LocalDateTime)
-
-        fun setCount(
-            count: Int,
+        fun setTicket(
+            ticket: Ticket,
             seats: Set<Seat>,
         )
-
-        fun setPrice(price: Int)
     }
 }

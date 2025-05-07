@@ -95,11 +95,7 @@ class TicketActivity :
 
     private fun initViews() {
         (presenter ?: error(ErrorMessage(CAUSE_TICKET).notProvided())).run {
-            presentCancelDescription()
-            presentTitle()
-            presentShowtime()
-            presentCount()
-            presentPrice()
+            fetchTicket()
         }
     }
 
@@ -111,30 +107,37 @@ class TicketActivity :
             )
     }
 
-    override fun setMovieTitle(movieTitle: String) {
+    override fun setTicket(
+        ticket: Ticket,
+        seats: Set<Seat>,
+    ) {
+        setMovieTitle(ticket.title)
+        setShowtime(ticket.showtime)
+        setCount(seats)
+        setPrice(seats.sumOf { it.price })
+    }
+
+    private fun setMovieTitle(movieTitle: String) {
         titleView.text = movieTitle
     }
 
-    override fun setShowtime(showtime: LocalDateTime) {
+    private fun setShowtime(showtime: LocalDateTime) {
         showtimeView.text =
             showtime.run {
                 getString(R.string.ticket_showtime, year, monthValue, dayOfMonth, hour, minute)
             }
     }
 
-    override fun setCount(
-        count: Int,
-        seats: Set<Seat>,
-    ) {
+    private fun setCount(seats: Set<Seat>) {
         countView.text =
-            getString(R.string.ticket_count, count, seats.joinToString { it.prettyString })
+            getString(R.string.ticket_count, seats.size, seats.joinToString { it.prettyString })
     }
 
     private val Seat.prettyString: String get() = "${row.prettyString}${column.value}"
 
     private val Row.prettyString: String get() = ('A' + this.value - 1).toString()
 
-    override fun setPrice(price: Int) {
+    private fun setPrice(price: Int) {
         priceView.text = getString(R.string.ticket_price, price)
     }
 

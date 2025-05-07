@@ -12,23 +12,8 @@ class TicketPresenter(
     private val seats: Set<Seat>,
     private val cancelTimePolicy: CancelTimePolicy = DefaultCancelTimePolicy,
 ) : TicketContract.Presenter {
-    override fun presentTitle() {
-        view.setMovieTitle(ticket.title)
-    }
-
-    override fun presentShowtime() {
-        view.setShowtime(ticket.showtime)
-    }
-
-    override fun presentCancelDescription() {
+    override fun fetchTicket() {
         view.setCancelDescription(cancelTimePolicy.cancelableMinutes)
-    }
-
-    override fun presentCount() {
-        view.setCount(ticket.count, seats)
-    }
-
-    override fun presentPrice() {
-        view.setPrice(ticket.price)
+        view.setTicket(ticket, seats)
     }
 }
