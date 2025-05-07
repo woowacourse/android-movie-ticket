@@ -41,8 +41,13 @@ class TicketActivity :
             insets
         }
 
+        initPresenter()
         findViews()
         initModel()
+        initViews()
+    }
+
+    private fun initPresenter() {
         val ticket =
             intent?.getTicketExtra(EXTRA_TICKET) ?: error(
                 ErrorMessage(CAUSE_TICKET).notProvided(),
@@ -52,7 +57,6 @@ class TicketActivity :
                 ErrorMessage(CAUSE_SEATS).notProvided(),
             )
         presenter = TicketPresenter(this, ticket, seats)
-        initViews()
     }
 
     @Suppress("DEPRECATION")
