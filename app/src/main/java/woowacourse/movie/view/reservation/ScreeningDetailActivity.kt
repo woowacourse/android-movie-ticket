@@ -42,10 +42,10 @@ class ScreeningDetailActivity :
     private lateinit var completeButton: Button
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
         presenter?.ticketCount?.let { outState.putInt(TICKET_COUNT, it) }
         presenter?.timeItemPosition?.let { outState.putInt(TIME_ITEM_POSITION, it) }
+
+        super.onSaveInstanceState(outState)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
