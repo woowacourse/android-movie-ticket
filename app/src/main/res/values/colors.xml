@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="seat_selection_background">#EAEAEA</color>
     <color name="light_purple">#FF9160F9</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
@@ -8,4 +9,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="seat_background_selected">#FAFF00</color>
+    <color name="seat_background_unselected">#FFFFFF</color>
+    <color name="seat_grade_s">#19D358</color>
+    <color name="seat_grade_a">#1B48E9</color>
+    <color name="seat_grade_b">#8E13EF</color>
 </resources>
